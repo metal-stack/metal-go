@@ -95,6 +95,10 @@ type retryConfig struct {
 	retryConditions []func(statusCode int) bool
 }
 
+type retryKey string
+
+const retryConfigKey = retryKey("retryConfig")
+
 // newRetryContext creates and returns a new retry context.
 // If assigned to a Swagger request that request will be retried up to maxAttempts with given delay
 // in between as long as the responses indicate an error (i.e. status code >= 400) and none of the
@@ -114,7 +118,7 @@ func newRetryContext(maxAttempts uint, delay time.Duration, retryConditions ...f
 		retryConditions: retryConditions,
 	}
 
-	return context.WithValue(context.Background(), "retryConfig", rc)
+	return context.WithValue(context.Background(), retryConfigKey, rc)
 }
 
 func (r *retryConfig) shouldRetryOn(statusCode int) bool {
@@ -150,7 +154,7 @@ func (r *roundTripper) RoundTrip(req *http.Request) (*http.Response, error) {
 
 	statusCode := resp.StatusCode
 
-	rc, ok := req.Context().Value("retryConfig").(*retryConfig)
+	rc, ok := req.Context().Value(retryConfigKey).(*retryConfig)
 	if ok && rc.shouldRetryOn(statusCode) {
 		time.Sleep(rc.delay)
 		rc.retriesLeft--

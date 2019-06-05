@@ -17,7 +17,7 @@ type SizeGetResponse struct {
 	Size *models.V1SizeResponse
 }
 
-// SizeCreateResponse is the response of a SizeList action
+// SizeCreateRequest is the request to create a new Size
 type SizeCreateRequest struct {
 	ID          string
 	Name        string

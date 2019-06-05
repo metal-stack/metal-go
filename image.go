@@ -15,7 +15,7 @@ type ImageGetResponse struct {
 	Image *models.V1ImageResponse
 }
 
-// ImageCreateResponse is the response of a ImageList action
+// ImageCreateRequest is the response of a ImageList action
 type ImageCreateRequest struct {
 	ID          string
 	Name        string

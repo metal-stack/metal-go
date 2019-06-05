@@ -13,6 +13,7 @@ type NetworkListResponse struct {
 	Networks []*models.V1NetworkResponse
 }
 
+// NetworkCreateRequest is the request for create a new network
 type NetworkCreateRequest struct {
 	ID *string `json:"id"`
 	// a description for this entity
@@ -66,10 +67,12 @@ type NetworkUpdateRequest struct {
 	Prefix string
 }
 
+// IPListResponse is the response when ips are listed
 type IPListResponse struct {
 	IPs []*models.V1IPResponse
 }
 
+// IPAcquireRequest is the request to acquire a ip
 type IPAcquireRequest struct {
 
 	// a description for this entity
@@ -87,6 +90,7 @@ type IPAcquireRequest struct {
 	Projectid string `json:"projectid"`
 }
 
+// IPDetailResponse is the response to a ip detail request.
 type IPDetailResponse struct {
 	IP *models.V1IPResponse
 }
