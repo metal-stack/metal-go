@@ -88,6 +88,9 @@ type IPAcquireRequest struct {
 	// the project this ip address belongs to, required.
 	// Required: true
 	Projectid string `json:"projectid"`
+	// SpecificIP tries to acquire this ip.
+	// Required: false
+	SpecificIP string `json:"specificip"`
 }
 
 // IPDetailResponse is the response to a ip detail request.
@@ -236,19 +239,30 @@ func (d *Driver) IPList() (*IPListResponse, error) {
 // IPAcquire a ip in a Network for a project
 func (d *Driver) IPAcquire(iar *IPAcquireRequest) (*IPDetailResponse, error) {
 	response := &IPDetailResponse{}
-	acquireIP := ip.NewAllocateIPParams()
 	acquireIPRequest := &models.V1IPAllocateRequest{
 		Description: iar.Description,
 		Name:        iar.Name,
 		Networkid:   &iar.Networkid,
 		Projectid:   &iar.Projectid,
 	}
-	acquireIP.SetBody(acquireIPRequest)
-	resp, err := d.ip.AllocateIP(acquireIP, d.auth)
-	if err != nil {
-		return response, err
+	if iar.SpecificIP == "" {
+		acquireIP := ip.NewAllocateIPParams()
+		acquireIP.SetBody(acquireIPRequest)
+		resp, err := d.ip.AllocateIP(acquireIP, d.auth)
+		if err != nil {
+			return response, err
+		}
+		response.IP = resp.Payload
+	} else {
+		acquireIP := ip.NewAllocateSpecificIPParams()
+		acquireIP.IP = iar.SpecificIP
+		acquireIP.SetBody(acquireIPRequest)
+		resp, err := d.ip.AllocateSpecificIP(acquireIP, d.auth)
+		if err != nil {
+			return response, err
+		}
+		response.IP = resp.Payload
 	}
-	response.IP = resp.Payload
 	return response, nil
 }
 

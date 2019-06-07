@@ -54,6 +54,35 @@ func (a *Client) AllocateIP(params *AllocateIPParams, authInfo runtime.ClientAut
 }
 
 /*
+AllocateSpecificIP allocates an specific ip in the given network for a project
+*/
+func (a *Client) AllocateSpecificIP(params *AllocateSpecificIPParams, authInfo runtime.ClientAuthInfoWriter) (*AllocateSpecificIPCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewAllocateSpecificIPParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "allocateSpecificIP",
+		Method:             "POST",
+		PathPattern:        "/v1/ip/allocate/{ip}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &AllocateSpecificIPReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*AllocateSpecificIPCreated), nil
+
+}
+
+/*
 DeleteIP deletes an ip and returns the deleted entity
 */
 func (a *Client) DeleteIP(params *DeleteIPParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteIPOK, error) {

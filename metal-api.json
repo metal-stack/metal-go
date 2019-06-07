@@ -459,6 +459,52 @@
         }
       }
     },
+    "/v1/ip/allocate/{ip}": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "ip"
+        ],
+        "summary": "allocate an specific ip in the given network for a project.",
+        "operationId": "allocateSpecificIP",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "ip to try to allocate",
+            "name": "ip",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1.IPAllocateRequest"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "$ref": "#/definitions/v1.IPResponse"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/httperrors.HTTPErrorResponse"
+            }
+          }
+        }
+      }
+    },
     "/v1/ip/{id}": {
       "get": {
         "consumes": [
@@ -2123,12 +2169,12 @@
     "v1.EmptyBody": {},
     "v1.FirewallCreateRequest": {
       "required": [
-        "projectid",
         "partitionid",
         "sizeid",
         "imageid",
         "ssh_pub_keys",
         "tenant",
+        "projectid",
         "networks"
       ],
       "properties": {
@@ -2201,18 +2247,18 @@
     },
     "v1.FirewallResponse": {
       "required": [
-        "liveliness",
-        "changed",
-        "rackid",
-        "created",
-        "allocation",
-        "id",
-        "size",
-        "state",
         "events",
+        "changed",
+        "partition",
+        "size",
+        "allocation",
         "tags",
+        "rackid",
+        "state",
+        "created",
+        "id",
         "hardware",
-        "partition"
+        "liveliness"
       ],
       "properties": {
         "allocation": {
@@ -3002,15 +3048,15 @@
     "v1.MachineResponse": {
       "required": [
         "id",
-        "size",
-        "hardware",
         "allocation",
+        "liveliness",
+        "tags",
+        "rackid",
+        "size",
         "state",
         "events",
-        "tags",
         "partition",
-        "rackid",
-        "liveliness",
+        "hardware",
         "created",
         "changed"
       ],
@@ -3172,12 +3218,12 @@
     "v1.NetworkResponse": {
       "required": [
         "id",
-        "nat",
-        "primary",
-        "underlay",
         "parentnetworkid",
         "prefixes",
         "destinationprefixes",
+        "nat",
+        "primary",
+        "underlay",
         "usage",
         "created",
         "changed"
@@ -3742,8 +3788,8 @@
         "nics",
         "partition",
         "connections",
-        "created",
-        "changed"
+        "changed",
+        "created"
       ],
       "properties": {
         "changed": {
