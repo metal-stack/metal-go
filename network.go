@@ -224,6 +224,19 @@ func (d *Driver) NetworkRemovePrefix(nur *NetworkUpdateRequest) (*NetworkDetailR
 	return response, nil
 }
 
+// IPGet get a given ip
+func (d *Driver) IPGet(ipaddress string) (*IPDetailResponse, error) {
+	response := &IPDetailResponse{}
+	findIP := ip.NewFindIPParams()
+	findIP.ID = ipaddress
+	resp, err := d.ip.FindIP(findIP, d.auth)
+	if err != nil {
+		return response, err
+	}
+	response.IP = resp.Payload
+	return response, nil
+}
+
 // IPList list all ips
 func (d *Driver) IPList() (*IPListResponse, error) {
 	response := &IPListResponse{}
