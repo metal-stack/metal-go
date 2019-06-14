@@ -50,7 +50,7 @@ func NewDriver(rawurl, bearer, hmac string) (*Driver, error) {
 		return nil, err
 	}
 	if parsedurl.Host == "" {
-		return nil, fmt.Errorf("invalid url, must be in the form scheme://host[:port]/basepath")
+		return nil, fmt.Errorf("invalid url:%s, must be in the form scheme://host[:port]/basepath", rawurl)
 	}
 
 	transport := httptransport.New(parsedurl.Host, parsedurl.Path, []string{parsedurl.Scheme})
