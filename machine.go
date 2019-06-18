@@ -135,6 +135,22 @@ func (d *Driver) MachineList(mcr *MachineListRequest) (*MachineListResponse, err
 	return response, nil
 }
 
+// MachineSearch will search for machines for given criteria
+func (d *Driver) MachineSearch(mac, partition, project *string) (*MachineListResponse, error) {
+	response := &MachineListResponse{}
+
+	searchMachine := machine.NewSearchMachineParams()
+	searchMachine.WithMac(mac)
+	searchMachine.WithPartition(partition)
+	searchMachine.WithProject(project)
+	resp, err := d.machine.SearchMachine(searchMachine, d.auth)
+	if err != nil {
+		return response, err
+	}
+	response.Machines = resp.Payload
+	return response, nil
+}
+
 // MachineGet will only return one machine
 func (d *Driver) MachineGet(machineID string) (*MachineGetResponse, error) {
 	findMachine := machine.NewFindMachineParams()

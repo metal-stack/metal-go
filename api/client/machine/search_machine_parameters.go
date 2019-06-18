@@ -66,6 +66,16 @@ type SearchMachineParams struct {
 
 	*/
 	Mac *string
+	/*Partition
+	  the partition in which the machine is located
+
+	*/
+	Partition *string
+	/*Project
+	  project that this machine is allocated with
+
+	*/
+	Project *string
 
 	timeout    time.Duration
 	Context    context.Context
@@ -116,6 +126,28 @@ func (o *SearchMachineParams) SetMac(mac *string) {
 	o.Mac = mac
 }
 
+// WithPartition adds the partition to the search machine params
+func (o *SearchMachineParams) WithPartition(partition *string) *SearchMachineParams {
+	o.SetPartition(partition)
+	return o
+}
+
+// SetPartition adds the partition to the search machine params
+func (o *SearchMachineParams) SetPartition(partition *string) {
+	o.Partition = partition
+}
+
+// WithProject adds the project to the search machine params
+func (o *SearchMachineParams) WithProject(project *string) *SearchMachineParams {
+	o.SetProject(project)
+	return o
+}
+
+// SetProject adds the project to the search machine params
+func (o *SearchMachineParams) SetProject(project *string) {
+	o.Project = project
+}
+
 // WriteToRequest writes these params to a swagger request
 func (o *SearchMachineParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -134,6 +166,38 @@ func (o *SearchMachineParams) WriteToRequest(r runtime.ClientRequest, reg strfmt
 		qMac := qrMac
 		if qMac != "" {
 			if err := r.SetQueryParam("mac", qMac); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	if o.Partition != nil {
+
+		// query param partition
+		var qrPartition string
+		if o.Partition != nil {
+			qrPartition = *o.Partition
+		}
+		qPartition := qrPartition
+		if qPartition != "" {
+			if err := r.SetQueryParam("partition", qPartition); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	if o.Project != nil {
+
+		// query param project
+		var qrProject string
+		if o.Project != nil {
+			qrProject = *o.Project
+		}
+		qProject := qrProject
+		if qProject != "" {
+			if err := r.SetQueryParam("project", qProject); err != nil {
 				return err
 			}
 		}

@@ -14,11 +14,6 @@ type FirewallCreateRequest struct {
 	NetworkIDs []string
 }
 
-// FirewallListRequest contains data for a machine listing
-type FirewallListRequest struct {
-	MachineListRequest
-}
-
 // FirewallCreateResponse is returned when a machine was created
 type FirewallCreateResponse struct {
 	Firewall *models.V1FirewallResponse
@@ -72,11 +67,26 @@ func (d *Driver) FirewallCreate(fcr *FirewallCreateRequest) (*FirewallCreateResp
 }
 
 // FirewallList will list all machines
-func (d *Driver) FirewallList(mcr *FirewallListRequest) (*FirewallListResponse, error) {
+func (d *Driver) FirewallList() (*FirewallListResponse, error) {
 	response := &FirewallListResponse{}
 
 	listFirewall := firewall.NewListFirewallsParams()
 	resp, err := d.firewall.ListFirewalls(listFirewall, d.auth)
+	if err != nil {
+		return response, err
+	}
+	response.Firewalls = resp.Payload
+	return response, nil
+}
+
+// FirewallSearch will search for firewalls for given criteria
+func (d *Driver) FirewallSearch(partition, project *string) (*FirewallListResponse, error) {
+	response := &FirewallListResponse{}
+
+	searchFirewall := firewall.NewSearchFirewallParams()
+	searchFirewall.WithPartition(partition)
+	searchFirewall.WithProject(project)
+	resp, err := d.firewall.SearchFirewall(searchFirewall, d.auth)
 	if err != nil {
 		return response, err
 	}

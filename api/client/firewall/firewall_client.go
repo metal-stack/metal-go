@@ -111,6 +111,35 @@ func (a *Client) ListFirewalls(params *ListFirewallsParams, authInfo runtime.Cli
 
 }
 
+/*
+SearchFirewall searches firewalls
+*/
+func (a *Client) SearchFirewall(params *SearchFirewallParams, authInfo runtime.ClientAuthInfoWriter) (*SearchFirewallOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewSearchFirewallParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "searchFirewall",
+		Method:             "GET",
+		PathPattern:        "/v1/firewall/find",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &SearchFirewallReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*SearchFirewallOK), nil
+
+}
+
 // SetTransport changes the transport on the client
 func (a *Client) SetTransport(transport runtime.ClientTransport) {
 	a.transport = transport
