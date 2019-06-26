@@ -239,32 +239,33 @@ func (d *Driver) MachineBootBios(machineID string) (*MachineBiosResponse, error)
 	return response, nil
 }
 
+// MachineLock will lock a machine from being destroyed
+func (d *Driver) MachineLock(machineID, description string) (*MachineStateResponse, error) {
+	return d.machineState(machineID, "LOCKED", description)
+}
+
+// MachineUnLock will unlock a machine
+func (d *Driver) MachineUnLock(machineID string) (*MachineStateResponse, error) {
+	return d.machineState(machineID, "", "")
+}
+
 // MachineReserve will reserve a machine for single allocation
 func (d *Driver) MachineReserve(machineID, description string) (*MachineStateResponse, error) {
-	machineState := machine.NewSetMachineStateParams()
-	machineState.ID = machineID
-	reserved := "RESERVED"
-	machineState.Body = &models.V1MachineState{
-		Value:       &reserved,
-		Description: &description,
-	}
-
-	response := &MachineStateResponse{}
-	resp, err := d.machine.SetMachineState(machineState, d.auth)
-	if err != nil {
-		return response, err
-	}
-	response.Machine = resp.Payload
-	return response, nil
+	return d.machineState(machineID, "RESERVED", description)
 }
 
 // MachineUnReserve will unreserve a machine
 func (d *Driver) MachineUnReserve(machineID string) (*MachineStateResponse, error) {
+	return d.machineState(machineID, "", "")
+}
+
+// MachineReserve will reserve a machine for single allocation
+func (d *Driver) machineState(machineID, state, description string) (*MachineStateResponse, error) {
 	machineState := machine.NewSetMachineStateParams()
 	machineState.ID = machineID
-	reserved := ""
 	machineState.Body = &models.V1MachineState{
-		Value: &reserved,
+		Value:       &state,
+		Description: &description,
 	}
 
 	response := &MachineStateResponse{}
