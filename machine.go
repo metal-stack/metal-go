@@ -24,12 +24,13 @@ type MachineCreateRequest struct {
 	UUID          string
 }
 
-// MachineListRequest contains data for a machine listing
+// MachineListRequest contains criteria for a machine listing
 type MachineListRequest struct {
-	Tenant    string
-	Project   string
-	Partition string
+	Tenant    *string
+	Project   *string
+	Partition *string
 	Tags      []string
+	Mac       *string
 }
 
 // MachineCreateResponse is returned when a machine was created
@@ -123,31 +124,28 @@ func (d *Driver) MachineDelete(machineID string) (*MachineDeleteResponse, error)
 }
 
 // MachineList will list all machines
-func (d *Driver) MachineList(mcr *MachineListRequest) (*MachineListResponse, error) {
+func (d *Driver) MachineList(mlr *MachineListRequest) (*MachineListResponse, error) {
 	response := &MachineListResponse{}
+	var err error
 
-	listMachine := machine.NewListMachinesParams()
-	resp, err := d.machine.ListMachines(listMachine, d.auth)
+	if mlr == nil {
+		var resp *machine.ListMachinesOK
+		listMachine := machine.NewListMachinesParams()
+		resp, err = d.machine.ListMachines(listMachine, d.auth)
+		response.Machines = resp.Payload
+	} else {
+		var resp *machine.SearchMachineOK
+		searchMachine := machine.NewSearchMachineParams()
+		searchMachine.WithMac(mlr.Mac)
+		searchMachine.WithPartition(mlr.Partition)
+		searchMachine.WithProject(mlr.Project)
+		// FIXME implement by tags on metal-api
+		resp, err = d.machine.SearchMachine(searchMachine, d.auth)
+		response.Machines = resp.Payload
+	}
 	if err != nil {
 		return response, err
 	}
-	response.Machines = resp.Payload
-	return response, nil
-}
-
-// MachineSearch will search for machines for given criteria
-func (d *Driver) MachineSearch(mac, partition, project *string) (*MachineListResponse, error) {
-	response := &MachineListResponse{}
-
-	searchMachine := machine.NewSearchMachineParams()
-	searchMachine.WithMac(mac)
-	searchMachine.WithPartition(partition)
-	searchMachine.WithProject(project)
-	resp, err := d.machine.SearchMachine(searchMachine, d.auth)
-	if err != nil {
-		return response, err
-	}
-	response.Machines = resp.Payload
 	return response, nil
 }
 
