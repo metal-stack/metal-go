@@ -24,13 +24,69 @@ type MachineCreateRequest struct {
 	UUID          string
 }
 
-// MachineListRequest contains criteria for a machine listing
-type MachineListRequest struct {
-	Tenant    *string
-	Project   *string
-	Partition *string
-	Tags      []string
-	Mac       *string
+// MachineFindRequest contains criteria for a machine listing
+type MachineFindRequest struct {
+	ID          *string
+	Name        *string
+	PartitionID *string
+	SizeID      *string
+	RackID      *string
+	Liveliness  *string
+	Tags        []string
+
+	// allocation
+	AllocationName      *string
+	AllocationTenant    *string
+	AllocationProject   *string
+	AllocationImageID   *string
+	AllocationHostname  *string
+	AllocationSucceeded *bool
+
+	// network
+	NetworkIDs                 []string
+	NetworkPrefixes            []string
+	NetworkIPs                 []string
+	NetworkDestinationPrefixes []string
+	NetworkVrfs                []int64
+	NetworkPrimary             *bool
+	NetworkASNs                []int64
+	NetworkNat                 *bool
+	NetworkUnderlay            *bool
+
+	// hardware
+	HardwareMemory   *int64
+	HardwareCPUCores *int64
+
+	// nics
+	NicsMacAddresses         []string
+	NicsNames                []string
+	NicsVrfs                 []string
+	NicsNeighborMacAddresses []string
+	NicsNeighborNames        []string
+	NicsNeighborVrfs         []string
+
+	// disks
+	DiskNames []string
+	DiskSizes []int64
+
+	// state
+	StateValue *string
+
+	// ipmi
+	IpmiAddress    *string
+	IpmiMacAddress *string
+	IpmiUser       *string
+	IpmiInterface  *string
+
+	// fru
+	FruChassisPartNumber   *string
+	FruChassisPartSerial   *string
+	FruBoardMfg            *string
+	FruBoardMfgSerial      *string
+	FruBoardPartNumber     *string
+	FruProductManufacturer *string
+	FruProductPartNumber   *string
+	FruProductSerial       *string
 }
 
 // MachineCreateResponse is returned when a machine was created
@@ -73,7 +129,7 @@ type MachineStateResponse struct {
 	Machine *models.V1MachineResponse
 }
 
-// MachineCreate will create a single metal machine
+// MachineCreate creates a single metal machine
 func (d *Driver) MachineCreate(mcr *MachineCreateRequest) (*MachineCreateResponse, error) {
 	response := &MachineCreateResponse{}
 
@@ -109,7 +165,7 @@ func (d *Driver) MachineCreate(mcr *MachineCreateRequest) (*MachineCreateRespons
 	return response, nil
 }
 
-// MachineDelete will delete a single metal machine
+// MachineDelete deletes a single metal machine
 func (d *Driver) MachineDelete(machineID string) (*MachineDeleteResponse, error) {
 	freeMachine := machine.NewFreeMachineParams()
 	freeMachine.ID = machineID
@@ -123,39 +179,10 @@ func (d *Driver) MachineDelete(machineID string) (*MachineDeleteResponse, error)
 	return response, nil
 }
 
-// MachineList will list all machines
-func (d *Driver) MachineList(mlr *MachineListRequest) (*MachineListResponse, error) {
-	response := &MachineListResponse{}
-	var err error
-
-	if mlr == nil {
-		var resp *machine.ListMachinesOK
-		listMachine := machine.NewListMachinesParams()
-		resp, err = d.machine.ListMachines(listMachine, d.auth)
-		if err != nil {
-			return response, err
-		}
-		response.Machines = resp.Payload
-	} else {
-		var resp *machine.SearchMachineOK
-		searchMachine := machine.NewSearchMachineParams()
-		searchMachine.WithMac(mlr.Mac)
-		searchMachine.WithPartition(mlr.Partition)
-		searchMachine.WithProject(mlr.Project)
-		// FIXME implement by tags on metal-api
-		resp, err = d.machine.SearchMachine(searchMachine, d.auth)
-		if err != nil {
-			return response, err
-		}
-		response.Machines = resp.Payload
-	}
-	return response, nil
-}
-
-// MachineGet will only return one machine
-func (d *Driver) MachineGet(machineID string) (*MachineGetResponse, error) {
+// MachineGet returns the machine with the given ID
+func (d *Driver) MachineGet(id string) (*MachineGetResponse, error) {
 	findMachine := machine.NewFindMachineParams()
-	findMachine.ID = machineID
+	findMachine.ID = id
 
 	response := &MachineGetResponse{}
 	resp, err := d.machine.FindMachine(findMachine, d.auth)
@@ -167,7 +194,89 @@ func (d *Driver) MachineGet(machineID string) (*MachineGetResponse, error) {
 	return response, nil
 }
 
-// MachineIpmi will only return one machine
+// MachineList lists all machines
+func (d *Driver) MachineList() (*MachineListResponse, error) {
+	listMachines := machine.NewListMachinesParams()
+	response := &MachineListResponse{}
+	resp, err := d.machine.ListMachines(listMachines, d.auth)
+	if err != nil {
+		return response, err
+	}
+	response.Machines = resp.Payload
+
+	return response, nil
+}
+
+// MachineFind lists all machines that match the given properties
+func (d *Driver) MachineFind(mfr *MachineFindRequest) (*MachineListResponse, error) {
+	if mfr == nil {
+		return d.MachineList()
+	}
+
+	response := &MachineListResponse{}
+	var err error
+	var resp *machine.FindMachinesOK
+
+	findMachines := machine.NewFindMachinesParams()
+	req := &models.V1FindMachinesRequest{
+		ID:                         mfr.ID,
+		Name:                       mfr.Name,
+		PartitionID:                mfr.PartitionID,
+		Sizeid:                     mfr.SizeID,
+		Rackid:                     mfr.RackID,
+		Liveliness:                 mfr.Liveliness,
+		Tags:                       mfr.Tags,
+		AllocationName:             mfr.AllocationName,
+		AllocationTenant:           mfr.AllocationTenant,
+		AllocationProject:          mfr.AllocationProject,
+		AllocationImageID:          mfr.AllocationImageID,
+		AllocationHostname:         mfr.AllocationHostname,
+		AllocationSucceeded:        mfr.AllocationSucceeded,
+		NetworkIds:                 mfr.NetworkIDs,
+		NetworkPrefixes:            mfr.NetworkPrefixes,
+		NetworkIps:                 mfr.NetworkIPs,
+		NetworkDestinationPrefixes: mfr.NetworkDestinationPrefixes,
+		NetworkVrfs:                mfr.NetworkVrfs,
+		NetworkPrimary:             mfr.NetworkPrimary,
+		NetworkAsns:                mfr.NetworkASNs,
+		NetworkNat:                 mfr.NetworkNat,
+		NetworkUnderlay:            mfr.NetworkUnderlay,
+		HardwareMemory:             mfr.HardwareMemory,
+		HardwareCPUCores:           mfr.HardwareCPUCores,
+		NicsMacAddresses:           mfr.NicsMacAddresses,
+		NicsNames:                  mfr.NicsNames,
+		NicsVrfs:                   mfr.NicsVrfs,
+		NicsNeighborMacAddresses:   mfr.NicsNeighborMacAddresses,
+		NicsNeighborNames:          mfr.NicsNeighborNames,
+		NicsNeighborVrfs:           mfr.NicsNeighborVrfs,
+		DiskNames:                  mfr.DiskNames,
+		DiskSizes:                  mfr.DiskSizes,
+		StateValue:                 mfr.StateValue,
+		IPMIAddress:                mfr.IpmiAddress,
+		IPMIMacAddress:             mfr.IpmiMacAddress,
+		IPMIUser:                   mfr.IpmiUser,
+		IPMIInterface:              mfr.IpmiInterface,
+		FruChassisPartNumber:       mfr.FruChassisPartNumber,
+		FruChassisPartSerial:       mfr.FruChassisPartSerial,
+		FruBoardMfg:                mfr.FruBoardMfg,
+		FruBoardMfgSerial:          mfr.FruBoardMfgSerial,
+		FruBoardPartNumber:         mfr.FruChassisPartNumber,
+		FruProductManufacturer:     mfr.FruProductManufacturer,
+		FruProductPartNumber:       mfr.FruProductPartNumber,
+		FruProductSerial:           mfr.FruProductSerial,
+	}
+	findMachines.SetBody(req)
+
+	resp, err = d.machine.FindMachines(findMachines, d.auth)
+	if err != nil {
+		return response, err
+	}
+	response.Machines = resp.Payload
+
+	return response, nil
+}
+
+// MachineIpmi returns the IPMI data of the given machine
 func (d *Driver) MachineIpmi(machineID string) (*MachineIpmiResponse, error) {
 	ipmiMachine := machine.NewIPMIDataParams()
 	ipmiMachine.ID = machineID
@@ -182,7 +291,7 @@ func (d *Driver) MachineIpmi(machineID string) (*MachineIpmiResponse, error) {
 	return response, nil
 }
 
-// MachinePowerOn will power on a single metal machine
+// MachinePowerOn powers on the given machine
 func (d *Driver) MachinePowerOn(machineID string) (*MachinePowerResponse, error) {
 	machineOn := machine.NewMachineOnParams()
 	machineOn.ID = machineID
@@ -197,7 +306,7 @@ func (d *Driver) MachinePowerOn(machineID string) (*MachinePowerResponse, error)
 	return response, nil
 }
 
-// MachinePowerOff will power off a single metal machine
+// MachinePowerOff powers off the given machine
 func (d *Driver) MachinePowerOff(machineID string) (*MachinePowerResponse, error) {
 	machineOff := machine.NewMachineOffParams()
 	machineOff.ID = machineID
@@ -212,7 +321,7 @@ func (d *Driver) MachinePowerOff(machineID string) (*MachinePowerResponse, error
 	return response, nil
 }
 
-// MachinePowerReset will power reset a single metal machine
+// MachinePowerReset power-resets the given machine
 func (d *Driver) MachinePowerReset(machineID string) (*MachinePowerResponse, error) {
 	machineReset := machine.NewMachineResetParams()
 	machineReset.ID = machineID
@@ -227,7 +336,7 @@ func (d *Driver) MachinePowerReset(machineID string) (*MachinePowerResponse, err
 	return response, nil
 }
 
-// MachineBootBios will boot a single metal machine into BIOS
+// MachineBootBios boots given machine into BIOS
 func (d *Driver) MachineBootBios(machineID string) (*MachineBiosResponse, error) {
 	machineBios := machine.NewMachineBiosParams()
 	machineBios.ID = machineID
@@ -242,27 +351,26 @@ func (d *Driver) MachineBootBios(machineID string) (*MachineBiosResponse, error)
 	return response, nil
 }
 
-// MachineLock will lock a machine from being destroyed
+// MachineLock locks a machine to prevent it from being destroyed
 func (d *Driver) MachineLock(machineID, description string) (*MachineStateResponse, error) {
 	return d.machineState(machineID, "LOCKED", description)
 }
 
-// MachineUnLock will unlock a machine
+// MachineUnLock unlocks a machine
 func (d *Driver) MachineUnLock(machineID string) (*MachineStateResponse, error) {
 	return d.machineState(machineID, "", "")
 }
 
-// MachineReserve will reserve a machine for single allocation
+// MachineReserve reserves a machine for single allocation
 func (d *Driver) MachineReserve(machineID, description string) (*MachineStateResponse, error) {
 	return d.machineState(machineID, "RESERVED", description)
 }
 
-// MachineUnReserve will unreserve a machine
+// MachineUnReserve unreserves a machine
 func (d *Driver) MachineUnReserve(machineID string) (*MachineStateResponse, error) {
 	return d.machineState(machineID, "", "")
 }
 
-// MachineReserve will reserve a machine for single allocation
 func (d *Driver) machineState(machineID, state, description string) (*MachineStateResponse, error) {
 	machineState := machine.NewSetMachineStateParams()
 	machineState.ID = machineID
