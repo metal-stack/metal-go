@@ -179,7 +179,7 @@ func (d *Driver) MachineDelete(machineID string) (*MachineDeleteResponse, error)
 	return response, nil
 }
 
-// MachineGet returns the macine with the given ID
+// MachineGet returns the machine with the given ID
 func (d *Driver) MachineGet(id string) (*MachineGetResponse, error) {
 	findMachine := machine.NewFindMachineParams()
 	findMachine.ID = id
@@ -203,6 +203,7 @@ func (d *Driver) MachineList() (*MachineListResponse, error) {
 		return response, err
 	}
 	response.Machines = resp.Payload
+
 	return response, nil
 }
 
