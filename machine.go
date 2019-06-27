@@ -132,6 +132,9 @@ func (d *Driver) MachineList(mlr *MachineListRequest) (*MachineListResponse, err
 		var resp *machine.ListMachinesOK
 		listMachine := machine.NewListMachinesParams()
 		resp, err = d.machine.ListMachines(listMachine, d.auth)
+		if err != nil {
+			return response, err
+		}
 		response.Machines = resp.Payload
 	} else {
 		var resp *machine.SearchMachineOK
@@ -141,10 +144,10 @@ func (d *Driver) MachineList(mlr *MachineListRequest) (*MachineListResponse, err
 		searchMachine.WithProject(mlr.Project)
 		// FIXME implement by tags on metal-api
 		resp, err = d.machine.SearchMachine(searchMachine, d.auth)
+		if err != nil {
+			return response, err
+		}
 		response.Machines = resp.Payload
-	}
-	if err != nil {
-		return response, err
 	}
 	return response, nil
 }
