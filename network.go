@@ -2,6 +2,7 @@ package metalgo
 
 import (
 	"fmt"
+
 	"github.com/metal-pod/metal-go/api/client/ip"
 	"github.com/metal-pod/metal-go/api/client/network"
 	"github.com/metal-pod/metal-go/api/models"
@@ -111,6 +112,15 @@ type NetworkFindRequest struct {
 	Vrf                 *int64
 	ParentNetworkID     *string
 	TenantID            *string
+}
+
+// IPFindRequest contains criteria for a ip listing
+type IPFindRequest struct {
+	IPAddress        *string
+	ProjectID        *string
+	ParentPrefixCidr *string
+	NetworkID        *string
+	MachineID        *string
 }
 
 // IPDetailResponse is the response to an IP detail request.
@@ -304,6 +314,35 @@ func (d *Driver) IPList() (*IPListResponse, error) {
 		return response, err
 	}
 	response.IPs = resp.Payload
+	return response, nil
+}
+
+// IPFind returns all ips that match given properties
+func (d *Driver) IPFind(ifr *IPFindRequest) (*IPListResponse, error) {
+	if ifr == nil {
+		return d.IPList()
+	}
+
+	response := &IPListResponse{}
+	var err error
+	var resp *ip.FindIpsOK
+
+	findIPs := ip.NewFindIpsParams()
+	req := &models.V1FindIpsRequest{
+		Ipaddress:     ifr.IPAddress,
+		Projectid:     ifr.ProjectID,
+		Networkprefix: ifr.ParentPrefixCidr,
+		Networkid:     ifr.NetworkID,
+		Machineid:     ifr.MachineID,
+	}
+	findIPs.SetBody(req)
+
+	resp, err = d.ip.FindIps(findIPs, d.auth)
+	if err != nil {
+		return response, err
+	}
+	response.IPs = resp.Payload
+
 	return response, nil
 }
 
