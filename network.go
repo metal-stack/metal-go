@@ -72,6 +72,18 @@ type NetworkUpdateRequest struct {
 	Prefix string
 }
 
+// IPUpdateRequest is the request to update an IP
+type IPUpdateRequest struct {
+	// the ip address for this ip update request.
+	IPAddress string `json:"ipaddress"`
+	// a description for this entity
+	Description string `json:"description,omitempty"`
+	// the readable name
+	Name string `json:"name,omitempty"`
+	// the machine id that is associated to this ip
+	MachineID string `json:"machineid,omitempty"`
+}
+
 // IPListResponse is the response when ips are listed
 type IPListResponse struct {
 	IPs []*models.V1IPResponse
@@ -298,6 +310,26 @@ func (d *Driver) IPGet(ipaddress string) (*IPDetailResponse, error) {
 	findIP := ip.NewFindIPParams()
 	findIP.ID = ipaddress
 	resp, err := d.ip.FindIP(findIP, d.auth)
+	if err != nil {
+		return response, err
+	}
+	response.IP = resp.Payload
+	return response, nil
+}
+
+// IPUpdate updates an IP
+func (d *Driver) IPUpdate(iur *IPUpdateRequest) (*IPDetailResponse, error) {
+	response := &IPDetailResponse{}
+	updateIP := ip.NewUpdateIPParams()
+
+	updateRequest := &models.V1IPUpdateRequest{
+		Ipaddress:   &iur.IPAddress,
+		Description: iur.Description,
+		Name:        iur.Name,
+		Machineid:   &iur.MachineID,
+	}
+	updateIP.SetBody(updateRequest)
+	resp, err := d.ip.UpdateIP(updateIP, d.auth)
 	if err != nil {
 		return response, err
 	}
