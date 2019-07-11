@@ -6,6 +6,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"strconv"
+
 	strfmt "github.com/go-openapi/strfmt"
 
 	"github.com/go-openapi/errors"
@@ -30,12 +32,16 @@ type V1FirewallCreateRequest struct {
 	// Required: true
 	Imageid *string `json:"imageid"`
 
+	// the ips to attach to this machine additionally
+	// Required: true
+	Ips []string `json:"ips"`
+
 	// a readable name for this entity
 	Name string `json:"name,omitempty"`
 
-	// the networks of this firewall
+	// the networks that this machine will be placed in.
 	// Required: true
-	Networks []string `json:"networks"`
+	Networks []*V1MachineAllocationNetwork `json:"networks"`
 
 	// the partition id to assign this machine to
 	// Required: true
@@ -72,6 +78,10 @@ func (m *V1FirewallCreateRequest) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateImageid(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateIps(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -114,10 +124,35 @@ func (m *V1FirewallCreateRequest) validateImageid(formats strfmt.Registry) error
 	return nil
 }
 
+func (m *V1FirewallCreateRequest) validateIps(formats strfmt.Registry) error {
+
+	if err := validate.Required("ips", "body", m.Ips); err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func (m *V1FirewallCreateRequest) validateNetworks(formats strfmt.Registry) error {
 
 	if err := validate.Required("networks", "body", m.Networks); err != nil {
 		return err
+	}
+
+	for i := 0; i < len(m.Networks); i++ {
+		if swag.IsZero(m.Networks[i]) { // not required
+			continue
+		}
+
+		if m.Networks[i] != nil {
+			if err := m.Networks[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("networks" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
 	}
 
 	return nil
