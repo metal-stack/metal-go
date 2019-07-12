@@ -30,14 +30,12 @@ type V1MachineAllocateRequest struct {
 	Imageid *string `json:"imageid"`
 
 	// the ips to attach to this machine additionally
-	// Required: true
 	Ips []string `json:"ips"`
 
 	// a readable name for this entity
 	Name string `json:"name,omitempty"`
 
 	// the networks that this machine will be placed in.
-	// Required: true
 	Networks []*V1MachineAllocationNetwork `json:"networks"`
 
 	// the partition id to assign this machine to
@@ -75,10 +73,6 @@ func (m *V1MachineAllocateRequest) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateImageid(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateIps(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -121,19 +115,10 @@ func (m *V1MachineAllocateRequest) validateImageid(formats strfmt.Registry) erro
 	return nil
 }
 
-func (m *V1MachineAllocateRequest) validateIps(formats strfmt.Registry) error {
-
-	if err := validate.Required("ips", "body", m.Ips); err != nil {
-		return err
-	}
-
-	return nil
-}
-
 func (m *V1MachineAllocateRequest) validateNetworks(formats strfmt.Registry) error {
 
-	if err := validate.Required("networks", "body", m.Networks); err != nil {
-		return err
+	if swag.IsZero(m.Networks) { // not required
+		return nil
 	}
 
 	for i := 0; i < len(m.Networks); i++ {
