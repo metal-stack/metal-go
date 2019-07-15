@@ -22,6 +22,8 @@ type MachineCreateRequest struct {
 	Tags          []string
 	SSHPublicKeys []string
 	UUID          string
+	Networks      []MachineAllocationNetwork
+	IPs           []string
 }
 
 // MachineFindRequest contains criteria for a machine listing
@@ -89,6 +91,23 @@ type MachineFindRequest struct {
 	FruProductSerial       *string
 }
 
+type MachineAllocationNetwork struct {
+	Autoacquire bool
+	NetworkID   string
+}
+
+func (n MachineCreateRequest) translateNetworks() []*models.V1MachineAllocationNetwork {
+	var nets []*models.V1MachineAllocationNetwork
+	for _, n := range n.Networks {
+		net := models.V1MachineAllocationNetwork{
+			Networkid:   &n.NetworkID,
+			Autoacquire: n.Autoacquire,
+		}
+		nets = append(nets, &net)
+	}
+	return nets
+}
+
 // MachineCreateResponse is returned when a machine was created
 type MachineCreateResponse struct {
 	Machine *models.V1MachineResponse
@@ -146,6 +165,8 @@ func (d *Driver) MachineCreate(mcr *MachineCreateRequest) (*MachineCreateRespons
 		SSHPubKeys:  mcr.SSHPublicKeys,
 		UserData:    mcr.UserData,
 		Tags:        mcr.Tags,
+		Networks:    mcr.translateNetworks(),
+		Ips:         mcr.IPs,
 	}
 	allocMachine := machine.NewAllocateMachineParams()
 	allocMachine.SetBody(allocateRequest)
