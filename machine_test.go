@@ -10,6 +10,8 @@ import (
 	"testing"
 	"time"
 
+	"github.com/stretchr/testify/assert"
+
 	"github.com/emicklei/go-restful"
 	"github.com/metal-pod/metal-go/api/client/machine"
 	"github.com/metal-pod/metal-go/api/models"
@@ -272,4 +274,44 @@ func startServerAndGetDriver() (*http.Server, *Driver) {
 	driver, _ := NewDriver(addr, "", "")
 
 	return server, driver
+}
+
+func Test_translateNetworks(t *testing.T) {
+	assert := assert.New(t)
+
+	tests := []struct {
+		request             MachineCreateRequest
+		expectedAutoAcquire bool
+		name                string
+	}{
+		{
+			name:                "given false expected false",
+			expectedAutoAcquire: false,
+			request: MachineCreateRequest{
+				Networks: []MachineAllocationNetwork{
+					{NetworkID: "network", Autoacquire: false},
+				},
+			},
+		},
+		{
+			name:                "given true expected true",
+			expectedAutoAcquire: true,
+			request: MachineCreateRequest{
+				Networks: []MachineAllocationNetwork{
+					{NetworkID: "network", Autoacquire: true},
+				},
+			},
+		},
+	}
+
+	for _, test := range tests {
+		networks := test.request.translateNetworks()
+		assert.NotNil(networks)
+		// verify conversion of boolean pointer to boolean works as expected
+		if test.expectedAutoAcquire {
+			assert.True(networks[0].Autoacquire)
+		} else {
+			assert.False(networks[0].Autoacquire)
+		}
+	}
 }
