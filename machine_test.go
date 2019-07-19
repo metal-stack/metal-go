@@ -302,16 +302,30 @@ func Test_translateNetworks(t *testing.T) {
 				},
 			},
 		},
+		{
+			name:                "network ids do not differ",
+			expectedAutoAcquire: true,
+			request: MachineCreateRequest{
+				Networks: []MachineAllocationNetwork{
+					{NetworkID: "network1", Autoacquire: true},
+					{NetworkID: "network2", Autoacquire: true},
+				},
+			},
+		},
 	}
 
 	for _, test := range tests {
 		networks := test.request.translateNetworks()
 		assert.NotNil(networks)
-		// verify conversion of boolean pointer to boolean works as expected
-		if test.expectedAutoAcquire {
-			assert.True(networks[0].Autoacquire)
-		} else {
-			assert.False(networks[0].Autoacquire)
+		assert.Equal(len(test.request.Networks), len(networks), "translated networks are not equal in length")
+		for i := range networks {
+			assert.Equal(test.request.Networks[i].NetworkID, *networks[i].Networkid, "translated network ids are not equal")
+			// verify conversion of boolean pointer to boolean works as expected
+			if test.expectedAutoAcquire {
+				assert.True(networks[i].Autoacquire)
+			} else {
+				assert.False(networks[i].Autoacquire)
+			}
 		}
 	}
 }

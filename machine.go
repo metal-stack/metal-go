@@ -96,12 +96,12 @@ type MachineAllocationNetwork struct {
 	NetworkID   string
 }
 
-func (n MachineCreateRequest) translateNetworks() []*models.V1MachineAllocationNetwork {
+func (n *MachineCreateRequest) translateNetworks() []*models.V1MachineAllocationNetwork {
 	var nets []*models.V1MachineAllocationNetwork
-	for _, n := range n.Networks {
+	for i := range n.Networks {
 		net := models.V1MachineAllocationNetwork{
-			Networkid:   &n.NetworkID,
-			Autoacquire: n.Autoacquire,
+			Networkid:   &n.Networks[i].NetworkID,
+			Autoacquire: n.Networks[i].Autoacquire,
 		}
 		nets = append(nets, &net)
 	}
