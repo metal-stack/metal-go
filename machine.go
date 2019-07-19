@@ -101,7 +101,7 @@ func (n *MachineCreateRequest) translateNetworks() []*models.V1MachineAllocation
 	for i := range n.Networks {
 		net := models.V1MachineAllocationNetwork{
 			Networkid:   &n.Networks[i].NetworkID,
-			Autoacquire: n.Networks[i].Autoacquire,
+			Autoacquire: &n.Networks[i].Autoacquire,
 		}
 		nets = append(nets, &net)
 	}

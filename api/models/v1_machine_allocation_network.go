@@ -18,7 +18,8 @@ import (
 type V1MachineAllocationNetwork struct {
 
 	// will automatically acquire an ip in this network if set to true, default is true
-	Autoacquire bool `json:"autoacquire,omitempty"`
+	// Required: true
+	Autoacquire *bool `json:"autoacquire"`
 
 	// the id of the network that this machine will be placed in
 	// Required: true
@@ -29,6 +30,10 @@ type V1MachineAllocationNetwork struct {
 func (m *V1MachineAllocationNetwork) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateAutoacquire(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateNetworkid(formats); err != nil {
 		res = append(res, err)
 	}
@@ -36,6 +41,15 @@ func (m *V1MachineAllocationNetwork) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *V1MachineAllocationNetwork) validateAutoacquire(formats strfmt.Registry) error {
+
+	if err := validate.Required("autoacquire", "body", m.Autoacquire); err != nil {
+		return err
+	}
+
 	return nil
 }
 
