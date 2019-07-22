@@ -2627,12 +2627,12 @@
     },
     "v1.FirewallCreateRequest": {
       "required": [
-        "projectid",
-        "imageid",
-        "sizeid",
-        "ssh_pub_keys",
+        "partitionid",
         "tenant",
-        "partitionid"
+        "projectid",
+        "sizeid",
+        "imageid",
+        "ssh_pub_keys"
       ],
       "properties": {
         "description": {
@@ -2711,18 +2711,18 @@
     },
     "v1.FirewallResponse": {
       "required": [
-        "id",
-        "liveliness",
-        "tags",
-        "hardware",
         "state",
-        "events",
         "partition",
+        "created",
+        "events",
         "rackid",
         "changed",
-        "allocation",
-        "created",
-        "size"
+        "id",
+        "hardware",
+        "liveliness",
+        "tags",
+        "size",
+        "allocation"
       ],
       "properties": {
         "allocation": {
@@ -3432,8 +3432,8 @@
     },
     "v1.MachineNicExtended": {
       "required": [
-        "mac",
         "name",
+        "mac",
         "neighbors"
       ],
       "properties": {
@@ -3542,15 +3542,15 @@
     "v1.MachineResponse": {
       "required": [
         "id",
-        "partition",
         "allocation",
         "events",
+        "tags",
+        "state",
+        "liveliness",
+        "partition",
         "rackid",
         "size",
         "hardware",
-        "state",
-        "liveliness",
-        "tags",
         "created",
         "changed"
       ],
@@ -3643,12 +3643,12 @@
     "v1.NetworkCreateRequest": {
       "required": [
         "id",
+        "parentnetworkid",
         "prefixes",
         "destinationprefixes",
         "nat",
         "primary",
-        "underlay",
-        "parentnetworkid"
+        "underlay"
       ],
       "properties": {
         "description": {
@@ -3712,12 +3712,12 @@
     "v1.NetworkResponse": {
       "required": [
         "id",
-        "parentnetworkid",
         "prefixes",
         "destinationprefixes",
         "nat",
         "primary",
         "underlay",
+        "parentnetworkid",
         "usage",
         "created",
         "changed"
@@ -3935,8 +3935,8 @@
       "required": [
         "id",
         "bootconfig",
-        "changed",
-        "created"
+        "created",
+        "changed"
       ],
       "properties": {
         "bootconfig": {
