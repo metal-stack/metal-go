@@ -315,17 +315,22 @@ func Test_translateNetworks(t *testing.T) {
 	}
 
 	for _, test := range tests {
-		networks := test.request.translateNetworks()
-		assert.NotNil(networks)
-		assert.Equal(len(test.request.Networks), len(networks), "translated networks are not equal in length")
-		for i := range networks {
-			assert.Equal(test.request.Networks[i].NetworkID, *networks[i].Networkid, "translated network ids are not equal")
-			// verify conversion of boolean pointer to boolean works as expected
-			if test.expectedAutoAcquire {
-				assert.True(networks[i].Autoacquire)
-			} else {
-				assert.False(networks[i].Autoacquire)
+		translatedNetworks := test.request.translateNetworks()
+		assert.NotNil(translatedNetworks)
+		assert.Len(translatedNetworks, len(test.request.Networks))
+
+		// deep equals compare check to verify the network translation is valid
+		comp := func() bool {
+			for _, network := range test.request.Networks {
+				for _, translatedNetwork := range translatedNetworks {
+					if network.NetworkID == *translatedNetwork.Networkid {
+						// verify conversion of boolean pointer to boolean works as expected
+						return network.Autoacquire == *translatedNetwork.Autoacquire
+					}
+				}
 			}
+			return false
 		}
+		assert.Condition(comp, "translated networks: %+v do not equal the origin: %+v")
 	}
 }
