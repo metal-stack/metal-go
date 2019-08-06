@@ -17,6 +17,9 @@ import (
 // swagger:model v1.SwitchNic
 type V1SwitchNic struct {
 
+	// configures the bgp filter applied at the switch port
+	Filter *V1BGPFilter `json:"filter,omitempty"`
+
 	// the mac address of this network interface
 	// Required: true
 	Mac *string `json:"mac"`
@@ -33,6 +36,10 @@ type V1SwitchNic struct {
 func (m *V1SwitchNic) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateFilter(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateMac(formats); err != nil {
 		res = append(res, err)
 	}
@@ -44,6 +51,24 @@ func (m *V1SwitchNic) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *V1SwitchNic) validateFilter(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Filter) { // not required
+		return nil
+	}
+
+	if m.Filter != nil {
+		if err := m.Filter.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("filter")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 
