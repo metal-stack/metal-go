@@ -344,6 +344,64 @@ func (a *Client) MachineBios(params *MachineBiosParams, authInfo runtime.ClientA
 }
 
 /*
+MachineLedOff sends a power off to the machine l e d
+*/
+func (a *Client) MachineLedOff(params *MachineLedOffParams, authInfo runtime.ClientAuthInfoWriter) (*MachineLedOffOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewMachineLedOffParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "machineLedOff",
+		Method:             "POST",
+		PathPattern:        "/v1/machine/{id}/power/led-off",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &MachineLedOffReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*MachineLedOffOK), nil
+
+}
+
+/*
+MachineLedOn sends a power on to the machine l e d
+*/
+func (a *Client) MachineLedOn(params *MachineLedOnParams, authInfo runtime.ClientAuthInfoWriter) (*MachineLedOnOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewMachineLedOnParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "machineLedOn",
+		Method:             "POST",
+		PathPattern:        "/v1/machine/{id}/power/led-on",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &MachineLedOnReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*MachineLedOnOK), nil
+
+}
+
+/*
 MachineOff sends a power off to the machine
 */
 func (a *Client) MachineOff(params *MachineOffParams, authInfo runtime.ClientAuthInfoWriter) (*MachineOffOK, error) {
