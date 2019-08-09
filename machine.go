@@ -138,6 +138,11 @@ type MachinePowerResponse struct {
 	MachineAllocation *models.V1MachineResponse
 }
 
+// MachineLedPowerResponse contains the machine LED power result
+type MachineLedPowerResponse struct {
+	MachineAllocation *models.V1MachineResponse
+}
+
 // MachineBiosResponse contains the machine bios result
 type MachineBiosResponse struct {
 	MachineAllocation *models.V1MachineResponse
@@ -406,5 +411,35 @@ func (d *Driver) machineState(machineID, state, description string) (*MachineSta
 		return response, err
 	}
 	response.Machine = resp.Payload
+	return response, nil
+}
+
+// MachineLEDPowerOn powers on the given machine
+func (d *Driver) MachineLEDPowerOn(machineID string) (*MachineLedPowerResponse, error) {
+	machineLedOn := machine.NewMachineLedOnParams()
+	machineLedOn.ID = machineID
+	machineLedOn.Body = []string{}
+
+	response := &MachineLedPowerResponse{}
+	resp, err := d.machine.MachineLedOn(machineLedOn, d.auth)
+	if err != nil {
+		return response, err
+	}
+	response.MachineAllocation = resp.Payload
+	return response, nil
+}
+
+// MachineLEDPowerOff powers off the given machine
+func (d *Driver) MachineLEDPowerOff(machineID string) (*MachineLedPowerResponse, error) {
+	machineLedOff := machine.NewMachineLedOffParams()
+	machineLedOff.ID = machineID
+	machineLedOff.Body = []string{}
+
+	response := &MachineLedPowerResponse{}
+	resp, err := d.machine.MachineLedOff(machineLedOff, d.auth)
+	if err != nil {
+		return response, err
+	}
+	response.MachineAllocation = resp.Payload
 	return response, nil
 }
