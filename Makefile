@@ -3,6 +3,8 @@ CGO_ENABLED := $(or ${CGO_ENABLED},0)
 GO := go
 GO111MODULE := on
 
+release:: generate-client gofmt test;
+
 .PHONY: gofmt
 gofmt:
 	GO111MODULE=off $(GO) fmt ./...

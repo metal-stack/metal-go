@@ -49,6 +49,10 @@ type V1FirewallResponse struct {
 	// Unique: true
 	ID *string `json:"id"`
 
+	// the state of this machine chassis identify LED
+	// Required: true
+	Ledstate *V1MachineLEDState `json:"ledstate"`
+
 	// the liveliness of this machine
 	// Required: true
 	Liveliness *string `json:"liveliness"`
@@ -105,6 +109,10 @@ func (m *V1FirewallResponse) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateID(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateLedstate(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -222,6 +230,24 @@ func (m *V1FirewallResponse) validateID(formats strfmt.Registry) error {
 
 	if err := validate.Required("id", "body", m.ID); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+func (m *V1FirewallResponse) validateLedstate(formats strfmt.Registry) error {
+
+	if err := validate.Required("ledstate", "body", m.Ledstate); err != nil {
+		return err
+	}
+
+	if m.Ledstate != nil {
+		if err := m.Ledstate.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("ledstate")
+			}
+			return err
+		}
 	}
 
 	return nil

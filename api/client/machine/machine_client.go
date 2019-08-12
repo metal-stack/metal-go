@@ -344,23 +344,23 @@ func (a *Client) MachineBios(params *MachineBiosParams, authInfo runtime.ClientA
 }
 
 /*
-MachineLedOff sends a power off to the machine l e d
+MachineLEDOff sends a power off to the machine chassis identify l e d
 */
-func (a *Client) MachineLedOff(params *MachineLedOffParams, authInfo runtime.ClientAuthInfoWriter) (*MachineLedOffOK, error) {
+func (a *Client) MachineLEDOff(params *MachineLEDOffParams, authInfo runtime.ClientAuthInfoWriter) (*MachineLEDOffOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewMachineLedOffParams()
+		params = NewMachineLEDOffParams()
 	}
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "machineLedOff",
+		ID:                 "machineLEDOff",
 		Method:             "POST",
 		PathPattern:        "/v1/machine/{id}/power/led-off",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http"},
 		Params:             params,
-		Reader:             &MachineLedOffReader{formats: a.formats},
+		Reader:             &MachineLEDOffReader{formats: a.formats},
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
@@ -368,28 +368,28 @@ func (a *Client) MachineLedOff(params *MachineLedOffParams, authInfo runtime.Cli
 	if err != nil {
 		return nil, err
 	}
-	return result.(*MachineLedOffOK), nil
+	return result.(*MachineLEDOffOK), nil
 
 }
 
 /*
-MachineLedOn sends a power on to the machine l e d
+MachineLEDOn sends a power on to the machine chassis identify l e d
 */
-func (a *Client) MachineLedOn(params *MachineLedOnParams, authInfo runtime.ClientAuthInfoWriter) (*MachineLedOnOK, error) {
+func (a *Client) MachineLEDOn(params *MachineLEDOnParams, authInfo runtime.ClientAuthInfoWriter) (*MachineLEDOnOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewMachineLedOnParams()
+		params = NewMachineLEDOnParams()
 	}
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "machineLedOn",
+		ID:                 "machineLEDOn",
 		Method:             "POST",
 		PathPattern:        "/v1/machine/{id}/power/led-on",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http"},
 		Params:             params,
-		Reader:             &MachineLedOnReader{formats: a.formats},
+		Reader:             &MachineLEDOnReader{formats: a.formats},
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
@@ -397,7 +397,7 @@ func (a *Client) MachineLedOn(params *MachineLedOnParams, authInfo runtime.Clien
 	if err != nil {
 		return nil, err
 	}
-	return result.(*MachineLedOnOK), nil
+	return result.(*MachineLEDOnOK), nil
 
 }
 

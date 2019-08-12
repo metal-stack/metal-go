@@ -16,7 +16,7 @@ import (
 )
 
 // V1MachineAllocation v1 machine allocation
-// swagger:model v1.Machine
+// swagger:model v1.MachineAllocation
 type V1MachineAllocation struct {
 
 	// the console password which was generated while provisioning

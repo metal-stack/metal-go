@@ -416,12 +416,12 @@ func (d *Driver) machineState(machineID, state, description string) (*MachineSta
 
 // MachineLEDPowerOn powers on the given machine
 func (d *Driver) MachineLEDPowerOn(machineID string) (*MachineLedPowerResponse, error) {
-	machineLedOn := machine.NewMachineLedOnParams()
+	machineLedOn := machine.NewMachineLEDOnParams()
 	machineLedOn.ID = machineID
 	machineLedOn.Body = []string{}
 
 	response := &MachineLedPowerResponse{}
-	resp, err := d.machine.MachineLedOn(machineLedOn, d.auth)
+	resp, err := d.machine.MachineLEDOn(machineLedOn, d.auth)
 	if err != nil {
 		return response, err
 	}
@@ -431,12 +431,12 @@ func (d *Driver) MachineLEDPowerOn(machineID string) (*MachineLedPowerResponse, 
 
 // MachineLEDPowerOff powers off the given machine
 func (d *Driver) MachineLEDPowerOff(machineID string) (*MachineLedPowerResponse, error) {
-	machineLedOff := machine.NewMachineLedOffParams()
+	machineLedOff := machine.NewMachineLEDOffParams()
 	machineLedOff.ID = machineID
 	machineLedOff.Body = []string{}
 
 	response := &MachineLedPowerResponse{}
-	resp, err := d.machine.MachineLedOff(machineLedOff, d.auth)
+	resp, err := d.machine.MachineLEDOff(machineLedOff, d.auth)
 	if err != nil {
 		return response, err
 	}
