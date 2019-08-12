@@ -135,17 +135,17 @@ type MachineDeleteResponse struct {
 
 // MachinePowerResponse contains the machine power result
 type MachinePowerResponse struct {
-	MachineAllocation *models.V1MachineResponse
+	Machine *models.V1MachineResponse
 }
 
 // MachineLedPowerResponse contains the machine LED power result
 type MachineLedPowerResponse struct {
-	MachineAllocation *models.V1MachineResponse
+	Machine *models.V1MachineResponse
 }
 
 // MachineBiosResponse contains the machine bios result
 type MachineBiosResponse struct {
-	MachineAllocation *models.V1MachineResponse
+	Machine *models.V1MachineResponse
 }
 
 // MachineStateResponse contains the machine bios result
@@ -328,7 +328,7 @@ func (d *Driver) MachinePowerOn(machineID string) (*MachinePowerResponse, error)
 	if err != nil {
 		return response, err
 	}
-	response.MachineAllocation = resp.Payload
+	response.Machine = resp.Payload
 	return response, nil
 }
 
@@ -343,7 +343,7 @@ func (d *Driver) MachinePowerOff(machineID string) (*MachinePowerResponse, error
 	if err != nil {
 		return response, err
 	}
-	response.MachineAllocation = resp.Payload
+	response.Machine = resp.Payload
 	return response, nil
 }
 
@@ -358,7 +358,7 @@ func (d *Driver) MachinePowerReset(machineID string) (*MachinePowerResponse, err
 	if err != nil {
 		return response, err
 	}
-	response.MachineAllocation = resp.Payload
+	response.Machine = resp.Payload
 	return response, nil
 }
 
@@ -373,7 +373,7 @@ func (d *Driver) MachineBootBios(machineID string) (*MachineBiosResponse, error)
 	if err != nil {
 		return response, err
 	}
-	response.MachineAllocation = resp.Payload
+	response.Machine = resp.Payload
 	return response, nil
 }
 
@@ -425,7 +425,7 @@ func (d *Driver) MachineLEDPowerOn(machineID string) (*MachineLedPowerResponse, 
 	if err != nil {
 		return response, err
 	}
-	response.MachineAllocation = resp.Payload
+	response.Machine = resp.Payload
 	return response, nil
 }
 
@@ -440,6 +440,6 @@ func (d *Driver) MachineLEDPowerOff(machineID string) (*MachineLedPowerResponse,
 	if err != nil {
 		return response, err
 	}
-	response.MachineAllocation = resp.Payload
+	response.Machine = resp.Payload
 	return response, nil
 }
