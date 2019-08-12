@@ -524,6 +524,35 @@ func (a *Client) RegisterMachine(params *RegisterMachineParams, authInfo runtime
 }
 
 /*
+SetMachineLEDState sets the state of a machine chassis identify l e d
+*/
+func (a *Client) SetMachineLEDState(params *SetMachineLEDStateParams, authInfo runtime.ClientAuthInfoWriter) (*SetMachineLEDStateOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewSetMachineLEDStateParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "setMachineLEDState",
+		Method:             "POST",
+		PathPattern:        "/v1/machine/{id}/led-state",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &SetMachineLEDStateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*SetMachineLEDStateOK), nil
+
+}
+
+/*
 SetMachineState sets the state of a machine
 */
 func (a *Client) SetMachineState(params *SetMachineStateParams, authInfo runtime.ClientAuthInfoWriter) (*SetMachineStateOK, error) {
