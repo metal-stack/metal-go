@@ -49,9 +49,9 @@ type V1FirewallResponse struct {
 	// Unique: true
 	ID *string `json:"id"`
 
-	// the state of this machine chassis identify LED
+	// the state of this chassis identify LED
 	// Required: true
-	Ledstate *V1MachineLEDState `json:"ledstate"`
+	Ledstate *V1ChassisIdentifyLEDState `json:"ledstate"`
 
 	// the liveliness of this machine
 	// Required: true

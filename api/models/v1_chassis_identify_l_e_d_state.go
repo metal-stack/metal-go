@@ -13,21 +13,21 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// V1MachineLEDState v1 machine l e d state
-// swagger:model v1.MachineLEDState
-type V1MachineLEDState struct {
+// V1ChassisIdentifyLEDState v1 chassis identify l e d state
+// swagger:model v1.ChassisIdentifyLEDState
+type V1ChassisIdentifyLEDState struct {
 
-	// a description why this machine chassis identify LED is in the given state
+	// a description why this chassis identify LED is in the given state
 	// Required: true
 	Description *string `json:"description"`
 
-	// the state of this machine chassis identify LED. empty means On
+	// the state of this chassis identify LED. empty means LED-ON
 	// Required: true
 	Value *string `json:"value"`
 }
 
-// Validate validates this v1 machine l e d state
-func (m *V1MachineLEDState) Validate(formats strfmt.Registry) error {
+// Validate validates this v1 chassis identify l e d state
+func (m *V1ChassisIdentifyLEDState) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateDescription(formats); err != nil {
@@ -44,7 +44,7 @@ func (m *V1MachineLEDState) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *V1MachineLEDState) validateDescription(formats strfmt.Registry) error {
+func (m *V1ChassisIdentifyLEDState) validateDescription(formats strfmt.Registry) error {
 
 	if err := validate.Required("description", "body", m.Description); err != nil {
 		return err
@@ -53,7 +53,7 @@ func (m *V1MachineLEDState) validateDescription(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *V1MachineLEDState) validateValue(formats strfmt.Registry) error {
+func (m *V1ChassisIdentifyLEDState) validateValue(formats strfmt.Registry) error {
 
 	if err := validate.Required("value", "body", m.Value); err != nil {
 		return err
@@ -63,7 +63,7 @@ func (m *V1MachineLEDState) validateValue(formats strfmt.Registry) error {
 }
 
 // MarshalBinary interface implementation
-func (m *V1MachineLEDState) MarshalBinary() ([]byte, error) {
+func (m *V1ChassisIdentifyLEDState) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -71,8 +71,8 @@ func (m *V1MachineLEDState) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *V1MachineLEDState) UnmarshalBinary(b []byte) error {
-	var res V1MachineLEDState
+func (m *V1ChassisIdentifyLEDState) UnmarshalBinary(b []byte) error {
+	var res V1ChassisIdentifyLEDState
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

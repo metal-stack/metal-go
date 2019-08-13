@@ -138,8 +138,8 @@ type MachinePowerResponse struct {
 	Machine *models.V1MachineResponse
 }
 
-// MachineLedPowerResponse contains the machine LED power result
-type MachineLedPowerResponse struct {
+// ChassisIdentifyLEDPowerResponse contains the machine LED power result
+type ChassisIdentifyLEDPowerResponse struct {
 	Machine *models.V1MachineResponse
 }
 
@@ -414,14 +414,14 @@ func (d *Driver) machineState(machineID, state, description string) (*MachineSta
 	return response, nil
 }
 
-// MachineLEDPowerOn powers on the given machine
-func (d *Driver) MachineLEDPowerOn(machineID string) (*MachineLedPowerResponse, error) {
-	machineLedOn := machine.NewMachineLEDOnParams()
+// ChassisIdentifyLEDPowerOn powers on the given machine
+func (d *Driver) ChassisIdentifyLEDPowerOn(machineID string) (*ChassisIdentifyLEDPowerResponse, error) {
+	machineLedOn := machine.NewChassisIdentifyLEDOnParams()
 	machineLedOn.ID = machineID
 	machineLedOn.Body = []string{}
 
-	response := &MachineLedPowerResponse{}
-	resp, err := d.machine.MachineLEDOn(machineLedOn, d.auth)
+	response := &ChassisIdentifyLEDPowerResponse{}
+	resp, err := d.machine.ChassisIdentifyLEDOn(machineLedOn, d.auth)
 	if err != nil {
 		return response, err
 	}
@@ -429,14 +429,15 @@ func (d *Driver) MachineLEDPowerOn(machineID string) (*MachineLedPowerResponse, 
 	return response, nil
 }
 
-// MachineLEDPowerOff powers off the given machine
-func (d *Driver) MachineLEDPowerOff(machineID string) (*MachineLedPowerResponse, error) {
-	machineLedOff := machine.NewMachineLEDOffParams()
+// ChassisIdentifyLEDPowerOff powers off the given machine
+func (d *Driver) ChassisIdentifyLEDPowerOff(machineID, description string) (*ChassisIdentifyLEDPowerResponse, error) {
+	machineLedOff := machine.NewChassisIdentifyLEDOffParams()
 	machineLedOff.ID = machineID
+	machineLedOff.Description = description
 	machineLedOff.Body = []string{}
 
-	response := &MachineLedPowerResponse{}
-	resp, err := d.machine.MachineLEDOff(machineLedOff, d.auth)
+	response := &ChassisIdentifyLEDPowerResponse{}
+	resp, err := d.machine.ChassisIdentifyLEDOff(machineLedOff, d.auth)
 	if err != nil {
 		return response, err
 	}
