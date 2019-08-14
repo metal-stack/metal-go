@@ -123,7 +123,7 @@ func (a *Client) ChassisIdentifyLEDOn(params *ChassisIdentifyLEDOnParams, authIn
 	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "chassisIdentifyLEDOn",
 		Method:             "POST",
-		PathPattern:        "/v1/machine/{id}/power/chassis-identify-led-on",
+		PathPattern:        "/v1/machine/{id}/power/chassis-identify-led-on/{description}",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http"},

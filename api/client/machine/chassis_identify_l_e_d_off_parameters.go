@@ -66,7 +66,7 @@ type ChassisIdentifyLEDOffParams struct {
 	/*Body*/
 	Body models.V1EmptyBody
 	/*Description
-	  reason why the chassis identify LED should be turned off
+	  reason why the chassis identify LED has been turned off
 
 	*/
 	Description string

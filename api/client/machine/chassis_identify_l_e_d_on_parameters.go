@@ -65,6 +65,11 @@ type ChassisIdentifyLEDOnParams struct {
 
 	/*Body*/
 	Body models.V1EmptyBody
+	/*Description
+	  reason why the chassis identify LED has been turned on
+
+	*/
+	Description string
 	/*ID
 	  identifier of the machine
 
@@ -120,6 +125,17 @@ func (o *ChassisIdentifyLEDOnParams) SetBody(body models.V1EmptyBody) {
 	o.Body = body
 }
 
+// WithDescription adds the description to the chassis identify l e d on params
+func (o *ChassisIdentifyLEDOnParams) WithDescription(description string) *ChassisIdentifyLEDOnParams {
+	o.SetDescription(description)
+	return o
+}
+
+// SetDescription adds the description to the chassis identify l e d on params
+func (o *ChassisIdentifyLEDOnParams) SetDescription(description string) {
+	o.Description = description
+}
+
 // WithID adds the id to the chassis identify l e d on params
 func (o *ChassisIdentifyLEDOnParams) WithID(id string) *ChassisIdentifyLEDOnParams {
 	o.SetID(id)
@@ -143,6 +159,11 @@ func (o *ChassisIdentifyLEDOnParams) WriteToRequest(r runtime.ClientRequest, reg
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err
 		}
+	}
+
+	// path param description
+	if err := r.SetPathParam("description", o.Description); err != nil {
+		return err
 	}
 
 	// path param id

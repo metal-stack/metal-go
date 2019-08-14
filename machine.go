@@ -415,9 +415,10 @@ func (d *Driver) machineState(machineID, state, description string) (*MachineSta
 }
 
 // ChassisIdentifyLEDPowerOn powers on the given machine
-func (d *Driver) ChassisIdentifyLEDPowerOn(machineID string) (*ChassisIdentifyLEDPowerResponse, error) {
+func (d *Driver) ChassisIdentifyLEDPowerOn(machineID, description string) (*ChassisIdentifyLEDPowerResponse, error) {
 	machineLedOn := machine.NewChassisIdentifyLEDOnParams()
 	machineLedOn.ID = machineID
+	machineLedOn.Description = description
 	machineLedOn.Body = []string{}
 
 	response := &ChassisIdentifyLEDPowerResponse{}

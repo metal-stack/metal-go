@@ -58,7 +58,7 @@ type ChassisIdentifyLEDOnOK struct {
 }
 
 func (o *ChassisIdentifyLEDOnOK) Error() string {
-	return fmt.Sprintf("[POST /v1/machine/{id}/power/chassis-identify-led-on][%d] chassisIdentifyLEDOnOK  %+v", 200, o.Payload)
+	return fmt.Sprintf("[POST /v1/machine/{id}/power/chassis-identify-led-on/{description}][%d] chassisIdentifyLEDOnOK  %+v", 200, o.Payload)
 }
 
 func (o *ChassisIdentifyLEDOnOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -96,7 +96,7 @@ func (o *ChassisIdentifyLEDOnDefault) Code() int {
 }
 
 func (o *ChassisIdentifyLEDOnDefault) Error() string {
-	return fmt.Sprintf("[POST /v1/machine/{id}/power/chassis-identify-led-on][%d] chassisIdentifyLEDOn default  %+v", o._statusCode, o.Payload)
+	return fmt.Sprintf("[POST /v1/machine/{id}/power/chassis-identify-led-on/{description}][%d] chassisIdentifyLEDOn default  %+v", o._statusCode, o.Payload)
 }
 
 func (o *ChassisIdentifyLEDOnDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
