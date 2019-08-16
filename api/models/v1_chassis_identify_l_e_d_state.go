@@ -21,7 +21,7 @@ type V1ChassisIdentifyLEDState struct {
 	// Required: true
 	Description *string `json:"description"`
 
-	// the state of this chassis identify LED. empty means LED-ON
+	// the state of this chassis identify LED. empty means LED-OFF
 	// Required: true
 	Value *string `json:"value"`
 }
