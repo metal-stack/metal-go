@@ -17,10 +17,15 @@ type ProjectGetResponse struct {
 
 // ProjectCreateRequest is the response of a ImageList action
 type ProjectCreateRequest struct {
-	ID          string
 	Name        string
 	Description string
 	Tenant      string
+}
+
+// ProjectUpdateRequest is the response of a ImageList action
+type ProjectUpdateRequest struct {
+	ProjectCreateRequest
+	ID string
 }
 
 // ProjectCreateResponse is the response of a ImageList action
@@ -58,7 +63,6 @@ func (d *Driver) ProjectCreate(pcr ProjectCreateRequest) (*ProjectCreateResponse
 	response := &ProjectCreateResponse{}
 
 	createProject := &models.V1ProjectCreateRequest{
-		ID:          &pcr.ID,
 		Name:        pcr.Name,
 		Description: pcr.Description,
 		Tenant:      &pcr.Tenant,
@@ -74,7 +78,7 @@ func (d *Driver) ProjectCreate(pcr ProjectCreateRequest) (*ProjectCreateResponse
 }
 
 // ProjectUpdate create a Project
-func (d *Driver) ProjectUpdate(pcr ProjectCreateRequest) (*ProjectCreateResponse, error) {
+func (d *Driver) ProjectUpdate(pcr ProjectUpdateRequest) (*ProjectCreateResponse, error) {
 	response := &ProjectCreateResponse{}
 
 	updateProject := &models.V1ProjectUpdateRequest{
