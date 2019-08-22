@@ -18,6 +18,27 @@ type NetworkListResponse struct {
 	Networks []*models.V1NetworkResponse
 }
 
+// NetworkAcquireRequest is the request to acquire a new private network
+type NetworkAcquireRequest struct {
+	// a description for this entity
+	Description string `json:"description,omitempty"`
+
+	// the readable name
+	Name string `json:"name,omitempty"`
+
+	// the partition this network belongs to, TODO: can be empty ?
+	// Required: true
+	PartitionID string `json:"partitionid"`
+
+	// the project this network belongs to, can be empty if globally available.
+	// Required: true
+	ProjectID string `json:"projectid,omitempty"`
+
+	// A map of key/value pairs treated as labels.
+	// Required: false
+	Labels map[string]string `json:"labels"`
+}
+
 // NetworkCreateRequest is the request for create a new network
 type NetworkCreateRequest struct {
 	ID *string `json:"id"`
@@ -222,6 +243,41 @@ func (d *Driver) NetworkCreate(ncr *NetworkCreateRequest) (*NetworkDetailRespons
 	}
 	createNetwork.SetBody(createRequest)
 	resp, err := d.network.CreateNetwork(createNetwork, d.auth)
+	if err != nil {
+		return response, err
+	}
+	response.Network = resp.Payload
+	return response, nil
+}
+
+// NetworkAqcuire creates a new network
+func (d *Driver) NetworkAqcuire(ncr *NetworkAcquireRequest) (*NetworkDetailResponse, error) {
+	response := &NetworkDetailResponse{}
+	acquireNetwork := network.NewAcquireChildNetworkParams()
+
+	acquireRequest := &models.V1NetworkAcquireRequest{
+		Description: ncr.Description,
+		Name:        ncr.Name,
+		Partitionid: ncr.PartitionID,
+		Projectid:   ncr.ProjectID,
+		Labels:      ncr.Labels,
+	}
+	acquireNetwork.SetBody(acquireRequest)
+	resp, err := d.network.AcquireChildNetwork(acquireNetwork, d.auth)
+	if err != nil {
+		return response, err
+	}
+	response.Network = resp.Payload
+	return response, nil
+}
+
+// NetworkRelease creates a new network
+func (d *Driver) NetworkRelease(id string) (*NetworkDetailResponse, error) {
+	response := &NetworkDetailResponse{}
+	releaseNetwork := network.NewReleaseChildNetworkParams()
+
+	releaseNetwork.ID = id
+	resp, err := d.network.ReleaseChildNetwork(releaseNetwork, d.auth)
 	if err != nil {
 		return response, err
 	}
