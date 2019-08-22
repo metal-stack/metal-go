@@ -64,9 +64,9 @@ type NetworkCreateRequest struct {
 	// Required: true
 	Destinationprefixes []string `json:"destinationprefixes"`
 
-	// if set to true, this network is attached to a machine/firewall
+	// if set to true, this network acts a supernetwork for private networks
 	// Required: true
-	Primary bool `json:"primary"`
+	PrivateSuper bool `json:"privatesuper"`
 
 	// the project this network belongs to, can be empty if globally available.
 	// Required: true
@@ -140,7 +140,7 @@ type NetworkFindRequest struct {
 	Prefixes            []string
 	DestinationPrefixes []string
 	Nat                 *bool
-	Primary             *bool
+	PrivateSuper        *bool
 	Underlay            *bool
 	Vrf                 *int64
 	ParentNetworkID     *string
@@ -207,7 +207,7 @@ func (d *Driver) NetworkFind(nfr *NetworkFindRequest) (*NetworkListResponse, err
 		Prefixes:            nfr.Prefixes,
 		Destinationprefixes: nfr.DestinationPrefixes,
 		Nat:                 nfr.Nat,
-		Seed:                nfr.Primary,
+		Privatesuper:        nfr.PrivateSuper,
 		Underlay:            nfr.Underlay,
 		Vrf:                 nfr.Vrf,
 		Parentnetworkid:     nfr.ParentNetworkID,
@@ -237,7 +237,7 @@ func (d *Driver) NetworkCreate(ncr *NetworkCreateRequest) (*NetworkDetailRespons
 		Prefixes:            ncr.Prefixes,
 		Destinationprefixes: ncr.Destinationprefixes,
 		Vrf:                 ncr.Vrf,
-		Seed:                &ncr.Primary,
+		Privatesuper:        &ncr.PrivateSuper,
 		Projectid:           ncr.Projectid,
 		Underlay:            &ncr.Underlay,
 	}

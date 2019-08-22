@@ -125,10 +125,6 @@ type V1FirewallFindRequest struct {
 	// Required: true
 	NetworkIds []string `json:"network_ids"`
 
-	// network internal
-	// Required: true
-	NetworkInternal *bool `json:"network_internal"`
-
 	// network ips
 	// Required: true
 	NetworkIps []string `json:"network_ips"`
@@ -140,6 +136,10 @@ type V1FirewallFindRequest struct {
 	// network prefixes
 	// Required: true
 	NetworkPrefixes []string `json:"network_prefixes"`
+
+	// network private
+	// Required: true
+	NetworkPrivate *bool `json:"network_private"`
 
 	// network underlay
 	// Required: true
@@ -306,10 +306,6 @@ func (m *V1FirewallFindRequest) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validateNetworkInternal(formats); err != nil {
-		res = append(res, err)
-	}
-
 	if err := m.validateNetworkIps(formats); err != nil {
 		res = append(res, err)
 	}
@@ -319,6 +315,10 @@ func (m *V1FirewallFindRequest) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateNetworkPrefixes(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateNetworkPrivate(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -623,15 +623,6 @@ func (m *V1FirewallFindRequest) validateNetworkIds(formats strfmt.Registry) erro
 	return nil
 }
 
-func (m *V1FirewallFindRequest) validateNetworkInternal(formats strfmt.Registry) error {
-
-	if err := validate.Required("network_internal", "body", m.NetworkInternal); err != nil {
-		return err
-	}
-
-	return nil
-}
-
 func (m *V1FirewallFindRequest) validateNetworkIps(formats strfmt.Registry) error {
 
 	if err := validate.Required("network_ips", "body", m.NetworkIps); err != nil {
@@ -653,6 +644,15 @@ func (m *V1FirewallFindRequest) validateNetworkNat(formats strfmt.Registry) erro
 func (m *V1FirewallFindRequest) validateNetworkPrefixes(formats strfmt.Registry) error {
 
 	if err := validate.Required("network_prefixes", "body", m.NetworkPrefixes); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *V1FirewallFindRequest) validateNetworkPrivate(formats strfmt.Registry) error {
+
+	if err := validate.Required("network_private", "body", m.NetworkPrivate); err != nil {
 		return err
 	}
 

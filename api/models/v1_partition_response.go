@@ -41,16 +41,16 @@ type V1PartitionResponse struct {
 	// Unique: true
 	ID *string `json:"id"`
 
-	// the length of internal networks for the machine groups in this partition, default 22
-	// Maximum: 30
-	// Minimum: 16
-	Machinenetworkprefixlength int32 `json:"machinenetworkprefixlength,omitempty"`
-
 	// the address to the management service of this partition
 	Mgmtserviceaddress string `json:"mgmtserviceaddress,omitempty"`
 
 	// a readable name for this entity
 	Name string `json:"name,omitempty"`
+
+	// the length of private networks for the machine's child networks in this partition, default 22
+	// Maximum: 30
+	// Minimum: 16
+	Privatenetworkprefixlength int32 `json:"privatenetworkprefixlength,omitempty"`
 }
 
 // Validate validates this v1 partition response
@@ -73,7 +73,7 @@ func (m *V1PartitionResponse) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validateMachinenetworkprefixlength(formats); err != nil {
+	if err := m.validatePrivatenetworkprefixlength(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -136,17 +136,17 @@ func (m *V1PartitionResponse) validateID(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *V1PartitionResponse) validateMachinenetworkprefixlength(formats strfmt.Registry) error {
+func (m *V1PartitionResponse) validatePrivatenetworkprefixlength(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.Machinenetworkprefixlength) { // not required
+	if swag.IsZero(m.Privatenetworkprefixlength) { // not required
 		return nil
 	}
 
-	if err := validate.MinimumInt("machinenetworkprefixlength", "body", int64(m.Machinenetworkprefixlength), 16, false); err != nil {
+	if err := validate.MinimumInt("privatenetworkprefixlength", "body", int64(m.Privatenetworkprefixlength), 16, false); err != nil {
 		return err
 	}
 
-	if err := validate.MaximumInt("machinenetworkprefixlength", "body", int64(m.Machinenetworkprefixlength), 30, false); err != nil {
+	if err := validate.MaximumInt("privatenetworkprefixlength", "body", int64(m.Privatenetworkprefixlength), 30, false); err != nil {
 		return err
 	}
 

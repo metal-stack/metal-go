@@ -25,7 +25,7 @@ type Client struct {
 }
 
 /*
-AcquireChildNetwork acquires a child network from a partition s seed network
+AcquireChildNetwork acquires a child network from a partition s private super network
 */
 func (a *Client) AcquireChildNetwork(params *AcquireChildNetworkParams, authInfo runtime.ClientAuthInfoWriter) (*AcquireChildNetworkOK, error) {
 	// TODO: Validate the params before sending

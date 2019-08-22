@@ -1705,7 +1705,7 @@
         "tags": [
           "network"
         ],
-        "summary": "acquires a child network from a partition's seed network",
+        "summary": "acquires a child network from a partition's private super network",
         "operationId": "acquireChildNetwork",
         "parameters": [
           {
@@ -2858,10 +2858,10 @@
     "v1.FirewallCreateRequest": {
       "required": [
         "projectid",
-        "ssh_pub_keys",
         "partitionid",
+        "imageid",
         "sizeid",
-        "imageid"
+        "ssh_pub_keys"
       ],
       "properties": {
         "description": {
@@ -2936,50 +2936,50 @@
     },
     "v1.FirewallFindRequest": {
       "required": [
-        "id",
-        "allocation_image_id",
-        "hardware_memory",
-        "nics_mac_addresses",
-        "nics_neighbor_mac_addresses",
-        "state_value",
-        "fru_chassis_part_number",
-        "partition_id",
-        "network_ids",
-        "network_prefixes",
-        "network_internal",
-        "hardware_cpu_cores",
-        "nics_names",
-        "disk_sizes",
-        "fru_product_manufacturer",
-        "fru_product_serial",
-        "allocation_succeeded",
-        "tags",
-        "allocation_hostname",
-        "network_ips",
         "nics_neighbor_names",
-        "ipmi_address",
-        "fru_chassis_part_serial",
-        "liveliness",
-        "allocation_name",
-        "nics_vrfs",
-        "network_destination_prefixes",
-        "network_vrfs",
+        "disk_sizes",
+        "state_value",
+        "fru_product_manufacturer",
+        "network_ids",
+        "hardware_cpu_cores",
         "disk_names",
-        "ipmi_mac_address",
-        "fru_board_mfg",
-        "fru_board_part_number",
-        "name",
-        "allocation_project",
-        "network_nat",
-        "nics_neighbor_vrfs",
-        "ipmi_user",
-        "ipmi_interface",
         "fru_board_mfg_serial",
         "fru_product_part_number",
-        "sizeid",
+        "fru_product_serial",
+        "network_underlay",
+        "nics_names",
+        "allocation_succeeded",
+        "network_destination_prefixes",
+        "fru_chassis_part_serial",
+        "tags",
+        "allocation_image_id",
+        "fru_board_mfg",
+        "network_ips",
+        "nics_neighbor_vrfs",
+        "hardware_memory",
+        "nics_vrfs",
+        "ipmi_interface",
+        "fru_board_part_number",
+        "name",
+        "network_vrfs",
+        "allocation_hostname",
+        "network_private",
+        "network_nat",
+        "id",
         "rackid",
+        "allocation_name",
+        "nics_mac_addresses",
+        "ipmi_address",
+        "ipmi_user",
+        "fru_chassis_part_number",
+        "sizeid",
+        "liveliness",
+        "network_prefixes",
         "network_asns",
-        "network_underlay"
+        "nics_neighbor_mac_addresses",
+        "ipmi_mac_address",
+        "partition_id",
+        "allocation_project"
       ],
       "properties": {
         "allocation_hostname": {
@@ -3080,9 +3080,6 @@
             "type": "string"
           }
         },
-        "network_internal": {
-          "type": "boolean"
-        },
         "network_ips": {
           "type": "array",
           "items": {
@@ -3097,6 +3094,9 @@
           "items": {
             "type": "string"
           }
+        },
+        "network_private": {
+          "type": "boolean"
         },
         "network_underlay": {
           "type": "boolean"
@@ -3165,19 +3165,19 @@
     },
     "v1.FirewallResponse": {
       "required": [
+        "size",
         "tags",
-        "allocation",
+        "state",
         "partition",
         "hardware",
-        "size",
-        "id",
         "ledstate",
-        "rackid",
-        "state",
+        "changed",
+        "created",
+        "id",
         "liveliness",
         "events",
-        "changed",
-        "created"
+        "rackid",
+        "allocation"
       ],
       "properties": {
         "allocation": {
@@ -3311,12 +3311,12 @@
     },
     "v1.IPResponse": {
       "required": [
-        "projectid",
         "networkid",
+        "projectid",
         "ipaddress",
         "machineid",
-        "created",
-        "changed"
+        "changed",
+        "created"
       ],
       "properties": {
         "changed": {
@@ -3693,7 +3693,7 @@
         "network_ips",
         "network_destination_prefixes",
         "network_vrfs",
-        "network_internal",
+        "network_private",
         "network_asns",
         "network_nat",
         "network_underlay",
@@ -3820,9 +3820,6 @@
             "type": "string"
           }
         },
-        "network_internal": {
-          "type": "boolean"
-        },
         "network_ips": {
           "type": "array",
           "items": {
@@ -3837,6 +3834,9 @@
           "items": {
             "type": "string"
           }
+        },
+        "network_private": {
+          "type": "boolean"
         },
         "network_underlay": {
           "type": "boolean"
@@ -4069,7 +4069,7 @@
         "ips",
         "vrf",
         "asn",
-        "internal",
+        "private",
         "nat",
         "destinationprefixes",
         "underlay"
@@ -4086,10 +4086,6 @@
           "items": {
             "type": "string"
           }
-        },
-        "internal": {
-          "description": "indicates whether this network is the internal network of this machine",
-          "type": "boolean"
         },
         "ips": {
           "description": "the ip addresses of the allocated machine in this vrf",
@@ -4112,6 +4108,10 @@
           "items": {
             "type": "string"
           }
+        },
+        "private": {
+          "description": "indicates whether this network is the private network of this machine",
+          "type": "boolean"
         },
         "underlay": {
           "description": "if set to true, this network can be used for underlay communication",
@@ -4252,16 +4252,16 @@
     "v1.MachineResponse": {
       "required": [
         "id",
-        "partition",
-        "state",
-        "ledstate",
         "liveliness",
-        "rackid",
         "size",
+        "rackid",
         "hardware",
         "allocation",
+        "state",
+        "ledstate",
         "events",
         "tags",
+        "partition",
         "created",
         "changed"
       ],
@@ -4389,12 +4389,12 @@
       "required": [
         "id",
         "labels",
-        "prefixes",
         "destinationprefixes",
         "nat",
-        "seed",
+        "privatesuper",
         "underlay",
-        "parentnetworkid"
+        "parentnetworkid",
+        "prefixes"
       ],
       "properties": {
         "description": {
@@ -4443,13 +4443,13 @@
             "type": "string"
           }
         },
+        "privatesuper": {
+          "description": "if set to true, this network will serve as a partition's super network for the internal machine networks,there can only be one privatesuper network per partition",
+          "type": "boolean"
+        },
         "projectid": {
           "description": "the project id this network belongs to, can be empty if globally available",
           "type": "string"
-        },
-        "seed": {
-          "description": "if set to true, this network will serve as a partition's super network for the internal machine networks,there can only be one seed network per partition",
-          "type": "boolean"
         },
         "underlay": {
           "description": "if set to true, this network can be used for underlay communication",
@@ -4471,7 +4471,7 @@
         "prefixes",
         "destinationprefixes",
         "nat",
-        "seed",
+        "privatesuper",
         "underlay",
         "vrf",
         "parentnetworkid",
@@ -4511,11 +4511,11 @@
             "type": "string"
           }
         },
+        "privatesuper": {
+          "type": "boolean"
+        },
         "projectid": {
           "type": "string"
-        },
-        "seed": {
-          "type": "boolean"
         },
         "underlay": {
           "type": "boolean"
@@ -4533,7 +4533,7 @@
         "prefixes",
         "destinationprefixes",
         "nat",
-        "seed",
+        "privatesuper",
         "underlay",
         "parentnetworkid",
         "usage",
@@ -4599,13 +4599,13 @@
             "type": "string"
           }
         },
+        "privatesuper": {
+          "description": "if set to true, this network will serve as a partition's super network for the internal machine networks,there can only be one privatesuper network per partition",
+          "type": "boolean"
+        },
         "projectid": {
           "description": "the project id this network belongs to, can be empty if globally available",
           "type": "string"
-        },
-        "seed": {
-          "description": "if set to true, this network will serve as a partition's super network for the internal machine networks,there can only be one seed network per partition",
-          "type": "boolean"
         },
         "underlay": {
           "description": "if set to true, this network can be used for underlay communication",
@@ -4739,13 +4739,6 @@
           "type": "string",
           "uniqueItems": true
         },
-        "machinenetworkprefixlength": {
-          "description": "the length of internal networks for the machine groups in this partition, default 22",
-          "type": "integer",
-          "format": "int32",
-          "maximum": 30,
-          "minimum": 16
-        },
         "mgmtserviceaddress": {
           "description": "the address to the management service of this partition",
           "type": "string"
@@ -4753,6 +4746,13 @@
         "name": {
           "description": "a readable name for this entity",
           "type": "string"
+        },
+        "privatenetworkprefixlength": {
+          "description": "the length of private networks for the machine's child networks in this partition, default 22",
+          "type": "integer",
+          "format": "int32",
+          "maximum": 30,
+          "minimum": 16
         }
       }
     },
@@ -4760,8 +4760,8 @@
       "required": [
         "id",
         "bootconfig",
-        "changed",
-        "created"
+        "created",
+        "changed"
       ],
       "properties": {
         "bootconfig": {
@@ -4789,13 +4789,6 @@
           "type": "string",
           "uniqueItems": true
         },
-        "machinenetworkprefixlength": {
-          "description": "the length of internal networks for the machine groups in this partition, default 22",
-          "type": "integer",
-          "format": "int32",
-          "maximum": 30,
-          "minimum": 16
-        },
         "mgmtserviceaddress": {
           "description": "the address to the management service of this partition",
           "type": "string"
@@ -4803,6 +4796,13 @@
         "name": {
           "description": "a readable name for this entity",
           "type": "string"
+        },
+        "privatenetworkprefixlength": {
+          "description": "the length of private networks for the machine's child networks in this partition, default 22",
+          "type": "integer",
+          "format": "int32",
+          "maximum": 30,
+          "minimum": 16
         }
       }
     },

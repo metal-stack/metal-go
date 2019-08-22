@@ -49,13 +49,13 @@ type V1NetworkFindRequest struct {
 	// Required: true
 	Prefixes []string `json:"prefixes"`
 
+	// privatesuper
+	// Required: true
+	Privatesuper *bool `json:"privatesuper"`
+
 	// projectid
 	// Required: true
 	Projectid *string `json:"projectid"`
-
-	// seed
-	// Required: true
-	Seed *bool `json:"seed"`
 
 	// underlay
 	// Required: true
@@ -102,11 +102,11 @@ func (m *V1NetworkFindRequest) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validateProjectid(formats); err != nil {
+	if err := m.validatePrivatesuper(formats); err != nil {
 		res = append(res, err)
 	}
 
-	if err := m.validateSeed(formats); err != nil {
+	if err := m.validateProjectid(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -192,18 +192,18 @@ func (m *V1NetworkFindRequest) validatePrefixes(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *V1NetworkFindRequest) validateProjectid(formats strfmt.Registry) error {
+func (m *V1NetworkFindRequest) validatePrivatesuper(formats strfmt.Registry) error {
 
-	if err := validate.Required("projectid", "body", m.Projectid); err != nil {
+	if err := validate.Required("privatesuper", "body", m.Privatesuper); err != nil {
 		return err
 	}
 
 	return nil
 }
 
-func (m *V1NetworkFindRequest) validateSeed(formats strfmt.Registry) error {
+func (m *V1NetworkFindRequest) validateProjectid(formats strfmt.Registry) error {
 
-	if err := validate.Required("seed", "body", m.Seed); err != nil {
+	if err := validate.Required("projectid", "body", m.Projectid); err != nil {
 		return err
 	}
 

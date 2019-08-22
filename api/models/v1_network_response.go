@@ -63,12 +63,12 @@ type V1NetworkResponse struct {
 	// Required: true
 	Prefixes []string `json:"prefixes"`
 
+	// if set to true, this network will serve as a partition's super network for the internal machine networks,there can only be one privatesuper network per partition
+	// Required: true
+	Privatesuper *bool `json:"privatesuper"`
+
 	// the project id this network belongs to, can be empty if globally available
 	Projectid string `json:"projectid,omitempty"`
-
-	// if set to true, this network will serve as a partition's super network for the internal machine networks,there can only be one seed network per partition
-	// Required: true
-	Seed *bool `json:"seed"`
 
 	// if set to true, this network can be used for underlay communication
 	// Required: true
@@ -118,7 +118,7 @@ func (m *V1NetworkResponse) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validateSeed(formats); err != nil {
+	if err := m.validatePrivatesuper(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -212,9 +212,9 @@ func (m *V1NetworkResponse) validatePrefixes(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *V1NetworkResponse) validateSeed(formats strfmt.Registry) error {
+func (m *V1NetworkResponse) validatePrivatesuper(formats strfmt.Registry) error {
 
-	if err := validate.Required("seed", "body", m.Seed); err != nil {
+	if err := validate.Required("privatesuper", "body", m.Privatesuper); err != nil {
 		return err
 	}
 
