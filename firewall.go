@@ -40,7 +40,6 @@ func (d *Driver) FirewallCreate(fcr *FirewallCreateRequest) (*FirewallCreateResp
 		Name:        fcr.Name,
 		UUID:        fcr.UUID,
 		Projectid:   &fcr.Project,
-		Tenant:      &fcr.Tenant,
 		Sizeid:      &fcr.Size,
 		SSHPubKeys:  fcr.SSHPublicKeys,
 		UserData:    fcr.UserData,
@@ -83,10 +82,13 @@ func (d *Driver) FirewallList() (*FirewallListResponse, error) {
 func (d *Driver) FirewallSearch(partition, project *string) (*FirewallListResponse, error) {
 	response := &FirewallListResponse{}
 
-	searchFirewall := firewall.NewSearchFirewallParams()
-	searchFirewall.WithPartition(partition)
-	searchFirewall.WithProject(project)
-	resp, err := d.firewall.SearchFirewall(searchFirewall, d.auth)
+	findFirewalls := firewall.NewFindFirewallsParams()
+	req := &models.V1FirewallFindRequest{
+		PartitionID:       partition,
+		AllocationProject: project,
+	}
+	findFirewalls.SetBody(req)
+	resp, err := d.firewall.FindFirewalls(findFirewalls, d.auth)
 	if err != nil {
 		return response, err
 	}

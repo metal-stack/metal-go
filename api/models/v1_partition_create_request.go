@@ -29,16 +29,16 @@ type V1PartitionCreateRequest struct {
 	// Unique: true
 	ID *string `json:"id"`
 
+	// the length of internal networks for the machine groups in this partition, default 22
+	// Maximum: 30
+	// Minimum: 16
+	Machinenetworkprefixlength int32 `json:"machinenetworkprefixlength,omitempty"`
+
 	// the address to the management service of this partition
 	Mgmtserviceaddress string `json:"mgmtserviceaddress,omitempty"`
 
 	// a readable name for this entity
 	Name string `json:"name,omitempty"`
-
-	// the length of project networks for this partition, default 22
-	// Maximum: 30
-	// Minimum: 16
-	Projectnetworkprefixlength int32 `json:"projectnetworkprefixlength,omitempty"`
 }
 
 // Validate validates this v1 partition create request
@@ -53,7 +53,7 @@ func (m *V1PartitionCreateRequest) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validateProjectnetworkprefixlength(formats); err != nil {
+	if err := m.validateMachinenetworkprefixlength(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -90,17 +90,17 @@ func (m *V1PartitionCreateRequest) validateID(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *V1PartitionCreateRequest) validateProjectnetworkprefixlength(formats strfmt.Registry) error {
+func (m *V1PartitionCreateRequest) validateMachinenetworkprefixlength(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.Projectnetworkprefixlength) { // not required
+	if swag.IsZero(m.Machinenetworkprefixlength) { // not required
 		return nil
 	}
 
-	if err := validate.MinimumInt("projectnetworkprefixlength", "body", int64(m.Projectnetworkprefixlength), 16, false); err != nil {
+	if err := validate.MinimumInt("machinenetworkprefixlength", "body", int64(m.Machinenetworkprefixlength), 16, false); err != nil {
 		return err
 	}
 
-	if err := validate.MaximumInt("projectnetworkprefixlength", "body", int64(m.Projectnetworkprefixlength), 30, false); err != nil {
+	if err := validate.MaximumInt("machinenetworkprefixlength", "body", int64(m.Machinenetworkprefixlength), 30, false); err != nil {
 		return err
 	}
 

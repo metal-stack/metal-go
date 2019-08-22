@@ -25,6 +25,10 @@ type V1MachineNetwork struct {
 	// Required: true
 	Destinationprefixes []string `json:"destinationprefixes"`
 
+	// indicates whether this network is the internal network of this machine
+	// Required: true
+	Internal *bool `json:"internal"`
+
 	// the ip addresses of the allocated machine in this vrf
 	// Required: true
 	Ips []string `json:"ips"`
@@ -40,10 +44,6 @@ type V1MachineNetwork struct {
 	// the prefixes of this network
 	// Required: true
 	Prefixes []string `json:"prefixes"`
-
-	// indicates whether this network is the primary network of this machine
-	// Required: true
-	Primary *bool `json:"primary"`
 
 	// if set to true, this network can be used for underlay communication
 	// Required: true
@@ -66,6 +66,10 @@ func (m *V1MachineNetwork) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateInternal(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateIps(formats); err != nil {
 		res = append(res, err)
 	}
@@ -79,10 +83,6 @@ func (m *V1MachineNetwork) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validatePrefixes(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validatePrimary(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -112,6 +112,15 @@ func (m *V1MachineNetwork) validateAsn(formats strfmt.Registry) error {
 func (m *V1MachineNetwork) validateDestinationprefixes(formats strfmt.Registry) error {
 
 	if err := validate.Required("destinationprefixes", "body", m.Destinationprefixes); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *V1MachineNetwork) validateInternal(formats strfmt.Registry) error {
+
+	if err := validate.Required("internal", "body", m.Internal); err != nil {
 		return err
 	}
 
@@ -148,15 +157,6 @@ func (m *V1MachineNetwork) validateNetworkid(formats strfmt.Registry) error {
 func (m *V1MachineNetwork) validatePrefixes(formats strfmt.Registry) error {
 
 	if err := validate.Required("prefixes", "body", m.Prefixes); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *V1MachineNetwork) validatePrimary(formats strfmt.Registry) error {
-
-	if err := validate.Required("primary", "body", m.Primary); err != nil {
 		return err
 	}
 

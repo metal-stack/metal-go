@@ -178,7 +178,7 @@ func (d *Driver) NetworkFind(nfr *NetworkFindRequest) (*NetworkListResponse, err
 	var resp *network.FindNetworksOK
 
 	findNetworks := network.NewFindNetworksParams()
-	req := &models.V1FindNetworksRequest{
+	req := &models.V1NetworkFindRequest{
 		ID:                  nfr.ID,
 		Name:                nfr.Name,
 		Partitionid:         nfr.PartitionID,
@@ -186,11 +186,10 @@ func (d *Driver) NetworkFind(nfr *NetworkFindRequest) (*NetworkListResponse, err
 		Prefixes:            nfr.Prefixes,
 		Destinationprefixes: nfr.DestinationPrefixes,
 		Nat:                 nfr.Nat,
-		Primary:             nfr.Primary,
+		Seed:                nfr.Primary,
 		Underlay:            nfr.Underlay,
 		Vrf:                 nfr.Vrf,
 		Parentnetworkid:     nfr.ParentNetworkID,
-		Tenantid:            nfr.TenantID,
 	}
 	findNetworks.SetBody(req)
 
@@ -217,7 +216,7 @@ func (d *Driver) NetworkCreate(ncr *NetworkCreateRequest) (*NetworkDetailRespons
 		Prefixes:            ncr.Prefixes,
 		Destinationprefixes: ncr.Destinationprefixes,
 		Vrf:                 ncr.Vrf,
-		Primary:             &ncr.Primary,
+		Seed:                &ncr.Primary,
 		Projectid:           ncr.Projectid,
 		Underlay:            &ncr.Underlay,
 	}
@@ -360,7 +359,7 @@ func (d *Driver) IPFind(ifr *IPFindRequest) (*IPListResponse, error) {
 	var resp *ip.FindIpsOK
 
 	findIPs := ip.NewFindIpsParams()
-	req := &models.V1FindIpsRequest{
+	req := &models.V1IPFindRequest{
 		Ipaddress:     ifr.IPAddress,
 		Projectid:     ifr.ProjectID,
 		Networkprefix: ifr.ParentPrefixCidr,
@@ -411,9 +410,9 @@ func (d *Driver) IPAcquire(iar *IPAcquireRequest) (*IPDetailResponse, error) {
 // IPDelete releases an IP
 func (d *Driver) IPDelete(id string) (*IPDetailResponse, error) {
 	response := &IPDetailResponse{}
-	deleteIP := ip.NewDeleteIPParams()
+	deleteIP := ip.NewReleaseIPParams()
 	deleteIP.ID = id
-	resp, err := d.ip.DeleteIP(deleteIP, d.auth)
+	resp, err := d.ip.ReleaseIP(deleteIP, d.auth)
 	if err != nil {
 		return response, err
 	}

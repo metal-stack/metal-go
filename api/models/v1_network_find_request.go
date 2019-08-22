@@ -13,9 +13,9 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// V1FindNetworksRequest v1 find networks request
-// swagger:model v1.FindNetworksRequest
-type V1FindNetworksRequest struct {
+// V1NetworkFindRequest v1 network find request
+// swagger:model v1.NetworkFindRequest
+type V1NetworkFindRequest struct {
 
 	// destinationprefixes
 	// Required: true
@@ -24,6 +24,10 @@ type V1FindNetworksRequest struct {
 	// id
 	// Required: true
 	ID *string `json:"id"`
+
+	// labels
+	// Required: true
+	Labels map[string]string `json:"labels"`
 
 	// name
 	// Required: true
@@ -45,17 +49,13 @@ type V1FindNetworksRequest struct {
 	// Required: true
 	Prefixes []string `json:"prefixes"`
 
-	// primary
-	// Required: true
-	Primary *bool `json:"primary"`
-
 	// projectid
 	// Required: true
 	Projectid *string `json:"projectid"`
 
-	// tenantid
+	// seed
 	// Required: true
-	Tenantid *string `json:"tenantid"`
+	Seed *bool `json:"seed"`
 
 	// underlay
 	// Required: true
@@ -66,8 +66,8 @@ type V1FindNetworksRequest struct {
 	Vrf *int64 `json:"vrf"`
 }
 
-// Validate validates this v1 find networks request
-func (m *V1FindNetworksRequest) Validate(formats strfmt.Registry) error {
+// Validate validates this v1 network find request
+func (m *V1NetworkFindRequest) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateDestinationprefixes(formats); err != nil {
@@ -75,6 +75,10 @@ func (m *V1FindNetworksRequest) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateID(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateLabels(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -98,15 +102,11 @@ func (m *V1FindNetworksRequest) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validatePrimary(formats); err != nil {
-		res = append(res, err)
-	}
-
 	if err := m.validateProjectid(formats); err != nil {
 		res = append(res, err)
 	}
 
-	if err := m.validateTenantid(formats); err != nil {
+	if err := m.validateSeed(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -124,7 +124,7 @@ func (m *V1FindNetworksRequest) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *V1FindNetworksRequest) validateDestinationprefixes(formats strfmt.Registry) error {
+func (m *V1NetworkFindRequest) validateDestinationprefixes(formats strfmt.Registry) error {
 
 	if err := validate.Required("destinationprefixes", "body", m.Destinationprefixes); err != nil {
 		return err
@@ -133,7 +133,7 @@ func (m *V1FindNetworksRequest) validateDestinationprefixes(formats strfmt.Regis
 	return nil
 }
 
-func (m *V1FindNetworksRequest) validateID(formats strfmt.Registry) error {
+func (m *V1NetworkFindRequest) validateID(formats strfmt.Registry) error {
 
 	if err := validate.Required("id", "body", m.ID); err != nil {
 		return err
@@ -142,7 +142,12 @@ func (m *V1FindNetworksRequest) validateID(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *V1FindNetworksRequest) validateName(formats strfmt.Registry) error {
+func (m *V1NetworkFindRequest) validateLabels(formats strfmt.Registry) error {
+
+	return nil
+}
+
+func (m *V1NetworkFindRequest) validateName(formats strfmt.Registry) error {
 
 	if err := validate.Required("name", "body", m.Name); err != nil {
 		return err
@@ -151,7 +156,7 @@ func (m *V1FindNetworksRequest) validateName(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *V1FindNetworksRequest) validateNat(formats strfmt.Registry) error {
+func (m *V1NetworkFindRequest) validateNat(formats strfmt.Registry) error {
 
 	if err := validate.Required("nat", "body", m.Nat); err != nil {
 		return err
@@ -160,7 +165,7 @@ func (m *V1FindNetworksRequest) validateNat(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *V1FindNetworksRequest) validateParentnetworkid(formats strfmt.Registry) error {
+func (m *V1NetworkFindRequest) validateParentnetworkid(formats strfmt.Registry) error {
 
 	if err := validate.Required("parentnetworkid", "body", m.Parentnetworkid); err != nil {
 		return err
@@ -169,7 +174,7 @@ func (m *V1FindNetworksRequest) validateParentnetworkid(formats strfmt.Registry)
 	return nil
 }
 
-func (m *V1FindNetworksRequest) validatePartitionid(formats strfmt.Registry) error {
+func (m *V1NetworkFindRequest) validatePartitionid(formats strfmt.Registry) error {
 
 	if err := validate.Required("partitionid", "body", m.Partitionid); err != nil {
 		return err
@@ -178,7 +183,7 @@ func (m *V1FindNetworksRequest) validatePartitionid(formats strfmt.Registry) err
 	return nil
 }
 
-func (m *V1FindNetworksRequest) validatePrefixes(formats strfmt.Registry) error {
+func (m *V1NetworkFindRequest) validatePrefixes(formats strfmt.Registry) error {
 
 	if err := validate.Required("prefixes", "body", m.Prefixes); err != nil {
 		return err
@@ -187,16 +192,7 @@ func (m *V1FindNetworksRequest) validatePrefixes(formats strfmt.Registry) error 
 	return nil
 }
 
-func (m *V1FindNetworksRequest) validatePrimary(formats strfmt.Registry) error {
-
-	if err := validate.Required("primary", "body", m.Primary); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *V1FindNetworksRequest) validateProjectid(formats strfmt.Registry) error {
+func (m *V1NetworkFindRequest) validateProjectid(formats strfmt.Registry) error {
 
 	if err := validate.Required("projectid", "body", m.Projectid); err != nil {
 		return err
@@ -205,16 +201,16 @@ func (m *V1FindNetworksRequest) validateProjectid(formats strfmt.Registry) error
 	return nil
 }
 
-func (m *V1FindNetworksRequest) validateTenantid(formats strfmt.Registry) error {
+func (m *V1NetworkFindRequest) validateSeed(formats strfmt.Registry) error {
 
-	if err := validate.Required("tenantid", "body", m.Tenantid); err != nil {
+	if err := validate.Required("seed", "body", m.Seed); err != nil {
 		return err
 	}
 
 	return nil
 }
 
-func (m *V1FindNetworksRequest) validateUnderlay(formats strfmt.Registry) error {
+func (m *V1NetworkFindRequest) validateUnderlay(formats strfmt.Registry) error {
 
 	if err := validate.Required("underlay", "body", m.Underlay); err != nil {
 		return err
@@ -223,7 +219,7 @@ func (m *V1FindNetworksRequest) validateUnderlay(formats strfmt.Registry) error 
 	return nil
 }
 
-func (m *V1FindNetworksRequest) validateVrf(formats strfmt.Registry) error {
+func (m *V1NetworkFindRequest) validateVrf(formats strfmt.Registry) error {
 
 	if err := validate.Required("vrf", "body", m.Vrf); err != nil {
 		return err
@@ -233,7 +229,7 @@ func (m *V1FindNetworksRequest) validateVrf(formats strfmt.Registry) error {
 }
 
 // MarshalBinary interface implementation
-func (m *V1FindNetworksRequest) MarshalBinary() ([]byte, error) {
+func (m *V1NetworkFindRequest) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -241,8 +237,8 @@ func (m *V1FindNetworksRequest) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *V1FindNetworksRequest) UnmarshalBinary(b []byte) error {
-	var res V1FindNetworksRequest
+func (m *V1NetworkFindRequest) UnmarshalBinary(b []byte) error {
+	var res V1NetworkFindRequest
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

@@ -38,7 +38,6 @@ type MachineFindRequest struct {
 
 	// allocation
 	AllocationName      *string
-	AllocationTenant    *string
 	AllocationProject   *string
 	AllocationImageID   *string
 	AllocationHostname  *string
@@ -165,7 +164,6 @@ func (d *Driver) MachineCreate(mcr *MachineCreateRequest) (*MachineCreateRespons
 		Name:        mcr.Name,
 		UUID:        mcr.UUID,
 		Projectid:   &mcr.Project,
-		Tenant:      &mcr.Tenant,
 		Sizeid:      &mcr.Size,
 		SSHPubKeys:  mcr.SSHPublicKeys,
 		UserData:    mcr.UserData,
@@ -244,7 +242,7 @@ func (d *Driver) MachineFind(mfr *MachineFindRequest) (*MachineListResponse, err
 	var resp *machine.FindMachinesOK
 
 	findMachines := machine.NewFindMachinesParams()
-	req := &models.V1FindMachinesRequest{
+	req := &models.V1MachineFindRequest{
 		ID:                         mfr.ID,
 		Name:                       mfr.Name,
 		PartitionID:                mfr.PartitionID,
@@ -253,7 +251,6 @@ func (d *Driver) MachineFind(mfr *MachineFindRequest) (*MachineListResponse, err
 		Liveliness:                 mfr.Liveliness,
 		Tags:                       mfr.Tags,
 		AllocationName:             mfr.AllocationName,
-		AllocationTenant:           mfr.AllocationTenant,
 		AllocationProject:          mfr.AllocationProject,
 		AllocationImageID:          mfr.AllocationImageID,
 		AllocationHostname:         mfr.AllocationHostname,
@@ -263,33 +260,34 @@ func (d *Driver) MachineFind(mfr *MachineFindRequest) (*MachineListResponse, err
 		NetworkIps:                 mfr.NetworkIPs,
 		NetworkDestinationPrefixes: mfr.NetworkDestinationPrefixes,
 		NetworkVrfs:                mfr.NetworkVrfs,
-		NetworkPrimary:             mfr.NetworkPrimary,
-		NetworkAsns:                mfr.NetworkASNs,
-		NetworkNat:                 mfr.NetworkNat,
-		NetworkUnderlay:            mfr.NetworkUnderlay,
-		HardwareMemory:             mfr.HardwareMemory,
-		HardwareCPUCores:           mfr.HardwareCPUCores,
-		NicsMacAddresses:           mfr.NicsMacAddresses,
-		NicsNames:                  mfr.NicsNames,
-		NicsVrfs:                   mfr.NicsVrfs,
-		NicsNeighborMacAddresses:   mfr.NicsNeighborMacAddresses,
-		NicsNeighborNames:          mfr.NicsNeighborNames,
-		NicsNeighborVrfs:           mfr.NicsNeighborVrfs,
-		DiskNames:                  mfr.DiskNames,
-		DiskSizes:                  mfr.DiskSizes,
-		StateValue:                 mfr.StateValue,
-		IPMIAddress:                mfr.IpmiAddress,
-		IPMIMacAddress:             mfr.IpmiMacAddress,
-		IPMIUser:                   mfr.IpmiUser,
-		IPMIInterface:              mfr.IpmiInterface,
-		FruChassisPartNumber:       mfr.FruChassisPartNumber,
-		FruChassisPartSerial:       mfr.FruChassisPartSerial,
-		FruBoardMfg:                mfr.FruBoardMfg,
-		FruBoardMfgSerial:          mfr.FruBoardMfgSerial,
-		FruBoardPartNumber:         mfr.FruChassisPartNumber,
-		FruProductManufacturer:     mfr.FruProductManufacturer,
-		FruProductPartNumber:       mfr.FruProductPartNumber,
-		FruProductSerial:           mfr.FruProductSerial,
+		// FIXME
+		//NetworkPrimary:             mfr.NetworkPrimary,
+		NetworkAsns:              mfr.NetworkASNs,
+		NetworkNat:               mfr.NetworkNat,
+		NetworkUnderlay:          mfr.NetworkUnderlay,
+		HardwareMemory:           mfr.HardwareMemory,
+		HardwareCPUCores:         mfr.HardwareCPUCores,
+		NicsMacAddresses:         mfr.NicsMacAddresses,
+		NicsNames:                mfr.NicsNames,
+		NicsVrfs:                 mfr.NicsVrfs,
+		NicsNeighborMacAddresses: mfr.NicsNeighborMacAddresses,
+		NicsNeighborNames:        mfr.NicsNeighborNames,
+		NicsNeighborVrfs:         mfr.NicsNeighborVrfs,
+		DiskNames:                mfr.DiskNames,
+		DiskSizes:                mfr.DiskSizes,
+		StateValue:               mfr.StateValue,
+		IPMIAddress:              mfr.IpmiAddress,
+		IPMIMacAddress:           mfr.IpmiMacAddress,
+		IPMIUser:                 mfr.IpmiUser,
+		IPMIInterface:            mfr.IpmiInterface,
+		FruChassisPartNumber:     mfr.FruChassisPartNumber,
+		FruChassisPartSerial:     mfr.FruChassisPartSerial,
+		FruBoardMfg:              mfr.FruBoardMfg,
+		FruBoardMfgSerial:        mfr.FruBoardMfgSerial,
+		FruBoardPartNumber:       mfr.FruChassisPartNumber,
+		FruProductManufacturer:   mfr.FruProductManufacturer,
+		FruProductPartNumber:     mfr.FruProductPartNumber,
+		FruProductSerial:         mfr.FruProductSerial,
 	}
 	findMachines.SetBody(req)
 

@@ -83,6 +83,35 @@ func (a *Client) FindFirewall(params *FindFirewallParams, authInfo runtime.Clien
 }
 
 /*
+FindFirewalls finds firewalls by multiple criteria
+*/
+func (a *Client) FindFirewalls(params *FindFirewallsParams, authInfo runtime.ClientAuthInfoWriter) (*FindFirewallsOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewFindFirewallsParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "findFirewalls",
+		Method:             "GET",
+		PathPattern:        "/v1/firewall/find",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &FindFirewallsReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*FindFirewallsOK), nil
+
+}
+
+/*
 ListFirewalls gets all known firewalls
 */
 func (a *Client) ListFirewalls(params *ListFirewallsParams, authInfo runtime.ClientAuthInfoWriter) (*ListFirewallsOK, error) {
@@ -108,35 +137,6 @@ func (a *Client) ListFirewalls(params *ListFirewallsParams, authInfo runtime.Cli
 		return nil, err
 	}
 	return result.(*ListFirewallsOK), nil
-
-}
-
-/*
-SearchFirewall searches firewalls
-*/
-func (a *Client) SearchFirewall(params *SearchFirewallParams, authInfo runtime.ClientAuthInfoWriter) (*SearchFirewallOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewSearchFirewallParams()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "searchFirewall",
-		Method:             "GET",
-		PathPattern:        "/v1/firewall/find",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
-		Params:             params,
-		Reader:             &SearchFirewallReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	return result.(*SearchFirewallOK), nil
 
 }
 

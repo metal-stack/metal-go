@@ -13,9 +13,9 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// V1FindMachinesRequest v1 find machines request
-// swagger:model v1.FindMachinesRequest
-type V1FindMachinesRequest struct {
+// V1MachineFindRequest v1 machine find request
+// swagger:model v1.MachineFindRequest
+type V1MachineFindRequest struct {
 
 	// allocation hostname
 	// Required: true
@@ -36,10 +36,6 @@ type V1FindMachinesRequest struct {
 	// allocation succeeded
 	// Required: true
 	AllocationSucceeded *bool `json:"allocation_succeeded"`
-
-	// allocation tenant
-	// Required: true
-	AllocationTenant *string `json:"allocation_tenant"`
 
 	// disk names
 	// Required: true
@@ -129,6 +125,10 @@ type V1FindMachinesRequest struct {
 	// Required: true
 	NetworkIds []string `json:"network_ids"`
 
+	// network internal
+	// Required: true
+	NetworkInternal *bool `json:"network_internal"`
+
 	// network ips
 	// Required: true
 	NetworkIps []string `json:"network_ips"`
@@ -140,10 +140,6 @@ type V1FindMachinesRequest struct {
 	// network prefixes
 	// Required: true
 	NetworkPrefixes []string `json:"network_prefixes"`
-
-	// network primary
-	// Required: true
-	NetworkPrimary *bool `json:"network_primary"`
 
 	// network underlay
 	// Required: true
@@ -198,8 +194,8 @@ type V1FindMachinesRequest struct {
 	Tags []string `json:"tags"`
 }
 
-// Validate validates this v1 find machines request
-func (m *V1FindMachinesRequest) Validate(formats strfmt.Registry) error {
+// Validate validates this v1 machine find request
+func (m *V1MachineFindRequest) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateAllocationHostname(formats); err != nil {
@@ -219,10 +215,6 @@ func (m *V1FindMachinesRequest) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateAllocationSucceeded(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateAllocationTenant(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -314,6 +306,10 @@ func (m *V1FindMachinesRequest) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateNetworkInternal(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateNetworkIps(formats); err != nil {
 		res = append(res, err)
 	}
@@ -323,10 +319,6 @@ func (m *V1FindMachinesRequest) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateNetworkPrefixes(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateNetworkPrimary(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -388,7 +380,7 @@ func (m *V1FindMachinesRequest) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *V1FindMachinesRequest) validateAllocationHostname(formats strfmt.Registry) error {
+func (m *V1MachineFindRequest) validateAllocationHostname(formats strfmt.Registry) error {
 
 	if err := validate.Required("allocation_hostname", "body", m.AllocationHostname); err != nil {
 		return err
@@ -397,7 +389,7 @@ func (m *V1FindMachinesRequest) validateAllocationHostname(formats strfmt.Regist
 	return nil
 }
 
-func (m *V1FindMachinesRequest) validateAllocationImageID(formats strfmt.Registry) error {
+func (m *V1MachineFindRequest) validateAllocationImageID(formats strfmt.Registry) error {
 
 	if err := validate.Required("allocation_image_id", "body", m.AllocationImageID); err != nil {
 		return err
@@ -406,7 +398,7 @@ func (m *V1FindMachinesRequest) validateAllocationImageID(formats strfmt.Registr
 	return nil
 }
 
-func (m *V1FindMachinesRequest) validateAllocationName(formats strfmt.Registry) error {
+func (m *V1MachineFindRequest) validateAllocationName(formats strfmt.Registry) error {
 
 	if err := validate.Required("allocation_name", "body", m.AllocationName); err != nil {
 		return err
@@ -415,7 +407,7 @@ func (m *V1FindMachinesRequest) validateAllocationName(formats strfmt.Registry) 
 	return nil
 }
 
-func (m *V1FindMachinesRequest) validateAllocationProject(formats strfmt.Registry) error {
+func (m *V1MachineFindRequest) validateAllocationProject(formats strfmt.Registry) error {
 
 	if err := validate.Required("allocation_project", "body", m.AllocationProject); err != nil {
 		return err
@@ -424,7 +416,7 @@ func (m *V1FindMachinesRequest) validateAllocationProject(formats strfmt.Registr
 	return nil
 }
 
-func (m *V1FindMachinesRequest) validateAllocationSucceeded(formats strfmt.Registry) error {
+func (m *V1MachineFindRequest) validateAllocationSucceeded(formats strfmt.Registry) error {
 
 	if err := validate.Required("allocation_succeeded", "body", m.AllocationSucceeded); err != nil {
 		return err
@@ -433,16 +425,7 @@ func (m *V1FindMachinesRequest) validateAllocationSucceeded(formats strfmt.Regis
 	return nil
 }
 
-func (m *V1FindMachinesRequest) validateAllocationTenant(formats strfmt.Registry) error {
-
-	if err := validate.Required("allocation_tenant", "body", m.AllocationTenant); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *V1FindMachinesRequest) validateDiskNames(formats strfmt.Registry) error {
+func (m *V1MachineFindRequest) validateDiskNames(formats strfmt.Registry) error {
 
 	if err := validate.Required("disk_names", "body", m.DiskNames); err != nil {
 		return err
@@ -451,7 +434,7 @@ func (m *V1FindMachinesRequest) validateDiskNames(formats strfmt.Registry) error
 	return nil
 }
 
-func (m *V1FindMachinesRequest) validateDiskSizes(formats strfmt.Registry) error {
+func (m *V1MachineFindRequest) validateDiskSizes(formats strfmt.Registry) error {
 
 	if err := validate.Required("disk_sizes", "body", m.DiskSizes); err != nil {
 		return err
@@ -460,7 +443,7 @@ func (m *V1FindMachinesRequest) validateDiskSizes(formats strfmt.Registry) error
 	return nil
 }
 
-func (m *V1FindMachinesRequest) validateFruBoardMfg(formats strfmt.Registry) error {
+func (m *V1MachineFindRequest) validateFruBoardMfg(formats strfmt.Registry) error {
 
 	if err := validate.Required("fru_board_mfg", "body", m.FruBoardMfg); err != nil {
 		return err
@@ -469,7 +452,7 @@ func (m *V1FindMachinesRequest) validateFruBoardMfg(formats strfmt.Registry) err
 	return nil
 }
 
-func (m *V1FindMachinesRequest) validateFruBoardMfgSerial(formats strfmt.Registry) error {
+func (m *V1MachineFindRequest) validateFruBoardMfgSerial(formats strfmt.Registry) error {
 
 	if err := validate.Required("fru_board_mfg_serial", "body", m.FruBoardMfgSerial); err != nil {
 		return err
@@ -478,7 +461,7 @@ func (m *V1FindMachinesRequest) validateFruBoardMfgSerial(formats strfmt.Registr
 	return nil
 }
 
-func (m *V1FindMachinesRequest) validateFruBoardPartNumber(formats strfmt.Registry) error {
+func (m *V1MachineFindRequest) validateFruBoardPartNumber(formats strfmt.Registry) error {
 
 	if err := validate.Required("fru_board_part_number", "body", m.FruBoardPartNumber); err != nil {
 		return err
@@ -487,7 +470,7 @@ func (m *V1FindMachinesRequest) validateFruBoardPartNumber(formats strfmt.Regist
 	return nil
 }
 
-func (m *V1FindMachinesRequest) validateFruChassisPartNumber(formats strfmt.Registry) error {
+func (m *V1MachineFindRequest) validateFruChassisPartNumber(formats strfmt.Registry) error {
 
 	if err := validate.Required("fru_chassis_part_number", "body", m.FruChassisPartNumber); err != nil {
 		return err
@@ -496,7 +479,7 @@ func (m *V1FindMachinesRequest) validateFruChassisPartNumber(formats strfmt.Regi
 	return nil
 }
 
-func (m *V1FindMachinesRequest) validateFruChassisPartSerial(formats strfmt.Registry) error {
+func (m *V1MachineFindRequest) validateFruChassisPartSerial(formats strfmt.Registry) error {
 
 	if err := validate.Required("fru_chassis_part_serial", "body", m.FruChassisPartSerial); err != nil {
 		return err
@@ -505,7 +488,7 @@ func (m *V1FindMachinesRequest) validateFruChassisPartSerial(formats strfmt.Regi
 	return nil
 }
 
-func (m *V1FindMachinesRequest) validateFruProductManufacturer(formats strfmt.Registry) error {
+func (m *V1MachineFindRequest) validateFruProductManufacturer(formats strfmt.Registry) error {
 
 	if err := validate.Required("fru_product_manufacturer", "body", m.FruProductManufacturer); err != nil {
 		return err
@@ -514,7 +497,7 @@ func (m *V1FindMachinesRequest) validateFruProductManufacturer(formats strfmt.Re
 	return nil
 }
 
-func (m *V1FindMachinesRequest) validateFruProductPartNumber(formats strfmt.Registry) error {
+func (m *V1MachineFindRequest) validateFruProductPartNumber(formats strfmt.Registry) error {
 
 	if err := validate.Required("fru_product_part_number", "body", m.FruProductPartNumber); err != nil {
 		return err
@@ -523,7 +506,7 @@ func (m *V1FindMachinesRequest) validateFruProductPartNumber(formats strfmt.Regi
 	return nil
 }
 
-func (m *V1FindMachinesRequest) validateFruProductSerial(formats strfmt.Registry) error {
+func (m *V1MachineFindRequest) validateFruProductSerial(formats strfmt.Registry) error {
 
 	if err := validate.Required("fru_product_serial", "body", m.FruProductSerial); err != nil {
 		return err
@@ -532,7 +515,7 @@ func (m *V1FindMachinesRequest) validateFruProductSerial(formats strfmt.Registry
 	return nil
 }
 
-func (m *V1FindMachinesRequest) validateHardwareCPUCores(formats strfmt.Registry) error {
+func (m *V1MachineFindRequest) validateHardwareCPUCores(formats strfmt.Registry) error {
 
 	if err := validate.Required("hardware_cpu_cores", "body", m.HardwareCPUCores); err != nil {
 		return err
@@ -541,7 +524,7 @@ func (m *V1FindMachinesRequest) validateHardwareCPUCores(formats strfmt.Registry
 	return nil
 }
 
-func (m *V1FindMachinesRequest) validateHardwareMemory(formats strfmt.Registry) error {
+func (m *V1MachineFindRequest) validateHardwareMemory(formats strfmt.Registry) error {
 
 	if err := validate.Required("hardware_memory", "body", m.HardwareMemory); err != nil {
 		return err
@@ -550,7 +533,7 @@ func (m *V1FindMachinesRequest) validateHardwareMemory(formats strfmt.Registry) 
 	return nil
 }
 
-func (m *V1FindMachinesRequest) validateID(formats strfmt.Registry) error {
+func (m *V1MachineFindRequest) validateID(formats strfmt.Registry) error {
 
 	if err := validate.Required("id", "body", m.ID); err != nil {
 		return err
@@ -559,7 +542,7 @@ func (m *V1FindMachinesRequest) validateID(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *V1FindMachinesRequest) validateIPMIAddress(formats strfmt.Registry) error {
+func (m *V1MachineFindRequest) validateIPMIAddress(formats strfmt.Registry) error {
 
 	if err := validate.Required("ipmi_address", "body", m.IPMIAddress); err != nil {
 		return err
@@ -568,7 +551,7 @@ func (m *V1FindMachinesRequest) validateIPMIAddress(formats strfmt.Registry) err
 	return nil
 }
 
-func (m *V1FindMachinesRequest) validateIPMIInterface(formats strfmt.Registry) error {
+func (m *V1MachineFindRequest) validateIPMIInterface(formats strfmt.Registry) error {
 
 	if err := validate.Required("ipmi_interface", "body", m.IPMIInterface); err != nil {
 		return err
@@ -577,7 +560,7 @@ func (m *V1FindMachinesRequest) validateIPMIInterface(formats strfmt.Registry) e
 	return nil
 }
 
-func (m *V1FindMachinesRequest) validateIPMIMacAddress(formats strfmt.Registry) error {
+func (m *V1MachineFindRequest) validateIPMIMacAddress(formats strfmt.Registry) error {
 
 	if err := validate.Required("ipmi_mac_address", "body", m.IPMIMacAddress); err != nil {
 		return err
@@ -586,7 +569,7 @@ func (m *V1FindMachinesRequest) validateIPMIMacAddress(formats strfmt.Registry) 
 	return nil
 }
 
-func (m *V1FindMachinesRequest) validateIPMIUser(formats strfmt.Registry) error {
+func (m *V1MachineFindRequest) validateIPMIUser(formats strfmt.Registry) error {
 
 	if err := validate.Required("ipmi_user", "body", m.IPMIUser); err != nil {
 		return err
@@ -595,7 +578,7 @@ func (m *V1FindMachinesRequest) validateIPMIUser(formats strfmt.Registry) error 
 	return nil
 }
 
-func (m *V1FindMachinesRequest) validateLiveliness(formats strfmt.Registry) error {
+func (m *V1MachineFindRequest) validateLiveliness(formats strfmt.Registry) error {
 
 	if err := validate.Required("liveliness", "body", m.Liveliness); err != nil {
 		return err
@@ -604,7 +587,7 @@ func (m *V1FindMachinesRequest) validateLiveliness(formats strfmt.Registry) erro
 	return nil
 }
 
-func (m *V1FindMachinesRequest) validateName(formats strfmt.Registry) error {
+func (m *V1MachineFindRequest) validateName(formats strfmt.Registry) error {
 
 	if err := validate.Required("name", "body", m.Name); err != nil {
 		return err
@@ -613,7 +596,7 @@ func (m *V1FindMachinesRequest) validateName(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *V1FindMachinesRequest) validateNetworkAsns(formats strfmt.Registry) error {
+func (m *V1MachineFindRequest) validateNetworkAsns(formats strfmt.Registry) error {
 
 	if err := validate.Required("network_asns", "body", m.NetworkAsns); err != nil {
 		return err
@@ -622,7 +605,7 @@ func (m *V1FindMachinesRequest) validateNetworkAsns(formats strfmt.Registry) err
 	return nil
 }
 
-func (m *V1FindMachinesRequest) validateNetworkDestinationPrefixes(formats strfmt.Registry) error {
+func (m *V1MachineFindRequest) validateNetworkDestinationPrefixes(formats strfmt.Registry) error {
 
 	if err := validate.Required("network_destination_prefixes", "body", m.NetworkDestinationPrefixes); err != nil {
 		return err
@@ -631,7 +614,7 @@ func (m *V1FindMachinesRequest) validateNetworkDestinationPrefixes(formats strfm
 	return nil
 }
 
-func (m *V1FindMachinesRequest) validateNetworkIds(formats strfmt.Registry) error {
+func (m *V1MachineFindRequest) validateNetworkIds(formats strfmt.Registry) error {
 
 	if err := validate.Required("network_ids", "body", m.NetworkIds); err != nil {
 		return err
@@ -640,7 +623,16 @@ func (m *V1FindMachinesRequest) validateNetworkIds(formats strfmt.Registry) erro
 	return nil
 }
 
-func (m *V1FindMachinesRequest) validateNetworkIps(formats strfmt.Registry) error {
+func (m *V1MachineFindRequest) validateNetworkInternal(formats strfmt.Registry) error {
+
+	if err := validate.Required("network_internal", "body", m.NetworkInternal); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *V1MachineFindRequest) validateNetworkIps(formats strfmt.Registry) error {
 
 	if err := validate.Required("network_ips", "body", m.NetworkIps); err != nil {
 		return err
@@ -649,7 +641,7 @@ func (m *V1FindMachinesRequest) validateNetworkIps(formats strfmt.Registry) erro
 	return nil
 }
 
-func (m *V1FindMachinesRequest) validateNetworkNat(formats strfmt.Registry) error {
+func (m *V1MachineFindRequest) validateNetworkNat(formats strfmt.Registry) error {
 
 	if err := validate.Required("network_nat", "body", m.NetworkNat); err != nil {
 		return err
@@ -658,7 +650,7 @@ func (m *V1FindMachinesRequest) validateNetworkNat(formats strfmt.Registry) erro
 	return nil
 }
 
-func (m *V1FindMachinesRequest) validateNetworkPrefixes(formats strfmt.Registry) error {
+func (m *V1MachineFindRequest) validateNetworkPrefixes(formats strfmt.Registry) error {
 
 	if err := validate.Required("network_prefixes", "body", m.NetworkPrefixes); err != nil {
 		return err
@@ -667,16 +659,7 @@ func (m *V1FindMachinesRequest) validateNetworkPrefixes(formats strfmt.Registry)
 	return nil
 }
 
-func (m *V1FindMachinesRequest) validateNetworkPrimary(formats strfmt.Registry) error {
-
-	if err := validate.Required("network_primary", "body", m.NetworkPrimary); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *V1FindMachinesRequest) validateNetworkUnderlay(formats strfmt.Registry) error {
+func (m *V1MachineFindRequest) validateNetworkUnderlay(formats strfmt.Registry) error {
 
 	if err := validate.Required("network_underlay", "body", m.NetworkUnderlay); err != nil {
 		return err
@@ -685,7 +668,7 @@ func (m *V1FindMachinesRequest) validateNetworkUnderlay(formats strfmt.Registry)
 	return nil
 }
 
-func (m *V1FindMachinesRequest) validateNetworkVrfs(formats strfmt.Registry) error {
+func (m *V1MachineFindRequest) validateNetworkVrfs(formats strfmt.Registry) error {
 
 	if err := validate.Required("network_vrfs", "body", m.NetworkVrfs); err != nil {
 		return err
@@ -694,7 +677,7 @@ func (m *V1FindMachinesRequest) validateNetworkVrfs(formats strfmt.Registry) err
 	return nil
 }
 
-func (m *V1FindMachinesRequest) validateNicsMacAddresses(formats strfmt.Registry) error {
+func (m *V1MachineFindRequest) validateNicsMacAddresses(formats strfmt.Registry) error {
 
 	if err := validate.Required("nics_mac_addresses", "body", m.NicsMacAddresses); err != nil {
 		return err
@@ -703,7 +686,7 @@ func (m *V1FindMachinesRequest) validateNicsMacAddresses(formats strfmt.Registry
 	return nil
 }
 
-func (m *V1FindMachinesRequest) validateNicsNames(formats strfmt.Registry) error {
+func (m *V1MachineFindRequest) validateNicsNames(formats strfmt.Registry) error {
 
 	if err := validate.Required("nics_names", "body", m.NicsNames); err != nil {
 		return err
@@ -712,7 +695,7 @@ func (m *V1FindMachinesRequest) validateNicsNames(formats strfmt.Registry) error
 	return nil
 }
 
-func (m *V1FindMachinesRequest) validateNicsNeighborMacAddresses(formats strfmt.Registry) error {
+func (m *V1MachineFindRequest) validateNicsNeighborMacAddresses(formats strfmt.Registry) error {
 
 	if err := validate.Required("nics_neighbor_mac_addresses", "body", m.NicsNeighborMacAddresses); err != nil {
 		return err
@@ -721,7 +704,7 @@ func (m *V1FindMachinesRequest) validateNicsNeighborMacAddresses(formats strfmt.
 	return nil
 }
 
-func (m *V1FindMachinesRequest) validateNicsNeighborNames(formats strfmt.Registry) error {
+func (m *V1MachineFindRequest) validateNicsNeighborNames(formats strfmt.Registry) error {
 
 	if err := validate.Required("nics_neighbor_names", "body", m.NicsNeighborNames); err != nil {
 		return err
@@ -730,7 +713,7 @@ func (m *V1FindMachinesRequest) validateNicsNeighborNames(formats strfmt.Registr
 	return nil
 }
 
-func (m *V1FindMachinesRequest) validateNicsNeighborVrfs(formats strfmt.Registry) error {
+func (m *V1MachineFindRequest) validateNicsNeighborVrfs(formats strfmt.Registry) error {
 
 	if err := validate.Required("nics_neighbor_vrfs", "body", m.NicsNeighborVrfs); err != nil {
 		return err
@@ -739,7 +722,7 @@ func (m *V1FindMachinesRequest) validateNicsNeighborVrfs(formats strfmt.Registry
 	return nil
 }
 
-func (m *V1FindMachinesRequest) validateNicsVrfs(formats strfmt.Registry) error {
+func (m *V1MachineFindRequest) validateNicsVrfs(formats strfmt.Registry) error {
 
 	if err := validate.Required("nics_vrfs", "body", m.NicsVrfs); err != nil {
 		return err
@@ -748,7 +731,7 @@ func (m *V1FindMachinesRequest) validateNicsVrfs(formats strfmt.Registry) error 
 	return nil
 }
 
-func (m *V1FindMachinesRequest) validatePartitionID(formats strfmt.Registry) error {
+func (m *V1MachineFindRequest) validatePartitionID(formats strfmt.Registry) error {
 
 	if err := validate.Required("partition_id", "body", m.PartitionID); err != nil {
 		return err
@@ -757,7 +740,7 @@ func (m *V1FindMachinesRequest) validatePartitionID(formats strfmt.Registry) err
 	return nil
 }
 
-func (m *V1FindMachinesRequest) validateRackid(formats strfmt.Registry) error {
+func (m *V1MachineFindRequest) validateRackid(formats strfmt.Registry) error {
 
 	if err := validate.Required("rackid", "body", m.Rackid); err != nil {
 		return err
@@ -766,7 +749,7 @@ func (m *V1FindMachinesRequest) validateRackid(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *V1FindMachinesRequest) validateSizeid(formats strfmt.Registry) error {
+func (m *V1MachineFindRequest) validateSizeid(formats strfmt.Registry) error {
 
 	if err := validate.Required("sizeid", "body", m.Sizeid); err != nil {
 		return err
@@ -775,7 +758,7 @@ func (m *V1FindMachinesRequest) validateSizeid(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *V1FindMachinesRequest) validateStateValue(formats strfmt.Registry) error {
+func (m *V1MachineFindRequest) validateStateValue(formats strfmt.Registry) error {
 
 	if err := validate.Required("state_value", "body", m.StateValue); err != nil {
 		return err
@@ -784,7 +767,7 @@ func (m *V1FindMachinesRequest) validateStateValue(formats strfmt.Registry) erro
 	return nil
 }
 
-func (m *V1FindMachinesRequest) validateTags(formats strfmt.Registry) error {
+func (m *V1MachineFindRequest) validateTags(formats strfmt.Registry) error {
 
 	if err := validate.Required("tags", "body", m.Tags); err != nil {
 		return err
@@ -794,7 +777,7 @@ func (m *V1FindMachinesRequest) validateTags(formats strfmt.Registry) error {
 }
 
 // MarshalBinary interface implementation
-func (m *V1FindMachinesRequest) MarshalBinary() ([]byte, error) {
+func (m *V1MachineFindRequest) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -802,8 +785,8 @@ func (m *V1FindMachinesRequest) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *V1FindMachinesRequest) UnmarshalBinary(b []byte) error {
-	var res V1FindMachinesRequest
+func (m *V1MachineFindRequest) UnmarshalBinary(b []byte) error {
+	var res V1MachineFindRequest
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}
