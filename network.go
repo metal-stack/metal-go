@@ -250,8 +250,8 @@ func (d *Driver) NetworkCreate(ncr *NetworkCreateRequest) (*NetworkDetailRespons
 	return response, nil
 }
 
-// NetworkAqcuire creates a new network
-func (d *Driver) NetworkAqcuire(ncr *NetworkAcquireRequest) (*NetworkDetailResponse, error) {
+// NetworkAcquire creates a new network
+func (d *Driver) NetworkAcquire(ncr *NetworkAcquireRequest) (*NetworkDetailResponse, error) {
 	response := &NetworkDetailResponse{}
 	acquireNetwork := network.NewAcquireChildNetworkParams()
 
