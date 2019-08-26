@@ -25,8 +25,8 @@ type AcquireChildNetworkReader struct {
 func (o *AcquireChildNetworkReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
 
-	case 200:
-		result := NewAcquireChildNetworkOK()
+	case 201:
+		result := NewAcquireChildNetworkCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -51,24 +51,24 @@ func (o *AcquireChildNetworkReader) ReadResponse(response runtime.ClientResponse
 	}
 }
 
-// NewAcquireChildNetworkOK creates a AcquireChildNetworkOK with default headers values
-func NewAcquireChildNetworkOK() *AcquireChildNetworkOK {
-	return &AcquireChildNetworkOK{}
+// NewAcquireChildNetworkCreated creates a AcquireChildNetworkCreated with default headers values
+func NewAcquireChildNetworkCreated() *AcquireChildNetworkCreated {
+	return &AcquireChildNetworkCreated{}
 }
 
-/*AcquireChildNetworkOK handles this case with default header values.
+/*AcquireChildNetworkCreated handles this case with default header values.
 
-OK
+Created
 */
-type AcquireChildNetworkOK struct {
+type AcquireChildNetworkCreated struct {
 	Payload *models.V1NetworkResponse
 }
 
-func (o *AcquireChildNetworkOK) Error() string {
-	return fmt.Sprintf("[POST /v1/network/acquire][%d] acquireChildNetworkOK  %+v", 200, o.Payload)
+func (o *AcquireChildNetworkCreated) Error() string {
+	return fmt.Sprintf("[POST /v1/network/acquire][%d] acquireChildNetworkCreated  %+v", 201, o.Payload)
 }
 
-func (o *AcquireChildNetworkOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *AcquireChildNetworkCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.V1NetworkResponse)
 

@@ -13,7 +13,7 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// V1IPFindRequest an ip address that can be attached to a machine
+// V1IPFindRequest v1 IP find request
 // swagger:model v1.IPFindRequest
 type V1IPFindRequest struct {
 

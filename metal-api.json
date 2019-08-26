@@ -1718,8 +1718,8 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK",
+          "201": {
+            "description": "Created",
             "schema": {
               "$ref": "#/definitions/v1.NetworkResponse"
             }
@@ -2857,10 +2857,10 @@
     "v1.EmptyBody": {},
     "v1.FirewallCreateRequest": {
       "required": [
-        "projectid",
         "partitionid",
-        "imageid",
         "sizeid",
+        "projectid",
+        "imageid",
         "ssh_pub_keys"
       ],
       "properties": {
@@ -2936,50 +2936,50 @@
     },
     "v1.FirewallFindRequest": {
       "required": [
-        "nics_neighbor_names",
+        "network_private",
+        "network_underlay",
+        "network_prefixes",
+        "ipmi_mac_address",
+        "network_ips",
+        "fru_board_mfg_serial",
+        "nics_vrfs",
+        "partition_id",
         "disk_sizes",
         "state_value",
-        "fru_product_manufacturer",
-        "network_ids",
-        "hardware_cpu_cores",
-        "disk_names",
-        "fru_board_mfg_serial",
-        "fru_product_part_number",
-        "fru_product_serial",
-        "network_underlay",
-        "nics_names",
-        "allocation_succeeded",
-        "network_destination_prefixes",
-        "fru_chassis_part_serial",
-        "tags",
-        "allocation_image_id",
-        "fru_board_mfg",
-        "network_ips",
-        "nics_neighbor_vrfs",
         "hardware_memory",
-        "nics_vrfs",
-        "ipmi_interface",
-        "fru_board_part_number",
-        "name",
-        "network_vrfs",
-        "allocation_hostname",
-        "network_private",
-        "network_nat",
-        "id",
-        "rackid",
-        "allocation_name",
-        "nics_mac_addresses",
-        "ipmi_address",
+        "fru_product_part_number",
         "ipmi_user",
-        "fru_chassis_part_number",
+        "allocation_image_id",
         "sizeid",
-        "liveliness",
-        "network_prefixes",
+        "allocation_hostname",
+        "nics_mac_addresses",
+        "hardware_cpu_cores",
+        "network_destination_prefixes",
         "network_asns",
+        "rackid",
+        "network_vrfs",
+        "network_nat",
+        "name",
+        "id",
+        "fru_board_part_number",
+        "nics_names",
+        "allocation_project",
+        "nics_neighbor_vrfs",
+        "disk_names",
+        "liveliness",
+        "fru_chassis_part_serial",
+        "allocation_succeeded",
+        "ipmi_interface",
+        "tags",
+        "allocation_name",
         "nics_neighbor_mac_addresses",
-        "ipmi_mac_address",
-        "partition_id",
-        "allocation_project"
+        "nics_neighbor_names",
+        "ipmi_address",
+        "fru_product_serial",
+        "fru_board_mfg",
+        "fru_chassis_part_number",
+        "fru_product_manufacturer",
+        "network_ids"
       ],
       "properties": {
         "allocation_hostname": {
@@ -3165,19 +3165,19 @@
     },
     "v1.FirewallResponse": {
       "required": [
-        "size",
-        "tags",
-        "state",
-        "partition",
-        "hardware",
-        "ledstate",
-        "changed",
         "created",
+        "changed",
+        "size",
+        "hardware",
+        "allocation",
+        "rackid",
+        "ledstate",
+        "partition",
+        "events",
         "id",
         "liveliness",
-        "events",
-        "rackid",
-        "allocation"
+        "state",
+        "tags"
       ],
       "properties": {
         "allocation": {
@@ -3278,7 +3278,6 @@
       }
     },
     "v1.IPFindRequest": {
-      "description": "an ip address that can be attached to a machine",
       "required": [
         "ipaddress",
         "networkprefix",
@@ -3311,12 +3310,12 @@
     },
     "v1.IPResponse": {
       "required": [
-        "networkid",
         "projectid",
+        "networkid",
         "ipaddress",
         "machineid",
-        "changed",
-        "created"
+        "created",
+        "changed"
       ],
       "properties": {
         "changed": {
@@ -3676,50 +3675,50 @@
     },
     "v1.MachineFindRequest": {
       "required": [
-        "id",
-        "name",
-        "partition_id",
+        "network_destination_prefixes",
+        "network_nat",
+        "hardware_memory",
+        "ipmi_address",
+        "ipmi_interface",
         "sizeid",
         "rackid",
-        "liveliness",
-        "tags",
-        "allocation_name",
-        "allocation_project",
-        "allocation_image_id",
-        "allocation_hostname",
-        "allocation_succeeded",
-        "network_ids",
         "network_prefixes",
-        "network_ips",
-        "network_destination_prefixes",
+        "fru_board_mfg",
+        "fru_board_part_number",
+        "allocation_project",
         "network_vrfs",
-        "network_private",
-        "network_asns",
-        "network_nat",
-        "network_underlay",
-        "hardware_memory",
-        "hardware_cpu_cores",
+        "ipmi_mac_address",
+        "tags",
         "nics_mac_addresses",
-        "nics_names",
         "nics_vrfs",
-        "nics_neighbor_mac_addresses",
+        "nics_names",
+        "disk_sizes",
+        "ipmi_user",
+        "partition_id",
+        "allocation_succeeded",
+        "network_private",
+        "state_value",
+        "network_ids",
+        "network_underlay",
+        "hardware_cpu_cores",
+        "fru_chassis_part_number",
+        "fru_product_serial",
+        "liveliness",
+        "network_asns",
         "nics_neighbor_names",
         "nics_neighbor_vrfs",
         "disk_names",
-        "disk_sizes",
-        "state_value",
-        "ipmi_address",
-        "ipmi_mac_address",
-        "ipmi_user",
-        "ipmi_interface",
-        "fru_chassis_part_number",
         "fru_chassis_part_serial",
-        "fru_board_mfg",
         "fru_board_mfg_serial",
-        "fru_board_part_number",
         "fru_product_manufacturer",
+        "id",
+        "name",
+        "allocation_image_id",
         "fru_product_part_number",
-        "fru_product_serial"
+        "nics_neighbor_mac_addresses",
+        "allocation_name",
+        "allocation_hostname",
+        "network_ips"
       ],
       "properties": {
         "allocation_hostname": {
@@ -3975,9 +3974,9 @@
     },
     "v1.MachineHardwareExtended": {
       "required": [
-        "memory",
         "cpu_cores",
         "disks",
+        "memory",
         "nics"
       ],
       "properties": {
@@ -4252,16 +4251,16 @@
     "v1.MachineResponse": {
       "required": [
         "id",
-        "liveliness",
         "size",
-        "rackid",
         "hardware",
-        "allocation",
         "state",
-        "ledstate",
-        "events",
         "tags",
         "partition",
+        "rackid",
+        "allocation",
+        "ledstate",
+        "liveliness",
+        "events",
         "created",
         "changed"
       ],
@@ -4389,12 +4388,12 @@
       "required": [
         "id",
         "labels",
+        "parentnetworkid",
+        "prefixes",
         "destinationprefixes",
         "nat",
         "privatesuper",
-        "underlay",
-        "parentnetworkid",
-        "prefixes"
+        "underlay"
       ],
       "properties": {
         "description": {
@@ -4464,18 +4463,18 @@
     },
     "v1.NetworkFindRequest": {
       "required": [
-        "id",
-        "name",
-        "partitionid",
-        "projectid",
-        "prefixes",
         "destinationprefixes",
-        "nat",
         "privatesuper",
         "underlay",
+        "partitionid",
+        "name",
+        "projectid",
+        "prefixes",
+        "nat",
         "vrf",
         "parentnetworkid",
-        "labels"
+        "labels",
+        "id"
       ],
       "properties": {
         "destinationprefixes": {
@@ -5069,8 +5068,8 @@
       "required": [
         "id",
         "constraints",
-        "created",
-        "changed"
+        "changed",
+        "created"
       ],
       "properties": {
         "changed": {

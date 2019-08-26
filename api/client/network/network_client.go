@@ -27,7 +27,7 @@ type Client struct {
 /*
 AcquireChildNetwork acquires a child network from a partition s private super network
 */
-func (a *Client) AcquireChildNetwork(params *AcquireChildNetworkParams, authInfo runtime.ClientAuthInfoWriter) (*AcquireChildNetworkOK, error) {
+func (a *Client) AcquireChildNetwork(params *AcquireChildNetworkParams, authInfo runtime.ClientAuthInfoWriter) (*AcquireChildNetworkCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewAcquireChildNetworkParams()
@@ -49,7 +49,7 @@ func (a *Client) AcquireChildNetwork(params *AcquireChildNetworkParams, authInfo
 	if err != nil {
 		return nil, err
 	}
-	return result.(*AcquireChildNetworkOK), nil
+	return result.(*AcquireChildNetworkCreated), nil
 
 }
 
