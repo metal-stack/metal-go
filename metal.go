@@ -67,6 +67,7 @@ func NewDriver(rawurl, bearer, hmac string) (*Driver, error) {
 		sw:        sw.New(transport, strfmt.Default),
 		network:   network.New(transport, strfmt.Default),
 		ip:        ip.New(transport, strfmt.Default),
+		project:   project.New(transport, strfmt.Default),
 		bearer:    bearer,
 	}
 	if hmac != "" {
