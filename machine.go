@@ -16,7 +16,6 @@ type MachineCreateRequest struct {
 	UserData      string
 	Size          string
 	Project       string
-	Tenant        string
 	Partition     string
 	Image         string
 	Tags          []string

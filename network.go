@@ -144,7 +144,6 @@ type NetworkFindRequest struct {
 	Underlay            *bool
 	Vrf                 *int64
 	ParentNetworkID     *string
-	TenantID            *string
 }
 
 // IPFindRequest contains criteria for a ip listing
