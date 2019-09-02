@@ -18,3 +18,11 @@ generate-client:
 	rm -rf api
 	mkdir -p api
 	GO111MODULE=off swagger generate client -f metal-api.json -t api --skip-validation
+
+.PHONY: golangcicheck
+golangcicheck:
+	@/bin/bash -c "type -P golangci-lint;" 2>/dev/null || (echo "golangci-lint is required but not available in current PATH. Install: https://github.com/golangci/golangci-lint#install"; exit 1)
+
+.PHONY: lint
+lint: golangcicheck
+	CGO_ENABLED=1 golangci-lint run
