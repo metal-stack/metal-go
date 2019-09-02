@@ -89,6 +89,7 @@ type MachineFindRequest struct {
 	FruProductSerial       *string
 }
 
+// MachineAllocationNetwork contains configuration for machine networks
 type MachineAllocationNetwork struct {
 	Autoacquire bool
 	NetworkID   string
