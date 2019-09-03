@@ -119,16 +119,30 @@ type IPAcquireRequest struct {
 	// the readable name
 	Name string `json:"name,omitempty"`
 
-	// the network this ip allocate request address belongs to, required.
+	// the network this ip acquire request belongs to, required.
 	// Required: true
 	Networkid string `json:"networkid"`
 
-	// the project this ip address belongs to, required.
+	// the project this ip acquire request belongs to, required.
 	// Required: true
 	Projectid string `json:"projectid"`
+
 	// SpecificIP tries to acquire this ip.
 	// Required: false
 	SpecificIP string `json:"specificip"`
+}
+
+// IPAnnounceRequest is the request to announce an IP
+type IPAnnounceRequest struct {
+	// the network this ip announce request belongs to, required.
+	// Required: true
+	Networkid string `json:"networkid"`
+	// the project this ip announce request belongs to, required.
+	// Required: true
+	Projectid string `json:"projectid"`
+	// the IP to be announced, required.
+	// Required: true
+	IP string `json:"ip"`
 }
 
 // NetworkFindRequest contains criteria for a network listing
@@ -472,5 +486,24 @@ func (d *Driver) IPDelete(id string) (*IPDetailResponse, error) {
 		return response, err
 	}
 	response.IP = resp.Payload
+	return response, nil
+}
+
+// IPAnnounce announces an IP to several networks of a project
+func (d *Driver) IPAnnounce(iar *IPAnnounceRequest) (*IPDetailResponse, error) {
+	response := &IPDetailResponse{}
+	announceIPRequest := &models.V1IPAnnounceRequest{
+		Networkid:   &iar.Networkid,
+		Projectid:   &iar.Projectid,
+	}
+	announceIP := ip.NewAnnounceIPParams()
+	announceIP.IP = iar.IP
+	announceIP.SetBody(announceIPRequest)
+	resp, err := d.ip.AnnounceIP(announceIP, d.auth)
+	if err != nil {
+		return response, err
+	}
+	response.IP = resp.Payload
+
 	return response, nil
 }
