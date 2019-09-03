@@ -493,8 +493,8 @@ func (d *Driver) IPDelete(id string) (*IPDetailResponse, error) {
 func (d *Driver) IPAnnounce(iar *IPAnnounceRequest) (*IPDetailResponse, error) {
 	response := &IPDetailResponse{}
 	announceIPRequest := &models.V1IPAnnounceRequest{
-		Networkid:   &iar.Networkid,
-		Projectid:   &iar.Projectid,
+		Networkid: &iar.Networkid,
+		Projectid: &iar.Projectid,
 	}
 	announceIP := ip.NewAnnounceIPParams()
 	announceIP.IP = iar.IP
