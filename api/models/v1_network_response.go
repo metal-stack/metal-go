@@ -17,6 +17,10 @@ import (
 // swagger:model v1.NetworkResponse
 type V1NetworkResponse struct {
 
+	// the applicable IPs of this network
+	// Required: true
+	Applicableips []string `json:"applicableips"`
+
 	// the last changed timestamp of this entity
 	// Required: true
 	// Read Only: true
@@ -86,6 +90,10 @@ type V1NetworkResponse struct {
 func (m *V1NetworkResponse) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateApplicableips(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateChanged(formats); err != nil {
 		res = append(res, err)
 	}
@@ -133,6 +141,15 @@ func (m *V1NetworkResponse) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *V1NetworkResponse) validateApplicableips(formats strfmt.Registry) error {
+
+	if err := validate.Required("applicableips", "body", m.Applicableips); err != nil {
+		return err
+	}
+
 	return nil
 }
 
