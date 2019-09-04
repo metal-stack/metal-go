@@ -18,6 +18,7 @@ import (
 	"github.com/metal-pod/metal-go/api/client/machine"
 	"github.com/metal-pod/metal-go/api/client/network"
 	"github.com/metal-pod/metal-go/api/client/partition"
+	"github.com/metal-pod/metal-go/api/client/project"
 	"github.com/metal-pod/metal-go/api/client/size"
 	"github.com/metal-pod/metal-go/api/client/switch_operations"
 	"github.com/metal-pod/metal-go/api/client/version"
@@ -79,6 +80,8 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *Metal {
 	cli.Network = network.New(transport, formats)
 
 	cli.Partition = partition.New(transport, formats)
+
+	cli.Project = project.New(transport, formats)
 
 	cli.Size = size.New(transport, formats)
 
@@ -144,6 +147,8 @@ type Metal struct {
 
 	Partition *partition.Client
 
+	Project *project.Client
+
 	Size *size.Client
 
 	SwitchOperations *switch_operations.Client
@@ -170,6 +175,8 @@ func (c *Metal) SetTransport(transport runtime.ClientTransport) {
 	c.Network.SetTransport(transport)
 
 	c.Partition.SetTransport(transport)
+
+	c.Project.SetTransport(transport)
 
 	c.Size.SetTransport(transport)
 

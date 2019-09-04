@@ -16,7 +16,6 @@ type MachineCreateRequest struct {
 	UserData      string
 	Size          string
 	Project       string
-	Tenant        string
 	Partition     string
 	Image         string
 	Tags          []string
@@ -38,7 +37,6 @@ type MachineFindRequest struct {
 
 	// allocation
 	AllocationName      *string
-	AllocationTenant    *string
 	AllocationProject   *string
 	AllocationImageID   *string
 	AllocationHostname  *string
@@ -50,7 +48,7 @@ type MachineFindRequest struct {
 	NetworkIPs                 []string
 	NetworkDestinationPrefixes []string
 	NetworkVrfs                []int64
-	NetworkPrimary             *bool
+	NetworkPrivate             *bool
 	NetworkASNs                []int64
 	NetworkNat                 *bool
 	NetworkUnderlay            *bool
@@ -165,7 +163,6 @@ func (d *Driver) MachineCreate(mcr *MachineCreateRequest) (*MachineCreateRespons
 		Name:        mcr.Name,
 		UUID:        mcr.UUID,
 		Projectid:   &mcr.Project,
-		Tenant:      &mcr.Tenant,
 		Sizeid:      &mcr.Size,
 		SSHPubKeys:  mcr.SSHPublicKeys,
 		UserData:    mcr.UserData,
@@ -244,7 +241,7 @@ func (d *Driver) MachineFind(mfr *MachineFindRequest) (*MachineListResponse, err
 	var resp *machine.FindMachinesOK
 
 	findMachines := machine.NewFindMachinesParams()
-	req := &models.V1FindMachinesRequest{
+	req := &models.V1MachineFindRequest{
 		ID:                         mfr.ID,
 		Name:                       mfr.Name,
 		PartitionID:                mfr.PartitionID,
@@ -253,7 +250,6 @@ func (d *Driver) MachineFind(mfr *MachineFindRequest) (*MachineListResponse, err
 		Liveliness:                 mfr.Liveliness,
 		Tags:                       mfr.Tags,
 		AllocationName:             mfr.AllocationName,
-		AllocationTenant:           mfr.AllocationTenant,
 		AllocationProject:          mfr.AllocationProject,
 		AllocationImageID:          mfr.AllocationImageID,
 		AllocationHostname:         mfr.AllocationHostname,
@@ -263,7 +259,7 @@ func (d *Driver) MachineFind(mfr *MachineFindRequest) (*MachineListResponse, err
 		NetworkIps:                 mfr.NetworkIPs,
 		NetworkDestinationPrefixes: mfr.NetworkDestinationPrefixes,
 		NetworkVrfs:                mfr.NetworkVrfs,
-		NetworkPrimary:             mfr.NetworkPrimary,
+		NetworkPrivate:             mfr.NetworkPrivate,
 		NetworkAsns:                mfr.NetworkASNs,
 		NetworkNat:                 mfr.NetworkNat,
 		NetworkUnderlay:            mfr.NetworkUnderlay,

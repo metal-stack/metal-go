@@ -13,9 +13,9 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// V1FindIpsRequest an ip address that can be attached to a machine
-// swagger:model v1.FindIPsRequest
-type V1FindIpsRequest struct {
+// V1IPFindRequest v1 IP find request
+// swagger:model v1.IPFindRequest
+type V1IPFindRequest struct {
 
 	// the address (ipv4 or ipv6) of this ip
 	// Required: true
@@ -33,13 +33,13 @@ type V1FindIpsRequest struct {
 	// Required: true
 	Networkprefix *string `json:"networkprefix"`
 
-	// the project this ip address belongs to
+	// the project this ip address belongs to, empty if not strong coupled
 	// Required: true
 	Projectid *string `json:"projectid"`
 }
 
-// Validate validates this v1 find ips request
-func (m *V1FindIpsRequest) Validate(formats strfmt.Registry) error {
+// Validate validates this v1 IP find request
+func (m *V1IPFindRequest) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateIpaddress(formats); err != nil {
@@ -68,7 +68,7 @@ func (m *V1FindIpsRequest) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *V1FindIpsRequest) validateIpaddress(formats strfmt.Registry) error {
+func (m *V1IPFindRequest) validateIpaddress(formats strfmt.Registry) error {
 
 	if err := validate.Required("ipaddress", "body", m.Ipaddress); err != nil {
 		return err
@@ -77,7 +77,7 @@ func (m *V1FindIpsRequest) validateIpaddress(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *V1FindIpsRequest) validateMachineid(formats strfmt.Registry) error {
+func (m *V1IPFindRequest) validateMachineid(formats strfmt.Registry) error {
 
 	if err := validate.Required("machineid", "body", m.Machineid); err != nil {
 		return err
@@ -86,7 +86,7 @@ func (m *V1FindIpsRequest) validateMachineid(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *V1FindIpsRequest) validateNetworkid(formats strfmt.Registry) error {
+func (m *V1IPFindRequest) validateNetworkid(formats strfmt.Registry) error {
 
 	if err := validate.Required("networkid", "body", m.Networkid); err != nil {
 		return err
@@ -95,7 +95,7 @@ func (m *V1FindIpsRequest) validateNetworkid(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *V1FindIpsRequest) validateNetworkprefix(formats strfmt.Registry) error {
+func (m *V1IPFindRequest) validateNetworkprefix(formats strfmt.Registry) error {
 
 	if err := validate.Required("networkprefix", "body", m.Networkprefix); err != nil {
 		return err
@@ -104,7 +104,7 @@ func (m *V1FindIpsRequest) validateNetworkprefix(formats strfmt.Registry) error 
 	return nil
 }
 
-func (m *V1FindIpsRequest) validateProjectid(formats strfmt.Registry) error {
+func (m *V1IPFindRequest) validateProjectid(formats strfmt.Registry) error {
 
 	if err := validate.Required("projectid", "body", m.Projectid); err != nil {
 		return err
@@ -114,7 +114,7 @@ func (m *V1FindIpsRequest) validateProjectid(formats strfmt.Registry) error {
 }
 
 // MarshalBinary interface implementation
-func (m *V1FindIpsRequest) MarshalBinary() ([]byte, error) {
+func (m *V1IPFindRequest) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -122,8 +122,8 @@ func (m *V1FindIpsRequest) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *V1FindIpsRequest) UnmarshalBinary(b []byte) error {
-	var res V1FindIpsRequest
+func (m *V1IPFindRequest) UnmarshalBinary(b []byte) error {
+	var res V1IPFindRequest
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

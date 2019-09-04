@@ -46,7 +46,7 @@ type V1MachineAllocation struct {
 	// Required: true
 	Networks []*V1MachineNetwork `json:"networks"`
 
-	// the project that this machine is assigned to
+	// the project id that this machine is assigned to
 	// Required: true
 	Project *string `json:"project"`
 
@@ -57,10 +57,6 @@ type V1MachineAllocation struct {
 	// if the allocation of the machine was successful, this is set to true
 	// Required: true
 	Succeeded *bool `json:"succeeded"`
-
-	// the tenant that this machine is assigned to
-	// Required: true
-	Tenant *string `json:"tenant"`
 
 	// userdata to execute post installation tasks
 	UserData string `json:"user_data,omitempty"`
@@ -99,10 +95,6 @@ func (m *V1MachineAllocation) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateSucceeded(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateTenant(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -207,15 +199,6 @@ func (m *V1MachineAllocation) validateSSHPubKeys(formats strfmt.Registry) error 
 func (m *V1MachineAllocation) validateSucceeded(formats strfmt.Registry) error {
 
 	if err := validate.Required("succeeded", "body", m.Succeeded); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *V1MachineAllocation) validateTenant(formats strfmt.Registry) error {
-
-	if err := validate.Required("tenant", "body", m.Tenant); err != nil {
 		return err
 	}
 

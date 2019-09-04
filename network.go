@@ -43,9 +43,12 @@ type NetworkCreateRequest struct {
 	// Required: true
 	Destinationprefixes []string `json:"destinationprefixes"`
 
+	// the parent network ID.
+	Parentnetworkid string `json:"parentnetworkid"`
+
 	// if set to true, this network is attached to a machine/firewall
 	// Required: true
-	Primary bool `json:"primary"`
+	Privatesuper bool `json:"primary"`
 
 	// the project this network belongs to, can be empty if globally available.
 	// Required: true
@@ -119,11 +122,10 @@ type NetworkFindRequest struct {
 	Prefixes            []string
 	DestinationPrefixes []string
 	Nat                 *bool
-	Primary             *bool
+	Privatesuper        *bool
 	Underlay            *bool
 	Vrf                 *int64
 	ParentNetworkID     *string
-	TenantID            *string
 }
 
 // IPFindRequest contains criteria for a ip listing
@@ -178,7 +180,7 @@ func (d *Driver) NetworkFind(nfr *NetworkFindRequest) (*NetworkListResponse, err
 	var resp *network.FindNetworksOK
 
 	findNetworks := network.NewFindNetworksParams()
-	req := &models.V1FindNetworksRequest{
+	req := &models.V1NetworkFindRequest{
 		ID:                  nfr.ID,
 		Name:                nfr.Name,
 		Partitionid:         nfr.PartitionID,
@@ -186,11 +188,10 @@ func (d *Driver) NetworkFind(nfr *NetworkFindRequest) (*NetworkListResponse, err
 		Prefixes:            nfr.Prefixes,
 		Destinationprefixes: nfr.DestinationPrefixes,
 		Nat:                 nfr.Nat,
-		Primary:             nfr.Primary,
+		Privatesuper:        nfr.Privatesuper,
 		Underlay:            nfr.Underlay,
 		Vrf:                 nfr.Vrf,
 		Parentnetworkid:     nfr.ParentNetworkID,
-		Tenantid:            nfr.TenantID,
 	}
 	findNetworks.SetBody(req)
 
@@ -217,7 +218,8 @@ func (d *Driver) NetworkCreate(ncr *NetworkCreateRequest) (*NetworkDetailRespons
 		Prefixes:            ncr.Prefixes,
 		Destinationprefixes: ncr.Destinationprefixes,
 		Vrf:                 ncr.Vrf,
-		Primary:             &ncr.Primary,
+		Parentnetworkid:     &ncr.Parentnetworkid,
+		Privatesuper:        &ncr.Privatesuper,
 		Projectid:           ncr.Projectid,
 		Underlay:            &ncr.Underlay,
 	}
@@ -360,7 +362,7 @@ func (d *Driver) IPFind(ifr *IPFindRequest) (*IPListResponse, error) {
 	var resp *ip.FindIpsOK
 
 	findIPs := ip.NewFindIpsParams()
-	req := &models.V1FindIpsRequest{
+	req := &models.V1IPFindRequest{
 		Ipaddress:     ifr.IPAddress,
 		Projectid:     ifr.ProjectID,
 		Networkprefix: ifr.ParentPrefixCidr,
@@ -411,9 +413,9 @@ func (d *Driver) IPAcquire(iar *IPAcquireRequest) (*IPDetailResponse, error) {
 // IPDelete releases an IP
 func (d *Driver) IPDelete(id string) (*IPDetailResponse, error) {
 	response := &IPDetailResponse{}
-	deleteIP := ip.NewDeleteIPParams()
-	deleteIP.ID = id
-	resp, err := d.ip.DeleteIP(deleteIP, d.auth)
+	releaseIP := ip.NewReleaseIPParams()
+	releaseIP.ID = id
+	resp, err := d.ip.ReleaseIP(releaseIP, d.auth)
 	if err != nil {
 		return response, err
 	}

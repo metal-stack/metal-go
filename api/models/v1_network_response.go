@@ -41,6 +41,10 @@ type V1NetworkResponse struct {
 	// Unique: true
 	ID *string `json:"id"`
 
+	// free labels that you associate with this network.
+	// Required: true
+	Labels map[string]string `json:"labels"`
+
 	// a readable name for this entity
 	Name string `json:"name,omitempty"`
 
@@ -59,11 +63,11 @@ type V1NetworkResponse struct {
 	// Required: true
 	Prefixes []string `json:"prefixes"`
 
-	// if set to true, a subnetwork of this network is attached to a machine/firewall, there can only be one primary network per partition
+	// if set to true, this network will serve as a partition's super network for the internal machine networks,there can only be one privatesuper network per partition
 	// Required: true
-	Primary *bool `json:"primary"`
+	Privatesuper *bool `json:"privatesuper"`
 
-	// the project this network belongs to, can be empty if globally available
+	// the project id this network belongs to, can be empty if globally available
 	Projectid string `json:"projectid,omitempty"`
 
 	// if set to true, this network can be used for underlay communication
@@ -98,6 +102,10 @@ func (m *V1NetworkResponse) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateLabels(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateNat(formats); err != nil {
 		res = append(res, err)
 	}
@@ -110,7 +118,7 @@ func (m *V1NetworkResponse) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validatePrimary(formats); err != nil {
+	if err := m.validatePrivatesuper(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -172,6 +180,11 @@ func (m *V1NetworkResponse) validateID(formats strfmt.Registry) error {
 	return nil
 }
 
+func (m *V1NetworkResponse) validateLabels(formats strfmt.Registry) error {
+
+	return nil
+}
+
 func (m *V1NetworkResponse) validateNat(formats strfmt.Registry) error {
 
 	if err := validate.Required("nat", "body", m.Nat); err != nil {
@@ -199,9 +212,9 @@ func (m *V1NetworkResponse) validatePrefixes(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *V1NetworkResponse) validatePrimary(formats strfmt.Registry) error {
+func (m *V1NetworkResponse) validatePrivatesuper(formats strfmt.Registry) error {
 
-	if err := validate.Required("primary", "body", m.Primary); err != nil {
+	if err := validate.Required("privatesuper", "body", m.Privatesuper); err != nil {
 		return err
 	}
 

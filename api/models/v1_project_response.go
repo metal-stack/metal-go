@@ -13,13 +13,9 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// V1PartitionResponse v1 partition response
-// swagger:model v1.PartitionResponse
-type V1PartitionResponse struct {
-
-	// the boot configuration of this partition
-	// Required: true
-	Bootconfig *V1PartitionBootConfiguration `json:"bootconfig"`
+// V1ProjectResponse v1 project response
+// swagger:model v1.ProjectResponse
+type V1ProjectResponse struct {
 
 	// the last changed timestamp of this entity
 	// Required: true
@@ -41,25 +37,17 @@ type V1PartitionResponse struct {
 	// Unique: true
 	ID *string `json:"id"`
 
-	// the address to the management service of this partition
-	Mgmtserviceaddress string `json:"mgmtserviceaddress,omitempty"`
-
 	// a readable name for this entity
 	Name string `json:"name,omitempty"`
 
-	// the length of private networks for the machine's child networks in this partition, default 22
-	// Maximum: 30
-	// Minimum: 16
-	Privatenetworkprefixlength int32 `json:"privatenetworkprefixlength,omitempty"`
+	// the tenant of this project.
+	// Required: true
+	Tenant *string `json:"tenant"`
 }
 
-// Validate validates this v1 partition response
-func (m *V1PartitionResponse) Validate(formats strfmt.Registry) error {
+// Validate validates this v1 project response
+func (m *V1ProjectResponse) Validate(formats strfmt.Registry) error {
 	var res []error
-
-	if err := m.validateBootconfig(formats); err != nil {
-		res = append(res, err)
-	}
 
 	if err := m.validateChanged(formats); err != nil {
 		res = append(res, err)
@@ -73,7 +61,7 @@ func (m *V1PartitionResponse) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validatePrivatenetworkprefixlength(formats); err != nil {
+	if err := m.validateTenant(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -83,25 +71,7 @@ func (m *V1PartitionResponse) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *V1PartitionResponse) validateBootconfig(formats strfmt.Registry) error {
-
-	if err := validate.Required("bootconfig", "body", m.Bootconfig); err != nil {
-		return err
-	}
-
-	if m.Bootconfig != nil {
-		if err := m.Bootconfig.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("bootconfig")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (m *V1PartitionResponse) validateChanged(formats strfmt.Registry) error {
+func (m *V1ProjectResponse) validateChanged(formats strfmt.Registry) error {
 
 	if err := validate.Required("changed", "body", strfmt.DateTime(m.Changed)); err != nil {
 		return err
@@ -114,7 +84,7 @@ func (m *V1PartitionResponse) validateChanged(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *V1PartitionResponse) validateCreated(formats strfmt.Registry) error {
+func (m *V1ProjectResponse) validateCreated(formats strfmt.Registry) error {
 
 	if err := validate.Required("created", "body", strfmt.DateTime(m.Created)); err != nil {
 		return err
@@ -127,7 +97,7 @@ func (m *V1PartitionResponse) validateCreated(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *V1PartitionResponse) validateID(formats strfmt.Registry) error {
+func (m *V1ProjectResponse) validateID(formats strfmt.Registry) error {
 
 	if err := validate.Required("id", "body", m.ID); err != nil {
 		return err
@@ -136,17 +106,9 @@ func (m *V1PartitionResponse) validateID(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *V1PartitionResponse) validatePrivatenetworkprefixlength(formats strfmt.Registry) error {
+func (m *V1ProjectResponse) validateTenant(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.Privatenetworkprefixlength) { // not required
-		return nil
-	}
-
-	if err := validate.MinimumInt("privatenetworkprefixlength", "body", int64(m.Privatenetworkprefixlength), 16, false); err != nil {
-		return err
-	}
-
-	if err := validate.MaximumInt("privatenetworkprefixlength", "body", int64(m.Privatenetworkprefixlength), 30, false); err != nil {
+	if err := validate.Required("tenant", "body", m.Tenant); err != nil {
 		return err
 	}
 
@@ -154,7 +116,7 @@ func (m *V1PartitionResponse) validatePrivatenetworkprefixlength(formats strfmt.
 }
 
 // MarshalBinary interface implementation
-func (m *V1PartitionResponse) MarshalBinary() ([]byte, error) {
+func (m *V1ProjectResponse) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -162,8 +124,8 @@ func (m *V1PartitionResponse) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *V1PartitionResponse) UnmarshalBinary(b []byte) error {
-	var res V1PartitionResponse
+func (m *V1ProjectResponse) UnmarshalBinary(b []byte) error {
+	var res V1ProjectResponse
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

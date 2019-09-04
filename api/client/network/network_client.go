@@ -25,7 +25,36 @@ type Client struct {
 }
 
 /*
-CreateNetwork creates an network if the given ID already exists a conflict is returned
+AcquireChildNetwork acquires a child network from a partition s private super network
+*/
+func (a *Client) AcquireChildNetwork(params *AcquireChildNetworkParams, authInfo runtime.ClientAuthInfoWriter) (*AcquireChildNetworkCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewAcquireChildNetworkParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "acquireChildNetwork",
+		Method:             "POST",
+		PathPattern:        "/v1/network/acquire",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &AcquireChildNetworkReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*AcquireChildNetworkCreated), nil
+
+}
+
+/*
+CreateNetwork creates a network if the given ID already exists a conflict is returned
 */
 func (a *Client) CreateNetwork(params *CreateNetworkParams, authInfo runtime.ClientAuthInfoWriter) (*CreateNetworkCreated, error) {
 	// TODO: Validate the params before sending
@@ -54,7 +83,7 @@ func (a *Client) CreateNetwork(params *CreateNetworkParams, authInfo runtime.Cli
 }
 
 /*
-DeleteNetwork deletes an network and returns the deleted entity
+DeleteNetwork deletes a network and returns the deleted entity
 */
 func (a *Client) DeleteNetwork(params *DeleteNetworkParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteNetworkOK, error) {
 	// TODO: Validate the params before sending
@@ -170,7 +199,36 @@ func (a *Client) ListNetworks(params *ListNetworksParams, authInfo runtime.Clien
 }
 
 /*
-UpdateNetwork updates an network if the network was changed since this one was read a conflict is returned
+ReleaseChildNetwork releases a child network
+*/
+func (a *Client) ReleaseChildNetwork(params *ReleaseChildNetworkParams, authInfo runtime.ClientAuthInfoWriter) (*ReleaseChildNetworkOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewReleaseChildNetworkParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "releaseChildNetwork",
+		Method:             "POST",
+		PathPattern:        "/v1/network/release/{id}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &ReleaseChildNetworkReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*ReleaseChildNetworkOK), nil
+
+}
+
+/*
+UpdateNetwork updates a network if the network was changed since this one was read a conflict is returned
 */
 func (a *Client) UpdateNetwork(params *UpdateNetworkParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateNetworkOK, error) {
 	// TODO: Validate the params before sending
