@@ -83,8 +83,8 @@ func (d *Driver) FirewallList() (*FirewallListResponse, error) {
 	return response, nil
 }
 
-// FirewallSearch will search for firewalls for given criteria
-func (d *Driver) FirewallSearch(ffr *FirewallFindRequest) (*FirewallListResponse, error) {
+// FirewallFind will search for firewalls for given criteria
+func (d *Driver) FirewallFind(ffr *FirewallFindRequest) (*FirewallListResponse, error) {
 	if ffr == nil {
 		return d.FirewallList()
 	}
