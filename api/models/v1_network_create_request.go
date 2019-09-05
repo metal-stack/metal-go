@@ -64,6 +64,9 @@ type V1NetworkCreateRequest struct {
 
 	// the vrf this network is associated with
 	Vrf int64 `json:"vrf,omitempty"`
+
+	// if set to true, given vrf can be used by multiple networks, which is sometimes useful for network partioning (default: false)
+	Vrfshared bool `json:"vrfshared,omitempty"`
 }
 
 // Validate validates this v1 network create request

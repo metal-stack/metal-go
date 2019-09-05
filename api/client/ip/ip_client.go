@@ -83,35 +83,6 @@ func (a *Client) AllocateSpecificIP(params *AllocateSpecificIPParams, authInfo r
 }
 
 /*
-AnnounceIP announces an ip to the given networks
-*/
-func (a *Client) AnnounceIP(params *AnnounceIPParams, authInfo runtime.ClientAuthInfoWriter) (*AnnounceIPCreated, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewAnnounceIPParams()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "announceIP",
-		Method:             "POST",
-		PathPattern:        "/v1/ip/announce/{ip}",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
-		Params:             params,
-		Reader:             &AnnounceIPReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	return result.(*AnnounceIPCreated), nil
-
-}
-
-/*
 FindIP gets ip by id
 */
 func (a *Client) FindIP(params *FindIPParams, authInfo runtime.ClientAuthInfoWriter) (*FindIPOK, error) {

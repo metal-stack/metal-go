@@ -78,6 +78,10 @@ type NetworkCreateRequest struct {
 
 	// the vrf this network is associated with
 	Vrf int64 `json:"vrf,omitempty"`
+
+	// if set to true, the network can share the vrf with other networks
+	// Required: false
+	VrfShared bool `json:"vrfshared,omitempty"`
 }
 
 // NetworkDetailResponse is the response of a NetworkList action
@@ -130,19 +134,6 @@ type IPAcquireRequest struct {
 	// SpecificIP tries to acquire this ip.
 	// Required: false
 	SpecificIP string `json:"specificip"`
-}
-
-// IPAnnounceRequest is the request to announce an IP
-type IPAnnounceRequest struct {
-	// the network this ip announce request belongs to, required.
-	// Required: true
-	Networkid string `json:"networkid"`
-	// the project this ip announce request belongs to, required.
-	// Required: true
-	Projectid string `json:"projectid"`
-	// the IP to be announced, required.
-	// Required: true
-	IP string `json:"ip"`
 }
 
 // NetworkFindRequest contains criteria for a network listing
@@ -250,6 +241,7 @@ func (d *Driver) NetworkCreate(ncr *NetworkCreateRequest) (*NetworkDetailRespons
 		Prefixes:            ncr.Prefixes,
 		Destinationprefixes: ncr.Destinationprefixes,
 		Vrf:                 ncr.Vrf,
+		Vrfshared:           ncr.VrfShared,
 		Privatesuper:        &ncr.PrivateSuper,
 		Projectid:           ncr.Projectid,
 		Underlay:            &ncr.Underlay,
@@ -486,24 +478,5 @@ func (d *Driver) IPDelete(id string) (*IPDetailResponse, error) {
 		return response, err
 	}
 	response.IP = resp.Payload
-	return response, nil
-}
-
-// IPAnnounce announces an IP to several networks of a project
-func (d *Driver) IPAnnounce(iar *IPAnnounceRequest) (*IPDetailResponse, error) {
-	response := &IPDetailResponse{}
-	announceIPRequest := &models.V1IPAnnounceRequest{
-		Networkid: &iar.Networkid,
-		Projectid: &iar.Projectid,
-	}
-	announceIP := ip.NewAnnounceIPParams()
-	announceIP.IP = iar.IP
-	announceIP.SetBody(announceIPRequest)
-	resp, err := d.ip.AnnounceIP(announceIP, d.auth)
-	if err != nil {
-		return response, err
-	}
-	response.IP = resp.Payload
-
 	return response, nil
 }

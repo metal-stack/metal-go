@@ -17,10 +17,6 @@ import (
 // swagger:model v1.NetworkResponse
 type V1NetworkResponse struct {
 
-	// the applicable IPs of this network
-	// Required: true
-	Applicableips []string `json:"applicableips"`
-
 	// the last changed timestamp of this entity
 	// Required: true
 	// Read Only: true
@@ -84,15 +80,14 @@ type V1NetworkResponse struct {
 
 	// the vrf this network is associated with
 	Vrf int64 `json:"vrf,omitempty"`
+
+	// if set to true, given vrf can be used by multiple networks, which is sometimes useful for network partioning (default: false)
+	Vrfshared bool `json:"vrfshared,omitempty"`
 }
 
 // Validate validates this v1 network response
 func (m *V1NetworkResponse) Validate(formats strfmt.Registry) error {
 	var res []error
-
-	if err := m.validateApplicableips(formats); err != nil {
-		res = append(res, err)
-	}
 
 	if err := m.validateChanged(formats); err != nil {
 		res = append(res, err)
@@ -141,15 +136,6 @@ func (m *V1NetworkResponse) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
-	return nil
-}
-
-func (m *V1NetworkResponse) validateApplicableips(formats strfmt.Registry) error {
-
-	if err := validate.Required("applicableips", "body", m.Applicableips); err != nil {
-		return err
-	}
-
 	return nil
 }
 

@@ -14,6 +14,7 @@
     },
     "version": "1.0.0"
   },
+  "basePath": "/",
   "paths": {
     "/v1/firewall": {
       "get": {
@@ -87,7 +88,7 @@
       }
     },
     "/v1/firewall/find": {
-      "post": {
+      "get": {
         "consumes": [
           "application/json"
         ],
@@ -528,52 +529,6 @@
             "required": true,
             "schema": {
               "$ref": "#/definitions/v1.IPAllocateRequest"
-            }
-          }
-        ],
-        "responses": {
-          "201": {
-            "description": "Created",
-            "schema": {
-              "$ref": "#/definitions/v1.IPResponse"
-            }
-          },
-          "default": {
-            "description": "Error",
-            "schema": {
-              "$ref": "#/definitions/httperrors.HTTPErrorResponse"
-            }
-          }
-        }
-      }
-    },
-    "/v1/ip/announce/{ip}": {
-      "post": {
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "ip"
-        ],
-        "summary": "announce an ip to the given networks.",
-        "operationId": "announceIP",
-        "parameters": [
-          {
-            "type": "string",
-            "description": "ip to try to announce",
-            "name": "ip",
-            "in": "path",
-            "required": true
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/v1.IPAnnounceRequest"
             }
           }
         ],
@@ -2903,11 +2858,11 @@
     "v1.EmptyBody": {},
     "v1.FirewallCreateRequest": {
       "required": [
+        "partitionid",
         "sizeid",
         "imageid",
-        "projectid",
-        "partitionid",
-        "ssh_pub_keys"
+        "ssh_pub_keys",
+        "projectid"
       ],
       "properties": {
         "description": {
@@ -2982,50 +2937,50 @@
     },
     "v1.FirewallFindRequest": {
       "required": [
-        "network_vrfs",
+        "id",
+        "allocation_image_id",
+        "network_nat",
+        "nics_vrfs",
+        "fru_board_mfg",
+        "network_ids",
+        "partition_id",
+        "network_destination_prefixes",
+        "nics_neighbor_mac_addresses",
+        "disk_sizes",
+        "sizeid",
         "nics_neighbor_names",
+        "network_private",
+        "hardware_cpu_cores",
+        "allocation_succeeded",
+        "allocation_project",
+        "rackid",
+        "tags",
+        "nics_mac_addresses",
+        "fru_chassis_part_serial",
+        "allocation_name",
+        "network_vrfs",
+        "hardware_memory",
+        "ipmi_interface",
         "fru_chassis_part_number",
+        "fru_board_mfg_serial",
+        "name",
+        "ipmi_mac_address",
+        "fru_product_part_number",
         "disk_names",
         "network_underlay",
-        "hardware_cpu_cores",
-        "sizeid",
-        "id",
-        "network_nat",
         "nics_neighbor_vrfs",
-        "allocation_name",
-        "network_destination_prefixes",
-        "hardware_memory",
+        "state_value",
+        "liveliness",
+        "network_prefixes",
+        "fru_product_serial",
+        "network_ips",
         "fru_product_manufacturer",
-        "fru_board_mfg",
-        "allocation_image_id",
-        "disk_sizes",
-        "ipmi_interface",
+        "ipmi_address",
         "allocation_hostname",
         "fru_board_part_number",
-        "allocation_project",
-        "network_private",
-        "rackid",
-        "ipmi_mac_address",
-        "name",
-        "ipmi_address",
-        "allocation_succeeded",
-        "network_ips",
-        "partition_id",
-        "liveliness",
-        "tags",
-        "fru_product_serial",
-        "ipmi_user",
-        "state_value",
-        "fru_chassis_part_serial",
-        "nics_vrfs",
-        "network_prefixes",
-        "nics_neighbor_mac_addresses",
-        "nics_mac_addresses",
-        "network_ids",
-        "fru_board_mfg_serial",
-        "fru_product_part_number",
+        "nics_names",
         "network_asns",
-        "nics_names"
+        "ipmi_user"
       ],
       "properties": {
         "allocation_hostname": {
@@ -3211,19 +3166,19 @@
     },
     "v1.FirewallResponse": {
       "required": [
-        "tags",
-        "changed",
-        "id",
-        "allocation",
-        "liveliness",
-        "events",
-        "partition",
         "size",
         "state",
+        "liveliness",
+        "tags",
+        "allocation",
+        "partition",
+        "rackid",
         "created",
-        "hardware",
+        "events",
+        "changed",
+        "id",
         "ledstate",
-        "rackid"
+        "hardware"
       ],
       "properties": {
         "allocation": {
@@ -3323,29 +3278,13 @@
         }
       }
     },
-    "v1.IPAnnounceRequest": {
-      "required": [
-        "projectid",
-        "networkid"
-      ],
-      "properties": {
-        "networkid": {
-          "description": "the network this ip allocate request address belongs to",
-          "type": "string"
-        },
-        "projectid": {
-          "description": "the project this ip address belongs to",
-          "type": "string"
-        }
-      }
-    },
     "v1.IPFindRequest": {
       "required": [
+        "ipaddress",
+        "networkprefix",
         "networkid",
         "machineid",
-        "projectid",
-        "ipaddress",
-        "networkprefix"
+        "projectid"
       ],
       "properties": {
         "ipaddress": {
@@ -3737,50 +3676,50 @@
     },
     "v1.MachineFindRequest": {
       "required": [
-        "network_ids",
-        "network_nat",
-        "ipmi_address",
-        "ipmi_mac_address",
-        "partition_id",
-        "allocation_project",
-        "allocation_succeeded",
-        "network_destination_prefixes",
-        "fru_board_mfg",
-        "fru_board_mfg_serial",
-        "nics_neighbor_mac_addresses",
-        "nics_neighbor_names",
-        "ipmi_interface",
-        "fru_product_part_number",
-        "liveliness",
-        "network_ips",
-        "network_asns",
-        "nics_neighbor_vrfs",
-        "sizeid",
-        "network_private",
-        "hardware_cpu_cores",
-        "disk_names",
-        "state_value",
-        "fru_chassis_part_serial",
-        "rackid",
-        "network_underlay",
-        "nics_names",
-        "ipmi_user",
-        "name",
         "network_prefixes",
         "hardware_memory",
-        "nics_mac_addresses",
-        "disk_sizes",
-        "fru_chassis_part_number",
-        "fru_product_manufacturer",
+        "ipmi_mac_address",
+        "partition_id",
         "tags",
-        "allocation_name",
+        "network_ips",
         "network_vrfs",
-        "nics_vrfs",
-        "fru_board_part_number",
-        "fru_product_serial",
+        "ipmi_user",
+        "fru_chassis_part_number",
+        "fru_board_mfg_serial",
         "id",
         "allocation_image_id",
-        "allocation_hostname"
+        "network_destination_prefixes",
+        "hardware_cpu_cores",
+        "nics_names",
+        "ipmi_address",
+        "fru_board_part_number",
+        "rackid",
+        "network_nat",
+        "fru_chassis_part_serial",
+        "nics_neighbor_names",
+        "fru_product_serial",
+        "sizeid",
+        "liveliness",
+        "allocation_succeeded",
+        "network_private",
+        "network_asns",
+        "nics_neighbor_mac_addresses",
+        "nics_neighbor_vrfs",
+        "state_value",
+        "ipmi_interface",
+        "fru_board_mfg",
+        "fru_product_part_number",
+        "name",
+        "allocation_hostname",
+        "nics_mac_addresses",
+        "nics_vrfs",
+        "fru_product_manufacturer",
+        "allocation_name",
+        "allocation_project",
+        "network_ids",
+        "network_underlay",
+        "disk_names",
+        "disk_sizes"
       ],
       "properties": {
         "allocation_hostname": {
@@ -4313,16 +4252,16 @@
     "v1.MachineResponse": {
       "required": [
         "id",
-        "partition",
-        "hardware",
-        "state",
-        "liveliness",
-        "events",
-        "tags",
         "rackid",
         "size",
+        "state",
+        "events",
+        "tags",
+        "partition",
+        "hardware",
         "allocation",
         "ledstate",
+        "liveliness",
         "changed",
         "created"
       ],
@@ -4450,12 +4389,12 @@
       "required": [
         "id",
         "labels",
-        "parentnetworkid",
-        "prefixes",
         "destinationprefixes",
         "nat",
         "privatesuper",
-        "underlay"
+        "underlay",
+        "parentnetworkid",
+        "prefixes"
       ],
       "properties": {
         "description": {
@@ -4520,23 +4459,27 @@
           "description": "the vrf this network is associated with",
           "type": "integer",
           "format": "integer"
+        },
+        "vrfshared": {
+          "description": "if set to true, given vrf can be used by multiple networks, which is sometimes useful for network partioning (default: false)",
+          "type": "boolean"
         }
       }
     },
     "v1.NetworkFindRequest": {
       "required": [
-        "name",
-        "prefixes",
         "underlay",
-        "parentnetworkid",
+        "labels",
         "id",
         "partitionid",
         "projectid",
         "destinationprefixes",
         "nat",
         "privatesuper",
+        "name",
+        "prefixes",
         "vrf",
-        "labels"
+        "parentnetworkid"
       ],
       "properties": {
         "destinationprefixes": {
@@ -4591,25 +4534,17 @@
       "required": [
         "id",
         "labels",
+        "parentnetworkid",
         "prefixes",
         "destinationprefixes",
         "nat",
         "privatesuper",
         "underlay",
-        "parentnetworkid",
         "usage",
-        "created",
         "changed",
-        "applicableips"
+        "created"
       ],
       "properties": {
-        "applicableips": {
-          "description": "the applicable IPs of this network",
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
         "changed": {
           "description": "the last changed timestamp of this entity",
           "type": "string",
@@ -4688,6 +4623,10 @@
           "description": "the vrf this network is associated with",
           "type": "integer",
           "format": "integer"
+        },
+        "vrfshared": {
+          "description": "if set to true, given vrf can be used by multiple networks, which is sometimes useful for network partioning (default: false)",
+          "type": "boolean"
         }
       }
     },
