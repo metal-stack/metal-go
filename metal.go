@@ -19,6 +19,7 @@ import (
 	"github.com/metal-pod/metal-go/api/client/machine"
 	"github.com/metal-pod/metal-go/api/client/network"
 	"github.com/metal-pod/metal-go/api/client/partition"
+	"github.com/metal-pod/metal-go/api/client/project"
 	"github.com/metal-pod/metal-go/api/client/size"
 	sw "github.com/metal-pod/metal-go/api/client/switch_operations"
 	"github.com/metal-pod/metal-go/api/models"
@@ -29,6 +30,7 @@ import (
 // Driver holds the client connection to the metal api
 type Driver struct {
 	image     *image.Client
+	project   *project.Client
 	machine   *machine.Client
 	firewall  *firewall.Client
 	partition *partition.Client
@@ -65,6 +67,7 @@ func NewDriver(rawurl, bearer, hmac string) (*Driver, error) {
 		sw:        sw.New(transport, strfmt.Default),
 		network:   network.New(transport, strfmt.Default),
 		ip:        ip.New(transport, strfmt.Default),
+		project:   project.New(transport, strfmt.Default),
 		bearer:    bearer,
 	}
 	if hmac != "" {

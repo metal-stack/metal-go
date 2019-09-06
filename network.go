@@ -18,6 +18,27 @@ type NetworkListResponse struct {
 	Networks []*models.V1NetworkResponse
 }
 
+// NetworkAcquireRequest is the request to acquire a new private network
+type NetworkAcquireRequest struct {
+	// a description for this entity
+	Description string `json:"description,omitempty"`
+
+	// the readable name
+	Name string `json:"name,omitempty"`
+
+	// the partition this network belongs to, TODO: can be empty ?
+	// Required: true
+	PartitionID string `json:"partitionid"`
+
+	// the project this network belongs to, can be empty if globally available.
+	// Required: true
+	ProjectID string `json:"projectid,omitempty"`
+
+	// A map of key/value pairs treated as labels.
+	// Required: false
+	Labels map[string]string `json:"labels"`
+}
+
 // NetworkCreateRequest is the request for create a new network
 type NetworkCreateRequest struct {
 	ID *string `json:"id"`
@@ -43,9 +64,9 @@ type NetworkCreateRequest struct {
 	// Required: true
 	Destinationprefixes []string `json:"destinationprefixes"`
 
-	// if set to true, this network is attached to a machine/firewall
+	// if set to true, this network acts a supernetwork for private networks
 	// Required: true
-	Primary bool `json:"primary"`
+	PrivateSuper bool `json:"privatesuper"`
 
 	// the project this network belongs to, can be empty if globally available.
 	// Required: true
@@ -57,6 +78,10 @@ type NetworkCreateRequest struct {
 
 	// the vrf this network is associated with
 	Vrf int64 `json:"vrf,omitempty"`
+
+	// if set to true, the network can share the vrf with other networks
+	// Required: false
+	VrfShared bool `json:"vrfshared,omitempty"`
 }
 
 // NetworkDetailResponse is the response of a NetworkList action
@@ -98,13 +123,14 @@ type IPAcquireRequest struct {
 	// the readable name
 	Name string `json:"name,omitempty"`
 
-	// the network this ip allocate request address belongs to, required.
+	// the network this ip acquire request belongs to, required.
 	// Required: true
 	Networkid string `json:"networkid"`
 
-	// the project this ip address belongs to, required.
+	// the project this ip acquire request belongs to, required.
 	// Required: true
 	Projectid string `json:"projectid"`
+
 	// SpecificIP tries to acquire this ip.
 	// Required: false
 	SpecificIP string `json:"specificip"`
@@ -119,11 +145,10 @@ type NetworkFindRequest struct {
 	Prefixes            []string
 	DestinationPrefixes []string
 	Nat                 *bool
-	Primary             *bool
+	PrivateSuper        *bool
 	Underlay            *bool
 	Vrf                 *int64
 	ParentNetworkID     *string
-	TenantID            *string
 }
 
 // IPFindRequest contains criteria for a ip listing
@@ -178,7 +203,7 @@ func (d *Driver) NetworkFind(nfr *NetworkFindRequest) (*NetworkListResponse, err
 	var resp *network.FindNetworksOK
 
 	findNetworks := network.NewFindNetworksParams()
-	req := &models.V1FindNetworksRequest{
+	req := &models.V1NetworkFindRequest{
 		ID:                  nfr.ID,
 		Name:                nfr.Name,
 		Partitionid:         nfr.PartitionID,
@@ -186,11 +211,10 @@ func (d *Driver) NetworkFind(nfr *NetworkFindRequest) (*NetworkListResponse, err
 		Prefixes:            nfr.Prefixes,
 		Destinationprefixes: nfr.DestinationPrefixes,
 		Nat:                 nfr.Nat,
-		Primary:             nfr.Primary,
+		Privatesuper:        nfr.PrivateSuper,
 		Underlay:            nfr.Underlay,
 		Vrf:                 nfr.Vrf,
 		Parentnetworkid:     nfr.ParentNetworkID,
-		Tenantid:            nfr.TenantID,
 	}
 	findNetworks.SetBody(req)
 
@@ -217,12 +241,48 @@ func (d *Driver) NetworkCreate(ncr *NetworkCreateRequest) (*NetworkDetailRespons
 		Prefixes:            ncr.Prefixes,
 		Destinationprefixes: ncr.Destinationprefixes,
 		Vrf:                 ncr.Vrf,
-		Primary:             &ncr.Primary,
+		Vrfshared:           ncr.VrfShared,
+		Privatesuper:        &ncr.PrivateSuper,
 		Projectid:           ncr.Projectid,
 		Underlay:            &ncr.Underlay,
 	}
 	createNetwork.SetBody(createRequest)
 	resp, err := d.network.CreateNetwork(createNetwork, d.auth)
+	if err != nil {
+		return response, err
+	}
+	response.Network = resp.Payload
+	return response, nil
+}
+
+// NetworkAcquire creates a new network
+func (d *Driver) NetworkAcquire(ncr *NetworkAcquireRequest) (*NetworkDetailResponse, error) {
+	response := &NetworkDetailResponse{}
+	acquireNetwork := network.NewAcquireChildNetworkParams()
+
+	acquireRequest := &models.V1NetworkAcquireRequest{
+		Description: ncr.Description,
+		Name:        ncr.Name,
+		Partitionid: ncr.PartitionID,
+		Projectid:   ncr.ProjectID,
+		Labels:      ncr.Labels,
+	}
+	acquireNetwork.SetBody(acquireRequest)
+	resp, err := d.network.AcquireChildNetwork(acquireNetwork, d.auth)
+	if err != nil {
+		return response, err
+	}
+	response.Network = resp.Payload
+	return response, nil
+}
+
+// NetworkRelease creates a new network
+func (d *Driver) NetworkRelease(id string) (*NetworkDetailResponse, error) {
+	response := &NetworkDetailResponse{}
+	releaseNetwork := network.NewReleaseChildNetworkParams()
+
+	releaseNetwork.ID = id
+	resp, err := d.network.ReleaseChildNetwork(releaseNetwork, d.auth)
 	if err != nil {
 		return response, err
 	}
@@ -360,7 +420,7 @@ func (d *Driver) IPFind(ifr *IPFindRequest) (*IPListResponse, error) {
 	var resp *ip.FindIpsOK
 
 	findIPs := ip.NewFindIpsParams()
-	req := &models.V1FindIpsRequest{
+	req := &models.V1IPFindRequest{
 		Ipaddress:     ifr.IPAddress,
 		Projectid:     ifr.ProjectID,
 		Networkprefix: ifr.ParentPrefixCidr,
@@ -411,9 +471,9 @@ func (d *Driver) IPAcquire(iar *IPAcquireRequest) (*IPDetailResponse, error) {
 // IPDelete releases an IP
 func (d *Driver) IPDelete(id string) (*IPDetailResponse, error) {
 	response := &IPDetailResponse{}
-	deleteIP := ip.NewDeleteIPParams()
+	deleteIP := ip.NewReleaseIPParams()
 	deleteIP.ID = id
-	resp, err := d.ip.DeleteIP(deleteIP, d.auth)
+	resp, err := d.ip.ReleaseIP(deleteIP, d.auth)
 	if err != nil {
 		return response, err
 	}

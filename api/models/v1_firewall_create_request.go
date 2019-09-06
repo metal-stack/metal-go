@@ -60,10 +60,6 @@ type V1FirewallCreateRequest struct {
 	// tags for this machine
 	Tags []string `json:"tags"`
 
-	// the name of the owning tenant
-	// Required: true
-	Tenant *string `json:"tenant"`
-
 	// cloud-init.io compatible userdata must be base64 encoded
 	UserData string `json:"user_data,omitempty"`
 
@@ -96,10 +92,6 @@ func (m *V1FirewallCreateRequest) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateSSHPubKeys(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateTenant(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -173,15 +165,6 @@ func (m *V1FirewallCreateRequest) validateSizeid(formats strfmt.Registry) error 
 func (m *V1FirewallCreateRequest) validateSSHPubKeys(formats strfmt.Registry) error {
 
 	if err := validate.Required("ssh_pub_keys", "body", m.SSHPubKeys); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *V1FirewallCreateRequest) validateTenant(formats strfmt.Registry) error {
-
-	if err := validate.Required("tenant", "body", m.Tenant); err != nil {
 		return err
 	}
 

@@ -18,6 +18,11 @@ type FirewallCreateResponse struct {
 	Firewall *models.V1FirewallResponse
 }
 
+// FirewallFindRequest contains criteria for a machine listing
+type FirewallFindRequest struct {
+	MachineFindRequest
+}
+
 // FirewallListResponse contains the machine list result
 type FirewallListResponse struct {
 	Firewalls []*models.V1FirewallResponse
@@ -40,7 +45,6 @@ func (d *Driver) FirewallCreate(fcr *FirewallCreateRequest) (*FirewallCreateResp
 		Name:        fcr.Name,
 		UUID:        fcr.UUID,
 		Projectid:   &fcr.Project,
-		Tenant:      &fcr.Tenant,
 		Sizeid:      &fcr.Size,
 		SSHPubKeys:  fcr.SSHPublicKeys,
 		UserData:    fcr.UserData,
@@ -79,14 +83,66 @@ func (d *Driver) FirewallList() (*FirewallListResponse, error) {
 	return response, nil
 }
 
-// FirewallSearch will search for firewalls for given criteria
-func (d *Driver) FirewallSearch(partition, project *string) (*FirewallListResponse, error) {
-	response := &FirewallListResponse{}
+// FirewallFind will search for firewalls for given criteria
+func (d *Driver) FirewallFind(ffr *FirewallFindRequest) (*FirewallListResponse, error) {
+	if ffr == nil {
+		return d.FirewallList()
+	}
 
-	searchFirewall := firewall.NewSearchFirewallParams()
-	searchFirewall.WithPartition(partition)
-	searchFirewall.WithProject(project)
-	resp, err := d.firewall.SearchFirewall(searchFirewall, d.auth)
+	response := &FirewallListResponse{}
+	var err error
+	var resp *firewall.FindFirewallsOK
+
+	req := &models.V1FirewallFindRequest{
+		ID:                         ffr.ID,
+		Name:                       ffr.Name,
+		PartitionID:                ffr.PartitionID,
+		Sizeid:                     ffr.SizeID,
+		Rackid:                     ffr.RackID,
+		Liveliness:                 ffr.Liveliness,
+		Tags:                       ffr.Tags,
+		AllocationName:             ffr.AllocationName,
+		AllocationProject:          ffr.AllocationProject,
+		AllocationImageID:          ffr.AllocationImageID,
+		AllocationHostname:         ffr.AllocationHostname,
+		AllocationSucceeded:        ffr.AllocationSucceeded,
+		NetworkIds:                 ffr.NetworkIDs,
+		NetworkPrefixes:            ffr.NetworkPrefixes,
+		NetworkIps:                 ffr.NetworkIPs,
+		NetworkDestinationPrefixes: ffr.NetworkDestinationPrefixes,
+		NetworkVrfs:                ffr.NetworkVrfs,
+		NetworkPrivate:             ffr.NetworkPrivate,
+		NetworkAsns:                ffr.NetworkASNs,
+		NetworkNat:                 ffr.NetworkNat,
+		NetworkUnderlay:            ffr.NetworkUnderlay,
+		HardwareMemory:             ffr.HardwareMemory,
+		HardwareCPUCores:           ffr.HardwareCPUCores,
+		NicsMacAddresses:           ffr.NicsMacAddresses,
+		NicsNames:                  ffr.NicsNames,
+		NicsVrfs:                   ffr.NicsVrfs,
+		NicsNeighborMacAddresses:   ffr.NicsNeighborMacAddresses,
+		NicsNeighborNames:          ffr.NicsNeighborNames,
+		NicsNeighborVrfs:           ffr.NicsNeighborVrfs,
+		DiskNames:                  ffr.DiskNames,
+		DiskSizes:                  ffr.DiskSizes,
+		StateValue:                 ffr.StateValue,
+		IPMIAddress:                ffr.IpmiAddress,
+		IPMIMacAddress:             ffr.IpmiMacAddress,
+		IPMIUser:                   ffr.IpmiUser,
+		IPMIInterface:              ffr.IpmiInterface,
+		FruChassisPartNumber:       ffr.FruChassisPartNumber,
+		FruChassisPartSerial:       ffr.FruChassisPartSerial,
+		FruBoardMfg:                ffr.FruBoardMfg,
+		FruBoardMfgSerial:          ffr.FruBoardMfgSerial,
+		FruBoardPartNumber:         ffr.FruChassisPartNumber,
+		FruProductManufacturer:     ffr.FruProductManufacturer,
+		FruProductPartNumber:       ffr.FruProductPartNumber,
+		FruProductSerial:           ffr.FruProductSerial,
+	}
+	findFirewalls := firewall.NewFindFirewallsParams()
+	findFirewalls.SetBody(req)
+
+	resp, err = d.firewall.FindFirewalls(findFirewalls, d.auth)
 	if err != nil {
 		return response, err
 	}

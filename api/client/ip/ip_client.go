@@ -25,7 +25,7 @@ type Client struct {
 }
 
 /*
-AllocateIP allocates an ip in the given network for a project
+AllocateIP allocates an ip in the given network
 */
 func (a *Client) AllocateIP(params *AllocateIPParams, authInfo runtime.ClientAuthInfoWriter) (*AllocateIPCreated, error) {
 	// TODO: Validate the params before sending
@@ -54,7 +54,7 @@ func (a *Client) AllocateIP(params *AllocateIPParams, authInfo runtime.ClientAut
 }
 
 /*
-AllocateSpecificIP allocates an specific ip in the given network for a project
+AllocateSpecificIP allocates a specific ip in the given network
 */
 func (a *Client) AllocateSpecificIP(params *AllocateSpecificIPParams, authInfo runtime.ClientAuthInfoWriter) (*AllocateSpecificIPCreated, error) {
 	// TODO: Validate the params before sending
@@ -79,35 +79,6 @@ func (a *Client) AllocateSpecificIP(params *AllocateSpecificIPParams, authInfo r
 		return nil, err
 	}
 	return result.(*AllocateSpecificIPCreated), nil
-
-}
-
-/*
-DeleteIP deletes an ip and returns the deleted entity
-*/
-func (a *Client) DeleteIP(params *DeleteIPParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteIPOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewDeleteIPParams()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "deleteIP",
-		Method:             "DELETE",
-		PathPattern:        "/v1/ip/{id}",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
-		Params:             params,
-		Reader:             &DeleteIPReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	return result.(*DeleteIPOK), nil
 
 }
 
@@ -195,6 +166,35 @@ func (a *Client) ListIps(params *ListIpsParams, authInfo runtime.ClientAuthInfoW
 		return nil, err
 	}
 	return result.(*ListIpsOK), nil
+
+}
+
+/*
+ReleaseIP releases an ip
+*/
+func (a *Client) ReleaseIP(params *ReleaseIPParams, authInfo runtime.ClientAuthInfoWriter) (*ReleaseIPOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewReleaseIPParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "releaseIP",
+		Method:             "POST",
+		PathPattern:        "/v1/ip/release/{id}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &ReleaseIPReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*ReleaseIPOK), nil
 
 }
 

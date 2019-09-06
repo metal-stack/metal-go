@@ -6,9 +6,10 @@ package ip
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"context"
 	"net/http"
 	"time"
+
+	"golang.org/x/net/context"
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
@@ -64,7 +65,7 @@ for the find ips operation typically these are written to a http.Request
 type FindIpsParams struct {
 
 	/*Body*/
-	Body *models.V1FindIpsRequest
+	Body *models.V1IPFindRequest
 
 	timeout    time.Duration
 	Context    context.Context
@@ -105,13 +106,13 @@ func (o *FindIpsParams) SetHTTPClient(client *http.Client) {
 }
 
 // WithBody adds the body to the find ips params
-func (o *FindIpsParams) WithBody(body *models.V1FindIpsRequest) *FindIpsParams {
+func (o *FindIpsParams) WithBody(body *models.V1IPFindRequest) *FindIpsParams {
 	o.SetBody(body)
 	return o
 }
 
 // SetBody adds the body to the find ips params
-func (o *FindIpsParams) SetBody(body *models.V1FindIpsRequest) {
+func (o *FindIpsParams) SetBody(body *models.V1IPFindRequest) {
 	o.Body = body
 }
 

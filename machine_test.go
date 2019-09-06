@@ -263,10 +263,7 @@ func startServerAndGetDriver() (*http.Server, *Driver) {
 		_ = server.Serve(listener)
 	}()
 
-	// ensure that server is running
-	select {
-	case <-time.After(10 * time.Millisecond):
-	}
+	time.Sleep(10 * time.Millisecond)
 
 	port := listener.Addr().(*net.TCPAddr).Port
 	addr := fmt.Sprintf("http://localhost:%d", port)
