@@ -41,9 +41,9 @@ type V1MachineNetwork struct {
 	// Required: true
 	Prefixes []string `json:"prefixes"`
 
-	// indicates whether this network is the private network of this machine
+	// indicates whether this network is the primary network of this machine
 	// Required: true
-	Private *bool `json:"private"`
+	Primary *bool `json:"primary"`
 
 	// if set to true, this network can be used for underlay communication
 	// Required: true
@@ -82,7 +82,7 @@ func (m *V1MachineNetwork) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validatePrivate(formats); err != nil {
+	if err := m.validatePrimary(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -154,9 +154,9 @@ func (m *V1MachineNetwork) validatePrefixes(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *V1MachineNetwork) validatePrivate(formats strfmt.Registry) error {
+func (m *V1MachineNetwork) validatePrimary(formats strfmt.Registry) error {
 
-	if err := validate.Required("private", "body", m.Private); err != nil {
+	if err := validate.Required("primary", "body", m.Primary); err != nil {
 		return err
 	}
 

@@ -64,7 +64,7 @@ for the find machines operation typically these are written to a http.Request
 type FindMachinesParams struct {
 
 	/*Body*/
-	Body *models.V1MachineFindRequest
+	Body *models.V1FindMachinesRequest
 
 	timeout    time.Duration
 	Context    context.Context
@@ -105,13 +105,13 @@ func (o *FindMachinesParams) SetHTTPClient(client *http.Client) {
 }
 
 // WithBody adds the body to the find machines params
-func (o *FindMachinesParams) WithBody(body *models.V1MachineFindRequest) *FindMachinesParams {
+func (o *FindMachinesParams) WithBody(body *models.V1FindMachinesRequest) *FindMachinesParams {
 	o.SetBody(body)
 	return o
 }
 
 // SetBody adds the body to the find machines params
-func (o *FindMachinesParams) SetBody(body *models.V1MachineFindRequest) {
+func (o *FindMachinesParams) SetBody(body *models.V1FindMachinesRequest) {
 	o.Body = body
 }
 

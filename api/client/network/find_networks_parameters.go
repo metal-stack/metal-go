@@ -64,7 +64,7 @@ for the find networks operation typically these are written to a http.Request
 type FindNetworksParams struct {
 
 	/*Body*/
-	Body *models.V1NetworkFindRequest
+	Body *models.V1FindNetworksRequest
 
 	timeout    time.Duration
 	Context    context.Context
@@ -105,13 +105,13 @@ func (o *FindNetworksParams) SetHTTPClient(client *http.Client) {
 }
 
 // WithBody adds the body to the find networks params
-func (o *FindNetworksParams) WithBody(body *models.V1NetworkFindRequest) *FindNetworksParams {
+func (o *FindNetworksParams) WithBody(body *models.V1FindNetworksRequest) *FindNetworksParams {
 	o.SetBody(body)
 	return o
 }
 
 // SetBody adds the body to the find networks params
-func (o *FindNetworksParams) SetBody(body *models.V1NetworkFindRequest) {
+func (o *FindNetworksParams) SetBody(body *models.V1FindNetworksRequest) {
 	o.Body = body
 }
 

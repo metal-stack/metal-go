@@ -27,7 +27,7 @@ type PartitionCreateRequest struct {
 	Description                string
 	Bootconfig                 BootConfig
 	Mgmtserviceaddress         string
-	Privatenetworkprefixlength int32
+	Projectnetworkprefixlength int32
 }
 
 // BootConfig in the partition
@@ -96,7 +96,7 @@ func (d *Driver) PartitionCreate(pcr PartitionCreateRequest) (*PartitionCreateRe
 		Name:                       pcr.Name,
 		Description:                pcr.Description,
 		Mgmtserviceaddress:         pcr.Mgmtserviceaddress,
-		Privatenetworkprefixlength: pcr.Privatenetworkprefixlength,
+		Projectnetworkprefixlength: pcr.Projectnetworkprefixlength,
 		Bootconfig:                 pcr.Bootconfig.convert(),
 	}
 	request := partition.NewCreatePartitionParams()

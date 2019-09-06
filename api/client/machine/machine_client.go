@@ -228,7 +228,7 @@ func (a *Client) FindMachine(params *FindMachineParams, authInfo runtime.ClientA
 }
 
 /*
-FindMachines finds machines by multiple criteria
+FindMachines searches machines
 */
 func (a *Client) FindMachines(params *FindMachinesParams, authInfo runtime.ClientAuthInfoWriter) (*FindMachinesOK, error) {
 	// TODO: Validate the params before sending

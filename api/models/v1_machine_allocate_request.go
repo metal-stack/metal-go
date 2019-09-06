@@ -57,6 +57,10 @@ type V1MachineAllocateRequest struct {
 	// tags for this machine
 	Tags []string `json:"tags"`
 
+	// the name of the owning tenant
+	// Required: true
+	Tenant *string `json:"tenant"`
+
 	// cloud-init.io compatible userdata must be base64 encoded
 	UserData string `json:"user_data,omitempty"`
 
@@ -89,6 +93,10 @@ func (m *V1MachineAllocateRequest) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateSSHPubKeys(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateTenant(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -162,6 +170,15 @@ func (m *V1MachineAllocateRequest) validateSizeid(formats strfmt.Registry) error
 func (m *V1MachineAllocateRequest) validateSSHPubKeys(formats strfmt.Registry) error {
 
 	if err := validate.Required("ssh_pub_keys", "body", m.SSHPubKeys); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *V1MachineAllocateRequest) validateTenant(formats strfmt.Registry) error {
+
+	if err := validate.Required("tenant", "body", m.Tenant); err != nil {
 		return err
 	}
 
