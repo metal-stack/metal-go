@@ -33,7 +33,7 @@ type ProjectCreateResponse struct {
 	Project *models.V1ProjectResponse
 }
 
-// ProjectList return all partitions
+// ProjectList return all projects
 func (d *Driver) ProjectList() (*ProjectListResponse, error) {
 	response := &ProjectListResponse{}
 	listProjects := project.NewListProjectsParams()
@@ -46,10 +46,10 @@ func (d *Driver) ProjectList() (*ProjectListResponse, error) {
 }
 
 // ProjectGet return a Project
-func (d *Driver) ProjectGet(partitionID string) (*ProjectGetResponse, error) {
+func (d *Driver) ProjectGet(projectID string) (*ProjectGetResponse, error) {
 	response := &ProjectGetResponse{}
 	getProject := project.NewFindProjectParams()
-	getProject.ID = partitionID
+	getProject.ID = projectID
 	resp, err := d.project.FindProject(getProject, d.auth)
 	if err != nil {
 		return response, err
@@ -97,10 +97,10 @@ func (d *Driver) ProjectUpdate(pcr ProjectUpdateRequest) (*ProjectCreateResponse
 }
 
 // ProjectDelete return a Project
-func (d *Driver) ProjectDelete(partitionID string) (*ProjectGetResponse, error) {
+func (d *Driver) ProjectDelete(projectID string) (*ProjectGetResponse, error) {
 	response := &ProjectGetResponse{}
 	request := project.NewDeleteProjectParams()
-	request.ID = partitionID
+	request.ID = projectID
 	resp, err := d.project.DeleteProject(request, d.auth)
 	if err != nil {
 		return response, err
