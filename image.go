@@ -1,7 +1,6 @@
 package metalgo
 
 import (
-	"fmt"
 	"time"
 
 	"github.com/go-openapi/strfmt"
@@ -62,10 +61,7 @@ func (d *Driver) ImageGet(imageID string) (*ImageGetResponse, error) {
 // ImageCreate create a image
 func (d *Driver) ImageCreate(icr ImageCreateRequest) (*ImageCreateResponse, error) {
 	response := &ImageCreateResponse{}
-	validTo, err := strfmt.ParseDateTime(fmt.Sprintf("%d", icr.ValidTo.Unix()))
-	if err != nil {
-		return nil, err
-	}
+	validTo := strfmt.DateTime(icr.ValidTo)
 	createImage := &models.V1ImageCreateRequest{
 		Description: icr.Description,
 		Features:    icr.Features,
