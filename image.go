@@ -1,6 +1,10 @@
 package metalgo
 
 import (
+	"fmt"
+	"time"
+
+	"github.com/go-openapi/strfmt"
 	"github.com/metal-pod/metal-go/api/client/image"
 	"github.com/metal-pod/metal-go/api/models"
 )
@@ -22,6 +26,7 @@ type ImageCreateRequest struct {
 	Description string
 	URL         string
 	Features    []string
+	ValidTo     time.Time
 }
 
 // ImageCreateResponse is the response of a ImageList action
@@ -57,13 +62,14 @@ func (d *Driver) ImageGet(imageID string) (*ImageGetResponse, error) {
 // ImageCreate create a image
 func (d *Driver) ImageCreate(icr ImageCreateRequest) (*ImageCreateResponse, error) {
 	response := &ImageCreateResponse{}
-
+	validTo, err := strfmt.ParseDateTime(fmt.Sprintf("%d", icr.ValidTo.Unix()))
 	createImage := &models.V1ImageCreateRequest{
 		Description: icr.Description,
 		Features:    icr.Features,
 		ID:          &icr.ID,
 		Name:        icr.Name,
 		URL:         &icr.URL,
+		Validto:     &validTo,
 	}
 	request := image.NewCreateImageParams()
 	request.SetBody(createImage)

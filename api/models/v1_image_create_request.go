@@ -34,6 +34,11 @@ type V1ImageCreateRequest struct {
 	// the url of this image
 	// Required: true
 	URL *string `json:"url"`
+
+	// date to which it is allowed to allocate machines from
+	// Required: true
+	// Format: date-time
+	Validto *strfmt.DateTime `json:"validto"`
 }
 
 // Validate validates this v1 image create request
@@ -45,6 +50,10 @@ func (m *V1ImageCreateRequest) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateURL(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateValidto(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -66,6 +75,19 @@ func (m *V1ImageCreateRequest) validateID(formats strfmt.Registry) error {
 func (m *V1ImageCreateRequest) validateURL(formats strfmt.Registry) error {
 
 	if err := validate.Required("url", "body", m.URL); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *V1ImageCreateRequest) validateValidto(formats strfmt.Registry) error {
+
+	if err := validate.Required("validto", "body", m.Validto); err != nil {
+		return err
+	}
+
+	if err := validate.FormatOf("validto", "body", "date-time", m.Validto.String(), formats); err != nil {
 		return err
 	}
 
