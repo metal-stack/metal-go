@@ -63,6 +63,9 @@ func (d *Driver) ImageGet(imageID string) (*ImageGetResponse, error) {
 func (d *Driver) ImageCreate(icr ImageCreateRequest) (*ImageCreateResponse, error) {
 	response := &ImageCreateResponse{}
 	validTo, err := strfmt.ParseDateTime(fmt.Sprintf("%d", icr.ValidTo.Unix()))
+	if err != nil {
+		return nil, err
+	}
 	createImage := &models.V1ImageCreateRequest{
 		Description: icr.Description,
 		Features:    icr.Features,
