@@ -779,6 +779,45 @@
         }
       }
     },
+    "/v1/machine/ipmi": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "machine"
+        ],
+        "summary": "reports IPMI ip addresses leased by a management server for machines",
+        "operationId": "ipmiReport",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1.MachineIpmiReport"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/v1.MachineIpmiReportResponse"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/httperrors.HTTPErrorResponse"
+            }
+          }
+        }
+      }
+    },
     "/v1/machine/liveliness": {
       "post": {
         "consumes": [
@@ -2937,50 +2976,50 @@
     },
     "v1.FirewallFindRequest": {
       "required": [
-        "id",
-        "allocation_image_id",
-        "network_nat",
-        "nics_vrfs",
+        "nics_neighbor_mac_addresses",
         "fru_board_mfg",
         "network_ids",
-        "partition_id",
-        "network_destination_prefixes",
-        "nics_neighbor_mac_addresses",
-        "disk_sizes",
-        "sizeid",
         "nics_neighbor_names",
-        "network_private",
-        "hardware_cpu_cores",
-        "allocation_succeeded",
-        "allocation_project",
-        "rackid",
-        "tags",
-        "nics_mac_addresses",
-        "fru_chassis_part_serial",
-        "allocation_name",
-        "network_vrfs",
-        "hardware_memory",
-        "ipmi_interface",
-        "fru_chassis_part_number",
-        "fru_board_mfg_serial",
-        "name",
-        "ipmi_mac_address",
-        "fru_product_part_number",
-        "disk_names",
+        "disk_sizes",
         "network_underlay",
-        "nics_neighbor_vrfs",
-        "state_value",
-        "liveliness",
         "network_prefixes",
-        "fru_product_serial",
-        "network_ips",
-        "fru_product_manufacturer",
-        "ipmi_address",
-        "allocation_hostname",
+        "hardware_memory",
+        "network_nat",
+        "sizeid",
         "fru_board_part_number",
+        "ipmi_address",
+        "allocation_succeeded",
         "nics_names",
+        "partition_id",
+        "network_vrfs",
+        "nics_neighbor_vrfs",
+        "nics_mac_addresses",
+        "ipmi_mac_address",
+        "allocation_hostname",
+        "liveliness",
+        "fru_chassis_part_serial",
+        "ipmi_user",
+        "name",
+        "disk_names",
+        "network_private",
+        "allocation_image_id",
+        "fru_board_mfg_serial",
+        "state_value",
+        "nics_vrfs",
+        "fru_chassis_part_number",
+        "network_destination_prefixes",
+        "tags",
         "network_asns",
-        "ipmi_user"
+        "fru_product_part_number",
+        "fru_product_manufacturer",
+        "network_ips",
+        "fru_product_serial",
+        "id",
+        "allocation_name",
+        "hardware_cpu_cores",
+        "ipmi_interface",
+        "allocation_project",
+        "rackid"
       ],
       "properties": {
         "allocation_hostname": {
@@ -3166,19 +3205,19 @@
     },
     "v1.FirewallResponse": {
       "required": [
-        "size",
-        "state",
-        "liveliness",
-        "tags",
-        "allocation",
-        "partition",
-        "rackid",
         "created",
-        "events",
-        "changed",
-        "id",
+        "hardware",
         "ledstate",
-        "hardware"
+        "liveliness",
+        "allocation",
+        "state",
+        "rackid",
+        "changed",
+        "tags",
+        "id",
+        "size",
+        "events",
+        "partition"
       ],
       "properties": {
         "allocation": {
@@ -3257,11 +3296,32 @@
     "v1.IPAllocateRequest": {
       "required": [
         "projectid",
-        "networkid"
+        "networkid",
+        "iptype",
+        "tags",
+        "machineid",
+        "clusterid"
       ],
       "properties": {
+        "clusterid": {
+          "description": "the cluster id this ip should be associated with",
+          "type": "string"
+        },
         "description": {
           "description": "a description for this entity",
+          "type": "string"
+        },
+        "iptype": {
+          "description": "the ip type, ephemeral leads to automatic cleanup of the ip address, static will enable re-use of the ip at a later point in time",
+          "type": "string",
+          "default": "static",
+          "enum": [
+            "static",
+            "ephemeral"
+          ]
+        },
+        "machineid": {
+          "description": "the machine id this ip should be associated with",
           "type": "string"
         },
         "name": {
@@ -3275,24 +3335,38 @@
         "projectid": {
           "description": "the project this ip address belongs to",
           "type": "string"
+        },
+        "tags": {
+          "description": "free tags that you associate with this ip.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         }
       }
     },
     "v1.IPFindRequest": {
       "required": [
-        "ipaddress",
         "networkprefix",
         "networkid",
+        "tags",
+        "projectid",
+        "type",
         "machineid",
-        "projectid"
+        "clusterid",
+        "ipaddress"
       ],
       "properties": {
+        "clusterid": {
+          "description": "the cluster an ip address is associated to",
+          "type": "string"
+        },
         "ipaddress": {
           "description": "the address (ipv4 or ipv6) of this ip",
           "type": "string"
         },
         "machineid": {
-          "description": "the machine this ip address belongs to, empty if not strong coupled",
+          "description": "the machine an ip address is associated to",
           "type": "string"
         },
         "networkid": {
@@ -3306,6 +3380,17 @@
         "projectid": {
           "description": "the project this ip address belongs to, empty if not strong coupled",
           "type": "string"
+        },
+        "tags": {
+          "description": "the tags that are assigned to this ip address",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "type": {
+          "description": "the type of the ip address, ephemeral or static",
+          "type": "string"
         }
       }
     },
@@ -3313,8 +3398,9 @@
       "required": [
         "projectid",
         "networkid",
+        "iptype",
+        "tags",
         "ipaddress",
-        "machineid",
         "created",
         "changed"
       ],
@@ -3340,9 +3426,14 @@
           "type": "string",
           "uniqueItems": true
         },
-        "machineid": {
-          "description": "the machine this ip address belongs to, empty if not strong coupled",
-          "type": "string"
+        "iptype": {
+          "description": "the ip type, ephemeral leads to automatic cleanup of the ip address, static will enable re-use of the ip at a later point in time",
+          "type": "string",
+          "default": "static",
+          "enum": [
+            "static",
+            "ephemeral"
+          ]
         },
         "name": {
           "description": "a readable name for this entity",
@@ -3355,13 +3446,21 @@
         "projectid": {
           "description": "the project this ip address belongs to",
           "type": "string"
+        },
+        "tags": {
+          "description": "free tags that you associate with this ip.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         }
       }
     },
     "v1.IPUpdateRequest": {
       "required": [
         "ipaddress",
-        "machineid"
+        "iptype",
+        "tags"
       ],
       "properties": {
         "description": {
@@ -3373,13 +3472,24 @@
           "type": "string",
           "uniqueItems": true
         },
-        "machineid": {
-          "description": "the machine this ip address belongs to, empty if not strong coupled",
-          "type": "string"
+        "iptype": {
+          "description": "the ip type, ephemeral leads to automatic cleanup of the ip address, static will enable re-use of the ip at a later point in time",
+          "type": "string",
+          "enum": [
+            "static",
+            "ephemeral"
+          ]
         },
         "name": {
           "description": "a readable name for this entity",
           "type": "string"
+        },
+        "tags": {
+          "description": "free tags that you associate with this ip.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         }
       }
     },
@@ -3676,50 +3786,50 @@
     },
     "v1.MachineFindRequest": {
       "required": [
-        "network_prefixes",
-        "hardware_memory",
-        "ipmi_mac_address",
-        "partition_id",
-        "tags",
-        "network_ips",
-        "network_vrfs",
-        "ipmi_user",
-        "fru_chassis_part_number",
-        "fru_board_mfg_serial",
-        "id",
-        "allocation_image_id",
-        "network_destination_prefixes",
-        "hardware_cpu_cores",
-        "nics_names",
-        "ipmi_address",
-        "fru_board_part_number",
-        "rackid",
-        "network_nat",
-        "fru_chassis_part_serial",
-        "nics_neighbor_names",
-        "fru_product_serial",
-        "sizeid",
         "liveliness",
+        "allocation_image_id",
+        "allocation_hostname",
+        "allocation_name",
+        "network_ids",
+        "network_ips",
+        "hardware_cpu_cores",
+        "nics_mac_addresses",
+        "nics_names",
+        "disk_names",
+        "ipmi_mac_address",
+        "fru_chassis_part_serial",
+        "allocation_project",
+        "network_vrfs",
+        "nics_vrfs",
+        "name",
+        "tags",
+        "network_destination_prefixes",
+        "network_underlay",
+        "nics_neighbor_vrfs",
+        "fru_chassis_part_number",
         "allocation_succeeded",
         "network_private",
-        "network_asns",
-        "nics_neighbor_mac_addresses",
-        "nics_neighbor_vrfs",
+        "rackid",
+        "network_nat",
+        "nics_neighbor_names",
         "state_value",
         "ipmi_interface",
         "fru_board_mfg",
+        "fru_board_mfg_serial",
+        "fru_product_serial",
+        "id",
+        "sizeid",
+        "network_prefixes",
+        "network_asns",
+        "hardware_memory",
+        "ipmi_user",
         "fru_product_part_number",
-        "name",
-        "allocation_hostname",
-        "nics_mac_addresses",
-        "nics_vrfs",
-        "fru_product_manufacturer",
-        "allocation_name",
-        "allocation_project",
-        "network_ids",
-        "network_underlay",
-        "disk_names",
-        "disk_sizes"
+        "partition_id",
+        "nics_neighbor_mac_addresses",
+        "disk_sizes",
+        "ipmi_address",
+        "fru_board_part_number",
+        "fru_product_manufacturer"
       ],
       "properties": {
         "allocation_hostname": {
@@ -4037,6 +4147,47 @@
         }
       }
     },
+    "v1.MachineIpmiReport": {
+      "required": [
+        "partitionid",
+        "leases"
+      ],
+      "properties": {
+        "leases": {
+          "description": "the active leases to be reported by a management server",
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "partitionid": {
+          "description": "the partition id for the ipmi report",
+          "type": "string"
+        }
+      }
+    },
+    "v1.MachineIpmiReportResponse": {
+      "required": [
+        "updated",
+        "created"
+      ],
+      "properties": {
+        "created": {
+          "description": "the leases that triggered a creation of a machine entity",
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "updated": {
+          "description": "the leases that triggered an update of ipmi data",
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      }
+    },
     "v1.MachineLivelinessReport": {
       "required": [
         "alive_count",
@@ -4254,16 +4405,16 @@
         "id",
         "rackid",
         "size",
-        "state",
-        "events",
+        "allocation",
         "tags",
+        "liveliness",
+        "events",
         "partition",
         "hardware",
-        "allocation",
+        "state",
         "ledstate",
-        "liveliness",
-        "changed",
-        "created"
+        "created",
+        "changed"
       ],
       "properties": {
         "allocation": {
@@ -4468,18 +4619,18 @@
     },
     "v1.NetworkFindRequest": {
       "required": [
+        "nat",
         "underlay",
+        "vrf",
+        "parentnetworkid",
         "labels",
-        "id",
+        "destinationprefixes",
+        "name",
         "partitionid",
         "projectid",
-        "destinationprefixes",
-        "nat",
-        "privatesuper",
-        "name",
         "prefixes",
-        "vrf",
-        "parentnetworkid"
+        "privatesuper",
+        "id"
       ],
       "properties": {
         "destinationprefixes": {
@@ -4534,15 +4685,15 @@
       "required": [
         "id",
         "labels",
+        "underlay",
         "parentnetworkid",
         "prefixes",
         "destinationprefixes",
         "nat",
         "privatesuper",
-        "underlay",
         "usage",
-        "changed",
-        "created"
+        "created",
+        "changed"
       ],
       "properties": {
         "changed": {
@@ -5077,8 +5228,8 @@
       "required": [
         "id",
         "constraints",
-        "changed",
-        "created"
+        "created",
+        "changed"
       ],
       "properties": {
         "changed": {
@@ -5322,6 +5473,10 @@
     {
       "description": "Managing machine entities",
       "name": "machine"
+    },
+    {
+      "description": "Managing partition entities",
+      "name": "partition"
     },
     {
       "description": "Managing project entities",

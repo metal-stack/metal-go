@@ -8,6 +8,8 @@ import (
 	"github.com/metal-pod/metal-go/api/models"
 )
 
+const TagIPClusterID = "cluster.metal-pod.io/clusterid"
+
 // NetworkGetResponse contains the network get result
 type NetworkGetResponse struct {
 	Network *models.V1NetworkResponse
@@ -105,8 +107,30 @@ type IPUpdateRequest struct {
 	Description string `json:"description,omitempty"`
 	// the readable name
 	Name string `json:"name,omitempty"`
-	// the machine id that is associated to this ip
-	MachineID string `json:"machineid,omitempty"`
+	// the type of the ip
+	Type string `json:"type,omitempty"`
+	// tags for the ip
+	Tags []string `json:"tags,omitempty"`
+}
+
+// IPAssociateRequest is the request to associate an IP with a cluster
+type IPAssociateRequest struct {
+	// the ip address for this ip update request.
+	IPAddress string `json:"ipaddress"`
+	// the cluster id to associate the ip address with.
+	ClusterID string `json:"clusterid"`
+	// tags to add to the ip
+	Tags []string `json:"tags,omitempty"`
+}
+
+// IPDeassociateRequest is the request to deassociate an IP from a cluster
+type IPDeassociateRequest struct {
+	// the ip address for this ip update request.
+	IPAddress string `json:"ipaddress"`
+	// the cluster id to deassociate the ip address with.
+	ClusterID string `json:"clusterid"`
+	// tags to remove from the ip
+	Tags []string `json:"tags,omitempty"`
 }
 
 // IPListResponse is the response when ips are listed
@@ -131,9 +155,21 @@ type IPAcquireRequest struct {
 	// Required: true
 	Projectid string `json:"projectid"`
 
+	// the machine this ip acquire request belongs to
+	Machineid *string `json:"machineid"`
+
+	// the cluster this ip acquire request belongs to
+	Clusterid *string `json:"clusterid"`
+
 	// SpecificIP tries to acquire this ip.
 	// Required: false
 	SpecificIP string `json:"specificip"`
+
+	// the type of the ip
+	Type string `json:"type,omitempty"`
+
+	// tags for the ip
+	Tags []string `json:"tags,omitempty"`
 }
 
 // NetworkFindRequest contains criteria for a network listing
@@ -158,6 +194,9 @@ type IPFindRequest struct {
 	ParentPrefixCidr *string
 	NetworkID        *string
 	MachineID        *string
+	ClusterID        *string
+	Type             *string
+	Tags             []string
 }
 
 // IPDetailResponse is the response to an IP detail request.
@@ -386,7 +425,72 @@ func (d *Driver) IPUpdate(iur *IPUpdateRequest) (*IPDetailResponse, error) {
 		Ipaddress:   &iur.IPAddress,
 		Description: iur.Description,
 		Name:        iur.Name,
-		Machineid:   &iur.MachineID,
+		Iptype:      &iur.Type,
+		Tags:        iur.Tags,
+	}
+	updateIP.SetBody(updateRequest)
+	resp, err := d.ip.UpdateIP(updateIP, d.auth)
+	if err != nil {
+		return response, err
+	}
+	response.IP = resp.Payload
+	return response, nil
+}
+
+// IPAssociate updates an IP and associates it with a cluster
+func (d *Driver) IPAssociate(iur *IPAssociateRequest) (*IPDetailResponse, error) {
+	response := &IPDetailResponse{}
+	updateIP := ip.NewUpdateIPParams()
+
+	detail, err := d.IPGet(iur.IPAddress)
+	if err != nil {
+		return nil, err
+	}
+
+	ip := detail.IP
+	tags := append(ip.Tags, fmt.Sprintf("%s=%s", TagIPClusterID, iur.ClusterID))
+	tags = append(tags, iur.Tags...)
+	updateRequest := &models.V1IPUpdateRequest{
+		Ipaddress: ip.Ipaddress,
+		Tags:      tags,
+	}
+	updateIP.SetBody(updateRequest)
+	resp, err := d.ip.UpdateIP(updateIP, d.auth)
+	if err != nil {
+		return response, err
+	}
+	response.IP = resp.Payload
+	return response, nil
+}
+
+// IPDeassociate updates an IP and deassociates it from a cluster
+func (d *Driver) IPDeassociate(iur *IPDeassociateRequest) (*IPDetailResponse, error) {
+	response := &IPDetailResponse{}
+	updateIP := ip.NewUpdateIPParams()
+
+	detail, err := d.IPGet(iur.IPAddress)
+	if err != nil {
+		return nil, err
+	}
+
+	ip := detail.IP
+	ct := fmt.Sprintf("%s=%s", TagIPClusterID, iur.ClusterID)
+	tagsToRemove := map[string]interface{}{ct: nil}
+	for _, t := range iur.Tags {
+		tagsToRemove[t] = nil
+	}
+
+	newTags := []string{}
+	for _, t := range ip.Tags {
+		if _, ok := tagsToRemove[t]; ok {
+			continue
+		}
+		newTags = append(newTags, t)
+	}
+
+	updateRequest := &models.V1IPUpdateRequest{
+		Ipaddress: ip.Ipaddress,
+		Tags:      newTags,
 	}
 	updateIP.SetBody(updateRequest)
 	resp, err := d.ip.UpdateIP(updateIP, d.auth)
@@ -426,6 +530,9 @@ func (d *Driver) IPFind(ifr *IPFindRequest) (*IPListResponse, error) {
 		Networkprefix: ifr.ParentPrefixCidr,
 		Networkid:     ifr.NetworkID,
 		Machineid:     ifr.MachineID,
+		Clusterid:     ifr.ClusterID,
+		Type:          ifr.Type,
+		Tags:          ifr.Tags,
 	}
 	findIPs.SetBody(req)
 
@@ -446,6 +553,10 @@ func (d *Driver) IPAcquire(iar *IPAcquireRequest) (*IPDetailResponse, error) {
 		Name:        iar.Name,
 		Networkid:   &iar.Networkid,
 		Projectid:   &iar.Projectid,
+		Machineid:   iar.Machineid,
+		Clusterid:   iar.Clusterid,
+		Iptype:      &iar.Type,
+		Tags:        iar.Tags,
 	}
 	if iar.SpecificIP == "" {
 		acquireIP := ip.NewAllocateIPParams()

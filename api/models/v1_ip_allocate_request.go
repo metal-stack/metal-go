@@ -6,6 +6,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
+
 	strfmt "github.com/go-openapi/strfmt"
 
 	"github.com/go-openapi/errors"
@@ -17,8 +19,21 @@ import (
 // swagger:model v1.IPAllocateRequest
 type V1IPAllocateRequest struct {
 
+	// the cluster id this ip should be associated with
+	// Required: true
+	Clusterid *string `json:"clusterid"`
+
 	// a description for this entity
 	Description string `json:"description,omitempty"`
+
+	// the ip type, ephemeral leads to automatic cleanup of the ip address, static will enable re-use of the ip at a later point in time
+	// Required: true
+	// Enum: [static ephemeral]
+	Iptype *string `json:"iptype"`
+
+	// the machine id this ip should be associated with
+	// Required: true
+	Machineid *string `json:"machineid"`
 
 	// a readable name for this entity
 	Name string `json:"name,omitempty"`
@@ -30,11 +45,27 @@ type V1IPAllocateRequest struct {
 	// the project this ip address belongs to
 	// Required: true
 	Projectid *string `json:"projectid"`
+
+	// free tags that you associate with this ip.
+	// Required: true
+	Tags []string `json:"tags"`
 }
 
 // Validate validates this v1 IP allocate request
 func (m *V1IPAllocateRequest) Validate(formats strfmt.Registry) error {
 	var res []error
+
+	if err := m.validateClusterid(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateIptype(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateMachineid(formats); err != nil {
+		res = append(res, err)
+	}
 
 	if err := m.validateNetworkid(formats); err != nil {
 		res = append(res, err)
@@ -44,9 +75,74 @@ func (m *V1IPAllocateRequest) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateTags(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *V1IPAllocateRequest) validateClusterid(formats strfmt.Registry) error {
+
+	if err := validate.Required("clusterid", "body", m.Clusterid); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+var v1IpAllocateRequestTypeIptypePropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["static","ephemeral"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		v1IpAllocateRequestTypeIptypePropEnum = append(v1IpAllocateRequestTypeIptypePropEnum, v)
+	}
+}
+
+const (
+
+	// V1IPAllocateRequestIptypeStatic captures enum value "static"
+	V1IPAllocateRequestIptypeStatic string = "static"
+
+	// V1IPAllocateRequestIptypeEphemeral captures enum value "ephemeral"
+	V1IPAllocateRequestIptypeEphemeral string = "ephemeral"
+)
+
+// prop value enum
+func (m *V1IPAllocateRequest) validateIptypeEnum(path, location string, value string) error {
+	if err := validate.Enum(path, location, value, v1IpAllocateRequestTypeIptypePropEnum); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *V1IPAllocateRequest) validateIptype(formats strfmt.Registry) error {
+
+	if err := validate.Required("iptype", "body", m.Iptype); err != nil {
+		return err
+	}
+
+	// value enum
+	if err := m.validateIptypeEnum("iptype", "body", *m.Iptype); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *V1IPAllocateRequest) validateMachineid(formats strfmt.Registry) error {
+
+	if err := validate.Required("machineid", "body", m.Machineid); err != nil {
+		return err
+	}
+
 	return nil
 }
 
@@ -62,6 +158,15 @@ func (m *V1IPAllocateRequest) validateNetworkid(formats strfmt.Registry) error {
 func (m *V1IPAllocateRequest) validateProjectid(formats strfmt.Registry) error {
 
 	if err := validate.Required("projectid", "body", m.Projectid); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *V1IPAllocateRequest) validateTags(formats strfmt.Registry) error {
+
+	if err := validate.Required("tags", "body", m.Tags); err != nil {
 		return err
 	}
 
