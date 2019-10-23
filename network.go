@@ -117,6 +117,8 @@ type IPUpdateRequest struct {
 type IPAssociateRequest struct {
 	// the ip address for this ip update request.
 	IPAddress string `json:"ipaddress"`
+	// the project id this ip belongs to.
+	ProjectID string `json:"projectid"`
 	// the cluster id to associate the ip address with.
 	ClusterID string `json:"clusterid"`
 	// tags to add to the ip
@@ -127,6 +129,8 @@ type IPAssociateRequest struct {
 type IPDeassociateRequest struct {
 	// the ip address for this ip update request.
 	IPAddress string `json:"ipaddress"`
+	// the project id this ip belongs to.
+	ProjectID string `json:"projectid"`
 	// the cluster id to deassociate the ip address with.
 	ClusterID string `json:"clusterid"`
 	// tags to remove from the ip
@@ -447,6 +451,10 @@ func (d *Driver) IPAssociate(iur *IPAssociateRequest) (*IPDetailResponse, error)
 		return nil, err
 	}
 
+	if *detail.IP.Projectid != iur.ProjectID {
+		return nil, fmt.Errorf("ip not found or does not belong to project")
+	}
+
 	ip := detail.IP
 	tags := append(ip.Tags, fmt.Sprintf("%s=%s", TagIPClusterID, iur.ClusterID))
 	tags = append(tags, iur.Tags...)
@@ -471,6 +479,10 @@ func (d *Driver) IPDeassociate(iur *IPDeassociateRequest) (*IPDetailResponse, er
 	detail, err := d.IPGet(iur.IPAddress)
 	if err != nil {
 		return nil, err
+	}
+
+	if *detail.IP.Projectid != iur.ProjectID {
+		return nil, fmt.Errorf("ip not found or does not belong to project")
 	}
 
 	ip := detail.IP
