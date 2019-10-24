@@ -199,6 +199,35 @@ func (a *Client) ReleaseIP(params *ReleaseIPParams, authInfo runtime.ClientAuthI
 }
 
 /*
+ReleaseIPFromCluster updates an ip and marks it as unused in the given cluster
+*/
+func (a *Client) ReleaseIPFromCluster(params *ReleaseIPFromClusterParams, authInfo runtime.ClientAuthInfoWriter) (*ReleaseIPFromClusterOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewReleaseIPFromClusterParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "releaseIPFromCluster",
+		Method:             "POST",
+		PathPattern:        "/v1/ip/release",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &ReleaseIPFromClusterReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*ReleaseIPFromClusterOK), nil
+
+}
+
+/*
 UpdateIP updates an ip if the ip was changed since this one was read a conflict is returned
 */
 func (a *Client) UpdateIP(params *UpdateIPParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateIPOK, error) {
@@ -224,6 +253,35 @@ func (a *Client) UpdateIP(params *UpdateIPParams, authInfo runtime.ClientAuthInf
 		return nil, err
 	}
 	return result.(*UpdateIPOK), nil
+
+}
+
+/*
+UseIPInCluster updates an ip and marks it as used in the given cluster
+*/
+func (a *Client) UseIPInCluster(params *UseIPInClusterParams, authInfo runtime.ClientAuthInfoWriter) (*UseIPInClusterOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUseIPInClusterParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "useIPInCluster",
+		Method:             "POST",
+		PathPattern:        "/v1/ip/use",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &UseIPInClusterReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*UseIPInClusterOK), nil
 
 }
 

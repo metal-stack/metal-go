@@ -441,75 +441,43 @@ func (d *Driver) IPUpdate(iur *IPUpdateRequest) (*IPDetailResponse, error) {
 	return response, nil
 }
 
-// IPAssociate updates an IP and associates it with a cluster
-func (d *Driver) IPAssociate(iur *IPAssociateRequest) (*IPDetailResponse, error) {
-	response := &IPDetailResponse{}
-	updateIP := ip.NewUpdateIPParams()
-
-	detail, err := d.IPGet(iur.IPAddress)
+// IPUseInCluster associates an IP with a cluster
+func (d *Driver) IPUseInCluster(iur *IPAssociateRequest) (*IPDetailResponse, error) {
+	useIPInCluster := ip.NewUseIPInClusterParams()
+	b := &models.V1IPUseInClusterRequest{
+		Clusterid: &iur.ClusterID,
+		Projectid: &iur.ProjectID,
+		Ipaddress: &iur.IPAddress,
+		Tags:      iur.Tags,
+	}
+	useIPInCluster.SetBody(b)
+	r, err := d.ip.UseIPInCluster(useIPInCluster, d.auth)
 	if err != nil {
 		return nil, err
 	}
-
-	if *detail.IP.Projectid != iur.ProjectID {
-		return nil, fmt.Errorf("ip not found or does not belong to project")
+	response := &IPDetailResponse{
+		IP: r.Payload,
 	}
-
-	ip := detail.IP
-	tags := append(ip.Tags, fmt.Sprintf("%s=%s", TagIPClusterID, iur.ClusterID))
-	tags = append(tags, iur.Tags...)
-	updateRequest := &models.V1IPUpdateRequest{
-		Ipaddress: ip.Ipaddress,
-		Tags:      tags,
-	}
-	updateIP.SetBody(updateRequest)
-	resp, err := d.ip.UpdateIP(updateIP, d.auth)
-	if err != nil {
-		return response, err
-	}
-	response.IP = resp.Payload
 	return response, nil
 }
 
-// IPDeassociate updates an IP and deassociates it from a cluster
-func (d *Driver) IPDeassociate(iur *IPDeassociateRequest) (*IPDetailResponse, error) {
-	response := &IPDetailResponse{}
-	updateIP := ip.NewUpdateIPParams()
-
-	detail, err := d.IPGet(iur.IPAddress)
+// IPReleaseFromCluster removes the association of an IP with a cluster
+func (d *Driver) IPReleaseFromCluster(iur *IPDeassociateRequest) (*IPDetailResponse, error) {
+	releaseIPFromCluster := ip.NewReleaseIPFromClusterParams()
+	b := &models.V1IPReleaseFromClusterRequest{
+		Clusterid: &iur.ClusterID,
+		Projectid: &iur.ProjectID,
+		Ipaddress: &iur.IPAddress,
+		Tags:      iur.Tags,
+	}
+	releaseIPFromCluster.SetBody(b)
+	r, err := d.ip.ReleaseIPFromCluster(releaseIPFromCluster, d.auth)
 	if err != nil {
 		return nil, err
 	}
-
-	if *detail.IP.Projectid != iur.ProjectID {
-		return nil, fmt.Errorf("ip not found or does not belong to project")
+	response := &IPDetailResponse{
+		IP: r.Payload,
 	}
-
-	ip := detail.IP
-	ct := fmt.Sprintf("%s=%s", TagIPClusterID, iur.ClusterID)
-	tagsToRemove := map[string]interface{}{ct: nil}
-	for _, t := range iur.Tags {
-		tagsToRemove[t] = nil
-	}
-
-	newTags := []string{}
-	for _, t := range ip.Tags {
-		if _, ok := tagsToRemove[t]; ok {
-			continue
-		}
-		newTags = append(newTags, t)
-	}
-
-	updateRequest := &models.V1IPUpdateRequest{
-		Ipaddress: ip.Ipaddress,
-		Tags:      newTags,
-	}
-	updateIP.SetBody(updateRequest)
-	resp, err := d.ip.UpdateIP(updateIP, d.auth)
-	if err != nil {
-		return response, err
-	}
-	response.IP = resp.Payload
 	return response, nil
 }
 
