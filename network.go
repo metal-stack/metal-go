@@ -113,8 +113,8 @@ type IPUpdateRequest struct {
 	Tags []string `json:"tags,omitempty"`
 }
 
-// IPAssociateRequest is the request to associate an IP with a cluster
-type IPAssociateRequest struct {
+// IPUseInClusterRequest is the request to associate an IP with a cluster
+type IPUseInClusterRequest struct {
 	// the ip address for this ip update request.
 	IPAddress string `json:"ipaddress"`
 	// the project id this ip belongs to.
@@ -125,8 +125,8 @@ type IPAssociateRequest struct {
 	Tags []string `json:"tags,omitempty"`
 }
 
-// IPDeassociateRequest is the request to deassociate an IP from a cluster
-type IPDeassociateRequest struct {
+// IPReleaseFromClusterRequest is the request to deassociate an IP from a cluster
+type IPReleaseFromClusterRequest struct {
 	// the ip address for this ip update request.
 	IPAddress string `json:"ipaddress"`
 	// the project id this ip belongs to.
@@ -442,13 +442,13 @@ func (d *Driver) IPUpdate(iur *IPUpdateRequest) (*IPDetailResponse, error) {
 }
 
 // IPUseInCluster associates an IP with a cluster
-func (d *Driver) IPUseInCluster(iur *IPAssociateRequest) (*IPDetailResponse, error) {
+func (d *Driver) IPUseInCluster(iuc *IPUseInClusterRequest) (*IPDetailResponse, error) {
 	useIPInCluster := ip.NewUseIPInClusterParams()
 	b := &models.V1IPUseInClusterRequest{
-		Clusterid: &iur.ClusterID,
-		Projectid: &iur.ProjectID,
-		Ipaddress: &iur.IPAddress,
-		Tags:      iur.Tags,
+		Clusterid: &iuc.ClusterID,
+		Projectid: &iuc.ProjectID,
+		Ipaddress: &iuc.IPAddress,
+		Tags:      iuc.Tags,
 	}
 	useIPInCluster.SetBody(b)
 	r, err := d.ip.UseIPInCluster(useIPInCluster, d.auth)
@@ -462,13 +462,13 @@ func (d *Driver) IPUseInCluster(iur *IPAssociateRequest) (*IPDetailResponse, err
 }
 
 // IPReleaseFromCluster removes the association of an IP with a cluster
-func (d *Driver) IPReleaseFromCluster(iur *IPDeassociateRequest) (*IPDetailResponse, error) {
+func (d *Driver) IPReleaseFromCluster(ifc *IPReleaseFromClusterRequest) (*IPDetailResponse, error) {
 	releaseIPFromCluster := ip.NewReleaseIPFromClusterParams()
 	b := &models.V1IPReleaseFromClusterRequest{
-		Clusterid: &iur.ClusterID,
-		Projectid: &iur.ProjectID,
-		Ipaddress: &iur.IPAddress,
-		Tags:      iur.Tags,
+		Clusterid: &ifc.ClusterID,
+		Projectid: &ifc.ProjectID,
+		Ipaddress: &ifc.IPAddress,
+		Tags:      ifc.Tags,
 	}
 	releaseIPFromCluster.SetBody(b)
 	r, err := d.ip.ReleaseIPFromCluster(releaseIPFromCluster, d.auth)
