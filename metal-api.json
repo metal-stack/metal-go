@@ -590,45 +590,6 @@
         }
       }
     },
-    "/v1/ip/release": {
-      "post": {
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "ip"
-        ],
-        "summary": "updates an ip and marks it as unused in the given cluster.",
-        "operationId": "releaseIPFromCluster",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/v1.IPReleaseFromClusterRequest"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/v1.IPResponse"
-            }
-          },
-          "default": {
-            "description": "Error",
-            "schema": {
-              "$ref": "#/definitions/httperrors.HTTPErrorResponse"
-            }
-          }
-        }
-      }
-    },
     "/v1/ip/release/{id}": {
       "post": {
         "consumes": [
@@ -667,7 +628,7 @@
         }
       }
     },
-    "/v1/ip/use": {
+    "/v1/ip/tag": {
       "post": {
         "consumes": [
           "application/json"
@@ -678,15 +639,54 @@
         "tags": [
           "ip"
         ],
-        "summary": "updates an ip and marks it as used in the given cluster.",
-        "operationId": "useIPInCluster",
+        "summary": "updates an ip and marks it as used by a cluster or machine.",
+        "operationId": "tagIP",
         "parameters": [
           {
             "name": "body",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/v1.IPUseInClusterRequest"
+              "$ref": "#/definitions/v1.IPTagRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/v1.IPResponse"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/httperrors.HTTPErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/v1/ip/untag": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "ip"
+        ],
+        "summary": "updates an ip and marks it as unused by a cluster or machine.",
+        "operationId": "untagIP",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1.IPUntagRequest"
             }
           }
         ],
@@ -1812,7 +1812,7 @@
         }
       }
     },
-    "/v1/network/acquire": {
+    "/v1/network/allocate": {
       "post": {
         "consumes": [
           "application/json"
@@ -1823,15 +1823,15 @@
         "tags": [
           "network"
         ],
-        "summary": "acquires a child network from a partition's private super network",
-        "operationId": "acquireChildNetwork",
+        "summary": "allocates a child network from a partition's private super network",
+        "operationId": "allocateNetwork",
         "parameters": [
           {
             "name": "body",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/v1.NetworkAcquireRequest"
+              "$ref": "#/definitions/v1.NetworkAllocateRequest"
             }
           }
         ],
@@ -1899,7 +1899,7 @@
         }
       }
     },
-    "/v1/network/release/{id}": {
+    "/v1/network/free/{id}": {
       "post": {
         "consumes": [
           "application/json"
@@ -1910,8 +1910,8 @@
         "tags": [
           "network"
         ],
-        "summary": "releases a child network",
-        "operationId": "releaseChildNetwork",
+        "summary": "free a network",
+        "operationId": "freeNetwork",
         "parameters": [
           {
             "type": "string",
@@ -2976,10 +2976,10 @@
     "v1.FirewallCreateRequest": {
       "required": [
         "partitionid",
-        "sizeid",
-        "ssh_pub_keys",
         "projectid",
-        "imageid"
+        "imageid",
+        "ssh_pub_keys",
+        "sizeid"
       ],
       "properties": {
         "description": {
@@ -3054,50 +3054,50 @@
     },
     "v1.FirewallFindRequest": {
       "required": [
-        "fru_chassis_part_number",
-        "network_ips",
-        "allocation_hostname",
-        "id",
-        "rackid",
-        "fru_board_mfg_serial",
-        "sizeid",
-        "nics_names",
-        "allocation_name",
-        "fru_board_mfg",
-        "network_vrfs",
-        "network_prefixes",
-        "network_destination_prefixes",
-        "nics_neighbor_names",
-        "network_private",
-        "network_underlay",
-        "name",
-        "fru_chassis_part_serial",
-        "allocation_image_id",
-        "fru_product_serial",
-        "disk_names",
-        "fru_product_part_number",
-        "network_ids",
-        "nics_neighbor_vrfs",
-        "hardware_cpu_cores",
-        "tags",
-        "allocation_succeeded",
-        "partition_id",
-        "fru_board_part_number",
-        "hardware_memory",
-        "disk_sizes",
-        "ipmi_user",
         "ipmi_interface",
-        "nics_neighbor_mac_addresses",
-        "state_value",
-        "fru_product_manufacturer",
-        "ipmi_mac_address",
-        "network_nat",
-        "network_asns",
         "allocation_project",
-        "nics_mac_addresses",
+        "fru_board_part_number",
+        "network_destination_prefixes",
+        "rackid",
         "nics_vrfs",
+        "nics_neighbor_vrfs",
+        "state_value",
+        "disk_sizes",
+        "network_prefixes",
+        "allocation_hostname",
+        "network_vrfs",
+        "nics_neighbor_mac_addresses",
+        "fru_chassis_part_serial",
+        "network_nat",
+        "allocation_image_id",
+        "ipmi_address",
+        "id",
+        "sizeid",
+        "fru_chassis_part_number",
+        "fru_product_manufacturer",
+        "partition_id",
+        "allocation_succeeded",
+        "tags",
+        "network_ids",
+        "name",
+        "fru_product_part_number",
+        "network_private",
+        "fru_board_mfg_serial",
+        "disk_names",
+        "hardware_cpu_cores",
         "liveliness",
-        "ipmi_address"
+        "hardware_memory",
+        "nics_mac_addresses",
+        "fru_board_mfg",
+        "nics_neighbor_names",
+        "network_ips",
+        "nics_names",
+        "ipmi_user",
+        "allocation_name",
+        "ipmi_mac_address",
+        "network_underlay",
+        "fru_product_serial",
+        "network_asns"
       ],
       "properties": {
         "allocation_hostname": {
@@ -3283,19 +3283,19 @@
     },
     "v1.FirewallResponse": {
       "required": [
-        "liveliness",
+        "state",
+        "rackid",
         "hardware",
         "allocation",
-        "tags",
         "id",
-        "state",
-        "size",
+        "events",
+        "tags",
+        "ledstate",
+        "liveliness",
         "created",
         "changed",
-        "ledstate",
-        "events",
         "partition",
-        "rackid"
+        "size"
       ],
       "properties": {
         "allocation": {
@@ -3425,14 +3425,14 @@
     },
     "v1.IPFindRequest": {
       "required": [
-        "machineid",
         "clusterid",
         "ipaddress",
         "networkprefix",
         "networkid",
         "tags",
         "projectid",
-        "type"
+        "type",
+        "machineid"
       ],
       "properties": {
         "clusterid": {
@@ -3469,28 +3469,6 @@
         "type": {
           "description": "the type of the ip address, ephemeral or static",
           "type": "string"
-        }
-      }
-    },
-    "v1.IPReleaseFromClusterRequest": {
-      "required": [
-        "ipaddress",
-        "clusterid"
-      ],
-      "properties": {
-        "clusterid": {
-          "type": "string"
-        },
-        "ipaddress": {
-          "description": "the address (ipv4 or ipv6) of this ip",
-          "type": "string",
-          "uniqueItems": true
-        },
-        "tags": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
         }
       }
     },
@@ -3556,6 +3534,54 @@
         }
       }
     },
+    "v1.IPTagRequest": {
+      "required": [
+        "ipaddress"
+      ],
+      "properties": {
+        "clusterid": {
+          "type": "string"
+        },
+        "ipaddress": {
+          "description": "the address (ipv4 or ipv6) of this ip",
+          "type": "string",
+          "uniqueItems": true
+        },
+        "machineid": {
+          "type": "string"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "v1.IPUntagRequest": {
+      "required": [
+        "ipaddress"
+      ],
+      "properties": {
+        "clusterid": {
+          "type": "string"
+        },
+        "ipaddress": {
+          "description": "the address (ipv4 or ipv6) of this ip",
+          "type": "string",
+          "uniqueItems": true
+        },
+        "machineid": {
+          "type": "string"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
     "v1.IPUpdateRequest": {
       "required": [
         "ipaddress",
@@ -3586,28 +3612,6 @@
         },
         "tags": {
           "description": "free tags that you associate with this ip.",
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        }
-      }
-    },
-    "v1.IPUseInClusterRequest": {
-      "required": [
-        "ipaddress",
-        "clusterid"
-      ],
-      "properties": {
-        "clusterid": {
-          "type": "string"
-        },
-        "ipaddress": {
-          "description": "the address (ipv4 or ipv6) of this ip",
-          "type": "string",
-          "uniqueItems": true
-        },
-        "tags": {
           "type": "array",
           "items": {
             "type": "string"
@@ -3908,50 +3912,50 @@
     },
     "v1.MachineFindRequest": {
       "required": [
-        "sizeid",
-        "rackid",
-        "hardware_memory",
-        "disk_sizes",
-        "fru_chassis_part_number",
-        "partition_id",
-        "network_asns",
         "nics_mac_addresses",
-        "nics_names",
-        "fru_chassis_part_serial",
-        "fru_board_mfg",
-        "fru_board_part_number",
-        "id",
-        "allocation_hostname",
-        "network_prefixes",
-        "disk_names",
-        "state_value",
-        "nics_neighbor_vrfs",
-        "ipmi_interface",
-        "fru_board_mfg_serial",
-        "nics_neighbor_mac_addresses",
+        "ipmi_user",
         "ipmi_mac_address",
-        "name",
+        "fru_chassis_part_serial",
+        "allocation_hostname",
+        "network_nat",
+        "disk_sizes",
+        "state_value",
+        "ipmi_address",
+        "nics_neighbor_mac_addresses",
+        "liveliness",
+        "allocation_succeeded",
+        "network_destination_prefixes",
+        "network_private",
+        "network_asns",
+        "partition_id",
         "tags",
         "network_ids",
-        "network_nat",
-        "network_underlay",
-        "allocation_project",
-        "ipmi_user",
-        "fru_product_part_number",
-        "fru_product_serial",
         "nics_vrfs",
-        "fru_product_manufacturer",
-        "allocation_name",
+        "fru_chassis_part_number",
+        "rackid",
+        "network_underlay",
+        "disk_names",
+        "ipmi_interface",
+        "fru_product_serial",
+        "id",
         "network_ips",
-        "network_destination_prefixes",
-        "network_vrfs",
-        "network_private",
-        "ipmi_address",
-        "liveliness",
-        "allocation_image_id",
-        "allocation_succeeded",
+        "nics_names",
+        "nics_neighbor_names",
+        "fru_board_mfg",
+        "hardware_memory",
         "hardware_cpu_cores",
-        "nics_neighbor_names"
+        "nics_neighbor_vrfs",
+        "name",
+        "allocation_name",
+        "allocation_project",
+        "network_prefixes",
+        "network_vrfs",
+        "fru_board_part_number",
+        "fru_product_manufacturer",
+        "fru_product_part_number",
+        "sizeid",
+        "allocation_image_id",
+        "fru_board_mfg_serial"
       ],
       "properties": {
         "allocation_hostname": {
@@ -4525,16 +4529,16 @@
     "v1.MachineResponse": {
       "required": [
         "id",
-        "tags",
         "partition",
-        "rackid",
         "size",
         "hardware",
         "allocation",
-        "liveliness",
-        "events",
-        "state",
         "ledstate",
+        "liveliness",
+        "rackid",
+        "state",
+        "events",
+        "tags",
         "created",
         "changed"
       ],
@@ -4628,7 +4632,7 @@
         }
       }
     },
-    "v1.NetworkAcquireRequest": {
+    "v1.NetworkAllocateRequest": {
       "required": [
         "labels"
       ],
@@ -4741,18 +4745,18 @@
     },
     "v1.NetworkFindRequest": {
       "required": [
-        "parentnetworkid",
-        "labels",
-        "nat",
-        "underlay",
+        "name",
         "partitionid",
-        "projectid",
         "prefixes",
         "destinationprefixes",
-        "privatesuper",
-        "vrf",
+        "labels",
+        "parentnetworkid",
         "id",
-        "name"
+        "projectid",
+        "nat",
+        "privatesuper",
+        "underlay",
+        "vrf"
       ],
       "properties": {
         "destinationprefixes": {
@@ -4807,12 +4811,12 @@
       "required": [
         "id",
         "labels",
-        "parentnetworkid",
-        "prefixes",
-        "destinationprefixes",
         "nat",
         "privatesuper",
         "underlay",
+        "parentnetworkid",
+        "prefixes",
+        "destinationprefixes",
         "usage",
         "created",
         "changed"
@@ -5041,8 +5045,8 @@
       "required": [
         "id",
         "bootconfig",
-        "created",
-        "changed"
+        "changed",
+        "created"
       ],
       "properties": {
         "bootconfig": {
@@ -5142,9 +5146,9 @@
     },
     "v1.ProjectFindRequest": {
       "required": [
-        "id",
         "name",
-        "tenant"
+        "tenant",
+        "id"
       ],
       "properties": {
         "id": {

@@ -199,23 +199,23 @@ func (a *Client) ReleaseIP(params *ReleaseIPParams, authInfo runtime.ClientAuthI
 }
 
 /*
-ReleaseIPFromCluster updates an ip and marks it as unused in the given cluster
+TagIP updates an ip and marks it as used by a cluster or machine
 */
-func (a *Client) ReleaseIPFromCluster(params *ReleaseIPFromClusterParams, authInfo runtime.ClientAuthInfoWriter) (*ReleaseIPFromClusterOK, error) {
+func (a *Client) TagIP(params *TagIPParams, authInfo runtime.ClientAuthInfoWriter) (*TagIPOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewReleaseIPFromClusterParams()
+		params = NewTagIPParams()
 	}
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "releaseIPFromCluster",
+		ID:                 "tagIP",
 		Method:             "POST",
-		PathPattern:        "/v1/ip/release",
+		PathPattern:        "/v1/ip/tag",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http"},
 		Params:             params,
-		Reader:             &ReleaseIPFromClusterReader{formats: a.formats},
+		Reader:             &TagIPReader{formats: a.formats},
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
@@ -223,7 +223,36 @@ func (a *Client) ReleaseIPFromCluster(params *ReleaseIPFromClusterParams, authIn
 	if err != nil {
 		return nil, err
 	}
-	return result.(*ReleaseIPFromClusterOK), nil
+	return result.(*TagIPOK), nil
+
+}
+
+/*
+UntagIP updates an ip and marks it as unused by a cluster or machine
+*/
+func (a *Client) UntagIP(params *UntagIPParams, authInfo runtime.ClientAuthInfoWriter) (*UntagIPOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUntagIPParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "untagIP",
+		Method:             "POST",
+		PathPattern:        "/v1/ip/untag",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &UntagIPReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*UntagIPOK), nil
 
 }
 
@@ -253,35 +282,6 @@ func (a *Client) UpdateIP(params *UpdateIPParams, authInfo runtime.ClientAuthInf
 		return nil, err
 	}
 	return result.(*UpdateIPOK), nil
-
-}
-
-/*
-UseIPInCluster updates an ip and marks it as used in the given cluster
-*/
-func (a *Client) UseIPInCluster(params *UseIPInClusterParams, authInfo runtime.ClientAuthInfoWriter) (*UseIPInClusterOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewUseIPInClusterParams()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "useIPInCluster",
-		Method:             "POST",
-		PathPattern:        "/v1/ip/use",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
-		Params:             params,
-		Reader:             &UseIPInClusterReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	return result.(*UseIPInClusterOK), nil
 
 }
 

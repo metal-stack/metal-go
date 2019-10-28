@@ -115,8 +115,6 @@ type IPUpdateRequest struct {
 type IPUseInClusterRequest struct {
 	// the ip address for this ip update request.
 	IPAddress string `json:"ipaddress"`
-	// the project id this ip belongs to.
-	ProjectID string `json:"projectid"`
 	// the cluster id to associate the ip address with.
 	ClusterID string `json:"clusterid"`
 	// tags to add to the ip
@@ -127,8 +125,6 @@ type IPUseInClusterRequest struct {
 type IPReleaseFromClusterRequest struct {
 	// the ip address for this ip update request.
 	IPAddress string `json:"ipaddress"`
-	// the project id this ip belongs to.
-	ProjectID string `json:"projectid"`
 	// the cluster id to deassociate the ip address with.
 	ClusterID string `json:"clusterid"`
 	// tags to remove from the ip
@@ -299,9 +295,9 @@ func (d *Driver) NetworkCreate(ncr *NetworkCreateRequest) (*NetworkDetailRespons
 // NetworkAcquire creates a new network
 func (d *Driver) NetworkAcquire(ncr *NetworkAcquireRequest) (*NetworkDetailResponse, error) {
 	response := &NetworkDetailResponse{}
-	acquireNetwork := network.NewAcquireChildNetworkParams()
+	acquireNetwork := network.NewAllocateNetworkParams()
 
-	acquireRequest := &models.V1NetworkAcquireRequest{
+	acquireRequest := &models.V1NetworkAllocateRequest{
 		Description: ncr.Description,
 		Name:        ncr.Name,
 		Partitionid: ncr.PartitionID,
@@ -309,7 +305,7 @@ func (d *Driver) NetworkAcquire(ncr *NetworkAcquireRequest) (*NetworkDetailRespo
 		Labels:      ncr.Labels,
 	}
 	acquireNetwork.SetBody(acquireRequest)
-	resp, err := d.network.AcquireChildNetwork(acquireNetwork, d.auth)
+	resp, err := d.network.AllocateNetwork(acquireNetwork, d.auth)
 	if err != nil {
 		return response, err
 	}
@@ -320,10 +316,10 @@ func (d *Driver) NetworkAcquire(ncr *NetworkAcquireRequest) (*NetworkDetailRespo
 // NetworkRelease creates a new network
 func (d *Driver) NetworkRelease(id string) (*NetworkDetailResponse, error) {
 	response := &NetworkDetailResponse{}
-	releaseNetwork := network.NewReleaseChildNetworkParams()
+	releaseNetwork := network.NewFreeNetworkParams()
 
 	releaseNetwork.ID = id
-	resp, err := d.network.ReleaseChildNetwork(releaseNetwork, d.auth)
+	resp, err := d.network.FreeNetwork(releaseNetwork, d.auth)
 	if err != nil {
 		return response, err
 	}
@@ -441,14 +437,14 @@ func (d *Driver) IPUpdate(iur *IPUpdateRequest) (*IPDetailResponse, error) {
 
 // IPUseInCluster associates an IP with a cluster
 func (d *Driver) IPUseInCluster(iuc *IPUseInClusterRequest) (*IPDetailResponse, error) {
-	useIPInCluster := ip.NewUseIPInClusterParams()
-	b := &models.V1IPUseInClusterRequest{
-		Clusterid: &iuc.ClusterID,
+	useIPInCluster := ip.NewTagIPParams()
+	b := &models.V1IPTagRequest{
+		Clusterid: iuc.ClusterID,
 		Ipaddress: &iuc.IPAddress,
 		Tags:      iuc.Tags,
 	}
 	useIPInCluster.SetBody(b)
-	r, err := d.ip.UseIPInCluster(useIPInCluster, d.auth)
+	r, err := d.ip.TagIP(useIPInCluster, d.auth)
 	if err != nil {
 		return nil, err
 	}
@@ -460,14 +456,14 @@ func (d *Driver) IPUseInCluster(iuc *IPUseInClusterRequest) (*IPDetailResponse, 
 
 // IPReleaseFromCluster removes the association of an IP with a cluster
 func (d *Driver) IPReleaseFromCluster(ifc *IPReleaseFromClusterRequest) (*IPDetailResponse, error) {
-	releaseIPFromCluster := ip.NewReleaseIPFromClusterParams()
-	b := &models.V1IPReleaseFromClusterRequest{
-		Clusterid: &ifc.ClusterID,
+	releaseIPFromCluster := ip.NewUntagIPParams()
+	b := &models.V1IPUntagRequest{
+		Clusterid: ifc.ClusterID,
 		Ipaddress: &ifc.IPAddress,
 		Tags:      ifc.Tags,
 	}
 	releaseIPFromCluster.SetBody(b)
-	r, err := d.ip.ReleaseIPFromCluster(releaseIPFromCluster, d.auth)
+	r, err := d.ip.UntagIP(releaseIPFromCluster, d.auth)
 	if err != nil {
 		return nil, err
 	}

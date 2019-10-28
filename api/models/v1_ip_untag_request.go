@@ -13,30 +13,28 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// V1IPReleaseFromClusterRequest v1 IP release from cluster request
-// swagger:model v1.IPReleaseFromClusterRequest
-type V1IPReleaseFromClusterRequest struct {
+// V1IPUntagRequest v1 IP untag request
+// swagger:model v1.IPUntagRequest
+type V1IPUntagRequest struct {
 
 	// clusterid
-	// Required: true
-	Clusterid *string `json:"clusterid"`
+	Clusterid string `json:"clusterid,omitempty"`
 
 	// the address (ipv4 or ipv6) of this ip
 	// Required: true
 	// Unique: true
 	Ipaddress *string `json:"ipaddress"`
 
+	// machineid
+	Machineid string `json:"machineid,omitempty"`
+
 	// tags
 	Tags []string `json:"tags"`
 }
 
-// Validate validates this v1 IP release from cluster request
-func (m *V1IPReleaseFromClusterRequest) Validate(formats strfmt.Registry) error {
+// Validate validates this v1 IP untag request
+func (m *V1IPUntagRequest) Validate(formats strfmt.Registry) error {
 	var res []error
-
-	if err := m.validateClusterid(formats); err != nil {
-		res = append(res, err)
-	}
 
 	if err := m.validateIpaddress(formats); err != nil {
 		res = append(res, err)
@@ -48,16 +46,7 @@ func (m *V1IPReleaseFromClusterRequest) Validate(formats strfmt.Registry) error 
 	return nil
 }
 
-func (m *V1IPReleaseFromClusterRequest) validateClusterid(formats strfmt.Registry) error {
-
-	if err := validate.Required("clusterid", "body", m.Clusterid); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *V1IPReleaseFromClusterRequest) validateIpaddress(formats strfmt.Registry) error {
+func (m *V1IPUntagRequest) validateIpaddress(formats strfmt.Registry) error {
 
 	if err := validate.Required("ipaddress", "body", m.Ipaddress); err != nil {
 		return err
@@ -67,7 +56,7 @@ func (m *V1IPReleaseFromClusterRequest) validateIpaddress(formats strfmt.Registr
 }
 
 // MarshalBinary interface implementation
-func (m *V1IPReleaseFromClusterRequest) MarshalBinary() ([]byte, error) {
+func (m *V1IPUntagRequest) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -75,8 +64,8 @@ func (m *V1IPReleaseFromClusterRequest) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *V1IPReleaseFromClusterRequest) UnmarshalBinary(b []byte) error {
-	var res V1IPReleaseFromClusterRequest
+func (m *V1IPUntagRequest) UnmarshalBinary(b []byte) error {
+	var res V1IPUntagRequest
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}
