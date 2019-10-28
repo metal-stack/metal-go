@@ -18,8 +18,8 @@ type NetworkListResponse struct {
 	Networks []*models.V1NetworkResponse
 }
 
-// NetworkAcquireRequest is the request to acquire a new private network
-type NetworkAcquireRequest struct {
+// NetworkAllocateRequest is the request to allocate a new private network
+type NetworkAllocateRequest struct {
 	// a description for this entity
 	Description string `json:"description,omitempty"`
 
@@ -296,8 +296,8 @@ func (d *Driver) NetworkCreate(ncr *NetworkCreateRequest) (*NetworkDetailRespons
 	return response, nil
 }
 
-// NetworkAcquire creates a new network
-func (d *Driver) NetworkAcquire(ncr *NetworkAcquireRequest) (*NetworkDetailResponse, error) {
+// NetworkAllocate creates a new network
+func (d *Driver) NetworkAllocate(ncr *NetworkAllocateRequest) (*NetworkDetailResponse, error) {
 	response := &NetworkDetailResponse{}
 	acquireNetwork := network.NewAllocateNetworkParams()
 
@@ -317,8 +317,8 @@ func (d *Driver) NetworkAcquire(ncr *NetworkAcquireRequest) (*NetworkDetailRespo
 	return response, nil
 }
 
-// NetworkRelease creates a new network
-func (d *Driver) NetworkRelease(id string) (*NetworkDetailResponse, error) {
+// NetworkFree frees a network
+func (d *Driver) NetworkFree(id string) (*NetworkDetailResponse, error) {
 	response := &NetworkDetailResponse{}
 	releaseNetwork := network.NewFreeNetworkParams()
 
@@ -331,7 +331,7 @@ func (d *Driver) NetworkRelease(id string) (*NetworkDetailResponse, error) {
 	return response, nil
 }
 
-// NetworkUpdate creates a new network
+// NetworkUpdate updates a network
 func (d *Driver) NetworkUpdate(ncr *NetworkCreateRequest) (*NetworkDetailResponse, error) {
 	response := &NetworkDetailResponse{}
 	updateNetwork := network.NewUpdateNetworkParams()
