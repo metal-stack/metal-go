@@ -26,10 +26,6 @@ type V1IPUseInClusterRequest struct {
 	// Unique: true
 	Ipaddress *string `json:"ipaddress"`
 
-	// projectid
-	// Required: true
-	Projectid *string `json:"projectid"`
-
 	// tags
 	Tags []string `json:"tags"`
 }
@@ -43,10 +39,6 @@ func (m *V1IPUseInClusterRequest) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateIpaddress(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateProjectid(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -68,15 +60,6 @@ func (m *V1IPUseInClusterRequest) validateClusterid(formats strfmt.Registry) err
 func (m *V1IPUseInClusterRequest) validateIpaddress(formats strfmt.Registry) error {
 
 	if err := validate.Required("ipaddress", "body", m.Ipaddress); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *V1IPUseInClusterRequest) validateProjectid(formats strfmt.Registry) error {
-
-	if err := validate.Required("projectid", "body", m.Projectid); err != nil {
 		return err
 	}
 

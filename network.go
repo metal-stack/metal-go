@@ -8,8 +8,6 @@ import (
 	"github.com/metal-pod/metal-go/api/models"
 )
 
-const TagIPClusterID = "cluster.metal-pod.io/clusterid"
-
 // NetworkGetResponse contains the network get result
 type NetworkGetResponse struct {
 	Network *models.V1NetworkResponse
@@ -446,7 +444,6 @@ func (d *Driver) IPUseInCluster(iuc *IPUseInClusterRequest) (*IPDetailResponse, 
 	useIPInCluster := ip.NewUseIPInClusterParams()
 	b := &models.V1IPUseInClusterRequest{
 		Clusterid: &iuc.ClusterID,
-		Projectid: &iuc.ProjectID,
 		Ipaddress: &iuc.IPAddress,
 		Tags:      iuc.Tags,
 	}
@@ -466,7 +463,6 @@ func (d *Driver) IPReleaseFromCluster(ifc *IPReleaseFromClusterRequest) (*IPDeta
 	releaseIPFromCluster := ip.NewReleaseIPFromClusterParams()
 	b := &models.V1IPReleaseFromClusterRequest{
 		Clusterid: &ifc.ClusterID,
-		Projectid: &ifc.ProjectID,
 		Ipaddress: &ifc.IPAddress,
 		Tags:      ifc.Tags,
 	}
