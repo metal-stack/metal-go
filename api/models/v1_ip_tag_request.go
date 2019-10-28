@@ -18,7 +18,8 @@ import (
 type V1IPTagRequest struct {
 
 	// clusterid
-	Clusterid string `json:"clusterid,omitempty"`
+	// Required: true
+	Clusterid *string `json:"clusterid"`
 
 	// the address (ipv4 or ipv6) of this ip
 	// Required: true
@@ -26,7 +27,8 @@ type V1IPTagRequest struct {
 	Ipaddress *string `json:"ipaddress"`
 
 	// machineid
-	Machineid string `json:"machineid,omitempty"`
+	// Required: true
+	Machineid *string `json:"machineid"`
 
 	// tags
 	Tags []string `json:"tags"`
@@ -36,7 +38,15 @@ type V1IPTagRequest struct {
 func (m *V1IPTagRequest) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateClusterid(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateIpaddress(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateMachineid(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -46,9 +56,27 @@ func (m *V1IPTagRequest) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
+func (m *V1IPTagRequest) validateClusterid(formats strfmt.Registry) error {
+
+	if err := validate.Required("clusterid", "body", m.Clusterid); err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func (m *V1IPTagRequest) validateIpaddress(formats strfmt.Registry) error {
 
 	if err := validate.Required("ipaddress", "body", m.Ipaddress); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *V1IPTagRequest) validateMachineid(formats strfmt.Registry) error {
+
+	if err := validate.Required("machineid", "body", m.Machineid); err != nil {
 		return err
 	}
 

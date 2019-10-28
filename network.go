@@ -111,22 +111,26 @@ type IPUpdateRequest struct {
 	Tags []string `json:"tags,omitempty"`
 }
 
-// IPUseInClusterRequest is the request to associate an IP with a cluster
-type IPUseInClusterRequest struct {
+// IPTagRequest is the request to associate an IP with a cluster or machine
+type IPTagRequest struct {
 	// the ip address for this ip update request.
 	IPAddress string `json:"ipaddress"`
 	// the cluster id to associate the ip address with.
-	ClusterID string `json:"clusterid"`
+	ClusterID *string `json:"clusterid"`
+	// the machine id to associate the ip address with.
+	MachineID *string `json:"machineid"`
 	// tags to add to the ip
 	Tags []string `json:"tags,omitempty"`
 }
 
-// IPReleaseFromClusterRequest is the request to deassociate an IP from a cluster
-type IPReleaseFromClusterRequest struct {
+// IPUntagRequest is the request to deassociate an IP from a cluster or machine
+type IPUntagRequest struct {
 	// the ip address for this ip update request.
 	IPAddress string `json:"ipaddress"`
-	// the cluster id to deassociate the ip address with.
-	ClusterID string `json:"clusterid"`
+	// the cluster id to deassociate the ip address from.
+	ClusterID *string `json:"clusterid"`
+	// the machine id to deassociate the ip address from.
+	MachineID *string `json:"machineid"`
 	// tags to remove from the ip
 	Tags []string `json:"tags,omitempty"`
 }
@@ -136,8 +140,8 @@ type IPListResponse struct {
 	IPs []*models.V1IPResponse
 }
 
-// IPAcquireRequest is the request to acquire an IP
-type IPAcquireRequest struct {
+// IPAllocateRequest is the request to allocate an IP
+type IPAllocateRequest struct {
 
 	// a description for this entity
 	Description string `json:"description,omitempty"`
@@ -435,13 +439,14 @@ func (d *Driver) IPUpdate(iur *IPUpdateRequest) (*IPDetailResponse, error) {
 	return response, nil
 }
 
-// IPUseInCluster associates an IP with a cluster
-func (d *Driver) IPUseInCluster(iuc *IPUseInClusterRequest) (*IPDetailResponse, error) {
+// IPTag associates an IP with a cluster or machine
+func (d *Driver) IPTag(it *IPTagRequest) (*IPDetailResponse, error) {
 	useIPInCluster := ip.NewTagIPParams()
 	b := &models.V1IPTagRequest{
-		Clusterid: iuc.ClusterID,
-		Ipaddress: &iuc.IPAddress,
-		Tags:      iuc.Tags,
+		Ipaddress: &it.IPAddress,
+		Clusterid: it.ClusterID,
+		Machineid: it.MachineID,
+		Tags:      it.Tags,
 	}
 	useIPInCluster.SetBody(b)
 	r, err := d.ip.TagIP(useIPInCluster, d.auth)
@@ -454,13 +459,14 @@ func (d *Driver) IPUseInCluster(iuc *IPUseInClusterRequest) (*IPDetailResponse, 
 	return response, nil
 }
 
-// IPReleaseFromCluster removes the association of an IP with a cluster
-func (d *Driver) IPReleaseFromCluster(ifc *IPReleaseFromClusterRequest) (*IPDetailResponse, error) {
+// IPUntag removes the association of an IP with a cluster or machine
+func (d *Driver) IPUntag(iu *IPUntagRequest) (*IPDetailResponse, error) {
 	releaseIPFromCluster := ip.NewUntagIPParams()
 	b := &models.V1IPUntagRequest{
-		Clusterid: ifc.ClusterID,
-		Ipaddress: &ifc.IPAddress,
-		Tags:      ifc.Tags,
+		Ipaddress: &iu.IPAddress,
+		Clusterid: iu.ClusterID,
+		Machineid: iu.MachineID,
+		Tags:      iu.Tags,
 	}
 	releaseIPFromCluster.SetBody(b)
 	r, err := d.ip.UntagIP(releaseIPFromCluster, d.auth)
@@ -517,8 +523,8 @@ func (d *Driver) IPFind(ifr *IPFindRequest) (*IPListResponse, error) {
 	return response, nil
 }
 
-// IPAcquire acquires an IP in a network for a project
-func (d *Driver) IPAcquire(iar *IPAcquireRequest) (*IPDetailResponse, error) {
+// IPAllocate acquires an IP in a network for a project
+func (d *Driver) IPAllocate(iar *IPAllocateRequest) (*IPDetailResponse, error) {
 	response := &IPDetailResponse{}
 	acquireIPRequest := &models.V1IPAllocateRequest{
 		Description: iar.Description,
