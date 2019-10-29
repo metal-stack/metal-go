@@ -557,12 +557,12 @@ func (d *Driver) IPAllocate(iar *IPAllocateRequest) (*IPDetailResponse, error) {
 	return response, nil
 }
 
-// IPDelete releases an IP
-func (d *Driver) IPDelete(id string) (*IPDetailResponse, error) {
+// IPFree frees an IP
+func (d *Driver) IPFree(id string) (*IPDetailResponse, error) {
 	response := &IPDetailResponse{}
-	deleteIP := ip.NewReleaseIPParams()
+	deleteIP := ip.NewFreeIPParams()
 	deleteIP.ID = id
-	resp, err := d.ip.ReleaseIP(deleteIP, d.auth)
+	resp, err := d.ip.FreeIP(deleteIP, d.auth)
 	if err != nil {
 		return response, err
 	}

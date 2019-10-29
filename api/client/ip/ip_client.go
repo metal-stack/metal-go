@@ -141,6 +141,35 @@ func (a *Client) FindIps(params *FindIpsParams, authInfo runtime.ClientAuthInfoW
 }
 
 /*
+FreeIP frees an ip
+*/
+func (a *Client) FreeIP(params *FreeIPParams, authInfo runtime.ClientAuthInfoWriter) (*FreeIPOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewFreeIPParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "freeIP",
+		Method:             "POST",
+		PathPattern:        "/v1/ip/free/{id}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &FreeIPReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*FreeIPOK), nil
+
+}
+
+/*
 ListIps gets all ips
 */
 func (a *Client) ListIps(params *ListIpsParams, authInfo runtime.ClientAuthInfoWriter) (*ListIpsOK, error) {
@@ -166,35 +195,6 @@ func (a *Client) ListIps(params *ListIpsParams, authInfo runtime.ClientAuthInfoW
 		return nil, err
 	}
 	return result.(*ListIpsOK), nil
-
-}
-
-/*
-ReleaseIP releases an ip
-*/
-func (a *Client) ReleaseIP(params *ReleaseIPParams, authInfo runtime.ClientAuthInfoWriter) (*ReleaseIPOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewReleaseIPParams()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "releaseIP",
-		Method:             "POST",
-		PathPattern:        "/v1/ip/release/{id}",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
-		Params:             params,
-		Reader:             &ReleaseIPReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	return result.(*ReleaseIPOK), nil
 
 }
 
