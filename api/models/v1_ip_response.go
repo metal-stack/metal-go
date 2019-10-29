@@ -39,11 +39,6 @@ type V1IPResponse struct {
 	// Unique: true
 	Ipaddress *string `json:"ipaddress"`
 
-	// the ip type, ephemeral leads to automatic cleanup of the ip address, static will enable re-use of the ip at a later point in time
-	// Required: true
-	// Enum: [static ephemeral]
-	Iptype *string `json:"iptype"`
-
 	// a readable name for this entity
 	Name string `json:"name,omitempty"`
 
@@ -58,6 +53,11 @@ type V1IPResponse struct {
 	// free tags that you associate with this ip.
 	// Required: true
 	Tags []string `json:"tags"`
+
+	// the ip type, ephemeral leads to automatic cleanup of the ip address, static will enable re-use of the ip at a later point in time
+	// Required: true
+	// Enum: [static ephemeral]
+	Type *string `json:"type"`
 }
 
 // Validate validates this v1 IP response
@@ -76,10 +76,6 @@ func (m *V1IPResponse) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validateIptype(formats); err != nil {
-		res = append(res, err)
-	}
-
 	if err := m.validateNetworkid(formats); err != nil {
 		res = append(res, err)
 	}
@@ -89,6 +85,10 @@ func (m *V1IPResponse) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateTags(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateType(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -133,49 +133,6 @@ func (m *V1IPResponse) validateIpaddress(formats strfmt.Registry) error {
 	return nil
 }
 
-var v1IpResponseTypeIptypePropEnum []interface{}
-
-func init() {
-	var res []string
-	if err := json.Unmarshal([]byte(`["static","ephemeral"]`), &res); err != nil {
-		panic(err)
-	}
-	for _, v := range res {
-		v1IpResponseTypeIptypePropEnum = append(v1IpResponseTypeIptypePropEnum, v)
-	}
-}
-
-const (
-
-	// V1IPResponseIptypeStatic captures enum value "static"
-	V1IPResponseIptypeStatic string = "static"
-
-	// V1IPResponseIptypeEphemeral captures enum value "ephemeral"
-	V1IPResponseIptypeEphemeral string = "ephemeral"
-)
-
-// prop value enum
-func (m *V1IPResponse) validateIptypeEnum(path, location string, value string) error {
-	if err := validate.Enum(path, location, value, v1IpResponseTypeIptypePropEnum); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (m *V1IPResponse) validateIptype(formats strfmt.Registry) error {
-
-	if err := validate.Required("iptype", "body", m.Iptype); err != nil {
-		return err
-	}
-
-	// value enum
-	if err := m.validateIptypeEnum("iptype", "body", *m.Iptype); err != nil {
-		return err
-	}
-
-	return nil
-}
-
 func (m *V1IPResponse) validateNetworkid(formats strfmt.Registry) error {
 
 	if err := validate.Required("networkid", "body", m.Networkid); err != nil {
@@ -197,6 +154,49 @@ func (m *V1IPResponse) validateProjectid(formats strfmt.Registry) error {
 func (m *V1IPResponse) validateTags(formats strfmt.Registry) error {
 
 	if err := validate.Required("tags", "body", m.Tags); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+var v1IpResponseTypeTypePropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["static","ephemeral"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		v1IpResponseTypeTypePropEnum = append(v1IpResponseTypeTypePropEnum, v)
+	}
+}
+
+const (
+
+	// V1IPResponseTypeStatic captures enum value "static"
+	V1IPResponseTypeStatic string = "static"
+
+	// V1IPResponseTypeEphemeral captures enum value "ephemeral"
+	V1IPResponseTypeEphemeral string = "ephemeral"
+)
+
+// prop value enum
+func (m *V1IPResponse) validateTypeEnum(path, location string, value string) error {
+	if err := validate.Enum(path, location, value, v1IpResponseTypeTypePropEnum); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *V1IPResponse) validateType(formats strfmt.Registry) error {
+
+	if err := validate.Required("type", "body", m.Type); err != nil {
+		return err
+	}
+
+	// value enum
+	if err := m.validateTypeEnum("type", "body", *m.Type); err != nil {
 		return err
 	}
 

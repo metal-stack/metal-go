@@ -26,11 +26,6 @@ type V1IPAllocateRequest struct {
 	// a description for this entity
 	Description string `json:"description,omitempty"`
 
-	// the ip type, ephemeral leads to automatic cleanup of the ip address, static will enable re-use of the ip at a later point in time
-	// Required: true
-	// Enum: [static ephemeral]
-	Iptype *string `json:"iptype"`
-
 	// the machine id this ip should be associated with
 	// Required: true
 	Machineid *string `json:"machineid"`
@@ -49,6 +44,11 @@ type V1IPAllocateRequest struct {
 	// free tags that you associate with this ip.
 	// Required: true
 	Tags []string `json:"tags"`
+
+	// the ip type, ephemeral leads to automatic cleanup of the ip address, static will enable re-use of the ip at a later point in time
+	// Required: true
+	// Enum: [static ephemeral]
+	Type *string `json:"type"`
 }
 
 // Validate validates this v1 IP allocate request
@@ -56,10 +56,6 @@ func (m *V1IPAllocateRequest) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateClusterid(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateIptype(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -79,6 +75,10 @@ func (m *V1IPAllocateRequest) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateType(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
@@ -88,49 +88,6 @@ func (m *V1IPAllocateRequest) Validate(formats strfmt.Registry) error {
 func (m *V1IPAllocateRequest) validateClusterid(formats strfmt.Registry) error {
 
 	if err := validate.Required("clusterid", "body", m.Clusterid); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-var v1IpAllocateRequestTypeIptypePropEnum []interface{}
-
-func init() {
-	var res []string
-	if err := json.Unmarshal([]byte(`["static","ephemeral"]`), &res); err != nil {
-		panic(err)
-	}
-	for _, v := range res {
-		v1IpAllocateRequestTypeIptypePropEnum = append(v1IpAllocateRequestTypeIptypePropEnum, v)
-	}
-}
-
-const (
-
-	// V1IPAllocateRequestIptypeStatic captures enum value "static"
-	V1IPAllocateRequestIptypeStatic string = "static"
-
-	// V1IPAllocateRequestIptypeEphemeral captures enum value "ephemeral"
-	V1IPAllocateRequestIptypeEphemeral string = "ephemeral"
-)
-
-// prop value enum
-func (m *V1IPAllocateRequest) validateIptypeEnum(path, location string, value string) error {
-	if err := validate.Enum(path, location, value, v1IpAllocateRequestTypeIptypePropEnum); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (m *V1IPAllocateRequest) validateIptype(formats strfmt.Registry) error {
-
-	if err := validate.Required("iptype", "body", m.Iptype); err != nil {
-		return err
-	}
-
-	// value enum
-	if err := m.validateIptypeEnum("iptype", "body", *m.Iptype); err != nil {
 		return err
 	}
 
@@ -167,6 +124,49 @@ func (m *V1IPAllocateRequest) validateProjectid(formats strfmt.Registry) error {
 func (m *V1IPAllocateRequest) validateTags(formats strfmt.Registry) error {
 
 	if err := validate.Required("tags", "body", m.Tags); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+var v1IpAllocateRequestTypeTypePropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["static","ephemeral"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		v1IpAllocateRequestTypeTypePropEnum = append(v1IpAllocateRequestTypeTypePropEnum, v)
+	}
+}
+
+const (
+
+	// V1IPAllocateRequestTypeStatic captures enum value "static"
+	V1IPAllocateRequestTypeStatic string = "static"
+
+	// V1IPAllocateRequestTypeEphemeral captures enum value "ephemeral"
+	V1IPAllocateRequestTypeEphemeral string = "ephemeral"
+)
+
+// prop value enum
+func (m *V1IPAllocateRequest) validateTypeEnum(path, location string, value string) error {
+	if err := validate.Enum(path, location, value, v1IpAllocateRequestTypeTypePropEnum); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *V1IPAllocateRequest) validateType(formats strfmt.Registry) error {
+
+	if err := validate.Required("type", "body", m.Type); err != nil {
+		return err
+	}
+
+	// value enum
+	if err := m.validateTypeEnum("type", "body", *m.Type); err != nil {
 		return err
 	}
 
