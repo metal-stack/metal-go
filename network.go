@@ -143,6 +143,10 @@ type IPListResponse struct {
 // IPAllocateRequest is the request to allocate an IP
 type IPAllocateRequest struct {
 
+	// SpecificIP tries to acquire this ip.
+	// Required: false
+	IPAddress string `json:"ipaddress"`
+
 	// a description for this entity
 	Description string `json:"description,omitempty"`
 
@@ -162,10 +166,6 @@ type IPAllocateRequest struct {
 
 	// the cluster this ip acquire request belongs to
 	Clusterid *string `json:"clusterid"`
-
-	// SpecificIP tries to acquire this ip.
-	// Required: false
-	SpecificIP string `json:"specificip"`
 
 	// the type of the ip
 	Type string `json:"type,omitempty"`
@@ -523,7 +523,7 @@ func (d *Driver) IPFind(ifr *IPFindRequest) (*IPListResponse, error) {
 	return response, nil
 }
 
-// IPAllocate acquires an IP in a network for a project
+// IPAllocate allocates an IP in a network for a project
 func (d *Driver) IPAllocate(iar *IPAllocateRequest) (*IPDetailResponse, error) {
 	response := &IPDetailResponse{}
 	acquireIPRequest := &models.V1IPAllocateRequest{
@@ -536,7 +536,7 @@ func (d *Driver) IPAllocate(iar *IPAllocateRequest) (*IPDetailResponse, error) {
 		Iptype:      &iar.Type,
 		Tags:        iar.Tags,
 	}
-	if iar.SpecificIP == "" {
+	if iar.IPAddress == "" {
 		acquireIP := ip.NewAllocateIPParams()
 		acquireIP.SetBody(acquireIPRequest)
 		resp, err := d.ip.AllocateIP(acquireIP, d.auth)
@@ -546,7 +546,7 @@ func (d *Driver) IPAllocate(iar *IPAllocateRequest) (*IPDetailResponse, error) {
 		response.IP = resp.Payload
 	} else {
 		acquireIP := ip.NewAllocateSpecificIPParams()
-		acquireIP.IP = iar.SpecificIP
+		acquireIP.IP = iar.IPAddress
 		acquireIP.SetBody(acquireIPRequest)
 		resp, err := d.ip.AllocateSpecificIP(acquireIP, d.auth)
 		if err != nil {
