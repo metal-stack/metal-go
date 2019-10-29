@@ -427,7 +427,7 @@ func (d *Driver) IPUpdate(iur *IPUpdateRequest) (*IPDetailResponse, error) {
 		Ipaddress:   &iur.IPAddress,
 		Description: iur.Description,
 		Name:        iur.Name,
-		Iptype:      &iur.Type,
+		Type:        &iur.Type,
 		Tags:        iur.Tags,
 	}
 	updateIP.SetBody(updateRequest)
