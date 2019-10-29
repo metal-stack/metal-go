@@ -533,7 +533,7 @@ func (d *Driver) IPAllocate(iar *IPAllocateRequest) (*IPDetailResponse, error) {
 		Projectid:   &iar.Projectid,
 		Machineid:   iar.Machineid,
 		Clusterid:   iar.Clusterid,
-		Iptype:      &iar.Type,
+		Type:        &iar.Type,
 		Tags:        iar.Tags,
 	}
 	if iar.IPAddress == "" {
