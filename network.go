@@ -111,30 +111,6 @@ type IPUpdateRequest struct {
 	Tags []string `json:"tags,omitempty"`
 }
 
-// IPTagRequest is the request to associate an IP with a cluster or machine
-type IPTagRequest struct {
-	// the ip address for this ip update request.
-	IPAddress string `json:"ipaddress"`
-	// the cluster id to associate the ip address with.
-	ClusterID *string `json:"clusterid"`
-	// the machine id to associate the ip address with.
-	MachineID *string `json:"machineid"`
-	// tags to add to the ip
-	Tags []string `json:"tags,omitempty"`
-}
-
-// IPUntagRequest is the request to deassociate an IP from a cluster or machine
-type IPUntagRequest struct {
-	// the ip address for this ip update request.
-	IPAddress string `json:"ipaddress"`
-	// the cluster id to deassociate the ip address from.
-	ClusterID *string `json:"clusterid"`
-	// the machine id to deassociate the ip address from.
-	MachineID *string `json:"machineid"`
-	// tags to remove from the ip
-	Tags []string `json:"tags,omitempty"`
-}
-
 // IPListResponse is the response when ips are listed
 type IPListResponse struct {
 	IPs []*models.V1IPResponse
@@ -436,46 +412,6 @@ func (d *Driver) IPUpdate(iur *IPUpdateRequest) (*IPDetailResponse, error) {
 		return response, err
 	}
 	response.IP = resp.Payload
-	return response, nil
-}
-
-// IPTag associates an IP with a cluster or machine
-func (d *Driver) IPTag(it *IPTagRequest) (*IPDetailResponse, error) {
-	useIPInCluster := ip.NewTagIPParams()
-	b := &models.V1IPTagRequest{
-		Ipaddress: &it.IPAddress,
-		Clusterid: it.ClusterID,
-		Machineid: it.MachineID,
-		Tags:      it.Tags,
-	}
-	useIPInCluster.SetBody(b)
-	r, err := d.ip.TagIP(useIPInCluster, d.auth)
-	if err != nil {
-		return nil, err
-	}
-	response := &IPDetailResponse{
-		IP: r.Payload,
-	}
-	return response, nil
-}
-
-// IPUntag removes the association of an IP with a cluster or machine
-func (d *Driver) IPUntag(iu *IPUntagRequest) (*IPDetailResponse, error) {
-	releaseIPFromCluster := ip.NewUntagIPParams()
-	b := &models.V1IPUntagRequest{
-		Ipaddress: &iu.IPAddress,
-		Clusterid: iu.ClusterID,
-		Machineid: iu.MachineID,
-		Tags:      iu.Tags,
-	}
-	releaseIPFromCluster.SetBody(b)
-	r, err := d.ip.UntagIP(releaseIPFromCluster, d.auth)
-	if err != nil {
-		return nil, err
-	}
-	response := &IPDetailResponse{
-		IP: r.Payload,
-	}
 	return response, nil
 }
 

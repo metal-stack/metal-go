@@ -199,64 +199,6 @@ func (a *Client) ListIps(params *ListIpsParams, authInfo runtime.ClientAuthInfoW
 }
 
 /*
-TagIP updates an ip and marks it as used by a cluster or machine
-*/
-func (a *Client) TagIP(params *TagIPParams, authInfo runtime.ClientAuthInfoWriter) (*TagIPOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewTagIPParams()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "tagIP",
-		Method:             "POST",
-		PathPattern:        "/v1/ip/tag",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
-		Params:             params,
-		Reader:             &TagIPReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	return result.(*TagIPOK), nil
-
-}
-
-/*
-UntagIP updates an ip and marks it as unused by a cluster or machine
-*/
-func (a *Client) UntagIP(params *UntagIPParams, authInfo runtime.ClientAuthInfoWriter) (*UntagIPOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewUntagIPParams()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "untagIP",
-		Method:             "POST",
-		PathPattern:        "/v1/ip/untag",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
-		Params:             params,
-		Reader:             &UntagIPReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	return result.(*UntagIPOK), nil
-
-}
-
-/*
 UpdateIP updates an ip if the ip was changed since this one was read a conflict is returned
 */
 func (a *Client) UpdateIP(params *UpdateIPParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateIPOK, error) {
