@@ -17,10 +17,6 @@ import (
 // swagger:model v1.IPFindRequest
 type V1IPFindRequest struct {
 
-	// the cluster an ip address is associated to
-	// Required: true
-	Clusterid *string `json:"clusterid"`
-
 	// the address (ipv4 or ipv6) of this ip
 	// Required: true
 	Ipaddress *string `json:"ipaddress"`
@@ -54,10 +50,6 @@ type V1IPFindRequest struct {
 func (m *V1IPFindRequest) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateClusterid(formats); err != nil {
-		res = append(res, err)
-	}
-
 	if err := m.validateIpaddress(formats); err != nil {
 		res = append(res, err)
 	}
@@ -89,15 +81,6 @@ func (m *V1IPFindRequest) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
-	return nil
-}
-
-func (m *V1IPFindRequest) validateClusterid(formats strfmt.Registry) error {
-
-	if err := validate.Required("clusterid", "body", m.Clusterid); err != nil {
-		return err
-	}
-
 	return nil
 }
 

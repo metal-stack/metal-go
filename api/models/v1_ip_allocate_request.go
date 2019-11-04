@@ -19,10 +19,6 @@ import (
 // swagger:model v1.IPAllocateRequest
 type V1IPAllocateRequest struct {
 
-	// the cluster id this ip should be associated with
-	// Required: true
-	Clusterid *string `json:"clusterid"`
-
 	// a description for this entity
 	Description string `json:"description,omitempty"`
 
@@ -55,10 +51,6 @@ type V1IPAllocateRequest struct {
 func (m *V1IPAllocateRequest) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateClusterid(formats); err != nil {
-		res = append(res, err)
-	}
-
 	if err := m.validateMachineid(formats); err != nil {
 		res = append(res, err)
 	}
@@ -82,15 +74,6 @@ func (m *V1IPAllocateRequest) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
-	return nil
-}
-
-func (m *V1IPAllocateRequest) validateClusterid(formats strfmt.Registry) error {
-
-	if err := validate.Required("clusterid", "body", m.Clusterid); err != nil {
-		return err
-	}
-
 	return nil
 }
 

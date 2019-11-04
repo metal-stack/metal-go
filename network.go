@@ -140,9 +140,6 @@ type IPAllocateRequest struct {
 	// the machine this ip acquire request belongs to
 	Machineid *string `json:"machineid"`
 
-	// the cluster this ip acquire request belongs to
-	Clusterid *string `json:"clusterid"`
-
 	// the type of the ip
 	Type string `json:"type,omitempty"`
 
@@ -172,7 +169,6 @@ type IPFindRequest struct {
 	ParentPrefixCidr *string
 	NetworkID        *string
 	MachineID        *string
-	ClusterID        *string
 	Type             *string
 	Tags             []string
 }
@@ -444,7 +440,6 @@ func (d *Driver) IPFind(ifr *IPFindRequest) (*IPListResponse, error) {
 		Networkprefix: ifr.ParentPrefixCidr,
 		Networkid:     ifr.NetworkID,
 		Machineid:     ifr.MachineID,
-		Clusterid:     ifr.ClusterID,
 		Type:          ifr.Type,
 		Tags:          ifr.Tags,
 	}
@@ -468,7 +463,6 @@ func (d *Driver) IPAllocate(iar *IPAllocateRequest) (*IPDetailResponse, error) {
 		Networkid:   &iar.Networkid,
 		Projectid:   &iar.Projectid,
 		Machineid:   iar.Machineid,
-		Clusterid:   iar.Clusterid,
 		Type:        &iar.Type,
 		Tags:        iar.Tags,
 	}
