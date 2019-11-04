@@ -8,6 +8,13 @@ import (
 	"github.com/metal-pod/metal-go/api/models"
 )
 
+const (
+	// IPTypeEphemeral if specified a ip gets released after usage
+	IPTypeEphemeral = "ephemeral"
+	// IPTypeStatic if specified a ip must be released manually
+	IPTypeStatic = "static"
+)
+
 // NetworkGetResponse contains the network get result
 type NetworkGetResponse struct {
 	Network *models.V1NetworkResponse
