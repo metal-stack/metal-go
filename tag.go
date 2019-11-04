@@ -38,10 +38,7 @@ func BuildServiceTagClusterPrefix(clusterID string) string {
 
 // TagIsMachine returns true if the given tag is a machinetag.
 func TagIsMachine(tag string) bool {
-	if strings.HasPrefix(tag, TagMachinePrefix) {
-		return true
-	}
-	return false
+	return strings.HasPrefix(tag, TagMachinePrefix)
 }
 
 // TagIsMemberOfCluster returns true of the given tag is a clustertag and clusterID matches.
