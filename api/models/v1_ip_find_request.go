@@ -21,7 +21,7 @@ type V1IPFindRequest struct {
 	// Required: true
 	Ipaddress *string `json:"ipaddress"`
 
-	// the machine this ip address belongs to, empty if not strong coupled
+	// the machine an ip address is associated to
 	// Required: true
 	Machineid *string `json:"machineid"`
 
@@ -36,6 +36,14 @@ type V1IPFindRequest struct {
 	// the project this ip address belongs to, empty if not strong coupled
 	// Required: true
 	Projectid *string `json:"projectid"`
+
+	// the tags that are assigned to this ip address
+	// Required: true
+	Tags []string `json:"tags"`
+
+	// the type of the ip address, ephemeral or static
+	// Required: true
+	Type *string `json:"type"`
 }
 
 // Validate validates this v1 IP find request
@@ -59,6 +67,14 @@ func (m *V1IPFindRequest) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateProjectid(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateTags(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateType(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -107,6 +123,24 @@ func (m *V1IPFindRequest) validateNetworkprefix(formats strfmt.Registry) error {
 func (m *V1IPFindRequest) validateProjectid(formats strfmt.Registry) error {
 
 	if err := validate.Required("projectid", "body", m.Projectid); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *V1IPFindRequest) validateTags(formats strfmt.Registry) error {
+
+	if err := validate.Required("tags", "body", m.Tags); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *V1IPFindRequest) validateType(formats strfmt.Registry) error {
+
+	if err := validate.Required("type", "body", m.Type); err != nil {
 		return err
 	}
 

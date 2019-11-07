@@ -6,6 +6,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
+
 	strfmt "github.com/go-openapi/strfmt"
 
 	"github.com/go-openapi/errors"
@@ -25,12 +27,17 @@ type V1IPUpdateRequest struct {
 	// Unique: true
 	Ipaddress *string `json:"ipaddress"`
 
-	// the machine this ip address belongs to, empty if not strong coupled
-	// Required: true
-	Machineid *string `json:"machineid"`
-
 	// a readable name for this entity
 	Name string `json:"name,omitempty"`
+
+	// free tags that you associate with this ip.
+	// Required: true
+	Tags []string `json:"tags"`
+
+	// the ip type, ephemeral leads to automatic cleanup of the ip address, static will enable re-use of the ip at a later point in time
+	// Required: true
+	// Enum: [static ephemeral]
+	Type *string `json:"type"`
 }
 
 // Validate validates this v1 IP update request
@@ -41,7 +48,11 @@ func (m *V1IPUpdateRequest) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validateMachineid(formats); err != nil {
+	if err := m.validateTags(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateType(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -60,9 +71,52 @@ func (m *V1IPUpdateRequest) validateIpaddress(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *V1IPUpdateRequest) validateMachineid(formats strfmt.Registry) error {
+func (m *V1IPUpdateRequest) validateTags(formats strfmt.Registry) error {
 
-	if err := validate.Required("machineid", "body", m.Machineid); err != nil {
+	if err := validate.Required("tags", "body", m.Tags); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+var v1IpUpdateRequestTypeTypePropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["static","ephemeral"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		v1IpUpdateRequestTypeTypePropEnum = append(v1IpUpdateRequestTypeTypePropEnum, v)
+	}
+}
+
+const (
+
+	// V1IPUpdateRequestTypeStatic captures enum value "static"
+	V1IPUpdateRequestTypeStatic string = "static"
+
+	// V1IPUpdateRequestTypeEphemeral captures enum value "ephemeral"
+	V1IPUpdateRequestTypeEphemeral string = "ephemeral"
+)
+
+// prop value enum
+func (m *V1IPUpdateRequest) validateTypeEnum(path, location string, value string) error {
+	if err := validate.Enum(path, location, value, v1IpUpdateRequestTypeTypePropEnum); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *V1IPUpdateRequest) validateType(formats strfmt.Registry) error {
+
+	if err := validate.Required("type", "body", m.Type); err != nil {
+		return err
+	}
+
+	// value enum
+	if err := m.validateTypeEnum("type", "body", *m.Type); err != nil {
 		return err
 	}
 

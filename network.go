@@ -8,6 +8,13 @@ import (
 	"github.com/metal-pod/metal-go/api/models"
 )
 
+const (
+	// IPTypeEphemeral if specified a ip gets released after usage
+	IPTypeEphemeral = "ephemeral"
+	// IPTypeStatic if specified a ip must be released manually
+	IPTypeStatic = "static"
+)
+
 // NetworkGetResponse contains the network get result
 type NetworkGetResponse struct {
 	Network *models.V1NetworkResponse
@@ -18,8 +25,8 @@ type NetworkListResponse struct {
 	Networks []*models.V1NetworkResponse
 }
 
-// NetworkAcquireRequest is the request to acquire a new private network
-type NetworkAcquireRequest struct {
+// NetworkAllocateRequest is the request to allocate a new private network
+type NetworkAllocateRequest struct {
 	// a description for this entity
 	Description string `json:"description,omitempty"`
 
@@ -105,8 +112,10 @@ type IPUpdateRequest struct {
 	Description string `json:"description,omitempty"`
 	// the readable name
 	Name string `json:"name,omitempty"`
-	// the machine id that is associated to this ip
-	MachineID string `json:"machineid,omitempty"`
+	// the type of the ip
+	Type string `json:"type,omitempty"`
+	// tags for the ip
+	Tags []string `json:"tags,omitempty"`
 }
 
 // IPListResponse is the response when ips are listed
@@ -114,8 +123,12 @@ type IPListResponse struct {
 	IPs []*models.V1IPResponse
 }
 
-// IPAcquireRequest is the request to acquire an IP
-type IPAcquireRequest struct {
+// IPAllocateRequest is the request to allocate an IP
+type IPAllocateRequest struct {
+
+	// SpecificIP tries to acquire this ip.
+	// Required: false
+	IPAddress string `json:"ipaddress"`
 
 	// a description for this entity
 	Description string `json:"description,omitempty"`
@@ -131,9 +144,14 @@ type IPAcquireRequest struct {
 	// Required: true
 	Projectid string `json:"projectid"`
 
-	// SpecificIP tries to acquire this ip.
-	// Required: false
-	SpecificIP string `json:"specificip"`
+	// the machine this ip acquire request belongs to
+	Machineid *string `json:"machineid"`
+
+	// the type of the ip
+	Type string `json:"type,omitempty"`
+
+	// tags for the ip
+	Tags []string `json:"tags,omitempty"`
 }
 
 // NetworkFindRequest contains criteria for a network listing
@@ -158,6 +176,8 @@ type IPFindRequest struct {
 	ParentPrefixCidr *string
 	NetworkID        *string
 	MachineID        *string
+	Type             *string
+	Tags             []string
 }
 
 // IPDetailResponse is the response to an IP detail request.
@@ -255,12 +275,12 @@ func (d *Driver) NetworkCreate(ncr *NetworkCreateRequest) (*NetworkDetailRespons
 	return response, nil
 }
 
-// NetworkAcquire creates a new network
-func (d *Driver) NetworkAcquire(ncr *NetworkAcquireRequest) (*NetworkDetailResponse, error) {
+// NetworkAllocate creates a new network
+func (d *Driver) NetworkAllocate(ncr *NetworkAllocateRequest) (*NetworkDetailResponse, error) {
 	response := &NetworkDetailResponse{}
-	acquireNetwork := network.NewAcquireChildNetworkParams()
+	acquireNetwork := network.NewAllocateNetworkParams()
 
-	acquireRequest := &models.V1NetworkAcquireRequest{
+	acquireRequest := &models.V1NetworkAllocateRequest{
 		Description: ncr.Description,
 		Name:        ncr.Name,
 		Partitionid: ncr.PartitionID,
@@ -268,7 +288,7 @@ func (d *Driver) NetworkAcquire(ncr *NetworkAcquireRequest) (*NetworkDetailRespo
 		Labels:      ncr.Labels,
 	}
 	acquireNetwork.SetBody(acquireRequest)
-	resp, err := d.network.AcquireChildNetwork(acquireNetwork, d.auth)
+	resp, err := d.network.AllocateNetwork(acquireNetwork, d.auth)
 	if err != nil {
 		return response, err
 	}
@@ -276,13 +296,13 @@ func (d *Driver) NetworkAcquire(ncr *NetworkAcquireRequest) (*NetworkDetailRespo
 	return response, nil
 }
 
-// NetworkRelease creates a new network
-func (d *Driver) NetworkRelease(id string) (*NetworkDetailResponse, error) {
+// NetworkFree frees a network
+func (d *Driver) NetworkFree(id string) (*NetworkDetailResponse, error) {
 	response := &NetworkDetailResponse{}
-	releaseNetwork := network.NewReleaseChildNetworkParams()
+	releaseNetwork := network.NewFreeNetworkParams()
 
 	releaseNetwork.ID = id
-	resp, err := d.network.ReleaseChildNetwork(releaseNetwork, d.auth)
+	resp, err := d.network.FreeNetwork(releaseNetwork, d.auth)
 	if err != nil {
 		return response, err
 	}
@@ -290,7 +310,7 @@ func (d *Driver) NetworkRelease(id string) (*NetworkDetailResponse, error) {
 	return response, nil
 }
 
-// NetworkUpdate creates a new network
+// NetworkUpdate updates a network
 func (d *Driver) NetworkUpdate(ncr *NetworkCreateRequest) (*NetworkDetailResponse, error) {
 	response := &NetworkDetailResponse{}
 	updateNetwork := network.NewUpdateNetworkParams()
@@ -386,7 +406,8 @@ func (d *Driver) IPUpdate(iur *IPUpdateRequest) (*IPDetailResponse, error) {
 		Ipaddress:   &iur.IPAddress,
 		Description: iur.Description,
 		Name:        iur.Name,
-		Machineid:   &iur.MachineID,
+		Type:        &iur.Type,
+		Tags:        iur.Tags,
 	}
 	updateIP.SetBody(updateRequest)
 	resp, err := d.ip.UpdateIP(updateIP, d.auth)
@@ -426,6 +447,8 @@ func (d *Driver) IPFind(ifr *IPFindRequest) (*IPListResponse, error) {
 		Networkprefix: ifr.ParentPrefixCidr,
 		Networkid:     ifr.NetworkID,
 		Machineid:     ifr.MachineID,
+		Type:          ifr.Type,
+		Tags:          ifr.Tags,
 	}
 	findIPs.SetBody(req)
 
@@ -438,16 +461,19 @@ func (d *Driver) IPFind(ifr *IPFindRequest) (*IPListResponse, error) {
 	return response, nil
 }
 
-// IPAcquire acquires an IP in a network for a project
-func (d *Driver) IPAcquire(iar *IPAcquireRequest) (*IPDetailResponse, error) {
+// IPAllocate allocates an IP in a network for a project
+func (d *Driver) IPAllocate(iar *IPAllocateRequest) (*IPDetailResponse, error) {
 	response := &IPDetailResponse{}
 	acquireIPRequest := &models.V1IPAllocateRequest{
 		Description: iar.Description,
 		Name:        iar.Name,
 		Networkid:   &iar.Networkid,
 		Projectid:   &iar.Projectid,
+		Machineid:   iar.Machineid,
+		Type:        &iar.Type,
+		Tags:        iar.Tags,
 	}
-	if iar.SpecificIP == "" {
+	if iar.IPAddress == "" {
 		acquireIP := ip.NewAllocateIPParams()
 		acquireIP.SetBody(acquireIPRequest)
 		resp, err := d.ip.AllocateIP(acquireIP, d.auth)
@@ -457,7 +483,7 @@ func (d *Driver) IPAcquire(iar *IPAcquireRequest) (*IPDetailResponse, error) {
 		response.IP = resp.Payload
 	} else {
 		acquireIP := ip.NewAllocateSpecificIPParams()
-		acquireIP.IP = iar.SpecificIP
+		acquireIP.IP = iar.IPAddress
 		acquireIP.SetBody(acquireIPRequest)
 		resp, err := d.ip.AllocateSpecificIP(acquireIP, d.auth)
 		if err != nil {
@@ -468,12 +494,12 @@ func (d *Driver) IPAcquire(iar *IPAcquireRequest) (*IPDetailResponse, error) {
 	return response, nil
 }
 
-// IPDelete releases an IP
-func (d *Driver) IPDelete(id string) (*IPDetailResponse, error) {
+// IPFree frees an IP
+func (d *Driver) IPFree(id string) (*IPDetailResponse, error) {
 	response := &IPDetailResponse{}
-	deleteIP := ip.NewReleaseIPParams()
+	deleteIP := ip.NewFreeIPParams()
 	deleteIP.ID = id
-	resp, err := d.ip.ReleaseIP(deleteIP, d.auth)
+	resp, err := d.ip.FreeIP(deleteIP, d.auth)
 	if err != nil {
 		return response, err
 	}

@@ -344,6 +344,35 @@ func (a *Client) IPMIData(params *IPMIDataParams, authInfo runtime.ClientAuthInf
 }
 
 /*
+IPMIReport reports IP m i ip addresses leased by a management server for machines
+*/
+func (a *Client) IPMIReport(params *IPMIReportParams, authInfo runtime.ClientAuthInfoWriter) (*IPMIReportOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewIPMIReportParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "ipmiReport",
+		Method:             "POST",
+		PathPattern:        "/v1/machine/ipmi",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &IPMIReportReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*IPMIReportOK), nil
+
+}
+
+/*
 ListMachines gets all known machines
 */
 func (a *Client) ListMachines(params *ListMachinesParams, authInfo runtime.ClientAuthInfoWriter) (*ListMachinesOK, error) {
