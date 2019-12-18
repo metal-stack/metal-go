@@ -124,7 +124,7 @@ type MachineGetResponse struct {
 
 // MachineIpmiResponse contains the machine get result
 type MachineIpmiResponse struct {
-	IPMI *models.V1MachineIPMI
+	IPMI []*models.V1MachineIPMIResponse
 }
 
 // MachineDeleteResponse contains the machine delete result
@@ -300,12 +300,61 @@ func (d *Driver) MachineFind(mfr *MachineFindRequest) (*MachineListResponse, err
 }
 
 // MachineIpmi returns the IPMI data of the given machine
-func (d *Driver) MachineIpmi(machineID string) (*MachineIpmiResponse, error) {
-	ipmiMachine := machine.NewIPMIDataParams()
-	ipmiMachine.ID = machineID
-
+func (d *Driver) MachineIpmi(mfr *MachineFindRequest) (*MachineIpmiResponse, error) {
 	response := &MachineIpmiResponse{}
-	resp, err := d.machine.IPMIData(ipmiMachine, d.auth)
+	var err error
+	var resp *machine.IPMIFindOK
+
+	findMachines := machine.NewIPMIFindParams()
+	req := &models.V1MachineFindRequest{
+		ID:                         mfr.ID,
+		Name:                       mfr.Name,
+		PartitionID:                mfr.PartitionID,
+		Sizeid:                     mfr.SizeID,
+		Rackid:                     mfr.RackID,
+		Liveliness:                 mfr.Liveliness,
+		Tags:                       mfr.Tags,
+		AllocationName:             mfr.AllocationName,
+		AllocationProject:          mfr.AllocationProject,
+		AllocationImageID:          mfr.AllocationImageID,
+		AllocationHostname:         mfr.AllocationHostname,
+		AllocationSucceeded:        mfr.AllocationSucceeded,
+		NetworkIds:                 mfr.NetworkIDs,
+		NetworkPrefixes:            mfr.NetworkPrefixes,
+		NetworkIps:                 mfr.NetworkIPs,
+		NetworkDestinationPrefixes: mfr.NetworkDestinationPrefixes,
+		NetworkVrfs:                mfr.NetworkVrfs,
+		NetworkPrivate:             mfr.NetworkPrivate,
+		NetworkAsns:                mfr.NetworkASNs,
+		NetworkNat:                 mfr.NetworkNat,
+		NetworkUnderlay:            mfr.NetworkUnderlay,
+		HardwareMemory:             mfr.HardwareMemory,
+		HardwareCPUCores:           mfr.HardwareCPUCores,
+		NicsMacAddresses:           mfr.NicsMacAddresses,
+		NicsNames:                  mfr.NicsNames,
+		NicsVrfs:                   mfr.NicsVrfs,
+		NicsNeighborMacAddresses:   mfr.NicsNeighborMacAddresses,
+		NicsNeighborNames:          mfr.NicsNeighborNames,
+		NicsNeighborVrfs:           mfr.NicsNeighborVrfs,
+		DiskNames:                  mfr.DiskNames,
+		DiskSizes:                  mfr.DiskSizes,
+		StateValue:                 mfr.StateValue,
+		IPMIAddress:                mfr.IpmiAddress,
+		IPMIMacAddress:             mfr.IpmiMacAddress,
+		IPMIUser:                   mfr.IpmiUser,
+		IPMIInterface:              mfr.IpmiInterface,
+		FruChassisPartNumber:       mfr.FruChassisPartNumber,
+		FruChassisPartSerial:       mfr.FruChassisPartSerial,
+		FruBoardMfg:                mfr.FruBoardMfg,
+		FruBoardMfgSerial:          mfr.FruBoardMfgSerial,
+		FruBoardPartNumber:         mfr.FruChassisPartNumber,
+		FruProductManufacturer:     mfr.FruProductManufacturer,
+		FruProductPartNumber:       mfr.FruProductPartNumber,
+		FruProductSerial:           mfr.FruProductSerial,
+	}
+	findMachines.SetBody(req)
+
+	resp, err = d.machine.IPMIFind(findMachines, d.auth)
 	if err != nil {
 		return response, err
 	}

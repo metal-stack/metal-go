@@ -315,23 +315,23 @@ func (a *Client) GetProvisioningEventContainer(params *GetProvisioningEventConta
 }
 
 /*
-IPMIData returns the IP m i connection data for a machine
+IPMIFind returns machines including the ipmi connection data
 */
-func (a *Client) IPMIData(params *IPMIDataParams, authInfo runtime.ClientAuthInfoWriter) (*IPMIDataOK, error) {
+func (a *Client) IPMIFind(params *IPMIFindParams, authInfo runtime.ClientAuthInfoWriter) (*IPMIFindOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewIPMIDataParams()
+		params = NewIPMIFindParams()
 	}
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "ipmiData",
-		Method:             "GET",
-		PathPattern:        "/v1/machine/{id}/ipmi",
+		ID:                 "ipmiFind",
+		Method:             "POST",
+		PathPattern:        "/v1/machine/find-ipmi",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http"},
 		Params:             params,
-		Reader:             &IPMIDataReader{formats: a.formats},
+		Reader:             &IPMIFindReader{formats: a.formats},
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
@@ -339,7 +339,7 @@ func (a *Client) IPMIData(params *IPMIDataParams, authInfo runtime.ClientAuthInf
 	if err != nil {
 		return nil, err
 	}
-	return result.(*IPMIDataOK), nil
+	return result.(*IPMIFindOK), nil
 
 }
 

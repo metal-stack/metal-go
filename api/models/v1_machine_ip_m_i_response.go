@@ -13,9 +13,13 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// V1FirewallResponse v1 firewall response
-// swagger:model v1.FirewallResponse
-type V1FirewallResponse struct {
+// V1MachineIPMIResponse v1 machine IP m i response
+// swagger:model v1.MachineIPMIResponse
+type V1MachineIPMIResponse struct {
+
+	// address
+	// Required: true
+	Address *string `json:"address"`
 
 	// the allocation data of an allocated machine
 	// Required: true
@@ -24,6 +28,10 @@ type V1FirewallResponse struct {
 	// bios information of this machine
 	// Required: true
 	Bios *V1MachineBIOS `json:"bios"`
+
+	// bmcversion
+	// Required: true
+	Bmcversion *string `json:"bmcversion"`
 
 	// the last changed timestamp of this entity
 	// Required: true
@@ -44,6 +52,10 @@ type V1FirewallResponse struct {
 	// Required: true
 	Events *V1MachineRecentProvisioningEvents `json:"events"`
 
+	// fru
+	// Required: true
+	Fru *V1MachineFru `json:"fru"`
+
 	// the hardware of this machine
 	// Required: true
 	Hardware *V1MachineHardware `json:"hardware"`
@@ -53,6 +65,10 @@ type V1FirewallResponse struct {
 	// Unique: true
 	ID *string `json:"id"`
 
+	// interface
+	// Required: true
+	Interface *string `json:"interface"`
+
 	// the state of this chassis identify LED
 	// Required: true
 	Ledstate *V1ChassisIdentifyLEDState `json:"ledstate"`
@@ -61,6 +77,10 @@ type V1FirewallResponse struct {
 	// Required: true
 	Liveliness *string `json:"liveliness"`
 
+	// mac
+	// Required: true
+	Mac *string `json:"mac"`
+
 	// a readable name for this entity
 	Name string `json:"name,omitempty"`
 
@@ -68,6 +88,10 @@ type V1FirewallResponse struct {
 	// Required: true
 	// Read Only: true
 	Partition *V1PartitionResponse `json:"partition"`
+
+	// password
+	// Required: true
+	Password *string `json:"password"`
 
 	// the rack assigned to this machine
 	// Required: true
@@ -86,17 +110,29 @@ type V1FirewallResponse struct {
 	// tags for this machine
 	// Required: true
 	Tags []string `json:"tags"`
+
+	// user
+	// Required: true
+	User *string `json:"user"`
 }
 
-// Validate validates this v1 firewall response
-func (m *V1FirewallResponse) Validate(formats strfmt.Registry) error {
+// Validate validates this v1 machine IP m i response
+func (m *V1MachineIPMIResponse) Validate(formats strfmt.Registry) error {
 	var res []error
+
+	if err := m.validateAddress(formats); err != nil {
+		res = append(res, err)
+	}
 
 	if err := m.validateAllocation(formats); err != nil {
 		res = append(res, err)
 	}
 
 	if err := m.validateBios(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateBmcversion(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -112,11 +148,19 @@ func (m *V1FirewallResponse) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateFru(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateHardware(formats); err != nil {
 		res = append(res, err)
 	}
 
 	if err := m.validateID(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateInterface(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -128,7 +172,15 @@ func (m *V1FirewallResponse) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateMac(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validatePartition(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validatePassword(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -148,13 +200,26 @@ func (m *V1FirewallResponse) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateUser(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
 	return nil
 }
 
-func (m *V1FirewallResponse) validateAllocation(formats strfmt.Registry) error {
+func (m *V1MachineIPMIResponse) validateAddress(formats strfmt.Registry) error {
+
+	if err := validate.Required("address", "body", m.Address); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *V1MachineIPMIResponse) validateAllocation(formats strfmt.Registry) error {
 
 	if err := validate.Required("allocation", "body", m.Allocation); err != nil {
 		return err
@@ -172,7 +237,7 @@ func (m *V1FirewallResponse) validateAllocation(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *V1FirewallResponse) validateBios(formats strfmt.Registry) error {
+func (m *V1MachineIPMIResponse) validateBios(formats strfmt.Registry) error {
 
 	if err := validate.Required("bios", "body", m.Bios); err != nil {
 		return err
@@ -190,7 +255,16 @@ func (m *V1FirewallResponse) validateBios(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *V1FirewallResponse) validateChanged(formats strfmt.Registry) error {
+func (m *V1MachineIPMIResponse) validateBmcversion(formats strfmt.Registry) error {
+
+	if err := validate.Required("bmcversion", "body", m.Bmcversion); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *V1MachineIPMIResponse) validateChanged(formats strfmt.Registry) error {
 
 	if err := validate.Required("changed", "body", strfmt.DateTime(m.Changed)); err != nil {
 		return err
@@ -203,7 +277,7 @@ func (m *V1FirewallResponse) validateChanged(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *V1FirewallResponse) validateCreated(formats strfmt.Registry) error {
+func (m *V1MachineIPMIResponse) validateCreated(formats strfmt.Registry) error {
 
 	if err := validate.Required("created", "body", strfmt.DateTime(m.Created)); err != nil {
 		return err
@@ -216,7 +290,7 @@ func (m *V1FirewallResponse) validateCreated(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *V1FirewallResponse) validateEvents(formats strfmt.Registry) error {
+func (m *V1MachineIPMIResponse) validateEvents(formats strfmt.Registry) error {
 
 	if err := validate.Required("events", "body", m.Events); err != nil {
 		return err
@@ -234,7 +308,25 @@ func (m *V1FirewallResponse) validateEvents(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *V1FirewallResponse) validateHardware(formats strfmt.Registry) error {
+func (m *V1MachineIPMIResponse) validateFru(formats strfmt.Registry) error {
+
+	if err := validate.Required("fru", "body", m.Fru); err != nil {
+		return err
+	}
+
+	if m.Fru != nil {
+		if err := m.Fru.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("fru")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *V1MachineIPMIResponse) validateHardware(formats strfmt.Registry) error {
 
 	if err := validate.Required("hardware", "body", m.Hardware); err != nil {
 		return err
@@ -252,7 +344,7 @@ func (m *V1FirewallResponse) validateHardware(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *V1FirewallResponse) validateID(formats strfmt.Registry) error {
+func (m *V1MachineIPMIResponse) validateID(formats strfmt.Registry) error {
 
 	if err := validate.Required("id", "body", m.ID); err != nil {
 		return err
@@ -261,7 +353,16 @@ func (m *V1FirewallResponse) validateID(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *V1FirewallResponse) validateLedstate(formats strfmt.Registry) error {
+func (m *V1MachineIPMIResponse) validateInterface(formats strfmt.Registry) error {
+
+	if err := validate.Required("interface", "body", m.Interface); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *V1MachineIPMIResponse) validateLedstate(formats strfmt.Registry) error {
 
 	if err := validate.Required("ledstate", "body", m.Ledstate); err != nil {
 		return err
@@ -279,7 +380,7 @@ func (m *V1FirewallResponse) validateLedstate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *V1FirewallResponse) validateLiveliness(formats strfmt.Registry) error {
+func (m *V1MachineIPMIResponse) validateLiveliness(formats strfmt.Registry) error {
 
 	if err := validate.Required("liveliness", "body", m.Liveliness); err != nil {
 		return err
@@ -288,7 +389,16 @@ func (m *V1FirewallResponse) validateLiveliness(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *V1FirewallResponse) validatePartition(formats strfmt.Registry) error {
+func (m *V1MachineIPMIResponse) validateMac(formats strfmt.Registry) error {
+
+	if err := validate.Required("mac", "body", m.Mac); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *V1MachineIPMIResponse) validatePartition(formats strfmt.Registry) error {
 
 	if err := validate.Required("partition", "body", m.Partition); err != nil {
 		return err
@@ -306,7 +416,16 @@ func (m *V1FirewallResponse) validatePartition(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *V1FirewallResponse) validateRackid(formats strfmt.Registry) error {
+func (m *V1MachineIPMIResponse) validatePassword(formats strfmt.Registry) error {
+
+	if err := validate.Required("password", "body", m.Password); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *V1MachineIPMIResponse) validateRackid(formats strfmt.Registry) error {
 
 	if err := validate.RequiredString("rackid", "body", string(m.Rackid)); err != nil {
 		return err
@@ -315,7 +434,7 @@ func (m *V1FirewallResponse) validateRackid(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *V1FirewallResponse) validateSize(formats strfmt.Registry) error {
+func (m *V1MachineIPMIResponse) validateSize(formats strfmt.Registry) error {
 
 	if err := validate.Required("size", "body", m.Size); err != nil {
 		return err
@@ -333,7 +452,7 @@ func (m *V1FirewallResponse) validateSize(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *V1FirewallResponse) validateState(formats strfmt.Registry) error {
+func (m *V1MachineIPMIResponse) validateState(formats strfmt.Registry) error {
 
 	if err := validate.Required("state", "body", m.State); err != nil {
 		return err
@@ -351,7 +470,7 @@ func (m *V1FirewallResponse) validateState(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *V1FirewallResponse) validateTags(formats strfmt.Registry) error {
+func (m *V1MachineIPMIResponse) validateTags(formats strfmt.Registry) error {
 
 	if err := validate.Required("tags", "body", m.Tags); err != nil {
 		return err
@@ -360,8 +479,17 @@ func (m *V1FirewallResponse) validateTags(formats strfmt.Registry) error {
 	return nil
 }
 
+func (m *V1MachineIPMIResponse) validateUser(formats strfmt.Registry) error {
+
+	if err := validate.Required("user", "body", m.User); err != nil {
+		return err
+	}
+
+	return nil
+}
+
 // MarshalBinary interface implementation
-func (m *V1FirewallResponse) MarshalBinary() ([]byte, error) {
+func (m *V1MachineIPMIResponse) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -369,8 +497,8 @@ func (m *V1FirewallResponse) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *V1FirewallResponse) UnmarshalBinary(b []byte) error {
-	var res V1FirewallResponse
+func (m *V1MachineIPMIResponse) UnmarshalBinary(b []byte) error {
+	var res V1MachineIPMIResponse
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}
