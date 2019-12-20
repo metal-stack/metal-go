@@ -122,9 +122,14 @@ type MachineGetResponse struct {
 	Machine *models.V1MachineResponse
 }
 
-// MachineIpmiResponse contains the machine get result
-type MachineIpmiResponse struct {
-	IPMI []*models.V1MachineIPMIResponse
+// MachineIPMIGetResponse contains the machine ipmi get result
+type MachineIPMIGetResponse struct {
+	Machine *models.V1MachineIPMIResponse
+}
+
+// MachineIPMIListResponse contains the machine ipmi list result
+type MachineIPMIListResponse struct {
+	Machines []*models.V1MachineIPMIResponse
 }
 
 // MachineDeleteResponse contains the machine delete result
@@ -299,13 +304,25 @@ func (d *Driver) MachineFind(mfr *MachineFindRequest) (*MachineListResponse, err
 	return response, nil
 }
 
-// MachineIpmi returns the IPMI data of the given machine
-func (d *Driver) MachineIpmi(mfr *MachineFindRequest) (*MachineIpmiResponse, error) {
-	response := &MachineIpmiResponse{}
-	var err error
-	var resp *machine.IPMIFindOK
+// MachineIPMIGet returns the machine with the given ID including IPMI data
+func (d *Driver) MachineIPMIGet(id string) (*MachineIPMIGetResponse, error) {
+	findMachine := machine.NewFindIPMIMachineParams().WithID(id)
 
-	findMachines := machine.NewIPMIFindParams()
+	response := &MachineIPMIGetResponse{}
+	resp, err := d.machine.FindIPMIMachine(findMachine, d.auth)
+	if err != nil {
+		return response, err
+	}
+	response.Machine = resp.Payload
+
+	return response, nil
+}
+
+// MachineIPMIList returns the machine list of the given search query including IPMI data
+func (d *Driver) MachineIPMIList(mfr *MachineFindRequest) (*MachineIPMIListResponse, error) {
+	response := &MachineIPMIListResponse{}
+
+	findMachines := machine.NewFindIPMIMachinesParams()
 	req := &models.V1MachineFindRequest{
 		ID:                         mfr.ID,
 		Name:                       mfr.Name,
@@ -354,11 +371,11 @@ func (d *Driver) MachineIpmi(mfr *MachineFindRequest) (*MachineIpmiResponse, err
 	}
 	findMachines.SetBody(req)
 
-	resp, err = d.machine.IPMIFind(findMachines, d.auth)
+	resp, err := d.machine.FindIPMIMachines(findMachines, d.auth)
 	if err != nil {
 		return response, err
 	}
-	response.IPMI = resp.Payload
+	response.Machines = resp.Payload
 
 	return response, nil
 }

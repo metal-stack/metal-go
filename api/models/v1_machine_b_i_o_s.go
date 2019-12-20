@@ -17,7 +17,15 @@ import (
 // swagger:model v1.MachineBIOS
 type V1MachineBIOS struct {
 
-	// version
+	// the bios date
+	// Required: true
+	Date *string `json:"date"`
+
+	// the bios vendor
+	// Required: true
+	Vendor *string `json:"vendor"`
+
+	// the bios version
 	// Required: true
 	Version *string `json:"version"`
 }
@@ -26,6 +34,14 @@ type V1MachineBIOS struct {
 func (m *V1MachineBIOS) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateDate(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateVendor(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateVersion(formats); err != nil {
 		res = append(res, err)
 	}
@@ -33,6 +49,24 @@ func (m *V1MachineBIOS) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *V1MachineBIOS) validateDate(formats strfmt.Registry) error {
+
+	if err := validate.Required("date", "body", m.Date); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *V1MachineBIOS) validateVendor(formats strfmt.Registry) error {
+
+	if err := validate.Required("vendor", "body", m.Vendor); err != nil {
+		return err
+	}
+
 	return nil
 }
 

@@ -17,10 +17,6 @@ import (
 // swagger:model v1.MachineIPMIResponse
 type V1MachineIPMIResponse struct {
 
-	// address
-	// Required: true
-	Address *string `json:"address"`
-
 	// the allocation data of an allocated machine
 	// Required: true
 	Allocation *V1MachineAllocation `json:"allocation"`
@@ -28,10 +24,6 @@ type V1MachineIPMIResponse struct {
 	// bios information of this machine
 	// Required: true
 	Bios *V1MachineBIOS `json:"bios"`
-
-	// bmcversion
-	// Required: true
-	Bmcversion *string `json:"bmcversion"`
 
 	// the last changed timestamp of this entity
 	// Required: true
@@ -52,10 +44,6 @@ type V1MachineIPMIResponse struct {
 	// Required: true
 	Events *V1MachineRecentProvisioningEvents `json:"events"`
 
-	// fru
-	// Required: true
-	Fru *V1MachineFru `json:"fru"`
-
 	// the hardware of this machine
 	// Required: true
 	Hardware *V1MachineHardware `json:"hardware"`
@@ -65,9 +53,9 @@ type V1MachineIPMIResponse struct {
 	// Unique: true
 	ID *string `json:"id"`
 
-	// interface
+	// ipmi information of this machine
 	// Required: true
-	Interface *string `json:"interface"`
+	IPMI *V1MachineIPMI `json:"ipmi"`
 
 	// the state of this chassis identify LED
 	// Required: true
@@ -77,10 +65,6 @@ type V1MachineIPMIResponse struct {
 	// Required: true
 	Liveliness *string `json:"liveliness"`
 
-	// mac
-	// Required: true
-	Mac *string `json:"mac"`
-
 	// a readable name for this entity
 	Name string `json:"name,omitempty"`
 
@@ -88,10 +72,6 @@ type V1MachineIPMIResponse struct {
 	// Required: true
 	// Read Only: true
 	Partition *V1PartitionResponse `json:"partition"`
-
-	// password
-	// Required: true
-	Password *string `json:"password"`
 
 	// the rack assigned to this machine
 	// Required: true
@@ -110,29 +90,17 @@ type V1MachineIPMIResponse struct {
 	// tags for this machine
 	// Required: true
 	Tags []string `json:"tags"`
-
-	// user
-	// Required: true
-	User *string `json:"user"`
 }
 
 // Validate validates this v1 machine IP m i response
 func (m *V1MachineIPMIResponse) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateAddress(formats); err != nil {
-		res = append(res, err)
-	}
-
 	if err := m.validateAllocation(formats); err != nil {
 		res = append(res, err)
 	}
 
 	if err := m.validateBios(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateBmcversion(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -148,10 +116,6 @@ func (m *V1MachineIPMIResponse) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validateFru(formats); err != nil {
-		res = append(res, err)
-	}
-
 	if err := m.validateHardware(formats); err != nil {
 		res = append(res, err)
 	}
@@ -160,7 +124,7 @@ func (m *V1MachineIPMIResponse) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validateInterface(formats); err != nil {
+	if err := m.validateIPMI(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -172,15 +136,7 @@ func (m *V1MachineIPMIResponse) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validateMac(formats); err != nil {
-		res = append(res, err)
-	}
-
 	if err := m.validatePartition(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validatePassword(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -200,22 +156,9 @@ func (m *V1MachineIPMIResponse) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validateUser(formats); err != nil {
-		res = append(res, err)
-	}
-
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
-	return nil
-}
-
-func (m *V1MachineIPMIResponse) validateAddress(formats strfmt.Registry) error {
-
-	if err := validate.Required("address", "body", m.Address); err != nil {
-		return err
-	}
-
 	return nil
 }
 
@@ -250,15 +193,6 @@ func (m *V1MachineIPMIResponse) validateBios(formats strfmt.Registry) error {
 			}
 			return err
 		}
-	}
-
-	return nil
-}
-
-func (m *V1MachineIPMIResponse) validateBmcversion(formats strfmt.Registry) error {
-
-	if err := validate.Required("bmcversion", "body", m.Bmcversion); err != nil {
-		return err
 	}
 
 	return nil
@@ -308,24 +242,6 @@ func (m *V1MachineIPMIResponse) validateEvents(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *V1MachineIPMIResponse) validateFru(formats strfmt.Registry) error {
-
-	if err := validate.Required("fru", "body", m.Fru); err != nil {
-		return err
-	}
-
-	if m.Fru != nil {
-		if err := m.Fru.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("fru")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
 func (m *V1MachineIPMIResponse) validateHardware(formats strfmt.Registry) error {
 
 	if err := validate.Required("hardware", "body", m.Hardware); err != nil {
@@ -353,10 +269,19 @@ func (m *V1MachineIPMIResponse) validateID(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *V1MachineIPMIResponse) validateInterface(formats strfmt.Registry) error {
+func (m *V1MachineIPMIResponse) validateIPMI(formats strfmt.Registry) error {
 
-	if err := validate.Required("interface", "body", m.Interface); err != nil {
+	if err := validate.Required("ipmi", "body", m.IPMI); err != nil {
 		return err
+	}
+
+	if m.IPMI != nil {
+		if err := m.IPMI.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("ipmi")
+			}
+			return err
+		}
 	}
 
 	return nil
@@ -389,15 +314,6 @@ func (m *V1MachineIPMIResponse) validateLiveliness(formats strfmt.Registry) erro
 	return nil
 }
 
-func (m *V1MachineIPMIResponse) validateMac(formats strfmt.Registry) error {
-
-	if err := validate.Required("mac", "body", m.Mac); err != nil {
-		return err
-	}
-
-	return nil
-}
-
 func (m *V1MachineIPMIResponse) validatePartition(formats strfmt.Registry) error {
 
 	if err := validate.Required("partition", "body", m.Partition); err != nil {
@@ -411,15 +327,6 @@ func (m *V1MachineIPMIResponse) validatePartition(formats strfmt.Registry) error
 			}
 			return err
 		}
-	}
-
-	return nil
-}
-
-func (m *V1MachineIPMIResponse) validatePassword(formats strfmt.Registry) error {
-
-	if err := validate.Required("password", "body", m.Password); err != nil {
-		return err
 	}
 
 	return nil
@@ -473,15 +380,6 @@ func (m *V1MachineIPMIResponse) validateState(formats strfmt.Registry) error {
 func (m *V1MachineIPMIResponse) validateTags(formats strfmt.Registry) error {
 
 	if err := validate.Required("tags", "body", m.Tags); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *V1MachineIPMIResponse) validateUser(formats strfmt.Registry) error {
-
-	if err := validate.Required("user", "body", m.User); err != nil {
 		return err
 	}
 
