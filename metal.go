@@ -19,6 +19,7 @@ import (
 	"github.com/metal-pod/metal-go/api/client/machine"
 	"github.com/metal-pod/metal-go/api/client/network"
 	"github.com/metal-pod/metal-go/api/client/partition"
+	"github.com/metal-pod/metal-go/api/client/project"
 	"github.com/metal-pod/metal-go/api/client/size"
 	sw "github.com/metal-pod/metal-go/api/client/switch_operations"
 	"github.com/metal-pod/metal-go/api/models"
@@ -32,6 +33,7 @@ type Driver struct {
 	machine   *machine.Client
 	firewall  *firewall.Client
 	partition *partition.Client
+	project   *project.Client
 	size      *size.Client
 	sw        *sw.Client
 	network   *network.Client
@@ -61,6 +63,7 @@ func NewDriver(rawurl, bearer, hmac string) (*Driver, error) {
 		firewall:  firewall.New(transport, strfmt.Default),
 		size:      size.New(transport, strfmt.Default),
 		image:     image.New(transport, strfmt.Default),
+		project:   project.New(transport, strfmt.Default),
 		partition: partition.New(transport, strfmt.Default),
 		sw:        sw.New(transport, strfmt.Default),
 		network:   network.New(transport, strfmt.Default),

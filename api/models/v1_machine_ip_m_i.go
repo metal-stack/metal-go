@@ -21,6 +21,10 @@ type V1MachineIPMI struct {
 	// Required: true
 	Address *string `json:"address"`
 
+	// bmcversion
+	// Required: true
+	Bmcversion *string `json:"bmcversion"`
+
 	// fru
 	// Required: true
 	Fru *V1MachineFru `json:"fru"`
@@ -47,6 +51,10 @@ func (m *V1MachineIPMI) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateAddress(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateBmcversion(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -79,6 +87,15 @@ func (m *V1MachineIPMI) Validate(formats strfmt.Registry) error {
 func (m *V1MachineIPMI) validateAddress(formats strfmt.Registry) error {
 
 	if err := validate.Required("address", "body", m.Address); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *V1MachineIPMI) validateBmcversion(formats strfmt.Registry) error {
+
+	if err := validate.Required("bmcversion", "body", m.Bmcversion); err != nil {
 		return err
 	}
 

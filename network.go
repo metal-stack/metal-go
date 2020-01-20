@@ -167,6 +167,7 @@ type NetworkFindRequest struct {
 	Underlay            *bool
 	Vrf                 *int64
 	ParentNetworkID     *string
+	Labels              map[string]string
 }
 
 // IPFindRequest contains criteria for a ip listing
@@ -235,6 +236,7 @@ func (d *Driver) NetworkFind(nfr *NetworkFindRequest) (*NetworkListResponse, err
 		Underlay:            nfr.Underlay,
 		Vrf:                 nfr.Vrf,
 		Parentnetworkid:     nfr.ParentNetworkID,
+		Labels:              nfr.Labels,
 	}
 	findNetworks.SetBody(req)
 

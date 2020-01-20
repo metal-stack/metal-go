@@ -199,6 +199,64 @@ func (a *Client) FinalizeAllocation(params *FinalizeAllocationParams, authInfo r
 }
 
 /*
+FindIPMIMachine returns a machine including the ipmi connection data
+*/
+func (a *Client) FindIPMIMachine(params *FindIPMIMachineParams, authInfo runtime.ClientAuthInfoWriter) (*FindIPMIMachineOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewFindIPMIMachineParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "findIPMIMachine",
+		Method:             "GET",
+		PathPattern:        "/v1/machine/{id}/ipmi",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &FindIPMIMachineReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*FindIPMIMachineOK), nil
+
+}
+
+/*
+FindIPMIMachines returns machines including the ipmi connection data
+*/
+func (a *Client) FindIPMIMachines(params *FindIPMIMachinesParams, authInfo runtime.ClientAuthInfoWriter) (*FindIPMIMachinesOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewFindIPMIMachinesParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "findIPMIMachines",
+		Method:             "POST",
+		PathPattern:        "/v1/machine/ipmi/find",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &FindIPMIMachinesReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*FindIPMIMachinesOK), nil
+
+}
+
+/*
 FindMachine gets machine by id
 */
 func (a *Client) FindMachine(params *FindMachineParams, authInfo runtime.ClientAuthInfoWriter) (*FindMachineOK, error) {
@@ -311,35 +369,6 @@ func (a *Client) GetProvisioningEventContainer(params *GetProvisioningEventConta
 		return nil, err
 	}
 	return result.(*GetProvisioningEventContainerOK), nil
-
-}
-
-/*
-IPMIData returns the IP m i connection data for a machine
-*/
-func (a *Client) IPMIData(params *IPMIDataParams, authInfo runtime.ClientAuthInfoWriter) (*IPMIDataOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewIPMIDataParams()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "ipmiData",
-		Method:             "GET",
-		PathPattern:        "/v1/machine/{id}/ipmi",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
-		Params:             params,
-		Reader:             &IPMIDataReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	return result.(*IPMIDataOK), nil
 
 }
 
