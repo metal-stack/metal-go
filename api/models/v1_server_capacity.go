@@ -17,6 +17,14 @@ import (
 // swagger:model v1.ServerCapacity
 type V1ServerCapacity struct {
 
+	// allocated servers with this size
+	// Required: true
+	Allocated *int32 `json:"allocated"`
+
+	// servers with issues with this size
+	// Required: true
+	Faulty *int32 `json:"faulty"`
+
 	// free servers with this size
 	// Required: true
 	Free *int32 `json:"free"`
@@ -34,6 +42,14 @@ type V1ServerCapacity struct {
 func (m *V1ServerCapacity) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateAllocated(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateFaulty(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateFree(formats); err != nil {
 		res = append(res, err)
 	}
@@ -49,6 +65,24 @@ func (m *V1ServerCapacity) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *V1ServerCapacity) validateAllocated(formats strfmt.Registry) error {
+
+	if err := validate.Required("allocated", "body", m.Allocated); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *V1ServerCapacity) validateFaulty(formats strfmt.Registry) error {
+
+	if err := validate.Required("faulty", "body", m.Faulty); err != nil {
+		return err
+	}
+
 	return nil
 }
 
