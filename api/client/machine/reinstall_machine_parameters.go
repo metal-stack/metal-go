@@ -70,11 +70,6 @@ type ReinstallMachineParams struct {
 
 	*/
 	ID string
-	/*Image
-	  id of the new image
-
-	*/
-	Image string
 
 	timeout    time.Duration
 	Context    context.Context
@@ -136,17 +131,6 @@ func (o *ReinstallMachineParams) SetID(id string) {
 	o.ID = id
 }
 
-// WithImage adds the image to the reinstall machine params
-func (o *ReinstallMachineParams) WithImage(image string) *ReinstallMachineParams {
-	o.SetImage(image)
-	return o
-}
-
-// SetImage adds the image to the reinstall machine params
-func (o *ReinstallMachineParams) SetImage(image string) {
-	o.Image = image
-}
-
 // WriteToRequest writes these params to a swagger request
 func (o *ReinstallMachineParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -163,11 +147,6 @@ func (o *ReinstallMachineParams) WriteToRequest(r runtime.ClientRequest, reg str
 
 	// path param id
 	if err := r.SetPathParam("id", o.ID); err != nil {
-		return err
-	}
-
-	// path param image
-	if err := r.SetPathParam("image", o.Image); err != nil {
 		return err
 	}
 
