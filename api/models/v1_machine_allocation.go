@@ -50,6 +50,10 @@ type V1MachineAllocation struct {
 	// Required: true
 	Project *string `json:"project"`
 
+	// indicates whether to reinstall the machine or not
+	// Required: true
+	Reinstall *bool `json:"reinstall"`
+
 	// the public ssh keys to access the machine with
 	// Required: true
 	SSHPubKeys []string `json:"ssh_pub_keys"`
@@ -87,6 +91,10 @@ func (m *V1MachineAllocation) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateProject(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateReinstall(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -181,6 +189,15 @@ func (m *V1MachineAllocation) validateNetworks(formats strfmt.Registry) error {
 func (m *V1MachineAllocation) validateProject(formats strfmt.Registry) error {
 
 	if err := validate.Required("project", "body", m.Project); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *V1MachineAllocation) validateReinstall(formats strfmt.Registry) error {
+
+	if err := validate.Required("reinstall", "body", m.Reinstall); err != nil {
 		return err
 	}
 

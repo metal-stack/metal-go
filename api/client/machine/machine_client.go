@@ -582,6 +582,35 @@ func (a *Client) RegisterMachine(params *RegisterMachineParams, authInfo runtime
 }
 
 /*
+ReinstallMachine reinstalls this machine
+*/
+func (a *Client) ReinstallMachine(params *ReinstallMachineParams, authInfo runtime.ClientAuthInfoWriter) (*ReinstallMachineOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewReinstallMachineParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "reinstallMachine",
+		Method:             "POST",
+		PathPattern:        "/v1/machine/{id}/reinstall",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &ReinstallMachineReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*ReinstallMachineOK), nil
+
+}
+
+/*
 SetChassisIdentifyLEDState sets the state of a chassis identify l e d
 */
 func (a *Client) SetChassisIdentifyLEDState(params *SetChassisIdentifyLEDStateParams, authInfo runtime.ClientAuthInfoWriter) (*SetChassisIdentifyLEDStateOK, error) {

@@ -460,6 +460,24 @@ func (d *Driver) MachineUnReserve(machineID string) (*MachineStateResponse, erro
 	return d.machineState(machineID, "", "")
 }
 
+// MachineReinstall installs given image on already allocated machine
+func (d *Driver) MachineReinstall(machineID, imageID string) (*MachineGetResponse, error) {
+	request := &models.V1MachineReinstallRequest{
+		Imageid: &imageID,
+	}
+	machineReinstall := machine.NewReinstallMachineParams()
+	machineReinstall.ID = machineID
+	machineReinstall.Body = request
+
+	response := &MachineGetResponse{}
+	resp, err := d.machine.ReinstallMachine(machineReinstall, d.auth)
+	if err != nil {
+		return response, err
+	}
+	response.Machine = resp.Payload
+	return response, nil
+}
+
 func (d *Driver) machineState(machineID, state, description string) (*MachineStateResponse, error) {
 	machineState := machine.NewSetMachineStateParams()
 	machineState.ID = machineID
