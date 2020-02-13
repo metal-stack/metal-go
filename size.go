@@ -3,8 +3,8 @@ package metalgo
 import (
 	"net/http"
 
-	"github.com/metal-pod/metal-go/api/client/size"
-	"github.com/metal-pod/metal-go/api/models"
+	"github.com/metal-stack/metal-go/api/client/size"
+	"github.com/metal-stack/metal-go/api/models"
 )
 
 // SizeListResponse is the response of a SizeList action

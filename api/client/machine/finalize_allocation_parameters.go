@@ -16,7 +16,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/metal-pod/metal-go/api/models"
+	models "github.com/metal-stack/metal-go/api/models"
 )
 
 // NewFinalizeAllocationParams creates a new FinalizeAllocationParams object

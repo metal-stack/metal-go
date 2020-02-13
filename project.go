@@ -1,8 +1,8 @@
 package metalgo
 
 import (
-	"github.com/metal-pod/metal-go/api/client/project"
-	"github.com/metal-pod/metal-go/api/models"
+	"github.com/metal-stack/metal-go/api/client/project"
+	"github.com/metal-stack/metal-go/api/models"
 )
 
 // ProjectListResponse is the response of a ProjectList action

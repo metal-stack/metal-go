@@ -4,8 +4,8 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/metal-pod/metal-go/api/client/machine"
-	"github.com/metal-pod/metal-go/api/models"
+	"github.com/metal-stack/metal-go/api/client/machine"
+	"github.com/metal-stack/metal-go/api/models"
 )
 
 // MachineCreateRequest contains data for a machine creation
