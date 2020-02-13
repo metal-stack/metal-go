@@ -13,9 +13,9 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// V1FirewallResponse v1 firewall response
-// swagger:model v1.FirewallResponse
-type V1FirewallResponse struct {
+// V1MachineIPMIResponse v1 machine IP m i response
+// swagger:model v1.MachineIPMIResponse
+type V1MachineIPMIResponse struct {
 
 	// the allocation data of an allocated machine
 	// Required: true
@@ -53,6 +53,10 @@ type V1FirewallResponse struct {
 	// Unique: true
 	ID *string `json:"id"`
 
+	// ipmi information of this machine
+	// Required: true
+	IPMI *V1MachineIPMI `json:"ipmi"`
+
 	// the state of this chassis identify LED
 	// Required: true
 	Ledstate *V1ChassisIdentifyLEDState `json:"ledstate"`
@@ -88,8 +92,8 @@ type V1FirewallResponse struct {
 	Tags []string `json:"tags"`
 }
 
-// Validate validates this v1 firewall response
-func (m *V1FirewallResponse) Validate(formats strfmt.Registry) error {
+// Validate validates this v1 machine IP m i response
+func (m *V1MachineIPMIResponse) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateAllocation(formats); err != nil {
@@ -117,6 +121,10 @@ func (m *V1FirewallResponse) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateID(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateIPMI(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -154,7 +162,7 @@ func (m *V1FirewallResponse) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *V1FirewallResponse) validateAllocation(formats strfmt.Registry) error {
+func (m *V1MachineIPMIResponse) validateAllocation(formats strfmt.Registry) error {
 
 	if err := validate.Required("allocation", "body", m.Allocation); err != nil {
 		return err
@@ -172,7 +180,7 @@ func (m *V1FirewallResponse) validateAllocation(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *V1FirewallResponse) validateBios(formats strfmt.Registry) error {
+func (m *V1MachineIPMIResponse) validateBios(formats strfmt.Registry) error {
 
 	if err := validate.Required("bios", "body", m.Bios); err != nil {
 		return err
@@ -190,7 +198,7 @@ func (m *V1FirewallResponse) validateBios(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *V1FirewallResponse) validateChanged(formats strfmt.Registry) error {
+func (m *V1MachineIPMIResponse) validateChanged(formats strfmt.Registry) error {
 
 	if err := validate.Required("changed", "body", strfmt.DateTime(m.Changed)); err != nil {
 		return err
@@ -203,7 +211,7 @@ func (m *V1FirewallResponse) validateChanged(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *V1FirewallResponse) validateCreated(formats strfmt.Registry) error {
+func (m *V1MachineIPMIResponse) validateCreated(formats strfmt.Registry) error {
 
 	if err := validate.Required("created", "body", strfmt.DateTime(m.Created)); err != nil {
 		return err
@@ -216,7 +224,7 @@ func (m *V1FirewallResponse) validateCreated(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *V1FirewallResponse) validateEvents(formats strfmt.Registry) error {
+func (m *V1MachineIPMIResponse) validateEvents(formats strfmt.Registry) error {
 
 	if err := validate.Required("events", "body", m.Events); err != nil {
 		return err
@@ -234,7 +242,7 @@ func (m *V1FirewallResponse) validateEvents(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *V1FirewallResponse) validateHardware(formats strfmt.Registry) error {
+func (m *V1MachineIPMIResponse) validateHardware(formats strfmt.Registry) error {
 
 	if err := validate.Required("hardware", "body", m.Hardware); err != nil {
 		return err
@@ -252,7 +260,7 @@ func (m *V1FirewallResponse) validateHardware(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *V1FirewallResponse) validateID(formats strfmt.Registry) error {
+func (m *V1MachineIPMIResponse) validateID(formats strfmt.Registry) error {
 
 	if err := validate.Required("id", "body", m.ID); err != nil {
 		return err
@@ -261,7 +269,25 @@ func (m *V1FirewallResponse) validateID(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *V1FirewallResponse) validateLedstate(formats strfmt.Registry) error {
+func (m *V1MachineIPMIResponse) validateIPMI(formats strfmt.Registry) error {
+
+	if err := validate.Required("ipmi", "body", m.IPMI); err != nil {
+		return err
+	}
+
+	if m.IPMI != nil {
+		if err := m.IPMI.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("ipmi")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *V1MachineIPMIResponse) validateLedstate(formats strfmt.Registry) error {
 
 	if err := validate.Required("ledstate", "body", m.Ledstate); err != nil {
 		return err
@@ -279,7 +305,7 @@ func (m *V1FirewallResponse) validateLedstate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *V1FirewallResponse) validateLiveliness(formats strfmt.Registry) error {
+func (m *V1MachineIPMIResponse) validateLiveliness(formats strfmt.Registry) error {
 
 	if err := validate.Required("liveliness", "body", m.Liveliness); err != nil {
 		return err
@@ -288,7 +314,7 @@ func (m *V1FirewallResponse) validateLiveliness(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *V1FirewallResponse) validatePartition(formats strfmt.Registry) error {
+func (m *V1MachineIPMIResponse) validatePartition(formats strfmt.Registry) error {
 
 	if err := validate.Required("partition", "body", m.Partition); err != nil {
 		return err
@@ -306,7 +332,7 @@ func (m *V1FirewallResponse) validatePartition(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *V1FirewallResponse) validateRackid(formats strfmt.Registry) error {
+func (m *V1MachineIPMIResponse) validateRackid(formats strfmt.Registry) error {
 
 	if err := validate.RequiredString("rackid", "body", string(m.Rackid)); err != nil {
 		return err
@@ -315,7 +341,7 @@ func (m *V1FirewallResponse) validateRackid(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *V1FirewallResponse) validateSize(formats strfmt.Registry) error {
+func (m *V1MachineIPMIResponse) validateSize(formats strfmt.Registry) error {
 
 	if err := validate.Required("size", "body", m.Size); err != nil {
 		return err
@@ -333,7 +359,7 @@ func (m *V1FirewallResponse) validateSize(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *V1FirewallResponse) validateState(formats strfmt.Registry) error {
+func (m *V1MachineIPMIResponse) validateState(formats strfmt.Registry) error {
 
 	if err := validate.Required("state", "body", m.State); err != nil {
 		return err
@@ -351,7 +377,7 @@ func (m *V1FirewallResponse) validateState(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *V1FirewallResponse) validateTags(formats strfmt.Registry) error {
+func (m *V1MachineIPMIResponse) validateTags(formats strfmt.Registry) error {
 
 	if err := validate.Required("tags", "body", m.Tags); err != nil {
 		return err
@@ -361,7 +387,7 @@ func (m *V1FirewallResponse) validateTags(formats strfmt.Registry) error {
 }
 
 // MarshalBinary interface implementation
-func (m *V1FirewallResponse) MarshalBinary() ([]byte, error) {
+func (m *V1MachineIPMIResponse) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -369,8 +395,8 @@ func (m *V1FirewallResponse) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *V1FirewallResponse) UnmarshalBinary(b []byte) error {
-	var res V1FirewallResponse
+func (m *V1MachineIPMIResponse) UnmarshalBinary(b []byte) error {
+	var res V1MachineIPMIResponse
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

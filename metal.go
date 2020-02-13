@@ -30,10 +30,10 @@ import (
 // Driver holds the client connection to the metal api
 type Driver struct {
 	image     *image.Client
-	project   *project.Client
 	machine   *machine.Client
 	firewall  *firewall.Client
 	partition *partition.Client
+	project   *project.Client
 	size      *size.Client
 	sw        *sw.Client
 	network   *network.Client
@@ -63,11 +63,11 @@ func NewDriver(rawurl, bearer, hmac string) (*Driver, error) {
 		firewall:  firewall.New(transport, strfmt.Default),
 		size:      size.New(transport, strfmt.Default),
 		image:     image.New(transport, strfmt.Default),
+		project:   project.New(transport, strfmt.Default),
 		partition: partition.New(transport, strfmt.Default),
 		sw:        sw.New(transport, strfmt.Default),
 		network:   network.New(transport, strfmt.Default),
 		ip:        ip.New(transport, strfmt.Default),
-		project:   project.New(transport, strfmt.Default),
 		bearer:    bearer,
 	}
 	if hmac != "" {
