@@ -14,7 +14,7 @@ const (
 	TagNamespaceQualifier = "namespace"
 
 	// TagClusterPrefix the prefix of the tag used to identify a cluster
-	TagClusterPrefix = "cluster.metal-pod.io/" + TagClusterQualifier
+	TagClusterPrefix = "cluster.metal-stack.io/" + TagClusterQualifier
 
 	// TagServicePrefix the prefix of the tag used to identify services
 	TagServicePrefix = TagClusterPrefix + "/" + TagNamespaceQualifier + "/" + TagServiceQualifier
@@ -23,7 +23,7 @@ const (
 	TagMachineQualifier = "machineid"
 
 	// TagMachinePrefix the prefix of the tag used to identify a machine
-	TagMachinePrefix = "metal.metal-pod.io/" + TagMachineQualifier
+	TagMachinePrefix = "metal.metal-stack.io/" + TagMachineQualifier
 )
 
 // BuildServiceTag constructs the service tag for the given cluster and service

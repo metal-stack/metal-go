@@ -6,6 +6,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"strconv"
+
 	strfmt "github.com/go-openapi/strfmt"
 
 	"github.com/go-openapi/errors"
@@ -21,6 +23,14 @@ type V1MachineBlockDevice struct {
 	// Required: true
 	Name *string `json:"name"`
 
+	// the partitions of this disk
+	// Required: true
+	Partitions []*V1MachineDiskPartition `json:"partitions"`
+
+	// whether this disk has the OS installed
+	// Required: true
+	Primary *bool `json:"primary"`
+
 	// the size of this block device
 	// Required: true
 	Size *int64 `json:"size"`
@@ -31,6 +41,14 @@ func (m *V1MachineBlockDevice) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateName(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validatePartitions(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validatePrimary(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -47,6 +65,40 @@ func (m *V1MachineBlockDevice) Validate(formats strfmt.Registry) error {
 func (m *V1MachineBlockDevice) validateName(formats strfmt.Registry) error {
 
 	if err := validate.Required("name", "body", m.Name); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *V1MachineBlockDevice) validatePartitions(formats strfmt.Registry) error {
+
+	if err := validate.Required("partitions", "body", m.Partitions); err != nil {
+		return err
+	}
+
+	for i := 0; i < len(m.Partitions); i++ {
+		if swag.IsZero(m.Partitions[i]) { // not required
+			continue
+		}
+
+		if m.Partitions[i] != nil {
+			if err := m.Partitions[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("partitions" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *V1MachineBlockDevice) validatePrimary(formats strfmt.Registry) error {
+
+	if err := validate.Required("primary", "body", m.Primary); err != nil {
 		return err
 	}
 

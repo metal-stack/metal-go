@@ -17,19 +17,19 @@ func TestTagIsMemberOfCluster(t *testing.T) {
 		},
 		{
 			name:      "is a cluster tag but no clusterid specified",
-			tag:       "cluster.metal-pod.io/clusterid",
+			tag:       "cluster.metal-stack.io/clusterid",
 			clusterID: "123",
 			want:      false,
 		},
 		{
 			name:      "is a cluster tag but clusterid specified at wrong place",
-			tag:       "cluster.metal-pod.io/clusterid/namespace/servicename=kube-system/metallb",
+			tag:       "cluster.metal-stack.io/clusterid/namespace/servicename=kube-system/metallb",
 			clusterID: "123",
 			want:      false,
 		},
 		{
 			name:      "is a cluster tag but clusterid specified at right place",
-			tag:       "cluster.metal-pod.io/clusterid/namespace/servicename=123/kube-system/metallb",
+			tag:       "cluster.metal-stack.io/clusterid/namespace/servicename=123/kube-system/metallb",
 			clusterID: "123",
 			want:      true,
 		},

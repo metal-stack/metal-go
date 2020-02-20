@@ -6,6 +6,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"strconv"
+
 	strfmt "github.com/go-openapi/strfmt"
 
 	"github.com/go-openapi/errors"
@@ -20,6 +22,18 @@ type V1MachineFinalizeAllocationRequest struct {
 	// the console password which was generated while provisioning
 	// Required: true
 	ConsolePassword *string `json:"console_password"`
+
+	// the disks of the machine
+	// Required: true
+	Disks []*V1MachineBlockDevice `json:"disks"`
+
+	// the partition that has the OS installed
+	// Required: true
+	Ospartition *string `json:"ospartition"`
+
+	// the device name of the primary disk
+	// Required: true
+	Primarydisk *string `json:"primarydisk"`
 }
 
 // Validate validates this v1 machine finalize allocation request
@@ -27,6 +41,18 @@ func (m *V1MachineFinalizeAllocationRequest) Validate(formats strfmt.Registry) e
 	var res []error
 
 	if err := m.validateConsolePassword(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateDisks(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateOspartition(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validatePrimarydisk(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -39,6 +65,49 @@ func (m *V1MachineFinalizeAllocationRequest) Validate(formats strfmt.Registry) e
 func (m *V1MachineFinalizeAllocationRequest) validateConsolePassword(formats strfmt.Registry) error {
 
 	if err := validate.Required("console_password", "body", m.ConsolePassword); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *V1MachineFinalizeAllocationRequest) validateDisks(formats strfmt.Registry) error {
+
+	if err := validate.Required("disks", "body", m.Disks); err != nil {
+		return err
+	}
+
+	for i := 0; i < len(m.Disks); i++ {
+		if swag.IsZero(m.Disks[i]) { // not required
+			continue
+		}
+
+		if m.Disks[i] != nil {
+			if err := m.Disks[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("disks" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *V1MachineFinalizeAllocationRequest) validateOspartition(formats strfmt.Registry) error {
+
+	if err := validate.Required("ospartition", "body", m.Ospartition); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *V1MachineFinalizeAllocationRequest) validatePrimarydisk(formats strfmt.Registry) error {
+
+	if err := validate.Required("primarydisk", "body", m.Primarydisk); err != nil {
 		return err
 	}
 
