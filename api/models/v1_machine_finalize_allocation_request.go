@@ -6,8 +6,6 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"strconv"
-
 	strfmt "github.com/go-openapi/strfmt"
 
 	"github.com/go-openapi/errors"
@@ -19,13 +17,25 @@ import (
 // swagger:model v1.MachineFinalizeAllocationRequest
 type V1MachineFinalizeAllocationRequest struct {
 
+	// the bootloader ID
+	// Required: true
+	Bootloaderid *string `json:"bootloaderid"`
+
+	// the cmdline
+	// Required: true
+	Cmdline *string `json:"cmdline"`
+
 	// the console password which was generated while provisioning
 	// Required: true
 	ConsolePassword *string `json:"console_password"`
 
-	// the disks of the machine
+	// the initrd image
 	// Required: true
-	Disks []*V1MachineBlockDevice `json:"disks"`
+	Initrd *string `json:"initrd"`
+
+	// the kernel
+	// Required: true
+	Kernel *string `json:"kernel"`
 
 	// the partition that has the OS installed
 	// Required: true
@@ -40,11 +50,23 @@ type V1MachineFinalizeAllocationRequest struct {
 func (m *V1MachineFinalizeAllocationRequest) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateBootloaderid(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateCmdline(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateConsolePassword(formats); err != nil {
 		res = append(res, err)
 	}
 
-	if err := m.validateDisks(formats); err != nil {
+	if err := m.validateInitrd(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateKernel(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -62,6 +84,24 @@ func (m *V1MachineFinalizeAllocationRequest) Validate(formats strfmt.Registry) e
 	return nil
 }
 
+func (m *V1MachineFinalizeAllocationRequest) validateBootloaderid(formats strfmt.Registry) error {
+
+	if err := validate.Required("bootloaderid", "body", m.Bootloaderid); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *V1MachineFinalizeAllocationRequest) validateCmdline(formats strfmt.Registry) error {
+
+	if err := validate.Required("cmdline", "body", m.Cmdline); err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func (m *V1MachineFinalizeAllocationRequest) validateConsolePassword(formats strfmt.Registry) error {
 
 	if err := validate.Required("console_password", "body", m.ConsolePassword); err != nil {
@@ -71,26 +111,19 @@ func (m *V1MachineFinalizeAllocationRequest) validateConsolePassword(formats str
 	return nil
 }
 
-func (m *V1MachineFinalizeAllocationRequest) validateDisks(formats strfmt.Registry) error {
+func (m *V1MachineFinalizeAllocationRequest) validateInitrd(formats strfmt.Registry) error {
 
-	if err := validate.Required("disks", "body", m.Disks); err != nil {
+	if err := validate.Required("initrd", "body", m.Initrd); err != nil {
 		return err
 	}
 
-	for i := 0; i < len(m.Disks); i++ {
-		if swag.IsZero(m.Disks[i]) { // not required
-			continue
-		}
+	return nil
+}
 
-		if m.Disks[i] != nil {
-			if err := m.Disks[i].Validate(formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("disks" + "." + strconv.Itoa(i))
-				}
-				return err
-			}
-		}
+func (m *V1MachineFinalizeAllocationRequest) validateKernel(formats strfmt.Registry) error {
 
+	if err := validate.Required("kernel", "body", m.Kernel); err != nil {
+		return err
 	}
 
 	return nil

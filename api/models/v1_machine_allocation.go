@@ -52,7 +52,7 @@ type V1MachineAllocation struct {
 
 	// indicates whether to reinstall the machine (if not nil)
 	// Required: true
-	Reinstallation *V1MachineReinstallation `json:"reinstallation"`
+	Reinstall *V1MachineReinstall `json:"reinstall"`
 
 	// the public ssh keys to access the machine with
 	// Required: true
@@ -94,7 +94,7 @@ func (m *V1MachineAllocation) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validateReinstallation(formats); err != nil {
+	if err := m.validateReinstall(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -195,16 +195,16 @@ func (m *V1MachineAllocation) validateProject(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *V1MachineAllocation) validateReinstallation(formats strfmt.Registry) error {
+func (m *V1MachineAllocation) validateReinstall(formats strfmt.Registry) error {
 
-	if err := validate.Required("reinstallation", "body", m.Reinstallation); err != nil {
+	if err := validate.Required("reinstall", "body", m.Reinstall); err != nil {
 		return err
 	}
 
-	if m.Reinstallation != nil {
-		if err := m.Reinstallation.Validate(formats); err != nil {
+	if m.Reinstall != nil {
+		if err := m.Reinstall.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("reinstallation")
+				return ve.ValidateName("reinstall")
 			}
 			return err
 		}
