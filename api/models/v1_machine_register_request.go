@@ -17,10 +17,6 @@ import (
 // swagger:model v1.MachineRegisterRequest
 type V1MachineRegisterRequest struct {
 
-	// bios information of this machine
-	// Required: true
-	Bios *V1MachineBIOS `json:"bios"`
-
 	// the hardware of this machine
 	// Required: true
 	Hardware *V1MachineHardwareExtended `json:"hardware"`
@@ -50,10 +46,6 @@ type V1MachineRegisterRequest struct {
 func (m *V1MachineRegisterRequest) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateBios(formats); err != nil {
-		res = append(res, err)
-	}
-
 	if err := m.validateHardware(formats); err != nil {
 		res = append(res, err)
 	}
@@ -81,24 +73,6 @@ func (m *V1MachineRegisterRequest) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
-	return nil
-}
-
-func (m *V1MachineRegisterRequest) validateBios(formats strfmt.Registry) error {
-
-	if err := validate.Required("bios", "body", m.Bios); err != nil {
-		return err
-	}
-
-	if m.Bios != nil {
-		if err := m.Bios.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("bios")
-			}
-			return err
-		}
-	}
-
 	return nil
 }
 

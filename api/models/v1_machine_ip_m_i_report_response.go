@@ -16,20 +16,20 @@ import (
 // swagger:model v1.MachineIpmiReportResponse
 type V1MachineIPMIReportResponse struct {
 
-	// the leases that triggered a creation of a machine entity
+	// unknown
 	// Required: true
-	Created map[string]string `json:"created"`
+	Unknown map[string]string `json:"Unknown"`
 
-	// the leases that triggered an update of ipmi data
+	// updated
 	// Required: true
-	Updated map[string]string `json:"updated"`
+	Updated map[string]string `json:"Updated"`
 }
 
 // Validate validates this v1 machine ipmi report response
 func (m *V1MachineIPMIReportResponse) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateCreated(formats); err != nil {
+	if err := m.validateUnknown(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -43,7 +43,7 @@ func (m *V1MachineIPMIReportResponse) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *V1MachineIPMIReportResponse) validateCreated(formats strfmt.Registry) error {
+func (m *V1MachineIPMIReportResponse) validateUnknown(formats strfmt.Registry) error {
 
 	return nil
 }

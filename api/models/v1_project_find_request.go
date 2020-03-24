@@ -10,32 +10,29 @@ import (
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // V1ProjectFindRequest v1 project find request
 // swagger:model v1.ProjectFindRequest
 type V1ProjectFindRequest struct {
 
-	// description
-	Description *WrappersStringValue `json:"description,omitempty"`
-
 	// id
-	ID *WrappersStringValue `json:"id,omitempty"`
+	// Required: true
+	ID *string `json:"id"`
 
 	// name
-	Name *WrappersStringValue `json:"name,omitempty"`
+	// Required: true
+	Name *string `json:"name"`
 
-	// tenant id
-	TenantID *WrappersStringValue `json:"tenant_id,omitempty"`
+	// tenant
+	// Required: true
+	Tenant *string `json:"tenant"`
 }
 
 // Validate validates this v1 project find request
 func (m *V1ProjectFindRequest) Validate(formats strfmt.Registry) error {
 	var res []error
-
-	if err := m.validateDescription(formats); err != nil {
-		res = append(res, err)
-	}
 
 	if err := m.validateID(formats); err != nil {
 		res = append(res, err)
@@ -45,7 +42,7 @@ func (m *V1ProjectFindRequest) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validateTenantID(formats); err != nil {
+	if err := m.validateTenant(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -55,37 +52,10 @@ func (m *V1ProjectFindRequest) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *V1ProjectFindRequest) validateDescription(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.Description) { // not required
-		return nil
-	}
-
-	if m.Description != nil {
-		if err := m.Description.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("description")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
 func (m *V1ProjectFindRequest) validateID(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.ID) { // not required
-		return nil
-	}
-
-	if m.ID != nil {
-		if err := m.ID.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("id")
-			}
-			return err
-		}
+	if err := validate.Required("id", "body", m.ID); err != nil {
+		return err
 	}
 
 	return nil
@@ -93,35 +63,17 @@ func (m *V1ProjectFindRequest) validateID(formats strfmt.Registry) error {
 
 func (m *V1ProjectFindRequest) validateName(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.Name) { // not required
-		return nil
-	}
-
-	if m.Name != nil {
-		if err := m.Name.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("name")
-			}
-			return err
-		}
+	if err := validate.Required("name", "body", m.Name); err != nil {
+		return err
 	}
 
 	return nil
 }
 
-func (m *V1ProjectFindRequest) validateTenantID(formats strfmt.Registry) error {
+func (m *V1ProjectFindRequest) validateTenant(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.TenantID) { // not required
-		return nil
-	}
-
-	if m.TenantID != nil {
-		if err := m.TenantID.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("tenant_id")
-			}
-			return err
-		}
+	if err := validate.Required("tenant", "body", m.Tenant); err != nil {
+		return err
 	}
 
 	return nil

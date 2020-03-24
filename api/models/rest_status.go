@@ -20,10 +20,6 @@ type RestStatus struct {
 	// message
 	// Required: true
 	Message *string `json:"message"`
-
-	// status
-	// Required: true
-	Status *string `json:"status"`
 }
 
 // Validate validates this rest status
@@ -31,10 +27,6 @@ func (m *RestStatus) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateMessage(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateStatus(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -47,15 +39,6 @@ func (m *RestStatus) Validate(formats strfmt.Registry) error {
 func (m *RestStatus) validateMessage(formats strfmt.Registry) error {
 
 	if err := validate.Required("message", "body", m.Message); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *RestStatus) validateStatus(formats strfmt.Registry) error {
-
-	if err := validate.Required("status", "body", m.Status); err != nil {
 		return err
 	}
 

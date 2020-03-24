@@ -21,10 +21,6 @@ type V1MachineResponse struct {
 	// Required: true
 	Allocation *V1MachineAllocation `json:"allocation"`
 
-	// bios information of this machine
-	// Required: true
-	Bios *V1MachineBIOS `json:"bios"`
-
 	// the last changed timestamp of this entity
 	// Required: true
 	// Read Only: true
@@ -96,10 +92,6 @@ func (m *V1MachineResponse) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validateBios(formats); err != nil {
-		res = append(res, err)
-	}
-
 	if err := m.validateChanged(formats); err != nil {
 		res = append(res, err)
 	}
@@ -164,24 +156,6 @@ func (m *V1MachineResponse) validateAllocation(formats strfmt.Registry) error {
 		if err := m.Allocation.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("allocation")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (m *V1MachineResponse) validateBios(formats strfmt.Registry) error {
-
-	if err := validate.Required("bios", "body", m.Bios); err != nil {
-		return err
-	}
-
-	if m.Bios != nil {
-		if err := m.Bios.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("bios")
 			}
 			return err
 		}

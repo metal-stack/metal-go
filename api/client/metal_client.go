@@ -11,17 +11,17 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	"github.com/metal-stack/metal-go/api/client/firewall"
-	"github.com/metal-stack/metal-go/api/client/health"
-	"github.com/metal-stack/metal-go/api/client/image"
-	"github.com/metal-stack/metal-go/api/client/ip"
-	"github.com/metal-stack/metal-go/api/client/machine"
-	"github.com/metal-stack/metal-go/api/client/network"
-	"github.com/metal-stack/metal-go/api/client/partition"
-	"github.com/metal-stack/metal-go/api/client/project"
-	"github.com/metal-stack/metal-go/api/client/size"
-	"github.com/metal-stack/metal-go/api/client/switch_operations"
-	"github.com/metal-stack/metal-go/api/client/version"
+	"github.com/metal-pod/metal-go/api/client/firewall"
+	"github.com/metal-pod/metal-go/api/client/health"
+	"github.com/metal-pod/metal-go/api/client/image"
+	"github.com/metal-pod/metal-go/api/client/ip"
+	"github.com/metal-pod/metal-go/api/client/machine"
+	"github.com/metal-pod/metal-go/api/client/network"
+	"github.com/metal-pod/metal-go/api/client/partition"
+	"github.com/metal-pod/metal-go/api/client/project"
+	"github.com/metal-pod/metal-go/api/client/size"
+	"github.com/metal-pod/metal-go/api/client/switch_operations"
+	"github.com/metal-pod/metal-go/api/client/version"
 )
 
 // Default metal HTTP client.

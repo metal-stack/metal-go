@@ -25,23 +25,23 @@ type Client struct {
 }
 
 /*
-AllocateNetwork allocates a child network from a partition s private super network
+AcquireChildNetwork acquires a child network from a partition s private super network
 */
-func (a *Client) AllocateNetwork(params *AllocateNetworkParams, authInfo runtime.ClientAuthInfoWriter) (*AllocateNetworkCreated, error) {
+func (a *Client) AcquireChildNetwork(params *AcquireChildNetworkParams, authInfo runtime.ClientAuthInfoWriter) (*AcquireChildNetworkCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewAllocateNetworkParams()
+		params = NewAcquireChildNetworkParams()
 	}
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "allocateNetwork",
+		ID:                 "acquireChildNetwork",
 		Method:             "POST",
-		PathPattern:        "/v1/network/allocate",
+		PathPattern:        "/v1/network/acquire",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http"},
 		Params:             params,
-		Reader:             &AllocateNetworkReader{formats: a.formats},
+		Reader:             &AcquireChildNetworkReader{formats: a.formats},
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
@@ -49,7 +49,7 @@ func (a *Client) AllocateNetwork(params *AllocateNetworkParams, authInfo runtime
 	if err != nil {
 		return nil, err
 	}
-	return result.(*AllocateNetworkCreated), nil
+	return result.(*AcquireChildNetworkCreated), nil
 
 }
 
@@ -170,35 +170,6 @@ func (a *Client) FindNetworks(params *FindNetworksParams, authInfo runtime.Clien
 }
 
 /*
-FreeNetwork frees a network
-*/
-func (a *Client) FreeNetwork(params *FreeNetworkParams, authInfo runtime.ClientAuthInfoWriter) (*FreeNetworkOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewFreeNetworkParams()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "freeNetwork",
-		Method:             "POST",
-		PathPattern:        "/v1/network/free/{id}",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
-		Params:             params,
-		Reader:             &FreeNetworkReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	return result.(*FreeNetworkOK), nil
-
-}
-
-/*
 ListNetworks gets all networks
 */
 func (a *Client) ListNetworks(params *ListNetworksParams, authInfo runtime.ClientAuthInfoWriter) (*ListNetworksOK, error) {
@@ -224,6 +195,35 @@ func (a *Client) ListNetworks(params *ListNetworksParams, authInfo runtime.Clien
 		return nil, err
 	}
 	return result.(*ListNetworksOK), nil
+
+}
+
+/*
+ReleaseChildNetwork releases a child network
+*/
+func (a *Client) ReleaseChildNetwork(params *ReleaseChildNetworkParams, authInfo runtime.ClientAuthInfoWriter) (*ReleaseChildNetworkOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewReleaseChildNetworkParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "releaseChildNetwork",
+		Method:             "POST",
+		PathPattern:        "/v1/network/release/{id}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &ReleaseChildNetworkReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*ReleaseChildNetworkOK), nil
 
 }
 

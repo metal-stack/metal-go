@@ -25,7 +25,7 @@ type Client struct {
 }
 
 /*
-Health performs a healthcheck
+Health performs a healtcheck
 */
 func (a *Client) Health(params *HealthParams, authInfo runtime.ClientAuthInfoWriter) (*HealthOK, error) {
 	// TODO: Validate the params before sending

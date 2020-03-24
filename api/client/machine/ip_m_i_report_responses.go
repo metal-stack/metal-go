@@ -13,7 +13,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/metal-stack/metal-go/api/models"
+	models "github.com/metal-pod/metal-go/api/models"
 )
 
 // IPMIReportReader is a Reader for the IPMIReport structure.
@@ -58,7 +58,7 @@ type IPMIReportOK struct {
 }
 
 func (o *IPMIReportOK) Error() string {
-	return fmt.Sprintf("[POST /v1/machine/ipmi][%d] ipmiReportOK  %+v", 200, o.Payload)
+	return fmt.Sprintf("[POST /v1/machine/ipmiReport][%d] ipmiReportOK  %+v", 200, o.Payload)
 }
 
 func (o *IPMIReportOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -96,7 +96,7 @@ func (o *IPMIReportDefault) Code() int {
 }
 
 func (o *IPMIReportDefault) Error() string {
-	return fmt.Sprintf("[POST /v1/machine/ipmi][%d] ipmiReport default  %+v", o._statusCode, o.Payload)
+	return fmt.Sprintf("[POST /v1/machine/ipmiReport][%d] ipmiReport default  %+v", o._statusCode, o.Payload)
 }
 
 func (o *IPMIReportDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

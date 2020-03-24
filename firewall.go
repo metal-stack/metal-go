@@ -4,8 +4,8 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/metal-stack/metal-go/api/client/firewall"
-	"github.com/metal-stack/metal-go/api/models"
+	"github.com/metal-pod/metal-go/api/client/firewall"
+	"github.com/metal-pod/metal-go/api/models"
 )
 
 // FirewallCreateRequest contains data for a machine creation
