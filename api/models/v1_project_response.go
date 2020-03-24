@@ -10,58 +10,37 @@ import (
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/swag"
-	"github.com/go-openapi/validate"
 )
 
 // V1ProjectResponse v1 project response
 // swagger:model v1.ProjectResponse
 type V1ProjectResponse struct {
 
-	// the last changed timestamp of this entity
-	// Required: true
-	// Read Only: true
-	// Format: date-time
-	Changed strfmt.DateTime `json:"changed"`
-
-	// the creation time of this entity
-	// Required: true
-	// Read Only: true
-	// Format: date-time
-	Created strfmt.DateTime `json:"created"`
-
-	// a description for this entity
+	// description
 	Description string `json:"description,omitempty"`
 
-	// the unique ID of this entity
-	// Required: true
-	// Unique: true
-	ID *string `json:"id"`
+	// meta
+	Meta *V1Meta `json:"meta,omitempty"`
 
-	// a readable name for this entity
+	// name
 	Name string `json:"name,omitempty"`
 
-	// the tenant of this project.
-	// Required: true
-	Tenant *string `json:"tenant"`
+	// quotas
+	Quotas *V1QuotaSet `json:"quotas,omitempty"`
+
+	// tenant id
+	TenantID string `json:"tenant_id,omitempty"`
 }
 
 // Validate validates this v1 project response
 func (m *V1ProjectResponse) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateChanged(formats); err != nil {
+	if err := m.validateMeta(formats); err != nil {
 		res = append(res, err)
 	}
 
-	if err := m.validateCreated(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateID(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateTenant(formats); err != nil {
+	if err := m.validateQuotas(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -71,45 +50,37 @@ func (m *V1ProjectResponse) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *V1ProjectResponse) validateChanged(formats strfmt.Registry) error {
+func (m *V1ProjectResponse) validateMeta(formats strfmt.Registry) error {
 
-	if err := validate.Required("changed", "body", strfmt.DateTime(m.Changed)); err != nil {
-		return err
+	if swag.IsZero(m.Meta) { // not required
+		return nil
 	}
 
-	if err := validate.FormatOf("changed", "body", "date-time", m.Changed.String(), formats); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *V1ProjectResponse) validateCreated(formats strfmt.Registry) error {
-
-	if err := validate.Required("created", "body", strfmt.DateTime(m.Created)); err != nil {
-		return err
-	}
-
-	if err := validate.FormatOf("created", "body", "date-time", m.Created.String(), formats); err != nil {
-		return err
+	if m.Meta != nil {
+		if err := m.Meta.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("meta")
+			}
+			return err
+		}
 	}
 
 	return nil
 }
 
-func (m *V1ProjectResponse) validateID(formats strfmt.Registry) error {
+func (m *V1ProjectResponse) validateQuotas(formats strfmt.Registry) error {
 
-	if err := validate.Required("id", "body", m.ID); err != nil {
-		return err
+	if swag.IsZero(m.Quotas) { // not required
+		return nil
 	}
 
-	return nil
-}
-
-func (m *V1ProjectResponse) validateTenant(formats strfmt.Registry) error {
-
-	if err := validate.Required("tenant", "body", m.Tenant); err != nil {
-		return err
+	if m.Quotas != nil {
+		if err := m.Quotas.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("quotas")
+			}
+			return err
+		}
 	}
 
 	return nil

@@ -4,8 +4,8 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/metal-pod/metal-go/api/client/machine"
-	"github.com/metal-pod/metal-go/api/models"
+	"github.com/metal-stack/metal-go/api/client/machine"
+	"github.com/metal-stack/metal-go/api/models"
 )
 
 // MachineCreateRequest contains data for a machine creation
@@ -122,9 +122,14 @@ type MachineGetResponse struct {
 	Machine *models.V1MachineResponse
 }
 
-// MachineIpmiResponse contains the machine get result
-type MachineIpmiResponse struct {
-	IPMI *models.V1MachineIPMI
+// MachineIPMIGetResponse contains the machine ipmi get result
+type MachineIPMIGetResponse struct {
+	Machine *models.V1MachineIPMIResponse
+}
+
+// MachineIPMIListResponse contains the machine ipmi list result
+type MachineIPMIListResponse struct {
+	Machines []*models.V1MachineIPMIResponse
 }
 
 // MachineDeleteResponse contains the machine delete result
@@ -299,17 +304,78 @@ func (d *Driver) MachineFind(mfr *MachineFindRequest) (*MachineListResponse, err
 	return response, nil
 }
 
-// MachineIpmi returns the IPMI data of the given machine
-func (d *Driver) MachineIpmi(machineID string) (*MachineIpmiResponse, error) {
-	ipmiMachine := machine.NewIPMIDataParams()
-	ipmiMachine.ID = machineID
+// MachineIPMIGet returns the machine with the given ID including IPMI data
+func (d *Driver) MachineIPMIGet(id string) (*MachineIPMIGetResponse, error) {
+	findMachine := machine.NewFindIPMIMachineParams().WithID(id)
 
-	response := &MachineIpmiResponse{}
-	resp, err := d.machine.IPMIData(ipmiMachine, d.auth)
+	response := &MachineIPMIGetResponse{}
+	resp, err := d.machine.FindIPMIMachine(findMachine, d.auth)
 	if err != nil {
 		return response, err
 	}
-	response.IPMI = resp.Payload
+	response.Machine = resp.Payload
+
+	return response, nil
+}
+
+// MachineIPMIList returns the machine list of the given search query including IPMI data
+func (d *Driver) MachineIPMIList(mfr *MachineFindRequest) (*MachineIPMIListResponse, error) {
+	response := &MachineIPMIListResponse{}
+
+	findMachines := machine.NewFindIPMIMachinesParams()
+	req := &models.V1MachineFindRequest{
+		ID:                         mfr.ID,
+		Name:                       mfr.Name,
+		PartitionID:                mfr.PartitionID,
+		Sizeid:                     mfr.SizeID,
+		Rackid:                     mfr.RackID,
+		Liveliness:                 mfr.Liveliness,
+		Tags:                       mfr.Tags,
+		AllocationName:             mfr.AllocationName,
+		AllocationProject:          mfr.AllocationProject,
+		AllocationImageID:          mfr.AllocationImageID,
+		AllocationHostname:         mfr.AllocationHostname,
+		AllocationSucceeded:        mfr.AllocationSucceeded,
+		NetworkIds:                 mfr.NetworkIDs,
+		NetworkPrefixes:            mfr.NetworkPrefixes,
+		NetworkIps:                 mfr.NetworkIPs,
+		NetworkDestinationPrefixes: mfr.NetworkDestinationPrefixes,
+		NetworkVrfs:                mfr.NetworkVrfs,
+		NetworkPrivate:             mfr.NetworkPrivate,
+		NetworkAsns:                mfr.NetworkASNs,
+		NetworkNat:                 mfr.NetworkNat,
+		NetworkUnderlay:            mfr.NetworkUnderlay,
+		HardwareMemory:             mfr.HardwareMemory,
+		HardwareCPUCores:           mfr.HardwareCPUCores,
+		NicsMacAddresses:           mfr.NicsMacAddresses,
+		NicsNames:                  mfr.NicsNames,
+		NicsVrfs:                   mfr.NicsVrfs,
+		NicsNeighborMacAddresses:   mfr.NicsNeighborMacAddresses,
+		NicsNeighborNames:          mfr.NicsNeighborNames,
+		NicsNeighborVrfs:           mfr.NicsNeighborVrfs,
+		DiskNames:                  mfr.DiskNames,
+		DiskSizes:                  mfr.DiskSizes,
+		StateValue:                 mfr.StateValue,
+		IPMIAddress:                mfr.IpmiAddress,
+		IPMIMacAddress:             mfr.IpmiMacAddress,
+		IPMIUser:                   mfr.IpmiUser,
+		IPMIInterface:              mfr.IpmiInterface,
+		FruChassisPartNumber:       mfr.FruChassisPartNumber,
+		FruChassisPartSerial:       mfr.FruChassisPartSerial,
+		FruBoardMfg:                mfr.FruBoardMfg,
+		FruBoardMfgSerial:          mfr.FruBoardMfgSerial,
+		FruBoardPartNumber:         mfr.FruChassisPartNumber,
+		FruProductManufacturer:     mfr.FruProductManufacturer,
+		FruProductPartNumber:       mfr.FruProductPartNumber,
+		FruProductSerial:           mfr.FruProductSerial,
+	}
+	findMachines.SetBody(req)
+
+	resp, err := d.machine.FindIPMIMachines(findMachines, d.auth)
+	if err != nil {
+		return response, err
+	}
+	response.Machines = resp.Payload
 
 	return response, nil
 }

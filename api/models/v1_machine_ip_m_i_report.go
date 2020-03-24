@@ -17,13 +17,13 @@ import (
 // swagger:model v1.MachineIpmiReport
 type V1MachineIPMIReport struct {
 
-	// leases
+	// the active leases to be reported by a management server
 	// Required: true
-	Leases map[string]string `json:"Leases"`
+	Leases map[string]string `json:"leases"`
 
-	// partition ID
+	// the partition id for the ipmi report
 	// Required: true
-	PartitionID *string `json:"PartitionID"`
+	Partitionid *string `json:"partitionid"`
 }
 
 // Validate validates this v1 machine ipmi report
@@ -34,7 +34,7 @@ func (m *V1MachineIPMIReport) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validatePartitionID(formats); err != nil {
+	if err := m.validatePartitionid(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -49,9 +49,9 @@ func (m *V1MachineIPMIReport) validateLeases(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *V1MachineIPMIReport) validatePartitionID(formats strfmt.Registry) error {
+func (m *V1MachineIPMIReport) validatePartitionid(formats strfmt.Registry) error {
 
-	if err := validate.Required("PartitionID", "body", m.PartitionID); err != nil {
+	if err := validate.Required("partitionid", "body", m.Partitionid); err != nil {
 		return err
 	}
 

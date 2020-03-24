@@ -25,64 +25,6 @@ type Client struct {
 }
 
 /*
-CreateProject creates a project if the given ID already exists a conflict is returned
-*/
-func (a *Client) CreateProject(params *CreateProjectParams, authInfo runtime.ClientAuthInfoWriter) (*CreateProjectCreated, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewCreateProjectParams()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "createProject",
-		Method:             "PUT",
-		PathPattern:        "/v1/project",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
-		Params:             params,
-		Reader:             &CreateProjectReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	return result.(*CreateProjectCreated), nil
-
-}
-
-/*
-DeleteProject deletes a project and returns the deleted entity
-*/
-func (a *Client) DeleteProject(params *DeleteProjectParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteProjectOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewDeleteProjectParams()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "deleteProject",
-		Method:             "DELETE",
-		PathPattern:        "/v1/project/{id}",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
-		Params:             params,
-		Reader:             &DeleteProjectReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	return result.(*DeleteProjectOK), nil
-
-}
-
-/*
 FindProject gets project by id
 */
 func (a *Client) FindProject(params *FindProjectParams, authInfo runtime.ClientAuthInfoWriter) (*FindProjectOK, error) {
@@ -166,35 +108,6 @@ func (a *Client) ListProjects(params *ListProjectsParams, authInfo runtime.Clien
 		return nil, err
 	}
 	return result.(*ListProjectsOK), nil
-
-}
-
-/*
-UpdateProject updates a project if the project was changed since this one was read a conflict is returned
-*/
-func (a *Client) UpdateProject(params *UpdateProjectParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateProjectOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewUpdateProjectParams()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "updateProject",
-		Method:             "POST",
-		PathPattern:        "/v1/project",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
-		Params:             params,
-		Reader:             &UpdateProjectReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	return result.(*UpdateProjectOK), nil
 
 }
 

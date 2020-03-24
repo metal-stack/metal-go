@@ -1,11 +1,8 @@
 package metalgo
 
 import (
-	"time"
-
-	"github.com/go-openapi/strfmt"
-	"github.com/metal-pod/metal-go/api/client/image"
-	"github.com/metal-pod/metal-go/api/models"
+	"github.com/metal-stack/metal-go/api/client/image"
+	"github.com/metal-stack/metal-go/api/models"
 )
 
 // ImageListResponse is the response of a ImageList action

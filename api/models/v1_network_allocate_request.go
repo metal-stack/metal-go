@@ -12,9 +12,9 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// V1NetworkAcquireRequest v1 network acquire request
-// swagger:model v1.NetworkAcquireRequest
-type V1NetworkAcquireRequest struct {
+// V1NetworkAllocateRequest v1 network allocate request
+// swagger:model v1.NetworkAllocateRequest
+type V1NetworkAllocateRequest struct {
 
 	// a description for this entity
 	Description string `json:"description,omitempty"`
@@ -33,8 +33,8 @@ type V1NetworkAcquireRequest struct {
 	Projectid string `json:"projectid,omitempty"`
 }
 
-// Validate validates this v1 network acquire request
-func (m *V1NetworkAcquireRequest) Validate(formats strfmt.Registry) error {
+// Validate validates this v1 network allocate request
+func (m *V1NetworkAllocateRequest) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateLabels(formats); err != nil {
@@ -47,13 +47,13 @@ func (m *V1NetworkAcquireRequest) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *V1NetworkAcquireRequest) validateLabels(formats strfmt.Registry) error {
+func (m *V1NetworkAllocateRequest) validateLabels(formats strfmt.Registry) error {
 
 	return nil
 }
 
 // MarshalBinary interface implementation
-func (m *V1NetworkAcquireRequest) MarshalBinary() ([]byte, error) {
+func (m *V1NetworkAllocateRequest) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -61,8 +61,8 @@ func (m *V1NetworkAcquireRequest) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *V1NetworkAcquireRequest) UnmarshalBinary(b []byte) error {
-	var res V1NetworkAcquireRequest
+func (m *V1NetworkAllocateRequest) UnmarshalBinary(b []byte) error {
+	var res V1NetworkAllocateRequest
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

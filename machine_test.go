@@ -13,8 +13,8 @@ import (
 	"github.com/stretchr/testify/assert"
 
 	"github.com/emicklei/go-restful"
-	"github.com/metal-pod/metal-go/api/client/machine"
-	"github.com/metal-pod/metal-go/api/models"
+	"github.com/metal-stack/metal-go/api/client/machine"
+	"github.com/metal-stack/metal-go/api/models"
 	"github.com/stretchr/testify/require"
 )
 

@@ -83,35 +83,6 @@ func (a *Client) DeleteImage(params *DeleteImageParams, authInfo runtime.ClientA
 }
 
 /*
-DeleteImages deletes all images which are older than validto and not used by a machine
-*/
-func (a *Client) DeleteImages(params *DeleteImagesParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteImagesOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewDeleteImagesParams()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "deleteImages",
-		Method:             "DELETE",
-		PathPattern:        "/v1/image",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
-		Params:             params,
-		Reader:             &DeleteImagesReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	return result.(*DeleteImagesOK), nil
-
-}
-
-/*
 FindImage gets image by id
 */
 func (a *Client) FindImage(params *FindImageParams, authInfo runtime.ClientAuthInfoWriter) (*FindImageOK, error) {

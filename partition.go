@@ -1,8 +1,8 @@
 package metalgo
 
 import (
-	"github.com/metal-pod/metal-go/api/client/partition"
-	"github.com/metal-pod/metal-go/api/models"
+	"github.com/metal-stack/metal-go/api/client/partition"
+	"github.com/metal-stack/metal-go/api/models"
 )
 
 // PartitionListResponse is the response of a PartitionList action
