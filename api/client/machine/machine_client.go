@@ -141,35 +141,6 @@ func (a *Client) ChassisIdentifyLEDOn(params *ChassisIdentifyLEDOnParams, authIn
 }
 
 /*
-CheckMachineLiveliness externals trigger for evaluating machine liveliness
-*/
-func (a *Client) CheckMachineLiveliness(params *CheckMachineLivelinessParams, authInfo runtime.ClientAuthInfoWriter) (*CheckMachineLivelinessOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewCheckMachineLivelinessParams()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "checkMachineLiveliness",
-		Method:             "POST",
-		PathPattern:        "/v1/machine/liveliness",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
-		Params:             params,
-		Reader:             &CheckMachineLivelinessReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	return result.(*CheckMachineLivelinessOK), nil
-
-}
-
-/*
 FinalizeAllocation finalizes the allocation of the machine by reconfiguring the switch sent on successful image installation
 */
 func (a *Client) FinalizeAllocation(params *FinalizeAllocationParams, authInfo runtime.ClientAuthInfoWriter) (*FinalizeAllocationOK, error) {

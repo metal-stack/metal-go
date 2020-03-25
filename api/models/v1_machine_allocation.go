@@ -19,6 +19,10 @@ import (
 // swagger:model v1.MachineAllocation
 type V1MachineAllocation struct {
 
+	// the boot info
+	// Required: true
+	BootInfo *V1BootInfo `json:"boot_info"`
+
 	// the console password which was generated while provisioning
 	ConsolePassword string `json:"console_password,omitempty"`
 
@@ -50,9 +54,9 @@ type V1MachineAllocation struct {
 	// Required: true
 	Project *string `json:"project"`
 
-	// indicates whether to reinstall the machine (if not nil)
+	// indicates whether to reinstall the machine
 	// Required: true
-	Reinstall *V1MachineReinstall `json:"reinstall"`
+	Reinstall *bool `json:"reinstall"`
 
 	// the public ssh keys to access the machine with
 	// Required: true
@@ -69,6 +73,10 @@ type V1MachineAllocation struct {
 // Validate validates this v1 machine allocation
 func (m *V1MachineAllocation) Validate(formats strfmt.Registry) error {
 	var res []error
+
+	if err := m.validateBootInfo(formats); err != nil {
+		res = append(res, err)
+	}
 
 	if err := m.validateCreated(formats); err != nil {
 		res = append(res, err)
@@ -109,6 +117,24 @@ func (m *V1MachineAllocation) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *V1MachineAllocation) validateBootInfo(formats strfmt.Registry) error {
+
+	if err := validate.Required("boot_info", "body", m.BootInfo); err != nil {
+		return err
+	}
+
+	if m.BootInfo != nil {
+		if err := m.BootInfo.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("boot_info")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 
@@ -199,15 +225,6 @@ func (m *V1MachineAllocation) validateReinstall(formats strfmt.Registry) error {
 
 	if err := validate.Required("reinstall", "body", m.Reinstall); err != nil {
 		return err
-	}
-
-	if m.Reinstall != nil {
-		if err := m.Reinstall.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("reinstall")
-			}
-			return err
-		}
 	}
 
 	return nil

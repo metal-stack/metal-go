@@ -32,13 +32,6 @@ func (o *ReinstallMachineReader) ReadResponse(response runtime.ClientResponse, c
 		}
 		return result, nil
 
-	case 504:
-		result := NewReinstallMachineGatewayTimeout()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-
 	default:
 		result := NewReinstallMachineDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -71,35 +64,6 @@ func (o *ReinstallMachineOK) Error() string {
 func (o *ReinstallMachineOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.V1MachineResponse)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewReinstallMachineGatewayTimeout creates a ReinstallMachineGatewayTimeout with default headers values
-func NewReinstallMachineGatewayTimeout() *ReinstallMachineGatewayTimeout {
-	return &ReinstallMachineGatewayTimeout{}
-}
-
-/*ReinstallMachineGatewayTimeout handles this case with default header values.
-
-Timeout
-*/
-type ReinstallMachineGatewayTimeout struct {
-	Payload *models.HttperrorsHTTPErrorResponse
-}
-
-func (o *ReinstallMachineGatewayTimeout) Error() string {
-	return fmt.Sprintf("[POST /v1/machine/{id}/reinstall][%d] reinstallMachineGatewayTimeout  %+v", 504, o.Payload)
-}
-
-func (o *ReinstallMachineGatewayTimeout) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.HttperrorsHTTPErrorResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
