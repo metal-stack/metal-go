@@ -25,6 +25,10 @@ type V1BootInfo struct {
 	// Required: true
 	Cmdline *string `json:"cmdline"`
 
+	// the ID of the current image
+	// Required: true
+	Currentimageid *string `json:"currentimageid"`
+
 	// the initrd image
 	// Required: true
 	Initrd *string `json:"initrd"`
@@ -43,6 +47,10 @@ func (m *V1BootInfo) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateCmdline(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateCurrentimageid(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -72,6 +80,15 @@ func (m *V1BootInfo) validateBootloaderid(formats strfmt.Registry) error {
 func (m *V1BootInfo) validateCmdline(formats strfmt.Registry) error {
 
 	if err := validate.Required("cmdline", "body", m.Cmdline); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *V1BootInfo) validateCurrentimageid(formats strfmt.Registry) error {
+
+	if err := validate.Required("currentimageid", "body", m.Currentimageid); err != nil {
 		return err
 	}
 
