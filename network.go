@@ -312,6 +312,20 @@ func (d *Driver) NetworkFree(id string) (*NetworkDetailResponse, error) {
 	return response, nil
 }
 
+// NetworkDelete delete a network
+func (d *Driver) NetworkDelete(id string) (*NetworkDetailResponse, error) {
+	response := &NetworkDetailResponse{}
+	deleteNetwork := network.NewDeleteNetworkParams()
+
+	deleteNetwork.ID = id
+	resp, err := d.network.DeleteNetwork(deleteNetwork, d.auth)
+	if err != nil {
+		return response, err
+	}
+	response.Network = resp.Payload
+	return response, nil
+}
+
 // NetworkUpdate updates a network
 func (d *Driver) NetworkUpdate(ncr *NetworkCreateRequest) (*NetworkDetailResponse, error) {
 	response := &NetworkDetailResponse{}
