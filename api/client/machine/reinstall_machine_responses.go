@@ -32,6 +32,13 @@ func (o *ReinstallMachineReader) ReadResponse(response runtime.ClientResponse, c
 		}
 		return result, nil
 
+	case 400:
+		result := NewReinstallMachineBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
 	default:
 		result := NewReinstallMachineDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -64,6 +71,35 @@ func (o *ReinstallMachineOK) Error() string {
 func (o *ReinstallMachineOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.V1MachineResponse)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewReinstallMachineBadRequest creates a ReinstallMachineBadRequest with default headers values
+func NewReinstallMachineBadRequest() *ReinstallMachineBadRequest {
+	return &ReinstallMachineBadRequest{}
+}
+
+/*ReinstallMachineBadRequest handles this case with default header values.
+
+Bad Request
+*/
+type ReinstallMachineBadRequest struct {
+	Payload *models.HttperrorsHTTPErrorResponse
+}
+
+func (o *ReinstallMachineBadRequest) Error() string {
+	return fmt.Sprintf("[POST /v1/machine/{id}/reinstall][%d] reinstallMachineBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *ReinstallMachineBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.HttperrorsHTTPErrorResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
