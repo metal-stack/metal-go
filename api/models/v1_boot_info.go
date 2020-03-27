@@ -27,7 +27,7 @@ type V1BootInfo struct {
 
 	// the ID of the current image
 	// Required: true
-	Currentimageid *string `json:"currentimageid"`
+	ImageID *string `json:"image_id"`
 
 	// the initrd image
 	// Required: true
@@ -36,6 +36,14 @@ type V1BootInfo struct {
 	// the kernel
 	// Required: true
 	Kernel *string `json:"kernel"`
+
+	// the partition containing the OS
+	// Required: true
+	OsPartition *string `json:"os_partition"`
+
+	// the primary disk
+	// Required: true
+	PrimaryDisk *string `json:"primary_disk"`
 }
 
 // Validate validates this v1 boot info
@@ -50,7 +58,7 @@ func (m *V1BootInfo) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validateCurrentimageid(formats); err != nil {
+	if err := m.validateImageID(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -59,6 +67,14 @@ func (m *V1BootInfo) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateKernel(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateOsPartition(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validatePrimaryDisk(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -86,9 +102,9 @@ func (m *V1BootInfo) validateCmdline(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *V1BootInfo) validateCurrentimageid(formats strfmt.Registry) error {
+func (m *V1BootInfo) validateImageID(formats strfmt.Registry) error {
 
-	if err := validate.Required("currentimageid", "body", m.Currentimageid); err != nil {
+	if err := validate.Required("image_id", "body", m.ImageID); err != nil {
 		return err
 	}
 
@@ -107,6 +123,24 @@ func (m *V1BootInfo) validateInitrd(formats strfmt.Registry) error {
 func (m *V1BootInfo) validateKernel(formats strfmt.Registry) error {
 
 	if err := validate.Required("kernel", "body", m.Kernel); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *V1BootInfo) validateOsPartition(formats strfmt.Registry) error {
+
+	if err := validate.Required("os_partition", "body", m.OsPartition); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *V1BootInfo) validatePrimaryDisk(formats strfmt.Registry) error {
+
+	if err := validate.Required("primary_disk", "body", m.PrimaryDisk); err != nil {
 		return err
 	}
 

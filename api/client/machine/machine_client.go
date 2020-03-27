@@ -25,6 +25,35 @@ type Client struct {
 }
 
 /*
+AbortReinstallMachine aborts reinstall this machine
+*/
+func (a *Client) AbortReinstallMachine(params *AbortReinstallMachineParams, authInfo runtime.ClientAuthInfoWriter) (*AbortReinstallMachineOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewAbortReinstallMachineParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "abortReinstallMachine",
+		Method:             "POST",
+		PathPattern:        "/v1/machine/{id}/abort-reinstall",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &AbortReinstallMachineReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*AbortReinstallMachineOK), nil
+
+}
+
+/*
 AddProvisioningEvent adds a machine provisioning event
 */
 func (a *Client) AddProvisioningEvent(params *AddProvisioningEventParams, authInfo runtime.ClientAuthInfoWriter) (*AddProvisioningEventOK, error) {

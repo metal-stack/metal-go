@@ -19,9 +19,8 @@ import (
 // swagger:model v1.MachineAllocation
 type V1MachineAllocation struct {
 
-	// the boot info
-	// Required: true
-	BootInfo *V1BootInfo `json:"boot_info"`
+	// information required for booting the machine from HD
+	BootInfo *V1BootInfo `json:"boot_info,omitempty"`
 
 	// the console password which was generated while provisioning
 	ConsolePassword string `json:"console_password,omitempty"`
@@ -122,8 +121,8 @@ func (m *V1MachineAllocation) Validate(formats strfmt.Registry) error {
 
 func (m *V1MachineAllocation) validateBootInfo(formats strfmt.Registry) error {
 
-	if err := validate.Required("boot_info", "body", m.BootInfo); err != nil {
-		return err
+	if swag.IsZero(m.BootInfo) { // not required
+		return nil
 	}
 
 	if m.BootInfo != nil {
