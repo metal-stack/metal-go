@@ -17,10 +17,6 @@ import (
 // swagger:model v1.MachineDiskPartition
 type V1MachineDiskPartition struct {
 
-	// whether the OS is installed on this partition or not
-	// Required: true
-	Containsos *bool `json:"containsos"`
-
 	// the partition device name, e.g. sda1
 	// Required: true
 	Device *string `json:"device"`
@@ -66,10 +62,6 @@ type V1MachineDiskPartition struct {
 func (m *V1MachineDiskPartition) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateContainsos(formats); err != nil {
-		res = append(res, err)
-	}
-
 	if err := m.validateDevice(formats); err != nil {
 		res = append(res, err)
 	}
@@ -113,15 +105,6 @@ func (m *V1MachineDiskPartition) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
-	return nil
-}
-
-func (m *V1MachineDiskPartition) validateContainsos(formats strfmt.Registry) error {
-
-	if err := validate.Required("containsos", "body", m.Containsos); err != nil {
-		return err
-	}
-
 	return nil
 }
 
