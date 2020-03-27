@@ -13,9 +13,9 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// V1MachineFinalizeAllocationRequest v1 machine finalize allocation request
-// swagger:model v1.MachineFinalizeAllocationRequest
-type V1MachineFinalizeAllocationRequest struct {
+// V1BootInfo v1 boot info
+// swagger:model v1.BootInfo
+type V1BootInfo struct {
 
 	// the bootloader ID
 	// Required: true
@@ -25,9 +25,9 @@ type V1MachineFinalizeAllocationRequest struct {
 	// Required: true
 	Cmdline *string `json:"cmdline"`
 
-	// the console password which was generated while provisioning
+	// the ID of the current image
 	// Required: true
-	ConsolePassword *string `json:"console_password"`
+	ImageID *string `json:"image_id"`
 
 	// the initrd image
 	// Required: true
@@ -37,17 +37,17 @@ type V1MachineFinalizeAllocationRequest struct {
 	// Required: true
 	Kernel *string `json:"kernel"`
 
-	// the partition that has the OS installed
+	// the partition containing the OS
 	// Required: true
-	Ospartition *string `json:"ospartition"`
+	OsPartition *string `json:"os_partition"`
 
-	// the device name of the primary disk
+	// the primary disk
 	// Required: true
-	Primarydisk *string `json:"primarydisk"`
+	PrimaryDisk *string `json:"primary_disk"`
 }
 
-// Validate validates this v1 machine finalize allocation request
-func (m *V1MachineFinalizeAllocationRequest) Validate(formats strfmt.Registry) error {
+// Validate validates this v1 boot info
+func (m *V1BootInfo) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateBootloaderid(formats); err != nil {
@@ -58,7 +58,7 @@ func (m *V1MachineFinalizeAllocationRequest) Validate(formats strfmt.Registry) e
 		res = append(res, err)
 	}
 
-	if err := m.validateConsolePassword(formats); err != nil {
+	if err := m.validateImageID(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -70,11 +70,11 @@ func (m *V1MachineFinalizeAllocationRequest) Validate(formats strfmt.Registry) e
 		res = append(res, err)
 	}
 
-	if err := m.validateOspartition(formats); err != nil {
+	if err := m.validateOsPartition(formats); err != nil {
 		res = append(res, err)
 	}
 
-	if err := m.validatePrimarydisk(formats); err != nil {
+	if err := m.validatePrimaryDisk(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -84,7 +84,7 @@ func (m *V1MachineFinalizeAllocationRequest) Validate(formats strfmt.Registry) e
 	return nil
 }
 
-func (m *V1MachineFinalizeAllocationRequest) validateBootloaderid(formats strfmt.Registry) error {
+func (m *V1BootInfo) validateBootloaderid(formats strfmt.Registry) error {
 
 	if err := validate.Required("bootloaderid", "body", m.Bootloaderid); err != nil {
 		return err
@@ -93,7 +93,7 @@ func (m *V1MachineFinalizeAllocationRequest) validateBootloaderid(formats strfmt
 	return nil
 }
 
-func (m *V1MachineFinalizeAllocationRequest) validateCmdline(formats strfmt.Registry) error {
+func (m *V1BootInfo) validateCmdline(formats strfmt.Registry) error {
 
 	if err := validate.Required("cmdline", "body", m.Cmdline); err != nil {
 		return err
@@ -102,16 +102,16 @@ func (m *V1MachineFinalizeAllocationRequest) validateCmdline(formats strfmt.Regi
 	return nil
 }
 
-func (m *V1MachineFinalizeAllocationRequest) validateConsolePassword(formats strfmt.Registry) error {
+func (m *V1BootInfo) validateImageID(formats strfmt.Registry) error {
 
-	if err := validate.Required("console_password", "body", m.ConsolePassword); err != nil {
+	if err := validate.Required("image_id", "body", m.ImageID); err != nil {
 		return err
 	}
 
 	return nil
 }
 
-func (m *V1MachineFinalizeAllocationRequest) validateInitrd(formats strfmt.Registry) error {
+func (m *V1BootInfo) validateInitrd(formats strfmt.Registry) error {
 
 	if err := validate.Required("initrd", "body", m.Initrd); err != nil {
 		return err
@@ -120,7 +120,7 @@ func (m *V1MachineFinalizeAllocationRequest) validateInitrd(formats strfmt.Regis
 	return nil
 }
 
-func (m *V1MachineFinalizeAllocationRequest) validateKernel(formats strfmt.Registry) error {
+func (m *V1BootInfo) validateKernel(formats strfmt.Registry) error {
 
 	if err := validate.Required("kernel", "body", m.Kernel); err != nil {
 		return err
@@ -129,18 +129,18 @@ func (m *V1MachineFinalizeAllocationRequest) validateKernel(formats strfmt.Regis
 	return nil
 }
 
-func (m *V1MachineFinalizeAllocationRequest) validateOspartition(formats strfmt.Registry) error {
+func (m *V1BootInfo) validateOsPartition(formats strfmt.Registry) error {
 
-	if err := validate.Required("ospartition", "body", m.Ospartition); err != nil {
+	if err := validate.Required("os_partition", "body", m.OsPartition); err != nil {
 		return err
 	}
 
 	return nil
 }
 
-func (m *V1MachineFinalizeAllocationRequest) validatePrimarydisk(formats strfmt.Registry) error {
+func (m *V1BootInfo) validatePrimaryDisk(formats strfmt.Registry) error {
 
-	if err := validate.Required("primarydisk", "body", m.Primarydisk); err != nil {
+	if err := validate.Required("primary_disk", "body", m.PrimaryDisk); err != nil {
 		return err
 	}
 
@@ -148,7 +148,7 @@ func (m *V1MachineFinalizeAllocationRequest) validatePrimarydisk(formats strfmt.
 }
 
 // MarshalBinary interface implementation
-func (m *V1MachineFinalizeAllocationRequest) MarshalBinary() ([]byte, error) {
+func (m *V1BootInfo) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -156,8 +156,8 @@ func (m *V1MachineFinalizeAllocationRequest) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *V1MachineFinalizeAllocationRequest) UnmarshalBinary(b []byte) error {
-	var res V1MachineFinalizeAllocationRequest
+func (m *V1BootInfo) UnmarshalBinary(b []byte) error {
+	var res V1BootInfo
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

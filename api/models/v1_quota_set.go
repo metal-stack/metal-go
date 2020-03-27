@@ -24,6 +24,9 @@ type V1QuotaSet struct {
 
 	// machine
 	Machine *V1Quota `json:"machine,omitempty"`
+
+	// project
+	Project *V1Quota `json:"project,omitempty"`
 }
 
 // Validate validates this v1 quota set
@@ -39,6 +42,10 @@ func (m *V1QuotaSet) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateMachine(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateProject(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -94,6 +101,24 @@ func (m *V1QuotaSet) validateMachine(formats strfmt.Registry) error {
 		if err := m.Machine.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("machine")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *V1QuotaSet) validateProject(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Project) { // not required
+		return nil
+	}
+
+	if m.Project != nil {
+		if err := m.Project.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("project")
 			}
 			return err
 		}

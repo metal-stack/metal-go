@@ -36,7 +36,7 @@ type V1IPUpdateRequest struct {
 
 	// the ip type, ephemeral leads to automatic cleanup of the ip address, static will enable re-use of the ip at a later point in time
 	// Required: true
-	// Enum: [static ephemeral]
+	// Enum: [ephemeral static]
 	Type *string `json:"type"`
 }
 
@@ -84,7 +84,7 @@ var v1IpUpdateRequestTypeTypePropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["static","ephemeral"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["ephemeral","static"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -94,11 +94,11 @@ func init() {
 
 const (
 
-	// V1IPUpdateRequestTypeStatic captures enum value "static"
-	V1IPUpdateRequestTypeStatic string = "static"
-
 	// V1IPUpdateRequestTypeEphemeral captures enum value "ephemeral"
 	V1IPUpdateRequestTypeEphemeral string = "ephemeral"
+
+	// V1IPUpdateRequestTypeStatic captures enum value "static"
+	V1IPUpdateRequestTypeStatic string = "static"
 )
 
 // prop value enum

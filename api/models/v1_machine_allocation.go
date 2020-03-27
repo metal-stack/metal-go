@@ -19,6 +19,9 @@ import (
 // swagger:model v1.MachineAllocation
 type V1MachineAllocation struct {
 
+	// information required for booting the machine from HD
+	BootInfo *V1BootInfo `json:"boot_info,omitempty"`
+
 	// the console password which was generated while provisioning
 	ConsolePassword string `json:"console_password,omitempty"`
 
@@ -50,6 +53,10 @@ type V1MachineAllocation struct {
 	// Required: true
 	Project *string `json:"project"`
 
+	// indicates whether to reinstall the machine
+	// Required: true
+	Reinstall *bool `json:"reinstall"`
+
 	// the public ssh keys to access the machine with
 	// Required: true
 	SSHPubKeys []string `json:"ssh_pub_keys"`
@@ -65,6 +72,10 @@ type V1MachineAllocation struct {
 // Validate validates this v1 machine allocation
 func (m *V1MachineAllocation) Validate(formats strfmt.Registry) error {
 	var res []error
+
+	if err := m.validateBootInfo(formats); err != nil {
+		res = append(res, err)
+	}
 
 	if err := m.validateCreated(formats); err != nil {
 		res = append(res, err)
@@ -90,6 +101,10 @@ func (m *V1MachineAllocation) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateReinstall(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateSSHPubKeys(formats); err != nil {
 		res = append(res, err)
 	}
@@ -101,6 +116,24 @@ func (m *V1MachineAllocation) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *V1MachineAllocation) validateBootInfo(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.BootInfo) { // not required
+		return nil
+	}
+
+	if m.BootInfo != nil {
+		if err := m.BootInfo.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("boot_info")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 
@@ -181,6 +214,15 @@ func (m *V1MachineAllocation) validateNetworks(formats strfmt.Registry) error {
 func (m *V1MachineAllocation) validateProject(formats strfmt.Registry) error {
 
 	if err := validate.Required("project", "body", m.Project); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *V1MachineAllocation) validateReinstall(formats strfmt.Registry) error {
+
+	if err := validate.Required("reinstall", "body", m.Reinstall); err != nil {
 		return err
 	}
 

@@ -25,6 +25,35 @@ type Client struct {
 }
 
 /*
+AbortReinstallMachine aborts reinstall this machine
+*/
+func (a *Client) AbortReinstallMachine(params *AbortReinstallMachineParams, authInfo runtime.ClientAuthInfoWriter) (*AbortReinstallMachineOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewAbortReinstallMachineParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "abortReinstallMachine",
+		Method:             "POST",
+		PathPattern:        "/v1/machine/{id}/abort-reinstall",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &AbortReinstallMachineReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*AbortReinstallMachineOK), nil
+
+}
+
+/*
 AddProvisioningEvent adds a machine provisioning event
 */
 func (a *Client) AddProvisioningEvent(params *AddProvisioningEventParams, authInfo runtime.ClientAuthInfoWriter) (*AddProvisioningEventOK, error) {
@@ -137,35 +166,6 @@ func (a *Client) ChassisIdentifyLEDOn(params *ChassisIdentifyLEDOnParams, authIn
 		return nil, err
 	}
 	return result.(*ChassisIdentifyLEDOnOK), nil
-
-}
-
-/*
-CheckMachineLiveliness externals trigger for evaluating machine liveliness
-*/
-func (a *Client) CheckMachineLiveliness(params *CheckMachineLivelinessParams, authInfo runtime.ClientAuthInfoWriter) (*CheckMachineLivelinessOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewCheckMachineLivelinessParams()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "checkMachineLiveliness",
-		Method:             "POST",
-		PathPattern:        "/v1/machine/liveliness",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
-		Params:             params,
-		Reader:             &CheckMachineLivelinessReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	return result.(*CheckMachineLivelinessOK), nil
 
 }
 
@@ -578,6 +578,35 @@ func (a *Client) RegisterMachine(params *RegisterMachineParams, authInfo runtime
 		return nil, value, nil
 	}
 	return nil, nil, nil
+
+}
+
+/*
+ReinstallMachine reinstalls this machine
+*/
+func (a *Client) ReinstallMachine(params *ReinstallMachineParams, authInfo runtime.ClientAuthInfoWriter) (*ReinstallMachineOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewReinstallMachineParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "reinstallMachine",
+		Method:             "POST",
+		PathPattern:        "/v1/machine/{id}/reinstall",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &ReinstallMachineReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*ReinstallMachineOK), nil
 
 }
 
