@@ -25,8 +25,8 @@ type ImageCreateRequest struct {
 	Description    string
 	URL            string
 	Features       []string
-	ExpirationDate *time.Time `json:"expirationDate" yaml:"expirationDate"`
-	Classification *string    `json:"classification,omitempty" yaml:"classification,omitempty"`
+	ExpirationDate *time.Time
+	Classification *string
 }
 
 // ImageCreateResponse is the response of a ImageList action
