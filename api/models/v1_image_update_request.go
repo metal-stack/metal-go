@@ -17,8 +17,16 @@ import (
 // swagger:model v1.ImageUpdateRequest
 type V1ImageUpdateRequest struct {
 
+	// clasification of this image
+	Classification string `json:"classification,omitempty"`
+
 	// a description for this entity
 	Description string `json:"description,omitempty"`
+
+	// expirationDate of this image
+	// Required: true
+	// Format: date-time
+	ExpirationDate *strfmt.DateTime `json:"expirationDate"`
 
 	// features of this image
 	Features []string `json:"features"`
@@ -39,6 +47,10 @@ type V1ImageUpdateRequest struct {
 func (m *V1ImageUpdateRequest) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateExpirationDate(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateID(formats); err != nil {
 		res = append(res, err)
 	}
@@ -46,6 +58,19 @@ func (m *V1ImageUpdateRequest) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *V1ImageUpdateRequest) validateExpirationDate(formats strfmt.Registry) error {
+
+	if err := validate.Required("expirationDate", "body", m.ExpirationDate); err != nil {
+		return err
+	}
+
+	if err := validate.FormatOf("expirationDate", "body", "date-time", m.ExpirationDate.String(), formats); err != nil {
+		return err
+	}
+
 	return nil
 }
 

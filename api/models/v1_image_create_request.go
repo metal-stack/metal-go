@@ -17,8 +17,15 @@ import (
 // swagger:model v1.ImageCreateRequest
 type V1ImageCreateRequest struct {
 
+	// clasification of this image
+	Classification string `json:"classification,omitempty"`
+
 	// a description for this entity
 	Description string `json:"description,omitempty"`
+
+	// expirationDate of this image
+	// Format: date-time
+	ExpirationDate strfmt.DateTime `json:"expirationDate,omitempty"`
 
 	// features of this image
 	Features []string `json:"features"`
@@ -40,6 +47,10 @@ type V1ImageCreateRequest struct {
 func (m *V1ImageCreateRequest) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateExpirationDate(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateID(formats); err != nil {
 		res = append(res, err)
 	}
@@ -51,6 +62,19 @@ func (m *V1ImageCreateRequest) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *V1ImageCreateRequest) validateExpirationDate(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.ExpirationDate) { // not required
+		return nil
+	}
+
+	if err := validate.FormatOf("expirationDate", "body", "date-time", m.ExpirationDate.String(), formats); err != nil {
+		return err
+	}
+
 	return nil
 }
 

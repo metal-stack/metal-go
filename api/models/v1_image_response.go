@@ -23,6 +23,9 @@ type V1ImageResponse struct {
 	// Format: date-time
 	Changed strfmt.DateTime `json:"changed"`
 
+	// clasification of this image
+	Classification string `json:"classification,omitempty"`
+
 	// the creation time of this entity
 	// Required: true
 	// Read Only: true
@@ -31,6 +34,11 @@ type V1ImageResponse struct {
 
 	// a description for this entity
 	Description string `json:"description,omitempty"`
+
+	// expirationDate of this image
+	// Required: true
+	// Format: date-time
+	ExpirationDate *strfmt.DateTime `json:"expirationDate"`
 
 	// features of this image
 	Features []string `json:"features"`
@@ -56,6 +64,10 @@ func (m *V1ImageResponse) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateCreated(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateExpirationDate(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -89,6 +101,19 @@ func (m *V1ImageResponse) validateCreated(formats strfmt.Registry) error {
 	}
 
 	if err := validate.FormatOf("created", "body", "date-time", m.Created.String(), formats); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *V1ImageResponse) validateExpirationDate(formats strfmt.Registry) error {
+
+	if err := validate.Required("expirationDate", "body", m.ExpirationDate); err != nil {
+		return err
+	}
+
+	if err := validate.FormatOf("expirationDate", "body", "date-time", m.ExpirationDate.String(), formats); err != nil {
 		return err
 	}
 

@@ -1,6 +1,9 @@
 package metalgo
 
 import (
+	"time"
+
+	"github.com/go-openapi/strfmt"
 	"github.com/metal-stack/metal-go/api/client/image"
 	"github.com/metal-stack/metal-go/api/models"
 )
@@ -17,11 +20,13 @@ type ImageGetResponse struct {
 
 // ImageCreateRequest is the response of a ImageList action
 type ImageCreateRequest struct {
-	ID          string
-	Name        string
-	Description string
-	URL         string
-	Features    []string
+	ID             string
+	Name           string
+	Description    string
+	URL            string
+	Features       []string
+	ExpirationDate *time.Time
+	Classification *string
 }
 
 // ImageCreateResponse is the response of a ImageList action
@@ -86,6 +91,14 @@ func (d *Driver) ImageUpdate(icr ImageCreateRequest) (*ImageCreateResponse, erro
 		Name:        icr.Name,
 		URL:         icr.URL,
 	}
+	if icr.ExpirationDate != nil {
+		expt := strfmt.DateTime(*icr.ExpirationDate)
+		updateImage.ExpirationDate = &expt
+	}
+	if icr.Classification != nil {
+		updateImage.Classification = *icr.Classification
+	}
+
 	request := image.NewUpdateImageParams()
 	request.SetBody(updateImage)
 	resp, err := d.image.UpdateImage(request, d.auth)
