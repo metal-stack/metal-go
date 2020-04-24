@@ -112,6 +112,35 @@ func (a *Client) ListSwitches(params *ListSwitchesParams, authInfo runtime.Clien
 }
 
 /*
+NotifySwitch notifies the metal api about a configuration change of a switch
+*/
+func (a *Client) NotifySwitch(params *NotifySwitchParams, authInfo runtime.ClientAuthInfoWriter) (*NotifySwitchOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewNotifySwitchParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "notifySwitch",
+		Method:             "POST",
+		PathPattern:        "/v1/switch/{id}/notify",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &NotifySwitchReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*NotifySwitchOK), nil
+
+}
+
+/*
 RegisterSwitch registers a switch
 */
 func (a *Client) RegisterSwitch(params *RegisterSwitchParams, authInfo runtime.ClientAuthInfoWriter) (*RegisterSwitchOK, *RegisterSwitchCreated, error) {

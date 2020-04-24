@@ -141,6 +141,35 @@ func (a *Client) ListImages(params *ListImagesParams, authInfo runtime.ClientAut
 }
 
 /*
+MigrateImages migrates existing machine allocation images to semver equivalents
+*/
+func (a *Client) MigrateImages(params *MigrateImagesParams, authInfo runtime.ClientAuthInfoWriter) (*MigrateImagesOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewMigrateImagesParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "migrateImages",
+		Method:             "GET",
+		PathPattern:        "/v1/image/migrate",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &MigrateImagesReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*MigrateImagesOK), nil
+
+}
+
+/*
 UpdateImage updates an image if the image was changed since this one was read a conflict is returned
 */
 func (a *Client) UpdateImage(params *UpdateImageParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateImageOK, error) {
