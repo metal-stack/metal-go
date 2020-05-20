@@ -19,7 +19,7 @@ jobs:
     - name: Lint
       uses: actions-contrib/golangci-lint@master
       with:
-        args: run
+        golangci_lint_version: 1.27.0
 
     - name: Build
       run: make test
