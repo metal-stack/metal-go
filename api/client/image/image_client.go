@@ -112,6 +112,35 @@ func (a *Client) FindImage(params *FindImageParams, authInfo runtime.ClientAuthI
 }
 
 /*
+FindLatestImage finds latest image by id
+*/
+func (a *Client) FindLatestImage(params *FindLatestImageParams, authInfo runtime.ClientAuthInfoWriter) (*FindLatestImageOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewFindLatestImageParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "findLatestImage",
+		Method:             "GET",
+		PathPattern:        "/v1/image/{id}/latest",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &FindLatestImageReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*FindLatestImageOK), nil
+
+}
+
+/*
 ListImages gets all images
 */
 func (a *Client) ListImages(params *ListImagesParams, authInfo runtime.ClientAuthInfoWriter) (*ListImagesOK, error) {
@@ -137,35 +166,6 @@ func (a *Client) ListImages(params *ListImagesParams, authInfo runtime.ClientAut
 		return nil, err
 	}
 	return result.(*ListImagesOK), nil
-
-}
-
-/*
-MigrateImages migrates existing machine allocation images to semver equivalents
-*/
-func (a *Client) MigrateImages(params *MigrateImagesParams, authInfo runtime.ClientAuthInfoWriter) (*MigrateImagesOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewMigrateImagesParams()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "migrateImages",
-		Method:             "GET",
-		PathPattern:        "/v1/image/migrate",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
-		Params:             params,
-		Reader:             &MigrateImagesReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	return result.(*MigrateImagesOK), nil
 
 }
 

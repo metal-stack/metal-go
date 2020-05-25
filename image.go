@@ -59,6 +59,19 @@ func (d *Driver) ImageGet(imageID string) (*ImageGetResponse, error) {
 	return response, nil
 }
 
+// ImageGetLatest returns the latest image to a given imageID if no patch version was specified.
+func (d *Driver) ImageGetLatest(imageID string) (*ImageGetResponse, error) {
+	response := &ImageGetResponse{}
+	request := image.NewFindLatestImageParams()
+	request.ID = imageID
+	resp, err := d.image.FindLatestImage(request, d.auth)
+	if err != nil {
+		return response, err
+	}
+	response.Image = resp.Payload
+	return response, nil
+}
+
 // ImageCreate create a image
 func (d *Driver) ImageCreate(icr ImageCreateRequest) (*ImageCreateResponse, error) {
 	response := &ImageCreateResponse{}
