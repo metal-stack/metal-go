@@ -38,10 +38,15 @@ func (d *Driver) ProjectList() (*ProjectListResponse, error) {
 func (d *Driver) ProjectFind(pfr ProjectFindRequest) (*ProjectListResponse, error) {
 	response := &ProjectListResponse{}
 	findProjects := project.NewFindProjectsParams()
-	findProjects.Body = &models.V1ProjectFindRequest{
-		ID:       &models.WrappersStringValue{Value: pfr.ID},
-		Name:     &models.WrappersStringValue{Value: pfr.Name},
-		TenantID: &models.WrappersStringValue{Value: pfr.Tenant},
+	findProjects.Body = &models.V1ProjectFindRequest{}
+	if pfr.ID != "" {
+		findProjects.Body.ID = &models.WrappersStringValue{Value: pfr.ID}
+	}
+	if pfr.Name != "" {
+		findProjects.Body.Name = &models.WrappersStringValue{Value: pfr.Name}
+	}
+	if pfr.Tenant != "" {
+		findProjects.Body.TenantID = &models.WrappersStringValue{Value: pfr.Tenant}
 	}
 	resp, err := d.project.FindProjects(findProjects, d.auth)
 	if err != nil {
