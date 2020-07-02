@@ -17,7 +17,7 @@ import (
 // swagger:model v1.ImageUpdateRequest
 type V1ImageUpdateRequest struct {
 
-	// clasification of this image
+	// classification of this image
 	Classification string `json:"classification,omitempty"`
 
 	// a description for this entity
@@ -41,6 +41,9 @@ type V1ImageUpdateRequest struct {
 
 	// the url of this image
 	URL string `json:"url,omitempty"`
+
+	// machines where this image is in use
+	Usedby []string `json:"usedby"`
 }
 
 // Validate validates this v1 image update request

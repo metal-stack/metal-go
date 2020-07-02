@@ -23,7 +23,7 @@ type V1ImageResponse struct {
 	// Format: date-time
 	Changed strfmt.DateTime `json:"changed"`
 
-	// clasification of this image
+	// classification of this image
 	Classification string `json:"classification,omitempty"`
 
 	// the creation time of this entity
@@ -53,6 +53,9 @@ type V1ImageResponse struct {
 
 	// the url of this image
 	URL string `json:"url,omitempty"`
+
+	// machines where this image is in use
+	Usedby []string `json:"usedby"`
 }
 
 // Validate validates this v1 image response

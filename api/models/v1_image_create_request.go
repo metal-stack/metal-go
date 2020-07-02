@@ -17,7 +17,7 @@ import (
 // swagger:model v1.ImageCreateRequest
 type V1ImageCreateRequest struct {
 
-	// clasification of this image
+	// classification of this image
 	Classification string `json:"classification,omitempty"`
 
 	// a description for this entity
