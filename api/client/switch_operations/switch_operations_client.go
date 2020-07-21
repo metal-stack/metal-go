@@ -175,6 +175,35 @@ func (a *Client) RegisterSwitch(params *RegisterSwitchParams, authInfo runtime.C
 
 }
 
+/*
+UpdateSwitch updates a switch if the switch was changed since this one was read a conflict is returned
+*/
+func (a *Client) UpdateSwitch(params *UpdateSwitchParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateSwitchOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUpdateSwitchParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "updateSwitch",
+		Method:             "POST",
+		PathPattern:        "/v1/switch",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &UpdateSwitchReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*UpdateSwitchOK), nil
+
+}
+
 // SetTransport changes the transport on the client
 func (a *Client) SetTransport(transport runtime.ClientTransport) {
 	a.transport = transport

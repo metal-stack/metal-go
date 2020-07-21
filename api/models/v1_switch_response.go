@@ -51,6 +51,9 @@ type V1SwitchResponse struct {
 	// Required: true
 	LastSyncError *MetalSwitchSync `json:"last_sync_error"`
 
+	// the mode the switch currently has
+	Mode string `json:"mode,omitempty"`
+
 	// a readable name for this entity
 	Name string `json:"name,omitempty"`
 

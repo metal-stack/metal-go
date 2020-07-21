@@ -27,6 +27,9 @@ type V1SwitchRegisterRequest struct {
 	// Unique: true
 	ID *string `json:"id"`
 
+	// the mode the switch currently has
+	Mode string `json:"mode,omitempty"`
+
 	// a readable name for this entity
 	Name string `json:"name,omitempty"`
 
