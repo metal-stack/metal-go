@@ -8,7 +8,6 @@ package models
 import (
 	strfmt "github.com/go-openapi/strfmt"
 
-	"github.com/go-openapi/errors"
 	"github.com/go-openapi/swag"
 )
 
@@ -17,38 +16,14 @@ import (
 type V1Quota struct {
 
 	// quota
-	Quota *WrappersInt32Value `json:"quota,omitempty"`
+	Quota int32 `json:"quota,omitempty"`
+
+	// used
+	Used int32 `json:"used,omitempty"`
 }
 
 // Validate validates this v1 quota
 func (m *V1Quota) Validate(formats strfmt.Registry) error {
-	var res []error
-
-	if err := m.validateQuota(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (m *V1Quota) validateQuota(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.Quota) { // not required
-		return nil
-	}
-
-	if m.Quota != nil {
-		if err := m.Quota.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("quota")
-			}
-			return err
-		}
-	}
-
 	return nil
 }
 
