@@ -43,6 +43,17 @@ type V1SwitchResponse struct {
 	// Unique: true
 	ID *string `json:"id"`
 
+	// last successful synchronization to the switch
+	// Required: true
+	LastSync *MetalSwitchSync `json:"last_sync"`
+
+	// last synchronization to the switch that was erroneous
+	// Required: true
+	LastSyncError *MetalSwitchSync `json:"last_sync_error"`
+
+	// the mode the switch currently has
+	Mode string `json:"mode,omitempty"`
+
 	// a readable name for this entity
 	Name string `json:"name,omitempty"`
 
@@ -76,6 +87,14 @@ func (m *V1SwitchResponse) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateID(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateLastSync(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateLastSyncError(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -152,6 +171,42 @@ func (m *V1SwitchResponse) validateID(formats strfmt.Registry) error {
 
 	if err := validate.Required("id", "body", m.ID); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+func (m *V1SwitchResponse) validateLastSync(formats strfmt.Registry) error {
+
+	if err := validate.Required("last_sync", "body", m.LastSync); err != nil {
+		return err
+	}
+
+	if m.LastSync != nil {
+		if err := m.LastSync.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("last_sync")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *V1SwitchResponse) validateLastSyncError(formats strfmt.Registry) error {
+
+	if err := validate.Required("last_sync_error", "body", m.LastSyncError); err != nil {
+		return err
+	}
+
+	if m.LastSyncError != nil {
+		if err := m.LastSyncError.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("last_sync_error")
+			}
+			return err
+		}
 	}
 
 	return nil

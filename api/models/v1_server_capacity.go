@@ -29,6 +29,10 @@ type V1ServerCapacity struct {
 	// Required: true
 	Free *int32 `json:"free"`
 
+	// servers neither free, allocated or faulty with this size
+	// Required: true
+	Other *int32 `json:"other"`
+
 	// the size of the server
 	// Required: true
 	Size *string `json:"size"`
@@ -51,6 +55,10 @@ func (m *V1ServerCapacity) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateFree(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateOther(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -89,6 +97,15 @@ func (m *V1ServerCapacity) validateFaulty(formats strfmt.Registry) error {
 func (m *V1ServerCapacity) validateFree(formats strfmt.Registry) error {
 
 	if err := validate.Required("free", "body", m.Free); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *V1ServerCapacity) validateOther(formats strfmt.Registry) error {
+
+	if err := validate.Required("other", "body", m.Other); err != nil {
 		return err
 	}
 

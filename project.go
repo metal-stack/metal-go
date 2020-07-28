@@ -39,9 +39,9 @@ func (d *Driver) ProjectFind(pfr ProjectFindRequest) (*ProjectListResponse, erro
 	response := &ProjectListResponse{}
 	findProjects := project.NewFindProjectsParams()
 	findProjects.Body = &models.V1ProjectFindRequest{
-		ID:       &models.WrappersStringValue{Value: pfr.ID},
-		Name:     &models.WrappersStringValue{Value: pfr.Name},
-		TenantID: &models.WrappersStringValue{Value: pfr.Tenant},
+		ID:       pfr.ID,
+		Name:     pfr.Name,
+		TenantID: pfr.Tenant,
 	}
 	resp, err := d.project.FindProjects(findProjects, d.auth)
 	if err != nil {

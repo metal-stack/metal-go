@@ -17,7 +17,7 @@ test:
 generate-client:
 	rm -rf api
 	mkdir -p api
-	GO111MODULE=off swagger generate client -f metal-api.json -t api --skip-validation
+	GO111MODULE=off docker run -it --user $$(id -u):$$(id -g) --rm -v ${PWD}:/work metalstack/builder swagger generate client -f metal-api.json -t api --skip-validation
 
 .PHONY: golangcicheck
 golangcicheck:
