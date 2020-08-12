@@ -26,8 +26,7 @@ type V1NetworkUpdateRequest struct {
 	ID *string `json:"id"`
 
 	// free labels that you associate with this network.
-	// Required: true
-	Labels map[string]string `json:"labels"`
+	Labels map[string]string `json:"labels,omitempty"`
 
 	// a readable name for this entity
 	Name string `json:"name,omitempty"`
@@ -44,10 +43,6 @@ func (m *V1NetworkUpdateRequest) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validateLabels(formats); err != nil {
-		res = append(res, err)
-	}
-
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
@@ -59,11 +54,6 @@ func (m *V1NetworkUpdateRequest) validateID(formats strfmt.Registry) error {
 	if err := validate.Required("id", "body", m.ID); err != nil {
 		return err
 	}
-
-	return nil
-}
-
-func (m *V1NetworkUpdateRequest) validateLabels(formats strfmt.Registry) error {
 
 	return nil
 }
