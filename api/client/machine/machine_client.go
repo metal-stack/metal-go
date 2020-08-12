@@ -668,35 +668,6 @@ func (a *Client) SetMachineState(params *SetMachineStateParams, authInfo runtime
 
 }
 
-/*
-WaitForAllocation waits for an allocation of this machine
-*/
-func (a *Client) WaitForAllocation(params *WaitForAllocationParams, authInfo runtime.ClientAuthInfoWriter) (*WaitForAllocationOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewWaitForAllocationParams()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "waitForAllocation",
-		Method:             "GET",
-		PathPattern:        "/v1/machine/{id}/wait",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
-		Params:             params,
-		Reader:             &WaitForAllocationReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	return result.(*WaitForAllocationOK), nil
-
-}
-
 // SetTransport changes the transport on the client
 func (a *Client) SetTransport(transport runtime.ClientTransport) {
 	a.transport = transport
