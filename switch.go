@@ -15,7 +15,7 @@ type SwitchGetResponse struct {
 	Switch *models.V1SwitchResponse
 }
 
-// SwitchUpdateRequest
+// SwitchUpdateRequest contains properties to update a switch
 type SwitchUpdateRequest struct {
 	ID          string
 	Name        string

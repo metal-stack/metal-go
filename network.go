@@ -89,6 +89,10 @@ type NetworkCreateRequest struct {
 	// if set to true, the network can share the vrf with other networks
 	// Required: false
 	VrfShared bool `json:"vrfshared,omitempty"`
+
+	// A map of key/value pairs treated as labels.
+	// Required: false
+	Labels map[string]string `json:"labels"`
 }
 
 // NetworkDetailResponse is the response of a NetworkList action
@@ -336,6 +340,7 @@ func (d *Driver) NetworkUpdate(ncr *NetworkCreateRequest) (*NetworkDetailRespons
 		Description: ncr.Description,
 		Name:        ncr.Name,
 		Prefixes:    ncr.Prefixes,
+		Labels:      ncr.Labels,
 	}
 	updateNetwork.SetBody(updateRequest)
 	resp, err := d.network.UpdateNetwork(updateNetwork, d.auth)

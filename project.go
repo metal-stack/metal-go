@@ -98,7 +98,7 @@ func (d *Driver) ProjectCreate(pcr v1.ProjectCreateRequest) (*ProjectGetResponse
 	return response, nil
 }
 
-// ProjectCreate a new Project
+// ProjectUpdate update a Project
 func (d *Driver) ProjectUpdate(pur v1.ProjectUpdateRequest) (*ProjectGetResponse, error) {
 	response := &ProjectGetResponse{}
 	updateProject := project.NewUpdateProjectParams()

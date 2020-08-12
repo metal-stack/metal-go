@@ -25,6 +25,9 @@ type V1NetworkUpdateRequest struct {
 	// Unique: true
 	ID *string `json:"id"`
 
+	// free labels that you associate with this network.
+	Labels map[string]string `json:"labels,omitempty"`
+
 	// a readable name for this entity
 	Name string `json:"name,omitempty"`
 
