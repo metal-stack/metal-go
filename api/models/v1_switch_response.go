@@ -20,20 +20,18 @@ import (
 type V1SwitchResponse struct {
 
 	// the last changed timestamp of this entity
-	// Required: true
 	// Read Only: true
 	// Format: date-time
-	Changed strfmt.DateTime `json:"changed"`
+	Changed strfmt.DateTime `json:"changed,omitempty"`
 
 	// a connection between a switch port and a machine
 	// Required: true
 	Connections []*V1SwitchConnection `json:"connections"`
 
 	// the creation time of this entity
-	// Required: true
 	// Read Only: true
 	// Format: date-time
-	Created strfmt.DateTime `json:"created"`
+	Created strfmt.DateTime `json:"created,omitempty"`
 
 	// a description for this entity
 	Description string `json:"description,omitempty"`
@@ -118,8 +116,8 @@ func (m *V1SwitchResponse) Validate(formats strfmt.Registry) error {
 
 func (m *V1SwitchResponse) validateChanged(formats strfmt.Registry) error {
 
-	if err := validate.Required("changed", "body", strfmt.DateTime(m.Changed)); err != nil {
-		return err
+	if swag.IsZero(m.Changed) { // not required
+		return nil
 	}
 
 	if err := validate.FormatOf("changed", "body", "date-time", m.Changed.String(), formats); err != nil {
@@ -156,8 +154,8 @@ func (m *V1SwitchResponse) validateConnections(formats strfmt.Registry) error {
 
 func (m *V1SwitchResponse) validateCreated(formats strfmt.Registry) error {
 
-	if err := validate.Required("created", "body", strfmt.DateTime(m.Created)); err != nil {
-		return err
+	if swag.IsZero(m.Created) { // not required
+		return nil
 	}
 
 	if err := validate.FormatOf("created", "body", "date-time", m.Created.String(), formats); err != nil {

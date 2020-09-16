@@ -229,17 +229,17 @@ func (d *Driver) NetworkFind(nfr *NetworkFindRequest) (*NetworkListResponse, err
 
 	findNetworks := network.NewFindNetworksParams()
 	req := &models.V1NetworkFindRequest{
-		ID:                  nfr.ID,
-		Name:                nfr.Name,
-		Partitionid:         nfr.PartitionID,
-		Projectid:           nfr.ProjectID,
+		ID:                  StrDeref(nfr.ID),
+		Name:                StrDeref(nfr.Name),
+		Partitionid:         StrDeref(nfr.PartitionID),
+		Projectid:           StrDeref(nfr.ProjectID),
 		Prefixes:            nfr.Prefixes,
 		Destinationprefixes: nfr.DestinationPrefixes,
-		Nat:                 nfr.Nat,
-		Privatesuper:        nfr.PrivateSuper,
-		Underlay:            nfr.Underlay,
-		Vrf:                 nfr.Vrf,
-		Parentnetworkid:     nfr.ParentNetworkID,
+		Nat:                 BoolDeref(nfr.Nat),
+		Privatesuper:        BoolDeref(nfr.PrivateSuper),
+		Underlay:            BoolDeref(nfr.Underlay),
+		Vrf:                 Int64Deref(nfr.Vrf),
+		Parentnetworkid:     StrDeref(nfr.ParentNetworkID),
 		Labels:              nfr.Labels,
 	}
 	findNetworks.SetBody(req)
@@ -463,12 +463,12 @@ func (d *Driver) IPFind(ifr *IPFindRequest) (*IPListResponse, error) {
 
 	findIPs := ip.NewFindIpsParams()
 	req := &models.V1IPFindRequest{
-		Ipaddress:     ifr.IPAddress,
-		Projectid:     ifr.ProjectID,
-		Networkprefix: ifr.ParentPrefixCidr,
-		Networkid:     ifr.NetworkID,
-		Machineid:     ifr.MachineID,
-		Type:          ifr.Type,
+		Ipaddress:     StrDeref(ifr.IPAddress),
+		Projectid:     StrDeref(ifr.ProjectID),
+		Networkprefix: StrDeref(ifr.ParentPrefixCidr),
+		Networkid:     StrDeref(ifr.NetworkID),
+		Machineid:     StrDeref(ifr.MachineID),
+		Type:          StrDeref(ifr.Type),
 		Tags:          ifr.Tags,
 	}
 	findIPs.SetBody(req)
@@ -490,7 +490,7 @@ func (d *Driver) IPAllocate(iar *IPAllocateRequest) (*IPDetailResponse, error) {
 		Name:        iar.Name,
 		Networkid:   &iar.Networkid,
 		Projectid:   &iar.Projectid,
-		Machineid:   iar.Machineid,
+		Machineid:   StrDeref(iar.Machineid),
 		Type:        &iar.Type,
 		Tags:        iar.Tags,
 	}

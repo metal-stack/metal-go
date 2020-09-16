@@ -24,7 +24,6 @@ type V1MachineBlockDevice struct {
 	Name *string `json:"name"`
 
 	// the partitions of this disk
-	// Required: true
 	Partitions []*V1MachineDiskPartition `json:"partitions"`
 
 	// whether this disk has the OS installed
@@ -73,8 +72,8 @@ func (m *V1MachineBlockDevice) validateName(formats strfmt.Registry) error {
 
 func (m *V1MachineBlockDevice) validatePartitions(formats strfmt.Registry) error {
 
-	if err := validate.Required("partitions", "body", m.Partitions); err != nil {
-		return err
+	if swag.IsZero(m.Partitions) { // not required
+		return nil
 	}
 
 	for i := 0; i < len(m.Partitions); i++ {

@@ -8,9 +8,7 @@ package models
 import (
 	strfmt "github.com/go-openapi/strfmt"
 
-	"github.com/go-openapi/errors"
 	"github.com/go-openapi/swag"
-	"github.com/go-openapi/validate"
 )
 
 // V1IPFindRequest v1 IP find request
@@ -18,132 +16,29 @@ import (
 type V1IPFindRequest struct {
 
 	// the address (ipv4 or ipv6) of this ip
-	// Required: true
-	Ipaddress *string `json:"ipaddress"`
+	Ipaddress string `json:"ipaddress,omitempty"`
 
 	// the machine an ip address is associated to
-	// Required: true
-	Machineid *string `json:"machineid"`
+	Machineid string `json:"machineid,omitempty"`
 
 	// the network this ip allocate request address belongs to
-	// Required: true
-	Networkid *string `json:"networkid"`
+	Networkid string `json:"networkid,omitempty"`
 
 	// the prefix of the network this ip address belongs to
-	// Required: true
-	Networkprefix *string `json:"networkprefix"`
+	Networkprefix string `json:"networkprefix,omitempty"`
 
 	// the project this ip address belongs to, empty if not strong coupled
-	// Required: true
-	Projectid *string `json:"projectid"`
+	Projectid string `json:"projectid,omitempty"`
 
 	// the tags that are assigned to this ip address
-	// Required: true
 	Tags []string `json:"tags"`
 
 	// the type of the ip address, ephemeral or static
-	// Required: true
-	Type *string `json:"type"`
+	Type string `json:"type,omitempty"`
 }
 
 // Validate validates this v1 IP find request
 func (m *V1IPFindRequest) Validate(formats strfmt.Registry) error {
-	var res []error
-
-	if err := m.validateIpaddress(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateMachineid(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateNetworkid(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateNetworkprefix(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateProjectid(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateTags(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateType(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (m *V1IPFindRequest) validateIpaddress(formats strfmt.Registry) error {
-
-	if err := validate.Required("ipaddress", "body", m.Ipaddress); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *V1IPFindRequest) validateMachineid(formats strfmt.Registry) error {
-
-	if err := validate.Required("machineid", "body", m.Machineid); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *V1IPFindRequest) validateNetworkid(formats strfmt.Registry) error {
-
-	if err := validate.Required("networkid", "body", m.Networkid); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *V1IPFindRequest) validateNetworkprefix(formats strfmt.Registry) error {
-
-	if err := validate.Required("networkprefix", "body", m.Networkprefix); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *V1IPFindRequest) validateProjectid(formats strfmt.Registry) error {
-
-	if err := validate.Required("projectid", "body", m.Projectid); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *V1IPFindRequest) validateTags(formats strfmt.Registry) error {
-
-	if err := validate.Required("tags", "body", m.Tags); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *V1IPFindRequest) validateType(formats strfmt.Registry) error {
-
-	if err := validate.Required("type", "body", m.Type); err != nil {
-		return err
-	}
-
 	return nil
 }
 

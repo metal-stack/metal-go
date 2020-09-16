@@ -20,16 +20,14 @@ import (
 type V1IPResponse struct {
 
 	// the last changed timestamp of this entity
-	// Required: true
 	// Read Only: true
 	// Format: date-time
-	Changed strfmt.DateTime `json:"changed"`
+	Changed strfmt.DateTime `json:"changed,omitempty"`
 
 	// the creation time of this entity
-	// Required: true
 	// Read Only: true
 	// Format: date-time
-	Created strfmt.DateTime `json:"created"`
+	Created strfmt.DateTime `json:"created,omitempty"`
 
 	// a description for this entity
 	Description string `json:"description,omitempty"`
@@ -51,7 +49,6 @@ type V1IPResponse struct {
 	Projectid *string `json:"projectid"`
 
 	// free tags that you associate with this ip.
-	// Required: true
 	Tags []string `json:"tags"`
 
 	// the ip type, ephemeral leads to automatic cleanup of the ip address, static will enable re-use of the ip at a later point in time
@@ -84,10 +81,6 @@ func (m *V1IPResponse) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validateTags(formats); err != nil {
-		res = append(res, err)
-	}
-
 	if err := m.validateType(formats); err != nil {
 		res = append(res, err)
 	}
@@ -100,8 +93,8 @@ func (m *V1IPResponse) Validate(formats strfmt.Registry) error {
 
 func (m *V1IPResponse) validateChanged(formats strfmt.Registry) error {
 
-	if err := validate.Required("changed", "body", strfmt.DateTime(m.Changed)); err != nil {
-		return err
+	if swag.IsZero(m.Changed) { // not required
+		return nil
 	}
 
 	if err := validate.FormatOf("changed", "body", "date-time", m.Changed.String(), formats); err != nil {
@@ -113,8 +106,8 @@ func (m *V1IPResponse) validateChanged(formats strfmt.Registry) error {
 
 func (m *V1IPResponse) validateCreated(formats strfmt.Registry) error {
 
-	if err := validate.Required("created", "body", strfmt.DateTime(m.Created)); err != nil {
-		return err
+	if swag.IsZero(m.Created) { // not required
+		return nil
 	}
 
 	if err := validate.FormatOf("created", "body", "date-time", m.Created.String(), formats); err != nil {
@@ -145,15 +138,6 @@ func (m *V1IPResponse) validateNetworkid(formats strfmt.Registry) error {
 func (m *V1IPResponse) validateProjectid(formats strfmt.Registry) error {
 
 	if err := validate.Required("projectid", "body", m.Projectid); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *V1IPResponse) validateTags(formats strfmt.Registry) error {
-
-	if err := validate.Required("tags", "body", m.Tags); err != nil {
 		return err
 	}
 

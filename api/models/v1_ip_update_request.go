@@ -31,7 +31,6 @@ type V1IPUpdateRequest struct {
 	Name string `json:"name,omitempty"`
 
 	// free tags that you associate with this ip.
-	// Required: true
 	Tags []string `json:"tags"`
 
 	// the ip type, ephemeral leads to automatic cleanup of the ip address, static will enable re-use of the ip at a later point in time
@@ -48,10 +47,6 @@ func (m *V1IPUpdateRequest) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validateTags(formats); err != nil {
-		res = append(res, err)
-	}
-
 	if err := m.validateType(formats); err != nil {
 		res = append(res, err)
 	}
@@ -65,15 +60,6 @@ func (m *V1IPUpdateRequest) Validate(formats strfmt.Registry) error {
 func (m *V1IPUpdateRequest) validateIpaddress(formats strfmt.Registry) error {
 
 	if err := validate.Required("ipaddress", "body", m.Ipaddress); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *V1IPUpdateRequest) validateTags(formats strfmt.Registry) error {
-
-	if err := validate.Required("tags", "body", m.Tags); err != nil {
 		return err
 	}
 

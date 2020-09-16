@@ -8,9 +8,7 @@ package models
 import (
 	strfmt "github.com/go-openapi/strfmt"
 
-	"github.com/go-openapi/errors"
 	"github.com/go-openapi/swag"
-	"github.com/go-openapi/validate"
 )
 
 // V1NetworkFindRequest v1 network find request
@@ -18,213 +16,44 @@ import (
 type V1NetworkFindRequest struct {
 
 	// destinationprefixes
-	// Required: true
 	Destinationprefixes []string `json:"destinationprefixes"`
 
 	// id
-	// Required: true
-	ID *string `json:"id"`
+	ID string `json:"id,omitempty"`
 
 	// labels
-	// Required: true
-	Labels map[string]string `json:"labels"`
+	Labels map[string]string `json:"labels,omitempty"`
 
 	// name
-	// Required: true
-	Name *string `json:"name"`
+	Name string `json:"name,omitempty"`
 
 	// nat
-	// Required: true
-	Nat *bool `json:"nat"`
+	Nat bool `json:"nat,omitempty"`
 
 	// parentnetworkid
-	// Required: true
-	Parentnetworkid *string `json:"parentnetworkid"`
+	Parentnetworkid string `json:"parentnetworkid,omitempty"`
 
 	// partitionid
-	// Required: true
-	Partitionid *string `json:"partitionid"`
+	Partitionid string `json:"partitionid,omitempty"`
 
 	// prefixes
-	// Required: true
 	Prefixes []string `json:"prefixes"`
 
 	// privatesuper
-	// Required: true
-	Privatesuper *bool `json:"privatesuper"`
+	Privatesuper bool `json:"privatesuper,omitempty"`
 
 	// projectid
-	// Required: true
-	Projectid *string `json:"projectid"`
+	Projectid string `json:"projectid,omitempty"`
 
 	// underlay
-	// Required: true
-	Underlay *bool `json:"underlay"`
+	Underlay bool `json:"underlay,omitempty"`
 
 	// vrf
-	// Required: true
-	Vrf *int64 `json:"vrf"`
+	Vrf int64 `json:"vrf,omitempty"`
 }
 
 // Validate validates this v1 network find request
 func (m *V1NetworkFindRequest) Validate(formats strfmt.Registry) error {
-	var res []error
-
-	if err := m.validateDestinationprefixes(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateID(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateLabels(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateName(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateNat(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateParentnetworkid(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validatePartitionid(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validatePrefixes(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validatePrivatesuper(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateProjectid(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateUnderlay(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateVrf(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (m *V1NetworkFindRequest) validateDestinationprefixes(formats strfmt.Registry) error {
-
-	if err := validate.Required("destinationprefixes", "body", m.Destinationprefixes); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *V1NetworkFindRequest) validateID(formats strfmt.Registry) error {
-
-	if err := validate.Required("id", "body", m.ID); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *V1NetworkFindRequest) validateLabels(formats strfmt.Registry) error {
-
-	return nil
-}
-
-func (m *V1NetworkFindRequest) validateName(formats strfmt.Registry) error {
-
-	if err := validate.Required("name", "body", m.Name); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *V1NetworkFindRequest) validateNat(formats strfmt.Registry) error {
-
-	if err := validate.Required("nat", "body", m.Nat); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *V1NetworkFindRequest) validateParentnetworkid(formats strfmt.Registry) error {
-
-	if err := validate.Required("parentnetworkid", "body", m.Parentnetworkid); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *V1NetworkFindRequest) validatePartitionid(formats strfmt.Registry) error {
-
-	if err := validate.Required("partitionid", "body", m.Partitionid); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *V1NetworkFindRequest) validatePrefixes(formats strfmt.Registry) error {
-
-	if err := validate.Required("prefixes", "body", m.Prefixes); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *V1NetworkFindRequest) validatePrivatesuper(formats strfmt.Registry) error {
-
-	if err := validate.Required("privatesuper", "body", m.Privatesuper); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *V1NetworkFindRequest) validateProjectid(formats strfmt.Registry) error {
-
-	if err := validate.Required("projectid", "body", m.Projectid); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *V1NetworkFindRequest) validateUnderlay(formats strfmt.Registry) error {
-
-	if err := validate.Required("underlay", "body", m.Underlay); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *V1NetworkFindRequest) validateVrf(formats strfmt.Registry) error {
-
-	if err := validate.Required("vrf", "body", m.Vrf); err != nil {
-		return err
-	}
-
 	return nil
 }
 
