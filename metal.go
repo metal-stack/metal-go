@@ -192,3 +192,27 @@ func (r *roundTripper) RoundTrip(req *http.Request) (*http.Response, error) {
 		return resp, nil
 	}
 }
+
+func StrDeref(s *string) string {
+	if s == nil {
+		var res string
+		return res
+	}
+	return *s
+}
+
+func BoolDeref(b *bool) bool {
+	if b == nil {
+		var res bool
+		return res
+	}
+	return *b
+}
+
+func Int64Deref(i *int64) int64 {
+	if i == nil {
+		var res int64
+		return res
+	}
+	return *i
+}

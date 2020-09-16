@@ -8,7 +8,6 @@ package models
 import (
 	strfmt "github.com/go-openapi/strfmt"
 
-	"github.com/go-openapi/errors"
 	"github.com/go-openapi/swag"
 )
 
@@ -20,8 +19,7 @@ type V1NetworkAllocateRequest struct {
 	Description string `json:"description,omitempty"`
 
 	// free labels that you associate with this network.
-	// Required: true
-	Labels map[string]string `json:"labels"`
+	Labels map[string]string `json:"labels,omitempty"`
 
 	// a readable name for this entity
 	Name string `json:"name,omitempty"`
@@ -35,20 +33,6 @@ type V1NetworkAllocateRequest struct {
 
 // Validate validates this v1 network allocate request
 func (m *V1NetworkAllocateRequest) Validate(formats strfmt.Registry) error {
-	var res []error
-
-	if err := m.validateLabels(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (m *V1NetworkAllocateRequest) validateLabels(formats strfmt.Registry) error {
-
 	return nil
 }
 

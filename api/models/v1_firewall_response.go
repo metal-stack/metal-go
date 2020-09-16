@@ -18,24 +18,21 @@ import (
 type V1FirewallResponse struct {
 
 	// the allocation data of an allocated machine
-	// Required: true
-	Allocation *V1MachineAllocation `json:"allocation"`
+	Allocation *V1MachineAllocation `json:"allocation,omitempty"`
 
 	// bios information of this machine
 	// Required: true
 	Bios *V1MachineBIOS `json:"bios"`
 
 	// the last changed timestamp of this entity
-	// Required: true
 	// Read Only: true
 	// Format: date-time
-	Changed strfmt.DateTime `json:"changed"`
+	Changed strfmt.DateTime `json:"changed,omitempty"`
 
 	// the creation time of this entity
-	// Required: true
 	// Read Only: true
 	// Format: date-time
-	Created strfmt.DateTime `json:"created"`
+	Created strfmt.DateTime `json:"created,omitempty"`
 
 	// a description for this entity
 	Description string `json:"description,omitempty"`
@@ -65,19 +62,16 @@ type V1FirewallResponse struct {
 	Name string `json:"name,omitempty"`
 
 	// the partition assigned to this machine
-	// Required: true
 	// Read Only: true
-	Partition *V1PartitionResponse `json:"partition"`
+	Partition *V1PartitionResponse `json:"partition,omitempty"`
 
 	// the rack assigned to this machine
-	// Required: true
 	// Read Only: true
-	Rackid string `json:"rackid"`
+	Rackid string `json:"rackid,omitempty"`
 
 	// the size of this machine
-	// Required: true
 	// Read Only: true
-	Size *V1SizeResponse `json:"size"`
+	Size *V1SizeResponse `json:"size,omitempty"`
 
 	// the state of this machine
 	// Required: true
@@ -132,10 +126,6 @@ func (m *V1FirewallResponse) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validateRackid(formats); err != nil {
-		res = append(res, err)
-	}
-
 	if err := m.validateSize(formats); err != nil {
 		res = append(res, err)
 	}
@@ -156,8 +146,8 @@ func (m *V1FirewallResponse) Validate(formats strfmt.Registry) error {
 
 func (m *V1FirewallResponse) validateAllocation(formats strfmt.Registry) error {
 
-	if err := validate.Required("allocation", "body", m.Allocation); err != nil {
-		return err
+	if swag.IsZero(m.Allocation) { // not required
+		return nil
 	}
 
 	if m.Allocation != nil {
@@ -192,8 +182,8 @@ func (m *V1FirewallResponse) validateBios(formats strfmt.Registry) error {
 
 func (m *V1FirewallResponse) validateChanged(formats strfmt.Registry) error {
 
-	if err := validate.Required("changed", "body", strfmt.DateTime(m.Changed)); err != nil {
-		return err
+	if swag.IsZero(m.Changed) { // not required
+		return nil
 	}
 
 	if err := validate.FormatOf("changed", "body", "date-time", m.Changed.String(), formats); err != nil {
@@ -205,8 +195,8 @@ func (m *V1FirewallResponse) validateChanged(formats strfmt.Registry) error {
 
 func (m *V1FirewallResponse) validateCreated(formats strfmt.Registry) error {
 
-	if err := validate.Required("created", "body", strfmt.DateTime(m.Created)); err != nil {
-		return err
+	if swag.IsZero(m.Created) { // not required
+		return nil
 	}
 
 	if err := validate.FormatOf("created", "body", "date-time", m.Created.String(), formats); err != nil {
@@ -290,8 +280,8 @@ func (m *V1FirewallResponse) validateLiveliness(formats strfmt.Registry) error {
 
 func (m *V1FirewallResponse) validatePartition(formats strfmt.Registry) error {
 
-	if err := validate.Required("partition", "body", m.Partition); err != nil {
-		return err
+	if swag.IsZero(m.Partition) { // not required
+		return nil
 	}
 
 	if m.Partition != nil {
@@ -306,19 +296,10 @@ func (m *V1FirewallResponse) validatePartition(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *V1FirewallResponse) validateRackid(formats strfmt.Registry) error {
-
-	if err := validate.RequiredString("rackid", "body", string(m.Rackid)); err != nil {
-		return err
-	}
-
-	return nil
-}
-
 func (m *V1FirewallResponse) validateSize(formats strfmt.Registry) error {
 
-	if err := validate.Required("size", "body", m.Size); err != nil {
-		return err
+	if swag.IsZero(m.Size) { // not required
+		return nil
 	}
 
 	if m.Size != nil {

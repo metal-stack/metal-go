@@ -23,8 +23,7 @@ type V1IPAllocateRequest struct {
 	Description string `json:"description,omitempty"`
 
 	// the machine id this ip should be associated with
-	// Required: true
-	Machineid *string `json:"machineid"`
+	Machineid string `json:"machineid,omitempty"`
 
 	// a readable name for this entity
 	Name string `json:"name,omitempty"`
@@ -38,7 +37,6 @@ type V1IPAllocateRequest struct {
 	Projectid *string `json:"projectid"`
 
 	// free tags that you associate with this ip.
-	// Required: true
 	Tags []string `json:"tags"`
 
 	// the ip type, ephemeral leads to automatic cleanup of the ip address, static will enable re-use of the ip at a later point in time
@@ -51,19 +49,11 @@ type V1IPAllocateRequest struct {
 func (m *V1IPAllocateRequest) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateMachineid(formats); err != nil {
-		res = append(res, err)
-	}
-
 	if err := m.validateNetworkid(formats); err != nil {
 		res = append(res, err)
 	}
 
 	if err := m.validateProjectid(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateTags(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -74,15 +64,6 @@ func (m *V1IPAllocateRequest) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
-	return nil
-}
-
-func (m *V1IPAllocateRequest) validateMachineid(formats strfmt.Registry) error {
-
-	if err := validate.Required("machineid", "body", m.Machineid); err != nil {
-		return err
-	}
-
 	return nil
 }
 
@@ -98,15 +79,6 @@ func (m *V1IPAllocateRequest) validateNetworkid(formats strfmt.Registry) error {
 func (m *V1IPAllocateRequest) validateProjectid(formats strfmt.Registry) error {
 
 	if err := validate.Required("projectid", "body", m.Projectid); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *V1IPAllocateRequest) validateTags(formats strfmt.Registry) error {
-
-	if err := validate.Required("tags", "body", m.Tags); err != nil {
 		return err
 	}
 

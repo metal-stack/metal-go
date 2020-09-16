@@ -18,16 +18,14 @@ import (
 type V1NetworkResponse struct {
 
 	// the last changed timestamp of this entity
-	// Required: true
 	// Read Only: true
 	// Format: date-time
-	Changed strfmt.DateTime `json:"changed"`
+	Changed strfmt.DateTime `json:"changed,omitempty"`
 
 	// the creation time of this entity
-	// Required: true
 	// Read Only: true
 	// Format: date-time
-	Created strfmt.DateTime `json:"created"`
+	Created strfmt.DateTime `json:"created,omitempty"`
 
 	// a description for this entity
 	Description string `json:"description,omitempty"`
@@ -42,8 +40,7 @@ type V1NetworkResponse struct {
 	ID *string `json:"id"`
 
 	// free labels that you associate with this network.
-	// Required: true
-	Labels map[string]string `json:"labels"`
+	Labels map[string]string `json:"labels,omitempty"`
 
 	// a readable name for this entity
 	Name string `json:"name,omitempty"`
@@ -105,10 +102,6 @@ func (m *V1NetworkResponse) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validateLabels(formats); err != nil {
-		res = append(res, err)
-	}
-
 	if err := m.validateNat(formats); err != nil {
 		res = append(res, err)
 	}
@@ -141,8 +134,8 @@ func (m *V1NetworkResponse) Validate(formats strfmt.Registry) error {
 
 func (m *V1NetworkResponse) validateChanged(formats strfmt.Registry) error {
 
-	if err := validate.Required("changed", "body", strfmt.DateTime(m.Changed)); err != nil {
-		return err
+	if swag.IsZero(m.Changed) { // not required
+		return nil
 	}
 
 	if err := validate.FormatOf("changed", "body", "date-time", m.Changed.String(), formats); err != nil {
@@ -154,8 +147,8 @@ func (m *V1NetworkResponse) validateChanged(formats strfmt.Registry) error {
 
 func (m *V1NetworkResponse) validateCreated(formats strfmt.Registry) error {
 
-	if err := validate.Required("created", "body", strfmt.DateTime(m.Created)); err != nil {
-		return err
+	if swag.IsZero(m.Created) { // not required
+		return nil
 	}
 
 	if err := validate.FormatOf("created", "body", "date-time", m.Created.String(), formats); err != nil {
@@ -179,11 +172,6 @@ func (m *V1NetworkResponse) validateID(formats strfmt.Registry) error {
 	if err := validate.Required("id", "body", m.ID); err != nil {
 		return err
 	}
-
-	return nil
-}
-
-func (m *V1NetworkResponse) validateLabels(formats strfmt.Registry) error {
 
 	return nil
 }

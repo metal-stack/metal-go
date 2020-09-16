@@ -69,7 +69,7 @@ type ChassisIdentifyLEDOffParams struct {
 	  reason why the chassis identify LED has been turned off
 
 	*/
-	Description string
+	Description *string
 	/*ID
 	  identifier of the machine
 
@@ -126,13 +126,13 @@ func (o *ChassisIdentifyLEDOffParams) SetBody(body models.V1EmptyBody) {
 }
 
 // WithDescription adds the description to the chassis identify l e d off params
-func (o *ChassisIdentifyLEDOffParams) WithDescription(description string) *ChassisIdentifyLEDOffParams {
+func (o *ChassisIdentifyLEDOffParams) WithDescription(description *string) *ChassisIdentifyLEDOffParams {
 	o.SetDescription(description)
 	return o
 }
 
 // SetDescription adds the description to the chassis identify l e d off params
-func (o *ChassisIdentifyLEDOffParams) SetDescription(description string) {
+func (o *ChassisIdentifyLEDOffParams) SetDescription(description *string) {
 	o.Description = description
 }
 
@@ -161,9 +161,20 @@ func (o *ChassisIdentifyLEDOffParams) WriteToRequest(r runtime.ClientRequest, re
 		}
 	}
 
-	// path param description
-	if err := r.SetPathParam("description", o.Description); err != nil {
-		return err
+	if o.Description != nil {
+
+		// query param description
+		var qrDescription string
+		if o.Description != nil {
+			qrDescription = *o.Description
+		}
+		qDescription := qrDescription
+		if qDescription != "" {
+			if err := r.SetQueryParam("description", qDescription); err != nil {
+				return err
+			}
+		}
+
 	}
 
 	// path param id

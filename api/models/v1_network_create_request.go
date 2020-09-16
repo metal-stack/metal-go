@@ -30,8 +30,7 @@ type V1NetworkCreateRequest struct {
 	ID *string `json:"id"`
 
 	// free labels that you associate with this network.
-	// Required: true
-	Labels map[string]string `json:"labels"`
+	Labels map[string]string `json:"labels,omitempty"`
 
 	// a readable name for this entity
 	Name string `json:"name,omitempty"`
@@ -81,10 +80,6 @@ func (m *V1NetworkCreateRequest) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validateLabels(formats); err != nil {
-		res = append(res, err)
-	}
-
 	if err := m.validateNat(formats); err != nil {
 		res = append(res, err)
 	}
@@ -125,11 +120,6 @@ func (m *V1NetworkCreateRequest) validateID(formats strfmt.Registry) error {
 	if err := validate.Required("id", "body", m.ID); err != nil {
 		return err
 	}
-
-	return nil
-}
-
-func (m *V1NetworkCreateRequest) validateLabels(formats strfmt.Registry) error {
 
 	return nil
 }
