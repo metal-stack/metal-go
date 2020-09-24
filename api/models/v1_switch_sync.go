@@ -13,33 +13,28 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// MetalSwitchSync metal switch sync
-// swagger:model metal.SwitchSync
-type MetalSwitchSync struct {
+// V1SwitchSync v1 switch sync
+// swagger:model v1.SwitchSync
+type V1SwitchSync struct {
 
-	// duration
+	// the duration that lat switch sync took
 	// Required: true
 	Duration *int64 `json:"duration"`
 
-	// error
-	// Required: true
-	Error *string `json:"error"`
+	// shows the error occurred during the sync
+	Error string `json:"error,omitempty"`
 
-	// time
+	// point in time when the last switch sync happened
 	// Required: true
 	// Format: date-time
 	Time *strfmt.DateTime `json:"time"`
 }
 
-// Validate validates this metal switch sync
-func (m *MetalSwitchSync) Validate(formats strfmt.Registry) error {
+// Validate validates this v1 switch sync
+func (m *V1SwitchSync) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateDuration(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateError(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -53,7 +48,7 @@ func (m *MetalSwitchSync) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *MetalSwitchSync) validateDuration(formats strfmt.Registry) error {
+func (m *V1SwitchSync) validateDuration(formats strfmt.Registry) error {
 
 	if err := validate.Required("duration", "body", m.Duration); err != nil {
 		return err
@@ -62,16 +57,7 @@ func (m *MetalSwitchSync) validateDuration(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *MetalSwitchSync) validateError(formats strfmt.Registry) error {
-
-	if err := validate.Required("error", "body", m.Error); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *MetalSwitchSync) validateTime(formats strfmt.Registry) error {
+func (m *V1SwitchSync) validateTime(formats strfmt.Registry) error {
 
 	if err := validate.Required("time", "body", m.Time); err != nil {
 		return err
@@ -85,7 +71,7 @@ func (m *MetalSwitchSync) validateTime(formats strfmt.Registry) error {
 }
 
 // MarshalBinary interface implementation
-func (m *MetalSwitchSync) MarshalBinary() ([]byte, error) {
+func (m *V1SwitchSync) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -93,8 +79,8 @@ func (m *MetalSwitchSync) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *MetalSwitchSync) UnmarshalBinary(b []byte) error {
-	var res MetalSwitchSync
+func (m *V1SwitchSync) UnmarshalBinary(b []byte) error {
+	var res V1SwitchSync
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

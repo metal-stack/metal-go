@@ -93,7 +93,7 @@ func (a *Client) FindFirewalls(params *FindFirewallsParams, authInfo runtime.Cli
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "findFirewalls",
-		Method:             "GET",
+		Method:             "POST",
 		PathPattern:        "/v1/firewall/find",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
