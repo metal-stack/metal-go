@@ -40,22 +40,33 @@ type Driver struct {
 	ip        *ip.Client
 	auth      runtime.ClientAuthInfoWriter
 	bearer    string
+	authType  string
 	hmac      *security.HMACAuth
 }
 
-// NewDriver Create a new Driver for Metal to given url
-func NewDriver(rawurl, bearer, hmac string) (*Driver, error) {
+// Option for config of Driver
+type option func(driver *Driver)
+
+// AuthType sets the authType for HMAC-Auth
+func AuthType(authType string) option {
+	return func(driver *Driver) {
+		driver.authType = authType
+	}
+}
+
+// NewDriver Create a new Driver for Metal to given url. Either bearer OR hmacKey must be set.
+func NewDriver(baseURL, bearer, hmacKey string, options ...option) (*Driver, error) {
 	roundTripper := &roundTripper{}
 
-	parsedurl, err := url.Parse(rawurl)
+	parsedURL, err := url.Parse(baseURL)
 	if err != nil {
 		return nil, err
 	}
-	if parsedurl.Host == "" {
-		return nil, fmt.Errorf("invalid url:%s, must be in the form scheme://host[:port]/basepath", rawurl)
+	if parsedURL.Host == "" {
+		return nil, fmt.Errorf("invalid url:%s, must be in the form scheme://host[:port]/basepath", baseURL)
 	}
 
-	transport := httptransport.New(parsedurl.Host, parsedurl.Path, []string{parsedurl.Scheme})
+	transport := httptransport.New(parsedURL.Host, parsedURL.Path, []string{parsedURL.Scheme})
 	transport.Transport = roundTripper
 
 	driver := &Driver{
@@ -69,9 +80,15 @@ func NewDriver(rawurl, bearer, hmac string) (*Driver, error) {
 		network:   network.New(transport, strfmt.Default),
 		ip:        ip.New(transport, strfmt.Default),
 		bearer:    bearer,
+		authType:  "Metal-Admin",
 	}
-	if hmac != "" {
-		auth := security.NewHMACAuth("Metal-Admin", []byte(hmac))
+
+	for _, opt := range options {
+		opt(driver)
+	}
+
+	if hmacKey != "" {
+		auth := security.NewHMACAuth(driver.authType, []byte(hmacKey))
 		driver.hmac = &auth
 	}
 	driver.auth = runtime.ClientAuthInfoWriterFunc(driver.auther)
