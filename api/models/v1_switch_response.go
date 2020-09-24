@@ -42,12 +42,10 @@ type V1SwitchResponse struct {
 	ID *string `json:"id"`
 
 	// last successful synchronization to the switch
-	// Required: true
-	LastSync *MetalSwitchSync `json:"last_sync"`
+	LastSync *V1SwitchSync `json:"last_sync,omitempty"`
 
 	// last synchronization to the switch that was erroneous
-	// Required: true
-	LastSyncError *MetalSwitchSync `json:"last_sync_error"`
+	LastSyncError *V1SwitchSync `json:"last_sync_error,omitempty"`
 
 	// the mode the switch currently has
 	Mode string `json:"mode,omitempty"`
@@ -176,8 +174,8 @@ func (m *V1SwitchResponse) validateID(formats strfmt.Registry) error {
 
 func (m *V1SwitchResponse) validateLastSync(formats strfmt.Registry) error {
 
-	if err := validate.Required("last_sync", "body", m.LastSync); err != nil {
-		return err
+	if swag.IsZero(m.LastSync) { // not required
+		return nil
 	}
 
 	if m.LastSync != nil {
@@ -194,8 +192,8 @@ func (m *V1SwitchResponse) validateLastSync(formats strfmt.Registry) error {
 
 func (m *V1SwitchResponse) validateLastSyncError(formats strfmt.Registry) error {
 
-	if err := validate.Required("last_sync_error", "body", m.LastSyncError); err != nil {
-		return err
+	if swag.IsZero(m.LastSyncError) { // not required
+		return nil
 	}
 
 	if m.LastSyncError != nil {
