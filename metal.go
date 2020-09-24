@@ -45,17 +45,17 @@ type Driver struct {
 }
 
 // Option for config of Driver
-type Option func(driver *Driver)
+type option func(driver *Driver)
 
 // AuthType sets the authType for HMAC-Auth
-func AuthType(authType string) Option {
+func AuthType(authType string) option {
 	return func(driver *Driver) {
 		driver.authType = authType
 	}
 }
 
 // NewDriver Create a new Driver for Metal to given url. Either bearer OR hmacKey must be set.
-func NewDriver(baseURL, bearer, hmacKey string, options ...Option) (*Driver, error) {
+func NewDriver(baseURL, bearer, hmacKey string, options ...option) (*Driver, error) {
 	roundTripper := &roundTripper{}
 
 	parsedURL, err := url.Parse(baseURL)
