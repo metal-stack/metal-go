@@ -17,9 +17,9 @@ import (
 // swagger:model v1.MachineIpmiReport
 type V1MachineIPMIReport struct {
 
-	// the FRU information
+	// the FRU information by machine UID
 	// Required: true
-	Fru *V1MachineFru `json:"fru"`
+	Frus map[string]V1MachineFru `json:"frus"`
 
 	// the active leases to be reported by a management server
 	// Required: true
@@ -34,7 +34,7 @@ type V1MachineIPMIReport struct {
 func (m *V1MachineIPMIReport) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateFru(formats); err != nil {
+	if err := m.validateFrus(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -52,19 +52,19 @@ func (m *V1MachineIPMIReport) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *V1MachineIPMIReport) validateFru(formats strfmt.Registry) error {
+func (m *V1MachineIPMIReport) validateFrus(formats strfmt.Registry) error {
 
-	if err := validate.Required("fru", "body", m.Fru); err != nil {
-		return err
-	}
+	for k := range m.Frus {
 
-	if m.Fru != nil {
-		if err := m.Fru.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("fru")
-			}
+		if err := validate.Required("frus"+"."+k, "body", m.Frus[k]); err != nil {
 			return err
 		}
+		if val, ok := m.Frus[k]; ok {
+			if err := val.Validate(formats); err != nil {
+				return err
+			}
+		}
+
 	}
 
 	return nil
