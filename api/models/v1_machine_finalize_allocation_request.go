@@ -29,6 +29,10 @@ type V1MachineFinalizeAllocationRequest struct {
 	// Required: true
 	ConsolePassword *string `json:"console_password"`
 
+	// the FRU information
+	// Required: true
+	Fru *V1MachineFru `json:"fru"`
+
 	// the initrd image
 	// Required: true
 	Initrd *string `json:"initrd"`
@@ -59,6 +63,10 @@ func (m *V1MachineFinalizeAllocationRequest) Validate(formats strfmt.Registry) e
 	}
 
 	if err := m.validateConsolePassword(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateFru(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -106,6 +114,24 @@ func (m *V1MachineFinalizeAllocationRequest) validateConsolePassword(formats str
 
 	if err := validate.Required("console_password", "body", m.ConsolePassword); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+func (m *V1MachineFinalizeAllocationRequest) validateFru(formats strfmt.Registry) error {
+
+	if err := validate.Required("fru", "body", m.Fru); err != nil {
+		return err
+	}
+
+	if m.Fru != nil {
+		if err := m.Fru.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("fru")
+			}
+			return err
+		}
 	}
 
 	return nil

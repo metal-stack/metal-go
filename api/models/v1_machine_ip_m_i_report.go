@@ -17,6 +17,10 @@ import (
 // swagger:model v1.MachineIpmiReport
 type V1MachineIPMIReport struct {
 
+	// the FRU information
+	// Required: true
+	Fru *V1MachineFru `json:"fru"`
+
 	// the active leases to be reported by a management server
 	// Required: true
 	Leases map[string]string `json:"leases"`
@@ -30,6 +34,10 @@ type V1MachineIPMIReport struct {
 func (m *V1MachineIPMIReport) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateFru(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateLeases(formats); err != nil {
 		res = append(res, err)
 	}
@@ -41,6 +49,24 @@ func (m *V1MachineIPMIReport) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *V1MachineIPMIReport) validateFru(formats strfmt.Registry) error {
+
+	if err := validate.Required("fru", "body", m.Fru); err != nil {
+		return err
+	}
+
+	if m.Fru != nil {
+		if err := m.Fru.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("fru")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 
