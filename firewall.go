@@ -1,9 +1,6 @@
 package metalgo
 
 import (
-	"net/http"
-	"time"
-
 	"github.com/metal-stack/metal-go/api/client/firewall"
 	"github.com/metal-stack/metal-go/api/models"
 )
@@ -56,12 +53,7 @@ func (d *Driver) FirewallCreate(fcr *FirewallCreateRequest) (*FirewallCreateResp
 	allocFirewall := firewall.NewAllocateFirewallParams()
 	allocFirewall.SetBody(allocateRequest)
 
-	retryOnlyOnStatusNotFound := func(sc int) bool {
-		return sc == http.StatusNotFound
-	}
-	allocFirewall.WithContext(newRetryContext(3, 5*time.Second, retryOnlyOnStatusNotFound))
-
-	resp, err := d.firewall.AllocateFirewall(allocFirewall, d.auth)
+	resp, err := d.firewall.AllocateFirewall(allocFirewall, nil)
 	if err != nil {
 		return response, err
 	}
@@ -75,7 +67,7 @@ func (d *Driver) FirewallList() (*FirewallListResponse, error) {
 	response := &FirewallListResponse{}
 
 	listFirewall := firewall.NewListFirewallsParams()
-	resp, err := d.firewall.ListFirewalls(listFirewall, d.auth)
+	resp, err := d.firewall.ListFirewalls(listFirewall, nil)
 	if err != nil {
 		return response, err
 	}
@@ -142,7 +134,7 @@ func (d *Driver) FirewallFind(ffr *FirewallFindRequest) (*FirewallListResponse, 
 	findFirewalls := firewall.NewFindFirewallsParams()
 	findFirewalls.SetBody(req)
 
-	resp, err = d.firewall.FindFirewalls(findFirewalls, d.auth)
+	resp, err = d.firewall.FindFirewalls(findFirewalls, nil)
 	if err != nil {
 		return response, err
 	}
@@ -156,7 +148,7 @@ func (d *Driver) FirewallGet(machineID string) (*FirewallGetResponse, error) {
 	findFirewall.ID = machineID
 
 	response := &FirewallGetResponse{}
-	resp, err := d.firewall.FindFirewall(findFirewall, d.auth)
+	resp, err := d.firewall.FindFirewall(findFirewall, nil)
 	if err != nil {
 		return response, err
 	}

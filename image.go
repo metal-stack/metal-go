@@ -38,7 +38,7 @@ type ImageCreateResponse struct {
 func (d *Driver) ImageList() (*ImageListResponse, error) {
 	response := &ImageListResponse{}
 	listImages := image.NewListImagesParams()
-	resp, err := d.image.ListImages(listImages, d.auth)
+	resp, err := d.image.ListImages(listImages, nil)
 	if err != nil {
 		return response, err
 	}
@@ -51,7 +51,7 @@ func (d *Driver) ImageGet(imageID string) (*ImageGetResponse, error) {
 	response := &ImageGetResponse{}
 	request := image.NewFindImageParams()
 	request.ID = imageID
-	resp, err := d.image.FindImage(request, d.auth)
+	resp, err := d.image.FindImage(request, nil)
 	if err != nil {
 		return response, err
 	}
@@ -64,7 +64,7 @@ func (d *Driver) ImageGetLatest(imageID string) (*ImageGetResponse, error) {
 	response := &ImageGetResponse{}
 	request := image.NewFindLatestImageParams()
 	request.ID = imageID
-	resp, err := d.image.FindLatestImage(request, d.auth)
+	resp, err := d.image.FindLatestImage(request, nil)
 	if err != nil {
 		return response, err
 	}
@@ -85,7 +85,7 @@ func (d *Driver) ImageCreate(icr ImageCreateRequest) (*ImageCreateResponse, erro
 	}
 	request := image.NewCreateImageParams()
 	request.SetBody(createImage)
-	resp, err := d.image.CreateImage(request, d.auth)
+	resp, err := d.image.CreateImage(request, nil)
 	if err != nil {
 		return response, err
 	}
@@ -114,7 +114,7 @@ func (d *Driver) ImageUpdate(icr ImageCreateRequest) (*ImageCreateResponse, erro
 
 	request := image.NewUpdateImageParams()
 	request.SetBody(updateImage)
-	resp, err := d.image.UpdateImage(request, d.auth)
+	resp, err := d.image.UpdateImage(request, nil)
 	if err != nil {
 		return response, err
 	}
@@ -127,7 +127,7 @@ func (d *Driver) ImageDelete(imageID string) (*ImageGetResponse, error) {
 	response := &ImageGetResponse{}
 	request := image.NewDeleteImageParams()
 	request.ID = imageID
-	resp, err := d.image.DeleteImage(request, d.auth)
+	resp, err := d.image.DeleteImage(request, nil)
 	if err != nil {
 		return response, err
 	}
