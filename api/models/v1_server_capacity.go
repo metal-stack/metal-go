@@ -25,6 +25,10 @@ type V1ServerCapacity struct {
 	// Required: true
 	Faulty *int32 `json:"faulty"`
 
+	// servers with issues with this size
+	// Required: true
+	Faultymachines []string `json:"faultymachines"`
+
 	// free servers with this size
 	// Required: true
 	Free *int32 `json:"free"`
@@ -32,6 +36,10 @@ type V1ServerCapacity struct {
 	// servers neither free, allocated or faulty with this size
 	// Required: true
 	Other *int32 `json:"other"`
+
+	// servers neither free, allocated or faulty with this size
+	// Required: true
+	Othermachines []string `json:"othermachines"`
 
 	// the size of the server
 	// Required: true
@@ -54,11 +62,19 @@ func (m *V1ServerCapacity) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateFaultymachines(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateFree(formats); err != nil {
 		res = append(res, err)
 	}
 
 	if err := m.validateOther(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateOthermachines(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -94,6 +110,15 @@ func (m *V1ServerCapacity) validateFaulty(formats strfmt.Registry) error {
 	return nil
 }
 
+func (m *V1ServerCapacity) validateFaultymachines(formats strfmt.Registry) error {
+
+	if err := validate.Required("faultymachines", "body", m.Faultymachines); err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func (m *V1ServerCapacity) validateFree(formats strfmt.Registry) error {
 
 	if err := validate.Required("free", "body", m.Free); err != nil {
@@ -106,6 +131,15 @@ func (m *V1ServerCapacity) validateFree(formats strfmt.Registry) error {
 func (m *V1ServerCapacity) validateOther(formats strfmt.Registry) error {
 
 	if err := validate.Required("other", "body", m.Other); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *V1ServerCapacity) validateOthermachines(formats strfmt.Registry) error {
+
+	if err := validate.Required("othermachines", "body", m.Othermachines); err != nil {
 		return err
 	}
 
