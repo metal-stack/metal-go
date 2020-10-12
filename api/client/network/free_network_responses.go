@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/metal-stack/metal-go/api/models"
+	"github.com/metal-stack/metal-go/api/models"
 )
 
 // FreeNetworkReader is a Reader for the FreeNetwork structure.
@@ -24,21 +23,18 @@ type FreeNetworkReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *FreeNetworkReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewFreeNetworkOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 409:
 		result := NewFreeNetworkConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		result := NewFreeNetworkDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -68,6 +64,10 @@ func (o *FreeNetworkOK) Error() string {
 	return fmt.Sprintf("[POST /v1/network/free/{id}][%d] freeNetworkOK  %+v", 200, o.Payload)
 }
 
+func (o *FreeNetworkOK) GetPayload() *models.V1NetworkResponse {
+	return o.Payload
+}
+
 func (o *FreeNetworkOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.V1NetworkResponse)
@@ -95,6 +95,10 @@ type FreeNetworkConflict struct {
 
 func (o *FreeNetworkConflict) Error() string {
 	return fmt.Sprintf("[POST /v1/network/free/{id}][%d] freeNetworkConflict  %+v", 409, o.Payload)
+}
+
+func (o *FreeNetworkConflict) GetPayload() *models.HttperrorsHTTPErrorResponse {
+	return o.Payload
 }
 
 func (o *FreeNetworkConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -133,6 +137,10 @@ func (o *FreeNetworkDefault) Code() int {
 
 func (o *FreeNetworkDefault) Error() string {
 	return fmt.Sprintf("[POST /v1/network/free/{id}][%d] freeNetwork default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *FreeNetworkDefault) GetPayload() *models.HttperrorsHTTPErrorResponse {
+	return o.Payload
 }
 
 func (o *FreeNetworkDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

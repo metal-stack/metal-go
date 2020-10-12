@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/metal-stack/metal-go/api/models"
+	"github.com/metal-stack/metal-go/api/models"
 )
 
 // UpdateNetworkReader is a Reader for the UpdateNetwork structure.
@@ -24,21 +23,18 @@ type UpdateNetworkReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *UpdateNetworkReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewUpdateNetworkOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 409:
 		result := NewUpdateNetworkConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		result := NewUpdateNetworkDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -68,6 +64,10 @@ func (o *UpdateNetworkOK) Error() string {
 	return fmt.Sprintf("[POST /v1/network][%d] updateNetworkOK  %+v", 200, o.Payload)
 }
 
+func (o *UpdateNetworkOK) GetPayload() *models.V1NetworkResponse {
+	return o.Payload
+}
+
 func (o *UpdateNetworkOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.V1NetworkResponse)
@@ -95,6 +95,10 @@ type UpdateNetworkConflict struct {
 
 func (o *UpdateNetworkConflict) Error() string {
 	return fmt.Sprintf("[POST /v1/network][%d] updateNetworkConflict  %+v", 409, o.Payload)
+}
+
+func (o *UpdateNetworkConflict) GetPayload() *models.HttperrorsHTTPErrorResponse {
+	return o.Payload
 }
 
 func (o *UpdateNetworkConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -133,6 +137,10 @@ func (o *UpdateNetworkDefault) Code() int {
 
 func (o *UpdateNetworkDefault) Error() string {
 	return fmt.Sprintf("[POST /v1/network][%d] updateNetwork default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *UpdateNetworkDefault) GetPayload() *models.HttperrorsHTTPErrorResponse {
+	return o.Payload
 }
 
 func (o *UpdateNetworkDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

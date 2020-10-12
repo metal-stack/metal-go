@@ -13,58 +13,57 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/metal-stack/metal-go/api/models"
+	"github.com/metal-stack/metal-go/api/models"
 )
 
-// NewIPMIReportParams creates a new IPMIReportParams object
+// NewIpmiReportParams creates a new IpmiReportParams object
 // with the default values initialized.
-func NewIPMIReportParams() *IPMIReportParams {
+func NewIpmiReportParams() *IpmiReportParams {
 	var ()
-	return &IPMIReportParams{
+	return &IpmiReportParams{
 
 		timeout: cr.DefaultTimeout,
 	}
 }
 
-// NewIPMIReportParamsWithTimeout creates a new IPMIReportParams object
+// NewIpmiReportParamsWithTimeout creates a new IpmiReportParams object
 // with the default values initialized, and the ability to set a timeout on a request
-func NewIPMIReportParamsWithTimeout(timeout time.Duration) *IPMIReportParams {
+func NewIpmiReportParamsWithTimeout(timeout time.Duration) *IpmiReportParams {
 	var ()
-	return &IPMIReportParams{
+	return &IpmiReportParams{
 
 		timeout: timeout,
 	}
 }
 
-// NewIPMIReportParamsWithContext creates a new IPMIReportParams object
+// NewIpmiReportParamsWithContext creates a new IpmiReportParams object
 // with the default values initialized, and the ability to set a context for a request
-func NewIPMIReportParamsWithContext(ctx context.Context) *IPMIReportParams {
+func NewIpmiReportParamsWithContext(ctx context.Context) *IpmiReportParams {
 	var ()
-	return &IPMIReportParams{
+	return &IpmiReportParams{
 
 		Context: ctx,
 	}
 }
 
-// NewIPMIReportParamsWithHTTPClient creates a new IPMIReportParams object
+// NewIpmiReportParamsWithHTTPClient creates a new IpmiReportParams object
 // with the default values initialized, and the ability to set a custom HTTPClient for a request
-func NewIPMIReportParamsWithHTTPClient(client *http.Client) *IPMIReportParams {
+func NewIpmiReportParamsWithHTTPClient(client *http.Client) *IpmiReportParams {
 	var ()
-	return &IPMIReportParams{
+	return &IpmiReportParams{
 		HTTPClient: client,
 	}
 }
 
-/*IPMIReportParams contains all the parameters to send to the API endpoint
+/*IpmiReportParams contains all the parameters to send to the API endpoint
 for the ipmi report operation typically these are written to a http.Request
 */
-type IPMIReportParams struct {
+type IpmiReportParams struct {
 
 	/*Body*/
-	Body *models.V1MachineIPMIReport
+	Body *models.V1MachineIpmiReport
 
 	timeout    time.Duration
 	Context    context.Context
@@ -72,51 +71,51 @@ type IPMIReportParams struct {
 }
 
 // WithTimeout adds the timeout to the ipmi report params
-func (o *IPMIReportParams) WithTimeout(timeout time.Duration) *IPMIReportParams {
+func (o *IpmiReportParams) WithTimeout(timeout time.Duration) *IpmiReportParams {
 	o.SetTimeout(timeout)
 	return o
 }
 
 // SetTimeout adds the timeout to the ipmi report params
-func (o *IPMIReportParams) SetTimeout(timeout time.Duration) {
+func (o *IpmiReportParams) SetTimeout(timeout time.Duration) {
 	o.timeout = timeout
 }
 
 // WithContext adds the context to the ipmi report params
-func (o *IPMIReportParams) WithContext(ctx context.Context) *IPMIReportParams {
+func (o *IpmiReportParams) WithContext(ctx context.Context) *IpmiReportParams {
 	o.SetContext(ctx)
 	return o
 }
 
 // SetContext adds the context to the ipmi report params
-func (o *IPMIReportParams) SetContext(ctx context.Context) {
+func (o *IpmiReportParams) SetContext(ctx context.Context) {
 	o.Context = ctx
 }
 
 // WithHTTPClient adds the HTTPClient to the ipmi report params
-func (o *IPMIReportParams) WithHTTPClient(client *http.Client) *IPMIReportParams {
+func (o *IpmiReportParams) WithHTTPClient(client *http.Client) *IpmiReportParams {
 	o.SetHTTPClient(client)
 	return o
 }
 
 // SetHTTPClient adds the HTTPClient to the ipmi report params
-func (o *IPMIReportParams) SetHTTPClient(client *http.Client) {
+func (o *IpmiReportParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
 // WithBody adds the body to the ipmi report params
-func (o *IPMIReportParams) WithBody(body *models.V1MachineIPMIReport) *IPMIReportParams {
+func (o *IpmiReportParams) WithBody(body *models.V1MachineIpmiReport) *IpmiReportParams {
 	o.SetBody(body)
 	return o
 }
 
 // SetBody adds the body to the ipmi report params
-func (o *IPMIReportParams) SetBody(body *models.V1MachineIPMIReport) {
+func (o *IpmiReportParams) SetBody(body *models.V1MachineIpmiReport) {
 	o.Body = body
 }
 
 // WriteToRequest writes these params to a swagger request
-func (o *IPMIReportParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
+func (o *IpmiReportParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
 	if err := r.SetTimeout(o.timeout); err != nil {
 		return err

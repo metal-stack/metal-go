@@ -6,12 +6,12 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	strfmt "github.com/go-openapi/strfmt"
-
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
 // V1ProjectFindRequest v1 project find request
+//
 // swagger:model v1.ProjectFindRequest
 type V1ProjectFindRequest struct {
 

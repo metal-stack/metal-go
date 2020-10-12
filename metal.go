@@ -29,15 +29,15 @@ import (
 
 // Driver holds the client connection to the metal api
 type Driver struct {
-	image     *image.Client
-	machine   *machine.Client
-	firewall  *firewall.Client
-	partition *partition.Client
-	project   *project.Client
-	size      *size.Client
-	sw        *sw.Client
-	network   *network.Client
-	ip        *ip.Client
+	image     image.ClientService
+	machine   machine.ClientService
+	firewall  firewall.ClientService
+	partition partition.ClientService
+	project   project.ClientService
+	size      size.ClientService
+	sw        sw.ClientService
+	network   network.ClientService
+	ip        ip.ClientService
 	auth      runtime.ClientAuthInfoWriter
 	bearer    string
 	hmac      *security.HMACAuth

@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/metal-stack/metal-go/api/models"
+	"github.com/metal-stack/metal-go/api/models"
 )
 
 // AllocateSpecificIPReader is a Reader for the AllocateSpecificIP structure.
@@ -24,14 +23,12 @@ type AllocateSpecificIPReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *AllocateSpecificIPReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 201:
 		result := NewAllocateSpecificIPCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		result := NewAllocateSpecificIPDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -59,6 +56,10 @@ type AllocateSpecificIPCreated struct {
 
 func (o *AllocateSpecificIPCreated) Error() string {
 	return fmt.Sprintf("[POST /v1/ip/allocate/{ip}][%d] allocateSpecificIpCreated  %+v", 201, o.Payload)
+}
+
+func (o *AllocateSpecificIPCreated) GetPayload() *models.V1IPResponse {
+	return o.Payload
 }
 
 func (o *AllocateSpecificIPCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -97,6 +98,10 @@ func (o *AllocateSpecificIPDefault) Code() int {
 
 func (o *AllocateSpecificIPDefault) Error() string {
 	return fmt.Sprintf("[POST /v1/ip/allocate/{ip}][%d] allocateSpecificIP default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *AllocateSpecificIPDefault) GetPayload() *models.HttperrorsHTTPErrorResponse {
+	return o.Payload
 }
 
 func (o *AllocateSpecificIPDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

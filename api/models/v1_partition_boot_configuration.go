@@ -6,12 +6,12 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	strfmt "github.com/go-openapi/strfmt"
-
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
 // V1PartitionBootConfiguration a partition has a distinct location in a data center, individual entities belong to a partition
+//
 // swagger:model v1.PartitionBootConfiguration
 type V1PartitionBootConfiguration struct {
 

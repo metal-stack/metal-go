@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/metal-stack/metal-go/api/models"
+	"github.com/metal-stack/metal-go/api/models"
 )
 
 // SetMachineStateReader is a Reader for the SetMachineState structure.
@@ -24,14 +23,12 @@ type SetMachineStateReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *SetMachineStateReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewSetMachineStateOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		result := NewSetMachineStateDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -59,6 +56,10 @@ type SetMachineStateOK struct {
 
 func (o *SetMachineStateOK) Error() string {
 	return fmt.Sprintf("[POST /v1/machine/{id}/state][%d] setMachineStateOK  %+v", 200, o.Payload)
+}
+
+func (o *SetMachineStateOK) GetPayload() *models.V1MachineResponse {
+	return o.Payload
 }
 
 func (o *SetMachineStateOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -97,6 +98,10 @@ func (o *SetMachineStateDefault) Code() int {
 
 func (o *SetMachineStateDefault) Error() string {
 	return fmt.Sprintf("[POST /v1/machine/{id}/state][%d] setMachineState default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *SetMachineStateDefault) GetPayload() *models.HttperrorsHTTPErrorResponse {
+	return o.Payload
 }
 
 func (o *SetMachineStateDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

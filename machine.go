@@ -134,12 +134,12 @@ type MachineIPMIListResponse struct {
 
 // MachineIPMIReport contains the machine ipmi report
 type MachineIPMIReport struct {
-	Report *models.V1MachineIPMIReport
+	Report *models.V1MachineIpmiReport
 }
 
 // MachineIPMIReportResponse contains the machine ipmi report result
 type MachineIPMIReportResponse struct {
-	Response *models.V1MachineIPMIReportResponse
+	Response *models.V1MachineIpmiReportResponse
 }
 
 // MachineDeleteResponse contains the machine delete result
@@ -290,10 +290,10 @@ func (d *Driver) MachineFind(mfr *MachineFindRequest) (*MachineListResponse, err
 		DiskNames:                  mfr.DiskNames,
 		DiskSizes:                  mfr.DiskSizes,
 		StateValue:                 StrDeref(mfr.StateValue),
-		IPMIAddress:                StrDeref(mfr.IpmiAddress),
-		IPMIMacAddress:             StrDeref(mfr.IpmiMacAddress),
-		IPMIUser:                   StrDeref(mfr.IpmiUser),
-		IPMIInterface:              StrDeref(mfr.IpmiInterface),
+		IpmiAddress:                StrDeref(mfr.IpmiAddress),
+		IpmiMacAddress:             StrDeref(mfr.IpmiMacAddress),
+		IpmiUser:                   StrDeref(mfr.IpmiUser),
+		IpmiInterface:              StrDeref(mfr.IpmiInterface),
 		FruChassisPartNumber:       StrDeref(mfr.FruChassisPartNumber),
 		FruChassisPartSerial:       StrDeref(mfr.FruChassisPartSerial),
 		FruBoardMfg:                StrDeref(mfr.FruBoardMfg),
@@ -366,10 +366,10 @@ func (d *Driver) MachineIPMIList(mfr *MachineFindRequest) (*MachineIPMIListRespo
 		DiskNames:                  mfr.DiskNames,
 		DiskSizes:                  mfr.DiskSizes,
 		StateValue:                 StrDeref(mfr.StateValue),
-		IPMIAddress:                StrDeref(mfr.IpmiAddress),
-		IPMIMacAddress:             StrDeref(mfr.IpmiMacAddress),
-		IPMIUser:                   StrDeref(mfr.IpmiUser),
-		IPMIInterface:              StrDeref(mfr.IpmiInterface),
+		IpmiAddress:                StrDeref(mfr.IpmiAddress),
+		IpmiMacAddress:             StrDeref(mfr.IpmiMacAddress),
+		IpmiUser:                   StrDeref(mfr.IpmiUser),
+		IpmiInterface:              StrDeref(mfr.IpmiInterface),
 		FruChassisPartNumber:       StrDeref(mfr.FruChassisPartNumber),
 		FruChassisPartSerial:       StrDeref(mfr.FruChassisPartSerial),
 		FruBoardMfg:                StrDeref(mfr.FruBoardMfg),
@@ -392,9 +392,9 @@ func (d *Driver) MachineIPMIList(mfr *MachineFindRequest) (*MachineIPMIListRespo
 
 // MachineIPMIReport send leases of this partition to the metal-api
 func (d *Driver) MachineIPMIReport(report MachineIPMIReport) (*MachineIPMIReportResponse, error) {
-	params := machine.NewIPMIReportParams()
+	params := machine.NewIpmiReportParams()
 	params.SetBody(report.Report)
-	ok, err := d.machine.IPMIReport(params, d.auth)
+	ok, err := d.machine.IpmiReport(params, d.auth)
 	if err != nil {
 		return nil, err
 	}

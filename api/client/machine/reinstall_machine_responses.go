@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/metal-stack/metal-go/api/models"
+	"github.com/metal-stack/metal-go/api/models"
 )
 
 // ReinstallMachineReader is a Reader for the ReinstallMachine structure.
@@ -24,21 +23,18 @@ type ReinstallMachineReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *ReinstallMachineReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewReinstallMachineOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewReinstallMachineBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		result := NewReinstallMachineDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -68,6 +64,10 @@ func (o *ReinstallMachineOK) Error() string {
 	return fmt.Sprintf("[POST /v1/machine/{id}/reinstall][%d] reinstallMachineOK  %+v", 200, o.Payload)
 }
 
+func (o *ReinstallMachineOK) GetPayload() *models.V1MachineResponse {
+	return o.Payload
+}
+
 func (o *ReinstallMachineOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.V1MachineResponse)
@@ -95,6 +95,10 @@ type ReinstallMachineBadRequest struct {
 
 func (o *ReinstallMachineBadRequest) Error() string {
 	return fmt.Sprintf("[POST /v1/machine/{id}/reinstall][%d] reinstallMachineBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *ReinstallMachineBadRequest) GetPayload() *models.HttperrorsHTTPErrorResponse {
+	return o.Payload
 }
 
 func (o *ReinstallMachineBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -133,6 +137,10 @@ func (o *ReinstallMachineDefault) Code() int {
 
 func (o *ReinstallMachineDefault) Error() string {
 	return fmt.Sprintf("[POST /v1/machine/{id}/reinstall][%d] reinstallMachine default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *ReinstallMachineDefault) GetPayload() *models.HttperrorsHTTPErrorResponse {
+	return o.Payload
 }
 
 func (o *ReinstallMachineDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/metal-stack/metal-go/api/models"
+	"github.com/metal-stack/metal-go/api/models"
 )
 
 // AllocateFirewallReader is a Reader for the AllocateFirewall structure.
@@ -24,14 +23,12 @@ type AllocateFirewallReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *AllocateFirewallReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewAllocateFirewallOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		result := NewAllocateFirewallDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -59,6 +56,10 @@ type AllocateFirewallOK struct {
 
 func (o *AllocateFirewallOK) Error() string {
 	return fmt.Sprintf("[POST /v1/firewall/allocate][%d] allocateFirewallOK  %+v", 200, o.Payload)
+}
+
+func (o *AllocateFirewallOK) GetPayload() *models.V1FirewallResponse {
+	return o.Payload
 }
 
 func (o *AllocateFirewallOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -97,6 +98,10 @@ func (o *AllocateFirewallDefault) Code() int {
 
 func (o *AllocateFirewallDefault) Error() string {
 	return fmt.Sprintf("[POST /v1/firewall/allocate][%d] allocateFirewall default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *AllocateFirewallDefault) GetPayload() *models.HttperrorsHTTPErrorResponse {
+	return o.Payload
 }
 
 func (o *AllocateFirewallDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

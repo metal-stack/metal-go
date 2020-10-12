@@ -7,12 +7,11 @@ package ip
 
 import (
 	"github.com/go-openapi/runtime"
-
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 )
 
 // New creates a new ip API client.
-func New(transport runtime.ClientTransport, formats strfmt.Registry) *Client {
+func New(transport runtime.ClientTransport, formats strfmt.Registry) ClientService {
 	return &Client{transport: transport, formats: formats}
 }
 
@@ -24,8 +23,27 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
+// ClientService is the interface for Client methods
+type ClientService interface {
+	AllocateIP(params *AllocateIPParams, authInfo runtime.ClientAuthInfoWriter) (*AllocateIPCreated, error)
+
+	AllocateSpecificIP(params *AllocateSpecificIPParams, authInfo runtime.ClientAuthInfoWriter) (*AllocateSpecificIPCreated, error)
+
+	FindIP(params *FindIPParams, authInfo runtime.ClientAuthInfoWriter) (*FindIPOK, error)
+
+	FindIPs(params *FindIPsParams, authInfo runtime.ClientAuthInfoWriter) (*FindIPsOK, error)
+
+	FreeIP(params *FreeIPParams, authInfo runtime.ClientAuthInfoWriter) (*FreeIPOK, error)
+
+	ListIPs(params *ListIPsParams, authInfo runtime.ClientAuthInfoWriter) (*ListIPsOK, error)
+
+	UpdateIP(params *UpdateIPParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateIPOK, error)
+
+	SetTransport(transport runtime.ClientTransport)
+}
+
 /*
-AllocateIP allocates an ip in the given network
+  AllocateIP allocates an ip in the given network
 */
 func (a *Client) AllocateIP(params *AllocateIPParams, authInfo runtime.ClientAuthInfoWriter) (*AllocateIPCreated, error) {
 	// TODO: Validate the params before sending
@@ -49,12 +67,17 @@ func (a *Client) AllocateIP(params *AllocateIPParams, authInfo runtime.ClientAut
 	if err != nil {
 		return nil, err
 	}
-	return result.(*AllocateIPCreated), nil
-
+	success, ok := result.(*AllocateIPCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*AllocateIPDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-AllocateSpecificIP allocates a specific ip in the given network
+  AllocateSpecificIP allocates a specific ip in the given network
 */
 func (a *Client) AllocateSpecificIP(params *AllocateSpecificIPParams, authInfo runtime.ClientAuthInfoWriter) (*AllocateSpecificIPCreated, error) {
 	// TODO: Validate the params before sending
@@ -78,12 +101,17 @@ func (a *Client) AllocateSpecificIP(params *AllocateSpecificIPParams, authInfo r
 	if err != nil {
 		return nil, err
 	}
-	return result.(*AllocateSpecificIPCreated), nil
-
+	success, ok := result.(*AllocateSpecificIPCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*AllocateSpecificIPDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-FindIP gets ip by id
+  FindIP gets ip by id
 */
 func (a *Client) FindIP(params *FindIPParams, authInfo runtime.ClientAuthInfoWriter) (*FindIPOK, error) {
 	// TODO: Validate the params before sending
@@ -107,17 +135,22 @@ func (a *Client) FindIP(params *FindIPParams, authInfo runtime.ClientAuthInfoWri
 	if err != nil {
 		return nil, err
 	}
-	return result.(*FindIPOK), nil
-
+	success, ok := result.(*FindIPOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*FindIPDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-FindIps gets all ips that match given properties
+  FindIPs gets all ips that match given properties
 */
-func (a *Client) FindIps(params *FindIpsParams, authInfo runtime.ClientAuthInfoWriter) (*FindIpsOK, error) {
+func (a *Client) FindIPs(params *FindIPsParams, authInfo runtime.ClientAuthInfoWriter) (*FindIPsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewFindIpsParams()
+		params = NewFindIPsParams()
 	}
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
@@ -128,7 +161,7 @@ func (a *Client) FindIps(params *FindIpsParams, authInfo runtime.ClientAuthInfoW
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http"},
 		Params:             params,
-		Reader:             &FindIpsReader{formats: a.formats},
+		Reader:             &FindIPsReader{formats: a.formats},
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
@@ -136,12 +169,17 @@ func (a *Client) FindIps(params *FindIpsParams, authInfo runtime.ClientAuthInfoW
 	if err != nil {
 		return nil, err
 	}
-	return result.(*FindIpsOK), nil
-
+	success, ok := result.(*FindIPsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*FindIPsDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-FreeIP frees an ip
+  FreeIP frees an ip
 */
 func (a *Client) FreeIP(params *FreeIPParams, authInfo runtime.ClientAuthInfoWriter) (*FreeIPOK, error) {
 	// TODO: Validate the params before sending
@@ -165,17 +203,22 @@ func (a *Client) FreeIP(params *FreeIPParams, authInfo runtime.ClientAuthInfoWri
 	if err != nil {
 		return nil, err
 	}
-	return result.(*FreeIPOK), nil
-
+	success, ok := result.(*FreeIPOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*FreeIPDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-ListIps gets all ips
+  ListIPs gets all ips
 */
-func (a *Client) ListIps(params *ListIpsParams, authInfo runtime.ClientAuthInfoWriter) (*ListIpsOK, error) {
+func (a *Client) ListIPs(params *ListIPsParams, authInfo runtime.ClientAuthInfoWriter) (*ListIPsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewListIpsParams()
+		params = NewListIPsParams()
 	}
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
@@ -186,7 +229,7 @@ func (a *Client) ListIps(params *ListIpsParams, authInfo runtime.ClientAuthInfoW
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http"},
 		Params:             params,
-		Reader:             &ListIpsReader{formats: a.formats},
+		Reader:             &ListIPsReader{formats: a.formats},
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
@@ -194,12 +237,17 @@ func (a *Client) ListIps(params *ListIpsParams, authInfo runtime.ClientAuthInfoW
 	if err != nil {
 		return nil, err
 	}
-	return result.(*ListIpsOK), nil
-
+	success, ok := result.(*ListIPsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*ListIPsDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-UpdateIP updates an ip if the ip was changed since this one was read a conflict is returned
+  UpdateIP updates an ip if the ip was changed since this one was read a conflict is returned
 */
 func (a *Client) UpdateIP(params *UpdateIPParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateIPOK, error) {
 	// TODO: Validate the params before sending
@@ -223,8 +271,13 @@ func (a *Client) UpdateIP(params *UpdateIPParams, authInfo runtime.ClientAuthInf
 	if err != nil {
 		return nil, err
 	}
-	return result.(*UpdateIPOK), nil
-
+	success, ok := result.(*UpdateIPOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*UpdateIPDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 // SetTransport changes the transport on the client

@@ -6,5 +6,6 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 // V1EmptyBody v1 empty body
+//
 // swagger:model v1.EmptyBody
 type V1EmptyBody interface{}

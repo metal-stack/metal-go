@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/metal-stack/metal-go/api/models"
+	"github.com/metal-stack/metal-go/api/models"
 )
 
 // ListMachinesReader is a Reader for the ListMachines structure.
@@ -24,14 +23,12 @@ type ListMachinesReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *ListMachinesReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewListMachinesOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		result := NewListMachinesDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -59,6 +56,10 @@ type ListMachinesOK struct {
 
 func (o *ListMachinesOK) Error() string {
 	return fmt.Sprintf("[GET /v1/machine][%d] listMachinesOK  %+v", 200, o.Payload)
+}
+
+func (o *ListMachinesOK) GetPayload() []*models.V1MachineResponse {
+	return o.Payload
 }
 
 func (o *ListMachinesOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -95,6 +96,10 @@ func (o *ListMachinesDefault) Code() int {
 
 func (o *ListMachinesDefault) Error() string {
 	return fmt.Sprintf("[GET /v1/machine][%d] listMachines default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *ListMachinesDefault) GetPayload() *models.HttperrorsHTTPErrorResponse {
+	return o.Payload
 }
 
 func (o *ListMachinesDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

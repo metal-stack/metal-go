@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/metal-stack/metal-go/api/models"
+	"github.com/metal-stack/metal-go/api/models"
 )
 
 // NotifySwitchReader is a Reader for the NotifySwitch structure.
@@ -24,14 +23,12 @@ type NotifySwitchReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *NotifySwitchReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewNotifySwitchOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		result := NewNotifySwitchDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -59,6 +56,10 @@ type NotifySwitchOK struct {
 
 func (o *NotifySwitchOK) Error() string {
 	return fmt.Sprintf("[POST /v1/switch/{id}/notify][%d] notifySwitchOK  %+v", 200, o.Payload)
+}
+
+func (o *NotifySwitchOK) GetPayload() *models.V1SwitchResponse {
+	return o.Payload
 }
 
 func (o *NotifySwitchOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -97,6 +98,10 @@ func (o *NotifySwitchDefault) Code() int {
 
 func (o *NotifySwitchDefault) Error() string {
 	return fmt.Sprintf("[POST /v1/switch/{id}/notify][%d] notifySwitch default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *NotifySwitchDefault) GetPayload() *models.HttperrorsHTTPErrorResponse {
+	return o.Payload
 }
 
 func (o *NotifySwitchDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

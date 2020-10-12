@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/metal-stack/metal-go/api/models"
+	"github.com/metal-stack/metal-go/api/models"
 )
 
 // FreeMachineReader is a Reader for the FreeMachine structure.
@@ -24,14 +23,12 @@ type FreeMachineReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *FreeMachineReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewFreeMachineOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		result := NewFreeMachineDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -59,6 +56,10 @@ type FreeMachineOK struct {
 
 func (o *FreeMachineOK) Error() string {
 	return fmt.Sprintf("[DELETE /v1/machine/{id}/free][%d] freeMachineOK  %+v", 200, o.Payload)
+}
+
+func (o *FreeMachineOK) GetPayload() *models.V1MachineResponse {
+	return o.Payload
 }
 
 func (o *FreeMachineOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -97,6 +98,10 @@ func (o *FreeMachineDefault) Code() int {
 
 func (o *FreeMachineDefault) Error() string {
 	return fmt.Sprintf("[DELETE /v1/machine/{id}/free][%d] freeMachine default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *FreeMachineDefault) GetPayload() *models.HttperrorsHTTPErrorResponse {
+	return o.Payload
 }
 
 func (o *FreeMachineDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

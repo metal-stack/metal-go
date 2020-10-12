@@ -442,8 +442,8 @@ func (d *Driver) IPUpdate(iur *IPUpdateRequest) (*IPDetailResponse, error) {
 // IPList lists all IPs
 func (d *Driver) IPList() (*IPListResponse, error) {
 	response := &IPListResponse{}
-	listIPs := ip.NewListIpsParams()
-	resp, err := d.ip.ListIps(listIPs, d.auth)
+	listIPs := ip.NewListIPsParams()
+	resp, err := d.ip.ListIPs(listIPs, d.auth)
 	if err != nil {
 		return response, err
 	}
@@ -459,9 +459,9 @@ func (d *Driver) IPFind(ifr *IPFindRequest) (*IPListResponse, error) {
 
 	response := &IPListResponse{}
 	var err error
-	var resp *ip.FindIpsOK
+	var resp *ip.FindIPsOK
 
-	findIPs := ip.NewFindIpsParams()
+	findIPs := ip.NewFindIPsParams()
 	req := &models.V1IPFindRequest{
 		Ipaddress:     StrDeref(ifr.IPAddress),
 		Projectid:     StrDeref(ifr.ProjectID),
@@ -473,7 +473,7 @@ func (d *Driver) IPFind(ifr *IPFindRequest) (*IPListResponse, error) {
 	}
 	findIPs.SetBody(req)
 
-	resp, err = d.ip.FindIps(findIPs, d.auth)
+	resp, err = d.ip.FindIPs(findIPs, d.auth)
 	if err != nil {
 		return response, err
 	}

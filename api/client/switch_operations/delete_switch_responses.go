@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/metal-stack/metal-go/api/models"
+	"github.com/metal-stack/metal-go/api/models"
 )
 
 // DeleteSwitchReader is a Reader for the DeleteSwitch structure.
@@ -24,14 +23,12 @@ type DeleteSwitchReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *DeleteSwitchReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewDeleteSwitchOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		result := NewDeleteSwitchDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -59,6 +56,10 @@ type DeleteSwitchOK struct {
 
 func (o *DeleteSwitchOK) Error() string {
 	return fmt.Sprintf("[DELETE /v1/switch/{id}][%d] deleteSwitchOK  %+v", 200, o.Payload)
+}
+
+func (o *DeleteSwitchOK) GetPayload() *models.V1SwitchResponse {
+	return o.Payload
 }
 
 func (o *DeleteSwitchOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -97,6 +98,10 @@ func (o *DeleteSwitchDefault) Code() int {
 
 func (o *DeleteSwitchDefault) Error() string {
 	return fmt.Sprintf("[DELETE /v1/switch/{id}][%d] deleteSwitch default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *DeleteSwitchDefault) GetPayload() *models.HttperrorsHTTPErrorResponse {
+	return o.Payload
 }
 
 func (o *DeleteSwitchDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

@@ -6,15 +6,15 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	strfmt "github.com/go-openapi/strfmt"
-
 	"github.com/go-openapi/errors"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
-// V1MachineIPMIReportResponse v1 machine ipmi report response
+// V1MachineIpmiReportResponse v1 machine ipmi report response
+//
 // swagger:model v1.MachineIpmiReportResponse
-type V1MachineIPMIReportResponse struct {
+type V1MachineIpmiReportResponse struct {
 
 	// the leases that triggered a creation of a machine entity
 	// Required: true
@@ -26,7 +26,7 @@ type V1MachineIPMIReportResponse struct {
 }
 
 // Validate validates this v1 machine ipmi report response
-func (m *V1MachineIPMIReportResponse) Validate(formats strfmt.Registry) error {
+func (m *V1MachineIpmiReportResponse) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateCreated(formats); err != nil {
@@ -43,18 +43,18 @@ func (m *V1MachineIPMIReportResponse) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *V1MachineIPMIReportResponse) validateCreated(formats strfmt.Registry) error {
+func (m *V1MachineIpmiReportResponse) validateCreated(formats strfmt.Registry) error {
 
 	return nil
 }
 
-func (m *V1MachineIPMIReportResponse) validateUpdated(formats strfmt.Registry) error {
+func (m *V1MachineIpmiReportResponse) validateUpdated(formats strfmt.Registry) error {
 
 	return nil
 }
 
 // MarshalBinary interface implementation
-func (m *V1MachineIPMIReportResponse) MarshalBinary() ([]byte, error) {
+func (m *V1MachineIpmiReportResponse) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -62,8 +62,8 @@ func (m *V1MachineIPMIReportResponse) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *V1MachineIPMIReportResponse) UnmarshalBinary(b []byte) error {
-	var res V1MachineIPMIReportResponse
+func (m *V1MachineIpmiReportResponse) UnmarshalBinary(b []byte) error {
+	var res V1MachineIpmiReportResponse
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

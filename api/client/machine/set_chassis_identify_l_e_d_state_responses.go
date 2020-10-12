@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/metal-stack/metal-go/api/models"
+	"github.com/metal-stack/metal-go/api/models"
 )
 
 // SetChassisIdentifyLEDStateReader is a Reader for the SetChassisIdentifyLEDState structure.
@@ -24,14 +23,12 @@ type SetChassisIdentifyLEDStateReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *SetChassisIdentifyLEDStateReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewSetChassisIdentifyLEDStateOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		result := NewSetChassisIdentifyLEDStateDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -59,6 +56,10 @@ type SetChassisIdentifyLEDStateOK struct {
 
 func (o *SetChassisIdentifyLEDStateOK) Error() string {
 	return fmt.Sprintf("[POST /v1/machine/{id}/chassis-identify-led-state][%d] setChassisIdentifyLEDStateOK  %+v", 200, o.Payload)
+}
+
+func (o *SetChassisIdentifyLEDStateOK) GetPayload() *models.V1MachineResponse {
+	return o.Payload
 }
 
 func (o *SetChassisIdentifyLEDStateOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -97,6 +98,10 @@ func (o *SetChassisIdentifyLEDStateDefault) Code() int {
 
 func (o *SetChassisIdentifyLEDStateDefault) Error() string {
 	return fmt.Sprintf("[POST /v1/machine/{id}/chassis-identify-led-state][%d] setChassisIdentifyLEDState default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *SetChassisIdentifyLEDStateDefault) GetPayload() *models.HttperrorsHTTPErrorResponse {
+	return o.Payload
 }
 
 func (o *SetChassisIdentifyLEDStateDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

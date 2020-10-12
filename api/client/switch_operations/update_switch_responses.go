@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/metal-stack/metal-go/api/models"
+	"github.com/metal-stack/metal-go/api/models"
 )
 
 // UpdateSwitchReader is a Reader for the UpdateSwitch structure.
@@ -24,21 +23,18 @@ type UpdateSwitchReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *UpdateSwitchReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewUpdateSwitchOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 409:
 		result := NewUpdateSwitchConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		result := NewUpdateSwitchDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -68,6 +64,10 @@ func (o *UpdateSwitchOK) Error() string {
 	return fmt.Sprintf("[POST /v1/switch][%d] updateSwitchOK  %+v", 200, o.Payload)
 }
 
+func (o *UpdateSwitchOK) GetPayload() *models.V1SwitchResponse {
+	return o.Payload
+}
+
 func (o *UpdateSwitchOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.V1SwitchResponse)
@@ -95,6 +95,10 @@ type UpdateSwitchConflict struct {
 
 func (o *UpdateSwitchConflict) Error() string {
 	return fmt.Sprintf("[POST /v1/switch][%d] updateSwitchConflict  %+v", 409, o.Payload)
+}
+
+func (o *UpdateSwitchConflict) GetPayload() *models.HttperrorsHTTPErrorResponse {
+	return o.Payload
 }
 
 func (o *UpdateSwitchConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -133,6 +137,10 @@ func (o *UpdateSwitchDefault) Code() int {
 
 func (o *UpdateSwitchDefault) Error() string {
 	return fmt.Sprintf("[POST /v1/switch][%d] updateSwitch default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *UpdateSwitchDefault) GetPayload() *models.HttperrorsHTTPErrorResponse {
+	return o.Payload
 }
 
 func (o *UpdateSwitchDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

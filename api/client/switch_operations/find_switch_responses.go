@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/metal-stack/metal-go/api/models"
+	"github.com/metal-stack/metal-go/api/models"
 )
 
 // FindSwitchReader is a Reader for the FindSwitch structure.
@@ -24,14 +23,12 @@ type FindSwitchReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *FindSwitchReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewFindSwitchOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		result := NewFindSwitchDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -59,6 +56,10 @@ type FindSwitchOK struct {
 
 func (o *FindSwitchOK) Error() string {
 	return fmt.Sprintf("[GET /v1/switch/{id}][%d] findSwitchOK  %+v", 200, o.Payload)
+}
+
+func (o *FindSwitchOK) GetPayload() *models.V1SwitchResponse {
+	return o.Payload
 }
 
 func (o *FindSwitchOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -97,6 +98,10 @@ func (o *FindSwitchDefault) Code() int {
 
 func (o *FindSwitchDefault) Error() string {
 	return fmt.Sprintf("[GET /v1/switch/{id}][%d] findSwitch default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *FindSwitchDefault) GetPayload() *models.HttperrorsHTTPErrorResponse {
+	return o.Payload
 }
 
 func (o *FindSwitchDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

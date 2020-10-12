@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/metal-stack/metal-go/api/models"
+	"github.com/metal-stack/metal-go/api/models"
 )
 
 // DeletePartitionReader is a Reader for the DeletePartition structure.
@@ -24,14 +23,12 @@ type DeletePartitionReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *DeletePartitionReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewDeletePartitionOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		result := NewDeletePartitionDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -59,6 +56,10 @@ type DeletePartitionOK struct {
 
 func (o *DeletePartitionOK) Error() string {
 	return fmt.Sprintf("[DELETE /v1/partition/{id}][%d] deletePartitionOK  %+v", 200, o.Payload)
+}
+
+func (o *DeletePartitionOK) GetPayload() *models.V1PartitionResponse {
+	return o.Payload
 }
 
 func (o *DeletePartitionOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -97,6 +98,10 @@ func (o *DeletePartitionDefault) Code() int {
 
 func (o *DeletePartitionDefault) Error() string {
 	return fmt.Sprintf("[DELETE /v1/partition/{id}][%d] deletePartition default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *DeletePartitionDefault) GetPayload() *models.HttperrorsHTTPErrorResponse {
+	return o.Payload
 }
 
 func (o *DeletePartitionDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

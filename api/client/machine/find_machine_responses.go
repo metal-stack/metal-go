@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/metal-stack/metal-go/api/models"
+	"github.com/metal-stack/metal-go/api/models"
 )
 
 // FindMachineReader is a Reader for the FindMachine structure.
@@ -24,14 +23,12 @@ type FindMachineReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *FindMachineReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewFindMachineOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		result := NewFindMachineDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -59,6 +56,10 @@ type FindMachineOK struct {
 
 func (o *FindMachineOK) Error() string {
 	return fmt.Sprintf("[GET /v1/machine/{id}][%d] findMachineOK  %+v", 200, o.Payload)
+}
+
+func (o *FindMachineOK) GetPayload() *models.V1MachineResponse {
+	return o.Payload
 }
 
 func (o *FindMachineOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -97,6 +98,10 @@ func (o *FindMachineDefault) Code() int {
 
 func (o *FindMachineDefault) Error() string {
 	return fmt.Sprintf("[GET /v1/machine/{id}][%d] findMachine default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *FindMachineDefault) GetPayload() *models.HttperrorsHTTPErrorResponse {
+	return o.Payload
 }
 
 func (o *FindMachineDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
