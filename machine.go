@@ -1,9 +1,6 @@
 package metalgo
 
 import (
-	"net/http"
-	"time"
-
 	"github.com/metal-stack/metal-go/api/client/machine"
 	"github.com/metal-stack/metal-go/api/models"
 )
@@ -189,12 +186,7 @@ func (d *Driver) MachineCreate(mcr *MachineCreateRequest) (*MachineCreateRespons
 	allocMachine := machine.NewAllocateMachineParams()
 	allocMachine.SetBody(allocateRequest)
 
-	retryOnlyOnStatusNotFound := func(sc int) bool {
-		return sc == http.StatusNotFound
-	}
-	allocMachine.WithContext(newRetryContext(3, 5*time.Second, retryOnlyOnStatusNotFound))
-
-	resp, err := d.machine.AllocateMachine(allocMachine, d.auth)
+	resp, err := d.machine.AllocateMachine(allocMachine, nil)
 	if err != nil {
 		return response, err
 	}
@@ -210,7 +202,7 @@ func (d *Driver) MachineDelete(machineID string) (*MachineDeleteResponse, error)
 	freeMachine.ID = machineID
 
 	response := &MachineDeleteResponse{}
-	resp, err := d.machine.FreeMachine(freeMachine, d.auth)
+	resp, err := d.machine.FreeMachine(freeMachine, nil)
 	if err != nil {
 		return response, err
 	}
@@ -224,7 +216,7 @@ func (d *Driver) MachineGet(id string) (*MachineGetResponse, error) {
 	findMachine.ID = id
 
 	response := &MachineGetResponse{}
-	resp, err := d.machine.FindMachine(findMachine, d.auth)
+	resp, err := d.machine.FindMachine(findMachine, nil)
 	if err != nil {
 		return response, err
 	}
@@ -237,7 +229,7 @@ func (d *Driver) MachineGet(id string) (*MachineGetResponse, error) {
 func (d *Driver) MachineList() (*MachineListResponse, error) {
 	listMachines := machine.NewListMachinesParams()
 	response := &MachineListResponse{}
-	resp, err := d.machine.ListMachines(listMachines, d.auth)
+	resp, err := d.machine.ListMachines(listMachines, nil)
 	if err != nil {
 		return response, err
 	}
@@ -305,7 +297,7 @@ func (d *Driver) MachineFind(mfr *MachineFindRequest) (*MachineListResponse, err
 	}
 	findMachines.SetBody(req)
 
-	resp, err = d.machine.FindMachines(findMachines, d.auth)
+	resp, err = d.machine.FindMachines(findMachines, nil)
 	if err != nil {
 		return response, err
 	}
@@ -319,7 +311,7 @@ func (d *Driver) MachineIPMIGet(id string) (*MachineIPMIGetResponse, error) {
 	findMachine := machine.NewFindIPMIMachineParams().WithID(id)
 
 	response := &MachineIPMIGetResponse{}
-	resp, err := d.machine.FindIPMIMachine(findMachine, d.auth)
+	resp, err := d.machine.FindIPMIMachine(findMachine, nil)
 	if err != nil {
 		return response, err
 	}
@@ -381,7 +373,7 @@ func (d *Driver) MachineIPMIList(mfr *MachineFindRequest) (*MachineIPMIListRespo
 	}
 	findMachines.SetBody(req)
 
-	resp, err := d.machine.FindIPMIMachines(findMachines, d.auth)
+	resp, err := d.machine.FindIPMIMachines(findMachines, nil)
 	if err != nil {
 		return response, err
 	}
@@ -394,7 +386,7 @@ func (d *Driver) MachineIPMIList(mfr *MachineFindRequest) (*MachineIPMIListRespo
 func (d *Driver) MachineIPMIReport(report MachineIPMIReport) (*MachineIPMIReportResponse, error) {
 	params := machine.NewIPMIReportParams()
 	params.SetBody(report.Report)
-	ok, err := d.machine.IPMIReport(params, d.auth)
+	ok, err := d.machine.IPMIReport(params, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -410,7 +402,7 @@ func (d *Driver) MachinePowerOn(machineID string) (*MachinePowerResponse, error)
 	machineOn.Body = []string{}
 
 	response := &MachinePowerResponse{}
-	resp, err := d.machine.MachineOn(machineOn, d.auth)
+	resp, err := d.machine.MachineOn(machineOn, nil)
 	if err != nil {
 		return response, err
 	}
@@ -425,7 +417,7 @@ func (d *Driver) MachinePowerOff(machineID string) (*MachinePowerResponse, error
 	machineOff.Body = []string{}
 
 	response := &MachinePowerResponse{}
-	resp, err := d.machine.MachineOff(machineOff, d.auth)
+	resp, err := d.machine.MachineOff(machineOff, nil)
 	if err != nil {
 		return response, err
 	}
@@ -440,7 +432,7 @@ func (d *Driver) MachinePowerReset(machineID string) (*MachinePowerResponse, err
 	machineReset.Body = []string{}
 
 	response := &MachinePowerResponse{}
-	resp, err := d.machine.MachineReset(machineReset, d.auth)
+	resp, err := d.machine.MachineReset(machineReset, nil)
 	if err != nil {
 		return response, err
 	}
@@ -455,7 +447,7 @@ func (d *Driver) MachineBootBios(machineID string) (*MachineBiosResponse, error)
 	machineBios.Body = []string{}
 
 	response := &MachineBiosResponse{}
-	resp, err := d.machine.MachineBios(machineBios, d.auth)
+	resp, err := d.machine.MachineBios(machineBios, nil)
 	if err != nil {
 		return response, err
 	}
@@ -494,7 +486,7 @@ func (d *Driver) MachineReinstall(machineID, imageID, description string) (*Mach
 	machineReinstall.Body = request
 
 	response := &MachineGetResponse{}
-	resp, err := d.machine.ReinstallMachine(machineReinstall, d.auth)
+	resp, err := d.machine.ReinstallMachine(machineReinstall, nil)
 	if err != nil {
 		return response, err
 	}
@@ -511,7 +503,7 @@ func (d *Driver) machineState(machineID, state, description string) (*MachineSta
 	}
 
 	response := &MachineStateResponse{}
-	resp, err := d.machine.SetMachineState(machineState, d.auth)
+	resp, err := d.machine.SetMachineState(machineState, nil)
 	if err != nil {
 		return response, err
 	}
@@ -527,7 +519,7 @@ func (d *Driver) ChassisIdentifyLEDPowerOn(machineID, description string) (*Chas
 	machineLedOn.Body = []string{}
 
 	response := &ChassisIdentifyLEDPowerResponse{}
-	resp, err := d.machine.ChassisIdentifyLEDOn(machineLedOn, d.auth)
+	resp, err := d.machine.ChassisIdentifyLEDOn(machineLedOn, nil)
 	if err != nil {
 		return response, err
 	}
@@ -543,7 +535,7 @@ func (d *Driver) ChassisIdentifyLEDPowerOff(machineID, description string) (*Cha
 	machineLedOff.Body = []string{}
 
 	response := &ChassisIdentifyLEDPowerResponse{}
-	resp, err := d.machine.ChassisIdentifyLEDOff(machineLedOff, d.auth)
+	resp, err := d.machine.ChassisIdentifyLEDOff(machineLedOff, nil)
 	if err != nil {
 		return response, err
 	}

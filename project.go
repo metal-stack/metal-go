@@ -27,7 +27,7 @@ type ProjectFindRequest struct {
 func (d *Driver) ProjectList() (*ProjectListResponse, error) {
 	response := &ProjectListResponse{}
 	listProjects := project.NewListProjectsParams()
-	resp, err := d.project.ListProjects(listProjects, d.auth)
+	resp, err := d.project.ListProjects(listProjects, nil)
 	if err != nil {
 		return response, err
 	}
@@ -50,7 +50,7 @@ func (d *Driver) ProjectFind(pfr v1.ProjectFindRequest) (*ProjectListResponse, e
 		body.TenantID = *pfr.TenantId
 	}
 	findProjects.Body = body
-	resp, err := d.project.FindProjects(findProjects, d.auth)
+	resp, err := d.project.FindProjects(findProjects, nil)
 	if err != nil {
 		return response, err
 	}
@@ -63,7 +63,7 @@ func (d *Driver) ProjectGet(projectID string) (*ProjectGetResponse, error) {
 	response := &ProjectGetResponse{}
 	getProject := project.NewFindProjectParams()
 	getProject.ID = projectID
-	resp, err := d.project.FindProject(getProject, d.auth)
+	resp, err := d.project.FindProject(getProject, nil)
 	if err != nil {
 		return response, err
 	}
@@ -90,7 +90,7 @@ func (d *Driver) ProjectCreate(pcr v1.ProjectCreateRequest) (*ProjectGetResponse
 		Quotas:   ToV1QuotaSet(pcr.Quotas),
 	}
 	createProject.Body = body
-	resp, err := d.project.CreateProject(createProject, d.auth)
+	resp, err := d.project.CreateProject(createProject, nil)
 	if err != nil {
 		return response, err
 	}
@@ -117,7 +117,7 @@ func (d *Driver) ProjectUpdate(pur v1.ProjectUpdateRequest) (*ProjectGetResponse
 		Quotas:   ToV1QuotaSet(pur.Quotas),
 	}
 	updateProject.Body = body
-	resp, err := d.project.UpdateProject(updateProject, d.auth)
+	resp, err := d.project.UpdateProject(updateProject, nil)
 	if err != nil {
 		return response, err
 	}
@@ -130,7 +130,7 @@ func (d *Driver) ProjectDelete(projectID string) (*ProjectGetResponse, error) {
 	response := &ProjectGetResponse{}
 	getProject := project.NewDeleteProjectParams()
 	getProject.ID = projectID
-	resp, err := d.project.DeleteProject(getProject, d.auth)
+	resp, err := d.project.DeleteProject(getProject, nil)
 	if err != nil {
 		return response, err
 	}

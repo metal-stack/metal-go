@@ -54,7 +54,7 @@ type PartitionCreateResponse struct {
 func (d *Driver) PartitionList() (*PartitionListResponse, error) {
 	response := &PartitionListResponse{}
 	listPartitions := partition.NewListPartitionsParams()
-	resp, err := d.partition.ListPartitions(listPartitions, d.auth)
+	resp, err := d.partition.ListPartitions(listPartitions, nil)
 	if err != nil {
 		return response, err
 	}
@@ -67,7 +67,7 @@ func (d *Driver) PartitionGet(partitionID string) (*PartitionGetResponse, error)
 	response := &PartitionGetResponse{}
 	getPartition := partition.NewFindPartitionParams()
 	getPartition.ID = partitionID
-	resp, err := d.partition.FindPartition(getPartition, d.auth)
+	resp, err := d.partition.FindPartition(getPartition, nil)
 	if err != nil {
 		return response, err
 	}
@@ -79,7 +79,7 @@ func (d *Driver) PartitionGet(partitionID string) (*PartitionGetResponse, error)
 func (d *Driver) PartitionCapacity() (*PartitionCapacityResponse, error) {
 	response := &PartitionCapacityResponse{}
 	partitionParams := partition.NewPartitionCapacityParams()
-	resp, err := d.partition.PartitionCapacity(partitionParams, d.auth)
+	resp, err := d.partition.PartitionCapacity(partitionParams, nil)
 	if err != nil {
 		return response, err
 	}
@@ -101,7 +101,7 @@ func (d *Driver) PartitionCreate(pcr PartitionCreateRequest) (*PartitionCreateRe
 	}
 	request := partition.NewCreatePartitionParams()
 	request.SetBody(createPartition)
-	resp, err := d.partition.CreatePartition(request, d.auth)
+	resp, err := d.partition.CreatePartition(request, nil)
 	if err != nil {
 		return response, err
 	}
@@ -122,7 +122,7 @@ func (d *Driver) PartitionUpdate(pcr PartitionCreateRequest) (*PartitionCreateRe
 	}
 	request := partition.NewUpdatePartitionParams()
 	request.SetBody(updatePartition)
-	resp, err := d.partition.UpdatePartition(request, d.auth)
+	resp, err := d.partition.UpdatePartition(request, nil)
 	if err != nil {
 		return response, err
 	}
@@ -135,7 +135,7 @@ func (d *Driver) PartitionDelete(partitionID string) (*PartitionGetResponse, err
 	response := &PartitionGetResponse{}
 	request := partition.NewDeletePartitionParams()
 	request.ID = partitionID
-	resp, err := d.partition.DeletePartition(request, d.auth)
+	resp, err := d.partition.DeletePartition(request, nil)
 	if err != nil {
 		return response, err
 	}

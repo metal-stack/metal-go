@@ -196,7 +196,7 @@ func (d *Driver) NetworkGet(id string) (*NetworkGetResponse, error) {
 	findNetwork.ID = id
 
 	response := &NetworkGetResponse{}
-	resp, err := d.network.FindNetwork(findNetwork, d.auth)
+	resp, err := d.network.FindNetwork(findNetwork, nil)
 	if err != nil {
 		return response, err
 	}
@@ -209,7 +209,7 @@ func (d *Driver) NetworkGet(id string) (*NetworkGetResponse, error) {
 func (d *Driver) NetworkList() (*NetworkListResponse, error) {
 	response := &NetworkListResponse{}
 	listNetworks := network.NewListNetworksParams()
-	resp, err := d.network.ListNetworks(listNetworks, d.auth)
+	resp, err := d.network.ListNetworks(listNetworks, nil)
 	if err != nil {
 		return response, err
 	}
@@ -244,7 +244,7 @@ func (d *Driver) NetworkFind(nfr *NetworkFindRequest) (*NetworkListResponse, err
 	}
 	findNetworks.SetBody(req)
 
-	resp, err = d.network.FindNetworks(findNetworks, d.auth)
+	resp, err = d.network.FindNetworks(findNetworks, nil)
 	if err != nil {
 		return response, err
 	}
@@ -273,7 +273,7 @@ func (d *Driver) NetworkCreate(ncr *NetworkCreateRequest) (*NetworkDetailRespons
 		Underlay:            &ncr.Underlay,
 	}
 	createNetwork.SetBody(createRequest)
-	resp, err := d.network.CreateNetwork(createNetwork, d.auth)
+	resp, err := d.network.CreateNetwork(createNetwork, nil)
 	if err != nil {
 		return response, err
 	}
@@ -294,7 +294,7 @@ func (d *Driver) NetworkAllocate(ncr *NetworkAllocateRequest) (*NetworkDetailRes
 		Labels:      ncr.Labels,
 	}
 	acquireNetwork.SetBody(acquireRequest)
-	resp, err := d.network.AllocateNetwork(acquireNetwork, d.auth)
+	resp, err := d.network.AllocateNetwork(acquireNetwork, nil)
 	if err != nil {
 		return response, err
 	}
@@ -308,7 +308,7 @@ func (d *Driver) NetworkFree(id string) (*NetworkDetailResponse, error) {
 	releaseNetwork := network.NewFreeNetworkParams()
 
 	releaseNetwork.ID = id
-	resp, err := d.network.FreeNetwork(releaseNetwork, d.auth)
+	resp, err := d.network.FreeNetwork(releaseNetwork, nil)
 	if err != nil {
 		return response, err
 	}
@@ -322,7 +322,7 @@ func (d *Driver) NetworkDelete(id string) (*NetworkDetailResponse, error) {
 	deleteNetwork := network.NewDeleteNetworkParams()
 
 	deleteNetwork.ID = id
-	resp, err := d.network.DeleteNetwork(deleteNetwork, d.auth)
+	resp, err := d.network.DeleteNetwork(deleteNetwork, nil)
 	if err != nil {
 		return response, err
 	}
@@ -343,7 +343,7 @@ func (d *Driver) NetworkUpdate(ncr *NetworkCreateRequest) (*NetworkDetailRespons
 		Labels:      ncr.Labels,
 	}
 	updateNetwork.SetBody(updateRequest)
-	resp, err := d.network.UpdateNetwork(updateNetwork, d.auth)
+	resp, err := d.network.UpdateNetwork(updateNetwork, nil)
 	if err != nil {
 		return response, err
 	}
@@ -367,7 +367,7 @@ func (d *Driver) NetworkAddPrefix(nur *NetworkUpdateRequest) (*NetworkDetailResp
 		Prefixes: newPrefixes,
 	}
 	updateNetwork.SetBody(updateRequest)
-	resp, err := d.network.UpdateNetwork(updateNetwork, d.auth)
+	resp, err := d.network.UpdateNetwork(updateNetwork, nil)
 	if err != nil {
 		return response, err
 	}
@@ -397,7 +397,7 @@ func (d *Driver) NetworkRemovePrefix(nur *NetworkUpdateRequest) (*NetworkDetailR
 		Prefixes: newPrefixes,
 	}
 	updateNetwork.SetBody(updateRequest)
-	resp, err := d.network.UpdateNetwork(updateNetwork, d.auth)
+	resp, err := d.network.UpdateNetwork(updateNetwork, nil)
 	if err != nil {
 		return response, err
 	}
@@ -410,7 +410,7 @@ func (d *Driver) IPGet(ipaddress string) (*IPDetailResponse, error) {
 	response := &IPDetailResponse{}
 	findIP := ip.NewFindIPParams()
 	findIP.ID = ipaddress
-	resp, err := d.ip.FindIP(findIP, d.auth)
+	resp, err := d.ip.FindIP(findIP, nil)
 	if err != nil {
 		return response, err
 	}
@@ -431,7 +431,7 @@ func (d *Driver) IPUpdate(iur *IPUpdateRequest) (*IPDetailResponse, error) {
 		Tags:        iur.Tags,
 	}
 	updateIP.SetBody(updateRequest)
-	resp, err := d.ip.UpdateIP(updateIP, d.auth)
+	resp, err := d.ip.UpdateIP(updateIP, nil)
 	if err != nil {
 		return response, err
 	}
@@ -443,7 +443,7 @@ func (d *Driver) IPUpdate(iur *IPUpdateRequest) (*IPDetailResponse, error) {
 func (d *Driver) IPList() (*IPListResponse, error) {
 	response := &IPListResponse{}
 	listIPs := ip.NewListIpsParams()
-	resp, err := d.ip.ListIps(listIPs, d.auth)
+	resp, err := d.ip.ListIps(listIPs, nil)
 	if err != nil {
 		return response, err
 	}
@@ -473,7 +473,7 @@ func (d *Driver) IPFind(ifr *IPFindRequest) (*IPListResponse, error) {
 	}
 	findIPs.SetBody(req)
 
-	resp, err = d.ip.FindIps(findIPs, d.auth)
+	resp, err = d.ip.FindIps(findIPs, nil)
 	if err != nil {
 		return response, err
 	}
@@ -497,7 +497,7 @@ func (d *Driver) IPAllocate(iar *IPAllocateRequest) (*IPDetailResponse, error) {
 	if iar.IPAddress == "" {
 		acquireIP := ip.NewAllocateIPParams()
 		acquireIP.SetBody(acquireIPRequest)
-		resp, err := d.ip.AllocateIP(acquireIP, d.auth)
+		resp, err := d.ip.AllocateIP(acquireIP, nil)
 		if err != nil {
 			return response, err
 		}
@@ -506,7 +506,7 @@ func (d *Driver) IPAllocate(iar *IPAllocateRequest) (*IPDetailResponse, error) {
 		acquireIP := ip.NewAllocateSpecificIPParams()
 		acquireIP.IP = iar.IPAddress
 		acquireIP.SetBody(acquireIPRequest)
-		resp, err := d.ip.AllocateSpecificIP(acquireIP, d.auth)
+		resp, err := d.ip.AllocateSpecificIP(acquireIP, nil)
 		if err != nil {
 			return response, err
 		}
@@ -520,7 +520,7 @@ func (d *Driver) IPFree(id string) (*IPDetailResponse, error) {
 	response := &IPDetailResponse{}
 	deleteIP := ip.NewFreeIPParams()
 	deleteIP.ID = id
-	resp, err := d.ip.FreeIP(deleteIP, d.auth)
+	resp, err := d.ip.FreeIP(deleteIP, nil)
 	if err != nil {
 		return response, err
 	}
