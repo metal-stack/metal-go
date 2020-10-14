@@ -29,7 +29,6 @@ type MachineFindRequest struct {
 	PartitionID *string
 	SizeID      *string
 	RackID      *string
-	Liveliness  *string
 	Tags        []string
 
 	// allocation
@@ -255,7 +254,6 @@ func (d *Driver) MachineFind(mfr *MachineFindRequest) (*MachineListResponse, err
 		PartitionID:                StrDeref(mfr.PartitionID),
 		Sizeid:                     StrDeref(mfr.SizeID),
 		Rackid:                     StrDeref(mfr.RackID),
-		Liveliness:                 StrDeref(mfr.Liveliness),
 		Tags:                       mfr.Tags,
 		AllocationName:             StrDeref(mfr.AllocationName),
 		AllocationProject:          StrDeref(mfr.AllocationProject),
@@ -331,7 +329,6 @@ func (d *Driver) MachineIPMIList(mfr *MachineFindRequest) (*MachineIPMIListRespo
 		PartitionID:                StrDeref(mfr.PartitionID),
 		Sizeid:                     StrDeref(mfr.SizeID),
 		Rackid:                     StrDeref(mfr.RackID),
-		Liveliness:                 StrDeref(mfr.Liveliness),
 		Tags:                       mfr.Tags,
 		AllocationName:             StrDeref(mfr.AllocationName),
 		AllocationProject:          StrDeref(mfr.AllocationProject),

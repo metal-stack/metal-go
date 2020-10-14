@@ -292,9 +292,6 @@
         "ipmi_user": {
           "type": "string"
         },
-        "liveliness": {
-          "type": "string"
-        },
         "name": {
           "type": "string"
         },
@@ -1220,9 +1217,6 @@
         "ipmi_user": {
           "type": "string"
         },
-        "liveliness": {
-          "type": "string"
-        },
         "name": {
           "type": "string"
         },
@@ -1994,6 +1988,10 @@
         "projectid": {
           "description": "the project id this network belongs to, can be empty if globally available",
           "type": "string"
+        },
+        "shared": {
+          "description": "marks a network as shareable.",
+          "type": "boolean"
         }
       }
     },
@@ -2052,6 +2050,10 @@
         "projectid": {
           "description": "the project id this network belongs to, can be empty if globally available",
           "type": "string"
+        },
+        "shared": {
+          "description": "marks a network as shareable.",
+          "type": "boolean"
         },
         "underlay": {
           "description": "if set to true, this network can be used for underlay communication",
@@ -2195,6 +2197,10 @@
           "description": "the project id this network belongs to, can be empty if globally available",
           "type": "string"
         },
+        "shared": {
+          "description": "marks a network as shareable.",
+          "type": "boolean"
+        },
         "underlay": {
           "description": "if set to true, this network can be used for underlay communication",
           "type": "boolean"
@@ -2252,6 +2258,10 @@
             "type": "string"
           },
           "type": "array"
+        },
+        "shared": {
+          "description": "marks a network as shareable.",
+          "type": "boolean"
         }
       },
       "required": [
