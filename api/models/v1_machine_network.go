@@ -45,6 +45,10 @@ type V1MachineNetwork struct {
 	// Required: true
 	Private *bool `json:"private"`
 
+	// marks a network as shareable.
+	// Required: true
+	Shared *bool `json:"shared"`
+
 	// if set to true, this network can be used for underlay communication
 	// Required: true
 	Underlay *bool `json:"underlay"`
@@ -83,6 +87,10 @@ func (m *V1MachineNetwork) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validatePrivate(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateShared(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -157,6 +165,15 @@ func (m *V1MachineNetwork) validatePrefixes(formats strfmt.Registry) error {
 func (m *V1MachineNetwork) validatePrivate(formats strfmt.Registry) error {
 
 	if err := validate.Required("private", "body", m.Private); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *V1MachineNetwork) validateShared(formats strfmt.Registry) error {
+
+	if err := validate.Required("shared", "body", m.Shared); err != nil {
 		return err
 	}
 
