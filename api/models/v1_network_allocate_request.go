@@ -24,9 +24,6 @@ type V1NetworkAllocateRequest struct {
 	// a readable name for this entity
 	Name string `json:"name,omitempty"`
 
-	// if set to true, packets leaving this network get masqueraded behind interface ip.
-	Nat bool `json:"nat,omitempty"`
-
 	// the partition this network belongs to
 	Partitionid string `json:"partitionid,omitempty"`
 
