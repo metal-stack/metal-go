@@ -8,9 +8,7 @@ package models
 import (
 	strfmt "github.com/go-openapi/strfmt"
 
-	"github.com/go-openapi/errors"
 	"github.com/go-openapi/swag"
-	"github.com/go-openapi/validate"
 )
 
 // MetalNetworkType metal network type
@@ -18,98 +16,23 @@ import (
 type MetalNetworkType struct {
 
 	// name
-	// Required: true
-	Name *string `json:"Name"`
+	Name string `json:"name,omitempty"`
 
 	// private
-	// Required: true
-	Private *bool `json:"Private"`
+	Private bool `json:"private,omitempty"`
 
 	// private primary
-	// Required: true
-	PrivatePrimary *bool `json:"PrivatePrimary"`
+	PrivatePrimary bool `json:"private_primary,omitempty"`
 
 	// shared
-	// Required: true
-	Shared *bool `json:"Shared"`
+	Shared bool `json:"shared,omitempty"`
 
 	// underlay
-	// Required: true
-	Underlay *bool `json:"Underlay"`
+	Underlay bool `json:"underlay,omitempty"`
 }
 
 // Validate validates this metal network type
 func (m *MetalNetworkType) Validate(formats strfmt.Registry) error {
-	var res []error
-
-	if err := m.validateName(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validatePrivate(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validatePrivatePrimary(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateShared(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateUnderlay(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (m *MetalNetworkType) validateName(formats strfmt.Registry) error {
-
-	if err := validate.Required("Name", "body", m.Name); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *MetalNetworkType) validatePrivate(formats strfmt.Registry) error {
-
-	if err := validate.Required("Private", "body", m.Private); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *MetalNetworkType) validatePrivatePrimary(formats strfmt.Registry) error {
-
-	if err := validate.Required("PrivatePrimary", "body", m.PrivatePrimary); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *MetalNetworkType) validateShared(formats strfmt.Registry) error {
-
-	if err := validate.Required("Shared", "body", m.Shared); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *MetalNetworkType) validateUnderlay(formats strfmt.Registry) error {
-
-	if err := validate.Required("Underlay", "body", m.Underlay); err != nil {
-		return err
-	}
-
 	return nil
 }
 
