@@ -37,25 +37,13 @@ type V1MachineNetwork struct {
 	// Required: true
 	Networkid *string `json:"networkid"`
 
+	// the network type
+	// Required: true
+	Networktype *MetalNetworkType `json:"networktype"`
+
 	// the prefixes of this network
 	// Required: true
 	Prefixes []string `json:"prefixes"`
-
-	// indicates whether this network is a private network
-	// Required: true
-	Private *bool `json:"private"`
-
-	// indicates whether this network is the private primary network of this machine
-	// Required: true
-	Privateprimary *bool `json:"privateprimary"`
-
-	// marks a network as shareable.
-	// Required: true
-	Shared *bool `json:"shared"`
-
-	// if set to true, this network can be used for underlay communication
-	// Required: true
-	Underlay *bool `json:"underlay"`
 
 	// the vrf of the allocated machine
 	// Required: true
@@ -86,23 +74,11 @@ func (m *V1MachineNetwork) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateNetworktype(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validatePrefixes(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validatePrivate(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validatePrivateprimary(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateShared(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateUnderlay(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -161,45 +137,27 @@ func (m *V1MachineNetwork) validateNetworkid(formats strfmt.Registry) error {
 	return nil
 }
 
+func (m *V1MachineNetwork) validateNetworktype(formats strfmt.Registry) error {
+
+	if err := validate.Required("networktype", "body", m.Networktype); err != nil {
+		return err
+	}
+
+	if m.Networktype != nil {
+		if err := m.Networktype.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("networktype")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
 func (m *V1MachineNetwork) validatePrefixes(formats strfmt.Registry) error {
 
 	if err := validate.Required("prefixes", "body", m.Prefixes); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *V1MachineNetwork) validatePrivate(formats strfmt.Registry) error {
-
-	if err := validate.Required("private", "body", m.Private); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *V1MachineNetwork) validatePrivateprimary(formats strfmt.Registry) error {
-
-	if err := validate.Required("privateprimary", "body", m.Privateprimary); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *V1MachineNetwork) validateShared(formats strfmt.Registry) error {
-
-	if err := validate.Required("shared", "body", m.Shared); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *V1MachineNetwork) validateUnderlay(formats strfmt.Registry) error {
-
-	if err := validate.Required("underlay", "body", m.Underlay); err != nil {
 		return err
 	}
 
