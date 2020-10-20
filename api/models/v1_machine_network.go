@@ -45,6 +45,14 @@ type V1MachineNetwork struct {
 	// Required: true
 	Prefixes []string `json:"prefixes"`
 
+	// indicates whether this network is the private network of this machine
+	// Required: true
+	Private *bool `json:"private"`
+
+	// if set to true, this network can be used for underlay communication
+	// Required: true
+	Underlay *bool `json:"underlay"`
+
 	// the vrf of the allocated machine
 	// Required: true
 	Vrf *int64 `json:"vrf"`
@@ -79,6 +87,14 @@ func (m *V1MachineNetwork) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validatePrefixes(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validatePrivate(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateUnderlay(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -158,6 +174,24 @@ func (m *V1MachineNetwork) validateNetworktype(formats strfmt.Registry) error {
 func (m *V1MachineNetwork) validatePrefixes(formats strfmt.Registry) error {
 
 	if err := validate.Required("prefixes", "body", m.Prefixes); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *V1MachineNetwork) validatePrivate(formats strfmt.Registry) error {
+
+	if err := validate.Required("private", "body", m.Private); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *V1MachineNetwork) validateUnderlay(formats strfmt.Registry) error {
+
+	if err := validate.Required("underlay", "body", m.Underlay); err != nil {
 		return err
 	}
 
