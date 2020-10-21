@@ -39,7 +39,7 @@ type V1MachineNetwork struct {
 
 	// the network type
 	// Required: true
-	Networktype *MetalNetworkType `json:"networktype"`
+	Networktype *string `json:"networktype"`
 
 	// the prefixes of this network
 	// Required: true
@@ -157,15 +157,6 @@ func (m *V1MachineNetwork) validateNetworktype(formats strfmt.Registry) error {
 
 	if err := validate.Required("networktype", "body", m.Networktype); err != nil {
 		return err
-	}
-
-	if m.Networktype != nil {
-		if err := m.Networktype.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("networktype")
-			}
-			return err
-		}
 	}
 
 	return nil
