@@ -67,6 +67,9 @@ type V1NetworkResponse struct {
 	// the project id this network belongs to, can be empty if globally available
 	Projectid string `json:"projectid,omitempty"`
 
+	// marks a network as shareable.
+	Shared bool `json:"shared,omitempty"`
+
 	// if set to true, this network can be used for underlay communication
 	// Required: true
 	Underlay *bool `json:"underlay"`

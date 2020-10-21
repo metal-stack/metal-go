@@ -29,6 +29,9 @@ type V1NetworkAllocateRequest struct {
 
 	// the project id this network belongs to, can be empty if globally available
 	Projectid string `json:"projectid,omitempty"`
+
+	// marks a network as shareable.
+	Shared bool `json:"shared,omitempty"`
 }
 
 // Validate validates this v1 network allocate request

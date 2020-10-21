@@ -81,9 +81,6 @@ type V1FirewallFindRequest struct {
 	// ipmi user
 	IPMIUser string `json:"ipmi_user,omitempty"`
 
-	// liveliness
-	Liveliness string `json:"liveliness,omitempty"`
-
 	// name
 	Name string `json:"name,omitempty"`
 

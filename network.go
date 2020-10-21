@@ -41,6 +41,10 @@ type NetworkAllocateRequest struct {
 	// Required: true
 	ProjectID string `json:"projectid,omitempty"`
 
+	// marks a network as shareable.
+	// Required: false
+	Shared bool `json:"shared,omitempty"`
+
 	// A map of key/value pairs treated as labels.
 	// Required: false
 	Labels map[string]string `json:"labels"`
@@ -291,6 +295,7 @@ func (d *Driver) NetworkAllocate(ncr *NetworkAllocateRequest) (*NetworkDetailRes
 		Name:        ncr.Name,
 		Partitionid: ncr.PartitionID,
 		Projectid:   ncr.ProjectID,
+		Shared:      ncr.Shared,
 		Labels:      ncr.Labels,
 	}
 	acquireNetwork.SetBody(acquireRequest)

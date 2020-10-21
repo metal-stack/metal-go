@@ -33,6 +33,9 @@ type V1NetworkUpdateRequest struct {
 
 	// the prefixes of this network
 	Prefixes []string `json:"prefixes"`
+
+	// marks a network as shareable.
+	Shared bool `json:"shared,omitempty"`
 }
 
 // Validate validates this v1 network update request
