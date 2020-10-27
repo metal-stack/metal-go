@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/metal-stack/metal-go/api/models"
+	"github.com/metal-stack/metal-go/api/models"
 )
 
 // FindImageReader is a Reader for the FindImage structure.
@@ -24,14 +23,12 @@ type FindImageReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *FindImageReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewFindImageOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		result := NewFindImageDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -59,6 +56,10 @@ type FindImageOK struct {
 
 func (o *FindImageOK) Error() string {
 	return fmt.Sprintf("[GET /v1/image/{id}][%d] findImageOK  %+v", 200, o.Payload)
+}
+
+func (o *FindImageOK) GetPayload() *models.V1ImageResponse {
+	return o.Payload
 }
 
 func (o *FindImageOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -97,6 +98,10 @@ func (o *FindImageDefault) Code() int {
 
 func (o *FindImageDefault) Error() string {
 	return fmt.Sprintf("[GET /v1/image/{id}][%d] findImage default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *FindImageDefault) GetPayload() *models.HttperrorsHTTPErrorResponse {
+	return o.Payload
 }
 
 func (o *FindImageDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

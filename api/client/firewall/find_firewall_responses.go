@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/metal-stack/metal-go/api/models"
+	"github.com/metal-stack/metal-go/api/models"
 )
 
 // FindFirewallReader is a Reader for the FindFirewall structure.
@@ -24,14 +23,12 @@ type FindFirewallReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *FindFirewallReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewFindFirewallOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		result := NewFindFirewallDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -59,6 +56,10 @@ type FindFirewallOK struct {
 
 func (o *FindFirewallOK) Error() string {
 	return fmt.Sprintf("[GET /v1/firewall/{id}][%d] findFirewallOK  %+v", 200, o.Payload)
+}
+
+func (o *FindFirewallOK) GetPayload() *models.V1FirewallResponse {
+	return o.Payload
 }
 
 func (o *FindFirewallOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -97,6 +98,10 @@ func (o *FindFirewallDefault) Code() int {
 
 func (o *FindFirewallDefault) Error() string {
 	return fmt.Sprintf("[GET /v1/firewall/{id}][%d] findFirewall default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *FindFirewallDefault) GetPayload() *models.HttperrorsHTTPErrorResponse {
+	return o.Payload
 }
 
 func (o *FindFirewallDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

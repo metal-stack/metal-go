@@ -8,14 +8,14 @@ package models
 import (
 	"encoding/json"
 
-	strfmt "github.com/go-openapi/strfmt"
-
 	"github.com/go-openapi/errors"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // V1IPResponse v1 IP response
+//
 // swagger:model v1.IPResponse
 type V1IPResponse struct {
 
@@ -167,7 +167,7 @@ const (
 
 // prop value enum
 func (m *V1IPResponse) validateTypeEnum(path, location string, value string) error {
-	if err := validate.Enum(path, location, value, v1IpResponseTypeTypePropEnum); err != nil {
+	if err := validate.EnumCase(path, location, value, v1IpResponseTypeTypePropEnum, true); err != nil {
 		return err
 	}
 	return nil

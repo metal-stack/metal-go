@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/metal-stack/metal-go/api/models"
+	"github.com/metal-stack/metal-go/api/models"
 )
 
 // FindPartitionReader is a Reader for the FindPartition structure.
@@ -24,14 +23,12 @@ type FindPartitionReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *FindPartitionReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewFindPartitionOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		result := NewFindPartitionDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -59,6 +56,10 @@ type FindPartitionOK struct {
 
 func (o *FindPartitionOK) Error() string {
 	return fmt.Sprintf("[GET /v1/partition/{id}][%d] findPartitionOK  %+v", 200, o.Payload)
+}
+
+func (o *FindPartitionOK) GetPayload() *models.V1PartitionResponse {
+	return o.Payload
 }
 
 func (o *FindPartitionOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -97,6 +98,10 @@ func (o *FindPartitionDefault) Code() int {
 
 func (o *FindPartitionDefault) Error() string {
 	return fmt.Sprintf("[GET /v1/partition/{id}][%d] findPartition default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *FindPartitionDefault) GetPayload() *models.HttperrorsHTTPErrorResponse {
+	return o.Payload
 }
 
 func (o *FindPartitionDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

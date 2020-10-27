@@ -7,12 +7,11 @@ package size
 
 import (
 	"github.com/go-openapi/runtime"
-
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 )
 
 // New creates a new size API client.
-func New(transport runtime.ClientTransport, formats strfmt.Registry) *Client {
+func New(transport runtime.ClientTransport, formats strfmt.Registry) ClientService {
 	return &Client{transport: transport, formats: formats}
 }
 
@@ -24,8 +23,25 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
+// ClientService is the interface for Client methods
+type ClientService interface {
+	CreateSize(params *CreateSizeParams, authInfo runtime.ClientAuthInfoWriter) (*CreateSizeCreated, error)
+
+	DeleteSize(params *DeleteSizeParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteSizeOK, error)
+
+	FindSize(params *FindSizeParams, authInfo runtime.ClientAuthInfoWriter) (*FindSizeOK, error)
+
+	FromHardware(params *FromHardwareParams, authInfo runtime.ClientAuthInfoWriter) (*FromHardwareOK, error)
+
+	ListSizes(params *ListSizesParams, authInfo runtime.ClientAuthInfoWriter) (*ListSizesOK, error)
+
+	UpdateSize(params *UpdateSizeParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateSizeOK, error)
+
+	SetTransport(transport runtime.ClientTransport)
+}
+
 /*
-CreateSize creates a size if the given ID already exists a conflict is returned
+  CreateSize creates a size if the given ID already exists a conflict is returned
 */
 func (a *Client) CreateSize(params *CreateSizeParams, authInfo runtime.ClientAuthInfoWriter) (*CreateSizeCreated, error) {
 	// TODO: Validate the params before sending
@@ -49,12 +65,17 @@ func (a *Client) CreateSize(params *CreateSizeParams, authInfo runtime.ClientAut
 	if err != nil {
 		return nil, err
 	}
-	return result.(*CreateSizeCreated), nil
-
+	success, ok := result.(*CreateSizeCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*CreateSizeDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-DeleteSize deletes an size and returns the deleted entity
+  DeleteSize deletes an size and returns the deleted entity
 */
 func (a *Client) DeleteSize(params *DeleteSizeParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteSizeOK, error) {
 	// TODO: Validate the params before sending
@@ -78,12 +99,17 @@ func (a *Client) DeleteSize(params *DeleteSizeParams, authInfo runtime.ClientAut
 	if err != nil {
 		return nil, err
 	}
-	return result.(*DeleteSizeOK), nil
-
+	success, ok := result.(*DeleteSizeOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*DeleteSizeDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-FindSize gets size by id
+  FindSize gets size by id
 */
 func (a *Client) FindSize(params *FindSizeParams, authInfo runtime.ClientAuthInfoWriter) (*FindSizeOK, error) {
 	// TODO: Validate the params before sending
@@ -107,12 +133,17 @@ func (a *Client) FindSize(params *FindSizeParams, authInfo runtime.ClientAuthInf
 	if err != nil {
 		return nil, err
 	}
-	return result.(*FindSizeOK), nil
-
+	success, ok := result.(*FindSizeOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*FindSizeDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-FromHardware searches all sizes for one to match the given hardwarespecs if nothing is found a list of entries is returned which describe the constraint which did not match
+  FromHardware searches all sizes for one to match the given hardwarespecs if nothing is found a list of entries is returned which describe the constraint which did not match
 */
 func (a *Client) FromHardware(params *FromHardwareParams, authInfo runtime.ClientAuthInfoWriter) (*FromHardwareOK, error) {
 	// TODO: Validate the params before sending
@@ -136,12 +167,17 @@ func (a *Client) FromHardware(params *FromHardwareParams, authInfo runtime.Clien
 	if err != nil {
 		return nil, err
 	}
-	return result.(*FromHardwareOK), nil
-
+	success, ok := result.(*FromHardwareOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*FromHardwareDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-ListSizes gets all sizes
+  ListSizes gets all sizes
 */
 func (a *Client) ListSizes(params *ListSizesParams, authInfo runtime.ClientAuthInfoWriter) (*ListSizesOK, error) {
 	// TODO: Validate the params before sending
@@ -165,12 +201,17 @@ func (a *Client) ListSizes(params *ListSizesParams, authInfo runtime.ClientAuthI
 	if err != nil {
 		return nil, err
 	}
-	return result.(*ListSizesOK), nil
-
+	success, ok := result.(*ListSizesOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*ListSizesDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-UpdateSize updates a size if the size was changed since this one was read a conflict is returned
+  UpdateSize updates a size if the size was changed since this one was read a conflict is returned
 */
 func (a *Client) UpdateSize(params *UpdateSizeParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateSizeOK, error) {
 	// TODO: Validate the params before sending
@@ -194,8 +235,13 @@ func (a *Client) UpdateSize(params *UpdateSizeParams, authInfo runtime.ClientAut
 	if err != nil {
 		return nil, err
 	}
-	return result.(*UpdateSizeOK), nil
-
+	success, ok := result.(*UpdateSizeOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*UpdateSizeDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 // SetTransport changes the transport on the client

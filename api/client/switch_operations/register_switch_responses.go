@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/metal-stack/metal-go/api/models"
+	"github.com/metal-stack/metal-go/api/models"
 )
 
 // RegisterSwitchReader is a Reader for the RegisterSwitch structure.
@@ -24,21 +23,18 @@ type RegisterSwitchReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *RegisterSwitchReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewRegisterSwitchOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 201:
 		result := NewRegisterSwitchCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		result := NewRegisterSwitchDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -68,6 +64,10 @@ func (o *RegisterSwitchOK) Error() string {
 	return fmt.Sprintf("[POST /v1/switch/register][%d] registerSwitchOK  %+v", 200, o.Payload)
 }
 
+func (o *RegisterSwitchOK) GetPayload() *models.V1SwitchResponse {
+	return o.Payload
+}
+
 func (o *RegisterSwitchOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.V1SwitchResponse)
@@ -95,6 +95,10 @@ type RegisterSwitchCreated struct {
 
 func (o *RegisterSwitchCreated) Error() string {
 	return fmt.Sprintf("[POST /v1/switch/register][%d] registerSwitchCreated  %+v", 201, o.Payload)
+}
+
+func (o *RegisterSwitchCreated) GetPayload() *models.V1SwitchResponse {
+	return o.Payload
 }
 
 func (o *RegisterSwitchCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -133,6 +137,10 @@ func (o *RegisterSwitchDefault) Code() int {
 
 func (o *RegisterSwitchDefault) Error() string {
 	return fmt.Sprintf("[POST /v1/switch/register][%d] registerSwitch default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *RegisterSwitchDefault) GetPayload() *models.HttperrorsHTTPErrorResponse {
+	return o.Payload
 }
 
 func (o *RegisterSwitchDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

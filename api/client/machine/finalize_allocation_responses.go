@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/metal-stack/metal-go/api/models"
+	"github.com/metal-stack/metal-go/api/models"
 )
 
 // FinalizeAllocationReader is a Reader for the FinalizeAllocation structure.
@@ -24,14 +23,12 @@ type FinalizeAllocationReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *FinalizeAllocationReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewFinalizeAllocationOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		result := NewFinalizeAllocationDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -59,6 +56,10 @@ type FinalizeAllocationOK struct {
 
 func (o *FinalizeAllocationOK) Error() string {
 	return fmt.Sprintf("[POST /v1/machine/{id}/finalize-allocation][%d] finalizeAllocationOK  %+v", 200, o.Payload)
+}
+
+func (o *FinalizeAllocationOK) GetPayload() *models.V1MachineResponse {
+	return o.Payload
 }
 
 func (o *FinalizeAllocationOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -97,6 +98,10 @@ func (o *FinalizeAllocationDefault) Code() int {
 
 func (o *FinalizeAllocationDefault) Error() string {
 	return fmt.Sprintf("[POST /v1/machine/{id}/finalize-allocation][%d] finalizeAllocation default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *FinalizeAllocationDefault) GetPayload() *models.HttperrorsHTTPErrorResponse {
+	return o.Payload
 }
 
 func (o *FinalizeAllocationDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

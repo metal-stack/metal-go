@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/metal-stack/metal-go/api/models"
+	"github.com/metal-stack/metal-go/api/models"
 )
 
 // UpdatePartitionReader is a Reader for the UpdatePartition structure.
@@ -24,21 +23,18 @@ type UpdatePartitionReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *UpdatePartitionReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewUpdatePartitionOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 409:
 		result := NewUpdatePartitionConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		result := NewUpdatePartitionDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -68,6 +64,10 @@ func (o *UpdatePartitionOK) Error() string {
 	return fmt.Sprintf("[POST /v1/partition][%d] updatePartitionOK  %+v", 200, o.Payload)
 }
 
+func (o *UpdatePartitionOK) GetPayload() *models.V1PartitionResponse {
+	return o.Payload
+}
+
 func (o *UpdatePartitionOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.V1PartitionResponse)
@@ -95,6 +95,10 @@ type UpdatePartitionConflict struct {
 
 func (o *UpdatePartitionConflict) Error() string {
 	return fmt.Sprintf("[POST /v1/partition][%d] updatePartitionConflict  %+v", 409, o.Payload)
+}
+
+func (o *UpdatePartitionConflict) GetPayload() *models.HttperrorsHTTPErrorResponse {
+	return o.Payload
 }
 
 func (o *UpdatePartitionConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -133,6 +137,10 @@ func (o *UpdatePartitionDefault) Code() int {
 
 func (o *UpdatePartitionDefault) Error() string {
 	return fmt.Sprintf("[POST /v1/partition][%d] updatePartition default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *UpdatePartitionDefault) GetPayload() *models.HttperrorsHTTPErrorResponse {
+	return o.Payload
 }
 
 func (o *UpdatePartitionDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

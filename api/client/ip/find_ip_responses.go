@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/metal-stack/metal-go/api/models"
+	"github.com/metal-stack/metal-go/api/models"
 )
 
 // FindIPReader is a Reader for the FindIP structure.
@@ -24,14 +23,12 @@ type FindIPReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *FindIPReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewFindIPOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		result := NewFindIPDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -59,6 +56,10 @@ type FindIPOK struct {
 
 func (o *FindIPOK) Error() string {
 	return fmt.Sprintf("[GET /v1/ip/{id}][%d] findIpOK  %+v", 200, o.Payload)
+}
+
+func (o *FindIPOK) GetPayload() *models.V1IPResponse {
+	return o.Payload
 }
 
 func (o *FindIPOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -97,6 +98,10 @@ func (o *FindIPDefault) Code() int {
 
 func (o *FindIPDefault) Error() string {
 	return fmt.Sprintf("[GET /v1/ip/{id}][%d] findIP default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *FindIPDefault) GetPayload() *models.HttperrorsHTTPErrorResponse {
+	return o.Payload
 }
 
 func (o *FindIPDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

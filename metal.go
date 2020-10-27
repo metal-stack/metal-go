@@ -27,16 +27,16 @@ const (
 
 // Driver holds the client connection to the metal api
 type Driver struct {
-	client       *client.Metal
-	image        *image.Client
-	machine      *machine.Client
-	firewall     *firewall.Client
-	partition    *partition.Client
-	project      *project.Client
-	size         *size.Client
-	sw           *sw.Client
-	network      *network.Client
-	ip           *ip.Client
+	client       *client.MetalAPI
+	image        image.ClientService
+	machine      machine.ClientService
+	firewall     firewall.ClientService
+	partition    partition.ClientService
+	project      project.ClientService
+	size         size.ClientService
+	sw           sw.ClientService
+	network      network.ClientService
+	ip           ip.ClientService
 	bearer       string
 	hmacAuthType string
 	hmac         *security.HMACAuth

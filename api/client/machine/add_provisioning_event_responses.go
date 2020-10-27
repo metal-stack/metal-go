@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/metal-stack/metal-go/api/models"
+	"github.com/metal-stack/metal-go/api/models"
 )
 
 // AddProvisioningEventReader is a Reader for the AddProvisioningEvent structure.
@@ -24,14 +23,12 @@ type AddProvisioningEventReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *AddProvisioningEventReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewAddProvisioningEventOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		result := NewAddProvisioningEventDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -59,6 +56,10 @@ type AddProvisioningEventOK struct {
 
 func (o *AddProvisioningEventOK) Error() string {
 	return fmt.Sprintf("[POST /v1/machine/{id}/event][%d] addProvisioningEventOK  %+v", 200, o.Payload)
+}
+
+func (o *AddProvisioningEventOK) GetPayload() *models.V1MachineRecentProvisioningEvents {
+	return o.Payload
 }
 
 func (o *AddProvisioningEventOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -97,6 +98,10 @@ func (o *AddProvisioningEventDefault) Code() int {
 
 func (o *AddProvisioningEventDefault) Error() string {
 	return fmt.Sprintf("[POST /v1/machine/{id}/event][%d] addProvisioningEvent default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *AddProvisioningEventDefault) GetPayload() *models.HttperrorsHTTPErrorResponse {
+	return o.Payload
 }
 
 func (o *AddProvisioningEventDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

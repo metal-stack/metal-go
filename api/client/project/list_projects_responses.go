@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/metal-stack/metal-go/api/models"
+	"github.com/metal-stack/metal-go/api/models"
 )
 
 // ListProjectsReader is a Reader for the ListProjects structure.
@@ -24,14 +23,12 @@ type ListProjectsReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *ListProjectsReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewListProjectsOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		result := NewListProjectsDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -59,6 +56,10 @@ type ListProjectsOK struct {
 
 func (o *ListProjectsOK) Error() string {
 	return fmt.Sprintf("[GET /v1/project][%d] listProjectsOK  %+v", 200, o.Payload)
+}
+
+func (o *ListProjectsOK) GetPayload() []*models.V1ProjectResponse {
+	return o.Payload
 }
 
 func (o *ListProjectsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -95,6 +96,10 @@ func (o *ListProjectsDefault) Code() int {
 
 func (o *ListProjectsDefault) Error() string {
 	return fmt.Sprintf("[GET /v1/project][%d] listProjects default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *ListProjectsDefault) GetPayload() *models.HttperrorsHTTPErrorResponse {
+	return o.Payload
 }
 
 func (o *ListProjectsDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

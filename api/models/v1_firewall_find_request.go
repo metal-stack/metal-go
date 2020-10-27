@@ -6,12 +6,12 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	strfmt "github.com/go-openapi/strfmt"
-
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
 // V1FirewallFindRequest v1 firewall find request
+//
 // swagger:model v1.FirewallFindRequest
 type V1FirewallFindRequest struct {
 
@@ -70,16 +70,16 @@ type V1FirewallFindRequest struct {
 	ID string `json:"id,omitempty"`
 
 	// ipmi address
-	IPMIAddress string `json:"ipmi_address,omitempty"`
+	IpmiAddress string `json:"ipmi_address,omitempty"`
 
 	// ipmi interface
-	IPMIInterface string `json:"ipmi_interface,omitempty"`
+	IpmiInterface string `json:"ipmi_interface,omitempty"`
 
 	// ipmi mac address
-	IPMIMacAddress string `json:"ipmi_mac_address,omitempty"`
+	IpmiMacAddress string `json:"ipmi_mac_address,omitempty"`
 
 	// ipmi user
-	IPMIUser string `json:"ipmi_user,omitempty"`
+	IpmiUser string `json:"ipmi_user,omitempty"`
 
 	// name
 	Name string `json:"name,omitempty"`

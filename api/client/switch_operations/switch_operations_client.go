@@ -7,12 +7,11 @@ package switch_operations
 
 import (
 	"github.com/go-openapi/runtime"
-
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 )
 
 // New creates a new switch operations API client.
-func New(transport runtime.ClientTransport, formats strfmt.Registry) *Client {
+func New(transport runtime.ClientTransport, formats strfmt.Registry) ClientService {
 	return &Client{transport: transport, formats: formats}
 }
 
@@ -24,8 +23,25 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
+// ClientService is the interface for Client methods
+type ClientService interface {
+	DeleteSwitch(params *DeleteSwitchParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteSwitchOK, error)
+
+	FindSwitch(params *FindSwitchParams, authInfo runtime.ClientAuthInfoWriter) (*FindSwitchOK, error)
+
+	ListSwitches(params *ListSwitchesParams, authInfo runtime.ClientAuthInfoWriter) (*ListSwitchesOK, error)
+
+	NotifySwitch(params *NotifySwitchParams, authInfo runtime.ClientAuthInfoWriter) (*NotifySwitchOK, error)
+
+	RegisterSwitch(params *RegisterSwitchParams, authInfo runtime.ClientAuthInfoWriter) (*RegisterSwitchOK, *RegisterSwitchCreated, error)
+
+	UpdateSwitch(params *UpdateSwitchParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateSwitchOK, error)
+
+	SetTransport(transport runtime.ClientTransport)
+}
+
 /*
-DeleteSwitch deletes an switch and returns the deleted entity
+  DeleteSwitch deletes an switch and returns the deleted entity
 */
 func (a *Client) DeleteSwitch(params *DeleteSwitchParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteSwitchOK, error) {
 	// TODO: Validate the params before sending
@@ -49,12 +65,17 @@ func (a *Client) DeleteSwitch(params *DeleteSwitchParams, authInfo runtime.Clien
 	if err != nil {
 		return nil, err
 	}
-	return result.(*DeleteSwitchOK), nil
-
+	success, ok := result.(*DeleteSwitchOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*DeleteSwitchDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-FindSwitch gets switch by id
+  FindSwitch gets switch by id
 */
 func (a *Client) FindSwitch(params *FindSwitchParams, authInfo runtime.ClientAuthInfoWriter) (*FindSwitchOK, error) {
 	// TODO: Validate the params before sending
@@ -78,12 +99,17 @@ func (a *Client) FindSwitch(params *FindSwitchParams, authInfo runtime.ClientAut
 	if err != nil {
 		return nil, err
 	}
-	return result.(*FindSwitchOK), nil
-
+	success, ok := result.(*FindSwitchOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*FindSwitchDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-ListSwitches gets all switches
+  ListSwitches gets all switches
 */
 func (a *Client) ListSwitches(params *ListSwitchesParams, authInfo runtime.ClientAuthInfoWriter) (*ListSwitchesOK, error) {
 	// TODO: Validate the params before sending
@@ -107,12 +133,17 @@ func (a *Client) ListSwitches(params *ListSwitchesParams, authInfo runtime.Clien
 	if err != nil {
 		return nil, err
 	}
-	return result.(*ListSwitchesOK), nil
-
+	success, ok := result.(*ListSwitchesOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*ListSwitchesDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-NotifySwitch notifies the metal api about a configuration change of a switch
+  NotifySwitch notifies the metal api about a configuration change of a switch
 */
 func (a *Client) NotifySwitch(params *NotifySwitchParams, authInfo runtime.ClientAuthInfoWriter) (*NotifySwitchOK, error) {
 	// TODO: Validate the params before sending
@@ -136,12 +167,17 @@ func (a *Client) NotifySwitch(params *NotifySwitchParams, authInfo runtime.Clien
 	if err != nil {
 		return nil, err
 	}
-	return result.(*NotifySwitchOK), nil
-
+	success, ok := result.(*NotifySwitchOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*NotifySwitchDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-RegisterSwitch registers a switch
+  RegisterSwitch registers a switch
 */
 func (a *Client) RegisterSwitch(params *RegisterSwitchParams, authInfo runtime.ClientAuthInfoWriter) (*RegisterSwitchOK, *RegisterSwitchCreated, error) {
 	// TODO: Validate the params before sending
@@ -171,12 +207,13 @@ func (a *Client) RegisterSwitch(params *RegisterSwitchParams, authInfo runtime.C
 	case *RegisterSwitchCreated:
 		return nil, value, nil
 	}
-	return nil, nil, nil
-
+	// unexpected success response
+	unexpectedSuccess := result.(*RegisterSwitchDefault)
+	return nil, nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-UpdateSwitch updates a switch if the switch was changed since this one was read a conflict is returned
+  UpdateSwitch updates a switch if the switch was changed since this one was read a conflict is returned
 */
 func (a *Client) UpdateSwitch(params *UpdateSwitchParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateSwitchOK, error) {
 	// TODO: Validate the params before sending
@@ -200,8 +237,13 @@ func (a *Client) UpdateSwitch(params *UpdateSwitchParams, authInfo runtime.Clien
 	if err != nil {
 		return nil, err
 	}
-	return result.(*UpdateSwitchOK), nil
-
+	success, ok := result.(*UpdateSwitchOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*UpdateSwitchDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 // SetTransport changes the transport on the client

@@ -7,12 +7,11 @@ package network
 
 import (
 	"github.com/go-openapi/runtime"
-
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 )
 
 // New creates a new network API client.
-func New(transport runtime.ClientTransport, formats strfmt.Registry) *Client {
+func New(transport runtime.ClientTransport, formats strfmt.Registry) ClientService {
 	return &Client{transport: transport, formats: formats}
 }
 
@@ -24,8 +23,29 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
+// ClientService is the interface for Client methods
+type ClientService interface {
+	AllocateNetwork(params *AllocateNetworkParams, authInfo runtime.ClientAuthInfoWriter) (*AllocateNetworkCreated, error)
+
+	CreateNetwork(params *CreateNetworkParams, authInfo runtime.ClientAuthInfoWriter) (*CreateNetworkCreated, error)
+
+	DeleteNetwork(params *DeleteNetworkParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteNetworkOK, error)
+
+	FindNetwork(params *FindNetworkParams, authInfo runtime.ClientAuthInfoWriter) (*FindNetworkOK, error)
+
+	FindNetworks(params *FindNetworksParams, authInfo runtime.ClientAuthInfoWriter) (*FindNetworksOK, error)
+
+	FreeNetwork(params *FreeNetworkParams, authInfo runtime.ClientAuthInfoWriter) (*FreeNetworkOK, error)
+
+	ListNetworks(params *ListNetworksParams, authInfo runtime.ClientAuthInfoWriter) (*ListNetworksOK, error)
+
+	UpdateNetwork(params *UpdateNetworkParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateNetworkOK, error)
+
+	SetTransport(transport runtime.ClientTransport)
+}
+
 /*
-AllocateNetwork allocates a child network from a partition s private super network
+  AllocateNetwork allocates a child network from a partition s private super network
 */
 func (a *Client) AllocateNetwork(params *AllocateNetworkParams, authInfo runtime.ClientAuthInfoWriter) (*AllocateNetworkCreated, error) {
 	// TODO: Validate the params before sending
@@ -49,12 +69,17 @@ func (a *Client) AllocateNetwork(params *AllocateNetworkParams, authInfo runtime
 	if err != nil {
 		return nil, err
 	}
-	return result.(*AllocateNetworkCreated), nil
-
+	success, ok := result.(*AllocateNetworkCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*AllocateNetworkDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-CreateNetwork creates a network if the given ID already exists a conflict is returned
+  CreateNetwork creates a network if the given ID already exists a conflict is returned
 */
 func (a *Client) CreateNetwork(params *CreateNetworkParams, authInfo runtime.ClientAuthInfoWriter) (*CreateNetworkCreated, error) {
 	// TODO: Validate the params before sending
@@ -78,12 +103,17 @@ func (a *Client) CreateNetwork(params *CreateNetworkParams, authInfo runtime.Cli
 	if err != nil {
 		return nil, err
 	}
-	return result.(*CreateNetworkCreated), nil
-
+	success, ok := result.(*CreateNetworkCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*CreateNetworkDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-DeleteNetwork deletes a network and returns the deleted entity
+  DeleteNetwork deletes a network and returns the deleted entity
 */
 func (a *Client) DeleteNetwork(params *DeleteNetworkParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteNetworkOK, error) {
 	// TODO: Validate the params before sending
@@ -107,12 +137,17 @@ func (a *Client) DeleteNetwork(params *DeleteNetworkParams, authInfo runtime.Cli
 	if err != nil {
 		return nil, err
 	}
-	return result.(*DeleteNetworkOK), nil
-
+	success, ok := result.(*DeleteNetworkOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*DeleteNetworkDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-FindNetwork gets network by id
+  FindNetwork gets network by id
 */
 func (a *Client) FindNetwork(params *FindNetworkParams, authInfo runtime.ClientAuthInfoWriter) (*FindNetworkOK, error) {
 	// TODO: Validate the params before sending
@@ -136,12 +171,17 @@ func (a *Client) FindNetwork(params *FindNetworkParams, authInfo runtime.ClientA
 	if err != nil {
 		return nil, err
 	}
-	return result.(*FindNetworkOK), nil
-
+	success, ok := result.(*FindNetworkOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*FindNetworkDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-FindNetworks gets all networks that match given properties
+  FindNetworks gets all networks that match given properties
 */
 func (a *Client) FindNetworks(params *FindNetworksParams, authInfo runtime.ClientAuthInfoWriter) (*FindNetworksOK, error) {
 	// TODO: Validate the params before sending
@@ -165,12 +205,17 @@ func (a *Client) FindNetworks(params *FindNetworksParams, authInfo runtime.Clien
 	if err != nil {
 		return nil, err
 	}
-	return result.(*FindNetworksOK), nil
-
+	success, ok := result.(*FindNetworksOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*FindNetworksDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-FreeNetwork frees a network
+  FreeNetwork frees a network
 */
 func (a *Client) FreeNetwork(params *FreeNetworkParams, authInfo runtime.ClientAuthInfoWriter) (*FreeNetworkOK, error) {
 	// TODO: Validate the params before sending
@@ -194,12 +239,17 @@ func (a *Client) FreeNetwork(params *FreeNetworkParams, authInfo runtime.ClientA
 	if err != nil {
 		return nil, err
 	}
-	return result.(*FreeNetworkOK), nil
-
+	success, ok := result.(*FreeNetworkOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*FreeNetworkDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-ListNetworks gets all networks
+  ListNetworks gets all networks
 */
 func (a *Client) ListNetworks(params *ListNetworksParams, authInfo runtime.ClientAuthInfoWriter) (*ListNetworksOK, error) {
 	// TODO: Validate the params before sending
@@ -223,12 +273,17 @@ func (a *Client) ListNetworks(params *ListNetworksParams, authInfo runtime.Clien
 	if err != nil {
 		return nil, err
 	}
-	return result.(*ListNetworksOK), nil
-
+	success, ok := result.(*ListNetworksOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*ListNetworksDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-UpdateNetwork updates a network if the network was changed since this one was read a conflict is returned
+  UpdateNetwork updates a network if the network was changed since this one was read a conflict is returned
 */
 func (a *Client) UpdateNetwork(params *UpdateNetworkParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateNetworkOK, error) {
 	// TODO: Validate the params before sending
@@ -252,8 +307,13 @@ func (a *Client) UpdateNetwork(params *UpdateNetworkParams, authInfo runtime.Cli
 	if err != nil {
 		return nil, err
 	}
-	return result.(*UpdateNetworkOK), nil
-
+	success, ok := result.(*UpdateNetworkOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*UpdateNetworkDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 // SetTransport changes the transport on the client

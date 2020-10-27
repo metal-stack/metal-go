@@ -8,14 +8,14 @@ package models
 import (
 	"strconv"
 
-	strfmt "github.com/go-openapi/strfmt"
-
 	"github.com/go-openapi/errors"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // V1MachineAllocateRequest v1 machine allocate request
+//
 // swagger:model v1.MachineAllocateRequest
 type V1MachineAllocateRequest struct {
 

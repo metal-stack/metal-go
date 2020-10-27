@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/metal-stack/metal-go/api/models"
+	"github.com/metal-stack/metal-go/api/models"
 )
 
 // CreateProjectReader is a Reader for the CreateProject structure.
@@ -24,21 +23,18 @@ type CreateProjectReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *CreateProjectReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 201:
 		result := NewCreateProjectCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 409:
 		result := NewCreateProjectConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		result := NewCreateProjectDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -68,6 +64,10 @@ func (o *CreateProjectCreated) Error() string {
 	return fmt.Sprintf("[PUT /v1/project][%d] createProjectCreated  %+v", 201, o.Payload)
 }
 
+func (o *CreateProjectCreated) GetPayload() *models.V1ProjectResponse {
+	return o.Payload
+}
+
 func (o *CreateProjectCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.V1ProjectResponse)
@@ -95,6 +95,10 @@ type CreateProjectConflict struct {
 
 func (o *CreateProjectConflict) Error() string {
 	return fmt.Sprintf("[PUT /v1/project][%d] createProjectConflict  %+v", 409, o.Payload)
+}
+
+func (o *CreateProjectConflict) GetPayload() *models.HttperrorsHTTPErrorResponse {
+	return o.Payload
 }
 
 func (o *CreateProjectConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -133,6 +137,10 @@ func (o *CreateProjectDefault) Code() int {
 
 func (o *CreateProjectDefault) Error() string {
 	return fmt.Sprintf("[PUT /v1/project][%d] createProject default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *CreateProjectDefault) GetPayload() *models.HttperrorsHTTPErrorResponse {
+	return o.Payload
 }
 
 func (o *CreateProjectDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

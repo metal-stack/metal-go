@@ -7,12 +7,11 @@ package image
 
 import (
 	"github.com/go-openapi/runtime"
-
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 )
 
 // New creates a new image API client.
-func New(transport runtime.ClientTransport, formats strfmt.Registry) *Client {
+func New(transport runtime.ClientTransport, formats strfmt.Registry) ClientService {
 	return &Client{transport: transport, formats: formats}
 }
 
@@ -24,8 +23,25 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
+// ClientService is the interface for Client methods
+type ClientService interface {
+	CreateImage(params *CreateImageParams, authInfo runtime.ClientAuthInfoWriter) (*CreateImageCreated, error)
+
+	DeleteImage(params *DeleteImageParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteImageOK, error)
+
+	FindImage(params *FindImageParams, authInfo runtime.ClientAuthInfoWriter) (*FindImageOK, error)
+
+	FindLatestImage(params *FindLatestImageParams, authInfo runtime.ClientAuthInfoWriter) (*FindLatestImageOK, error)
+
+	ListImages(params *ListImagesParams, authInfo runtime.ClientAuthInfoWriter) (*ListImagesOK, error)
+
+	UpdateImage(params *UpdateImageParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateImageOK, error)
+
+	SetTransport(transport runtime.ClientTransport)
+}
+
 /*
-CreateImage creates an image if the given ID already exists a conflict is returned
+  CreateImage creates an image if the given ID already exists a conflict is returned
 */
 func (a *Client) CreateImage(params *CreateImageParams, authInfo runtime.ClientAuthInfoWriter) (*CreateImageCreated, error) {
 	// TODO: Validate the params before sending
@@ -49,12 +65,17 @@ func (a *Client) CreateImage(params *CreateImageParams, authInfo runtime.ClientA
 	if err != nil {
 		return nil, err
 	}
-	return result.(*CreateImageCreated), nil
-
+	success, ok := result.(*CreateImageCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*CreateImageDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-DeleteImage deletes an image and returns the deleted entity
+  DeleteImage deletes an image and returns the deleted entity
 */
 func (a *Client) DeleteImage(params *DeleteImageParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteImageOK, error) {
 	// TODO: Validate the params before sending
@@ -78,12 +99,17 @@ func (a *Client) DeleteImage(params *DeleteImageParams, authInfo runtime.ClientA
 	if err != nil {
 		return nil, err
 	}
-	return result.(*DeleteImageOK), nil
-
+	success, ok := result.(*DeleteImageOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*DeleteImageDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-FindImage gets image by id
+  FindImage gets image by id
 */
 func (a *Client) FindImage(params *FindImageParams, authInfo runtime.ClientAuthInfoWriter) (*FindImageOK, error) {
 	// TODO: Validate the params before sending
@@ -107,12 +133,17 @@ func (a *Client) FindImage(params *FindImageParams, authInfo runtime.ClientAuthI
 	if err != nil {
 		return nil, err
 	}
-	return result.(*FindImageOK), nil
-
+	success, ok := result.(*FindImageOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*FindImageDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-FindLatestImage finds latest image by id
+  FindLatestImage finds latest image by id
 */
 func (a *Client) FindLatestImage(params *FindLatestImageParams, authInfo runtime.ClientAuthInfoWriter) (*FindLatestImageOK, error) {
 	// TODO: Validate the params before sending
@@ -136,12 +167,17 @@ func (a *Client) FindLatestImage(params *FindLatestImageParams, authInfo runtime
 	if err != nil {
 		return nil, err
 	}
-	return result.(*FindLatestImageOK), nil
-
+	success, ok := result.(*FindLatestImageOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*FindLatestImageDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-ListImages gets all images
+  ListImages gets all images
 */
 func (a *Client) ListImages(params *ListImagesParams, authInfo runtime.ClientAuthInfoWriter) (*ListImagesOK, error) {
 	// TODO: Validate the params before sending
@@ -165,12 +201,17 @@ func (a *Client) ListImages(params *ListImagesParams, authInfo runtime.ClientAut
 	if err != nil {
 		return nil, err
 	}
-	return result.(*ListImagesOK), nil
-
+	success, ok := result.(*ListImagesOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*ListImagesDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-UpdateImage updates an image if the image was changed since this one was read a conflict is returned
+  UpdateImage updates an image if the image was changed since this one was read a conflict is returned
 */
 func (a *Client) UpdateImage(params *UpdateImageParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateImageOK, error) {
 	// TODO: Validate the params before sending
@@ -194,8 +235,13 @@ func (a *Client) UpdateImage(params *UpdateImageParams, authInfo runtime.ClientA
 	if err != nil {
 		return nil, err
 	}
-	return result.(*UpdateImageOK), nil
-
+	success, ok := result.(*UpdateImageOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*UpdateImageDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 // SetTransport changes the transport on the client
