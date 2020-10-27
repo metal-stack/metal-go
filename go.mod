@@ -12,6 +12,5 @@ require (
 	github.com/metal-stack/masterdata-api v0.7.3
 	github.com/metal-stack/metal-lib v0.6.2
 	github.com/metal-stack/security v0.4.0
-	github.com/pkg/errors v0.9.1
 	github.com/stretchr/testify v1.6.1
 )
