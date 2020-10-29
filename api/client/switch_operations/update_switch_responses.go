@@ -14,6 +14,7 @@ import (
 	strfmt "github.com/go-openapi/strfmt"
 
 	models "github.com/metal-stack/metal-go/api/models"
+	httperrors "github.com/metal-stack/metal-lib/httperrors"
 )
 
 // UpdateSwitchReader is a Reader for the UpdateSwitch structure.
@@ -90,7 +91,7 @@ func NewUpdateSwitchConflict() *UpdateSwitchConflict {
 Conflict
 */
 type UpdateSwitchConflict struct {
-	Payload *models.HttperrorsHTTPErrorResponse
+	Payload *httperrors.HTTPErrorResponse
 }
 
 func (o *UpdateSwitchConflict) Error() string {
@@ -99,7 +100,7 @@ func (o *UpdateSwitchConflict) Error() string {
 
 func (o *UpdateSwitchConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.HttperrorsHTTPErrorResponse)
+	o.Payload = new(httperrors.HTTPErrorResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -123,7 +124,7 @@ Error
 type UpdateSwitchDefault struct {
 	_statusCode int
 
-	Payload *models.HttperrorsHTTPErrorResponse
+	Payload *httperrors.HTTPErrorResponse
 }
 
 // Code gets the status code for the update switch default response
@@ -137,7 +138,7 @@ func (o *UpdateSwitchDefault) Error() string {
 
 func (o *UpdateSwitchDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.HttperrorsHTTPErrorResponse)
+	o.Payload = new(httperrors.HTTPErrorResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

@@ -14,6 +14,7 @@ import (
 	strfmt "github.com/go-openapi/strfmt"
 
 	models "github.com/metal-stack/metal-go/api/models"
+	httperrors "github.com/metal-stack/metal-lib/httperrors"
 )
 
 // CreateSizeReader is a Reader for the CreateSize structure.
@@ -90,7 +91,7 @@ func NewCreateSizeConflict() *CreateSizeConflict {
 Conflict
 */
 type CreateSizeConflict struct {
-	Payload *models.HttperrorsHTTPErrorResponse
+	Payload *httperrors.HTTPErrorResponse
 }
 
 func (o *CreateSizeConflict) Error() string {
@@ -99,7 +100,7 @@ func (o *CreateSizeConflict) Error() string {
 
 func (o *CreateSizeConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.HttperrorsHTTPErrorResponse)
+	o.Payload = new(httperrors.HTTPErrorResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -123,7 +124,7 @@ Error
 type CreateSizeDefault struct {
 	_statusCode int
 
-	Payload *models.HttperrorsHTTPErrorResponse
+	Payload *httperrors.HTTPErrorResponse
 }
 
 // Code gets the status code for the create size default response
@@ -137,7 +138,7 @@ func (o *CreateSizeDefault) Error() string {
 
 func (o *CreateSizeDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.HttperrorsHTTPErrorResponse)
+	o.Payload = new(httperrors.HTTPErrorResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

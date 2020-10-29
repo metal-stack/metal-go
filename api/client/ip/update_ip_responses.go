@@ -14,6 +14,7 @@ import (
 	strfmt "github.com/go-openapi/strfmt"
 
 	models "github.com/metal-stack/metal-go/api/models"
+	httperrors "github.com/metal-stack/metal-lib/httperrors"
 )
 
 // UpdateIPReader is a Reader for the UpdateIP structure.
@@ -90,7 +91,7 @@ func NewUpdateIPConflict() *UpdateIPConflict {
 Conflict
 */
 type UpdateIPConflict struct {
-	Payload *models.HttperrorsHTTPErrorResponse
+	Payload *httperrors.HTTPErrorResponse
 }
 
 func (o *UpdateIPConflict) Error() string {
@@ -99,7 +100,7 @@ func (o *UpdateIPConflict) Error() string {
 
 func (o *UpdateIPConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.HttperrorsHTTPErrorResponse)
+	o.Payload = new(httperrors.HTTPErrorResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -123,7 +124,7 @@ Error
 type UpdateIPDefault struct {
 	_statusCode int
 
-	Payload *models.HttperrorsHTTPErrorResponse
+	Payload *httperrors.HTTPErrorResponse
 }
 
 // Code gets the status code for the update IP default response
@@ -137,7 +138,7 @@ func (o *UpdateIPDefault) Error() string {
 
 func (o *UpdateIPDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.HttperrorsHTTPErrorResponse)
+	o.Payload = new(httperrors.HTTPErrorResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

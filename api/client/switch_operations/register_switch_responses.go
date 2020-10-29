@@ -14,6 +14,7 @@ import (
 	strfmt "github.com/go-openapi/strfmt"
 
 	models "github.com/metal-stack/metal-go/api/models"
+	httperrors "github.com/metal-stack/metal-lib/httperrors"
 )
 
 // RegisterSwitchReader is a Reader for the RegisterSwitch structure.
@@ -123,7 +124,7 @@ Error
 type RegisterSwitchDefault struct {
 	_statusCode int
 
-	Payload *models.HttperrorsHTTPErrorResponse
+	Payload *httperrors.HTTPErrorResponse
 }
 
 // Code gets the status code for the register switch default response
@@ -137,7 +138,7 @@ func (o *RegisterSwitchDefault) Error() string {
 
 func (o *RegisterSwitchDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.HttperrorsHTTPErrorResponse)
+	o.Payload = new(httperrors.HTTPErrorResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

@@ -14,6 +14,7 @@ import (
 	strfmt "github.com/go-openapi/strfmt"
 
 	models "github.com/metal-stack/metal-go/api/models"
+	httperrors "github.com/metal-stack/metal-lib/httperrors"
 )
 
 // CreateProjectReader is a Reader for the CreateProject structure.
@@ -90,7 +91,7 @@ func NewCreateProjectConflict() *CreateProjectConflict {
 Conflict
 */
 type CreateProjectConflict struct {
-	Payload *models.HttperrorsHTTPErrorResponse
+	Payload *httperrors.HTTPErrorResponse
 }
 
 func (o *CreateProjectConflict) Error() string {
@@ -99,7 +100,7 @@ func (o *CreateProjectConflict) Error() string {
 
 func (o *CreateProjectConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.HttperrorsHTTPErrorResponse)
+	o.Payload = new(httperrors.HTTPErrorResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -123,7 +124,7 @@ Error
 type CreateProjectDefault struct {
 	_statusCode int
 
-	Payload *models.HttperrorsHTTPErrorResponse
+	Payload *httperrors.HTTPErrorResponse
 }
 
 // Code gets the status code for the create project default response
@@ -137,7 +138,7 @@ func (o *CreateProjectDefault) Error() string {
 
 func (o *CreateProjectDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.HttperrorsHTTPErrorResponse)
+	o.Payload = new(httperrors.HTTPErrorResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
