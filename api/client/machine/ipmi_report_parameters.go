@@ -63,7 +63,7 @@ for the ipmi report operation typically these are written to a http.Request
 type IpmiReportParams struct {
 
 	/*Body*/
-	Body *models.V1MachineIpmiReport
+	Body *models.V1MachineIpmiReports
 
 	timeout    time.Duration
 	Context    context.Context
@@ -104,13 +104,13 @@ func (o *IpmiReportParams) SetHTTPClient(client *http.Client) {
 }
 
 // WithBody adds the body to the ipmi report params
-func (o *IpmiReportParams) WithBody(body *models.V1MachineIpmiReport) *IpmiReportParams {
+func (o *IpmiReportParams) WithBody(body *models.V1MachineIpmiReports) *IpmiReportParams {
 	o.SetBody(body)
 	return o
 }
 
 // SetBody adds the body to the ipmi report params
-func (o *IpmiReportParams) SetBody(body *models.V1MachineIpmiReport) {
+func (o *IpmiReportParams) SetBody(body *models.V1MachineIpmiReports) {
 	o.Body = body
 }
 

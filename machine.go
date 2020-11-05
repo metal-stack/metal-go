@@ -128,9 +128,9 @@ type MachineIPMIListResponse struct {
 	Machines []*models.V1MachineIPMIResponse
 }
 
-// MachineIPMIReport contains the machine ipmi report
-type MachineIPMIReport struct {
-	Report *models.V1MachineIpmiReport
+// MachineIPMIReports contains the machine ipmi report
+type MachineIPMIReports struct {
+	Reports *models.V1MachineIpmiReports
 }
 
 // MachineIPMIReportResponse contains the machine ipmi report result
@@ -380,9 +380,9 @@ func (d *Driver) MachineIPMIList(mfr *MachineFindRequest) (*MachineIPMIListRespo
 }
 
 // MachineIPMIReport send leases of this partition to the metal-api
-func (d *Driver) MachineIPMIReport(report MachineIPMIReport) (*MachineIPMIReportResponse, error) {
+func (d *Driver) MachineIPMIReport(report MachineIPMIReports) (*MachineIPMIReportResponse, error) {
 	params := machine.NewIpmiReportParams()
-	params.SetBody(report.Report)
+	params.SetBody(report.Reports)
 	ok, err := d.machine.IpmiReport(params, nil)
 	if err != nil {
 		return nil, err

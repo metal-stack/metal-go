@@ -37,7 +37,7 @@ type V1MachineNetwork struct {
 	// Required: true
 	Networkid *string `json:"networkid"`
 
-	// the network type
+	// the network type, types can be looked up in the network package of metal-lib
 	// Required: true
 	Networktype *string `json:"networktype"`
 

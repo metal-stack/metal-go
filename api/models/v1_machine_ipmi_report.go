@@ -17,32 +17,40 @@ import (
 // swagger:model v1.MachineIpmiReport
 type V1MachineIpmiReport struct {
 
-	// the FRU information by machine UID
+	// b i o s version
 	// Required: true
-	Frus map[string]V1MachineFru `json:"frus"`
+	BIOSVersion *string `json:"BIOSVersion"`
 
-	// the active leases to be reported by a management server
+	// b m c Ip
 	// Required: true
-	Leases map[string]string `json:"leases"`
+	BMCIP *string `json:"BMCIp"`
 
-	// the partition id for the ipmi report
+	// b m c version
 	// Required: true
-	Partitionid *string `json:"partitionid"`
+	BMCVersion *string `json:"BMCVersion"`
+
+	// f r u
+	// Required: true
+	FRU *V1MachineFru `json:"FRU"`
 }
 
 // Validate validates this v1 machine ipmi report
 func (m *V1MachineIpmiReport) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateFrus(formats); err != nil {
+	if err := m.validateBIOSVersion(formats); err != nil {
 		res = append(res, err)
 	}
 
-	if err := m.validateLeases(formats); err != nil {
+	if err := m.validateBMCIP(formats); err != nil {
 		res = append(res, err)
 	}
 
-	if err := m.validatePartitionid(formats); err != nil {
+	if err := m.validateBMCVersion(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateFRU(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -52,33 +60,46 @@ func (m *V1MachineIpmiReport) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *V1MachineIpmiReport) validateFrus(formats strfmt.Registry) error {
+func (m *V1MachineIpmiReport) validateBIOSVersion(formats strfmt.Registry) error {
 
-	for k := range m.Frus {
-
-		if err := validate.Required("frus"+"."+k, "body", m.Frus[k]); err != nil {
-			return err
-		}
-		if val, ok := m.Frus[k]; ok {
-			if err := val.Validate(formats); err != nil {
-				return err
-			}
-		}
-
+	if err := validate.Required("BIOSVersion", "body", m.BIOSVersion); err != nil {
+		return err
 	}
 
 	return nil
 }
 
-func (m *V1MachineIpmiReport) validateLeases(formats strfmt.Registry) error {
+func (m *V1MachineIpmiReport) validateBMCIP(formats strfmt.Registry) error {
+
+	if err := validate.Required("BMCIp", "body", m.BMCIP); err != nil {
+		return err
+	}
 
 	return nil
 }
 
-func (m *V1MachineIpmiReport) validatePartitionid(formats strfmt.Registry) error {
+func (m *V1MachineIpmiReport) validateBMCVersion(formats strfmt.Registry) error {
 
-	if err := validate.Required("partitionid", "body", m.Partitionid); err != nil {
+	if err := validate.Required("BMCVersion", "body", m.BMCVersion); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+func (m *V1MachineIpmiReport) validateFRU(formats strfmt.Registry) error {
+
+	if err := validate.Required("FRU", "body", m.FRU); err != nil {
+		return err
+	}
+
+	if m.FRU != nil {
+		if err := m.FRU.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("FRU")
+			}
+			return err
+		}
 	}
 
 	return nil

@@ -9,6 +9,7 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // V1MachineIpmiReportResponse v1 machine ipmi report response
@@ -16,13 +17,13 @@ import (
 // swagger:model v1.MachineIpmiReportResponse
 type V1MachineIpmiReportResponse struct {
 
-	// the leases that triggered a creation of a machine entity
+	// the machine uuids that triggered a creation of a machine entity
 	// Required: true
-	Created map[string]string `json:"created"`
+	Created []string `json:"created"`
 
-	// the leases that triggered an update of ipmi data
+	// the machine uuids that triggered an update of ipmi data
 	// Required: true
-	Updated map[string]string `json:"updated"`
+	Updated []string `json:"updated"`
 }
 
 // Validate validates this v1 machine ipmi report response
@@ -45,10 +46,18 @@ func (m *V1MachineIpmiReportResponse) Validate(formats strfmt.Registry) error {
 
 func (m *V1MachineIpmiReportResponse) validateCreated(formats strfmt.Registry) error {
 
+	if err := validate.Required("created", "body", m.Created); err != nil {
+		return err
+	}
+
 	return nil
 }
 
 func (m *V1MachineIpmiReportResponse) validateUpdated(formats strfmt.Registry) error {
+
+	if err := validate.Required("updated", "body", m.Updated); err != nil {
+		return err
+	}
 
 	return nil
 }
