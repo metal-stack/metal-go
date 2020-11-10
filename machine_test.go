@@ -11,6 +11,7 @@ import (
 
 	"github.com/emicklei/go-restful/v3"
 	"github.com/metal-stack/metal-go/api/models"
+	"github.com/metal-stack/metal-lib/httperrors"
 	"github.com/stretchr/testify/require"
 )
 
@@ -25,8 +26,8 @@ func init() {
 		Route(ws.POST("/allocate").To(func(request *restful.Request, response *restful.Response) {}).
 			Reads(models.V1MachineAllocateRequest{}).
 			Returns(http.StatusOK, "OK", models.V1MachineResponse{}).
-			Returns(http.StatusNotFound, "No free machine for allocation found", models.HttperrorsHTTPErrorResponse{}).
-			Returns(http.StatusUnprocessableEntity, "Unprocessable Entity", models.HttperrorsHTTPErrorResponse{}))
+			Returns(http.StatusNotFound, "No free machine for allocation found", httperrors.HTTPErrorResponse{}).
+			Returns(http.StatusUnprocessableEntity, "Unprocessable Entity", httperrors.HTTPErrorResponse{}))
 
 	restful.DefaultContainer.Add(ws)
 }

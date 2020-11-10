@@ -13,6 +13,7 @@ import (
 	"github.com/go-openapi/strfmt"
 
 	"github.com/metal-stack/metal-go/api/models"
+	"github.com/metal-stack/metal-lib/httperrors"
 )
 
 // MachineBiosReader is a Reader for the MachineBios structure.
@@ -88,7 +89,7 @@ Error
 type MachineBiosDefault struct {
 	_statusCode int
 
-	Payload *models.HttperrorsHTTPErrorResponse
+	Payload *httperrors.HTTPErrorResponse
 }
 
 // Code gets the status code for the machine bios default response
@@ -100,13 +101,13 @@ func (o *MachineBiosDefault) Error() string {
 	return fmt.Sprintf("[POST /v1/machine/{id}/power/bios][%d] machineBios default  %+v", o._statusCode, o.Payload)
 }
 
-func (o *MachineBiosDefault) GetPayload() *models.HttperrorsHTTPErrorResponse {
+func (o *MachineBiosDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }
 
 func (o *MachineBiosDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.HttperrorsHTTPErrorResponse)
+	o.Payload = new(httperrors.HTTPErrorResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

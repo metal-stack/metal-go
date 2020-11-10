@@ -13,6 +13,7 @@ import (
 	"github.com/go-openapi/strfmt"
 
 	"github.com/metal-stack/metal-go/api/models"
+	"github.com/metal-stack/metal-lib/httperrors"
 )
 
 // ListSizesReader is a Reader for the ListSizes structure.
@@ -86,7 +87,7 @@ Error
 type ListSizesDefault struct {
 	_statusCode int
 
-	Payload *models.HttperrorsHTTPErrorResponse
+	Payload *httperrors.HTTPErrorResponse
 }
 
 // Code gets the status code for the list sizes default response
@@ -98,13 +99,13 @@ func (o *ListSizesDefault) Error() string {
 	return fmt.Sprintf("[GET /v1/size][%d] listSizes default  %+v", o._statusCode, o.Payload)
 }
 
-func (o *ListSizesDefault) GetPayload() *models.HttperrorsHTTPErrorResponse {
+func (o *ListSizesDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }
 
 func (o *ListSizesDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.HttperrorsHTTPErrorResponse)
+	o.Payload = new(httperrors.HTTPErrorResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

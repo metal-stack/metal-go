@@ -13,6 +13,7 @@ import (
 	"github.com/go-openapi/strfmt"
 
 	"github.com/metal-stack/metal-go/api/models"
+	"github.com/metal-stack/metal-lib/httperrors"
 )
 
 // ChassisIdentifyLEDOffReader is a Reader for the ChassisIdentifyLEDOff structure.
@@ -88,7 +89,7 @@ Error
 type ChassisIdentifyLEDOffDefault struct {
 	_statusCode int
 
-	Payload *models.HttperrorsHTTPErrorResponse
+	Payload *httperrors.HTTPErrorResponse
 }
 
 // Code gets the status code for the chassis identify l e d off default response
@@ -100,13 +101,13 @@ func (o *ChassisIdentifyLEDOffDefault) Error() string {
 	return fmt.Sprintf("[POST /v1/machine/{id}/power/chassis-identify-led-off][%d] chassisIdentifyLEDOff default  %+v", o._statusCode, o.Payload)
 }
 
-func (o *ChassisIdentifyLEDOffDefault) GetPayload() *models.HttperrorsHTTPErrorResponse {
+func (o *ChassisIdentifyLEDOffDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }
 
 func (o *ChassisIdentifyLEDOffDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.HttperrorsHTTPErrorResponse)
+	o.Payload = new(httperrors.HTTPErrorResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

@@ -13,6 +13,7 @@ import (
 	"github.com/go-openapi/strfmt"
 
 	"github.com/metal-stack/metal-go/api/models"
+	"github.com/metal-stack/metal-lib/httperrors"
 )
 
 // FindIPMIMachinesReader is a Reader for the FindIPMIMachines structure.
@@ -86,7 +87,7 @@ Error
 type FindIPMIMachinesDefault struct {
 	_statusCode int
 
-	Payload *models.HttperrorsHTTPErrorResponse
+	Payload *httperrors.HTTPErrorResponse
 }
 
 // Code gets the status code for the find IP m i machines default response
@@ -98,13 +99,13 @@ func (o *FindIPMIMachinesDefault) Error() string {
 	return fmt.Sprintf("[POST /v1/machine/ipmi/find][%d] findIPMIMachines default  %+v", o._statusCode, o.Payload)
 }
 
-func (o *FindIPMIMachinesDefault) GetPayload() *models.HttperrorsHTTPErrorResponse {
+func (o *FindIPMIMachinesDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }
 
 func (o *FindIPMIMachinesDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.HttperrorsHTTPErrorResponse)
+	o.Payload = new(httperrors.HTTPErrorResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

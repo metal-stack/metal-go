@@ -13,6 +13,7 @@ import (
 	"github.com/go-openapi/strfmt"
 
 	"github.com/metal-stack/metal-go/api/models"
+	"github.com/metal-stack/metal-lib/httperrors"
 )
 
 // FindPartitionReader is a Reader for the FindPartition structure.
@@ -88,7 +89,7 @@ Error
 type FindPartitionDefault struct {
 	_statusCode int
 
-	Payload *models.HttperrorsHTTPErrorResponse
+	Payload *httperrors.HTTPErrorResponse
 }
 
 // Code gets the status code for the find partition default response
@@ -100,13 +101,13 @@ func (o *FindPartitionDefault) Error() string {
 	return fmt.Sprintf("[GET /v1/partition/{id}][%d] findPartition default  %+v", o._statusCode, o.Payload)
 }
 
-func (o *FindPartitionDefault) GetPayload() *models.HttperrorsHTTPErrorResponse {
+func (o *FindPartitionDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }
 
 func (o *FindPartitionDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.HttperrorsHTTPErrorResponse)
+	o.Payload = new(httperrors.HTTPErrorResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

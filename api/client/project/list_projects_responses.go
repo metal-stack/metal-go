@@ -13,6 +13,7 @@ import (
 	"github.com/go-openapi/strfmt"
 
 	"github.com/metal-stack/metal-go/api/models"
+	"github.com/metal-stack/metal-lib/httperrors"
 )
 
 // ListProjectsReader is a Reader for the ListProjects structure.
@@ -86,7 +87,7 @@ Error
 type ListProjectsDefault struct {
 	_statusCode int
 
-	Payload *models.HttperrorsHTTPErrorResponse
+	Payload *httperrors.HTTPErrorResponse
 }
 
 // Code gets the status code for the list projects default response
@@ -98,13 +99,13 @@ func (o *ListProjectsDefault) Error() string {
 	return fmt.Sprintf("[GET /v1/project][%d] listProjects default  %+v", o._statusCode, o.Payload)
 }
 
-func (o *ListProjectsDefault) GetPayload() *models.HttperrorsHTTPErrorResponse {
+func (o *ListProjectsDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }
 
 func (o *ListProjectsDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.HttperrorsHTTPErrorResponse)
+	o.Payload = new(httperrors.HTTPErrorResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
