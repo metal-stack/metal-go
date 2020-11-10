@@ -13,6 +13,7 @@ import (
 	"github.com/go-openapi/strfmt"
 
 	"github.com/metal-stack/metal-go/api/models"
+	"github.com/metal-stack/metal-lib/httperrors"
 )
 
 // FromHardwareReader is a Reader for the FromHardware structure.
@@ -88,7 +89,7 @@ Error
 type FromHardwareDefault struct {
 	_statusCode int
 
-	Payload *models.HttperrorsHTTPErrorResponse
+	Payload *httperrors.HTTPErrorResponse
 }
 
 // Code gets the status code for the from hardware default response
@@ -100,13 +101,13 @@ func (o *FromHardwareDefault) Error() string {
 	return fmt.Sprintf("[POST /v1/size/from-hardware][%d] fromHardware default  %+v", o._statusCode, o.Payload)
 }
 
-func (o *FromHardwareDefault) GetPayload() *models.HttperrorsHTTPErrorResponse {
+func (o *FromHardwareDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }
 
 func (o *FromHardwareDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.HttperrorsHTTPErrorResponse)
+	o.Payload = new(httperrors.HTTPErrorResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

@@ -13,6 +13,7 @@ import (
 	"github.com/go-openapi/strfmt"
 
 	"github.com/metal-stack/metal-go/api/models"
+	"github.com/metal-stack/metal-lib/httperrors"
 )
 
 // FindSwitchReader is a Reader for the FindSwitch structure.
@@ -88,7 +89,7 @@ Error
 type FindSwitchDefault struct {
 	_statusCode int
 
-	Payload *models.HttperrorsHTTPErrorResponse
+	Payload *httperrors.HTTPErrorResponse
 }
 
 // Code gets the status code for the find switch default response
@@ -100,13 +101,13 @@ func (o *FindSwitchDefault) Error() string {
 	return fmt.Sprintf("[GET /v1/switch/{id}][%d] findSwitch default  %+v", o._statusCode, o.Payload)
 }
 
-func (o *FindSwitchDefault) GetPayload() *models.HttperrorsHTTPErrorResponse {
+func (o *FindSwitchDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }
 
 func (o *FindSwitchDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.HttperrorsHTTPErrorResponse)
+	o.Payload = new(httperrors.HTTPErrorResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

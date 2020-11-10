@@ -13,6 +13,7 @@ import (
 	"github.com/go-openapi/strfmt"
 
 	"github.com/metal-stack/metal-go/api/models"
+	"github.com/metal-stack/metal-lib/httperrors"
 )
 
 // UpdateProjectReader is a Reader for the UpdateProject structure.
@@ -90,20 +91,20 @@ func NewUpdateProjectPreconditionFailed() *UpdateProjectPreconditionFailed {
 OptimisticLock
 */
 type UpdateProjectPreconditionFailed struct {
-	Payload *models.HttperrorsHTTPErrorResponse
+	Payload *httperrors.HTTPErrorResponse
 }
 
 func (o *UpdateProjectPreconditionFailed) Error() string {
 	return fmt.Sprintf("[POST /v1/project][%d] updateProjectPreconditionFailed  %+v", 412, o.Payload)
 }
 
-func (o *UpdateProjectPreconditionFailed) GetPayload() *models.HttperrorsHTTPErrorResponse {
+func (o *UpdateProjectPreconditionFailed) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }
 
 func (o *UpdateProjectPreconditionFailed) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.HttperrorsHTTPErrorResponse)
+	o.Payload = new(httperrors.HTTPErrorResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -127,7 +128,7 @@ Error
 type UpdateProjectDefault struct {
 	_statusCode int
 
-	Payload *models.HttperrorsHTTPErrorResponse
+	Payload *httperrors.HTTPErrorResponse
 }
 
 // Code gets the status code for the update project default response
@@ -139,13 +140,13 @@ func (o *UpdateProjectDefault) Error() string {
 	return fmt.Sprintf("[POST /v1/project][%d] updateProject default  %+v", o._statusCode, o.Payload)
 }
 
-func (o *UpdateProjectDefault) GetPayload() *models.HttperrorsHTTPErrorResponse {
+func (o *UpdateProjectDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }
 
 func (o *UpdateProjectDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.HttperrorsHTTPErrorResponse)
+	o.Payload = new(httperrors.HTTPErrorResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

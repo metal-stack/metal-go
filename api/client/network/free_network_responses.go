@@ -13,6 +13,7 @@ import (
 	"github.com/go-openapi/strfmt"
 
 	"github.com/metal-stack/metal-go/api/models"
+	"github.com/metal-stack/metal-lib/httperrors"
 )
 
 // FreeNetworkReader is a Reader for the FreeNetwork structure.
@@ -90,20 +91,20 @@ func NewFreeNetworkConflict() *FreeNetworkConflict {
 Conflict
 */
 type FreeNetworkConflict struct {
-	Payload *models.HttperrorsHTTPErrorResponse
+	Payload *httperrors.HTTPErrorResponse
 }
 
 func (o *FreeNetworkConflict) Error() string {
 	return fmt.Sprintf("[POST /v1/network/free/{id}][%d] freeNetworkConflict  %+v", 409, o.Payload)
 }
 
-func (o *FreeNetworkConflict) GetPayload() *models.HttperrorsHTTPErrorResponse {
+func (o *FreeNetworkConflict) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }
 
 func (o *FreeNetworkConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.HttperrorsHTTPErrorResponse)
+	o.Payload = new(httperrors.HTTPErrorResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -127,7 +128,7 @@ Error
 type FreeNetworkDefault struct {
 	_statusCode int
 
-	Payload *models.HttperrorsHTTPErrorResponse
+	Payload *httperrors.HTTPErrorResponse
 }
 
 // Code gets the status code for the free network default response
@@ -139,13 +140,13 @@ func (o *FreeNetworkDefault) Error() string {
 	return fmt.Sprintf("[POST /v1/network/free/{id}][%d] freeNetwork default  %+v", o._statusCode, o.Payload)
 }
 
-func (o *FreeNetworkDefault) GetPayload() *models.HttperrorsHTTPErrorResponse {
+func (o *FreeNetworkDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }
 
 func (o *FreeNetworkDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.HttperrorsHTTPErrorResponse)
+	o.Payload = new(httperrors.HTTPErrorResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

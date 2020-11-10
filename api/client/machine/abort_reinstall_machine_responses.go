@@ -13,6 +13,7 @@ import (
 	"github.com/go-openapi/strfmt"
 
 	"github.com/metal-stack/metal-go/api/models"
+	"github.com/metal-stack/metal-lib/httperrors"
 )
 
 // AbortReinstallMachineReader is a Reader for the AbortReinstallMachine structure.
@@ -88,7 +89,7 @@ Error
 type AbortReinstallMachineDefault struct {
 	_statusCode int
 
-	Payload *models.HttperrorsHTTPErrorResponse
+	Payload *httperrors.HTTPErrorResponse
 }
 
 // Code gets the status code for the abort reinstall machine default response
@@ -100,13 +101,13 @@ func (o *AbortReinstallMachineDefault) Error() string {
 	return fmt.Sprintf("[POST /v1/machine/{id}/abort-reinstall][%d] abortReinstallMachine default  %+v", o._statusCode, o.Payload)
 }
 
-func (o *AbortReinstallMachineDefault) GetPayload() *models.HttperrorsHTTPErrorResponse {
+func (o *AbortReinstallMachineDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }
 
 func (o *AbortReinstallMachineDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.HttperrorsHTTPErrorResponse)
+	o.Payload = new(httperrors.HTTPErrorResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

@@ -13,6 +13,7 @@ import (
 	"github.com/go-openapi/strfmt"
 
 	"github.com/metal-stack/metal-go/api/models"
+	"github.com/metal-stack/metal-lib/httperrors"
 )
 
 // RegisterMachineReader is a Reader for the RegisterMachine structure.
@@ -127,7 +128,7 @@ Error
 type RegisterMachineDefault struct {
 	_statusCode int
 
-	Payload *models.HttperrorsHTTPErrorResponse
+	Payload *httperrors.HTTPErrorResponse
 }
 
 // Code gets the status code for the register machine default response
@@ -139,13 +140,13 @@ func (o *RegisterMachineDefault) Error() string {
 	return fmt.Sprintf("[POST /v1/machine/register][%d] registerMachine default  %+v", o._statusCode, o.Payload)
 }
 
-func (o *RegisterMachineDefault) GetPayload() *models.HttperrorsHTTPErrorResponse {
+func (o *RegisterMachineDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }
 
 func (o *RegisterMachineDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.HttperrorsHTTPErrorResponse)
+	o.Payload = new(httperrors.HTTPErrorResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

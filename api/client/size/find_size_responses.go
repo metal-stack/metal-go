@@ -13,6 +13,7 @@ import (
 	"github.com/go-openapi/strfmt"
 
 	"github.com/metal-stack/metal-go/api/models"
+	"github.com/metal-stack/metal-lib/httperrors"
 )
 
 // FindSizeReader is a Reader for the FindSize structure.
@@ -88,7 +89,7 @@ Error
 type FindSizeDefault struct {
 	_statusCode int
 
-	Payload *models.HttperrorsHTTPErrorResponse
+	Payload *httperrors.HTTPErrorResponse
 }
 
 // Code gets the status code for the find size default response
@@ -100,13 +101,13 @@ func (o *FindSizeDefault) Error() string {
 	return fmt.Sprintf("[GET /v1/size/{id}][%d] findSize default  %+v", o._statusCode, o.Payload)
 }
 
-func (o *FindSizeDefault) GetPayload() *models.HttperrorsHTTPErrorResponse {
+func (o *FindSizeDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }
 
 func (o *FindSizeDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.HttperrorsHTTPErrorResponse)
+	o.Payload = new(httperrors.HTTPErrorResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

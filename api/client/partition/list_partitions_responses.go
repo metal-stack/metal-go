@@ -13,6 +13,7 @@ import (
 	"github.com/go-openapi/strfmt"
 
 	"github.com/metal-stack/metal-go/api/models"
+	"github.com/metal-stack/metal-lib/httperrors"
 )
 
 // ListPartitionsReader is a Reader for the ListPartitions structure.
@@ -86,7 +87,7 @@ Error
 type ListPartitionsDefault struct {
 	_statusCode int
 
-	Payload *models.HttperrorsHTTPErrorResponse
+	Payload *httperrors.HTTPErrorResponse
 }
 
 // Code gets the status code for the list partitions default response
@@ -98,13 +99,13 @@ func (o *ListPartitionsDefault) Error() string {
 	return fmt.Sprintf("[GET /v1/partition][%d] listPartitions default  %+v", o._statusCode, o.Payload)
 }
 
-func (o *ListPartitionsDefault) GetPayload() *models.HttperrorsHTTPErrorResponse {
+func (o *ListPartitionsDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }
 
 func (o *ListPartitionsDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.HttperrorsHTTPErrorResponse)
+	o.Payload = new(httperrors.HTTPErrorResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

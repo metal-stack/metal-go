@@ -13,6 +13,7 @@ import (
 	"github.com/go-openapi/strfmt"
 
 	"github.com/metal-stack/metal-go/api/models"
+	"github.com/metal-stack/metal-lib/httperrors"
 )
 
 // CreateNetworkReader is a Reader for the CreateNetwork structure.
@@ -90,20 +91,20 @@ func NewCreateNetworkConflict() *CreateNetworkConflict {
 Conflict
 */
 type CreateNetworkConflict struct {
-	Payload *models.HttperrorsHTTPErrorResponse
+	Payload *httperrors.HTTPErrorResponse
 }
 
 func (o *CreateNetworkConflict) Error() string {
 	return fmt.Sprintf("[PUT /v1/network][%d] createNetworkConflict  %+v", 409, o.Payload)
 }
 
-func (o *CreateNetworkConflict) GetPayload() *models.HttperrorsHTTPErrorResponse {
+func (o *CreateNetworkConflict) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }
 
 func (o *CreateNetworkConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.HttperrorsHTTPErrorResponse)
+	o.Payload = new(httperrors.HTTPErrorResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -127,7 +128,7 @@ Error
 type CreateNetworkDefault struct {
 	_statusCode int
 
-	Payload *models.HttperrorsHTTPErrorResponse
+	Payload *httperrors.HTTPErrorResponse
 }
 
 // Code gets the status code for the create network default response
@@ -139,13 +140,13 @@ func (o *CreateNetworkDefault) Error() string {
 	return fmt.Sprintf("[PUT /v1/network][%d] createNetwork default  %+v", o._statusCode, o.Payload)
 }
 
-func (o *CreateNetworkDefault) GetPayload() *models.HttperrorsHTTPErrorResponse {
+func (o *CreateNetworkDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }
 
 func (o *CreateNetworkDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.HttperrorsHTTPErrorResponse)
+	o.Payload = new(httperrors.HTTPErrorResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
