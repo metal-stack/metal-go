@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/metal-stack/metal-go/api/models"
+	"github.com/metal-stack/metal-go/api/models"
 )
 
 // FindNetworkReader is a Reader for the FindNetwork structure.
@@ -24,14 +23,12 @@ type FindNetworkReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *FindNetworkReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewFindNetworkOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		result := NewFindNetworkDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -59,6 +56,10 @@ type FindNetworkOK struct {
 
 func (o *FindNetworkOK) Error() string {
 	return fmt.Sprintf("[GET /v1/network/{id}][%d] findNetworkOK  %+v", 200, o.Payload)
+}
+
+func (o *FindNetworkOK) GetPayload() *models.V1NetworkResponse {
+	return o.Payload
 }
 
 func (o *FindNetworkOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -97,6 +98,10 @@ func (o *FindNetworkDefault) Code() int {
 
 func (o *FindNetworkDefault) Error() string {
 	return fmt.Sprintf("[GET /v1/network/{id}][%d] findNetwork default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *FindNetworkDefault) GetPayload() *models.HttperrorsHTTPErrorResponse {
+	return o.Payload
 }
 
 func (o *FindNetworkDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

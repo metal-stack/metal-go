@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/metal-stack/metal-go/api/models"
+	"github.com/metal-stack/metal-go/api/models"
 )
 
 // HealthReader is a Reader for the Health structure.
@@ -24,14 +23,12 @@ type HealthReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *HealthReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewHealthOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 500:
 		result := NewHealthInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -40,7 +37,7 @@ func (o *HealthReader) ReadResponse(response runtime.ClientResponse, consumer ru
 		return nil, result
 
 	default:
-		return nil, runtime.NewAPIError("unknown error", response, response.Code())
+		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
 }
 
@@ -59,6 +56,10 @@ type HealthOK struct {
 
 func (o *HealthOK) Error() string {
 	return fmt.Sprintf("[GET /v1/health][%d] healthOK  %+v", 200, o.Payload)
+}
+
+func (o *HealthOK) GetPayload() *models.RestStatus {
+	return o.Payload
 }
 
 func (o *HealthOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -88,6 +89,10 @@ type HealthInternalServerError struct {
 
 func (o *HealthInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /v1/health][%d] healthInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *HealthInternalServerError) GetPayload() *models.RestStatus {
+	return o.Payload
 }
 
 func (o *HealthInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

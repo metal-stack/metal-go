@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/metal-stack/metal-go/api/models"
+	"github.com/metal-stack/metal-go/api/models"
 )
 
 // MachineResetReader is a Reader for the MachineReset structure.
@@ -24,14 +23,12 @@ type MachineResetReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *MachineResetReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewMachineResetOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		result := NewMachineResetDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -59,6 +56,10 @@ type MachineResetOK struct {
 
 func (o *MachineResetOK) Error() string {
 	return fmt.Sprintf("[POST /v1/machine/{id}/power/reset][%d] machineResetOK  %+v", 200, o.Payload)
+}
+
+func (o *MachineResetOK) GetPayload() *models.V1MachineResponse {
+	return o.Payload
 }
 
 func (o *MachineResetOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -97,6 +98,10 @@ func (o *MachineResetDefault) Code() int {
 
 func (o *MachineResetDefault) Error() string {
 	return fmt.Sprintf("[POST /v1/machine/{id}/power/reset][%d] machineReset default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *MachineResetDefault) GetPayload() *models.HttperrorsHTTPErrorResponse {
+	return o.Payload
 }
 
 func (o *MachineResetDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

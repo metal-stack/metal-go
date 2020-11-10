@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/metal-stack/metal-go/api/models"
+	"github.com/metal-stack/metal-go/api/models"
 )
 
 // FindProjectReader is a Reader for the FindProject structure.
@@ -24,14 +23,12 @@ type FindProjectReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *FindProjectReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewFindProjectOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		result := NewFindProjectDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -59,6 +56,10 @@ type FindProjectOK struct {
 
 func (o *FindProjectOK) Error() string {
 	return fmt.Sprintf("[GET /v1/project/{id}][%d] findProjectOK  %+v", 200, o.Payload)
+}
+
+func (o *FindProjectOK) GetPayload() *models.V1ProjectResponse {
+	return o.Payload
 }
 
 func (o *FindProjectOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -97,6 +98,10 @@ func (o *FindProjectDefault) Code() int {
 
 func (o *FindProjectDefault) Error() string {
 	return fmt.Sprintf("[GET /v1/project/{id}][%d] findProject default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *FindProjectDefault) GetPayload() *models.HttperrorsHTTPErrorResponse {
+	return o.Payload
 }
 
 func (o *FindProjectDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

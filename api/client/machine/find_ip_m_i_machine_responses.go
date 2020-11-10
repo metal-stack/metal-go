@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/metal-stack/metal-go/api/models"
+	"github.com/metal-stack/metal-go/api/models"
 )
 
 // FindIPMIMachineReader is a Reader for the FindIPMIMachine structure.
@@ -24,14 +23,12 @@ type FindIPMIMachineReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *FindIPMIMachineReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewFindIPMIMachineOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		result := NewFindIPMIMachineDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -59,6 +56,10 @@ type FindIPMIMachineOK struct {
 
 func (o *FindIPMIMachineOK) Error() string {
 	return fmt.Sprintf("[GET /v1/machine/{id}/ipmi][%d] findIpMIMachineOK  %+v", 200, o.Payload)
+}
+
+func (o *FindIPMIMachineOK) GetPayload() *models.V1MachineIPMIResponse {
+	return o.Payload
 }
 
 func (o *FindIPMIMachineOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -97,6 +98,10 @@ func (o *FindIPMIMachineDefault) Code() int {
 
 func (o *FindIPMIMachineDefault) Error() string {
 	return fmt.Sprintf("[GET /v1/machine/{id}/ipmi][%d] findIPMIMachine default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *FindIPMIMachineDefault) GetPayload() *models.HttperrorsHTTPErrorResponse {
+	return o.Payload
 }
 
 func (o *FindIPMIMachineDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

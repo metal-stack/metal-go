@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/metal-stack/metal-go/api/models"
+	"github.com/metal-stack/metal-go/api/models"
 )
 
 // PartitionCapacityReader is a Reader for the PartitionCapacity structure.
@@ -24,14 +23,12 @@ type PartitionCapacityReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *PartitionCapacityReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewPartitionCapacityOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		result := NewPartitionCapacityDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -59,6 +56,10 @@ type PartitionCapacityOK struct {
 
 func (o *PartitionCapacityOK) Error() string {
 	return fmt.Sprintf("[GET /v1/partition/capacity][%d] partitionCapacityOK  %+v", 200, o.Payload)
+}
+
+func (o *PartitionCapacityOK) GetPayload() []*models.V1PartitionCapacity {
+	return o.Payload
 }
 
 func (o *PartitionCapacityOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -95,6 +96,10 @@ func (o *PartitionCapacityDefault) Code() int {
 
 func (o *PartitionCapacityDefault) Error() string {
 	return fmt.Sprintf("[GET /v1/partition/capacity][%d] partitionCapacity default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *PartitionCapacityDefault) GetPayload() *models.HttperrorsHTTPErrorResponse {
+	return o.Payload
 }
 
 func (o *PartitionCapacityDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

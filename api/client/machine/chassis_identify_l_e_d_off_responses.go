@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/metal-stack/metal-go/api/models"
+	"github.com/metal-stack/metal-go/api/models"
 )
 
 // ChassisIdentifyLEDOffReader is a Reader for the ChassisIdentifyLEDOff structure.
@@ -24,14 +23,12 @@ type ChassisIdentifyLEDOffReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *ChassisIdentifyLEDOffReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewChassisIdentifyLEDOffOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		result := NewChassisIdentifyLEDOffDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -59,6 +56,10 @@ type ChassisIdentifyLEDOffOK struct {
 
 func (o *ChassisIdentifyLEDOffOK) Error() string {
 	return fmt.Sprintf("[POST /v1/machine/{id}/power/chassis-identify-led-off][%d] chassisIdentifyLEDOffOK  %+v", 200, o.Payload)
+}
+
+func (o *ChassisIdentifyLEDOffOK) GetPayload() *models.V1MachineResponse {
+	return o.Payload
 }
 
 func (o *ChassisIdentifyLEDOffOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -97,6 +98,10 @@ func (o *ChassisIdentifyLEDOffDefault) Code() int {
 
 func (o *ChassisIdentifyLEDOffDefault) Error() string {
 	return fmt.Sprintf("[POST /v1/machine/{id}/power/chassis-identify-led-off][%d] chassisIdentifyLEDOff default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *ChassisIdentifyLEDOffDefault) GetPayload() *models.HttperrorsHTTPErrorResponse {
+	return o.Payload
 }
 
 func (o *ChassisIdentifyLEDOffDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

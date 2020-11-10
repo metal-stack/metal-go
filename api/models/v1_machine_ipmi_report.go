@@ -6,16 +6,16 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	strfmt "github.com/go-openapi/strfmt"
-
 	"github.com/go-openapi/errors"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
-// V1MachineIPMIReport v1 machine ipmi report
+// V1MachineIpmiReport v1 machine ipmi report
+//
 // swagger:model v1.MachineIpmiReport
-type V1MachineIPMIReport struct {
+type V1MachineIpmiReport struct {
 
 	// b i o s version
 	// Required: true
@@ -35,7 +35,7 @@ type V1MachineIPMIReport struct {
 }
 
 // Validate validates this v1 machine ipmi report
-func (m *V1MachineIPMIReport) Validate(formats strfmt.Registry) error {
+func (m *V1MachineIpmiReport) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateBIOSVersion(formats); err != nil {
@@ -60,7 +60,7 @@ func (m *V1MachineIPMIReport) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *V1MachineIPMIReport) validateBIOSVersion(formats strfmt.Registry) error {
+func (m *V1MachineIpmiReport) validateBIOSVersion(formats strfmt.Registry) error {
 
 	if err := validate.Required("BIOSVersion", "body", m.BIOSVersion); err != nil {
 		return err
@@ -69,7 +69,7 @@ func (m *V1MachineIPMIReport) validateBIOSVersion(formats strfmt.Registry) error
 	return nil
 }
 
-func (m *V1MachineIPMIReport) validateBMCIP(formats strfmt.Registry) error {
+func (m *V1MachineIpmiReport) validateBMCIP(formats strfmt.Registry) error {
 
 	if err := validate.Required("BMCIp", "body", m.BMCIP); err != nil {
 		return err
@@ -78,7 +78,7 @@ func (m *V1MachineIPMIReport) validateBMCIP(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *V1MachineIPMIReport) validateBMCVersion(formats strfmt.Registry) error {
+func (m *V1MachineIpmiReport) validateBMCVersion(formats strfmt.Registry) error {
 
 	if err := validate.Required("BMCVersion", "body", m.BMCVersion); err != nil {
 		return err
@@ -87,7 +87,7 @@ func (m *V1MachineIPMIReport) validateBMCVersion(formats strfmt.Registry) error 
 	return nil
 }
 
-func (m *V1MachineIPMIReport) validateFRU(formats strfmt.Registry) error {
+func (m *V1MachineIpmiReport) validateFRU(formats strfmt.Registry) error {
 
 	if err := validate.Required("FRU", "body", m.FRU); err != nil {
 		return err
@@ -106,7 +106,7 @@ func (m *V1MachineIPMIReport) validateFRU(formats strfmt.Registry) error {
 }
 
 // MarshalBinary interface implementation
-func (m *V1MachineIPMIReport) MarshalBinary() ([]byte, error) {
+func (m *V1MachineIpmiReport) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -114,8 +114,8 @@ func (m *V1MachineIPMIReport) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *V1MachineIPMIReport) UnmarshalBinary(b []byte) error {
-	var res V1MachineIPMIReport
+func (m *V1MachineIpmiReport) UnmarshalBinary(b []byte) error {
+	var res V1MachineIpmiReport
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

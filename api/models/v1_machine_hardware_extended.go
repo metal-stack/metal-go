@@ -8,14 +8,14 @@ package models
 import (
 	"strconv"
 
-	strfmt "github.com/go-openapi/strfmt"
-
 	"github.com/go-openapi/errors"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // V1MachineHardwareExtended v1 machine hardware extended
+//
 // swagger:model v1.MachineHardwareExtended
 type V1MachineHardwareExtended struct {
 

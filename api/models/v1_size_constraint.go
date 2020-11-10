@@ -8,14 +8,14 @@ package models
 import (
 	"encoding/json"
 
-	strfmt "github.com/go-openapi/strfmt"
-
 	"github.com/go-openapi/errors"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // V1SizeConstraint a machine matches to a size in order to make them easier to categorize
+//
 // swagger:model v1.SizeConstraint
 type V1SizeConstraint struct {
 
@@ -99,7 +99,7 @@ const (
 
 // prop value enum
 func (m *V1SizeConstraint) validateTypeEnum(path, location string, value string) error {
-	if err := validate.Enum(path, location, value, v1SizeConstraintTypeTypePropEnum); err != nil {
+	if err := validate.EnumCase(path, location, value, v1SizeConstraintTypeTypePropEnum, true); err != nil {
 		return err
 	}
 	return nil

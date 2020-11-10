@@ -8,14 +8,14 @@ package models
 import (
 	"strconv"
 
-	strfmt "github.com/go-openapi/strfmt"
-
 	"github.com/go-openapi/errors"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // V1SizeUpdateRequest v1 size update request
+//
 // swagger:model v1.SizeUpdateRequest
 type V1SizeUpdateRequest struct {
 

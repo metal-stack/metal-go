@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/metal-stack/metal-go/api/models"
+	"github.com/metal-stack/metal-go/api/models"
 )
 
 // UpdateSizeReader is a Reader for the UpdateSize structure.
@@ -24,21 +23,18 @@ type UpdateSizeReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *UpdateSizeReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewUpdateSizeOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 409:
 		result := NewUpdateSizeConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		result := NewUpdateSizeDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -68,6 +64,10 @@ func (o *UpdateSizeOK) Error() string {
 	return fmt.Sprintf("[POST /v1/size][%d] updateSizeOK  %+v", 200, o.Payload)
 }
 
+func (o *UpdateSizeOK) GetPayload() *models.V1SizeResponse {
+	return o.Payload
+}
+
 func (o *UpdateSizeOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.V1SizeResponse)
@@ -95,6 +95,10 @@ type UpdateSizeConflict struct {
 
 func (o *UpdateSizeConflict) Error() string {
 	return fmt.Sprintf("[POST /v1/size][%d] updateSizeConflict  %+v", 409, o.Payload)
+}
+
+func (o *UpdateSizeConflict) GetPayload() *models.HttperrorsHTTPErrorResponse {
+	return o.Payload
 }
 
 func (o *UpdateSizeConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -133,6 +137,10 @@ func (o *UpdateSizeDefault) Code() int {
 
 func (o *UpdateSizeDefault) Error() string {
 	return fmt.Sprintf("[POST /v1/size][%d] updateSize default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *UpdateSizeDefault) GetPayload() *models.HttperrorsHTTPErrorResponse {
+	return o.Payload
 }
 
 func (o *UpdateSizeDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

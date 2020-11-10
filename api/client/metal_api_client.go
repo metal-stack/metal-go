@@ -8,8 +8,7 @@ package client
 import (
 	"github.com/go-openapi/runtime"
 	httptransport "github.com/go-openapi/runtime/client"
-
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 
 	"github.com/metal-stack/metal-go/api/client/firewall"
 	"github.com/metal-stack/metal-go/api/client/health"
@@ -24,7 +23,7 @@ import (
 	"github.com/metal-stack/metal-go/api/client/version"
 )
 
-// Default metal HTTP client.
+// Default metal API HTTP client.
 var Default = NewHTTPClient(nil)
 
 const (
@@ -39,14 +38,14 @@ const (
 // DefaultSchemes are the default schemes found in Meta (info) section of spec file
 var DefaultSchemes = []string{"http"}
 
-// NewHTTPClient creates a new metal HTTP client.
-func NewHTTPClient(formats strfmt.Registry) *Metal {
+// NewHTTPClient creates a new metal API HTTP client.
+func NewHTTPClient(formats strfmt.Registry) *MetalAPI {
 	return NewHTTPClientWithConfig(formats, nil)
 }
 
-// NewHTTPClientWithConfig creates a new metal HTTP client,
+// NewHTTPClientWithConfig creates a new metal API HTTP client,
 // using a customizable transport config.
-func NewHTTPClientWithConfig(formats strfmt.Registry, cfg *TransportConfig) *Metal {
+func NewHTTPClientWithConfig(formats strfmt.Registry, cfg *TransportConfig) *MetalAPI {
 	// ensure nullable parameters have default
 	if cfg == nil {
 		cfg = DefaultTransportConfig()
@@ -57,38 +56,26 @@ func NewHTTPClientWithConfig(formats strfmt.Registry, cfg *TransportConfig) *Met
 	return New(transport, formats)
 }
 
-// New creates a new metal client
-func New(transport runtime.ClientTransport, formats strfmt.Registry) *Metal {
+// New creates a new metal API client
+func New(transport runtime.ClientTransport, formats strfmt.Registry) *MetalAPI {
 	// ensure nullable parameters have default
 	if formats == nil {
 		formats = strfmt.Default
 	}
 
-	cli := new(Metal)
+	cli := new(MetalAPI)
 	cli.Transport = transport
-
 	cli.Firewall = firewall.New(transport, formats)
-
 	cli.Health = health.New(transport, formats)
-
 	cli.Image = image.New(transport, formats)
-
 	cli.IP = ip.New(transport, formats)
-
 	cli.Machine = machine.New(transport, formats)
-
 	cli.Network = network.New(transport, formats)
-
 	cli.Partition = partition.New(transport, formats)
-
 	cli.Project = project.New(transport, formats)
-
 	cli.Size = size.New(transport, formats)
-
 	cli.SwitchOperations = switch_operations.New(transport, formats)
-
 	cli.Version = version.New(transport, formats)
-
 	return cli
 }
 
@@ -131,57 +118,45 @@ func (cfg *TransportConfig) WithSchemes(schemes []string) *TransportConfig {
 	return cfg
 }
 
-// Metal is a client for metal
-type Metal struct {
-	Firewall *firewall.Client
+// MetalAPI is a client for metal API
+type MetalAPI struct {
+	Firewall firewall.ClientService
 
-	Health *health.Client
+	Health health.ClientService
 
-	Image *image.Client
+	Image image.ClientService
 
-	IP *ip.Client
+	IP ip.ClientService
 
-	Machine *machine.Client
+	Machine machine.ClientService
 
-	Network *network.Client
+	Network network.ClientService
 
-	Partition *partition.Client
+	Partition partition.ClientService
 
-	Project *project.Client
+	Project project.ClientService
 
-	Size *size.Client
+	Size size.ClientService
 
-	SwitchOperations *switch_operations.Client
+	SwitchOperations switch_operations.ClientService
 
-	Version *version.Client
+	Version version.ClientService
 
 	Transport runtime.ClientTransport
 }
 
 // SetTransport changes the transport on the client and all its subresources
-func (c *Metal) SetTransport(transport runtime.ClientTransport) {
+func (c *MetalAPI) SetTransport(transport runtime.ClientTransport) {
 	c.Transport = transport
-
 	c.Firewall.SetTransport(transport)
-
 	c.Health.SetTransport(transport)
-
 	c.Image.SetTransport(transport)
-
 	c.IP.SetTransport(transport)
-
 	c.Machine.SetTransport(transport)
-
 	c.Network.SetTransport(transport)
-
 	c.Partition.SetTransport(transport)
-
 	c.Project.SetTransport(transport)
-
 	c.Size.SetTransport(transport)
-
 	c.SwitchOperations.SetTransport(transport)
-
 	c.Version.SetTransport(transport)
-
 }

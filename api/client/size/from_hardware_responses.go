@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/metal-stack/metal-go/api/models"
+	"github.com/metal-stack/metal-go/api/models"
 )
 
 // FromHardwareReader is a Reader for the FromHardware structure.
@@ -24,14 +23,12 @@ type FromHardwareReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *FromHardwareReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewFromHardwareOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		result := NewFromHardwareDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -59,6 +56,10 @@ type FromHardwareOK struct {
 
 func (o *FromHardwareOK) Error() string {
 	return fmt.Sprintf("[POST /v1/size/from-hardware][%d] fromHardwareOK  %+v", 200, o.Payload)
+}
+
+func (o *FromHardwareOK) GetPayload() *models.V1SizeMatchingLog {
+	return o.Payload
 }
 
 func (o *FromHardwareOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -97,6 +98,10 @@ func (o *FromHardwareDefault) Code() int {
 
 func (o *FromHardwareDefault) Error() string {
 	return fmt.Sprintf("[POST /v1/size/from-hardware][%d] fromHardware default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *FromHardwareDefault) GetPayload() *models.HttperrorsHTTPErrorResponse {
+	return o.Payload
 }
 
 func (o *FromHardwareDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

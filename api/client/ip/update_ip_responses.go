@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/metal-stack/metal-go/api/models"
+	"github.com/metal-stack/metal-go/api/models"
 )
 
 // UpdateIPReader is a Reader for the UpdateIP structure.
@@ -24,21 +23,18 @@ type UpdateIPReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *UpdateIPReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewUpdateIPOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 409:
 		result := NewUpdateIPConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		result := NewUpdateIPDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -68,6 +64,10 @@ func (o *UpdateIPOK) Error() string {
 	return fmt.Sprintf("[POST /v1/ip][%d] updateIpOK  %+v", 200, o.Payload)
 }
 
+func (o *UpdateIPOK) GetPayload() *models.V1IPResponse {
+	return o.Payload
+}
+
 func (o *UpdateIPOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.V1IPResponse)
@@ -95,6 +95,10 @@ type UpdateIPConflict struct {
 
 func (o *UpdateIPConflict) Error() string {
 	return fmt.Sprintf("[POST /v1/ip][%d] updateIpConflict  %+v", 409, o.Payload)
+}
+
+func (o *UpdateIPConflict) GetPayload() *models.HttperrorsHTTPErrorResponse {
+	return o.Payload
 }
 
 func (o *UpdateIPConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -133,6 +137,10 @@ func (o *UpdateIPDefault) Code() int {
 
 func (o *UpdateIPDefault) Error() string {
 	return fmt.Sprintf("[POST /v1/ip][%d] updateIP default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *UpdateIPDefault) GetPayload() *models.HttperrorsHTTPErrorResponse {
+	return o.Payload
 }
 
 func (o *UpdateIPDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

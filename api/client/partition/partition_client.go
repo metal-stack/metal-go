@@ -7,12 +7,11 @@ package partition
 
 import (
 	"github.com/go-openapi/runtime"
-
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 )
 
 // New creates a new partition API client.
-func New(transport runtime.ClientTransport, formats strfmt.Registry) *Client {
+func New(transport runtime.ClientTransport, formats strfmt.Registry) ClientService {
 	return &Client{transport: transport, formats: formats}
 }
 
@@ -24,8 +23,25 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
+// ClientService is the interface for Client methods
+type ClientService interface {
+	CreatePartition(params *CreatePartitionParams, authInfo runtime.ClientAuthInfoWriter) (*CreatePartitionCreated, error)
+
+	DeletePartition(params *DeletePartitionParams, authInfo runtime.ClientAuthInfoWriter) (*DeletePartitionOK, error)
+
+	FindPartition(params *FindPartitionParams, authInfo runtime.ClientAuthInfoWriter) (*FindPartitionOK, error)
+
+	ListPartitions(params *ListPartitionsParams, authInfo runtime.ClientAuthInfoWriter) (*ListPartitionsOK, error)
+
+	PartitionCapacity(params *PartitionCapacityParams, authInfo runtime.ClientAuthInfoWriter) (*PartitionCapacityOK, error)
+
+	UpdatePartition(params *UpdatePartitionParams, authInfo runtime.ClientAuthInfoWriter) (*UpdatePartitionOK, error)
+
+	SetTransport(transport runtime.ClientTransport)
+}
+
 /*
-CreatePartition creates a partition if the given ID already exists a conflict is returned
+  CreatePartition creates a partition if the given ID already exists a conflict is returned
 */
 func (a *Client) CreatePartition(params *CreatePartitionParams, authInfo runtime.ClientAuthInfoWriter) (*CreatePartitionCreated, error) {
 	// TODO: Validate the params before sending
@@ -49,12 +65,17 @@ func (a *Client) CreatePartition(params *CreatePartitionParams, authInfo runtime
 	if err != nil {
 		return nil, err
 	}
-	return result.(*CreatePartitionCreated), nil
-
+	success, ok := result.(*CreatePartitionCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*CreatePartitionDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-DeletePartition deletes a partition and returns the deleted entity
+  DeletePartition deletes a partition and returns the deleted entity
 */
 func (a *Client) DeletePartition(params *DeletePartitionParams, authInfo runtime.ClientAuthInfoWriter) (*DeletePartitionOK, error) {
 	// TODO: Validate the params before sending
@@ -78,12 +99,17 @@ func (a *Client) DeletePartition(params *DeletePartitionParams, authInfo runtime
 	if err != nil {
 		return nil, err
 	}
-	return result.(*DeletePartitionOK), nil
-
+	success, ok := result.(*DeletePartitionOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*DeletePartitionDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-FindPartition gets partition by id
+  FindPartition gets partition by id
 */
 func (a *Client) FindPartition(params *FindPartitionParams, authInfo runtime.ClientAuthInfoWriter) (*FindPartitionOK, error) {
 	// TODO: Validate the params before sending
@@ -107,12 +133,17 @@ func (a *Client) FindPartition(params *FindPartitionParams, authInfo runtime.Cli
 	if err != nil {
 		return nil, err
 	}
-	return result.(*FindPartitionOK), nil
-
+	success, ok := result.(*FindPartitionOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*FindPartitionDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-ListPartitions gets all partitions
+  ListPartitions gets all partitions
 */
 func (a *Client) ListPartitions(params *ListPartitionsParams, authInfo runtime.ClientAuthInfoWriter) (*ListPartitionsOK, error) {
 	// TODO: Validate the params before sending
@@ -136,12 +167,17 @@ func (a *Client) ListPartitions(params *ListPartitionsParams, authInfo runtime.C
 	if err != nil {
 		return nil, err
 	}
-	return result.(*ListPartitionsOK), nil
-
+	success, ok := result.(*ListPartitionsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*ListPartitionsDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-PartitionCapacity gets partition capacity
+  PartitionCapacity gets partition capacity
 */
 func (a *Client) PartitionCapacity(params *PartitionCapacityParams, authInfo runtime.ClientAuthInfoWriter) (*PartitionCapacityOK, error) {
 	// TODO: Validate the params before sending
@@ -165,12 +201,17 @@ func (a *Client) PartitionCapacity(params *PartitionCapacityParams, authInfo run
 	if err != nil {
 		return nil, err
 	}
-	return result.(*PartitionCapacityOK), nil
-
+	success, ok := result.(*PartitionCapacityOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*PartitionCapacityDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-UpdatePartition updates a partition if the partition was changed since this one was read a conflict is returned
+  UpdatePartition updates a partition if the partition was changed since this one was read a conflict is returned
 */
 func (a *Client) UpdatePartition(params *UpdatePartitionParams, authInfo runtime.ClientAuthInfoWriter) (*UpdatePartitionOK, error) {
 	// TODO: Validate the params before sending
@@ -194,8 +235,13 @@ func (a *Client) UpdatePartition(params *UpdatePartitionParams, authInfo runtime
 	if err != nil {
 		return nil, err
 	}
-	return result.(*UpdatePartitionOK), nil
-
+	success, ok := result.(*UpdatePartitionOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*UpdatePartitionDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 // SetTransport changes the transport on the client

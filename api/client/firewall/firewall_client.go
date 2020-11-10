@@ -7,12 +7,11 @@ package firewall
 
 import (
 	"github.com/go-openapi/runtime"
-
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 )
 
 // New creates a new firewall API client.
-func New(transport runtime.ClientTransport, formats strfmt.Registry) *Client {
+func New(transport runtime.ClientTransport, formats strfmt.Registry) ClientService {
 	return &Client{transport: transport, formats: formats}
 }
 
@@ -24,8 +23,21 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
+// ClientService is the interface for Client methods
+type ClientService interface {
+	AllocateFirewall(params *AllocateFirewallParams, authInfo runtime.ClientAuthInfoWriter) (*AllocateFirewallOK, error)
+
+	FindFirewall(params *FindFirewallParams, authInfo runtime.ClientAuthInfoWriter) (*FindFirewallOK, error)
+
+	FindFirewalls(params *FindFirewallsParams, authInfo runtime.ClientAuthInfoWriter) (*FindFirewallsOK, error)
+
+	ListFirewalls(params *ListFirewallsParams, authInfo runtime.ClientAuthInfoWriter) (*ListFirewallsOK, error)
+
+	SetTransport(transport runtime.ClientTransport)
+}
+
 /*
-AllocateFirewall allocates a firewall
+  AllocateFirewall allocates a firewall
 */
 func (a *Client) AllocateFirewall(params *AllocateFirewallParams, authInfo runtime.ClientAuthInfoWriter) (*AllocateFirewallOK, error) {
 	// TODO: Validate the params before sending
@@ -49,12 +61,17 @@ func (a *Client) AllocateFirewall(params *AllocateFirewallParams, authInfo runti
 	if err != nil {
 		return nil, err
 	}
-	return result.(*AllocateFirewallOK), nil
-
+	success, ok := result.(*AllocateFirewallOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*AllocateFirewallDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-FindFirewall gets firewall by id
+  FindFirewall gets firewall by id
 */
 func (a *Client) FindFirewall(params *FindFirewallParams, authInfo runtime.ClientAuthInfoWriter) (*FindFirewallOK, error) {
 	// TODO: Validate the params before sending
@@ -78,12 +95,17 @@ func (a *Client) FindFirewall(params *FindFirewallParams, authInfo runtime.Clien
 	if err != nil {
 		return nil, err
 	}
-	return result.(*FindFirewallOK), nil
-
+	success, ok := result.(*FindFirewallOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*FindFirewallDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-FindFirewalls finds firewalls by multiple criteria
+  FindFirewalls finds firewalls by multiple criteria
 */
 func (a *Client) FindFirewalls(params *FindFirewallsParams, authInfo runtime.ClientAuthInfoWriter) (*FindFirewallsOK, error) {
 	// TODO: Validate the params before sending
@@ -107,12 +129,17 @@ func (a *Client) FindFirewalls(params *FindFirewallsParams, authInfo runtime.Cli
 	if err != nil {
 		return nil, err
 	}
-	return result.(*FindFirewallsOK), nil
-
+	success, ok := result.(*FindFirewallsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*FindFirewallsDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-ListFirewalls gets all known firewalls
+  ListFirewalls gets all known firewalls
 */
 func (a *Client) ListFirewalls(params *ListFirewallsParams, authInfo runtime.ClientAuthInfoWriter) (*ListFirewallsOK, error) {
 	// TODO: Validate the params before sending
@@ -136,8 +163,13 @@ func (a *Client) ListFirewalls(params *ListFirewallsParams, authInfo runtime.Cli
 	if err != nil {
 		return nil, err
 	}
-	return result.(*ListFirewallsOK), nil
-
+	success, ok := result.(*ListFirewallsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*ListFirewallsDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 // SetTransport changes the transport on the client

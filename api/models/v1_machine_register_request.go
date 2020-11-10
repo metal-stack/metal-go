@@ -6,14 +6,14 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	strfmt "github.com/go-openapi/strfmt"
-
 	"github.com/go-openapi/errors"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // V1MachineRegisterRequest v1 machine register request
+//
 // swagger:model v1.MachineRegisterRequest
 type V1MachineRegisterRequest struct {
 
@@ -27,7 +27,7 @@ type V1MachineRegisterRequest struct {
 
 	// the ipmi access infos
 	// Required: true
-	IPMI *V1MachineIPMI `json:"ipmi"`
+	Ipmi *V1MachineIPMI `json:"ipmi"`
 
 	// the partition id to register this machine with
 	// Required: true
@@ -58,7 +58,7 @@ func (m *V1MachineRegisterRequest) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validateIPMI(formats); err != nil {
+	if err := m.validateIpmi(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -120,14 +120,14 @@ func (m *V1MachineRegisterRequest) validateHardware(formats strfmt.Registry) err
 	return nil
 }
 
-func (m *V1MachineRegisterRequest) validateIPMI(formats strfmt.Registry) error {
+func (m *V1MachineRegisterRequest) validateIpmi(formats strfmt.Registry) error {
 
-	if err := validate.Required("ipmi", "body", m.IPMI); err != nil {
+	if err := validate.Required("ipmi", "body", m.Ipmi); err != nil {
 		return err
 	}
 
-	if m.IPMI != nil {
-		if err := m.IPMI.Validate(formats); err != nil {
+	if m.Ipmi != nil {
+		if err := m.Ipmi.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("ipmi")
 			}

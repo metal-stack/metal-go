@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/metal-stack/metal-go/api/models"
+	"github.com/metal-stack/metal-go/api/models"
 )
 
 // DeleteSizeReader is a Reader for the DeleteSize structure.
@@ -24,14 +23,12 @@ type DeleteSizeReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *DeleteSizeReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewDeleteSizeOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		result := NewDeleteSizeDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -59,6 +56,10 @@ type DeleteSizeOK struct {
 
 func (o *DeleteSizeOK) Error() string {
 	return fmt.Sprintf("[DELETE /v1/size/{id}][%d] deleteSizeOK  %+v", 200, o.Payload)
+}
+
+func (o *DeleteSizeOK) GetPayload() *models.V1SizeResponse {
+	return o.Payload
 }
 
 func (o *DeleteSizeOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -97,6 +98,10 @@ func (o *DeleteSizeDefault) Code() int {
 
 func (o *DeleteSizeDefault) Error() string {
 	return fmt.Sprintf("[DELETE /v1/size/{id}][%d] deleteSize default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *DeleteSizeDefault) GetPayload() *models.HttperrorsHTTPErrorResponse {
+	return o.Payload
 }
 
 func (o *DeleteSizeDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

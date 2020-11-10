@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/metal-stack/metal-go/api/models"
+	"github.com/metal-stack/metal-go/api/models"
 )
 
 // ListImagesReader is a Reader for the ListImages structure.
@@ -24,14 +23,12 @@ type ListImagesReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *ListImagesReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewListImagesOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		result := NewListImagesDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -59,6 +56,10 @@ type ListImagesOK struct {
 
 func (o *ListImagesOK) Error() string {
 	return fmt.Sprintf("[GET /v1/image][%d] listImagesOK  %+v", 200, o.Payload)
+}
+
+func (o *ListImagesOK) GetPayload() []*models.V1ImageResponse {
+	return o.Payload
 }
 
 func (o *ListImagesOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -95,6 +96,10 @@ func (o *ListImagesDefault) Code() int {
 
 func (o *ListImagesDefault) Error() string {
 	return fmt.Sprintf("[GET /v1/image][%d] listImages default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *ListImagesDefault) GetPayload() *models.HttperrorsHTTPErrorResponse {
+	return o.Payload
 }
 
 func (o *ListImagesDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

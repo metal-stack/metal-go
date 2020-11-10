@@ -7,12 +7,11 @@ package machine
 
 import (
 	"github.com/go-openapi/runtime"
-
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 )
 
 // New creates a new machine API client.
-func New(transport runtime.ClientTransport, formats strfmt.Registry) *Client {
+func New(transport runtime.ClientTransport, formats strfmt.Registry) ClientService {
 	return &Client{transport: transport, formats: formats}
 }
 
@@ -24,8 +23,57 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
+// ClientService is the interface for Client methods
+type ClientService interface {
+	AbortReinstallMachine(params *AbortReinstallMachineParams, authInfo runtime.ClientAuthInfoWriter) (*AbortReinstallMachineOK, error)
+
+	AddProvisioningEvent(params *AddProvisioningEventParams, authInfo runtime.ClientAuthInfoWriter) (*AddProvisioningEventOK, error)
+
+	AllocateMachine(params *AllocateMachineParams, authInfo runtime.ClientAuthInfoWriter) (*AllocateMachineOK, error)
+
+	ChassisIdentifyLEDOff(params *ChassisIdentifyLEDOffParams, authInfo runtime.ClientAuthInfoWriter) (*ChassisIdentifyLEDOffOK, error)
+
+	ChassisIdentifyLEDOn(params *ChassisIdentifyLEDOnParams, authInfo runtime.ClientAuthInfoWriter) (*ChassisIdentifyLEDOnOK, error)
+
+	FinalizeAllocation(params *FinalizeAllocationParams, authInfo runtime.ClientAuthInfoWriter) (*FinalizeAllocationOK, error)
+
+	FindIPMIMachine(params *FindIPMIMachineParams, authInfo runtime.ClientAuthInfoWriter) (*FindIPMIMachineOK, error)
+
+	FindIPMIMachines(params *FindIPMIMachinesParams, authInfo runtime.ClientAuthInfoWriter) (*FindIPMIMachinesOK, error)
+
+	FindMachine(params *FindMachineParams, authInfo runtime.ClientAuthInfoWriter) (*FindMachineOK, error)
+
+	FindMachines(params *FindMachinesParams, authInfo runtime.ClientAuthInfoWriter) (*FindMachinesOK, error)
+
+	FreeMachine(params *FreeMachineParams, authInfo runtime.ClientAuthInfoWriter) (*FreeMachineOK, error)
+
+	GetProvisioningEventContainer(params *GetProvisioningEventContainerParams, authInfo runtime.ClientAuthInfoWriter) (*GetProvisioningEventContainerOK, error)
+
+	IpmiReport(params *IpmiReportParams, authInfo runtime.ClientAuthInfoWriter) (*IpmiReportOK, error)
+
+	ListMachines(params *ListMachinesParams, authInfo runtime.ClientAuthInfoWriter) (*ListMachinesOK, error)
+
+	MachineBios(params *MachineBiosParams, authInfo runtime.ClientAuthInfoWriter) (*MachineBiosOK, error)
+
+	MachineOff(params *MachineOffParams, authInfo runtime.ClientAuthInfoWriter) (*MachineOffOK, error)
+
+	MachineOn(params *MachineOnParams, authInfo runtime.ClientAuthInfoWriter) (*MachineOnOK, error)
+
+	MachineReset(params *MachineResetParams, authInfo runtime.ClientAuthInfoWriter) (*MachineResetOK, error)
+
+	RegisterMachine(params *RegisterMachineParams, authInfo runtime.ClientAuthInfoWriter) (*RegisterMachineOK, *RegisterMachineCreated, error)
+
+	ReinstallMachine(params *ReinstallMachineParams, authInfo runtime.ClientAuthInfoWriter) (*ReinstallMachineOK, error)
+
+	SetChassisIdentifyLEDState(params *SetChassisIdentifyLEDStateParams, authInfo runtime.ClientAuthInfoWriter) (*SetChassisIdentifyLEDStateOK, error)
+
+	SetMachineState(params *SetMachineStateParams, authInfo runtime.ClientAuthInfoWriter) (*SetMachineStateOK, error)
+
+	SetTransport(transport runtime.ClientTransport)
+}
+
 /*
-AbortReinstallMachine aborts reinstall this machine
+  AbortReinstallMachine aborts reinstall this machine
 */
 func (a *Client) AbortReinstallMachine(params *AbortReinstallMachineParams, authInfo runtime.ClientAuthInfoWriter) (*AbortReinstallMachineOK, error) {
 	// TODO: Validate the params before sending
@@ -49,12 +97,17 @@ func (a *Client) AbortReinstallMachine(params *AbortReinstallMachineParams, auth
 	if err != nil {
 		return nil, err
 	}
-	return result.(*AbortReinstallMachineOK), nil
-
+	success, ok := result.(*AbortReinstallMachineOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*AbortReinstallMachineDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-AddProvisioningEvent adds a machine provisioning event
+  AddProvisioningEvent adds a machine provisioning event
 */
 func (a *Client) AddProvisioningEvent(params *AddProvisioningEventParams, authInfo runtime.ClientAuthInfoWriter) (*AddProvisioningEventOK, error) {
 	// TODO: Validate the params before sending
@@ -78,12 +131,17 @@ func (a *Client) AddProvisioningEvent(params *AddProvisioningEventParams, authIn
 	if err != nil {
 		return nil, err
 	}
-	return result.(*AddProvisioningEventOK), nil
-
+	success, ok := result.(*AddProvisioningEventOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*AddProvisioningEventDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-AllocateMachine allocates a machine
+  AllocateMachine allocates a machine
 */
 func (a *Client) AllocateMachine(params *AllocateMachineParams, authInfo runtime.ClientAuthInfoWriter) (*AllocateMachineOK, error) {
 	// TODO: Validate the params before sending
@@ -107,12 +165,17 @@ func (a *Client) AllocateMachine(params *AllocateMachineParams, authInfo runtime
 	if err != nil {
 		return nil, err
 	}
-	return result.(*AllocateMachineOK), nil
-
+	success, ok := result.(*AllocateMachineOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*AllocateMachineDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-ChassisIdentifyLEDOff sends a power off to the chassis identify l e d
+  ChassisIdentifyLEDOff sends a power off to the chassis identify l e d
 */
 func (a *Client) ChassisIdentifyLEDOff(params *ChassisIdentifyLEDOffParams, authInfo runtime.ClientAuthInfoWriter) (*ChassisIdentifyLEDOffOK, error) {
 	// TODO: Validate the params before sending
@@ -136,12 +199,17 @@ func (a *Client) ChassisIdentifyLEDOff(params *ChassisIdentifyLEDOffParams, auth
 	if err != nil {
 		return nil, err
 	}
-	return result.(*ChassisIdentifyLEDOffOK), nil
-
+	success, ok := result.(*ChassisIdentifyLEDOffOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*ChassisIdentifyLEDOffDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-ChassisIdentifyLEDOn sends a power on to the chassis identify l e d
+  ChassisIdentifyLEDOn sends a power on to the chassis identify l e d
 */
 func (a *Client) ChassisIdentifyLEDOn(params *ChassisIdentifyLEDOnParams, authInfo runtime.ClientAuthInfoWriter) (*ChassisIdentifyLEDOnOK, error) {
 	// TODO: Validate the params before sending
@@ -165,12 +233,17 @@ func (a *Client) ChassisIdentifyLEDOn(params *ChassisIdentifyLEDOnParams, authIn
 	if err != nil {
 		return nil, err
 	}
-	return result.(*ChassisIdentifyLEDOnOK), nil
-
+	success, ok := result.(*ChassisIdentifyLEDOnOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*ChassisIdentifyLEDOnDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-FinalizeAllocation finalizes the allocation of the machine by reconfiguring the switch sent on successful image installation
+  FinalizeAllocation finalizes the allocation of the machine by reconfiguring the switch sent on successful image installation
 */
 func (a *Client) FinalizeAllocation(params *FinalizeAllocationParams, authInfo runtime.ClientAuthInfoWriter) (*FinalizeAllocationOK, error) {
 	// TODO: Validate the params before sending
@@ -194,12 +267,17 @@ func (a *Client) FinalizeAllocation(params *FinalizeAllocationParams, authInfo r
 	if err != nil {
 		return nil, err
 	}
-	return result.(*FinalizeAllocationOK), nil
-
+	success, ok := result.(*FinalizeAllocationOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*FinalizeAllocationDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-FindIPMIMachine returns a machine including the ipmi connection data
+  FindIPMIMachine returns a machine including the ipmi connection data
 */
 func (a *Client) FindIPMIMachine(params *FindIPMIMachineParams, authInfo runtime.ClientAuthInfoWriter) (*FindIPMIMachineOK, error) {
 	// TODO: Validate the params before sending
@@ -223,12 +301,17 @@ func (a *Client) FindIPMIMachine(params *FindIPMIMachineParams, authInfo runtime
 	if err != nil {
 		return nil, err
 	}
-	return result.(*FindIPMIMachineOK), nil
-
+	success, ok := result.(*FindIPMIMachineOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*FindIPMIMachineDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-FindIPMIMachines returns machines including the ipmi connection data
+  FindIPMIMachines returns machines including the ipmi connection data
 */
 func (a *Client) FindIPMIMachines(params *FindIPMIMachinesParams, authInfo runtime.ClientAuthInfoWriter) (*FindIPMIMachinesOK, error) {
 	// TODO: Validate the params before sending
@@ -252,12 +335,17 @@ func (a *Client) FindIPMIMachines(params *FindIPMIMachinesParams, authInfo runti
 	if err != nil {
 		return nil, err
 	}
-	return result.(*FindIPMIMachinesOK), nil
-
+	success, ok := result.(*FindIPMIMachinesOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*FindIPMIMachinesDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-FindMachine gets machine by id
+  FindMachine gets machine by id
 */
 func (a *Client) FindMachine(params *FindMachineParams, authInfo runtime.ClientAuthInfoWriter) (*FindMachineOK, error) {
 	// TODO: Validate the params before sending
@@ -281,12 +369,17 @@ func (a *Client) FindMachine(params *FindMachineParams, authInfo runtime.ClientA
 	if err != nil {
 		return nil, err
 	}
-	return result.(*FindMachineOK), nil
-
+	success, ok := result.(*FindMachineOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*FindMachineDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-FindMachines finds machines by multiple criteria
+  FindMachines finds machines by multiple criteria
 */
 func (a *Client) FindMachines(params *FindMachinesParams, authInfo runtime.ClientAuthInfoWriter) (*FindMachinesOK, error) {
 	// TODO: Validate the params before sending
@@ -310,12 +403,17 @@ func (a *Client) FindMachines(params *FindMachinesParams, authInfo runtime.Clien
 	if err != nil {
 		return nil, err
 	}
-	return result.(*FindMachinesOK), nil
-
+	success, ok := result.(*FindMachinesOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*FindMachinesDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-FreeMachine frees a machine
+  FreeMachine frees a machine
 */
 func (a *Client) FreeMachine(params *FreeMachineParams, authInfo runtime.ClientAuthInfoWriter) (*FreeMachineOK, error) {
 	// TODO: Validate the params before sending
@@ -339,12 +437,17 @@ func (a *Client) FreeMachine(params *FreeMachineParams, authInfo runtime.ClientA
 	if err != nil {
 		return nil, err
 	}
-	return result.(*FreeMachineOK), nil
-
+	success, ok := result.(*FreeMachineOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*FreeMachineDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-GetProvisioningEventContainer gets the current machine provisioning event container
+  GetProvisioningEventContainer gets the current machine provisioning event container
 */
 func (a *Client) GetProvisioningEventContainer(params *GetProvisioningEventContainerParams, authInfo runtime.ClientAuthInfoWriter) (*GetProvisioningEventContainerOK, error) {
 	// TODO: Validate the params before sending
@@ -368,17 +471,22 @@ func (a *Client) GetProvisioningEventContainer(params *GetProvisioningEventConta
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetProvisioningEventContainerOK), nil
-
+	success, ok := result.(*GetProvisioningEventContainerOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*GetProvisioningEventContainerDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-IPMIReport reports IP m i ip addresses leased by a management server for machines
+  IpmiReport reports IP m i ip addresses leased by a management server for machines
 */
-func (a *Client) IPMIReport(params *IPMIReportParams, authInfo runtime.ClientAuthInfoWriter) (*IPMIReportOK, error) {
+func (a *Client) IpmiReport(params *IpmiReportParams, authInfo runtime.ClientAuthInfoWriter) (*IpmiReportOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewIPMIReportParams()
+		params = NewIpmiReportParams()
 	}
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
@@ -389,7 +497,7 @@ func (a *Client) IPMIReport(params *IPMIReportParams, authInfo runtime.ClientAut
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http"},
 		Params:             params,
-		Reader:             &IPMIReportReader{formats: a.formats},
+		Reader:             &IpmiReportReader{formats: a.formats},
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
@@ -397,12 +505,17 @@ func (a *Client) IPMIReport(params *IPMIReportParams, authInfo runtime.ClientAut
 	if err != nil {
 		return nil, err
 	}
-	return result.(*IPMIReportOK), nil
-
+	success, ok := result.(*IpmiReportOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*IpmiReportDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-ListMachines gets all known machines
+  ListMachines gets all known machines
 */
 func (a *Client) ListMachines(params *ListMachinesParams, authInfo runtime.ClientAuthInfoWriter) (*ListMachinesOK, error) {
 	// TODO: Validate the params before sending
@@ -426,12 +539,17 @@ func (a *Client) ListMachines(params *ListMachinesParams, authInfo runtime.Clien
 	if err != nil {
 		return nil, err
 	}
-	return result.(*ListMachinesOK), nil
-
+	success, ok := result.(*ListMachinesOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*ListMachinesDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-MachineBios boots machine into b i o s on next reboot
+  MachineBios boots machine into b i o s on next reboot
 */
 func (a *Client) MachineBios(params *MachineBiosParams, authInfo runtime.ClientAuthInfoWriter) (*MachineBiosOK, error) {
 	// TODO: Validate the params before sending
@@ -455,12 +573,17 @@ func (a *Client) MachineBios(params *MachineBiosParams, authInfo runtime.ClientA
 	if err != nil {
 		return nil, err
 	}
-	return result.(*MachineBiosOK), nil
-
+	success, ok := result.(*MachineBiosOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*MachineBiosDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-MachineOff sends a power off to the machine
+  MachineOff sends a power off to the machine
 */
 func (a *Client) MachineOff(params *MachineOffParams, authInfo runtime.ClientAuthInfoWriter) (*MachineOffOK, error) {
 	// TODO: Validate the params before sending
@@ -484,12 +607,17 @@ func (a *Client) MachineOff(params *MachineOffParams, authInfo runtime.ClientAut
 	if err != nil {
 		return nil, err
 	}
-	return result.(*MachineOffOK), nil
-
+	success, ok := result.(*MachineOffOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*MachineOffDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-MachineOn sends a power on to the machine
+  MachineOn sends a power on to the machine
 */
 func (a *Client) MachineOn(params *MachineOnParams, authInfo runtime.ClientAuthInfoWriter) (*MachineOnOK, error) {
 	// TODO: Validate the params before sending
@@ -513,12 +641,17 @@ func (a *Client) MachineOn(params *MachineOnParams, authInfo runtime.ClientAuthI
 	if err != nil {
 		return nil, err
 	}
-	return result.(*MachineOnOK), nil
-
+	success, ok := result.(*MachineOnOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*MachineOnDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-MachineReset sends a reset to the machine
+  MachineReset sends a reset to the machine
 */
 func (a *Client) MachineReset(params *MachineResetParams, authInfo runtime.ClientAuthInfoWriter) (*MachineResetOK, error) {
 	// TODO: Validate the params before sending
@@ -542,12 +675,17 @@ func (a *Client) MachineReset(params *MachineResetParams, authInfo runtime.Clien
 	if err != nil {
 		return nil, err
 	}
-	return result.(*MachineResetOK), nil
-
+	success, ok := result.(*MachineResetOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*MachineResetDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-RegisterMachine registers a machine
+  RegisterMachine registers a machine
 */
 func (a *Client) RegisterMachine(params *RegisterMachineParams, authInfo runtime.ClientAuthInfoWriter) (*RegisterMachineOK, *RegisterMachineCreated, error) {
 	// TODO: Validate the params before sending
@@ -577,12 +715,13 @@ func (a *Client) RegisterMachine(params *RegisterMachineParams, authInfo runtime
 	case *RegisterMachineCreated:
 		return nil, value, nil
 	}
-	return nil, nil, nil
-
+	// unexpected success response
+	unexpectedSuccess := result.(*RegisterMachineDefault)
+	return nil, nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-ReinstallMachine reinstalls this machine
+  ReinstallMachine reinstalls this machine
 */
 func (a *Client) ReinstallMachine(params *ReinstallMachineParams, authInfo runtime.ClientAuthInfoWriter) (*ReinstallMachineOK, error) {
 	// TODO: Validate the params before sending
@@ -606,12 +745,17 @@ func (a *Client) ReinstallMachine(params *ReinstallMachineParams, authInfo runti
 	if err != nil {
 		return nil, err
 	}
-	return result.(*ReinstallMachineOK), nil
-
+	success, ok := result.(*ReinstallMachineOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*ReinstallMachineDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-SetChassisIdentifyLEDState sets the state of a chassis identify l e d
+  SetChassisIdentifyLEDState sets the state of a chassis identify l e d
 */
 func (a *Client) SetChassisIdentifyLEDState(params *SetChassisIdentifyLEDStateParams, authInfo runtime.ClientAuthInfoWriter) (*SetChassisIdentifyLEDStateOK, error) {
 	// TODO: Validate the params before sending
@@ -635,12 +779,17 @@ func (a *Client) SetChassisIdentifyLEDState(params *SetChassisIdentifyLEDStatePa
 	if err != nil {
 		return nil, err
 	}
-	return result.(*SetChassisIdentifyLEDStateOK), nil
-
+	success, ok := result.(*SetChassisIdentifyLEDStateOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*SetChassisIdentifyLEDStateDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-SetMachineState sets the state of a machine
+  SetMachineState sets the state of a machine
 */
 func (a *Client) SetMachineState(params *SetMachineStateParams, authInfo runtime.ClientAuthInfoWriter) (*SetMachineStateOK, error) {
 	// TODO: Validate the params before sending
@@ -664,8 +813,13 @@ func (a *Client) SetMachineState(params *SetMachineStateParams, authInfo runtime
 	if err != nil {
 		return nil, err
 	}
-	return result.(*SetMachineStateOK), nil
-
+	success, ok := result.(*SetMachineStateOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*SetMachineStateDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 // SetTransport changes the transport on the client

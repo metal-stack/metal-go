@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/metal-stack/metal-go/api/models"
+	"github.com/metal-stack/metal-go/api/models"
 )
 
 // AbortReinstallMachineReader is a Reader for the AbortReinstallMachine structure.
@@ -24,14 +23,12 @@ type AbortReinstallMachineReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *AbortReinstallMachineReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewAbortReinstallMachineOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		result := NewAbortReinstallMachineDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -59,6 +56,10 @@ type AbortReinstallMachineOK struct {
 
 func (o *AbortReinstallMachineOK) Error() string {
 	return fmt.Sprintf("[POST /v1/machine/{id}/abort-reinstall][%d] abortReinstallMachineOK  %+v", 200, o.Payload)
+}
+
+func (o *AbortReinstallMachineOK) GetPayload() *models.V1BootInfo {
+	return o.Payload
 }
 
 func (o *AbortReinstallMachineOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -97,6 +98,10 @@ func (o *AbortReinstallMachineDefault) Code() int {
 
 func (o *AbortReinstallMachineDefault) Error() string {
 	return fmt.Sprintf("[POST /v1/machine/{id}/abort-reinstall][%d] abortReinstallMachine default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *AbortReinstallMachineDefault) GetPayload() *models.HttperrorsHTTPErrorResponse {
+	return o.Payload
 }
 
 func (o *AbortReinstallMachineDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

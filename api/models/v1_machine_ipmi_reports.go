@@ -6,26 +6,26 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	strfmt "github.com/go-openapi/strfmt"
-
 	"github.com/go-openapi/errors"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
-// V1MachineIPMIReports v1 machine ipmi reports
+// V1MachineIpmiReports v1 machine ipmi reports
+//
 // swagger:model v1.MachineIpmiReports
-type V1MachineIPMIReports struct {
+type V1MachineIpmiReports struct {
 
 	// the partition id for the ipmi report
 	Partitionid string `json:"partitionid,omitempty"`
 
 	// uuid to machinereport
-	Reports map[string]V1MachineIPMIReport `json:"reports,omitempty"`
+	Reports map[string]V1MachineIpmiReport `json:"reports,omitempty"`
 }
 
 // Validate validates this v1 machine ipmi reports
-func (m *V1MachineIPMIReports) Validate(formats strfmt.Registry) error {
+func (m *V1MachineIpmiReports) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateReports(formats); err != nil {
@@ -38,7 +38,7 @@ func (m *V1MachineIPMIReports) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *V1MachineIPMIReports) validateReports(formats strfmt.Registry) error {
+func (m *V1MachineIpmiReports) validateReports(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.Reports) { // not required
 		return nil
@@ -61,7 +61,7 @@ func (m *V1MachineIPMIReports) validateReports(formats strfmt.Registry) error {
 }
 
 // MarshalBinary interface implementation
-func (m *V1MachineIPMIReports) MarshalBinary() ([]byte, error) {
+func (m *V1MachineIpmiReports) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -69,8 +69,8 @@ func (m *V1MachineIPMIReports) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *V1MachineIPMIReports) UnmarshalBinary(b []byte) error {
-	var res V1MachineIPMIReports
+func (m *V1MachineIpmiReports) UnmarshalBinary(b []byte) error {
+	var res V1MachineIpmiReports
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

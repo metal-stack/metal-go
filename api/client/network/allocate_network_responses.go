@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/metal-stack/metal-go/api/models"
+	"github.com/metal-stack/metal-go/api/models"
 )
 
 // AllocateNetworkReader is a Reader for the AllocateNetwork structure.
@@ -24,21 +23,18 @@ type AllocateNetworkReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *AllocateNetworkReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 201:
 		result := NewAllocateNetworkCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 409:
 		result := NewAllocateNetworkConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		result := NewAllocateNetworkDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -68,6 +64,10 @@ func (o *AllocateNetworkCreated) Error() string {
 	return fmt.Sprintf("[POST /v1/network/allocate][%d] allocateNetworkCreated  %+v", 201, o.Payload)
 }
 
+func (o *AllocateNetworkCreated) GetPayload() *models.V1NetworkResponse {
+	return o.Payload
+}
+
 func (o *AllocateNetworkCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.V1NetworkResponse)
@@ -95,6 +95,10 @@ type AllocateNetworkConflict struct {
 
 func (o *AllocateNetworkConflict) Error() string {
 	return fmt.Sprintf("[POST /v1/network/allocate][%d] allocateNetworkConflict  %+v", 409, o.Payload)
+}
+
+func (o *AllocateNetworkConflict) GetPayload() *models.HttperrorsHTTPErrorResponse {
+	return o.Payload
 }
 
 func (o *AllocateNetworkConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -133,6 +137,10 @@ func (o *AllocateNetworkDefault) Code() int {
 
 func (o *AllocateNetworkDefault) Error() string {
 	return fmt.Sprintf("[POST /v1/network/allocate][%d] allocateNetwork default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *AllocateNetworkDefault) GetPayload() *models.HttperrorsHTTPErrorResponse {
+	return o.Payload
 }
 
 func (o *AllocateNetworkDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

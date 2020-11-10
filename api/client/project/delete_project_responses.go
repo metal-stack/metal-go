@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/metal-stack/metal-go/api/models"
+	"github.com/metal-stack/metal-go/api/models"
 )
 
 // DeleteProjectReader is a Reader for the DeleteProject structure.
@@ -24,14 +23,12 @@ type DeleteProjectReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *DeleteProjectReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewDeleteProjectOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		result := NewDeleteProjectDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -59,6 +56,10 @@ type DeleteProjectOK struct {
 
 func (o *DeleteProjectOK) Error() string {
 	return fmt.Sprintf("[DELETE /v1/project/{id}][%d] deleteProjectOK  %+v", 200, o.Payload)
+}
+
+func (o *DeleteProjectOK) GetPayload() *models.V1ProjectResponse {
+	return o.Payload
 }
 
 func (o *DeleteProjectOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -97,6 +98,10 @@ func (o *DeleteProjectDefault) Code() int {
 
 func (o *DeleteProjectDefault) Error() string {
 	return fmt.Sprintf("[DELETE /v1/project/{id}][%d] deleteProject default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *DeleteProjectDefault) GetPayload() *models.HttperrorsHTTPErrorResponse {
+	return o.Payload
 }
 
 func (o *DeleteProjectDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
