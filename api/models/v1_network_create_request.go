@@ -40,8 +40,7 @@ type V1NetworkCreateRequest struct {
 	Nat *bool `json:"nat"`
 
 	// the id of the parent network
-	// Required: true
-	Parentnetworkid *string `json:"parentnetworkid"`
+	Parentnetworkid string `json:"parentnetworkid,omitempty"`
 
 	// the partition this network belongs to
 	Partitionid string `json:"partitionid,omitempty"`
@@ -87,10 +86,6 @@ func (m *V1NetworkCreateRequest) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validateParentnetworkid(formats); err != nil {
-		res = append(res, err)
-	}
-
 	if err := m.validatePrefixes(formats); err != nil {
 		res = append(res, err)
 	}
@@ -130,15 +125,6 @@ func (m *V1NetworkCreateRequest) validateID(formats strfmt.Registry) error {
 func (m *V1NetworkCreateRequest) validateNat(formats strfmt.Registry) error {
 
 	if err := validate.Required("nat", "body", m.Nat); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *V1NetworkCreateRequest) validateParentnetworkid(formats strfmt.Registry) error {
-
-	if err := validate.Required("parentnetworkid", "body", m.Parentnetworkid); err != nil {
 		return err
 	}
 
