@@ -158,6 +158,16 @@ type MachineBiosResponse struct {
 	Machine *models.V1MachineResponse
 }
 
+// MachineDiskResponse contains the machine Disk result
+type MachineDiskResponse struct {
+	Machine *models.V1MachineResponse
+}
+
+// MachinePxeResponse contains the machine Pxe result
+type MachinePxeResponse struct {
+	Machine *models.V1MachineResponse
+}
+
 // MachineStateResponse contains the machine bios result
 type MachineStateResponse struct {
 	Machine *models.V1MachineResponse
@@ -445,6 +455,36 @@ func (d *Driver) MachineBootBios(machineID string) (*MachineBiosResponse, error)
 
 	response := &MachineBiosResponse{}
 	resp, err := d.machine.MachineBios(machineBios, nil)
+	if err != nil {
+		return response, err
+	}
+	response.Machine = resp.Payload
+	return response, nil
+}
+
+// MachineBootDisk boots given machine from disk
+func (d *Driver) MachineBootDisk(machineID string) (*MachineDiskResponse, error) {
+	machineDisk := machine.NewMachineDiskParams()
+	machineDisk.ID = machineID
+	machineDisk.Body = []string{}
+
+	response := &MachineDiskResponse{}
+	resp, err := d.machine.MachineDisk(machineDisk, nil)
+	if err != nil {
+		return response, err
+	}
+	response.Machine = resp.Payload
+	return response, nil
+}
+
+// MachineBootPxe boots given machine from PXE
+func (d *Driver) MachineBootPxe(machineID string) (*MachinePxeResponse, error) {
+	machinePxe := machine.NewMachinePxeParams()
+	machinePxe.ID = machineID
+	machinePxe.Body = []string{}
+
+	response := &MachinePxeResponse{}
+	resp, err := d.machine.MachinePxe(machinePxe, nil)
 	if err != nil {
 		return response, err
 	}

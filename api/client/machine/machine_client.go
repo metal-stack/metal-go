@@ -55,9 +55,13 @@ type ClientService interface {
 
 	MachineBios(params *MachineBiosParams, authInfo runtime.ClientAuthInfoWriter) (*MachineBiosOK, error)
 
+	MachineDisk(params *MachineDiskParams, authInfo runtime.ClientAuthInfoWriter) (*MachineDiskOK, error)
+
 	MachineOff(params *MachineOffParams, authInfo runtime.ClientAuthInfoWriter) (*MachineOffOK, error)
 
 	MachineOn(params *MachineOnParams, authInfo runtime.ClientAuthInfoWriter) (*MachineOnOK, error)
+
+	MachinePxe(params *MachinePxeParams, authInfo runtime.ClientAuthInfoWriter) (*MachinePxeOK, error)
 
 	MachineReset(params *MachineResetParams, authInfo runtime.ClientAuthInfoWriter) (*MachineResetOK, error)
 
@@ -549,7 +553,7 @@ func (a *Client) ListMachines(params *ListMachinesParams, authInfo runtime.Clien
 }
 
 /*
-  MachineBios boots machine into b i o s on next reboot
+  MachineBios boots machine into b i o s
 */
 func (a *Client) MachineBios(params *MachineBiosParams, authInfo runtime.ClientAuthInfoWriter) (*MachineBiosOK, error) {
 	// TODO: Validate the params before sending
@@ -579,6 +583,40 @@ func (a *Client) MachineBios(params *MachineBiosParams, authInfo runtime.ClientA
 	}
 	// unexpected success response
 	unexpectedSuccess := result.(*MachineBiosDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+  MachineDisk boots machine from disk
+*/
+func (a *Client) MachineDisk(params *MachineDiskParams, authInfo runtime.ClientAuthInfoWriter) (*MachineDiskOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewMachineDiskParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "machineDisk",
+		Method:             "POST",
+		PathPattern:        "/v1/machine/{id}/power/disk",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &MachineDiskReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*MachineDiskOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*MachineDiskDefault)
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
@@ -647,6 +685,40 @@ func (a *Client) MachineOn(params *MachineOnParams, authInfo runtime.ClientAuthI
 	}
 	// unexpected success response
 	unexpectedSuccess := result.(*MachineOnDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+  MachinePxe boots machine from p x e
+*/
+func (a *Client) MachinePxe(params *MachinePxeParams, authInfo runtime.ClientAuthInfoWriter) (*MachinePxeOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewMachinePxeParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "machinePxe",
+		Method:             "POST",
+		PathPattern:        "/v1/machine/{id}/power/pxe",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &MachinePxeReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*MachinePxeOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*MachinePxeDefault)
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
