@@ -219,6 +219,19 @@ func (d *Driver) MachineDelete(machineID string) (*MachineDeleteResponse, error)
 	return response, nil
 }
 
+// MachineDeleteFromDatabase deletes a single metal machine from the database
+func (d *Driver) MachineDeleteFromDatabase(machineID string) (*MachineDeleteResponse, error) {
+	p := machine.NewDeleteMachineParams().WithID(machineID)
+
+	response := &MachineDeleteResponse{}
+	resp, err := d.machine.DeleteMachine(p, nil)
+	if err != nil {
+		return response, err
+	}
+	response.Machine = resp.Payload
+	return response, nil
+}
+
 // MachineGet returns the machine with the given ID
 func (d *Driver) MachineGet(id string) (*MachineGetResponse, error) {
 	findMachine := machine.NewFindMachineParams()

@@ -35,6 +35,8 @@ type ClientService interface {
 
 	ChassisIdentifyLEDOn(params *ChassisIdentifyLEDOnParams, authInfo runtime.ClientAuthInfoWriter) (*ChassisIdentifyLEDOnOK, error)
 
+	DeleteMachine(params *DeleteMachineParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteMachineOK, error)
+
 	FinalizeAllocation(params *FinalizeAllocationParams, authInfo runtime.ClientAuthInfoWriter) (*FinalizeAllocationOK, error)
 
 	FindIPMIMachine(params *FindIPMIMachineParams, authInfo runtime.ClientAuthInfoWriter) (*FindIPMIMachineOK, error)
@@ -243,6 +245,40 @@ func (a *Client) ChassisIdentifyLEDOn(params *ChassisIdentifyLEDOnParams, authIn
 	}
 	// unexpected success response
 	unexpectedSuccess := result.(*ChassisIdentifyLEDOnDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+  DeleteMachine deletes a machine from the database
+*/
+func (a *Client) DeleteMachine(params *DeleteMachineParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteMachineOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDeleteMachineParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "deleteMachine",
+		Method:             "DELETE",
+		PathPattern:        "/v1/machine/{id}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &DeleteMachineReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DeleteMachineOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*DeleteMachineDefault)
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
