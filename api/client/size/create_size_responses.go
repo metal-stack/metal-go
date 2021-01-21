@@ -53,7 +53,7 @@ func NewCreateSizeCreated() *CreateSizeCreated {
 	return &CreateSizeCreated{}
 }
 
-/*CreateSizeCreated handles this case with default header values.
+/* CreateSizeCreated describes a response with status code 201, with default header values.
 
 Created
 */
@@ -64,7 +64,6 @@ type CreateSizeCreated struct {
 func (o *CreateSizeCreated) Error() string {
 	return fmt.Sprintf("[PUT /v1/size][%d] createSizeCreated  %+v", 201, o.Payload)
 }
-
 func (o *CreateSizeCreated) GetPayload() *models.V1SizeResponse {
 	return o.Payload
 }
@@ -86,7 +85,7 @@ func NewCreateSizeConflict() *CreateSizeConflict {
 	return &CreateSizeConflict{}
 }
 
-/*CreateSizeConflict handles this case with default header values.
+/* CreateSizeConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -97,7 +96,6 @@ type CreateSizeConflict struct {
 func (o *CreateSizeConflict) Error() string {
 	return fmt.Sprintf("[PUT /v1/size][%d] createSizeConflict  %+v", 409, o.Payload)
 }
-
 func (o *CreateSizeConflict) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }
@@ -121,7 +119,7 @@ func NewCreateSizeDefault(code int) *CreateSizeDefault {
 	}
 }
 
-/*CreateSizeDefault handles this case with default header values.
+/* CreateSizeDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -139,7 +137,6 @@ func (o *CreateSizeDefault) Code() int {
 func (o *CreateSizeDefault) Error() string {
 	return fmt.Sprintf("[PUT /v1/size][%d] createSize default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *CreateSizeDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

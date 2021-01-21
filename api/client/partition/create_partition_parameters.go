@@ -18,56 +18,70 @@ import (
 	"github.com/metal-stack/metal-go/api/models"
 )
 
-// NewCreatePartitionParams creates a new CreatePartitionParams object
-// with the default values initialized.
+// NewCreatePartitionParams creates a new CreatePartitionParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewCreatePartitionParams() *CreatePartitionParams {
-	var ()
 	return &CreatePartitionParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewCreatePartitionParamsWithTimeout creates a new CreatePartitionParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewCreatePartitionParamsWithTimeout(timeout time.Duration) *CreatePartitionParams {
-	var ()
 	return &CreatePartitionParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewCreatePartitionParamsWithContext creates a new CreatePartitionParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewCreatePartitionParamsWithContext(ctx context.Context) *CreatePartitionParams {
-	var ()
 	return &CreatePartitionParams{
-
 		Context: ctx,
 	}
 }
 
 // NewCreatePartitionParamsWithHTTPClient creates a new CreatePartitionParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewCreatePartitionParamsWithHTTPClient(client *http.Client) *CreatePartitionParams {
-	var ()
 	return &CreatePartitionParams{
 		HTTPClient: client,
 	}
 }
 
-/*CreatePartitionParams contains all the parameters to send to the API endpoint
-for the create partition operation typically these are written to a http.Request
+/* CreatePartitionParams contains all the parameters to send to the API endpoint
+   for the create partition operation.
+
+   Typically these are written to a http.Request.
 */
 type CreatePartitionParams struct {
 
-	/*Body*/
+	// Body.
 	Body *models.V1PartitionCreateRequest
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the create partition params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *CreatePartitionParams) WithDefaults() *CreatePartitionParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the create partition params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *CreatePartitionParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the create partition params
@@ -121,7 +135,6 @@ func (o *CreatePartitionParams) WriteToRequest(r runtime.ClientRequest, reg strf
 		return err
 	}
 	var res []error
-
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err

@@ -47,7 +47,7 @@ func NewSetChassisIdentifyLEDStateOK() *SetChassisIdentifyLEDStateOK {
 	return &SetChassisIdentifyLEDStateOK{}
 }
 
-/*SetChassisIdentifyLEDStateOK handles this case with default header values.
+/* SetChassisIdentifyLEDStateOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -58,7 +58,6 @@ type SetChassisIdentifyLEDStateOK struct {
 func (o *SetChassisIdentifyLEDStateOK) Error() string {
 	return fmt.Sprintf("[POST /v1/machine/{id}/chassis-identify-led-state][%d] setChassisIdentifyLEDStateOK  %+v", 200, o.Payload)
 }
-
 func (o *SetChassisIdentifyLEDStateOK) GetPayload() *models.V1MachineResponse {
 	return o.Payload
 }
@@ -82,7 +81,7 @@ func NewSetChassisIdentifyLEDStateDefault(code int) *SetChassisIdentifyLEDStateD
 	}
 }
 
-/*SetChassisIdentifyLEDStateDefault handles this case with default header values.
+/* SetChassisIdentifyLEDStateDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -100,7 +99,6 @@ func (o *SetChassisIdentifyLEDStateDefault) Code() int {
 func (o *SetChassisIdentifyLEDStateDefault) Error() string {
 	return fmt.Sprintf("[POST /v1/machine/{id}/chassis-identify-led-state][%d] setChassisIdentifyLEDState default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *SetChassisIdentifyLEDStateDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

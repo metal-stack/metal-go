@@ -53,7 +53,7 @@ func NewReinstallMachineOK() *ReinstallMachineOK {
 	return &ReinstallMachineOK{}
 }
 
-/*ReinstallMachineOK handles this case with default header values.
+/* ReinstallMachineOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -64,7 +64,6 @@ type ReinstallMachineOK struct {
 func (o *ReinstallMachineOK) Error() string {
 	return fmt.Sprintf("[POST /v1/machine/{id}/reinstall][%d] reinstallMachineOK  %+v", 200, o.Payload)
 }
-
 func (o *ReinstallMachineOK) GetPayload() *models.V1MachineResponse {
 	return o.Payload
 }
@@ -86,7 +85,7 @@ func NewReinstallMachineBadRequest() *ReinstallMachineBadRequest {
 	return &ReinstallMachineBadRequest{}
 }
 
-/*ReinstallMachineBadRequest handles this case with default header values.
+/* ReinstallMachineBadRequest describes a response with status code 400, with default header values.
 
 Bad Request
 */
@@ -97,7 +96,6 @@ type ReinstallMachineBadRequest struct {
 func (o *ReinstallMachineBadRequest) Error() string {
 	return fmt.Sprintf("[POST /v1/machine/{id}/reinstall][%d] reinstallMachineBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *ReinstallMachineBadRequest) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }
@@ -121,7 +119,7 @@ func NewReinstallMachineDefault(code int) *ReinstallMachineDefault {
 	}
 }
 
-/*ReinstallMachineDefault handles this case with default header values.
+/* ReinstallMachineDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -139,7 +137,6 @@ func (o *ReinstallMachineDefault) Code() int {
 func (o *ReinstallMachineDefault) Error() string {
 	return fmt.Sprintf("[POST /v1/machine/{id}/reinstall][%d] reinstallMachine default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *ReinstallMachineDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

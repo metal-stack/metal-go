@@ -18,61 +18,76 @@ import (
 	"github.com/metal-stack/metal-go/api/models"
 )
 
-// NewAllocateSpecificIPParams creates a new AllocateSpecificIPParams object
-// with the default values initialized.
+// NewAllocateSpecificIPParams creates a new AllocateSpecificIPParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewAllocateSpecificIPParams() *AllocateSpecificIPParams {
-	var ()
 	return &AllocateSpecificIPParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewAllocateSpecificIPParamsWithTimeout creates a new AllocateSpecificIPParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewAllocateSpecificIPParamsWithTimeout(timeout time.Duration) *AllocateSpecificIPParams {
-	var ()
 	return &AllocateSpecificIPParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewAllocateSpecificIPParamsWithContext creates a new AllocateSpecificIPParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewAllocateSpecificIPParamsWithContext(ctx context.Context) *AllocateSpecificIPParams {
-	var ()
 	return &AllocateSpecificIPParams{
-
 		Context: ctx,
 	}
 }
 
 // NewAllocateSpecificIPParamsWithHTTPClient creates a new AllocateSpecificIPParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewAllocateSpecificIPParamsWithHTTPClient(client *http.Client) *AllocateSpecificIPParams {
-	var ()
 	return &AllocateSpecificIPParams{
 		HTTPClient: client,
 	}
 }
 
-/*AllocateSpecificIPParams contains all the parameters to send to the API endpoint
-for the allocate specific IP operation typically these are written to a http.Request
+/* AllocateSpecificIPParams contains all the parameters to send to the API endpoint
+   for the allocate specific IP operation.
+
+   Typically these are written to a http.Request.
 */
 type AllocateSpecificIPParams struct {
 
-	/*Body*/
+	// Body.
 	Body *models.V1IPAllocateRequest
-	/*IP
-	  ip to try to allocate
 
+	/* IP.
+
+	   ip to try to allocate
 	*/
 	IP string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the allocate specific IP params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *AllocateSpecificIPParams) WithDefaults() *AllocateSpecificIPParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the allocate specific IP params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *AllocateSpecificIPParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the allocate specific IP params
@@ -137,7 +152,6 @@ func (o *AllocateSpecificIPParams) WriteToRequest(r runtime.ClientRequest, reg s
 		return err
 	}
 	var res []error
-
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err

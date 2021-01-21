@@ -96,7 +96,7 @@ func (d *Driver) PartitionCreate(pcr PartitionCreateRequest) (*PartitionCreateRe
 		Name:                       pcr.Name,
 		Description:                pcr.Description,
 		Mgmtserviceaddress:         pcr.Mgmtserviceaddress,
-		Privatenetworkprefixlength: pcr.Privatenetworkprefixlength,
+		Privatenetworkprefixlength: int64(pcr.Privatenetworkprefixlength),
 		Bootconfig:                 pcr.Bootconfig.convert(),
 	}
 	request := partition.NewCreatePartitionParams()

@@ -16,52 +16,66 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewListIPsParams creates a new ListIPsParams object
-// with the default values initialized.
+// NewListIPsParams creates a new ListIPsParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewListIPsParams() *ListIPsParams {
-
 	return &ListIPsParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewListIPsParamsWithTimeout creates a new ListIPsParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewListIPsParamsWithTimeout(timeout time.Duration) *ListIPsParams {
-
 	return &ListIPsParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewListIPsParamsWithContext creates a new ListIPsParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewListIPsParamsWithContext(ctx context.Context) *ListIPsParams {
-
 	return &ListIPsParams{
-
 		Context: ctx,
 	}
 }
 
 // NewListIPsParamsWithHTTPClient creates a new ListIPsParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewListIPsParamsWithHTTPClient(client *http.Client) *ListIPsParams {
-
 	return &ListIPsParams{
 		HTTPClient: client,
 	}
 }
 
-/*ListIPsParams contains all the parameters to send to the API endpoint
-for the list i ps operation typically these are written to a http.Request
+/* ListIPsParams contains all the parameters to send to the API endpoint
+   for the list i ps operation.
+
+   Typically these are written to a http.Request.
 */
 type ListIPsParams struct {
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the list i ps params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *ListIPsParams) WithDefaults() *ListIPsParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the list i ps params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *ListIPsParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the list i ps params

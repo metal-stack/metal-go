@@ -53,7 +53,7 @@ func NewCreateProjectCreated() *CreateProjectCreated {
 	return &CreateProjectCreated{}
 }
 
-/*CreateProjectCreated handles this case with default header values.
+/* CreateProjectCreated describes a response with status code 201, with default header values.
 
 Created
 */
@@ -64,7 +64,6 @@ type CreateProjectCreated struct {
 func (o *CreateProjectCreated) Error() string {
 	return fmt.Sprintf("[PUT /v1/project][%d] createProjectCreated  %+v", 201, o.Payload)
 }
-
 func (o *CreateProjectCreated) GetPayload() *models.V1ProjectResponse {
 	return o.Payload
 }
@@ -86,7 +85,7 @@ func NewCreateProjectConflict() *CreateProjectConflict {
 	return &CreateProjectConflict{}
 }
 
-/*CreateProjectConflict handles this case with default header values.
+/* CreateProjectConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -97,7 +96,6 @@ type CreateProjectConflict struct {
 func (o *CreateProjectConflict) Error() string {
 	return fmt.Sprintf("[PUT /v1/project][%d] createProjectConflict  %+v", 409, o.Payload)
 }
-
 func (o *CreateProjectConflict) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }
@@ -121,7 +119,7 @@ func NewCreateProjectDefault(code int) *CreateProjectDefault {
 	}
 }
 
-/*CreateProjectDefault handles this case with default header values.
+/* CreateProjectDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -139,7 +137,6 @@ func (o *CreateProjectDefault) Code() int {
 func (o *CreateProjectDefault) Error() string {
 	return fmt.Sprintf("[PUT /v1/project][%d] createProject default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *CreateProjectDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

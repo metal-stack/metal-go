@@ -53,7 +53,7 @@ func NewUpdatePartitionOK() *UpdatePartitionOK {
 	return &UpdatePartitionOK{}
 }
 
-/*UpdatePartitionOK handles this case with default header values.
+/* UpdatePartitionOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -64,7 +64,6 @@ type UpdatePartitionOK struct {
 func (o *UpdatePartitionOK) Error() string {
 	return fmt.Sprintf("[POST /v1/partition][%d] updatePartitionOK  %+v", 200, o.Payload)
 }
-
 func (o *UpdatePartitionOK) GetPayload() *models.V1PartitionResponse {
 	return o.Payload
 }
@@ -86,7 +85,7 @@ func NewUpdatePartitionConflict() *UpdatePartitionConflict {
 	return &UpdatePartitionConflict{}
 }
 
-/*UpdatePartitionConflict handles this case with default header values.
+/* UpdatePartitionConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -97,7 +96,6 @@ type UpdatePartitionConflict struct {
 func (o *UpdatePartitionConflict) Error() string {
 	return fmt.Sprintf("[POST /v1/partition][%d] updatePartitionConflict  %+v", 409, o.Payload)
 }
-
 func (o *UpdatePartitionConflict) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }
@@ -121,7 +119,7 @@ func NewUpdatePartitionDefault(code int) *UpdatePartitionDefault {
 	}
 }
 
-/*UpdatePartitionDefault handles this case with default header values.
+/* UpdatePartitionDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -139,7 +137,6 @@ func (o *UpdatePartitionDefault) Code() int {
 func (o *UpdatePartitionDefault) Error() string {
 	return fmt.Sprintf("[POST /v1/partition][%d] updatePartition default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *UpdatePartitionDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

@@ -47,7 +47,7 @@ func NewPartitionCapacityOK() *PartitionCapacityOK {
 	return &PartitionCapacityOK{}
 }
 
-/*PartitionCapacityOK handles this case with default header values.
+/* PartitionCapacityOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -58,7 +58,6 @@ type PartitionCapacityOK struct {
 func (o *PartitionCapacityOK) Error() string {
 	return fmt.Sprintf("[GET /v1/partition/capacity][%d] partitionCapacityOK  %+v", 200, o.Payload)
 }
-
 func (o *PartitionCapacityOK) GetPayload() []*models.V1PartitionCapacity {
 	return o.Payload
 }
@@ -80,7 +79,7 @@ func NewPartitionCapacityDefault(code int) *PartitionCapacityDefault {
 	}
 }
 
-/*PartitionCapacityDefault handles this case with default header values.
+/* PartitionCapacityDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -98,7 +97,6 @@ func (o *PartitionCapacityDefault) Code() int {
 func (o *PartitionCapacityDefault) Error() string {
 	return fmt.Sprintf("[GET /v1/partition/capacity][%d] partitionCapacity default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *PartitionCapacityDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

@@ -18,61 +18,76 @@ import (
 	"github.com/metal-stack/metal-go/api/models"
 )
 
-// NewSetMachineStateParams creates a new SetMachineStateParams object
-// with the default values initialized.
+// NewSetMachineStateParams creates a new SetMachineStateParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewSetMachineStateParams() *SetMachineStateParams {
-	var ()
 	return &SetMachineStateParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewSetMachineStateParamsWithTimeout creates a new SetMachineStateParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewSetMachineStateParamsWithTimeout(timeout time.Duration) *SetMachineStateParams {
-	var ()
 	return &SetMachineStateParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewSetMachineStateParamsWithContext creates a new SetMachineStateParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewSetMachineStateParamsWithContext(ctx context.Context) *SetMachineStateParams {
-	var ()
 	return &SetMachineStateParams{
-
 		Context: ctx,
 	}
 }
 
 // NewSetMachineStateParamsWithHTTPClient creates a new SetMachineStateParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewSetMachineStateParamsWithHTTPClient(client *http.Client) *SetMachineStateParams {
-	var ()
 	return &SetMachineStateParams{
 		HTTPClient: client,
 	}
 }
 
-/*SetMachineStateParams contains all the parameters to send to the API endpoint
-for the set machine state operation typically these are written to a http.Request
+/* SetMachineStateParams contains all the parameters to send to the API endpoint
+   for the set machine state operation.
+
+   Typically these are written to a http.Request.
 */
 type SetMachineStateParams struct {
 
-	/*Body*/
+	// Body.
 	Body *models.V1MachineState
-	/*ID
-	  identifier of the machine
 
+	/* ID.
+
+	   identifier of the machine
 	*/
 	ID string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the set machine state params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *SetMachineStateParams) WithDefaults() *SetMachineStateParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the set machine state params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *SetMachineStateParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the set machine state params
@@ -137,7 +152,6 @@ func (o *SetMachineStateParams) WriteToRequest(r runtime.ClientRequest, reg strf
 		return err
 	}
 	var res []error
-
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err

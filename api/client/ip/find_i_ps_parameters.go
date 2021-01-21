@@ -18,56 +18,70 @@ import (
 	"github.com/metal-stack/metal-go/api/models"
 )
 
-// NewFindIPsParams creates a new FindIPsParams object
-// with the default values initialized.
+// NewFindIPsParams creates a new FindIPsParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewFindIPsParams() *FindIPsParams {
-	var ()
 	return &FindIPsParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewFindIPsParamsWithTimeout creates a new FindIPsParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewFindIPsParamsWithTimeout(timeout time.Duration) *FindIPsParams {
-	var ()
 	return &FindIPsParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewFindIPsParamsWithContext creates a new FindIPsParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewFindIPsParamsWithContext(ctx context.Context) *FindIPsParams {
-	var ()
 	return &FindIPsParams{
-
 		Context: ctx,
 	}
 }
 
 // NewFindIPsParamsWithHTTPClient creates a new FindIPsParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewFindIPsParamsWithHTTPClient(client *http.Client) *FindIPsParams {
-	var ()
 	return &FindIPsParams{
 		HTTPClient: client,
 	}
 }
 
-/*FindIPsParams contains all the parameters to send to the API endpoint
-for the find i ps operation typically these are written to a http.Request
+/* FindIPsParams contains all the parameters to send to the API endpoint
+   for the find i ps operation.
+
+   Typically these are written to a http.Request.
 */
 type FindIPsParams struct {
 
-	/*Body*/
+	// Body.
 	Body *models.V1IPFindRequest
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the find i ps params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *FindIPsParams) WithDefaults() *FindIPsParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the find i ps params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *FindIPsParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the find i ps params
@@ -121,7 +135,6 @@ func (o *FindIPsParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Regis
 		return err
 	}
 	var res []error
-
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err

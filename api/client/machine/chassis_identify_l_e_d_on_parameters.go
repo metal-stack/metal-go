@@ -18,66 +18,82 @@ import (
 	"github.com/metal-stack/metal-go/api/models"
 )
 
-// NewChassisIdentifyLEDOnParams creates a new ChassisIdentifyLEDOnParams object
-// with the default values initialized.
+// NewChassisIdentifyLEDOnParams creates a new ChassisIdentifyLEDOnParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewChassisIdentifyLEDOnParams() *ChassisIdentifyLEDOnParams {
-	var ()
 	return &ChassisIdentifyLEDOnParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewChassisIdentifyLEDOnParamsWithTimeout creates a new ChassisIdentifyLEDOnParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewChassisIdentifyLEDOnParamsWithTimeout(timeout time.Duration) *ChassisIdentifyLEDOnParams {
-	var ()
 	return &ChassisIdentifyLEDOnParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewChassisIdentifyLEDOnParamsWithContext creates a new ChassisIdentifyLEDOnParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewChassisIdentifyLEDOnParamsWithContext(ctx context.Context) *ChassisIdentifyLEDOnParams {
-	var ()
 	return &ChassisIdentifyLEDOnParams{
-
 		Context: ctx,
 	}
 }
 
 // NewChassisIdentifyLEDOnParamsWithHTTPClient creates a new ChassisIdentifyLEDOnParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewChassisIdentifyLEDOnParamsWithHTTPClient(client *http.Client) *ChassisIdentifyLEDOnParams {
-	var ()
 	return &ChassisIdentifyLEDOnParams{
 		HTTPClient: client,
 	}
 }
 
-/*ChassisIdentifyLEDOnParams contains all the parameters to send to the API endpoint
-for the chassis identify l e d on operation typically these are written to a http.Request
+/* ChassisIdentifyLEDOnParams contains all the parameters to send to the API endpoint
+   for the chassis identify l e d on operation.
+
+   Typically these are written to a http.Request.
 */
 type ChassisIdentifyLEDOnParams struct {
 
-	/*Body*/
+	// Body.
 	Body models.V1EmptyBody
-	/*Description
-	  identifier of the machine
 
+	/* Description.
+
+	   identifier of the machine
 	*/
 	Description *string
-	/*ID
-	  identifier of the machine
 
+	/* ID.
+
+	   identifier of the machine
 	*/
 	ID string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the chassis identify l e d on params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *ChassisIdentifyLEDOnParams) WithDefaults() *ChassisIdentifyLEDOnParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the chassis identify l e d on params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *ChassisIdentifyLEDOnParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the chassis identify l e d on params
@@ -153,7 +169,6 @@ func (o *ChassisIdentifyLEDOnParams) WriteToRequest(r runtime.ClientRequest, reg
 		return err
 	}
 	var res []error
-
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err
@@ -164,16 +179,17 @@ func (o *ChassisIdentifyLEDOnParams) WriteToRequest(r runtime.ClientRequest, reg
 
 		// query param description
 		var qrDescription string
+
 		if o.Description != nil {
 			qrDescription = *o.Description
 		}
 		qDescription := qrDescription
 		if qDescription != "" {
+
 			if err := r.SetQueryParam("description", qDescription); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	// path param id

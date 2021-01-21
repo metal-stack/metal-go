@@ -6,6 +6,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -19,11 +21,15 @@ type V1NetworkUsage struct {
 
 	// the total available IPs
 	// Required: true
-	AvailableIps *int64 `json:"available_ips"`
+	AvailableIps *uint64 `json:"available_ips"`
 
-	// the total available Prefixes
+	// a list of possible child prefixes
 	// Required: true
-	AvailablePrefixes *int64 `json:"available_prefixes"`
+	AvailablePrefixes []string `json:"available_prefixes"`
+
+	// the total available 2 bit Prefixes
+	// Required: true
+	AvailableSmallestPrefixes *int64 `json:"available_smallest_prefixes"`
 
 	// the total used IPs
 	// Required: true
@@ -43,6 +49,10 @@ func (m *V1NetworkUsage) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateAvailablePrefixes(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateAvailableSmallestPrefixes(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -78,6 +88,15 @@ func (m *V1NetworkUsage) validateAvailablePrefixes(formats strfmt.Registry) erro
 	return nil
 }
 
+func (m *V1NetworkUsage) validateAvailableSmallestPrefixes(formats strfmt.Registry) error {
+
+	if err := validate.Required("available_smallest_prefixes", "body", m.AvailableSmallestPrefixes); err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func (m *V1NetworkUsage) validateUsedIps(formats strfmt.Registry) error {
 
 	if err := validate.Required("used_ips", "body", m.UsedIps); err != nil {
@@ -93,6 +112,11 @@ func (m *V1NetworkUsage) validateUsedPrefixes(formats strfmt.Registry) error {
 		return err
 	}
 
+	return nil
+}
+
+// ContextValidate validates this v1 network usage based on context it is used
+func (m *V1NetworkUsage) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

@@ -6,6 +6,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -169,6 +171,70 @@ func (m *V1MachineRegisterRequest) validateUUID(formats strfmt.Registry) error {
 
 	if err := validate.Required("uuid", "body", m.UUID); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validate this v1 machine register request based on the context it is used
+func (m *V1MachineRegisterRequest) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateBios(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateHardware(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateIpmi(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *V1MachineRegisterRequest) contextValidateBios(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Bios != nil {
+		if err := m.Bios.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("bios")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *V1MachineRegisterRequest) contextValidateHardware(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Hardware != nil {
+		if err := m.Hardware.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("hardware")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *V1MachineRegisterRequest) contextValidateIpmi(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Ipmi != nil {
+		if err := m.Ipmi.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("ipmi")
+			}
+			return err
+		}
 	}
 
 	return nil

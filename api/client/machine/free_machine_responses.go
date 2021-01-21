@@ -47,7 +47,7 @@ func NewFreeMachineOK() *FreeMachineOK {
 	return &FreeMachineOK{}
 }
 
-/*FreeMachineOK handles this case with default header values.
+/* FreeMachineOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -58,7 +58,6 @@ type FreeMachineOK struct {
 func (o *FreeMachineOK) Error() string {
 	return fmt.Sprintf("[DELETE /v1/machine/{id}/free][%d] freeMachineOK  %+v", 200, o.Payload)
 }
-
 func (o *FreeMachineOK) GetPayload() *models.V1MachineResponse {
 	return o.Payload
 }
@@ -82,7 +81,7 @@ func NewFreeMachineDefault(code int) *FreeMachineDefault {
 	}
 }
 
-/*FreeMachineDefault handles this case with default header values.
+/* FreeMachineDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -100,7 +99,6 @@ func (o *FreeMachineDefault) Code() int {
 func (o *FreeMachineDefault) Error() string {
 	return fmt.Sprintf("[DELETE /v1/machine/{id}/free][%d] freeMachine default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *FreeMachineDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

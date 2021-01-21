@@ -47,7 +47,7 @@ func NewDeleteProjectOK() *DeleteProjectOK {
 	return &DeleteProjectOK{}
 }
 
-/*DeleteProjectOK handles this case with default header values.
+/* DeleteProjectOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -58,7 +58,6 @@ type DeleteProjectOK struct {
 func (o *DeleteProjectOK) Error() string {
 	return fmt.Sprintf("[DELETE /v1/project/{id}][%d] deleteProjectOK  %+v", 200, o.Payload)
 }
-
 func (o *DeleteProjectOK) GetPayload() *models.V1ProjectResponse {
 	return o.Payload
 }
@@ -82,7 +81,7 @@ func NewDeleteProjectDefault(code int) *DeleteProjectDefault {
 	}
 }
 
-/*DeleteProjectDefault handles this case with default header values.
+/* DeleteProjectDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -100,7 +99,6 @@ func (o *DeleteProjectDefault) Code() int {
 func (o *DeleteProjectDefault) Error() string {
 	return fmt.Sprintf("[DELETE /v1/project/{id}][%d] deleteProject default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *DeleteProjectDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

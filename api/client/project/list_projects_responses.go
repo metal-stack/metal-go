@@ -47,7 +47,7 @@ func NewListProjectsOK() *ListProjectsOK {
 	return &ListProjectsOK{}
 }
 
-/*ListProjectsOK handles this case with default header values.
+/* ListProjectsOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -58,7 +58,6 @@ type ListProjectsOK struct {
 func (o *ListProjectsOK) Error() string {
 	return fmt.Sprintf("[GET /v1/project][%d] listProjectsOK  %+v", 200, o.Payload)
 }
-
 func (o *ListProjectsOK) GetPayload() []*models.V1ProjectResponse {
 	return o.Payload
 }
@@ -80,7 +79,7 @@ func NewListProjectsDefault(code int) *ListProjectsDefault {
 	}
 }
 
-/*ListProjectsDefault handles this case with default header values.
+/* ListProjectsDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -98,7 +97,6 @@ func (o *ListProjectsDefault) Code() int {
 func (o *ListProjectsDefault) Error() string {
 	return fmt.Sprintf("[GET /v1/project][%d] listProjects default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *ListProjectsDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

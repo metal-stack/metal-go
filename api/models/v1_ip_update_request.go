@@ -6,6 +6,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"encoding/json"
 
 	"github.com/go-openapi/errors"
@@ -24,7 +25,6 @@ type V1IPUpdateRequest struct {
 
 	// the address (ipv4 or ipv6) of this ip
 	// Required: true
-	// Unique: true
 	Ipaddress *string `json:"ipaddress"`
 
 	// a readable name for this entity
@@ -106,6 +106,11 @@ func (m *V1IPUpdateRequest) validateType(formats strfmt.Registry) error {
 		return err
 	}
 
+	return nil
+}
+
+// ContextValidate validates this v1 IP update request based on context it is used
+func (m *V1IPUpdateRequest) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

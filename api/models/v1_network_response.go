@@ -6,6 +6,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -36,7 +38,6 @@ type V1NetworkResponse struct {
 
 	// the unique ID of this entity
 	// Required: true
-	// Unique: true
 	ID *string `json:"id"`
 
 	// free labels that you associate with this network.
@@ -131,7 +132,6 @@ func (m *V1NetworkResponse) Validate(formats strfmt.Registry) error {
 }
 
 func (m *V1NetworkResponse) validateChanged(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Changed) { // not required
 		return nil
 	}
@@ -144,7 +144,6 @@ func (m *V1NetworkResponse) validateChanged(formats strfmt.Registry) error {
 }
 
 func (m *V1NetworkResponse) validateCreated(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Created) { // not required
 		return nil
 	}
@@ -218,6 +217,60 @@ func (m *V1NetworkResponse) validateUsage(formats strfmt.Registry) error {
 
 	if m.Usage != nil {
 		if err := m.Usage.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("usage")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this v1 network response based on the context it is used
+func (m *V1NetworkResponse) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateChanged(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateCreated(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateUsage(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *V1NetworkResponse) contextValidateChanged(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := validate.ReadOnly(ctx, "changed", "body", strfmt.DateTime(m.Changed)); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *V1NetworkResponse) contextValidateCreated(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := validate.ReadOnly(ctx, "created", "body", strfmt.DateTime(m.Created)); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *V1NetworkResponse) contextValidateUsage(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Usage != nil {
+		if err := m.Usage.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("usage")
 			}
