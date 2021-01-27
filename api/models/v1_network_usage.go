@@ -21,15 +21,15 @@ type V1NetworkUsage struct {
 
 	// the total available IPs
 	// Required: true
-	AvailableIps *uint64 `json:"available_ips"`
+	AvailableIps *int64 `json:"available_ips"`
 
 	// a list of possible child prefixes
 	// Required: true
-	AvailablePrefixes []string `json:"available_prefixes"`
+	AvailablePrefixList []string `json:"available_prefix_list"`
 
 	// the total available 2 bit Prefixes
 	// Required: true
-	AvailableSmallestPrefixes *int64 `json:"available_smallest_prefixes"`
+	AvailablePrefixes *int64 `json:"available_prefixes"`
 
 	// the total used IPs
 	// Required: true
@@ -48,11 +48,11 @@ func (m *V1NetworkUsage) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validateAvailablePrefixes(formats); err != nil {
+	if err := m.validateAvailablePrefixList(formats); err != nil {
 		res = append(res, err)
 	}
 
-	if err := m.validateAvailableSmallestPrefixes(formats); err != nil {
+	if err := m.validateAvailablePrefixes(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -79,18 +79,18 @@ func (m *V1NetworkUsage) validateAvailableIps(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *V1NetworkUsage) validateAvailablePrefixes(formats strfmt.Registry) error {
+func (m *V1NetworkUsage) validateAvailablePrefixList(formats strfmt.Registry) error {
 
-	if err := validate.Required("available_prefixes", "body", m.AvailablePrefixes); err != nil {
+	if err := validate.Required("available_prefix_list", "body", m.AvailablePrefixList); err != nil {
 		return err
 	}
 
 	return nil
 }
 
-func (m *V1NetworkUsage) validateAvailableSmallestPrefixes(formats strfmt.Registry) error {
+func (m *V1NetworkUsage) validateAvailablePrefixes(formats strfmt.Registry) error {
 
-	if err := validate.Required("available_smallest_prefixes", "body", m.AvailableSmallestPrefixes); err != nil {
+	if err := validate.Required("available_prefixes", "body", m.AvailablePrefixes); err != nil {
 		return err
 	}
 
