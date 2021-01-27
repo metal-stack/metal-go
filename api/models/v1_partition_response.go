@@ -45,11 +45,6 @@ type V1PartitionResponse struct {
 
 	// a readable name for this entity
 	Name string `json:"name,omitempty"`
-
-	// the length of private networks for the machine's child networks in this partition, default 22
-	// Maximum: 30
-	// Minimum: 16
-	Privatenetworkprefixlength int64 `json:"privatenetworkprefixlength,omitempty"`
 }
 
 // Validate validates this v1 partition response
@@ -69,10 +64,6 @@ func (m *V1PartitionResponse) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateID(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validatePrivatenetworkprefixlength(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -127,22 +118,6 @@ func (m *V1PartitionResponse) validateCreated(formats strfmt.Registry) error {
 func (m *V1PartitionResponse) validateID(formats strfmt.Registry) error {
 
 	if err := validate.Required("id", "body", m.ID); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *V1PartitionResponse) validatePrivatenetworkprefixlength(formats strfmt.Registry) error {
-	if swag.IsZero(m.Privatenetworkprefixlength) { // not required
-		return nil
-	}
-
-	if err := validate.MinimumInt("privatenetworkprefixlength", "body", m.Privatenetworkprefixlength, 16, false); err != nil {
-		return err
-	}
-
-	if err := validate.MaximumInt("privatenetworkprefixlength", "body", m.Privatenetworkprefixlength, 30, false); err != nil {
 		return err
 	}
 

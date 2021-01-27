@@ -573,6 +573,10 @@
     },
     "v1.IPResponse": {
       "properties": {
+        "allocationuuid": {
+          "description": "a unique identifier for this ip address allocation, can be used to distinguish between ip address allocation over time.",
+          "type": "string"
+        },
         "changed": {
           "description": "the last changed timestamp of this entity",
           "format": "date-time",
@@ -624,6 +628,7 @@
         }
       },
       "required": [
+        "allocationuuid",
         "ipaddress",
         "networkid",
         "projectid",
@@ -632,6 +637,10 @@
     },
     "v1.IPUpdateRequest": {
       "properties": {
+        "allocationuuid": {
+          "description": "a unique identifier for this ip address allocation, can be used to distinguish between ip address allocation over time.",
+          "type": "string"
+        },
         "description": {
           "description": "a description for this entity",
           "type": "string"
@@ -662,6 +671,7 @@
         }
       },
       "required": [
+        "allocationuuid",
         "ipaddress",
         "type"
       ]
@@ -2018,6 +2028,11 @@
     },
     "v1.NetworkCreateRequest": {
       "properties": {
+        "childprefixlength": {
+          "description": "if privatesuper, this defines the bitlen of child prefixes if not nil",
+          "format": "byte",
+          "type": "integer"
+        },
         "description": {
           "description": "a description for this entity",
           "type": "string"
@@ -2091,6 +2106,7 @@
         }
       },
       "required": [
+        "childprefixlength",
         "destinationprefixes",
         "id",
         "nat",
@@ -2156,6 +2172,11 @@
           "format": "date-time",
           "readOnly": true,
           "type": "string"
+        },
+        "childprefixlength": {
+          "description": "if privatesuper, this defines the bitlen of child prefixes if not nil",
+          "format": "byte",
+          "type": "integer"
         },
         "created": {
           "description": "the creation time of this entity",
@@ -2240,6 +2261,7 @@
         }
       },
       "required": [
+        "childprefixlength",
         "destinationprefixes",
         "id",
         "nat",
@@ -2392,13 +2414,6 @@
         "name": {
           "description": "a readable name for this entity",
           "type": "string"
-        },
-        "privatenetworkprefixlength": {
-          "description": "the length of private networks for the machine's child networks in this partition, default 22",
-          "format": "byte",
-          "maximum": 30,
-          "minimum": 16,
-          "type": "integer"
         }
       },
       "required": [
@@ -2440,13 +2455,6 @@
         "name": {
           "description": "a readable name for this entity",
           "type": "string"
-        },
-        "privatenetworkprefixlength": {
-          "description": "the length of private networks for the machine's child networks in this partition, default 22",
-          "format": "byte",
-          "maximum": 30,
-          "minimum": 16,
-          "type": "integer"
         }
       },
       "required": [

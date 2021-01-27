@@ -22,12 +22,11 @@ type PartitionCapacityResponse struct {
 
 // PartitionCreateRequest is the response of a ImageList action
 type PartitionCreateRequest struct {
-	ID                         string
-	Name                       string
-	Description                string
-	Bootconfig                 BootConfig
-	Mgmtserviceaddress         string
-	Privatenetworkprefixlength int32
+	ID                 string
+	Name               string
+	Description        string
+	Bootconfig         BootConfig
+	Mgmtserviceaddress string
 }
 
 // BootConfig in the partition
@@ -92,12 +91,11 @@ func (d *Driver) PartitionCreate(pcr PartitionCreateRequest) (*PartitionCreateRe
 	response := &PartitionCreateResponse{}
 
 	createPartition := &models.V1PartitionCreateRequest{
-		ID:                         &pcr.ID,
-		Name:                       pcr.Name,
-		Description:                pcr.Description,
-		Mgmtserviceaddress:         pcr.Mgmtserviceaddress,
-		Privatenetworkprefixlength: int64(pcr.Privatenetworkprefixlength),
-		Bootconfig:                 pcr.Bootconfig.convert(),
+		ID:                 &pcr.ID,
+		Name:               pcr.Name,
+		Description:        pcr.Description,
+		Mgmtserviceaddress: pcr.Mgmtserviceaddress,
+		Bootconfig:         pcr.Bootconfig.convert(),
 	}
 	request := partition.NewCreatePartitionParams()
 	request.SetBody(createPartition)

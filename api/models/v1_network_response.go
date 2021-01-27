@@ -24,6 +24,10 @@ type V1NetworkResponse struct {
 	// Format: date-time
 	Changed strfmt.DateTime `json:"changed,omitempty"`
 
+	// if privatesuper, this defines the bitlen of child prefixes if not nil
+	// Required: true
+	Childprefixlength *int64 `json:"childprefixlength"`
+
 	// the creation time of this entity
 	// Read Only: true
 	// Format: date-time
@@ -93,6 +97,10 @@ func (m *V1NetworkResponse) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateChildprefixlength(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateCreated(formats); err != nil {
 		res = append(res, err)
 	}
@@ -137,6 +145,15 @@ func (m *V1NetworkResponse) validateChanged(formats strfmt.Registry) error {
 	}
 
 	if err := validate.FormatOf("changed", "body", "date-time", m.Changed.String(), formats); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *V1NetworkResponse) validateChildprefixlength(formats strfmt.Registry) error {
+
+	if err := validate.Required("childprefixlength", "body", m.Childprefixlength); err != nil {
 		return err
 	}
 
