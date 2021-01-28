@@ -16,59 +16,73 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewFindMachineParams creates a new FindMachineParams object
-// with the default values initialized.
+// NewFindMachineParams creates a new FindMachineParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewFindMachineParams() *FindMachineParams {
-	var ()
 	return &FindMachineParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewFindMachineParamsWithTimeout creates a new FindMachineParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewFindMachineParamsWithTimeout(timeout time.Duration) *FindMachineParams {
-	var ()
 	return &FindMachineParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewFindMachineParamsWithContext creates a new FindMachineParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewFindMachineParamsWithContext(ctx context.Context) *FindMachineParams {
-	var ()
 	return &FindMachineParams{
-
 		Context: ctx,
 	}
 }
 
 // NewFindMachineParamsWithHTTPClient creates a new FindMachineParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewFindMachineParamsWithHTTPClient(client *http.Client) *FindMachineParams {
-	var ()
 	return &FindMachineParams{
 		HTTPClient: client,
 	}
 }
 
-/*FindMachineParams contains all the parameters to send to the API endpoint
-for the find machine operation typically these are written to a http.Request
+/* FindMachineParams contains all the parameters to send to the API endpoint
+   for the find machine operation.
+
+   Typically these are written to a http.Request.
 */
 type FindMachineParams struct {
 
-	/*ID
-	  identifier of the machine
+	/* ID.
 
+	   identifier of the machine
 	*/
 	ID string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the find machine params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *FindMachineParams) WithDefaults() *FindMachineParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the find machine params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *FindMachineParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the find machine params

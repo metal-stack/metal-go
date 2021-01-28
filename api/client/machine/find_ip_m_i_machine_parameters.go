@@ -16,59 +16,73 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewFindIPMIMachineParams creates a new FindIPMIMachineParams object
-// with the default values initialized.
+// NewFindIPMIMachineParams creates a new FindIPMIMachineParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewFindIPMIMachineParams() *FindIPMIMachineParams {
-	var ()
 	return &FindIPMIMachineParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewFindIPMIMachineParamsWithTimeout creates a new FindIPMIMachineParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewFindIPMIMachineParamsWithTimeout(timeout time.Duration) *FindIPMIMachineParams {
-	var ()
 	return &FindIPMIMachineParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewFindIPMIMachineParamsWithContext creates a new FindIPMIMachineParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewFindIPMIMachineParamsWithContext(ctx context.Context) *FindIPMIMachineParams {
-	var ()
 	return &FindIPMIMachineParams{
-
 		Context: ctx,
 	}
 }
 
 // NewFindIPMIMachineParamsWithHTTPClient creates a new FindIPMIMachineParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewFindIPMIMachineParamsWithHTTPClient(client *http.Client) *FindIPMIMachineParams {
-	var ()
 	return &FindIPMIMachineParams{
 		HTTPClient: client,
 	}
 }
 
-/*FindIPMIMachineParams contains all the parameters to send to the API endpoint
-for the find IP m i machine operation typically these are written to a http.Request
+/* FindIPMIMachineParams contains all the parameters to send to the API endpoint
+   for the find IP m i machine operation.
+
+   Typically these are written to a http.Request.
 */
 type FindIPMIMachineParams struct {
 
-	/*ID
-	  identifier of the machine
+	/* ID.
 
+	   identifier of the machine
 	*/
 	ID string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the find IP m i machine params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *FindIPMIMachineParams) WithDefaults() *FindIPMIMachineParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the find IP m i machine params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *FindIPMIMachineParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the find IP m i machine params

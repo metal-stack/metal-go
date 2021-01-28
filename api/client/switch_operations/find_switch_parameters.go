@@ -16,59 +16,73 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewFindSwitchParams creates a new FindSwitchParams object
-// with the default values initialized.
+// NewFindSwitchParams creates a new FindSwitchParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewFindSwitchParams() *FindSwitchParams {
-	var ()
 	return &FindSwitchParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewFindSwitchParamsWithTimeout creates a new FindSwitchParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewFindSwitchParamsWithTimeout(timeout time.Duration) *FindSwitchParams {
-	var ()
 	return &FindSwitchParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewFindSwitchParamsWithContext creates a new FindSwitchParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewFindSwitchParamsWithContext(ctx context.Context) *FindSwitchParams {
-	var ()
 	return &FindSwitchParams{
-
 		Context: ctx,
 	}
 }
 
 // NewFindSwitchParamsWithHTTPClient creates a new FindSwitchParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewFindSwitchParamsWithHTTPClient(client *http.Client) *FindSwitchParams {
-	var ()
 	return &FindSwitchParams{
 		HTTPClient: client,
 	}
 }
 
-/*FindSwitchParams contains all the parameters to send to the API endpoint
-for the find switch operation typically these are written to a http.Request
+/* FindSwitchParams contains all the parameters to send to the API endpoint
+   for the find switch operation.
+
+   Typically these are written to a http.Request.
 */
 type FindSwitchParams struct {
 
-	/*ID
-	  identifier of the switch
+	/* ID.
 
+	   identifier of the switch
 	*/
 	ID string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the find switch params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *FindSwitchParams) WithDefaults() *FindSwitchParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the find switch params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *FindSwitchParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the find switch params

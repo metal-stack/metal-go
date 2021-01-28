@@ -6,6 +6,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"encoding/json"
 
 	"github.com/go-openapi/errors"
@@ -19,12 +20,15 @@ import (
 // swagger:model v1.IPUpdateRequest
 type V1IPUpdateRequest struct {
 
+	// a unique identifier for this ip address allocation, can be used to distinguish between ip address allocation over time.
+	// Required: true
+	Allocationuuid *string `json:"allocationuuid"`
+
 	// a description for this entity
 	Description string `json:"description,omitempty"`
 
 	// the address (ipv4 or ipv6) of this ip
 	// Required: true
-	// Unique: true
 	Ipaddress *string `json:"ipaddress"`
 
 	// a readable name for this entity
@@ -43,6 +47,10 @@ type V1IPUpdateRequest struct {
 func (m *V1IPUpdateRequest) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateAllocationuuid(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateIpaddress(formats); err != nil {
 		res = append(res, err)
 	}
@@ -54,6 +62,15 @@ func (m *V1IPUpdateRequest) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *V1IPUpdateRequest) validateAllocationuuid(formats strfmt.Registry) error {
+
+	if err := validate.Required("allocationuuid", "body", m.Allocationuuid); err != nil {
+		return err
+	}
+
 	return nil
 }
 
@@ -106,6 +123,11 @@ func (m *V1IPUpdateRequest) validateType(formats strfmt.Registry) error {
 		return err
 	}
 
+	return nil
+}
+
+// ContextValidate validates this v1 IP update request based on context it is used
+func (m *V1IPUpdateRequest) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

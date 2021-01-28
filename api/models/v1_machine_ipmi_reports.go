@@ -6,6 +6,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -39,7 +41,6 @@ func (m *V1MachineIpmiReports) Validate(formats strfmt.Registry) error {
 }
 
 func (m *V1MachineIpmiReports) validateReports(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Reports) { // not required
 		return nil
 	}
@@ -51,6 +52,35 @@ func (m *V1MachineIpmiReports) validateReports(formats strfmt.Registry) error {
 		}
 		if val, ok := m.Reports[k]; ok {
 			if err := val.Validate(formats); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// ContextValidate validate this v1 machine ipmi reports based on the context it is used
+func (m *V1MachineIpmiReports) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateReports(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *V1MachineIpmiReports) contextValidateReports(ctx context.Context, formats strfmt.Registry) error {
+
+	for k := range m.Reports {
+
+		if val, ok := m.Reports[k]; ok {
+			if err := val.ContextValidate(ctx, formats); err != nil {
 				return err
 			}
 		}

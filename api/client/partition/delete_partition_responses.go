@@ -47,7 +47,7 @@ func NewDeletePartitionOK() *DeletePartitionOK {
 	return &DeletePartitionOK{}
 }
 
-/*DeletePartitionOK handles this case with default header values.
+/* DeletePartitionOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -58,7 +58,6 @@ type DeletePartitionOK struct {
 func (o *DeletePartitionOK) Error() string {
 	return fmt.Sprintf("[DELETE /v1/partition/{id}][%d] deletePartitionOK  %+v", 200, o.Payload)
 }
-
 func (o *DeletePartitionOK) GetPayload() *models.V1PartitionResponse {
 	return o.Payload
 }
@@ -82,7 +81,7 @@ func NewDeletePartitionDefault(code int) *DeletePartitionDefault {
 	}
 }
 
-/*DeletePartitionDefault handles this case with default header values.
+/* DeletePartitionDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -100,7 +99,6 @@ func (o *DeletePartitionDefault) Code() int {
 func (o *DeletePartitionDefault) Error() string {
 	return fmt.Sprintf("[DELETE /v1/partition/{id}][%d] deletePartition default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *DeletePartitionDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

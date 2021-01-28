@@ -47,7 +47,7 @@ func NewListImagesOK() *ListImagesOK {
 	return &ListImagesOK{}
 }
 
-/*ListImagesOK handles this case with default header values.
+/* ListImagesOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -58,7 +58,6 @@ type ListImagesOK struct {
 func (o *ListImagesOK) Error() string {
 	return fmt.Sprintf("[GET /v1/image][%d] listImagesOK  %+v", 200, o.Payload)
 }
-
 func (o *ListImagesOK) GetPayload() []*models.V1ImageResponse {
 	return o.Payload
 }
@@ -80,7 +79,7 @@ func NewListImagesDefault(code int) *ListImagesDefault {
 	}
 }
 
-/*ListImagesDefault handles this case with default header values.
+/* ListImagesDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -98,7 +97,6 @@ func (o *ListImagesDefault) Code() int {
 func (o *ListImagesDefault) Error() string {
 	return fmt.Sprintf("[GET /v1/image][%d] listImages default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *ListImagesDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

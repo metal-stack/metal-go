@@ -47,7 +47,7 @@ func NewAllocateSpecificIPCreated() *AllocateSpecificIPCreated {
 	return &AllocateSpecificIPCreated{}
 }
 
-/*AllocateSpecificIPCreated handles this case with default header values.
+/* AllocateSpecificIPCreated describes a response with status code 201, with default header values.
 
 Created
 */
@@ -58,7 +58,6 @@ type AllocateSpecificIPCreated struct {
 func (o *AllocateSpecificIPCreated) Error() string {
 	return fmt.Sprintf("[POST /v1/ip/allocate/{ip}][%d] allocateSpecificIpCreated  %+v", 201, o.Payload)
 }
-
 func (o *AllocateSpecificIPCreated) GetPayload() *models.V1IPResponse {
 	return o.Payload
 }
@@ -82,7 +81,7 @@ func NewAllocateSpecificIPDefault(code int) *AllocateSpecificIPDefault {
 	}
 }
 
-/*AllocateSpecificIPDefault handles this case with default header values.
+/* AllocateSpecificIPDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -100,7 +99,6 @@ func (o *AllocateSpecificIPDefault) Code() int {
 func (o *AllocateSpecificIPDefault) Error() string {
 	return fmt.Sprintf("[POST /v1/ip/allocate/{ip}][%d] allocateSpecificIP default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *AllocateSpecificIPDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

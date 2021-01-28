@@ -6,6 +6,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -22,7 +24,6 @@ type V1MachineReinstallRequest struct {
 
 	// the unique ID of this entity
 	// Required: true
-	// Unique: true
 	ID *string `json:"id"`
 
 	// the image id to be installed
@@ -66,6 +67,11 @@ func (m *V1MachineReinstallRequest) validateImageid(formats strfmt.Registry) err
 		return err
 	}
 
+	return nil
+}
+
+// ContextValidate validates this v1 machine reinstall request based on context it is used
+func (m *V1MachineReinstallRequest) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

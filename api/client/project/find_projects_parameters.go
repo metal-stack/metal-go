@@ -18,56 +18,70 @@ import (
 	"github.com/metal-stack/metal-go/api/models"
 )
 
-// NewFindProjectsParams creates a new FindProjectsParams object
-// with the default values initialized.
+// NewFindProjectsParams creates a new FindProjectsParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewFindProjectsParams() *FindProjectsParams {
-	var ()
 	return &FindProjectsParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewFindProjectsParamsWithTimeout creates a new FindProjectsParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewFindProjectsParamsWithTimeout(timeout time.Duration) *FindProjectsParams {
-	var ()
 	return &FindProjectsParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewFindProjectsParamsWithContext creates a new FindProjectsParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewFindProjectsParamsWithContext(ctx context.Context) *FindProjectsParams {
-	var ()
 	return &FindProjectsParams{
-
 		Context: ctx,
 	}
 }
 
 // NewFindProjectsParamsWithHTTPClient creates a new FindProjectsParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewFindProjectsParamsWithHTTPClient(client *http.Client) *FindProjectsParams {
-	var ()
 	return &FindProjectsParams{
 		HTTPClient: client,
 	}
 }
 
-/*FindProjectsParams contains all the parameters to send to the API endpoint
-for the find projects operation typically these are written to a http.Request
+/* FindProjectsParams contains all the parameters to send to the API endpoint
+   for the find projects operation.
+
+   Typically these are written to a http.Request.
 */
 type FindProjectsParams struct {
 
-	/*Body*/
+	// Body.
 	Body *models.V1ProjectFindRequest
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the find projects params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *FindProjectsParams) WithDefaults() *FindProjectsParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the find projects params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *FindProjectsParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the find projects params
@@ -121,7 +135,6 @@ func (o *FindProjectsParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.
 		return err
 	}
 	var res []error
-
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err

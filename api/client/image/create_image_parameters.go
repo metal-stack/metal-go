@@ -18,56 +18,70 @@ import (
 	"github.com/metal-stack/metal-go/api/models"
 )
 
-// NewCreateImageParams creates a new CreateImageParams object
-// with the default values initialized.
+// NewCreateImageParams creates a new CreateImageParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewCreateImageParams() *CreateImageParams {
-	var ()
 	return &CreateImageParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewCreateImageParamsWithTimeout creates a new CreateImageParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewCreateImageParamsWithTimeout(timeout time.Duration) *CreateImageParams {
-	var ()
 	return &CreateImageParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewCreateImageParamsWithContext creates a new CreateImageParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewCreateImageParamsWithContext(ctx context.Context) *CreateImageParams {
-	var ()
 	return &CreateImageParams{
-
 		Context: ctx,
 	}
 }
 
 // NewCreateImageParamsWithHTTPClient creates a new CreateImageParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewCreateImageParamsWithHTTPClient(client *http.Client) *CreateImageParams {
-	var ()
 	return &CreateImageParams{
 		HTTPClient: client,
 	}
 }
 
-/*CreateImageParams contains all the parameters to send to the API endpoint
-for the create image operation typically these are written to a http.Request
+/* CreateImageParams contains all the parameters to send to the API endpoint
+   for the create image operation.
+
+   Typically these are written to a http.Request.
 */
 type CreateImageParams struct {
 
-	/*Body*/
+	// Body.
 	Body *models.V1ImageCreateRequest
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the create image params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *CreateImageParams) WithDefaults() *CreateImageParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the create image params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *CreateImageParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the create image params
@@ -121,7 +135,6 @@ func (o *CreateImageParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.R
 		return err
 	}
 	var res []error
-
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err

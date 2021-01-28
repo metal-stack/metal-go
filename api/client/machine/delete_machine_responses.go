@@ -47,7 +47,7 @@ func NewDeleteMachineOK() *DeleteMachineOK {
 	return &DeleteMachineOK{}
 }
 
-/*DeleteMachineOK handles this case with default header values.
+/* DeleteMachineOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -58,7 +58,6 @@ type DeleteMachineOK struct {
 func (o *DeleteMachineOK) Error() string {
 	return fmt.Sprintf("[DELETE /v1/machine/{id}][%d] deleteMachineOK  %+v", 200, o.Payload)
 }
-
 func (o *DeleteMachineOK) GetPayload() *models.V1MachineResponse {
 	return o.Payload
 }
@@ -82,7 +81,7 @@ func NewDeleteMachineDefault(code int) *DeleteMachineDefault {
 	}
 }
 
-/*DeleteMachineDefault handles this case with default header values.
+/* DeleteMachineDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -100,7 +99,6 @@ func (o *DeleteMachineDefault) Code() int {
 func (o *DeleteMachineDefault) Error() string {
 	return fmt.Sprintf("[DELETE /v1/machine/{id}][%d] deleteMachine default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *DeleteMachineDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

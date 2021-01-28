@@ -47,7 +47,7 @@ func NewAddProvisioningEventOK() *AddProvisioningEventOK {
 	return &AddProvisioningEventOK{}
 }
 
-/*AddProvisioningEventOK handles this case with default header values.
+/* AddProvisioningEventOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -58,7 +58,6 @@ type AddProvisioningEventOK struct {
 func (o *AddProvisioningEventOK) Error() string {
 	return fmt.Sprintf("[POST /v1/machine/{id}/event][%d] addProvisioningEventOK  %+v", 200, o.Payload)
 }
-
 func (o *AddProvisioningEventOK) GetPayload() *models.V1MachineRecentProvisioningEvents {
 	return o.Payload
 }
@@ -82,7 +81,7 @@ func NewAddProvisioningEventDefault(code int) *AddProvisioningEventDefault {
 	}
 }
 
-/*AddProvisioningEventDefault handles this case with default header values.
+/* AddProvisioningEventDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -100,7 +99,6 @@ func (o *AddProvisioningEventDefault) Code() int {
 func (o *AddProvisioningEventDefault) Error() string {
 	return fmt.Sprintf("[POST /v1/machine/{id}/event][%d] addProvisioningEvent default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *AddProvisioningEventDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

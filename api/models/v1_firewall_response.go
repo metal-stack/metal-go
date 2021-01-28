@@ -6,6 +6,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -47,7 +49,6 @@ type V1FirewallResponse struct {
 
 	// the unique ID of this entity
 	// Required: true
-	// Unique: true
 	ID *string `json:"id"`
 
 	// the state of this chassis identify LED
@@ -145,7 +146,6 @@ func (m *V1FirewallResponse) Validate(formats strfmt.Registry) error {
 }
 
 func (m *V1FirewallResponse) validateAllocation(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Allocation) { // not required
 		return nil
 	}
@@ -181,7 +181,6 @@ func (m *V1FirewallResponse) validateBios(formats strfmt.Registry) error {
 }
 
 func (m *V1FirewallResponse) validateChanged(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Changed) { // not required
 		return nil
 	}
@@ -194,7 +193,6 @@ func (m *V1FirewallResponse) validateChanged(formats strfmt.Registry) error {
 }
 
 func (m *V1FirewallResponse) validateCreated(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Created) { // not required
 		return nil
 	}
@@ -279,7 +277,6 @@ func (m *V1FirewallResponse) validateLiveliness(formats strfmt.Registry) error {
 }
 
 func (m *V1FirewallResponse) validatePartition(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Partition) { // not required
 		return nil
 	}
@@ -297,7 +294,6 @@ func (m *V1FirewallResponse) validatePartition(formats strfmt.Registry) error {
 }
 
 func (m *V1FirewallResponse) validateSize(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Size) { // not required
 		return nil
 	}
@@ -336,6 +332,199 @@ func (m *V1FirewallResponse) validateTags(formats strfmt.Registry) error {
 
 	if err := validate.Required("tags", "body", m.Tags); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validate this v1 firewall response based on the context it is used
+func (m *V1FirewallResponse) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateAllocation(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateBios(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateChanged(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateCreated(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateEvents(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateHardware(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateLedstate(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidatePartition(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateRackid(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateSize(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateState(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *V1FirewallResponse) contextValidateAllocation(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Allocation != nil {
+		if err := m.Allocation.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("allocation")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *V1FirewallResponse) contextValidateBios(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Bios != nil {
+		if err := m.Bios.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("bios")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *V1FirewallResponse) contextValidateChanged(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := validate.ReadOnly(ctx, "changed", "body", strfmt.DateTime(m.Changed)); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *V1FirewallResponse) contextValidateCreated(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := validate.ReadOnly(ctx, "created", "body", strfmt.DateTime(m.Created)); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *V1FirewallResponse) contextValidateEvents(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Events != nil {
+		if err := m.Events.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("events")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *V1FirewallResponse) contextValidateHardware(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Hardware != nil {
+		if err := m.Hardware.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("hardware")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *V1FirewallResponse) contextValidateLedstate(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Ledstate != nil {
+		if err := m.Ledstate.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("ledstate")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *V1FirewallResponse) contextValidatePartition(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Partition != nil {
+		if err := m.Partition.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("partition")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *V1FirewallResponse) contextValidateRackid(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := validate.ReadOnly(ctx, "rackid", "body", string(m.Rackid)); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *V1FirewallResponse) contextValidateSize(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Size != nil {
+		if err := m.Size.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("size")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *V1FirewallResponse) contextValidateState(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.State != nil {
+		if err := m.State.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("state")
+			}
+			return err
+		}
 	}
 
 	return nil

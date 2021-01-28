@@ -47,7 +47,7 @@ func NewFindProjectsOK() *FindProjectsOK {
 	return &FindProjectsOK{}
 }
 
-/*FindProjectsOK handles this case with default header values.
+/* FindProjectsOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -58,7 +58,6 @@ type FindProjectsOK struct {
 func (o *FindProjectsOK) Error() string {
 	return fmt.Sprintf("[POST /v1/project/find][%d] findProjectsOK  %+v", 200, o.Payload)
 }
-
 func (o *FindProjectsOK) GetPayload() []*models.V1ProjectResponse {
 	return o.Payload
 }
@@ -80,7 +79,7 @@ func NewFindProjectsDefault(code int) *FindProjectsDefault {
 	}
 }
 
-/*FindProjectsDefault handles this case with default header values.
+/* FindProjectsDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -98,7 +97,6 @@ func (o *FindProjectsDefault) Code() int {
 func (o *FindProjectsDefault) Error() string {
 	return fmt.Sprintf("[POST /v1/project/find][%d] findProjects default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *FindProjectsDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

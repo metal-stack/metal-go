@@ -53,7 +53,7 @@ func NewCreateImageCreated() *CreateImageCreated {
 	return &CreateImageCreated{}
 }
 
-/*CreateImageCreated handles this case with default header values.
+/* CreateImageCreated describes a response with status code 201, with default header values.
 
 Created
 */
@@ -64,7 +64,6 @@ type CreateImageCreated struct {
 func (o *CreateImageCreated) Error() string {
 	return fmt.Sprintf("[PUT /v1/image][%d] createImageCreated  %+v", 201, o.Payload)
 }
-
 func (o *CreateImageCreated) GetPayload() *models.V1ImageResponse {
 	return o.Payload
 }
@@ -86,7 +85,7 @@ func NewCreateImageConflict() *CreateImageConflict {
 	return &CreateImageConflict{}
 }
 
-/*CreateImageConflict handles this case with default header values.
+/* CreateImageConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -97,7 +96,6 @@ type CreateImageConflict struct {
 func (o *CreateImageConflict) Error() string {
 	return fmt.Sprintf("[PUT /v1/image][%d] createImageConflict  %+v", 409, o.Payload)
 }
-
 func (o *CreateImageConflict) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }
@@ -121,7 +119,7 @@ func NewCreateImageDefault(code int) *CreateImageDefault {
 	}
 }
 
-/*CreateImageDefault handles this case with default header values.
+/* CreateImageDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -139,7 +137,6 @@ func (o *CreateImageDefault) Code() int {
 func (o *CreateImageDefault) Error() string {
 	return fmt.Sprintf("[PUT /v1/image][%d] createImage default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *CreateImageDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

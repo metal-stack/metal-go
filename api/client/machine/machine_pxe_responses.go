@@ -47,7 +47,7 @@ func NewMachinePxeOK() *MachinePxeOK {
 	return &MachinePxeOK{}
 }
 
-/*MachinePxeOK handles this case with default header values.
+/* MachinePxeOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -58,7 +58,6 @@ type MachinePxeOK struct {
 func (o *MachinePxeOK) Error() string {
 	return fmt.Sprintf("[POST /v1/machine/{id}/power/pxe][%d] machinePxeOK  %+v", 200, o.Payload)
 }
-
 func (o *MachinePxeOK) GetPayload() *models.V1MachineResponse {
 	return o.Payload
 }
@@ -82,7 +81,7 @@ func NewMachinePxeDefault(code int) *MachinePxeDefault {
 	}
 }
 
-/*MachinePxeDefault handles this case with default header values.
+/* MachinePxeDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -100,7 +99,6 @@ func (o *MachinePxeDefault) Code() int {
 func (o *MachinePxeDefault) Error() string {
 	return fmt.Sprintf("[POST /v1/machine/{id}/power/pxe][%d] machinePxe default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *MachinePxeDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

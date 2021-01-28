@@ -47,7 +47,7 @@ func NewIpmiReportOK() *IpmiReportOK {
 	return &IpmiReportOK{}
 }
 
-/*IpmiReportOK handles this case with default header values.
+/* IpmiReportOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -58,7 +58,6 @@ type IpmiReportOK struct {
 func (o *IpmiReportOK) Error() string {
 	return fmt.Sprintf("[POST /v1/machine/ipmi][%d] ipmiReportOK  %+v", 200, o.Payload)
 }
-
 func (o *IpmiReportOK) GetPayload() *models.V1MachineIpmiReportResponse {
 	return o.Payload
 }
@@ -82,7 +81,7 @@ func NewIpmiReportDefault(code int) *IpmiReportDefault {
 	}
 }
 
-/*IpmiReportDefault handles this case with default header values.
+/* IpmiReportDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -100,7 +99,6 @@ func (o *IpmiReportDefault) Code() int {
 func (o *IpmiReportDefault) Error() string {
 	return fmt.Sprintf("[POST /v1/machine/ipmi][%d] ipmiReport default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *IpmiReportDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

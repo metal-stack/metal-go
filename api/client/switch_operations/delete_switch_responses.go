@@ -47,7 +47,7 @@ func NewDeleteSwitchOK() *DeleteSwitchOK {
 	return &DeleteSwitchOK{}
 }
 
-/*DeleteSwitchOK handles this case with default header values.
+/* DeleteSwitchOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -58,7 +58,6 @@ type DeleteSwitchOK struct {
 func (o *DeleteSwitchOK) Error() string {
 	return fmt.Sprintf("[DELETE /v1/switch/{id}][%d] deleteSwitchOK  %+v", 200, o.Payload)
 }
-
 func (o *DeleteSwitchOK) GetPayload() *models.V1SwitchResponse {
 	return o.Payload
 }
@@ -82,7 +81,7 @@ func NewDeleteSwitchDefault(code int) *DeleteSwitchDefault {
 	}
 }
 
-/*DeleteSwitchDefault handles this case with default header values.
+/* DeleteSwitchDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -100,7 +99,6 @@ func (o *DeleteSwitchDefault) Code() int {
 func (o *DeleteSwitchDefault) Error() string {
 	return fmt.Sprintf("[DELETE /v1/switch/{id}][%d] deleteSwitch default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *DeleteSwitchDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

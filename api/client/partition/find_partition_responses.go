@@ -47,7 +47,7 @@ func NewFindPartitionOK() *FindPartitionOK {
 	return &FindPartitionOK{}
 }
 
-/*FindPartitionOK handles this case with default header values.
+/* FindPartitionOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -58,7 +58,6 @@ type FindPartitionOK struct {
 func (o *FindPartitionOK) Error() string {
 	return fmt.Sprintf("[GET /v1/partition/{id}][%d] findPartitionOK  %+v", 200, o.Payload)
 }
-
 func (o *FindPartitionOK) GetPayload() *models.V1PartitionResponse {
 	return o.Payload
 }
@@ -82,7 +81,7 @@ func NewFindPartitionDefault(code int) *FindPartitionDefault {
 	}
 }
 
-/*FindPartitionDefault handles this case with default header values.
+/* FindPartitionDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -100,7 +99,6 @@ func (o *FindPartitionDefault) Code() int {
 func (o *FindPartitionDefault) Error() string {
 	return fmt.Sprintf("[GET /v1/partition/{id}][%d] findPartition default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *FindPartitionDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

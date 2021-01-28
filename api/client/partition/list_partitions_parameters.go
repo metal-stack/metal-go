@@ -16,52 +16,66 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewListPartitionsParams creates a new ListPartitionsParams object
-// with the default values initialized.
+// NewListPartitionsParams creates a new ListPartitionsParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewListPartitionsParams() *ListPartitionsParams {
-
 	return &ListPartitionsParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewListPartitionsParamsWithTimeout creates a new ListPartitionsParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewListPartitionsParamsWithTimeout(timeout time.Duration) *ListPartitionsParams {
-
 	return &ListPartitionsParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewListPartitionsParamsWithContext creates a new ListPartitionsParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewListPartitionsParamsWithContext(ctx context.Context) *ListPartitionsParams {
-
 	return &ListPartitionsParams{
-
 		Context: ctx,
 	}
 }
 
 // NewListPartitionsParamsWithHTTPClient creates a new ListPartitionsParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewListPartitionsParamsWithHTTPClient(client *http.Client) *ListPartitionsParams {
-
 	return &ListPartitionsParams{
 		HTTPClient: client,
 	}
 }
 
-/*ListPartitionsParams contains all the parameters to send to the API endpoint
-for the list partitions operation typically these are written to a http.Request
+/* ListPartitionsParams contains all the parameters to send to the API endpoint
+   for the list partitions operation.
+
+   Typically these are written to a http.Request.
 */
 type ListPartitionsParams struct {
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the list partitions params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *ListPartitionsParams) WithDefaults() *ListPartitionsParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the list partitions params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *ListPartitionsParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the list partitions params

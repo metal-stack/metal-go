@@ -16,59 +16,73 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewDeleteImageParams creates a new DeleteImageParams object
-// with the default values initialized.
+// NewDeleteImageParams creates a new DeleteImageParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewDeleteImageParams() *DeleteImageParams {
-	var ()
 	return &DeleteImageParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewDeleteImageParamsWithTimeout creates a new DeleteImageParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewDeleteImageParamsWithTimeout(timeout time.Duration) *DeleteImageParams {
-	var ()
 	return &DeleteImageParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewDeleteImageParamsWithContext creates a new DeleteImageParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewDeleteImageParamsWithContext(ctx context.Context) *DeleteImageParams {
-	var ()
 	return &DeleteImageParams{
-
 		Context: ctx,
 	}
 }
 
 // NewDeleteImageParamsWithHTTPClient creates a new DeleteImageParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewDeleteImageParamsWithHTTPClient(client *http.Client) *DeleteImageParams {
-	var ()
 	return &DeleteImageParams{
 		HTTPClient: client,
 	}
 }
 
-/*DeleteImageParams contains all the parameters to send to the API endpoint
-for the delete image operation typically these are written to a http.Request
+/* DeleteImageParams contains all the parameters to send to the API endpoint
+   for the delete image operation.
+
+   Typically these are written to a http.Request.
 */
 type DeleteImageParams struct {
 
-	/*ID
-	  identifier of the image
+	/* ID.
 
+	   identifier of the image
 	*/
 	ID string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the delete image params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *DeleteImageParams) WithDefaults() *DeleteImageParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the delete image params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *DeleteImageParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the delete image params

@@ -53,7 +53,7 @@ func NewUpdateSizeOK() *UpdateSizeOK {
 	return &UpdateSizeOK{}
 }
 
-/*UpdateSizeOK handles this case with default header values.
+/* UpdateSizeOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -64,7 +64,6 @@ type UpdateSizeOK struct {
 func (o *UpdateSizeOK) Error() string {
 	return fmt.Sprintf("[POST /v1/size][%d] updateSizeOK  %+v", 200, o.Payload)
 }
-
 func (o *UpdateSizeOK) GetPayload() *models.V1SizeResponse {
 	return o.Payload
 }
@@ -86,7 +85,7 @@ func NewUpdateSizeConflict() *UpdateSizeConflict {
 	return &UpdateSizeConflict{}
 }
 
-/*UpdateSizeConflict handles this case with default header values.
+/* UpdateSizeConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -97,7 +96,6 @@ type UpdateSizeConflict struct {
 func (o *UpdateSizeConflict) Error() string {
 	return fmt.Sprintf("[POST /v1/size][%d] updateSizeConflict  %+v", 409, o.Payload)
 }
-
 func (o *UpdateSizeConflict) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }
@@ -121,7 +119,7 @@ func NewUpdateSizeDefault(code int) *UpdateSizeDefault {
 	}
 }
 
-/*UpdateSizeDefault handles this case with default header values.
+/* UpdateSizeDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -139,7 +137,6 @@ func (o *UpdateSizeDefault) Code() int {
 func (o *UpdateSizeDefault) Error() string {
 	return fmt.Sprintf("[POST /v1/size][%d] updateSize default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *UpdateSizeDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

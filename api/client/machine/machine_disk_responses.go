@@ -47,7 +47,7 @@ func NewMachineDiskOK() *MachineDiskOK {
 	return &MachineDiskOK{}
 }
 
-/*MachineDiskOK handles this case with default header values.
+/* MachineDiskOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -58,7 +58,6 @@ type MachineDiskOK struct {
 func (o *MachineDiskOK) Error() string {
 	return fmt.Sprintf("[POST /v1/machine/{id}/power/disk][%d] machineDiskOK  %+v", 200, o.Payload)
 }
-
 func (o *MachineDiskOK) GetPayload() *models.V1MachineResponse {
 	return o.Payload
 }
@@ -82,7 +81,7 @@ func NewMachineDiskDefault(code int) *MachineDiskDefault {
 	}
 }
 
-/*MachineDiskDefault handles this case with default header values.
+/* MachineDiskDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -100,7 +99,6 @@ func (o *MachineDiskDefault) Code() int {
 func (o *MachineDiskDefault) Error() string {
 	return fmt.Sprintf("[POST /v1/machine/{id}/power/disk][%d] machineDisk default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *MachineDiskDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

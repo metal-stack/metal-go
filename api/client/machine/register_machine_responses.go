@@ -53,7 +53,7 @@ func NewRegisterMachineOK() *RegisterMachineOK {
 	return &RegisterMachineOK{}
 }
 
-/*RegisterMachineOK handles this case with default header values.
+/* RegisterMachineOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -64,7 +64,6 @@ type RegisterMachineOK struct {
 func (o *RegisterMachineOK) Error() string {
 	return fmt.Sprintf("[POST /v1/machine/register][%d] registerMachineOK  %+v", 200, o.Payload)
 }
-
 func (o *RegisterMachineOK) GetPayload() *models.V1MachineResponse {
 	return o.Payload
 }
@@ -86,7 +85,7 @@ func NewRegisterMachineCreated() *RegisterMachineCreated {
 	return &RegisterMachineCreated{}
 }
 
-/*RegisterMachineCreated handles this case with default header values.
+/* RegisterMachineCreated describes a response with status code 201, with default header values.
 
 Created
 */
@@ -97,7 +96,6 @@ type RegisterMachineCreated struct {
 func (o *RegisterMachineCreated) Error() string {
 	return fmt.Sprintf("[POST /v1/machine/register][%d] registerMachineCreated  %+v", 201, o.Payload)
 }
-
 func (o *RegisterMachineCreated) GetPayload() *models.V1MachineResponse {
 	return o.Payload
 }
@@ -121,7 +119,7 @@ func NewRegisterMachineDefault(code int) *RegisterMachineDefault {
 	}
 }
 
-/*RegisterMachineDefault handles this case with default header values.
+/* RegisterMachineDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -139,7 +137,6 @@ func (o *RegisterMachineDefault) Code() int {
 func (o *RegisterMachineDefault) Error() string {
 	return fmt.Sprintf("[POST /v1/machine/register][%d] registerMachine default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *RegisterMachineDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

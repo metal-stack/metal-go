@@ -47,7 +47,7 @@ func NewMachineOffOK() *MachineOffOK {
 	return &MachineOffOK{}
 }
 
-/*MachineOffOK handles this case with default header values.
+/* MachineOffOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -58,7 +58,6 @@ type MachineOffOK struct {
 func (o *MachineOffOK) Error() string {
 	return fmt.Sprintf("[POST /v1/machine/{id}/power/off][%d] machineOffOK  %+v", 200, o.Payload)
 }
-
 func (o *MachineOffOK) GetPayload() *models.V1MachineResponse {
 	return o.Payload
 }
@@ -82,7 +81,7 @@ func NewMachineOffDefault(code int) *MachineOffDefault {
 	}
 }
 
-/*MachineOffDefault handles this case with default header values.
+/* MachineOffDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -100,7 +99,6 @@ func (o *MachineOffDefault) Code() int {
 func (o *MachineOffDefault) Error() string {
 	return fmt.Sprintf("[POST /v1/machine/{id}/power/off][%d] machineOff default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *MachineOffDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

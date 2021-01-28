@@ -6,6 +6,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -32,7 +34,6 @@ type V1ImageCreateRequest struct {
 
 	// the unique ID of this entity
 	// Required: true
-	// Unique: true
 	ID *string `json:"id"`
 
 	// a readable name for this entity
@@ -66,7 +67,6 @@ func (m *V1ImageCreateRequest) Validate(formats strfmt.Registry) error {
 }
 
 func (m *V1ImageCreateRequest) validateExpirationDate(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.ExpirationDate) { // not required
 		return nil
 	}
@@ -93,6 +93,11 @@ func (m *V1ImageCreateRequest) validateURL(formats strfmt.Registry) error {
 		return err
 	}
 
+	return nil
+}
+
+// ContextValidate validates this v1 image create request based on context it is used
+func (m *V1ImageCreateRequest) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

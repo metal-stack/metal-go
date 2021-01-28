@@ -18,56 +18,70 @@ import (
 	"github.com/metal-stack/metal-go/api/models"
 )
 
-// NewCreateSizeParams creates a new CreateSizeParams object
-// with the default values initialized.
+// NewCreateSizeParams creates a new CreateSizeParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewCreateSizeParams() *CreateSizeParams {
-	var ()
 	return &CreateSizeParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewCreateSizeParamsWithTimeout creates a new CreateSizeParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewCreateSizeParamsWithTimeout(timeout time.Duration) *CreateSizeParams {
-	var ()
 	return &CreateSizeParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewCreateSizeParamsWithContext creates a new CreateSizeParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewCreateSizeParamsWithContext(ctx context.Context) *CreateSizeParams {
-	var ()
 	return &CreateSizeParams{
-
 		Context: ctx,
 	}
 }
 
 // NewCreateSizeParamsWithHTTPClient creates a new CreateSizeParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewCreateSizeParamsWithHTTPClient(client *http.Client) *CreateSizeParams {
-	var ()
 	return &CreateSizeParams{
 		HTTPClient: client,
 	}
 }
 
-/*CreateSizeParams contains all the parameters to send to the API endpoint
-for the create size operation typically these are written to a http.Request
+/* CreateSizeParams contains all the parameters to send to the API endpoint
+   for the create size operation.
+
+   Typically these are written to a http.Request.
 */
 type CreateSizeParams struct {
 
-	/*Body*/
+	// Body.
 	Body *models.V1SizeCreateRequest
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the create size params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *CreateSizeParams) WithDefaults() *CreateSizeParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the create size params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *CreateSizeParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the create size params
@@ -121,7 +135,6 @@ func (o *CreateSizeParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Re
 		return err
 	}
 	var res []error
-
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err

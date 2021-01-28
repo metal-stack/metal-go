@@ -53,7 +53,7 @@ func NewRegisterSwitchOK() *RegisterSwitchOK {
 	return &RegisterSwitchOK{}
 }
 
-/*RegisterSwitchOK handles this case with default header values.
+/* RegisterSwitchOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -64,7 +64,6 @@ type RegisterSwitchOK struct {
 func (o *RegisterSwitchOK) Error() string {
 	return fmt.Sprintf("[POST /v1/switch/register][%d] registerSwitchOK  %+v", 200, o.Payload)
 }
-
 func (o *RegisterSwitchOK) GetPayload() *models.V1SwitchResponse {
 	return o.Payload
 }
@@ -86,7 +85,7 @@ func NewRegisterSwitchCreated() *RegisterSwitchCreated {
 	return &RegisterSwitchCreated{}
 }
 
-/*RegisterSwitchCreated handles this case with default header values.
+/* RegisterSwitchCreated describes a response with status code 201, with default header values.
 
 Created
 */
@@ -97,7 +96,6 @@ type RegisterSwitchCreated struct {
 func (o *RegisterSwitchCreated) Error() string {
 	return fmt.Sprintf("[POST /v1/switch/register][%d] registerSwitchCreated  %+v", 201, o.Payload)
 }
-
 func (o *RegisterSwitchCreated) GetPayload() *models.V1SwitchResponse {
 	return o.Payload
 }
@@ -121,7 +119,7 @@ func NewRegisterSwitchDefault(code int) *RegisterSwitchDefault {
 	}
 }
 
-/*RegisterSwitchDefault handles this case with default header values.
+/* RegisterSwitchDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -139,7 +137,6 @@ func (o *RegisterSwitchDefault) Code() int {
 func (o *RegisterSwitchDefault) Error() string {
 	return fmt.Sprintf("[POST /v1/switch/register][%d] registerSwitch default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *RegisterSwitchDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

@@ -18,61 +18,76 @@ import (
 	"github.com/metal-stack/metal-go/api/models"
 )
 
-// NewSetChassisIdentifyLEDStateParams creates a new SetChassisIdentifyLEDStateParams object
-// with the default values initialized.
+// NewSetChassisIdentifyLEDStateParams creates a new SetChassisIdentifyLEDStateParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewSetChassisIdentifyLEDStateParams() *SetChassisIdentifyLEDStateParams {
-	var ()
 	return &SetChassisIdentifyLEDStateParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewSetChassisIdentifyLEDStateParamsWithTimeout creates a new SetChassisIdentifyLEDStateParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewSetChassisIdentifyLEDStateParamsWithTimeout(timeout time.Duration) *SetChassisIdentifyLEDStateParams {
-	var ()
 	return &SetChassisIdentifyLEDStateParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewSetChassisIdentifyLEDStateParamsWithContext creates a new SetChassisIdentifyLEDStateParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewSetChassisIdentifyLEDStateParamsWithContext(ctx context.Context) *SetChassisIdentifyLEDStateParams {
-	var ()
 	return &SetChassisIdentifyLEDStateParams{
-
 		Context: ctx,
 	}
 }
 
 // NewSetChassisIdentifyLEDStateParamsWithHTTPClient creates a new SetChassisIdentifyLEDStateParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewSetChassisIdentifyLEDStateParamsWithHTTPClient(client *http.Client) *SetChassisIdentifyLEDStateParams {
-	var ()
 	return &SetChassisIdentifyLEDStateParams{
 		HTTPClient: client,
 	}
 }
 
-/*SetChassisIdentifyLEDStateParams contains all the parameters to send to the API endpoint
-for the set chassis identify l e d state operation typically these are written to a http.Request
+/* SetChassisIdentifyLEDStateParams contains all the parameters to send to the API endpoint
+   for the set chassis identify l e d state operation.
+
+   Typically these are written to a http.Request.
 */
 type SetChassisIdentifyLEDStateParams struct {
 
-	/*Body*/
+	// Body.
 	Body *models.V1ChassisIdentifyLEDState
-	/*ID
-	  identifier of the machine
 
+	/* ID.
+
+	   identifier of the machine
 	*/
 	ID string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the set chassis identify l e d state params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *SetChassisIdentifyLEDStateParams) WithDefaults() *SetChassisIdentifyLEDStateParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the set chassis identify l e d state params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *SetChassisIdentifyLEDStateParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the set chassis identify l e d state params
@@ -137,7 +152,6 @@ func (o *SetChassisIdentifyLEDStateParams) WriteToRequest(r runtime.ClientReques
 		return err
 	}
 	var res []error
-
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err

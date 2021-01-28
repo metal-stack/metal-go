@@ -47,7 +47,7 @@ func NewMachineOnOK() *MachineOnOK {
 	return &MachineOnOK{}
 }
 
-/*MachineOnOK handles this case with default header values.
+/* MachineOnOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -58,7 +58,6 @@ type MachineOnOK struct {
 func (o *MachineOnOK) Error() string {
 	return fmt.Sprintf("[POST /v1/machine/{id}/power/on][%d] machineOnOK  %+v", 200, o.Payload)
 }
-
 func (o *MachineOnOK) GetPayload() *models.V1MachineResponse {
 	return o.Payload
 }
@@ -82,7 +81,7 @@ func NewMachineOnDefault(code int) *MachineOnDefault {
 	}
 }
 
-/*MachineOnDefault handles this case with default header values.
+/* MachineOnDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -100,7 +99,6 @@ func (o *MachineOnDefault) Code() int {
 func (o *MachineOnDefault) Error() string {
 	return fmt.Sprintf("[POST /v1/machine/{id}/power/on][%d] machineOn default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *MachineOnDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

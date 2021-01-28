@@ -16,59 +16,73 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewDeleteSwitchParams creates a new DeleteSwitchParams object
-// with the default values initialized.
+// NewDeleteSwitchParams creates a new DeleteSwitchParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewDeleteSwitchParams() *DeleteSwitchParams {
-	var ()
 	return &DeleteSwitchParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewDeleteSwitchParamsWithTimeout creates a new DeleteSwitchParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewDeleteSwitchParamsWithTimeout(timeout time.Duration) *DeleteSwitchParams {
-	var ()
 	return &DeleteSwitchParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewDeleteSwitchParamsWithContext creates a new DeleteSwitchParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewDeleteSwitchParamsWithContext(ctx context.Context) *DeleteSwitchParams {
-	var ()
 	return &DeleteSwitchParams{
-
 		Context: ctx,
 	}
 }
 
 // NewDeleteSwitchParamsWithHTTPClient creates a new DeleteSwitchParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewDeleteSwitchParamsWithHTTPClient(client *http.Client) *DeleteSwitchParams {
-	var ()
 	return &DeleteSwitchParams{
 		HTTPClient: client,
 	}
 }
 
-/*DeleteSwitchParams contains all the parameters to send to the API endpoint
-for the delete switch operation typically these are written to a http.Request
+/* DeleteSwitchParams contains all the parameters to send to the API endpoint
+   for the delete switch operation.
+
+   Typically these are written to a http.Request.
 */
 type DeleteSwitchParams struct {
 
-	/*ID
-	  identifier of the switch
+	/* ID.
 
+	   identifier of the switch
 	*/
 	ID string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the delete switch params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *DeleteSwitchParams) WithDefaults() *DeleteSwitchParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the delete switch params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *DeleteSwitchParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the delete switch params

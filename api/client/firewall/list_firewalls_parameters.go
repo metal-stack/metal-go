@@ -16,52 +16,66 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewListFirewallsParams creates a new ListFirewallsParams object
-// with the default values initialized.
+// NewListFirewallsParams creates a new ListFirewallsParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewListFirewallsParams() *ListFirewallsParams {
-
 	return &ListFirewallsParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewListFirewallsParamsWithTimeout creates a new ListFirewallsParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewListFirewallsParamsWithTimeout(timeout time.Duration) *ListFirewallsParams {
-
 	return &ListFirewallsParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewListFirewallsParamsWithContext creates a new ListFirewallsParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewListFirewallsParamsWithContext(ctx context.Context) *ListFirewallsParams {
-
 	return &ListFirewallsParams{
-
 		Context: ctx,
 	}
 }
 
 // NewListFirewallsParamsWithHTTPClient creates a new ListFirewallsParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewListFirewallsParamsWithHTTPClient(client *http.Client) *ListFirewallsParams {
-
 	return &ListFirewallsParams{
 		HTTPClient: client,
 	}
 }
 
-/*ListFirewallsParams contains all the parameters to send to the API endpoint
-for the list firewalls operation typically these are written to a http.Request
+/* ListFirewallsParams contains all the parameters to send to the API endpoint
+   for the list firewalls operation.
+
+   Typically these are written to a http.Request.
 */
 type ListFirewallsParams struct {
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the list firewalls params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *ListFirewallsParams) WithDefaults() *ListFirewallsParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the list firewalls params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *ListFirewallsParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the list firewalls params

@@ -47,7 +47,7 @@ func NewFreeIPOK() *FreeIPOK {
 	return &FreeIPOK{}
 }
 
-/*FreeIPOK handles this case with default header values.
+/* FreeIPOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -58,7 +58,6 @@ type FreeIPOK struct {
 func (o *FreeIPOK) Error() string {
 	return fmt.Sprintf("[POST /v1/ip/free/{id}][%d] freeIpOK  %+v", 200, o.Payload)
 }
-
 func (o *FreeIPOK) GetPayload() *models.V1IPResponse {
 	return o.Payload
 }
@@ -82,7 +81,7 @@ func NewFreeIPDefault(code int) *FreeIPDefault {
 	}
 }
 
-/*FreeIPDefault handles this case with default header values.
+/* FreeIPDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -100,7 +99,6 @@ func (o *FreeIPDefault) Code() int {
 func (o *FreeIPDefault) Error() string {
 	return fmt.Sprintf("[POST /v1/ip/free/{id}][%d] freeIP default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *FreeIPDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

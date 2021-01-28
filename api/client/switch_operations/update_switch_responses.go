@@ -53,7 +53,7 @@ func NewUpdateSwitchOK() *UpdateSwitchOK {
 	return &UpdateSwitchOK{}
 }
 
-/*UpdateSwitchOK handles this case with default header values.
+/* UpdateSwitchOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -64,7 +64,6 @@ type UpdateSwitchOK struct {
 func (o *UpdateSwitchOK) Error() string {
 	return fmt.Sprintf("[POST /v1/switch][%d] updateSwitchOK  %+v", 200, o.Payload)
 }
-
 func (o *UpdateSwitchOK) GetPayload() *models.V1SwitchResponse {
 	return o.Payload
 }
@@ -86,7 +85,7 @@ func NewUpdateSwitchConflict() *UpdateSwitchConflict {
 	return &UpdateSwitchConflict{}
 }
 
-/*UpdateSwitchConflict handles this case with default header values.
+/* UpdateSwitchConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -97,7 +96,6 @@ type UpdateSwitchConflict struct {
 func (o *UpdateSwitchConflict) Error() string {
 	return fmt.Sprintf("[POST /v1/switch][%d] updateSwitchConflict  %+v", 409, o.Payload)
 }
-
 func (o *UpdateSwitchConflict) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }
@@ -121,7 +119,7 @@ func NewUpdateSwitchDefault(code int) *UpdateSwitchDefault {
 	}
 }
 
-/*UpdateSwitchDefault handles this case with default header values.
+/* UpdateSwitchDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -139,7 +137,6 @@ func (o *UpdateSwitchDefault) Code() int {
 func (o *UpdateSwitchDefault) Error() string {
 	return fmt.Sprintf("[POST /v1/switch][%d] updateSwitch default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *UpdateSwitchDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

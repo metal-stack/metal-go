@@ -18,56 +18,70 @@ import (
 	"github.com/metal-stack/metal-go/api/models"
 )
 
-// NewUpdateNetworkParams creates a new UpdateNetworkParams object
-// with the default values initialized.
+// NewUpdateNetworkParams creates a new UpdateNetworkParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewUpdateNetworkParams() *UpdateNetworkParams {
-	var ()
 	return &UpdateNetworkParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewUpdateNetworkParamsWithTimeout creates a new UpdateNetworkParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewUpdateNetworkParamsWithTimeout(timeout time.Duration) *UpdateNetworkParams {
-	var ()
 	return &UpdateNetworkParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewUpdateNetworkParamsWithContext creates a new UpdateNetworkParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewUpdateNetworkParamsWithContext(ctx context.Context) *UpdateNetworkParams {
-	var ()
 	return &UpdateNetworkParams{
-
 		Context: ctx,
 	}
 }
 
 // NewUpdateNetworkParamsWithHTTPClient creates a new UpdateNetworkParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewUpdateNetworkParamsWithHTTPClient(client *http.Client) *UpdateNetworkParams {
-	var ()
 	return &UpdateNetworkParams{
 		HTTPClient: client,
 	}
 }
 
-/*UpdateNetworkParams contains all the parameters to send to the API endpoint
-for the update network operation typically these are written to a http.Request
+/* UpdateNetworkParams contains all the parameters to send to the API endpoint
+   for the update network operation.
+
+   Typically these are written to a http.Request.
 */
 type UpdateNetworkParams struct {
 
-	/*Body*/
+	// Body.
 	Body *models.V1NetworkUpdateRequest
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the update network params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *UpdateNetworkParams) WithDefaults() *UpdateNetworkParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the update network params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *UpdateNetworkParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the update network params
@@ -121,7 +135,6 @@ func (o *UpdateNetworkParams) WriteToRequest(r runtime.ClientRequest, reg strfmt
 		return err
 	}
 	var res []error
-
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err

@@ -18,66 +18,82 @@ import (
 	"github.com/metal-stack/metal-go/api/models"
 )
 
-// NewChassisIdentifyLEDOffParams creates a new ChassisIdentifyLEDOffParams object
-// with the default values initialized.
+// NewChassisIdentifyLEDOffParams creates a new ChassisIdentifyLEDOffParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewChassisIdentifyLEDOffParams() *ChassisIdentifyLEDOffParams {
-	var ()
 	return &ChassisIdentifyLEDOffParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewChassisIdentifyLEDOffParamsWithTimeout creates a new ChassisIdentifyLEDOffParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewChassisIdentifyLEDOffParamsWithTimeout(timeout time.Duration) *ChassisIdentifyLEDOffParams {
-	var ()
 	return &ChassisIdentifyLEDOffParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewChassisIdentifyLEDOffParamsWithContext creates a new ChassisIdentifyLEDOffParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewChassisIdentifyLEDOffParamsWithContext(ctx context.Context) *ChassisIdentifyLEDOffParams {
-	var ()
 	return &ChassisIdentifyLEDOffParams{
-
 		Context: ctx,
 	}
 }
 
 // NewChassisIdentifyLEDOffParamsWithHTTPClient creates a new ChassisIdentifyLEDOffParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewChassisIdentifyLEDOffParamsWithHTTPClient(client *http.Client) *ChassisIdentifyLEDOffParams {
-	var ()
 	return &ChassisIdentifyLEDOffParams{
 		HTTPClient: client,
 	}
 }
 
-/*ChassisIdentifyLEDOffParams contains all the parameters to send to the API endpoint
-for the chassis identify l e d off operation typically these are written to a http.Request
+/* ChassisIdentifyLEDOffParams contains all the parameters to send to the API endpoint
+   for the chassis identify l e d off operation.
+
+   Typically these are written to a http.Request.
 */
 type ChassisIdentifyLEDOffParams struct {
 
-	/*Body*/
+	// Body.
 	Body models.V1EmptyBody
-	/*Description
-	  reason why the chassis identify LED has been turned off
 
+	/* Description.
+
+	   reason why the chassis identify LED has been turned off
 	*/
 	Description *string
-	/*ID
-	  identifier of the machine
 
+	/* ID.
+
+	   identifier of the machine
 	*/
 	ID string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the chassis identify l e d off params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *ChassisIdentifyLEDOffParams) WithDefaults() *ChassisIdentifyLEDOffParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the chassis identify l e d off params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *ChassisIdentifyLEDOffParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the chassis identify l e d off params
@@ -153,7 +169,6 @@ func (o *ChassisIdentifyLEDOffParams) WriteToRequest(r runtime.ClientRequest, re
 		return err
 	}
 	var res []error
-
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err
@@ -164,16 +179,17 @@ func (o *ChassisIdentifyLEDOffParams) WriteToRequest(r runtime.ClientRequest, re
 
 		// query param description
 		var qrDescription string
+
 		if o.Description != nil {
 			qrDescription = *o.Description
 		}
 		qDescription := qrDescription
 		if qDescription != "" {
+
 			if err := r.SetQueryParam("description", qDescription); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	// path param id

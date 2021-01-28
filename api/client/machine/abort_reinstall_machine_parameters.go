@@ -18,61 +18,76 @@ import (
 	"github.com/metal-stack/metal-go/api/models"
 )
 
-// NewAbortReinstallMachineParams creates a new AbortReinstallMachineParams object
-// with the default values initialized.
+// NewAbortReinstallMachineParams creates a new AbortReinstallMachineParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewAbortReinstallMachineParams() *AbortReinstallMachineParams {
-	var ()
 	return &AbortReinstallMachineParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewAbortReinstallMachineParamsWithTimeout creates a new AbortReinstallMachineParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewAbortReinstallMachineParamsWithTimeout(timeout time.Duration) *AbortReinstallMachineParams {
-	var ()
 	return &AbortReinstallMachineParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewAbortReinstallMachineParamsWithContext creates a new AbortReinstallMachineParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewAbortReinstallMachineParamsWithContext(ctx context.Context) *AbortReinstallMachineParams {
-	var ()
 	return &AbortReinstallMachineParams{
-
 		Context: ctx,
 	}
 }
 
 // NewAbortReinstallMachineParamsWithHTTPClient creates a new AbortReinstallMachineParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewAbortReinstallMachineParamsWithHTTPClient(client *http.Client) *AbortReinstallMachineParams {
-	var ()
 	return &AbortReinstallMachineParams{
 		HTTPClient: client,
 	}
 }
 
-/*AbortReinstallMachineParams contains all the parameters to send to the API endpoint
-for the abort reinstall machine operation typically these are written to a http.Request
+/* AbortReinstallMachineParams contains all the parameters to send to the API endpoint
+   for the abort reinstall machine operation.
+
+   Typically these are written to a http.Request.
 */
 type AbortReinstallMachineParams struct {
 
-	/*Body*/
+	// Body.
 	Body *models.V1MachineAbortReinstallRequest
-	/*ID
-	  identifier of the machine
 
+	/* ID.
+
+	   identifier of the machine
 	*/
 	ID string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the abort reinstall machine params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *AbortReinstallMachineParams) WithDefaults() *AbortReinstallMachineParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the abort reinstall machine params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *AbortReinstallMachineParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the abort reinstall machine params
@@ -137,7 +152,6 @@ func (o *AbortReinstallMachineParams) WriteToRequest(r runtime.ClientRequest, re
 		return err
 	}
 	var res []error
-
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err

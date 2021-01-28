@@ -18,56 +18,70 @@ import (
 	"github.com/metal-stack/metal-go/api/models"
 )
 
-// NewFindIPMIMachinesParams creates a new FindIPMIMachinesParams object
-// with the default values initialized.
+// NewFindIPMIMachinesParams creates a new FindIPMIMachinesParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewFindIPMIMachinesParams() *FindIPMIMachinesParams {
-	var ()
 	return &FindIPMIMachinesParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewFindIPMIMachinesParamsWithTimeout creates a new FindIPMIMachinesParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewFindIPMIMachinesParamsWithTimeout(timeout time.Duration) *FindIPMIMachinesParams {
-	var ()
 	return &FindIPMIMachinesParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewFindIPMIMachinesParamsWithContext creates a new FindIPMIMachinesParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewFindIPMIMachinesParamsWithContext(ctx context.Context) *FindIPMIMachinesParams {
-	var ()
 	return &FindIPMIMachinesParams{
-
 		Context: ctx,
 	}
 }
 
 // NewFindIPMIMachinesParamsWithHTTPClient creates a new FindIPMIMachinesParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewFindIPMIMachinesParamsWithHTTPClient(client *http.Client) *FindIPMIMachinesParams {
-	var ()
 	return &FindIPMIMachinesParams{
 		HTTPClient: client,
 	}
 }
 
-/*FindIPMIMachinesParams contains all the parameters to send to the API endpoint
-for the find IP m i machines operation typically these are written to a http.Request
+/* FindIPMIMachinesParams contains all the parameters to send to the API endpoint
+   for the find IP m i machines operation.
+
+   Typically these are written to a http.Request.
 */
 type FindIPMIMachinesParams struct {
 
-	/*Body*/
+	// Body.
 	Body *models.V1MachineFindRequest
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the find IP m i machines params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *FindIPMIMachinesParams) WithDefaults() *FindIPMIMachinesParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the find IP m i machines params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *FindIPMIMachinesParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the find IP m i machines params
@@ -121,7 +135,6 @@ func (o *FindIPMIMachinesParams) WriteToRequest(r runtime.ClientRequest, reg str
 		return err
 	}
 	var res []error
-
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err

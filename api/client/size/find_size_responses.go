@@ -47,7 +47,7 @@ func NewFindSizeOK() *FindSizeOK {
 	return &FindSizeOK{}
 }
 
-/*FindSizeOK handles this case with default header values.
+/* FindSizeOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -58,7 +58,6 @@ type FindSizeOK struct {
 func (o *FindSizeOK) Error() string {
 	return fmt.Sprintf("[GET /v1/size/{id}][%d] findSizeOK  %+v", 200, o.Payload)
 }
-
 func (o *FindSizeOK) GetPayload() *models.V1SizeResponse {
 	return o.Payload
 }
@@ -82,7 +81,7 @@ func NewFindSizeDefault(code int) *FindSizeDefault {
 	}
 }
 
-/*FindSizeDefault handles this case with default header values.
+/* FindSizeDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -100,7 +99,6 @@ func (o *FindSizeDefault) Code() int {
 func (o *FindSizeDefault) Error() string {
 	return fmt.Sprintf("[GET /v1/size/{id}][%d] findSize default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *FindSizeDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

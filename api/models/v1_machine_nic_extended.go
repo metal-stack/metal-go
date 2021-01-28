@@ -6,6 +6,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -85,6 +86,38 @@ func (m *V1MachineNicExtended) validateNeighbors(formats strfmt.Registry) error 
 
 		if m.Neighbors[i] != nil {
 			if err := m.Neighbors[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("neighbors" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// ContextValidate validate this v1 machine nic extended based on the context it is used
+func (m *V1MachineNicExtended) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateNeighbors(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *V1MachineNicExtended) contextValidateNeighbors(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Neighbors); i++ {
+
+		if m.Neighbors[i] != nil {
+			if err := m.Neighbors[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("neighbors" + "." + strconv.Itoa(i))
 				}

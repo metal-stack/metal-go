@@ -18,56 +18,70 @@ import (
 	"github.com/metal-stack/metal-go/api/models"
 )
 
-// NewUpdatePartitionParams creates a new UpdatePartitionParams object
-// with the default values initialized.
+// NewUpdatePartitionParams creates a new UpdatePartitionParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewUpdatePartitionParams() *UpdatePartitionParams {
-	var ()
 	return &UpdatePartitionParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewUpdatePartitionParamsWithTimeout creates a new UpdatePartitionParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewUpdatePartitionParamsWithTimeout(timeout time.Duration) *UpdatePartitionParams {
-	var ()
 	return &UpdatePartitionParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewUpdatePartitionParamsWithContext creates a new UpdatePartitionParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewUpdatePartitionParamsWithContext(ctx context.Context) *UpdatePartitionParams {
-	var ()
 	return &UpdatePartitionParams{
-
 		Context: ctx,
 	}
 }
 
 // NewUpdatePartitionParamsWithHTTPClient creates a new UpdatePartitionParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewUpdatePartitionParamsWithHTTPClient(client *http.Client) *UpdatePartitionParams {
-	var ()
 	return &UpdatePartitionParams{
 		HTTPClient: client,
 	}
 }
 
-/*UpdatePartitionParams contains all the parameters to send to the API endpoint
-for the update partition operation typically these are written to a http.Request
+/* UpdatePartitionParams contains all the parameters to send to the API endpoint
+   for the update partition operation.
+
+   Typically these are written to a http.Request.
 */
 type UpdatePartitionParams struct {
 
-	/*Body*/
+	// Body.
 	Body *models.V1PartitionUpdateRequest
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the update partition params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *UpdatePartitionParams) WithDefaults() *UpdatePartitionParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the update partition params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *UpdatePartitionParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the update partition params
@@ -121,7 +135,6 @@ func (o *UpdatePartitionParams) WriteToRequest(r runtime.ClientRequest, reg strf
 		return err
 	}
 	var res []error
-
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err

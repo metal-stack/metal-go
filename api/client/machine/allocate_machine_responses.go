@@ -47,7 +47,7 @@ func NewAllocateMachineOK() *AllocateMachineOK {
 	return &AllocateMachineOK{}
 }
 
-/*AllocateMachineOK handles this case with default header values.
+/* AllocateMachineOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -58,7 +58,6 @@ type AllocateMachineOK struct {
 func (o *AllocateMachineOK) Error() string {
 	return fmt.Sprintf("[POST /v1/machine/allocate][%d] allocateMachineOK  %+v", 200, o.Payload)
 }
-
 func (o *AllocateMachineOK) GetPayload() *models.V1MachineResponse {
 	return o.Payload
 }
@@ -82,7 +81,7 @@ func NewAllocateMachineDefault(code int) *AllocateMachineDefault {
 	}
 }
 
-/*AllocateMachineDefault handles this case with default header values.
+/* AllocateMachineDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -100,7 +99,6 @@ func (o *AllocateMachineDefault) Code() int {
 func (o *AllocateMachineDefault) Error() string {
 	return fmt.Sprintf("[POST /v1/machine/allocate][%d] allocateMachine default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *AllocateMachineDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

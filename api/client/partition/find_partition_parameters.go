@@ -16,59 +16,73 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewFindPartitionParams creates a new FindPartitionParams object
-// with the default values initialized.
+// NewFindPartitionParams creates a new FindPartitionParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewFindPartitionParams() *FindPartitionParams {
-	var ()
 	return &FindPartitionParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewFindPartitionParamsWithTimeout creates a new FindPartitionParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewFindPartitionParamsWithTimeout(timeout time.Duration) *FindPartitionParams {
-	var ()
 	return &FindPartitionParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewFindPartitionParamsWithContext creates a new FindPartitionParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewFindPartitionParamsWithContext(ctx context.Context) *FindPartitionParams {
-	var ()
 	return &FindPartitionParams{
-
 		Context: ctx,
 	}
 }
 
 // NewFindPartitionParamsWithHTTPClient creates a new FindPartitionParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewFindPartitionParamsWithHTTPClient(client *http.Client) *FindPartitionParams {
-	var ()
 	return &FindPartitionParams{
 		HTTPClient: client,
 	}
 }
 
-/*FindPartitionParams contains all the parameters to send to the API endpoint
-for the find partition operation typically these are written to a http.Request
+/* FindPartitionParams contains all the parameters to send to the API endpoint
+   for the find partition operation.
+
+   Typically these are written to a http.Request.
 */
 type FindPartitionParams struct {
 
-	/*ID
-	  identifier of the Partition
+	/* ID.
 
+	   identifier of the Partition
 	*/
 	ID string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the find partition params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *FindPartitionParams) WithDefaults() *FindPartitionParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the find partition params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *FindPartitionParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the find partition params

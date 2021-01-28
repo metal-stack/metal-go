@@ -47,7 +47,7 @@ func NewFindImageOK() *FindImageOK {
 	return &FindImageOK{}
 }
 
-/*FindImageOK handles this case with default header values.
+/* FindImageOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -58,7 +58,6 @@ type FindImageOK struct {
 func (o *FindImageOK) Error() string {
 	return fmt.Sprintf("[GET /v1/image/{id}][%d] findImageOK  %+v", 200, o.Payload)
 }
-
 func (o *FindImageOK) GetPayload() *models.V1ImageResponse {
 	return o.Payload
 }
@@ -82,7 +81,7 @@ func NewFindImageDefault(code int) *FindImageDefault {
 	}
 }
 
-/*FindImageDefault handles this case with default header values.
+/* FindImageDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -100,7 +99,6 @@ func (o *FindImageDefault) Code() int {
 func (o *FindImageDefault) Error() string {
 	return fmt.Sprintf("[GET /v1/image/{id}][%d] findImage default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *FindImageDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

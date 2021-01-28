@@ -47,7 +47,7 @@ func NewAllocateFirewallOK() *AllocateFirewallOK {
 	return &AllocateFirewallOK{}
 }
 
-/*AllocateFirewallOK handles this case with default header values.
+/* AllocateFirewallOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -58,7 +58,6 @@ type AllocateFirewallOK struct {
 func (o *AllocateFirewallOK) Error() string {
 	return fmt.Sprintf("[POST /v1/firewall/allocate][%d] allocateFirewallOK  %+v", 200, o.Payload)
 }
-
 func (o *AllocateFirewallOK) GetPayload() *models.V1FirewallResponse {
 	return o.Payload
 }
@@ -82,7 +81,7 @@ func NewAllocateFirewallDefault(code int) *AllocateFirewallDefault {
 	}
 }
 
-/*AllocateFirewallDefault handles this case with default header values.
+/* AllocateFirewallDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -100,7 +99,6 @@ func (o *AllocateFirewallDefault) Code() int {
 func (o *AllocateFirewallDefault) Error() string {
 	return fmt.Sprintf("[POST /v1/firewall/allocate][%d] allocateFirewall default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *AllocateFirewallDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

@@ -18,56 +18,70 @@ import (
 	"github.com/metal-stack/metal-go/api/models"
 )
 
-// NewRegisterMachineParams creates a new RegisterMachineParams object
-// with the default values initialized.
+// NewRegisterMachineParams creates a new RegisterMachineParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewRegisterMachineParams() *RegisterMachineParams {
-	var ()
 	return &RegisterMachineParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewRegisterMachineParamsWithTimeout creates a new RegisterMachineParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewRegisterMachineParamsWithTimeout(timeout time.Duration) *RegisterMachineParams {
-	var ()
 	return &RegisterMachineParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewRegisterMachineParamsWithContext creates a new RegisterMachineParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewRegisterMachineParamsWithContext(ctx context.Context) *RegisterMachineParams {
-	var ()
 	return &RegisterMachineParams{
-
 		Context: ctx,
 	}
 }
 
 // NewRegisterMachineParamsWithHTTPClient creates a new RegisterMachineParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewRegisterMachineParamsWithHTTPClient(client *http.Client) *RegisterMachineParams {
-	var ()
 	return &RegisterMachineParams{
 		HTTPClient: client,
 	}
 }
 
-/*RegisterMachineParams contains all the parameters to send to the API endpoint
-for the register machine operation typically these are written to a http.Request
+/* RegisterMachineParams contains all the parameters to send to the API endpoint
+   for the register machine operation.
+
+   Typically these are written to a http.Request.
 */
 type RegisterMachineParams struct {
 
-	/*Body*/
+	// Body.
 	Body *models.V1MachineRegisterRequest
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the register machine params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *RegisterMachineParams) WithDefaults() *RegisterMachineParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the register machine params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *RegisterMachineParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the register machine params
@@ -121,7 +135,6 @@ func (o *RegisterMachineParams) WriteToRequest(r runtime.ClientRequest, reg strf
 		return err
 	}
 	var res []error
-
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err

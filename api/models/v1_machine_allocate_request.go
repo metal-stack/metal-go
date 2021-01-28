@@ -6,6 +6,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -108,7 +109,6 @@ func (m *V1MachineAllocateRequest) validateImageid(formats strfmt.Registry) erro
 }
 
 func (m *V1MachineAllocateRequest) validateNetworks(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Networks) { // not required
 		return nil
 	}
@@ -163,6 +163,38 @@ func (m *V1MachineAllocateRequest) validateSSHPubKeys(formats strfmt.Registry) e
 
 	if err := validate.Required("ssh_pub_keys", "body", m.SSHPubKeys); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validate this v1 machine allocate request based on the context it is used
+func (m *V1MachineAllocateRequest) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateNetworks(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *V1MachineAllocateRequest) contextValidateNetworks(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Networks); i++ {
+
+		if m.Networks[i] != nil {
+			if err := m.Networks[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("networks" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
 	}
 
 	return nil
