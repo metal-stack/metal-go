@@ -317,7 +317,11 @@ func (d *Driver) NetworkAllocate(ncr *NetworkAllocateRequest) (*NetworkDetailRes
 
 	if ncr.AddressFamily != nil {
 		acquireRequest.AddressFamily = *ncr.AddressFamily
+	} else {
+		ipv4 := "ipv4"
+		ncr.AddressFamily = &ipv4
 	}
+
 	if ncr.Length != nil {
 		acquireRequest.Length = int64(*ncr.Length)
 	}
