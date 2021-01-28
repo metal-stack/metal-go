@@ -17,11 +17,17 @@ import (
 // swagger:model v1.NetworkAllocateRequest
 type V1NetworkAllocateRequest struct {
 
+	// can be ipv4 or ipv6, defaults to ipv4
+	AddressFamily string `json:"address_family,omitempty"`
+
 	// a description for this entity
 	Description string `json:"description,omitempty"`
 
 	// free labels that you associate with this network.
 	Labels map[string]string `json:"labels,omitempty"`
+
+	// the bitlen of the prefix to allocate, defaults to childprefixlength of super prefix
+	Length int64 `json:"length,omitempty"`
 
 	// a readable name for this entity
 	Name string `json:"name,omitempty"`

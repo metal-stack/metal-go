@@ -20,8 +20,7 @@ import (
 type V1NetworkCreateRequest struct {
 
 	// if privatesuper, this defines the bitlen of child prefixes if not nil
-	// Required: true
-	Childprefixlength *int64 `json:"childprefixlength"`
+	Childprefixlength int64 `json:"childprefixlength,omitempty"`
 
 	// a description for this entity
 	Description string `json:"description,omitempty"`
@@ -79,10 +78,6 @@ type V1NetworkCreateRequest struct {
 func (m *V1NetworkCreateRequest) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateChildprefixlength(formats); err != nil {
-		res = append(res, err)
-	}
-
 	if err := m.validateDestinationprefixes(formats); err != nil {
 		res = append(res, err)
 	}
@@ -110,15 +105,6 @@ func (m *V1NetworkCreateRequest) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
-	return nil
-}
-
-func (m *V1NetworkCreateRequest) validateChildprefixlength(formats strfmt.Registry) error {
-
-	if err := validate.Required("childprefixlength", "body", m.Childprefixlength); err != nil {
-		return err
-	}
-
 	return nil
 }
 

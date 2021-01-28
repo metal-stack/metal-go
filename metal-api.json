@@ -1997,6 +1997,10 @@
     },
     "v1.NetworkAllocateRequest": {
       "properties": {
+        "address_family": {
+          "description": "can be ipv4 or ipv6, defaults to ipv4",
+          "type": "string"
+        },
         "description": {
           "description": "a description for this entity",
           "type": "string"
@@ -2007,6 +2011,11 @@
           },
           "description": "free labels that you associate with this network.",
           "type": "object"
+        },
+        "length": {
+          "description": "the bitlen of the prefix to allocate, defaults to childprefixlength of super prefix",
+          "format": "byte",
+          "type": "integer"
         },
         "name": {
           "description": "a readable name for this entity",
@@ -2106,7 +2115,6 @@
         }
       },
       "required": [
-        "childprefixlength",
         "destinationprefixes",
         "id",
         "nat",
@@ -2261,7 +2269,6 @@
         }
       },
       "required": [
-        "childprefixlength",
         "destinationprefixes",
         "id",
         "nat",

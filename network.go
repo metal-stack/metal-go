@@ -48,6 +48,14 @@ type NetworkAllocateRequest struct {
 	// A map of key/value pairs treated as labels.
 	// Required: false
 	Labels map[string]string `json:"labels"`
+
+	// AddressFamily can be ipv4 or ipv6, defaults to ipv4
+	// Required: false
+	AddressFamily *string `json:"address_family" description:"can be ipv4 or ipv6, defaults to ipv4" optional:"true"`
+
+	// Length the bitlen of the prefix to allocate, defaults to childprefixlength of super prefix
+	// Required: false
+	Length *uint8 `json:"length"`
 }
 
 // NetworkCreateRequest is the request for create a new network
@@ -97,6 +105,10 @@ type NetworkCreateRequest struct {
 	// A map of key/value pairs treated as labels.
 	// Required: false
 	Labels map[string]string `json:"labels"`
+
+	// ChildPrefixLength defines the default bitlength for child prefixes
+	// Required: false
+	ChildPrefixLength *uint8 `json:"childprefixlength"`
 }
 
 // NetworkDetailResponse is the response of a NetworkList action
@@ -276,6 +288,10 @@ func (d *Driver) NetworkCreate(ncr *NetworkCreateRequest) (*NetworkDetailRespons
 		Projectid:           ncr.Projectid,
 		Underlay:            &ncr.Underlay,
 	}
+
+	if ncr.ChildPrefixLength != nil {
+		createRequest.Childprefixlength = int64(*ncr.ChildPrefixLength)
+	}
 	createNetwork.SetBody(createRequest)
 	resp, err := d.network.CreateNetwork(createNetwork, nil)
 	if err != nil {
@@ -298,6 +314,14 @@ func (d *Driver) NetworkAllocate(ncr *NetworkAllocateRequest) (*NetworkDetailRes
 		Shared:      ncr.Shared,
 		Labels:      ncr.Labels,
 	}
+
+	if ncr.AddressFamily != nil {
+		acquireRequest.AddressFamily = *ncr.AddressFamily
+	}
+	if ncr.Length != nil {
+		acquireRequest.Length = int64(*ncr.Length)
+	}
+
 	acquireNetwork.SetBody(acquireRequest)
 	resp, err := d.network.AllocateNetwork(acquireNetwork, nil)
 	if err != nil {
