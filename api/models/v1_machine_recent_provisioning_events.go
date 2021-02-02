@@ -24,9 +24,8 @@ type V1MachineRecentProvisioningEvents struct {
 	IncompleteProvisioningCycles *string `json:"incomplete_provisioning_cycles"`
 
 	// the time where the last event was received
-	// Required: true
 	// Format: date-time
-	LastEventTime *strfmt.DateTime `json:"last_event_time"`
+	LastEventTime strfmt.DateTime `json:"last_event_time,omitempty"`
 
 	// the log of recent machine provisioning events
 	// Required: true
@@ -66,8 +65,8 @@ func (m *V1MachineRecentProvisioningEvents) validateIncompleteProvisioningCycles
 
 func (m *V1MachineRecentProvisioningEvents) validateLastEventTime(formats strfmt.Registry) error {
 
-	if err := validate.Required("last_event_time", "body", m.LastEventTime); err != nil {
-		return err
+	if swag.IsZero(m.LastEventTime) { // not required
+		return nil
 	}
 
 	if err := validate.FormatOf("last_event_time", "body", "date-time", m.LastEventTime.String(), formats); err != nil {

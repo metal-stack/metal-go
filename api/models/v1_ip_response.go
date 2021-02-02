@@ -19,6 +19,10 @@ import (
 // swagger:model v1.IPResponse
 type V1IPResponse struct {
 
+	// a unique identifier for this ip address allocation, can be used to distinguish between ip address allocation over time.
+	// Required: true
+	Allocationuuid *string `json:"allocationuuid"`
+
 	// the last changed timestamp of this entity
 	// Read Only: true
 	// Format: date-time
@@ -61,6 +65,10 @@ type V1IPResponse struct {
 func (m *V1IPResponse) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateAllocationuuid(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateChanged(formats); err != nil {
 		res = append(res, err)
 	}
@@ -88,6 +96,15 @@ func (m *V1IPResponse) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *V1IPResponse) validateAllocationuuid(formats strfmt.Registry) error {
+
+	if err := validate.Required("allocationuuid", "body", m.Allocationuuid); err != nil {
+		return err
+	}
+
 	return nil
 }
 

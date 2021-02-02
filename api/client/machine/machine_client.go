@@ -31,6 +31,10 @@ type ClientService interface {
 
 	AllocateMachine(params *AllocateMachineParams, authInfo runtime.ClientAuthInfoWriter) (*AllocateMachineOK, error)
 
+	AvailableBIOSUpdates(params *AvailableBIOSUpdatesParams, authInfo runtime.ClientAuthInfoWriter) (*AvailableBIOSUpdatesOK, error)
+
+	AvailableBMCUpdates(params *AvailableBMCUpdatesParams, authInfo runtime.ClientAuthInfoWriter) (*AvailableBMCUpdatesOK, error)
+
 	ChassisIdentifyLEDOff(params *ChassisIdentifyLEDOffParams, authInfo runtime.ClientAuthInfoWriter) (*ChassisIdentifyLEDOffOK, error)
 
 	ChassisIdentifyLEDOn(params *ChassisIdentifyLEDOnParams, authInfo runtime.ClientAuthInfoWriter) (*ChassisIdentifyLEDOnOK, error)
@@ -74,6 +78,14 @@ type ClientService interface {
 	SetChassisIdentifyLEDState(params *SetChassisIdentifyLEDStateParams, authInfo runtime.ClientAuthInfoWriter) (*SetChassisIdentifyLEDStateOK, error)
 
 	SetMachineState(params *SetMachineStateParams, authInfo runtime.ClientAuthInfoWriter) (*SetMachineStateOK, error)
+
+	UpdateBIOS(params *UpdateBIOSParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateBIOSOK, error)
+
+	UpdateBMC(params *UpdateBMCParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateBMCOK, error)
+
+	UploadBIOSUpdate(params *UploadBIOSUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*UploadBIOSUpdateOK, error)
+
+	UploadBMCUpdate(params *UploadBMCUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*UploadBMCUpdateOK, error)
 
 	SetTransport(transport runtime.ClientTransport)
 }
@@ -177,6 +189,74 @@ func (a *Client) AllocateMachine(params *AllocateMachineParams, authInfo runtime
 	}
 	// unexpected success response
 	unexpectedSuccess := result.(*AllocateMachineDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+  AvailableBIOSUpdates returns all available b i o s updates for the machine
+*/
+func (a *Client) AvailableBIOSUpdates(params *AvailableBIOSUpdatesParams, authInfo runtime.ClientAuthInfoWriter) (*AvailableBIOSUpdatesOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewAvailableBIOSUpdatesParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "availableBIOSUpdates",
+		Method:             "GET",
+		PathPattern:        "/v1/machine/{id}/available-bios-updates",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &AvailableBIOSUpdatesReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*AvailableBIOSUpdatesOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*AvailableBIOSUpdatesDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+  AvailableBMCUpdates returns all available b m c updates for the machine
+*/
+func (a *Client) AvailableBMCUpdates(params *AvailableBMCUpdatesParams, authInfo runtime.ClientAuthInfoWriter) (*AvailableBMCUpdatesOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewAvailableBMCUpdatesParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "availableBMCUpdates",
+		Method:             "GET",
+		PathPattern:        "/v1/machine/{id}/available-bmc-updates",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &AvailableBMCUpdatesReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*AvailableBMCUpdatesOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*AvailableBMCUpdatesDefault)
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
@@ -927,6 +1007,142 @@ func (a *Client) SetMachineState(params *SetMachineStateParams, authInfo runtime
 	}
 	// unexpected success response
 	unexpectedSuccess := result.(*SetMachineStateDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+  UpdateBIOS sends a b i o s update command to the machine
+*/
+func (a *Client) UpdateBIOS(params *UpdateBIOSParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateBIOSOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUpdateBIOSParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "updateBIOS",
+		Method:             "POST",
+		PathPattern:        "/v1/machine/{id}/update/bios",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &UpdateBIOSReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*UpdateBIOSOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*UpdateBIOSDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+  UpdateBMC sends a bmc update command to the machine
+*/
+func (a *Client) UpdateBMC(params *UpdateBMCParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateBMCOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUpdateBMCParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "updateBMC",
+		Method:             "POST",
+		PathPattern:        "/v1/machine/{id}/update/bmc",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &UpdateBMCReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*UpdateBMCOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*UpdateBMCDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+  UploadBIOSUpdate uploads given b i o s update for given machine
+*/
+func (a *Client) UploadBIOSUpdate(params *UploadBIOSUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*UploadBIOSUpdateOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUploadBIOSUpdateParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "uploadBIOSUpdate",
+		Method:             "POST",
+		PathPattern:        "/v1/machine/{id}/upload/bios",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"multipart/form-data"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &UploadBIOSUpdateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*UploadBIOSUpdateOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*UploadBIOSUpdateDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+  UploadBMCUpdate uploads given b m c update for given machine
+*/
+func (a *Client) UploadBMCUpdate(params *UploadBMCUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*UploadBMCUpdateOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUploadBMCUpdateParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "uploadBMCUpdate",
+		Method:             "POST",
+		PathPattern:        "/v1/machine/{id}/upload/bmc",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"multipart/form-data"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &UploadBMCUpdateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*UploadBMCUpdateOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*UploadBMCUpdateDefault)
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 

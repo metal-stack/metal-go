@@ -13,5 +13,4 @@ require (
 	github.com/metal-stack/metal-lib v0.6.4
 	github.com/metal-stack/security v0.4.0
 	github.com/stretchr/testify v1.6.1
-	github.com/tidwall/pretty v1.0.2 // indirect
 )

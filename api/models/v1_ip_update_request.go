@@ -14,7 +14,7 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// V1IPUpdateRequest v1 IP update request
+// V1IPUpdateRequest an ip address that can be attached to a machine
 //
 // swagger:model v1.IPUpdateRequest
 type V1IPUpdateRequest struct {

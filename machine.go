@@ -1,8 +1,10 @@
 package metalgo
 
 import (
+	"github.com/go-openapi/runtime"
 	"github.com/metal-stack/metal-go/api/client/machine"
 	"github.com/metal-stack/metal-go/api/models"
+	"os"
 )
 
 // MachineCreateRequest contains data for a machine creation
@@ -150,6 +152,34 @@ type MachinePowerResponse struct {
 
 // ChassisIdentifyLEDPowerResponse contains the machine LED power result
 type ChassisIdentifyLEDPowerResponse struct {
+	Machine *models.V1MachineResponse
+}
+
+// MachineBiosUploadResponse contains bios upload response
+type MachineBiosUploadResponse struct {
+}
+
+// MachineAvailableBiosUpdatesResponse contains all available bios updates
+type MachineAvailableBiosUpdatesResponse struct {
+	Updates *models.V1MachineAvailableUpdates
+}
+
+// MachineUpdateBiosResponse contains the bios update result
+type MachineUpdateBiosResponse struct {
+	Machine *models.V1MachineResponse
+}
+
+// MachineBmcUploadResponse contains bmc upload response
+type MachineBmcUploadResponse struct {
+}
+
+// MachineAvailableBmcUpdatesResponse contains all available bmc updates
+type MachineAvailableBmcUpdatesResponse struct {
+	Updates *models.V1MachineAvailableUpdates
+}
+
+// MachineUpdateBmcResponse contains the bmc update result
+type MachineUpdateBmcResponse struct {
 	Machine *models.V1MachineResponse
 }
 
@@ -453,6 +483,100 @@ func (d *Driver) MachinePowerReset(machineID string) (*MachinePowerResponse, err
 
 	response := &MachinePowerResponse{}
 	resp, err := d.machine.MachineReset(machineReset, nil)
+	if err != nil {
+		return response, err
+	}
+	response.Machine = resp.Payload
+	return response, nil
+}
+
+// MachineUploadBiosUpdate uploads the given BIOS update for the given machine
+func (d *Driver) MachineUploadBiosUpdate(vendor, board, revision, updateFile string) (*machine.UploadBIOSUpdateOK, error) {
+	biosUpload := machine.NewUploadBIOSUpdateParams()
+	biosUpload.Vendor = vendor
+	biosUpload.Board = board
+	biosUpload.Revision = revision
+	reader, err := os.Open(updateFile)
+	if err != nil {
+		return nil, err
+	}
+	biosUpload.File = runtime.NamedReader(revision, reader)
+
+	return d.machine.UploadBIOSUpdate(biosUpload, nil)
+}
+
+// MachineUploadBmcUpdate uploads the given BMC update for the given machine
+func (d *Driver) MachineUploadBmcUpdate(vendor, board, revision, updateFile string) (*machine.UploadBMCUpdateOK, error) {
+	bmcUpload := machine.NewUploadBMCUpdateParams()
+	bmcUpload.Vendor = vendor
+	bmcUpload.Board = board
+	bmcUpload.Revision = revision
+	reader, err := os.Open(updateFile)
+	if err != nil {
+		return nil, err
+	}
+	bmcUpload.File = runtime.NamedReader(revision, reader)
+
+	return d.machine.UploadBMCUpdate(bmcUpload, nil)
+}
+
+// MachineAvailableBiosUpdates returns all available BIOS updates for given machine
+func (d *Driver) MachineAvailableBiosUpdates(machineID string) (*MachineAvailableBiosUpdatesResponse, error) {
+	biosUpdates := machine.NewAvailableBIOSUpdatesParams()
+	biosUpdates.ID = machineID
+
+	response := &MachineAvailableBiosUpdatesResponse{}
+	resp, err := d.machine.AvailableBIOSUpdates(biosUpdates, nil)
+	if err != nil {
+		return response, err
+	}
+	response.Updates = resp.Payload
+	return response, nil
+}
+
+// MachineAvailableBmcUpdates returns all available BMC updates for given machine
+func (d *Driver) MachineAvailableBmcUpdates(machineID string) (*MachineAvailableBmcUpdatesResponse, error) {
+	biosUpdates := machine.NewAvailableBMCUpdatesParams()
+	biosUpdates.ID = machineID
+
+	response := &MachineAvailableBmcUpdatesResponse{}
+	resp, err := d.machine.AvailableBMCUpdates(biosUpdates, nil)
+	if err != nil {
+		return response, err
+	}
+	response.Updates = resp.Payload
+	return response, nil
+}
+
+// MachineBiosUpdate updates given machine BIOS
+func (d *Driver) MachineBiosUpdate(machineID, revision, description string) (*MachineUpdateBiosResponse, error) {
+	biosUpdate := machine.NewUpdateBIOSParams()
+	biosUpdate.ID = machineID
+	biosUpdate.Body = &models.V1MachineUpdate{
+		Description: &description,
+		Revision:    &revision,
+	}
+
+	response := &MachineUpdateBiosResponse{}
+	resp, err := d.machine.UpdateBIOS(biosUpdate, nil)
+	if err != nil {
+		return response, err
+	}
+	response.Machine = resp.Payload
+	return response, nil
+}
+
+// MachineBmcUpdate updates given machine BIOS
+func (d *Driver) MachineBmcUpdate(machineID, revision, description string) (*MachineUpdateBmcResponse, error) {
+	bmcUpdate := machine.NewUpdateBMCParams()
+	bmcUpdate.ID = machineID
+	bmcUpdate.Body = &models.V1MachineUpdate{
+		Description: &description,
+		Revision:    &revision,
+	}
+
+	response := &MachineUpdateBmcResponse{}
+	resp, err := d.machine.UpdateBMC(bmcUpdate, nil)
 	if err != nil {
 		return response, err
 	}
