@@ -47,7 +47,7 @@ func NewAbortReinstallMachineOK() *AbortReinstallMachineOK {
 	return &AbortReinstallMachineOK{}
 }
 
-/*AbortReinstallMachineOK handles this case with default header values.
+/* AbortReinstallMachineOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -58,7 +58,6 @@ type AbortReinstallMachineOK struct {
 func (o *AbortReinstallMachineOK) Error() string {
 	return fmt.Sprintf("[POST /v1/machine/{id}/abort-reinstall][%d] abortReinstallMachineOK  %+v", 200, o.Payload)
 }
-
 func (o *AbortReinstallMachineOK) GetPayload() *models.V1BootInfo {
 	return o.Payload
 }
@@ -82,7 +81,7 @@ func NewAbortReinstallMachineDefault(code int) *AbortReinstallMachineDefault {
 	}
 }
 
-/*AbortReinstallMachineDefault handles this case with default header values.
+/* AbortReinstallMachineDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -100,7 +99,6 @@ func (o *AbortReinstallMachineDefault) Code() int {
 func (o *AbortReinstallMachineDefault) Error() string {
 	return fmt.Sprintf("[POST /v1/machine/{id}/abort-reinstall][%d] abortReinstallMachine default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *AbortReinstallMachineDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

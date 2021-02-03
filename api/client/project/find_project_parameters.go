@@ -16,59 +16,73 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewFindProjectParams creates a new FindProjectParams object
-// with the default values initialized.
+// NewFindProjectParams creates a new FindProjectParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewFindProjectParams() *FindProjectParams {
-	var ()
 	return &FindProjectParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewFindProjectParamsWithTimeout creates a new FindProjectParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewFindProjectParamsWithTimeout(timeout time.Duration) *FindProjectParams {
-	var ()
 	return &FindProjectParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewFindProjectParamsWithContext creates a new FindProjectParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewFindProjectParamsWithContext(ctx context.Context) *FindProjectParams {
-	var ()
 	return &FindProjectParams{
-
 		Context: ctx,
 	}
 }
 
 // NewFindProjectParamsWithHTTPClient creates a new FindProjectParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewFindProjectParamsWithHTTPClient(client *http.Client) *FindProjectParams {
-	var ()
 	return &FindProjectParams{
 		HTTPClient: client,
 	}
 }
 
-/*FindProjectParams contains all the parameters to send to the API endpoint
-for the find project operation typically these are written to a http.Request
+/* FindProjectParams contains all the parameters to send to the API endpoint
+   for the find project operation.
+
+   Typically these are written to a http.Request.
 */
 type FindProjectParams struct {
 
-	/*ID
-	  identifier of the project
+	/* ID.
 
+	   identifier of the project
 	*/
 	ID string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the find project params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *FindProjectParams) WithDefaults() *FindProjectParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the find project params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *FindProjectParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the find project params

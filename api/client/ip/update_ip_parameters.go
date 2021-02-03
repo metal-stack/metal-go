@@ -18,56 +18,70 @@ import (
 	"github.com/metal-stack/metal-go/api/models"
 )
 
-// NewUpdateIPParams creates a new UpdateIPParams object
-// with the default values initialized.
+// NewUpdateIPParams creates a new UpdateIPParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewUpdateIPParams() *UpdateIPParams {
-	var ()
 	return &UpdateIPParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewUpdateIPParamsWithTimeout creates a new UpdateIPParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewUpdateIPParamsWithTimeout(timeout time.Duration) *UpdateIPParams {
-	var ()
 	return &UpdateIPParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewUpdateIPParamsWithContext creates a new UpdateIPParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewUpdateIPParamsWithContext(ctx context.Context) *UpdateIPParams {
-	var ()
 	return &UpdateIPParams{
-
 		Context: ctx,
 	}
 }
 
 // NewUpdateIPParamsWithHTTPClient creates a new UpdateIPParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewUpdateIPParamsWithHTTPClient(client *http.Client) *UpdateIPParams {
-	var ()
 	return &UpdateIPParams{
 		HTTPClient: client,
 	}
 }
 
-/*UpdateIPParams contains all the parameters to send to the API endpoint
-for the update IP operation typically these are written to a http.Request
+/* UpdateIPParams contains all the parameters to send to the API endpoint
+   for the update IP operation.
+
+   Typically these are written to a http.Request.
 */
 type UpdateIPParams struct {
 
-	/*Body*/
+	// Body.
 	Body *models.V1IPUpdateRequest
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the update IP params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *UpdateIPParams) WithDefaults() *UpdateIPParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the update IP params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *UpdateIPParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the update IP params
@@ -121,7 +135,6 @@ func (o *UpdateIPParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Regi
 		return err
 	}
 	var res []error
-
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err

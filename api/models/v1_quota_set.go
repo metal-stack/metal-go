@@ -6,6 +6,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -56,7 +58,6 @@ func (m *V1QuotaSet) Validate(formats strfmt.Registry) error {
 }
 
 func (m *V1QuotaSet) validateCluster(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Cluster) { // not required
 		return nil
 	}
@@ -74,7 +75,6 @@ func (m *V1QuotaSet) validateCluster(formats strfmt.Registry) error {
 }
 
 func (m *V1QuotaSet) validateIP(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.IP) { // not required
 		return nil
 	}
@@ -92,7 +92,6 @@ func (m *V1QuotaSet) validateIP(formats strfmt.Registry) error {
 }
 
 func (m *V1QuotaSet) validateMachine(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Machine) { // not required
 		return nil
 	}
@@ -110,13 +109,94 @@ func (m *V1QuotaSet) validateMachine(formats strfmt.Registry) error {
 }
 
 func (m *V1QuotaSet) validateProject(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Project) { // not required
 		return nil
 	}
 
 	if m.Project != nil {
 		if err := m.Project.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("project")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this v1 quota set based on the context it is used
+func (m *V1QuotaSet) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateCluster(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateIP(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateMachine(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateProject(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *V1QuotaSet) contextValidateCluster(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Cluster != nil {
+		if err := m.Cluster.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("cluster")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *V1QuotaSet) contextValidateIP(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.IP != nil {
+		if err := m.IP.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("ip")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *V1QuotaSet) contextValidateMachine(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Machine != nil {
+		if err := m.Machine.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("machine")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *V1QuotaSet) contextValidateProject(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Project != nil {
+		if err := m.Project.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("project")
 			}

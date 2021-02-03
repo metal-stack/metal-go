@@ -6,6 +6,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -27,7 +28,6 @@ type V1SizeUpdateRequest struct {
 
 	// the unique ID of this entity
 	// Required: true
-	// Unique: true
 	ID *string `json:"id"`
 
 	// a readable name for this entity
@@ -53,7 +53,6 @@ func (m *V1SizeUpdateRequest) Validate(formats strfmt.Registry) error {
 }
 
 func (m *V1SizeUpdateRequest) validateConstraints(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Constraints) { // not required
 		return nil
 	}
@@ -81,6 +80,38 @@ func (m *V1SizeUpdateRequest) validateID(formats strfmt.Registry) error {
 
 	if err := validate.Required("id", "body", m.ID); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validate this v1 size update request based on the context it is used
+func (m *V1SizeUpdateRequest) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateConstraints(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *V1SizeUpdateRequest) contextValidateConstraints(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Constraints); i++ {
+
+		if m.Constraints[i] != nil {
+			if err := m.Constraints[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("constraints" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
 	}
 
 	return nil

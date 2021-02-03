@@ -47,7 +47,7 @@ func NewFindFirewallOK() *FindFirewallOK {
 	return &FindFirewallOK{}
 }
 
-/*FindFirewallOK handles this case with default header values.
+/* FindFirewallOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -58,7 +58,6 @@ type FindFirewallOK struct {
 func (o *FindFirewallOK) Error() string {
 	return fmt.Sprintf("[GET /v1/firewall/{id}][%d] findFirewallOK  %+v", 200, o.Payload)
 }
-
 func (o *FindFirewallOK) GetPayload() *models.V1FirewallResponse {
 	return o.Payload
 }
@@ -82,7 +81,7 @@ func NewFindFirewallDefault(code int) *FindFirewallDefault {
 	}
 }
 
-/*FindFirewallDefault handles this case with default header values.
+/* FindFirewallDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -100,7 +99,6 @@ func (o *FindFirewallDefault) Code() int {
 func (o *FindFirewallDefault) Error() string {
 	return fmt.Sprintf("[GET /v1/firewall/{id}][%d] findFirewall default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *FindFirewallDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

@@ -6,6 +6,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -24,7 +25,6 @@ type V1PartitionCapacity struct {
 
 	// the unique ID of this entity
 	// Required: true
-	// Unique: true
 	ID *string `json:"id"`
 
 	// a readable name for this entity
@@ -75,6 +75,38 @@ func (m *V1PartitionCapacity) validateServers(formats strfmt.Registry) error {
 
 		if m.Servers[i] != nil {
 			if err := m.Servers[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("servers" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// ContextValidate validate this v1 partition capacity based on the context it is used
+func (m *V1PartitionCapacity) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateServers(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *V1PartitionCapacity) contextValidateServers(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Servers); i++ {
+
+		if m.Servers[i] != nil {
+			if err := m.Servers[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("servers" + "." + strconv.Itoa(i))
 				}

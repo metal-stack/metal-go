@@ -16,52 +16,66 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewListSwitchesParams creates a new ListSwitchesParams object
-// with the default values initialized.
+// NewListSwitchesParams creates a new ListSwitchesParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewListSwitchesParams() *ListSwitchesParams {
-
 	return &ListSwitchesParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewListSwitchesParamsWithTimeout creates a new ListSwitchesParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewListSwitchesParamsWithTimeout(timeout time.Duration) *ListSwitchesParams {
-
 	return &ListSwitchesParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewListSwitchesParamsWithContext creates a new ListSwitchesParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewListSwitchesParamsWithContext(ctx context.Context) *ListSwitchesParams {
-
 	return &ListSwitchesParams{
-
 		Context: ctx,
 	}
 }
 
 // NewListSwitchesParamsWithHTTPClient creates a new ListSwitchesParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewListSwitchesParamsWithHTTPClient(client *http.Client) *ListSwitchesParams {
-
 	return &ListSwitchesParams{
 		HTTPClient: client,
 	}
 }
 
-/*ListSwitchesParams contains all the parameters to send to the API endpoint
-for the list switches operation typically these are written to a http.Request
+/* ListSwitchesParams contains all the parameters to send to the API endpoint
+   for the list switches operation.
+
+   Typically these are written to a http.Request.
 */
 type ListSwitchesParams struct {
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the list switches params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *ListSwitchesParams) WithDefaults() *ListSwitchesParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the list switches params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *ListSwitchesParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the list switches params

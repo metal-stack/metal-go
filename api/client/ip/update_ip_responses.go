@@ -53,7 +53,7 @@ func NewUpdateIPOK() *UpdateIPOK {
 	return &UpdateIPOK{}
 }
 
-/*UpdateIPOK handles this case with default header values.
+/* UpdateIPOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -64,7 +64,6 @@ type UpdateIPOK struct {
 func (o *UpdateIPOK) Error() string {
 	return fmt.Sprintf("[POST /v1/ip][%d] updateIpOK  %+v", 200, o.Payload)
 }
-
 func (o *UpdateIPOK) GetPayload() *models.V1IPResponse {
 	return o.Payload
 }
@@ -86,7 +85,7 @@ func NewUpdateIPConflict() *UpdateIPConflict {
 	return &UpdateIPConflict{}
 }
 
-/*UpdateIPConflict handles this case with default header values.
+/* UpdateIPConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -97,7 +96,6 @@ type UpdateIPConflict struct {
 func (o *UpdateIPConflict) Error() string {
 	return fmt.Sprintf("[POST /v1/ip][%d] updateIpConflict  %+v", 409, o.Payload)
 }
-
 func (o *UpdateIPConflict) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }
@@ -121,7 +119,7 @@ func NewUpdateIPDefault(code int) *UpdateIPDefault {
 	}
 }
 
-/*UpdateIPDefault handles this case with default header values.
+/* UpdateIPDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -139,7 +137,6 @@ func (o *UpdateIPDefault) Code() int {
 func (o *UpdateIPDefault) Error() string {
 	return fmt.Sprintf("[POST /v1/ip][%d] updateIP default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *UpdateIPDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

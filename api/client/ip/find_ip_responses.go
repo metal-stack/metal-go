@@ -47,7 +47,7 @@ func NewFindIPOK() *FindIPOK {
 	return &FindIPOK{}
 }
 
-/*FindIPOK handles this case with default header values.
+/* FindIPOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -58,7 +58,6 @@ type FindIPOK struct {
 func (o *FindIPOK) Error() string {
 	return fmt.Sprintf("[GET /v1/ip/{id}][%d] findIpOK  %+v", 200, o.Payload)
 }
-
 func (o *FindIPOK) GetPayload() *models.V1IPResponse {
 	return o.Payload
 }
@@ -82,7 +81,7 @@ func NewFindIPDefault(code int) *FindIPDefault {
 	}
 }
 
-/*FindIPDefault handles this case with default header values.
+/* FindIPDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -100,7 +99,6 @@ func (o *FindIPDefault) Code() int {
 func (o *FindIPDefault) Error() string {
 	return fmt.Sprintf("[GET /v1/ip/{id}][%d] findIP default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *FindIPDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

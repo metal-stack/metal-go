@@ -18,56 +18,70 @@ import (
 	"github.com/metal-stack/metal-go/api/models"
 )
 
-// NewAllocateMachineParams creates a new AllocateMachineParams object
-// with the default values initialized.
+// NewAllocateMachineParams creates a new AllocateMachineParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewAllocateMachineParams() *AllocateMachineParams {
-	var ()
 	return &AllocateMachineParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewAllocateMachineParamsWithTimeout creates a new AllocateMachineParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewAllocateMachineParamsWithTimeout(timeout time.Duration) *AllocateMachineParams {
-	var ()
 	return &AllocateMachineParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewAllocateMachineParamsWithContext creates a new AllocateMachineParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewAllocateMachineParamsWithContext(ctx context.Context) *AllocateMachineParams {
-	var ()
 	return &AllocateMachineParams{
-
 		Context: ctx,
 	}
 }
 
 // NewAllocateMachineParamsWithHTTPClient creates a new AllocateMachineParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewAllocateMachineParamsWithHTTPClient(client *http.Client) *AllocateMachineParams {
-	var ()
 	return &AllocateMachineParams{
 		HTTPClient: client,
 	}
 }
 
-/*AllocateMachineParams contains all the parameters to send to the API endpoint
-for the allocate machine operation typically these are written to a http.Request
+/* AllocateMachineParams contains all the parameters to send to the API endpoint
+   for the allocate machine operation.
+
+   Typically these are written to a http.Request.
 */
 type AllocateMachineParams struct {
 
-	/*Body*/
+	// Body.
 	Body *models.V1MachineAllocateRequest
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the allocate machine params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *AllocateMachineParams) WithDefaults() *AllocateMachineParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the allocate machine params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *AllocateMachineParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the allocate machine params
@@ -121,7 +135,6 @@ func (o *AllocateMachineParams) WriteToRequest(r runtime.ClientRequest, reg strf
 		return err
 	}
 	var res []error
-
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err

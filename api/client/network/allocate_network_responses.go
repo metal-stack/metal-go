@@ -53,7 +53,7 @@ func NewAllocateNetworkCreated() *AllocateNetworkCreated {
 	return &AllocateNetworkCreated{}
 }
 
-/*AllocateNetworkCreated handles this case with default header values.
+/* AllocateNetworkCreated describes a response with status code 201, with default header values.
 
 Created
 */
@@ -64,7 +64,6 @@ type AllocateNetworkCreated struct {
 func (o *AllocateNetworkCreated) Error() string {
 	return fmt.Sprintf("[POST /v1/network/allocate][%d] allocateNetworkCreated  %+v", 201, o.Payload)
 }
-
 func (o *AllocateNetworkCreated) GetPayload() *models.V1NetworkResponse {
 	return o.Payload
 }
@@ -86,7 +85,7 @@ func NewAllocateNetworkConflict() *AllocateNetworkConflict {
 	return &AllocateNetworkConflict{}
 }
 
-/*AllocateNetworkConflict handles this case with default header values.
+/* AllocateNetworkConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -97,7 +96,6 @@ type AllocateNetworkConflict struct {
 func (o *AllocateNetworkConflict) Error() string {
 	return fmt.Sprintf("[POST /v1/network/allocate][%d] allocateNetworkConflict  %+v", 409, o.Payload)
 }
-
 func (o *AllocateNetworkConflict) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }
@@ -121,7 +119,7 @@ func NewAllocateNetworkDefault(code int) *AllocateNetworkDefault {
 	}
 }
 
-/*AllocateNetworkDefault handles this case with default header values.
+/* AllocateNetworkDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -139,7 +137,6 @@ func (o *AllocateNetworkDefault) Code() int {
 func (o *AllocateNetworkDefault) Error() string {
 	return fmt.Sprintf("[POST /v1/network/allocate][%d] allocateNetwork default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *AllocateNetworkDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

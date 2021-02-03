@@ -18,56 +18,70 @@ import (
 	"github.com/metal-stack/metal-go/api/models"
 )
 
-// NewRegisterSwitchParams creates a new RegisterSwitchParams object
-// with the default values initialized.
+// NewRegisterSwitchParams creates a new RegisterSwitchParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewRegisterSwitchParams() *RegisterSwitchParams {
-	var ()
 	return &RegisterSwitchParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewRegisterSwitchParamsWithTimeout creates a new RegisterSwitchParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewRegisterSwitchParamsWithTimeout(timeout time.Duration) *RegisterSwitchParams {
-	var ()
 	return &RegisterSwitchParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewRegisterSwitchParamsWithContext creates a new RegisterSwitchParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewRegisterSwitchParamsWithContext(ctx context.Context) *RegisterSwitchParams {
-	var ()
 	return &RegisterSwitchParams{
-
 		Context: ctx,
 	}
 }
 
 // NewRegisterSwitchParamsWithHTTPClient creates a new RegisterSwitchParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewRegisterSwitchParamsWithHTTPClient(client *http.Client) *RegisterSwitchParams {
-	var ()
 	return &RegisterSwitchParams{
 		HTTPClient: client,
 	}
 }
 
-/*RegisterSwitchParams contains all the parameters to send to the API endpoint
-for the register switch operation typically these are written to a http.Request
+/* RegisterSwitchParams contains all the parameters to send to the API endpoint
+   for the register switch operation.
+
+   Typically these are written to a http.Request.
 */
 type RegisterSwitchParams struct {
 
-	/*Body*/
+	// Body.
 	Body *models.V1SwitchRegisterRequest
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the register switch params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *RegisterSwitchParams) WithDefaults() *RegisterSwitchParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the register switch params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *RegisterSwitchParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the register switch params
@@ -121,7 +135,6 @@ func (o *RegisterSwitchParams) WriteToRequest(r runtime.ClientRequest, reg strfm
 		return err
 	}
 	var res []error
-
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err

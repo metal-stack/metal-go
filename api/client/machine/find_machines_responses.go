@@ -47,7 +47,7 @@ func NewFindMachinesOK() *FindMachinesOK {
 	return &FindMachinesOK{}
 }
 
-/*FindMachinesOK handles this case with default header values.
+/* FindMachinesOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -58,7 +58,6 @@ type FindMachinesOK struct {
 func (o *FindMachinesOK) Error() string {
 	return fmt.Sprintf("[POST /v1/machine/find][%d] findMachinesOK  %+v", 200, o.Payload)
 }
-
 func (o *FindMachinesOK) GetPayload() []*models.V1MachineResponse {
 	return o.Payload
 }
@@ -80,7 +79,7 @@ func NewFindMachinesDefault(code int) *FindMachinesDefault {
 	}
 }
 
-/*FindMachinesDefault handles this case with default header values.
+/* FindMachinesDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -98,7 +97,6 @@ func (o *FindMachinesDefault) Code() int {
 func (o *FindMachinesDefault) Error() string {
 	return fmt.Sprintf("[POST /v1/machine/find][%d] findMachines default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *FindMachinesDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

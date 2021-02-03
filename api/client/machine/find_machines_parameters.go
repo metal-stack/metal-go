@@ -18,56 +18,70 @@ import (
 	"github.com/metal-stack/metal-go/api/models"
 )
 
-// NewFindMachinesParams creates a new FindMachinesParams object
-// with the default values initialized.
+// NewFindMachinesParams creates a new FindMachinesParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewFindMachinesParams() *FindMachinesParams {
-	var ()
 	return &FindMachinesParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewFindMachinesParamsWithTimeout creates a new FindMachinesParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewFindMachinesParamsWithTimeout(timeout time.Duration) *FindMachinesParams {
-	var ()
 	return &FindMachinesParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewFindMachinesParamsWithContext creates a new FindMachinesParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewFindMachinesParamsWithContext(ctx context.Context) *FindMachinesParams {
-	var ()
 	return &FindMachinesParams{
-
 		Context: ctx,
 	}
 }
 
 // NewFindMachinesParamsWithHTTPClient creates a new FindMachinesParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewFindMachinesParamsWithHTTPClient(client *http.Client) *FindMachinesParams {
-	var ()
 	return &FindMachinesParams{
 		HTTPClient: client,
 	}
 }
 
-/*FindMachinesParams contains all the parameters to send to the API endpoint
-for the find machines operation typically these are written to a http.Request
+/* FindMachinesParams contains all the parameters to send to the API endpoint
+   for the find machines operation.
+
+   Typically these are written to a http.Request.
 */
 type FindMachinesParams struct {
 
-	/*Body*/
+	// Body.
 	Body *models.V1MachineFindRequest
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the find machines params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *FindMachinesParams) WithDefaults() *FindMachinesParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the find machines params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *FindMachinesParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the find machines params
@@ -121,7 +135,6 @@ func (o *FindMachinesParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.
 		return err
 	}
 	var res []error
-
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err

@@ -6,6 +6,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -71,7 +72,6 @@ func (m *V1MachineBlockDevice) validateName(formats strfmt.Registry) error {
 }
 
 func (m *V1MachineBlockDevice) validatePartitions(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Partitions) { // not required
 		return nil
 	}
@@ -108,6 +108,38 @@ func (m *V1MachineBlockDevice) validateSize(formats strfmt.Registry) error {
 
 	if err := validate.Required("size", "body", m.Size); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validate this v1 machine block device based on the context it is used
+func (m *V1MachineBlockDevice) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidatePartitions(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *V1MachineBlockDevice) contextValidatePartitions(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Partitions); i++ {
+
+		if m.Partitions[i] != nil {
+			if err := m.Partitions[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("partitions" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
 	}
 
 	return nil

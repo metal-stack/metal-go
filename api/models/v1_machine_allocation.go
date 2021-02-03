@@ -6,6 +6,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -120,7 +121,6 @@ func (m *V1MachineAllocation) Validate(formats strfmt.Registry) error {
 }
 
 func (m *V1MachineAllocation) validateBootInfo(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.BootInfo) { // not required
 		return nil
 	}
@@ -160,7 +160,6 @@ func (m *V1MachineAllocation) validateHostname(formats strfmt.Registry) error {
 }
 
 func (m *V1MachineAllocation) validateImage(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Image) { // not required
 		return nil
 	}
@@ -242,6 +241,74 @@ func (m *V1MachineAllocation) validateSucceeded(formats strfmt.Registry) error {
 
 	if err := validate.Required("succeeded", "body", m.Succeeded); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validate this v1 machine allocation based on the context it is used
+func (m *V1MachineAllocation) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateBootInfo(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateImage(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateNetworks(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *V1MachineAllocation) contextValidateBootInfo(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.BootInfo != nil {
+		if err := m.BootInfo.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("boot_info")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *V1MachineAllocation) contextValidateImage(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Image != nil {
+		if err := m.Image.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("image")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *V1MachineAllocation) contextValidateNetworks(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Networks); i++ {
+
+		if m.Networks[i] != nil {
+			if err := m.Networks[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("networks" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
 	}
 
 	return nil

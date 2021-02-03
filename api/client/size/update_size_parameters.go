@@ -18,56 +18,70 @@ import (
 	"github.com/metal-stack/metal-go/api/models"
 )
 
-// NewUpdateSizeParams creates a new UpdateSizeParams object
-// with the default values initialized.
+// NewUpdateSizeParams creates a new UpdateSizeParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewUpdateSizeParams() *UpdateSizeParams {
-	var ()
 	return &UpdateSizeParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewUpdateSizeParamsWithTimeout creates a new UpdateSizeParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewUpdateSizeParamsWithTimeout(timeout time.Duration) *UpdateSizeParams {
-	var ()
 	return &UpdateSizeParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewUpdateSizeParamsWithContext creates a new UpdateSizeParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewUpdateSizeParamsWithContext(ctx context.Context) *UpdateSizeParams {
-	var ()
 	return &UpdateSizeParams{
-
 		Context: ctx,
 	}
 }
 
 // NewUpdateSizeParamsWithHTTPClient creates a new UpdateSizeParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewUpdateSizeParamsWithHTTPClient(client *http.Client) *UpdateSizeParams {
-	var ()
 	return &UpdateSizeParams{
 		HTTPClient: client,
 	}
 }
 
-/*UpdateSizeParams contains all the parameters to send to the API endpoint
-for the update size operation typically these are written to a http.Request
+/* UpdateSizeParams contains all the parameters to send to the API endpoint
+   for the update size operation.
+
+   Typically these are written to a http.Request.
 */
 type UpdateSizeParams struct {
 
-	/*Body*/
+	// Body.
 	Body *models.V1SizeUpdateRequest
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the update size params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *UpdateSizeParams) WithDefaults() *UpdateSizeParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the update size params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *UpdateSizeParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the update size params
@@ -121,7 +135,6 @@ func (o *UpdateSizeParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Re
 		return err
 	}
 	var res []error
-
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err

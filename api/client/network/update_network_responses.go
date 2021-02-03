@@ -53,7 +53,7 @@ func NewUpdateNetworkOK() *UpdateNetworkOK {
 	return &UpdateNetworkOK{}
 }
 
-/*UpdateNetworkOK handles this case with default header values.
+/* UpdateNetworkOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -64,7 +64,6 @@ type UpdateNetworkOK struct {
 func (o *UpdateNetworkOK) Error() string {
 	return fmt.Sprintf("[POST /v1/network][%d] updateNetworkOK  %+v", 200, o.Payload)
 }
-
 func (o *UpdateNetworkOK) GetPayload() *models.V1NetworkResponse {
 	return o.Payload
 }
@@ -86,7 +85,7 @@ func NewUpdateNetworkConflict() *UpdateNetworkConflict {
 	return &UpdateNetworkConflict{}
 }
 
-/*UpdateNetworkConflict handles this case with default header values.
+/* UpdateNetworkConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -97,7 +96,6 @@ type UpdateNetworkConflict struct {
 func (o *UpdateNetworkConflict) Error() string {
 	return fmt.Sprintf("[POST /v1/network][%d] updateNetworkConflict  %+v", 409, o.Payload)
 }
-
 func (o *UpdateNetworkConflict) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }
@@ -121,7 +119,7 @@ func NewUpdateNetworkDefault(code int) *UpdateNetworkDefault {
 	}
 }
 
-/*UpdateNetworkDefault handles this case with default header values.
+/* UpdateNetworkDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -139,7 +137,6 @@ func (o *UpdateNetworkDefault) Code() int {
 func (o *UpdateNetworkDefault) Error() string {
 	return fmt.Sprintf("[POST /v1/network][%d] updateNetwork default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *UpdateNetworkDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

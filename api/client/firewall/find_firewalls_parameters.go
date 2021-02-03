@@ -18,56 +18,70 @@ import (
 	"github.com/metal-stack/metal-go/api/models"
 )
 
-// NewFindFirewallsParams creates a new FindFirewallsParams object
-// with the default values initialized.
+// NewFindFirewallsParams creates a new FindFirewallsParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewFindFirewallsParams() *FindFirewallsParams {
-	var ()
 	return &FindFirewallsParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewFindFirewallsParamsWithTimeout creates a new FindFirewallsParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewFindFirewallsParamsWithTimeout(timeout time.Duration) *FindFirewallsParams {
-	var ()
 	return &FindFirewallsParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewFindFirewallsParamsWithContext creates a new FindFirewallsParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewFindFirewallsParamsWithContext(ctx context.Context) *FindFirewallsParams {
-	var ()
 	return &FindFirewallsParams{
-
 		Context: ctx,
 	}
 }
 
 // NewFindFirewallsParamsWithHTTPClient creates a new FindFirewallsParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewFindFirewallsParamsWithHTTPClient(client *http.Client) *FindFirewallsParams {
-	var ()
 	return &FindFirewallsParams{
 		HTTPClient: client,
 	}
 }
 
-/*FindFirewallsParams contains all the parameters to send to the API endpoint
-for the find firewalls operation typically these are written to a http.Request
+/* FindFirewallsParams contains all the parameters to send to the API endpoint
+   for the find firewalls operation.
+
+   Typically these are written to a http.Request.
 */
 type FindFirewallsParams struct {
 
-	/*Body*/
+	// Body.
 	Body *models.V1FirewallFindRequest
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the find firewalls params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *FindFirewallsParams) WithDefaults() *FindFirewallsParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the find firewalls params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *FindFirewallsParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the find firewalls params
@@ -121,7 +135,6 @@ func (o *FindFirewallsParams) WriteToRequest(r runtime.ClientRequest, reg strfmt
 		return err
 	}
 	var res []error
-
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err
