@@ -47,7 +47,7 @@ func NewFindIPMIMachineOK() *FindIPMIMachineOK {
 	return &FindIPMIMachineOK{}
 }
 
-/*FindIPMIMachineOK handles this case with default header values.
+/* FindIPMIMachineOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -58,7 +58,6 @@ type FindIPMIMachineOK struct {
 func (o *FindIPMIMachineOK) Error() string {
 	return fmt.Sprintf("[GET /v1/machine/{id}/ipmi][%d] findIpMIMachineOK  %+v", 200, o.Payload)
 }
-
 func (o *FindIPMIMachineOK) GetPayload() *models.V1MachineIPMIResponse {
 	return o.Payload
 }
@@ -82,7 +81,7 @@ func NewFindIPMIMachineDefault(code int) *FindIPMIMachineDefault {
 	}
 }
 
-/*FindIPMIMachineDefault handles this case with default header values.
+/* FindIPMIMachineDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -100,7 +99,6 @@ func (o *FindIPMIMachineDefault) Code() int {
 func (o *FindIPMIMachineDefault) Error() string {
 	return fmt.Sprintf("[GET /v1/machine/{id}/ipmi][%d] findIPMIMachine default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *FindIPMIMachineDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

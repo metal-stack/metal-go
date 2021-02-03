@@ -16,59 +16,73 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewFreeMachineParams creates a new FreeMachineParams object
-// with the default values initialized.
+// NewFreeMachineParams creates a new FreeMachineParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewFreeMachineParams() *FreeMachineParams {
-	var ()
 	return &FreeMachineParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewFreeMachineParamsWithTimeout creates a new FreeMachineParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewFreeMachineParamsWithTimeout(timeout time.Duration) *FreeMachineParams {
-	var ()
 	return &FreeMachineParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewFreeMachineParamsWithContext creates a new FreeMachineParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewFreeMachineParamsWithContext(ctx context.Context) *FreeMachineParams {
-	var ()
 	return &FreeMachineParams{
-
 		Context: ctx,
 	}
 }
 
 // NewFreeMachineParamsWithHTTPClient creates a new FreeMachineParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewFreeMachineParamsWithHTTPClient(client *http.Client) *FreeMachineParams {
-	var ()
 	return &FreeMachineParams{
 		HTTPClient: client,
 	}
 }
 
-/*FreeMachineParams contains all the parameters to send to the API endpoint
-for the free machine operation typically these are written to a http.Request
+/* FreeMachineParams contains all the parameters to send to the API endpoint
+   for the free machine operation.
+
+   Typically these are written to a http.Request.
 */
 type FreeMachineParams struct {
 
-	/*ID
-	  identifier of the machine
+	/* ID.
 
+	   identifier of the machine
 	*/
 	ID string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the free machine params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *FreeMachineParams) WithDefaults() *FreeMachineParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the free machine params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *FreeMachineParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the free machine params

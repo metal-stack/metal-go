@@ -53,7 +53,7 @@ func NewFreeNetworkOK() *FreeNetworkOK {
 	return &FreeNetworkOK{}
 }
 
-/*FreeNetworkOK handles this case with default header values.
+/* FreeNetworkOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -64,7 +64,6 @@ type FreeNetworkOK struct {
 func (o *FreeNetworkOK) Error() string {
 	return fmt.Sprintf("[POST /v1/network/free/{id}][%d] freeNetworkOK  %+v", 200, o.Payload)
 }
-
 func (o *FreeNetworkOK) GetPayload() *models.V1NetworkResponse {
 	return o.Payload
 }
@@ -86,7 +85,7 @@ func NewFreeNetworkConflict() *FreeNetworkConflict {
 	return &FreeNetworkConflict{}
 }
 
-/*FreeNetworkConflict handles this case with default header values.
+/* FreeNetworkConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -97,7 +96,6 @@ type FreeNetworkConflict struct {
 func (o *FreeNetworkConflict) Error() string {
 	return fmt.Sprintf("[POST /v1/network/free/{id}][%d] freeNetworkConflict  %+v", 409, o.Payload)
 }
-
 func (o *FreeNetworkConflict) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }
@@ -121,7 +119,7 @@ func NewFreeNetworkDefault(code int) *FreeNetworkDefault {
 	}
 }
 
-/*FreeNetworkDefault handles this case with default header values.
+/* FreeNetworkDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -139,7 +137,6 @@ func (o *FreeNetworkDefault) Code() int {
 func (o *FreeNetworkDefault) Error() string {
 	return fmt.Sprintf("[POST /v1/network/free/{id}][%d] freeNetwork default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *FreeNetworkDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

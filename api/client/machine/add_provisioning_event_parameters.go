@@ -18,61 +18,76 @@ import (
 	"github.com/metal-stack/metal-go/api/models"
 )
 
-// NewAddProvisioningEventParams creates a new AddProvisioningEventParams object
-// with the default values initialized.
+// NewAddProvisioningEventParams creates a new AddProvisioningEventParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewAddProvisioningEventParams() *AddProvisioningEventParams {
-	var ()
 	return &AddProvisioningEventParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewAddProvisioningEventParamsWithTimeout creates a new AddProvisioningEventParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewAddProvisioningEventParamsWithTimeout(timeout time.Duration) *AddProvisioningEventParams {
-	var ()
 	return &AddProvisioningEventParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewAddProvisioningEventParamsWithContext creates a new AddProvisioningEventParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewAddProvisioningEventParamsWithContext(ctx context.Context) *AddProvisioningEventParams {
-	var ()
 	return &AddProvisioningEventParams{
-
 		Context: ctx,
 	}
 }
 
 // NewAddProvisioningEventParamsWithHTTPClient creates a new AddProvisioningEventParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewAddProvisioningEventParamsWithHTTPClient(client *http.Client) *AddProvisioningEventParams {
-	var ()
 	return &AddProvisioningEventParams{
 		HTTPClient: client,
 	}
 }
 
-/*AddProvisioningEventParams contains all the parameters to send to the API endpoint
-for the add provisioning event operation typically these are written to a http.Request
+/* AddProvisioningEventParams contains all the parameters to send to the API endpoint
+   for the add provisioning event operation.
+
+   Typically these are written to a http.Request.
 */
 type AddProvisioningEventParams struct {
 
-	/*Body*/
+	// Body.
 	Body *models.V1MachineProvisioningEvent
-	/*ID
-	  identifier of the machine
 
+	/* ID.
+
+	   identifier of the machine
 	*/
 	ID string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the add provisioning event params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *AddProvisioningEventParams) WithDefaults() *AddProvisioningEventParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the add provisioning event params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *AddProvisioningEventParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the add provisioning event params
@@ -137,7 +152,6 @@ func (o *AddProvisioningEventParams) WriteToRequest(r runtime.ClientRequest, reg
 		return err
 	}
 	var res []error
-
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err

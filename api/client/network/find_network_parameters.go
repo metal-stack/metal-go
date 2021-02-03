@@ -16,59 +16,73 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewFindNetworkParams creates a new FindNetworkParams object
-// with the default values initialized.
+// NewFindNetworkParams creates a new FindNetworkParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewFindNetworkParams() *FindNetworkParams {
-	var ()
 	return &FindNetworkParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewFindNetworkParamsWithTimeout creates a new FindNetworkParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewFindNetworkParamsWithTimeout(timeout time.Duration) *FindNetworkParams {
-	var ()
 	return &FindNetworkParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewFindNetworkParamsWithContext creates a new FindNetworkParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewFindNetworkParamsWithContext(ctx context.Context) *FindNetworkParams {
-	var ()
 	return &FindNetworkParams{
-
 		Context: ctx,
 	}
 }
 
 // NewFindNetworkParamsWithHTTPClient creates a new FindNetworkParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewFindNetworkParamsWithHTTPClient(client *http.Client) *FindNetworkParams {
-	var ()
 	return &FindNetworkParams{
 		HTTPClient: client,
 	}
 }
 
-/*FindNetworkParams contains all the parameters to send to the API endpoint
-for the find network operation typically these are written to a http.Request
+/* FindNetworkParams contains all the parameters to send to the API endpoint
+   for the find network operation.
+
+   Typically these are written to a http.Request.
 */
 type FindNetworkParams struct {
 
-	/*ID
-	  identifier of the network
+	/* ID.
 
+	   identifier of the network
 	*/
 	ID string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the find network params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *FindNetworkParams) WithDefaults() *FindNetworkParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the find network params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *FindNetworkParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the find network params

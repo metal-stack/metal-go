@@ -53,7 +53,7 @@ func NewCreateNetworkCreated() *CreateNetworkCreated {
 	return &CreateNetworkCreated{}
 }
 
-/*CreateNetworkCreated handles this case with default header values.
+/* CreateNetworkCreated describes a response with status code 201, with default header values.
 
 Created
 */
@@ -64,7 +64,6 @@ type CreateNetworkCreated struct {
 func (o *CreateNetworkCreated) Error() string {
 	return fmt.Sprintf("[PUT /v1/network][%d] createNetworkCreated  %+v", 201, o.Payload)
 }
-
 func (o *CreateNetworkCreated) GetPayload() *models.V1NetworkResponse {
 	return o.Payload
 }
@@ -86,7 +85,7 @@ func NewCreateNetworkConflict() *CreateNetworkConflict {
 	return &CreateNetworkConflict{}
 }
 
-/*CreateNetworkConflict handles this case with default header values.
+/* CreateNetworkConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -97,7 +96,6 @@ type CreateNetworkConflict struct {
 func (o *CreateNetworkConflict) Error() string {
 	return fmt.Sprintf("[PUT /v1/network][%d] createNetworkConflict  %+v", 409, o.Payload)
 }
-
 func (o *CreateNetworkConflict) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }
@@ -121,7 +119,7 @@ func NewCreateNetworkDefault(code int) *CreateNetworkDefault {
 	}
 }
 
-/*CreateNetworkDefault handles this case with default header values.
+/* CreateNetworkDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -139,7 +137,6 @@ func (o *CreateNetworkDefault) Code() int {
 func (o *CreateNetworkDefault) Error() string {
 	return fmt.Sprintf("[PUT /v1/network][%d] createNetwork default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *CreateNetworkDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

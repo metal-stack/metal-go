@@ -18,61 +18,76 @@ import (
 	"github.com/metal-stack/metal-go/api/models"
 )
 
-// NewReinstallMachineParams creates a new ReinstallMachineParams object
-// with the default values initialized.
+// NewReinstallMachineParams creates a new ReinstallMachineParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewReinstallMachineParams() *ReinstallMachineParams {
-	var ()
 	return &ReinstallMachineParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewReinstallMachineParamsWithTimeout creates a new ReinstallMachineParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewReinstallMachineParamsWithTimeout(timeout time.Duration) *ReinstallMachineParams {
-	var ()
 	return &ReinstallMachineParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewReinstallMachineParamsWithContext creates a new ReinstallMachineParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewReinstallMachineParamsWithContext(ctx context.Context) *ReinstallMachineParams {
-	var ()
 	return &ReinstallMachineParams{
-
 		Context: ctx,
 	}
 }
 
 // NewReinstallMachineParamsWithHTTPClient creates a new ReinstallMachineParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewReinstallMachineParamsWithHTTPClient(client *http.Client) *ReinstallMachineParams {
-	var ()
 	return &ReinstallMachineParams{
 		HTTPClient: client,
 	}
 }
 
-/*ReinstallMachineParams contains all the parameters to send to the API endpoint
-for the reinstall machine operation typically these are written to a http.Request
+/* ReinstallMachineParams contains all the parameters to send to the API endpoint
+   for the reinstall machine operation.
+
+   Typically these are written to a http.Request.
 */
 type ReinstallMachineParams struct {
 
-	/*Body*/
+	// Body.
 	Body *models.V1MachineReinstallRequest
-	/*ID
-	  identifier of the machine
 
+	/* ID.
+
+	   identifier of the machine
 	*/
 	ID string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the reinstall machine params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *ReinstallMachineParams) WithDefaults() *ReinstallMachineParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the reinstall machine params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *ReinstallMachineParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the reinstall machine params
@@ -137,7 +152,6 @@ func (o *ReinstallMachineParams) WriteToRequest(r runtime.ClientRequest, reg str
 		return err
 	}
 	var res []error
-
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err

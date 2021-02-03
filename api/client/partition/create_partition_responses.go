@@ -53,7 +53,7 @@ func NewCreatePartitionCreated() *CreatePartitionCreated {
 	return &CreatePartitionCreated{}
 }
 
-/*CreatePartitionCreated handles this case with default header values.
+/* CreatePartitionCreated describes a response with status code 201, with default header values.
 
 Created
 */
@@ -64,7 +64,6 @@ type CreatePartitionCreated struct {
 func (o *CreatePartitionCreated) Error() string {
 	return fmt.Sprintf("[PUT /v1/partition][%d] createPartitionCreated  %+v", 201, o.Payload)
 }
-
 func (o *CreatePartitionCreated) GetPayload() *models.V1PartitionResponse {
 	return o.Payload
 }
@@ -86,7 +85,7 @@ func NewCreatePartitionConflict() *CreatePartitionConflict {
 	return &CreatePartitionConflict{}
 }
 
-/*CreatePartitionConflict handles this case with default header values.
+/* CreatePartitionConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -97,7 +96,6 @@ type CreatePartitionConflict struct {
 func (o *CreatePartitionConflict) Error() string {
 	return fmt.Sprintf("[PUT /v1/partition][%d] createPartitionConflict  %+v", 409, o.Payload)
 }
-
 func (o *CreatePartitionConflict) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }
@@ -121,7 +119,7 @@ func NewCreatePartitionDefault(code int) *CreatePartitionDefault {
 	}
 }
 
-/*CreatePartitionDefault handles this case with default header values.
+/* CreatePartitionDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -139,7 +137,6 @@ func (o *CreatePartitionDefault) Code() int {
 func (o *CreatePartitionDefault) Error() string {
 	return fmt.Sprintf("[PUT /v1/partition][%d] createPartition default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *CreatePartitionDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

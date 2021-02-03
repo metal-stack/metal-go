@@ -6,6 +6,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -25,7 +27,6 @@ type V1PartitionUpdateRequest struct {
 
 	// the unique ID of this entity
 	// Required: true
-	// Unique: true
 	ID *string `json:"id"`
 
 	// the address to the management service of this partition
@@ -54,7 +55,6 @@ func (m *V1PartitionUpdateRequest) Validate(formats strfmt.Registry) error {
 }
 
 func (m *V1PartitionUpdateRequest) validateBootconfig(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Bootconfig) { // not required
 		return nil
 	}
@@ -75,6 +75,34 @@ func (m *V1PartitionUpdateRequest) validateID(formats strfmt.Registry) error {
 
 	if err := validate.Required("id", "body", m.ID); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validate this v1 partition update request based on the context it is used
+func (m *V1PartitionUpdateRequest) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateBootconfig(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *V1PartitionUpdateRequest) contextValidateBootconfig(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Bootconfig != nil {
+		if err := m.Bootconfig.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("bootconfig")
+			}
+			return err
+		}
 	}
 
 	return nil

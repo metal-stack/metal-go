@@ -47,7 +47,7 @@ func NewListSwitchesOK() *ListSwitchesOK {
 	return &ListSwitchesOK{}
 }
 
-/*ListSwitchesOK handles this case with default header values.
+/* ListSwitchesOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -58,7 +58,6 @@ type ListSwitchesOK struct {
 func (o *ListSwitchesOK) Error() string {
 	return fmt.Sprintf("[GET /v1/switch][%d] listSwitchesOK  %+v", 200, o.Payload)
 }
-
 func (o *ListSwitchesOK) GetPayload() []*models.V1SwitchResponse {
 	return o.Payload
 }
@@ -80,7 +79,7 @@ func NewListSwitchesDefault(code int) *ListSwitchesDefault {
 	}
 }
 
-/*ListSwitchesDefault handles this case with default header values.
+/* ListSwitchesDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -98,7 +97,6 @@ func (o *ListSwitchesDefault) Code() int {
 func (o *ListSwitchesDefault) Error() string {
 	return fmt.Sprintf("[GET /v1/switch][%d] listSwitches default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *ListSwitchesDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

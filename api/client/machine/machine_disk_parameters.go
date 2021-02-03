@@ -18,61 +18,76 @@ import (
 	"github.com/metal-stack/metal-go/api/models"
 )
 
-// NewMachineDiskParams creates a new MachineDiskParams object
-// with the default values initialized.
+// NewMachineDiskParams creates a new MachineDiskParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewMachineDiskParams() *MachineDiskParams {
-	var ()
 	return &MachineDiskParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewMachineDiskParamsWithTimeout creates a new MachineDiskParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewMachineDiskParamsWithTimeout(timeout time.Duration) *MachineDiskParams {
-	var ()
 	return &MachineDiskParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewMachineDiskParamsWithContext creates a new MachineDiskParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewMachineDiskParamsWithContext(ctx context.Context) *MachineDiskParams {
-	var ()
 	return &MachineDiskParams{
-
 		Context: ctx,
 	}
 }
 
 // NewMachineDiskParamsWithHTTPClient creates a new MachineDiskParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewMachineDiskParamsWithHTTPClient(client *http.Client) *MachineDiskParams {
-	var ()
 	return &MachineDiskParams{
 		HTTPClient: client,
 	}
 }
 
-/*MachineDiskParams contains all the parameters to send to the API endpoint
-for the machine disk operation typically these are written to a http.Request
+/* MachineDiskParams contains all the parameters to send to the API endpoint
+   for the machine disk operation.
+
+   Typically these are written to a http.Request.
 */
 type MachineDiskParams struct {
 
-	/*Body*/
+	// Body.
 	Body models.V1EmptyBody
-	/*ID
-	  identifier of the machine
 
+	/* ID.
+
+	   identifier of the machine
 	*/
 	ID string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the machine disk params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *MachineDiskParams) WithDefaults() *MachineDiskParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the machine disk params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *MachineDiskParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the machine disk params
@@ -137,7 +152,6 @@ func (o *MachineDiskParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.R
 		return err
 	}
 	var res []error
-
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err

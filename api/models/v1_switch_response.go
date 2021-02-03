@@ -6,6 +6,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -38,7 +39,6 @@ type V1SwitchResponse struct {
 
 	// the unique ID of this entity
 	// Required: true
-	// Unique: true
 	ID *string `json:"id"`
 
 	// last successful synchronization to the switch
@@ -113,7 +113,6 @@ func (m *V1SwitchResponse) Validate(formats strfmt.Registry) error {
 }
 
 func (m *V1SwitchResponse) validateChanged(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Changed) { // not required
 		return nil
 	}
@@ -151,7 +150,6 @@ func (m *V1SwitchResponse) validateConnections(formats strfmt.Registry) error {
 }
 
 func (m *V1SwitchResponse) validateCreated(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Created) { // not required
 		return nil
 	}
@@ -173,7 +171,6 @@ func (m *V1SwitchResponse) validateID(formats strfmt.Registry) error {
 }
 
 func (m *V1SwitchResponse) validateLastSync(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.LastSync) { // not required
 		return nil
 	}
@@ -191,7 +188,6 @@ func (m *V1SwitchResponse) validateLastSync(formats strfmt.Registry) error {
 }
 
 func (m *V1SwitchResponse) validateLastSyncError(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.LastSyncError) { // not required
 		return nil
 	}
@@ -255,6 +251,140 @@ func (m *V1SwitchResponse) validateRackID(formats strfmt.Registry) error {
 
 	if err := validate.Required("rack_id", "body", m.RackID); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validate this v1 switch response based on the context it is used
+func (m *V1SwitchResponse) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateChanged(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateConnections(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateCreated(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateLastSync(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateLastSyncError(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateNics(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidatePartition(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *V1SwitchResponse) contextValidateChanged(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := validate.ReadOnly(ctx, "changed", "body", strfmt.DateTime(m.Changed)); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *V1SwitchResponse) contextValidateConnections(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Connections); i++ {
+
+		if m.Connections[i] != nil {
+			if err := m.Connections[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("connections" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *V1SwitchResponse) contextValidateCreated(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := validate.ReadOnly(ctx, "created", "body", strfmt.DateTime(m.Created)); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *V1SwitchResponse) contextValidateLastSync(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.LastSync != nil {
+		if err := m.LastSync.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("last_sync")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *V1SwitchResponse) contextValidateLastSyncError(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.LastSyncError != nil {
+		if err := m.LastSyncError.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("last_sync_error")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *V1SwitchResponse) contextValidateNics(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Nics); i++ {
+
+		if m.Nics[i] != nil {
+			if err := m.Nics[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("nics" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *V1SwitchResponse) contextValidatePartition(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Partition != nil {
+		if err := m.Partition.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("partition")
+			}
+			return err
+		}
 	}
 
 	return nil

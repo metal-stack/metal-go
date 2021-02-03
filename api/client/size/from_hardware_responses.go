@@ -47,7 +47,7 @@ func NewFromHardwareOK() *FromHardwareOK {
 	return &FromHardwareOK{}
 }
 
-/*FromHardwareOK handles this case with default header values.
+/* FromHardwareOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -58,7 +58,6 @@ type FromHardwareOK struct {
 func (o *FromHardwareOK) Error() string {
 	return fmt.Sprintf("[POST /v1/size/from-hardware][%d] fromHardwareOK  %+v", 200, o.Payload)
 }
-
 func (o *FromHardwareOK) GetPayload() *models.V1SizeMatchingLog {
 	return o.Payload
 }
@@ -82,7 +81,7 @@ func NewFromHardwareDefault(code int) *FromHardwareDefault {
 	}
 }
 
-/*FromHardwareDefault handles this case with default header values.
+/* FromHardwareDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -100,7 +99,6 @@ func (o *FromHardwareDefault) Code() int {
 func (o *FromHardwareDefault) Error() string {
 	return fmt.Sprintf("[POST /v1/size/from-hardware][%d] fromHardware default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *FromHardwareDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

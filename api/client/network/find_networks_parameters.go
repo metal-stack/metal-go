@@ -18,56 +18,70 @@ import (
 	"github.com/metal-stack/metal-go/api/models"
 )
 
-// NewFindNetworksParams creates a new FindNetworksParams object
-// with the default values initialized.
+// NewFindNetworksParams creates a new FindNetworksParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewFindNetworksParams() *FindNetworksParams {
-	var ()
 	return &FindNetworksParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewFindNetworksParamsWithTimeout creates a new FindNetworksParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewFindNetworksParamsWithTimeout(timeout time.Duration) *FindNetworksParams {
-	var ()
 	return &FindNetworksParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewFindNetworksParamsWithContext creates a new FindNetworksParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewFindNetworksParamsWithContext(ctx context.Context) *FindNetworksParams {
-	var ()
 	return &FindNetworksParams{
-
 		Context: ctx,
 	}
 }
 
 // NewFindNetworksParamsWithHTTPClient creates a new FindNetworksParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewFindNetworksParamsWithHTTPClient(client *http.Client) *FindNetworksParams {
-	var ()
 	return &FindNetworksParams{
 		HTTPClient: client,
 	}
 }
 
-/*FindNetworksParams contains all the parameters to send to the API endpoint
-for the find networks operation typically these are written to a http.Request
+/* FindNetworksParams contains all the parameters to send to the API endpoint
+   for the find networks operation.
+
+   Typically these are written to a http.Request.
 */
 type FindNetworksParams struct {
 
-	/*Body*/
+	// Body.
 	Body *models.V1NetworkFindRequest
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the find networks params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *FindNetworksParams) WithDefaults() *FindNetworksParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the find networks params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *FindNetworksParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the find networks params
@@ -121,7 +135,6 @@ func (o *FindNetworksParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.
 		return err
 	}
 	var res []error
-
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err

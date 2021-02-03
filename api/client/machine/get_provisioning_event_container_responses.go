@@ -47,7 +47,7 @@ func NewGetProvisioningEventContainerOK() *GetProvisioningEventContainerOK {
 	return &GetProvisioningEventContainerOK{}
 }
 
-/*GetProvisioningEventContainerOK handles this case with default header values.
+/* GetProvisioningEventContainerOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -58,7 +58,6 @@ type GetProvisioningEventContainerOK struct {
 func (o *GetProvisioningEventContainerOK) Error() string {
 	return fmt.Sprintf("[GET /v1/machine/{id}/event][%d] getProvisioningEventContainerOK  %+v", 200, o.Payload)
 }
-
 func (o *GetProvisioningEventContainerOK) GetPayload() *models.V1MachineRecentProvisioningEvents {
 	return o.Payload
 }
@@ -82,7 +81,7 @@ func NewGetProvisioningEventContainerDefault(code int) *GetProvisioningEventCont
 	}
 }
 
-/*GetProvisioningEventContainerDefault handles this case with default header values.
+/* GetProvisioningEventContainerDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -100,7 +99,6 @@ func (o *GetProvisioningEventContainerDefault) Code() int {
 func (o *GetProvisioningEventContainerDefault) Error() string {
 	return fmt.Sprintf("[GET /v1/machine/{id}/event][%d] getProvisioningEventContainer default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *GetProvisioningEventContainerDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

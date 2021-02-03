@@ -47,7 +47,7 @@ func NewFinalizeAllocationOK() *FinalizeAllocationOK {
 	return &FinalizeAllocationOK{}
 }
 
-/*FinalizeAllocationOK handles this case with default header values.
+/* FinalizeAllocationOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -58,7 +58,6 @@ type FinalizeAllocationOK struct {
 func (o *FinalizeAllocationOK) Error() string {
 	return fmt.Sprintf("[POST /v1/machine/{id}/finalize-allocation][%d] finalizeAllocationOK  %+v", 200, o.Payload)
 }
-
 func (o *FinalizeAllocationOK) GetPayload() *models.V1MachineResponse {
 	return o.Payload
 }
@@ -82,7 +81,7 @@ func NewFinalizeAllocationDefault(code int) *FinalizeAllocationDefault {
 	}
 }
 
-/*FinalizeAllocationDefault handles this case with default header values.
+/* FinalizeAllocationDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -100,7 +99,6 @@ func (o *FinalizeAllocationDefault) Code() int {
 func (o *FinalizeAllocationDefault) Error() string {
 	return fmt.Sprintf("[POST /v1/machine/{id}/finalize-allocation][%d] finalizeAllocation default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *FinalizeAllocationDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

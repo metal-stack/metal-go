@@ -47,7 +47,7 @@ func NewDeleteSizeOK() *DeleteSizeOK {
 	return &DeleteSizeOK{}
 }
 
-/*DeleteSizeOK handles this case with default header values.
+/* DeleteSizeOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -58,7 +58,6 @@ type DeleteSizeOK struct {
 func (o *DeleteSizeOK) Error() string {
 	return fmt.Sprintf("[DELETE /v1/size/{id}][%d] deleteSizeOK  %+v", 200, o.Payload)
 }
-
 func (o *DeleteSizeOK) GetPayload() *models.V1SizeResponse {
 	return o.Payload
 }
@@ -82,7 +81,7 @@ func NewDeleteSizeDefault(code int) *DeleteSizeDefault {
 	}
 }
 
-/*DeleteSizeDefault handles this case with default header values.
+/* DeleteSizeDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -100,7 +99,6 @@ func (o *DeleteSizeDefault) Code() int {
 func (o *DeleteSizeDefault) Error() string {
 	return fmt.Sprintf("[DELETE /v1/size/{id}][%d] deleteSize default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *DeleteSizeDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }
