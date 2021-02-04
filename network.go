@@ -275,6 +275,7 @@ func (d *Driver) NetworkCreate(ncr *NetworkCreateRequest) (*NetworkDetailRespons
 		Privatesuper:        &ncr.PrivateSuper,
 		Projectid:           ncr.Projectid,
 		Underlay:            &ncr.Underlay,
+		Labels:              ncr.Labels,
 	}
 	createNetwork.SetBody(createRequest)
 	resp, err := d.network.CreateNetwork(createNetwork, nil)
