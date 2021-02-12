@@ -54,7 +54,7 @@ type UploadBMCUpdateOK struct {
 }
 
 func (o *UploadBMCUpdateOK) Error() string {
-	return fmt.Sprintf("[POST /v1/machine/{id}/upload/bmc][%d] uploadBMCUpdateOK ", 200)
+	return fmt.Sprintf("[POST /v1/machine/upload/bmc][%d] uploadBMCUpdateOK ", 200)
 }
 
 func (o *UploadBMCUpdateOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -85,7 +85,7 @@ func (o *UploadBMCUpdateDefault) Code() int {
 }
 
 func (o *UploadBMCUpdateDefault) Error() string {
-	return fmt.Sprintf("[POST /v1/machine/{id}/upload/bmc][%d] uploadBMCUpdate default  %+v", o._statusCode, o.Payload)
+	return fmt.Sprintf("[POST /v1/machine/upload/bmc][%d] uploadBMCUpdate default  %+v", o._statusCode, o.Payload)
 }
 
 func (o *UploadBMCUpdateDefault) GetPayload() *httperrors.HTTPErrorResponse {

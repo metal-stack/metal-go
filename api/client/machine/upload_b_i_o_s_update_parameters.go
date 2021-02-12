@@ -64,7 +64,7 @@ type UploadBIOSUpdateParams struct {
 	  the board
 
 	*/
-	Board string
+	Board *string
 	/*File
 	  the BIOS update file
 
@@ -74,12 +74,12 @@ type UploadBIOSUpdateParams struct {
 	  the BIOS update revision
 
 	*/
-	Revision string
+	Revision *string
 	/*Vendor
 	  the vendor
 
 	*/
-	Vendor string
+	Vendor *string
 
 	timeout    time.Duration
 	Context    context.Context
@@ -120,13 +120,13 @@ func (o *UploadBIOSUpdateParams) SetHTTPClient(client *http.Client) {
 }
 
 // WithBoard adds the board to the upload b i o s update params
-func (o *UploadBIOSUpdateParams) WithBoard(board string) *UploadBIOSUpdateParams {
+func (o *UploadBIOSUpdateParams) WithBoard(board *string) *UploadBIOSUpdateParams {
 	o.SetBoard(board)
 	return o
 }
 
 // SetBoard adds the board to the upload b i o s update params
-func (o *UploadBIOSUpdateParams) SetBoard(board string) {
+func (o *UploadBIOSUpdateParams) SetBoard(board *string) {
 	o.Board = board
 }
 
@@ -142,24 +142,24 @@ func (o *UploadBIOSUpdateParams) SetFile(file runtime.NamedReadCloser) {
 }
 
 // WithRevision adds the revision to the upload b i o s update params
-func (o *UploadBIOSUpdateParams) WithRevision(revision string) *UploadBIOSUpdateParams {
+func (o *UploadBIOSUpdateParams) WithRevision(revision *string) *UploadBIOSUpdateParams {
 	o.SetRevision(revision)
 	return o
 }
 
 // SetRevision adds the revision to the upload b i o s update params
-func (o *UploadBIOSUpdateParams) SetRevision(revision string) {
+func (o *UploadBIOSUpdateParams) SetRevision(revision *string) {
 	o.Revision = revision
 }
 
 // WithVendor adds the vendor to the upload b i o s update params
-func (o *UploadBIOSUpdateParams) WithVendor(vendor string) *UploadBIOSUpdateParams {
+func (o *UploadBIOSUpdateParams) WithVendor(vendor *string) *UploadBIOSUpdateParams {
 	o.SetVendor(vendor)
 	return o
 }
 
 // SetVendor adds the vendor to the upload b i o s update params
-func (o *UploadBIOSUpdateParams) SetVendor(vendor string) {
+func (o *UploadBIOSUpdateParams) SetVendor(vendor *string) {
 	o.Vendor = vendor
 }
 
@@ -171,9 +171,20 @@ func (o *UploadBIOSUpdateParams) WriteToRequest(r runtime.ClientRequest, reg str
 	}
 	var res []error
 
-	// path param board
-	if err := r.SetPathParam("board", o.Board); err != nil {
-		return err
+	if o.Board != nil {
+
+		// query param board
+		var qrBoard string
+		if o.Board != nil {
+			qrBoard = *o.Board
+		}
+		qBoard := qrBoard
+		if qBoard != "" {
+			if err := r.SetQueryParam("board", qBoard); err != nil {
+				return err
+			}
+		}
+
 	}
 
 	if o.File != nil {
@@ -189,14 +200,36 @@ func (o *UploadBIOSUpdateParams) WriteToRequest(r runtime.ClientRequest, reg str
 
 	}
 
-	// path param revision
-	if err := r.SetPathParam("revision", o.Revision); err != nil {
-		return err
+	if o.Revision != nil {
+
+		// query param revision
+		var qrRevision string
+		if o.Revision != nil {
+			qrRevision = *o.Revision
+		}
+		qRevision := qrRevision
+		if qRevision != "" {
+			if err := r.SetQueryParam("revision", qRevision); err != nil {
+				return err
+			}
+		}
+
 	}
 
-	// path param vendor
-	if err := r.SetPathParam("vendor", o.Vendor); err != nil {
-		return err
+	if o.Vendor != nil {
+
+		// query param vendor
+		var qrVendor string
+		if o.Vendor != nil {
+			qrVendor = *o.Vendor
+		}
+		qVendor := qrVendor
+		if qVendor != "" {
+			if err := r.SetQueryParam("vendor", qVendor); err != nil {
+				return err
+			}
+		}
+
 	}
 
 	if len(res) > 0 {

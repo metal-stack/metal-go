@@ -1090,7 +1090,7 @@ func (a *Client) UploadBIOSUpdate(params *UploadBIOSUpdateParams, authInfo runti
 	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "uploadBIOSUpdate",
 		Method:             "POST",
-		PathPattern:        "/v1/machine/{id}/upload/bios",
+		PathPattern:        "/v1/machine/upload/bios",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"multipart/form-data"},
 		Schemes:            []string{"http"},
@@ -1124,7 +1124,7 @@ func (a *Client) UploadBMCUpdate(params *UploadBMCUpdateParams, authInfo runtime
 	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "uploadBMCUpdate",
 		Method:             "POST",
-		PathPattern:        "/v1/machine/{id}/upload/bmc",
+		PathPattern:        "/v1/machine/upload/bmc",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"multipart/form-data"},
 		Schemes:            []string{"http"},

@@ -54,7 +54,7 @@ type UploadBIOSUpdateOK struct {
 }
 
 func (o *UploadBIOSUpdateOK) Error() string {
-	return fmt.Sprintf("[POST /v1/machine/{id}/upload/bios][%d] uploadBIOSUpdateOK ", 200)
+	return fmt.Sprintf("[POST /v1/machine/upload/bios][%d] uploadBIOSUpdateOK ", 200)
 }
 
 func (o *UploadBIOSUpdateOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -85,7 +85,7 @@ func (o *UploadBIOSUpdateDefault) Code() int {
 }
 
 func (o *UploadBIOSUpdateDefault) Error() string {
-	return fmt.Sprintf("[POST /v1/machine/{id}/upload/bios][%d] uploadBIOSUpdate default  %+v", o._statusCode, o.Payload)
+	return fmt.Sprintf("[POST /v1/machine/upload/bios][%d] uploadBIOSUpdate default  %+v", o._statusCode, o.Payload)
 }
 
 func (o *UploadBIOSUpdateDefault) GetPayload() *httperrors.HTTPErrorResponse {

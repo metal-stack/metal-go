@@ -155,10 +155,6 @@ type ChassisIdentifyLEDPowerResponse struct {
 	Machine *models.V1MachineResponse
 }
 
-// MachineBiosUploadResponse contains bios upload response
-type MachineBiosUploadResponse struct {
-}
-
 // MachineAvailableBiosUpdatesResponse contains all available bios updates
 type MachineAvailableBiosUpdatesResponse struct {
 	Updates *models.V1MachineAvailableUpdates
@@ -167,10 +163,6 @@ type MachineAvailableBiosUpdatesResponse struct {
 // MachineUpdateBiosResponse contains the bios update result
 type MachineUpdateBiosResponse struct {
 	Machine *models.V1MachineResponse
-}
-
-// MachineBmcUploadResponse contains bmc upload response
-type MachineBmcUploadResponse struct {
 }
 
 // MachineAvailableBmcUpdatesResponse contains all available bmc updates
@@ -493,9 +485,9 @@ func (d *Driver) MachinePowerReset(machineID string) (*MachinePowerResponse, err
 // MachineUploadBiosUpdate uploads the given BIOS update for the given machine
 func (d *Driver) MachineUploadBiosUpdate(vendor, board, revision, updateFile string) (*machine.UploadBIOSUpdateOK, error) {
 	biosUpload := machine.NewUploadBIOSUpdateParams()
-	biosUpload.Vendor = vendor
-	biosUpload.Board = board
-	biosUpload.Revision = revision
+	biosUpload.Vendor = &vendor
+	biosUpload.Board = &board
+	biosUpload.Revision = &revision
 	reader, err := os.Open(updateFile)
 	if err != nil {
 		return nil, err
@@ -508,9 +500,9 @@ func (d *Driver) MachineUploadBiosUpdate(vendor, board, revision, updateFile str
 // MachineUploadBmcUpdate uploads the given BMC update for the given machine
 func (d *Driver) MachineUploadBmcUpdate(vendor, board, revision, updateFile string) (*machine.UploadBMCUpdateOK, error) {
 	bmcUpload := machine.NewUploadBMCUpdateParams()
-	bmcUpload.Vendor = vendor
-	bmcUpload.Board = board
-	bmcUpload.Revision = revision
+	bmcUpload.Vendor = &vendor
+	bmcUpload.Board = &board
+	bmcUpload.Revision = &revision
 	reader, err := os.Open(updateFile)
 	if err != nil {
 		return nil, err
