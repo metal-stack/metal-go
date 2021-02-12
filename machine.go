@@ -5,6 +5,7 @@ import (
 	"github.com/metal-stack/metal-go/api/client/machine"
 	"github.com/metal-stack/metal-go/api/models"
 	"os"
+	"time"
 )
 
 // MachineCreateRequest contains data for a machine creation
@@ -484,7 +485,7 @@ func (d *Driver) MachinePowerReset(machineID string) (*MachinePowerResponse, err
 
 // MachineUploadBiosUpdate uploads the given BIOS update for the given machine
 func (d *Driver) MachineUploadBiosUpdate(vendor, board, revision, updateFile string) (*machine.UploadBIOSUpdateOK, error) {
-	biosUpload := machine.NewUploadBIOSUpdateParams().WithTimeout(0)
+	biosUpload := machine.NewUploadBIOSUpdateParams().WithTimeout(5 * time.Minute)
 	biosUpload.Vendor = &vendor
 	biosUpload.Board = &board
 	biosUpload.Revision = &revision
@@ -499,7 +500,7 @@ func (d *Driver) MachineUploadBiosUpdate(vendor, board, revision, updateFile str
 
 // MachineUploadBmcUpdate uploads the given BMC update for the given machine
 func (d *Driver) MachineUploadBmcUpdate(vendor, board, revision, updateFile string) (*machine.UploadBMCUpdateOK, error) {
-	bmcUpload := machine.NewUploadBMCUpdateParams().WithTimeout(0)
+	bmcUpload := machine.NewUploadBMCUpdateParams().WithTimeout(5 * time.Minute)
 	bmcUpload.Vendor = &vendor
 	bmcUpload.Board = &board
 	bmcUpload.Revision = &revision
