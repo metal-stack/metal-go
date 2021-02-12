@@ -486,9 +486,9 @@ func (d *Driver) MachinePowerReset(machineID string) (*MachinePowerResponse, err
 // MachineUploadBiosUpdate uploads the given BIOS update for the given machine
 func (d *Driver) MachineUploadBiosUpdate(vendor, board, revision, updateFile string) (*machine.UploadBIOSUpdateOK, error) {
 	biosUpload := machine.NewUploadBIOSUpdateParams().WithTimeout(5 * time.Minute)
-	biosUpload.Vendor = &vendor
-	biosUpload.Board = &board
-	biosUpload.Revision = &revision
+	biosUpload.Vendor = vendor
+	biosUpload.Board = board
+	biosUpload.Revision = revision
 	reader, err := os.Open(updateFile)
 	if err != nil {
 		return nil, err
@@ -501,9 +501,9 @@ func (d *Driver) MachineUploadBiosUpdate(vendor, board, revision, updateFile str
 // MachineUploadBmcUpdate uploads the given BMC update for the given machine
 func (d *Driver) MachineUploadBmcUpdate(vendor, board, revision, updateFile string) (*machine.UploadBMCUpdateOK, error) {
 	bmcUpload := machine.NewUploadBMCUpdateParams().WithTimeout(5 * time.Minute)
-	bmcUpload.Vendor = &vendor
-	bmcUpload.Board = &board
-	bmcUpload.Revision = &revision
+	bmcUpload.Vendor = vendor
+	bmcUpload.Board = board
+	bmcUpload.Revision = revision
 	reader, err := os.Open(updateFile)
 	if err != nil {
 		return nil, err

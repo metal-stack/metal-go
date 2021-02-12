@@ -64,7 +64,7 @@ type UploadBMCUpdateParams struct {
 	  the board
 
 	*/
-	Board *string
+	Board string
 	/*File
 	  the BMC update file
 
@@ -74,12 +74,12 @@ type UploadBMCUpdateParams struct {
 	  the BMC update revision
 
 	*/
-	Revision *string
+	Revision string
 	/*Vendor
 	  the vendor
 
 	*/
-	Vendor *string
+	Vendor string
 
 	timeout    time.Duration
 	Context    context.Context
@@ -120,13 +120,13 @@ func (o *UploadBMCUpdateParams) SetHTTPClient(client *http.Client) {
 }
 
 // WithBoard adds the board to the upload b m c update params
-func (o *UploadBMCUpdateParams) WithBoard(board *string) *UploadBMCUpdateParams {
+func (o *UploadBMCUpdateParams) WithBoard(board string) *UploadBMCUpdateParams {
 	o.SetBoard(board)
 	return o
 }
 
 // SetBoard adds the board to the upload b m c update params
-func (o *UploadBMCUpdateParams) SetBoard(board *string) {
+func (o *UploadBMCUpdateParams) SetBoard(board string) {
 	o.Board = board
 }
 
@@ -142,24 +142,24 @@ func (o *UploadBMCUpdateParams) SetFile(file runtime.NamedReadCloser) {
 }
 
 // WithRevision adds the revision to the upload b m c update params
-func (o *UploadBMCUpdateParams) WithRevision(revision *string) *UploadBMCUpdateParams {
+func (o *UploadBMCUpdateParams) WithRevision(revision string) *UploadBMCUpdateParams {
 	o.SetRevision(revision)
 	return o
 }
 
 // SetRevision adds the revision to the upload b m c update params
-func (o *UploadBMCUpdateParams) SetRevision(revision *string) {
+func (o *UploadBMCUpdateParams) SetRevision(revision string) {
 	o.Revision = revision
 }
 
 // WithVendor adds the vendor to the upload b m c update params
-func (o *UploadBMCUpdateParams) WithVendor(vendor *string) *UploadBMCUpdateParams {
+func (o *UploadBMCUpdateParams) WithVendor(vendor string) *UploadBMCUpdateParams {
 	o.SetVendor(vendor)
 	return o
 }
 
 // SetVendor adds the vendor to the upload b m c update params
-func (o *UploadBMCUpdateParams) SetVendor(vendor *string) {
+func (o *UploadBMCUpdateParams) SetVendor(vendor string) {
 	o.Vendor = vendor
 }
 
@@ -171,20 +171,9 @@ func (o *UploadBMCUpdateParams) WriteToRequest(r runtime.ClientRequest, reg strf
 	}
 	var res []error
 
-	if o.Board != nil {
-
-		// query param board
-		var qrBoard string
-		if o.Board != nil {
-			qrBoard = *o.Board
-		}
-		qBoard := qrBoard
-		if qBoard != "" {
-			if err := r.SetQueryParam("board", qBoard); err != nil {
-				return err
-			}
-		}
-
+	// path param board
+	if err := r.SetPathParam("board", o.Board); err != nil {
+		return err
 	}
 
 	if o.File != nil {
@@ -200,36 +189,14 @@ func (o *UploadBMCUpdateParams) WriteToRequest(r runtime.ClientRequest, reg strf
 
 	}
 
-	if o.Revision != nil {
-
-		// query param revision
-		var qrRevision string
-		if o.Revision != nil {
-			qrRevision = *o.Revision
-		}
-		qRevision := qrRevision
-		if qRevision != "" {
-			if err := r.SetQueryParam("revision", qRevision); err != nil {
-				return err
-			}
-		}
-
+	// path param revision
+	if err := r.SetPathParam("revision", o.Revision); err != nil {
+		return err
 	}
 
-	if o.Vendor != nil {
-
-		// query param vendor
-		var qrVendor string
-		if o.Vendor != nil {
-			qrVendor = *o.Vendor
-		}
-		qVendor := qrVendor
-		if qVendor != "" {
-			if err := r.SetQueryParam("vendor", qVendor); err != nil {
-				return err
-			}
-		}
-
+	// path param vendor
+	if err := r.SetPathParam("vendor", o.Vendor); err != nil {
+		return err
 	}
 
 	if len(res) > 0 {
