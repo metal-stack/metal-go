@@ -205,13 +205,9 @@ func (o *UploadFirmwareParams) WriteToRequest(r runtime.ClientRequest, reg strfm
 
 	}
 
-	// query param kind
-	qrKind := o.Kind
-	qKind := qrKind
-	if qKind != "" {
-		if err := r.SetQueryParam("kind", qKind); err != nil {
-			return err
-		}
+	// path param kind
+	if err := r.SetPathParam("kind", o.Kind); err != nil {
+		return err
 	}
 
 	// path param revision
