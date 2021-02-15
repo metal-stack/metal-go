@@ -12,10 +12,10 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// V1MachineUpdate v1 machine update
+// V1MachineUpdateFirmware v1 machine update firmware
 //
-// swagger:model v1.MachineUpdate
-type V1MachineUpdate struct {
+// swagger:model v1.MachineUpdateFirmware
+type V1MachineUpdateFirmware struct {
 
 	// a description why the machine has been updated
 	// Required: true
@@ -26,8 +26,8 @@ type V1MachineUpdate struct {
 	Revision *string `json:"revision"`
 }
 
-// Validate validates this v1 machine update
-func (m *V1MachineUpdate) Validate(formats strfmt.Registry) error {
+// Validate validates this v1 machine update firmware
+func (m *V1MachineUpdateFirmware) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateDescription(formats); err != nil {
@@ -44,7 +44,7 @@ func (m *V1MachineUpdate) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *V1MachineUpdate) validateDescription(formats strfmt.Registry) error {
+func (m *V1MachineUpdateFirmware) validateDescription(formats strfmt.Registry) error {
 
 	if err := validate.Required("description", "body", m.Description); err != nil {
 		return err
@@ -53,7 +53,7 @@ func (m *V1MachineUpdate) validateDescription(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *V1MachineUpdate) validateRevision(formats strfmt.Registry) error {
+func (m *V1MachineUpdateFirmware) validateRevision(formats strfmt.Registry) error {
 
 	if err := validate.Required("revision", "body", m.Revision); err != nil {
 		return err
@@ -63,7 +63,7 @@ func (m *V1MachineUpdate) validateRevision(formats strfmt.Registry) error {
 }
 
 // MarshalBinary interface implementation
-func (m *V1MachineUpdate) MarshalBinary() ([]byte, error) {
+func (m *V1MachineUpdateFirmware) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -71,8 +71,8 @@ func (m *V1MachineUpdate) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *V1MachineUpdate) UnmarshalBinary(b []byte) error {
-	var res V1MachineUpdate
+func (m *V1MachineUpdateFirmware) UnmarshalBinary(b []byte) error {
+	var res V1MachineUpdateFirmware
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

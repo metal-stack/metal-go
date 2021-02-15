@@ -31,9 +31,7 @@ type ClientService interface {
 
 	AllocateMachine(params *AllocateMachineParams, authInfo runtime.ClientAuthInfoWriter) (*AllocateMachineOK, error)
 
-	AvailableBIOSUpdates(params *AvailableBIOSUpdatesParams, authInfo runtime.ClientAuthInfoWriter) (*AvailableBIOSUpdatesOK, error)
-
-	AvailableBMCUpdates(params *AvailableBMCUpdatesParams, authInfo runtime.ClientAuthInfoWriter) (*AvailableBMCUpdatesOK, error)
+	AvailableFirmwares(params *AvailableFirmwaresParams, authInfo runtime.ClientAuthInfoWriter) (*AvailableFirmwaresOK, error)
 
 	ChassisIdentifyLEDOff(params *ChassisIdentifyLEDOffParams, authInfo runtime.ClientAuthInfoWriter) (*ChassisIdentifyLEDOffOK, error)
 
@@ -79,13 +77,9 @@ type ClientService interface {
 
 	SetMachineState(params *SetMachineStateParams, authInfo runtime.ClientAuthInfoWriter) (*SetMachineStateOK, error)
 
-	UpdateBIOS(params *UpdateBIOSParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateBIOSOK, error)
+	UpdateFirmware(params *UpdateFirmwareParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateFirmwareOK, error)
 
-	UpdateBMC(params *UpdateBMCParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateBMCOK, error)
-
-	UploadBIOSUpdate(params *UploadBIOSUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*UploadBIOSUpdateOK, error)
-
-	UploadBMCUpdate(params *UploadBMCUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*UploadBMCUpdateOK, error)
+	UploadFirmware(params *UploadFirmwareParams, authInfo runtime.ClientAuthInfoWriter) (*UploadFirmwareOK, error)
 
 	SetTransport(transport runtime.ClientTransport)
 }
@@ -193,23 +187,23 @@ func (a *Client) AllocateMachine(params *AllocateMachineParams, authInfo runtime
 }
 
 /*
-  AvailableBIOSUpdates returns all available b i o s updates for the machine
+  AvailableFirmwares returns all available firmwares for the machine
 */
-func (a *Client) AvailableBIOSUpdates(params *AvailableBIOSUpdatesParams, authInfo runtime.ClientAuthInfoWriter) (*AvailableBIOSUpdatesOK, error) {
+func (a *Client) AvailableFirmwares(params *AvailableFirmwaresParams, authInfo runtime.ClientAuthInfoWriter) (*AvailableFirmwaresOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewAvailableBIOSUpdatesParams()
+		params = NewAvailableFirmwaresParams()
 	}
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "availableBIOSUpdates",
+		ID:                 "availableFirmwares",
 		Method:             "GET",
-		PathPattern:        "/v1/machine/{id}/available-bios-updates",
+		PathPattern:        "/v1/machine/{id}/available-firmwares",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http"},
 		Params:             params,
-		Reader:             &AvailableBIOSUpdatesReader{formats: a.formats},
+		Reader:             &AvailableFirmwaresReader{formats: a.formats},
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
@@ -217,46 +211,12 @@ func (a *Client) AvailableBIOSUpdates(params *AvailableBIOSUpdatesParams, authIn
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*AvailableBIOSUpdatesOK)
+	success, ok := result.(*AvailableFirmwaresOK)
 	if ok {
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*AvailableBIOSUpdatesDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
-}
-
-/*
-  AvailableBMCUpdates returns all available b m c updates for the machine
-*/
-func (a *Client) AvailableBMCUpdates(params *AvailableBMCUpdatesParams, authInfo runtime.ClientAuthInfoWriter) (*AvailableBMCUpdatesOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewAvailableBMCUpdatesParams()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "availableBMCUpdates",
-		Method:             "GET",
-		PathPattern:        "/v1/machine/{id}/available-bmc-updates",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
-		Params:             params,
-		Reader:             &AvailableBMCUpdatesReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*AvailableBMCUpdatesOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	unexpectedSuccess := result.(*AvailableBMCUpdatesDefault)
+	unexpectedSuccess := result.(*AvailableFirmwaresDefault)
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
@@ -1011,23 +971,23 @@ func (a *Client) SetMachineState(params *SetMachineStateParams, authInfo runtime
 }
 
 /*
-  UpdateBIOS sends a b i o s update command to the machine
+  UpdateFirmware sends a firmware command to the machine
 */
-func (a *Client) UpdateBIOS(params *UpdateBIOSParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateBIOSOK, error) {
+func (a *Client) UpdateFirmware(params *UpdateFirmwareParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateFirmwareOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewUpdateBIOSParams()
+		params = NewUpdateFirmwareParams()
 	}
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "updateBIOS",
+		ID:                 "updateFirmware",
 		Method:             "POST",
-		PathPattern:        "/v1/machine/{id}/update/bios",
+		PathPattern:        "/v1/machine/{id}/update-firmware",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http"},
 		Params:             params,
-		Reader:             &UpdateBIOSReader{formats: a.formats},
+		Reader:             &UpdateFirmwareReader{formats: a.formats},
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
@@ -1035,67 +995,33 @@ func (a *Client) UpdateBIOS(params *UpdateBIOSParams, authInfo runtime.ClientAut
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*UpdateBIOSOK)
+	success, ok := result.(*UpdateFirmwareOK)
 	if ok {
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*UpdateBIOSDefault)
+	unexpectedSuccess := result.(*UpdateFirmwareDefault)
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-  UpdateBMC sends a bmc update command to the machine
+  UploadFirmware uploads given firmware update for given machine
 */
-func (a *Client) UpdateBMC(params *UpdateBMCParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateBMCOK, error) {
+func (a *Client) UploadFirmware(params *UploadFirmwareParams, authInfo runtime.ClientAuthInfoWriter) (*UploadFirmwareOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewUpdateBMCParams()
+		params = NewUploadFirmwareParams()
 	}
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "updateBMC",
+		ID:                 "uploadFirmware",
 		Method:             "POST",
-		PathPattern:        "/v1/machine/{id}/update/bmc",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
-		Params:             params,
-		Reader:             &UpdateBMCReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*UpdateBMCOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	unexpectedSuccess := result.(*UpdateBMCDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
-}
-
-/*
-  UploadBIOSUpdate uploads given b i o s update for given machine
-*/
-func (a *Client) UploadBIOSUpdate(params *UploadBIOSUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*UploadBIOSUpdateOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewUploadBIOSUpdateParams()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "uploadBIOSUpdate",
-		Method:             "POST",
-		PathPattern:        "/v1/machine/upload/bios/{vendor}/{board}/{revision}",
+		PathPattern:        "/v1/machine/upload-firmware/{vendor}/{board}/{revision}",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"multipart/form-data"},
 		Schemes:            []string{"http"},
 		Params:             params,
-		Reader:             &UploadBIOSUpdateReader{formats: a.formats},
+		Reader:             &UploadFirmwareReader{formats: a.formats},
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
@@ -1103,46 +1029,12 @@ func (a *Client) UploadBIOSUpdate(params *UploadBIOSUpdateParams, authInfo runti
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*UploadBIOSUpdateOK)
+	success, ok := result.(*UploadFirmwareOK)
 	if ok {
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*UploadBIOSUpdateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
-}
-
-/*
-  UploadBMCUpdate uploads given b m c update for given machine
-*/
-func (a *Client) UploadBMCUpdate(params *UploadBMCUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*UploadBMCUpdateOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewUploadBMCUpdateParams()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "uploadBMCUpdate",
-		Method:             "POST",
-		PathPattern:        "/v1/machine/upload/bmc/{vendor}/{board}/{revision}",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"multipart/form-data"},
-		Schemes:            []string{"http"},
-		Params:             params,
-		Reader:             &UploadBMCUpdateReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*UploadBMCUpdateOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	unexpectedSuccess := result.(*UploadBMCUpdateDefault)
+	unexpectedSuccess := result.(*UploadFirmwareDefault)
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 

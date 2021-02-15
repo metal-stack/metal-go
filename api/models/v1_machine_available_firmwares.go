@@ -12,18 +12,18 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// V1MachineAvailableUpdates v1 machine available updates
+// V1MachineAvailableFirmwares v1 machine available firmwares
 //
-// swagger:model v1.MachineAvailableUpdates
-type V1MachineAvailableUpdates struct {
+// swagger:model v1.MachineAvailableFirmwares
+type V1MachineAvailableFirmwares struct {
 
 	// list of all available BIOS updates
 	// Required: true
 	Revisions []string `json:"revisions"`
 }
 
-// Validate validates this v1 machine available updates
-func (m *V1MachineAvailableUpdates) Validate(formats strfmt.Registry) error {
+// Validate validates this v1 machine available firmwares
+func (m *V1MachineAvailableFirmwares) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateRevisions(formats); err != nil {
@@ -36,7 +36,7 @@ func (m *V1MachineAvailableUpdates) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *V1MachineAvailableUpdates) validateRevisions(formats strfmt.Registry) error {
+func (m *V1MachineAvailableFirmwares) validateRevisions(formats strfmt.Registry) error {
 
 	if err := validate.Required("revisions", "body", m.Revisions); err != nil {
 		return err
@@ -46,7 +46,7 @@ func (m *V1MachineAvailableUpdates) validateRevisions(formats strfmt.Registry) e
 }
 
 // MarshalBinary interface implementation
-func (m *V1MachineAvailableUpdates) MarshalBinary() ([]byte, error) {
+func (m *V1MachineAvailableFirmwares) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -54,8 +54,8 @@ func (m *V1MachineAvailableUpdates) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *V1MachineAvailableUpdates) UnmarshalBinary(b []byte) error {
-	var res V1MachineAvailableUpdates
+func (m *V1MachineAvailableFirmwares) UnmarshalBinary(b []byte) error {
+	var res V1MachineAvailableFirmwares
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

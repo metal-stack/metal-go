@@ -156,28 +156,28 @@ type ChassisIdentifyLEDPowerResponse struct {
 	Machine *models.V1MachineResponse
 }
 
-// MachineAvailableBiosUpdatesResponse contains all available bios updates
-type MachineAvailableBiosUpdatesResponse struct {
-	Updates *models.V1MachineAvailableUpdates
+type FirmwareKind string
+
+const (
+	Bios FirmwareKind = "bios"
+	Bmc  FirmwareKind = "bmc"
+)
+
+// MachineAvailableFirmwaresResponse contains all available firmwares
+type MachineAvailableFirmwaresResponse struct {
+	Kind    FirmwareKind
+	Updates *models.V1MachineAvailableFirmwares
 }
 
-// MachineUpdateBiosResponse contains the bios update result
-type MachineUpdateBiosResponse struct {
+// MachineUpdateFirmwareResponse contains the firmware update result
+type MachineUpdateFirmwareResponse struct {
+	Kind    FirmwareKind
 	Machine *models.V1MachineResponse
 }
 
-// MachineAvailableBmcUpdatesResponse contains all available bmc updates
-type MachineAvailableBmcUpdatesResponse struct {
-	Updates *models.V1MachineAvailableUpdates
-}
-
-// MachineUpdateBmcResponse contains the bmc update result
-type MachineUpdateBmcResponse struct {
-	Machine *models.V1MachineResponse
-}
-
-// MachineBiosResponse contains the machine bios result
-type MachineBiosResponse struct {
+// MachineFirmwareResponse contains the machine firmware result
+type MachineFirmwareResponse struct {
+	Kind    FirmwareKind
 	Machine *models.V1MachineResponse
 }
 
@@ -483,43 +483,32 @@ func (d *Driver) MachinePowerReset(machineID string) (*MachinePowerResponse, err
 	return response, nil
 }
 
-// MachineUploadBiosUpdate uploads the given BIOS update for the given machine
-func (d *Driver) MachineUploadBiosUpdate(vendor, board, revision, updateFile string) (*machine.UploadBIOSUpdateOK, error) {
-	biosUpload := machine.NewUploadBIOSUpdateParams().WithTimeout(5 * time.Minute)
-	biosUpload.Vendor = vendor
-	biosUpload.Board = board
-	biosUpload.Revision = revision
+// MachineUploadFirmware uploads the given firmware for the given machine
+func (d *Driver) MachineUploadFirmware(kind FirmwareKind, vendor, board, revision, updateFile string) (*machine.UploadFirmwareOK, error) {
+	uploadFirmware := machine.NewUploadFirmwareParams().WithTimeout(5 * time.Minute)
+	uploadFirmware.Kind = string(kind)
+	uploadFirmware.Vendor = vendor
+	uploadFirmware.Board = board
+	uploadFirmware.Revision = revision
 	reader, err := os.Open(updateFile)
 	if err != nil {
 		return nil, err
 	}
-	biosUpload.File = runtime.NamedReader(revision, reader)
+	uploadFirmware.File = runtime.NamedReader(revision, reader)
 
-	return d.machine.UploadBIOSUpdate(biosUpload, nil)
+	return d.machine.UploadFirmware(uploadFirmware, nil)
 }
 
-// MachineUploadBmcUpdate uploads the given BMC update for the given machine
-func (d *Driver) MachineUploadBmcUpdate(vendor, board, revision, updateFile string) (*machine.UploadBMCUpdateOK, error) {
-	bmcUpload := machine.NewUploadBMCUpdateParams().WithTimeout(5 * time.Minute)
-	bmcUpload.Vendor = vendor
-	bmcUpload.Board = board
-	bmcUpload.Revision = revision
-	reader, err := os.Open(updateFile)
-	if err != nil {
-		return nil, err
+// MachineAvailableFirmwares returns all available firmwares of given kind for given machine
+func (d *Driver) MachineAvailableFirmwares(kind FirmwareKind, machineID string) (*MachineAvailableFirmwaresResponse, error) {
+	availableFirmwares := machine.NewAvailableFirmwaresParams()
+	availableFirmwares.Kind = string(kind)
+	availableFirmwares.ID = machineID
+
+	response := &MachineAvailableFirmwaresResponse{
+		Kind: kind,
 	}
-	bmcUpload.File = runtime.NamedReader(revision, reader)
-
-	return d.machine.UploadBMCUpdate(bmcUpload, nil)
-}
-
-// MachineAvailableBiosUpdates returns all available BIOS updates for given machine
-func (d *Driver) MachineAvailableBiosUpdates(machineID string) (*MachineAvailableBiosUpdatesResponse, error) {
-	biosUpdates := machine.NewAvailableBIOSUpdatesParams()
-	biosUpdates.ID = machineID
-
-	response := &MachineAvailableBiosUpdatesResponse{}
-	resp, err := d.machine.AvailableBIOSUpdates(biosUpdates, nil)
+	resp, err := d.machine.AvailableFirmwares(availableFirmwares, nil)
 	if err != nil {
 		return response, err
 	}
@@ -527,49 +516,20 @@ func (d *Driver) MachineAvailableBiosUpdates(machineID string) (*MachineAvailabl
 	return response, nil
 }
 
-// MachineAvailableBmcUpdates returns all available BMC updates for given machine
-func (d *Driver) MachineAvailableBmcUpdates(machineID string) (*MachineAvailableBmcUpdatesResponse, error) {
-	biosUpdates := machine.NewAvailableBMCUpdatesParams()
-	biosUpdates.ID = machineID
-
-	response := &MachineAvailableBmcUpdatesResponse{}
-	resp, err := d.machine.AvailableBMCUpdates(biosUpdates, nil)
-	if err != nil {
-		return response, err
-	}
-	response.Updates = resp.Payload
-	return response, nil
-}
-
-// MachineBiosUpdate updates given machine BIOS
-func (d *Driver) MachineBiosUpdate(machineID, revision, description string) (*MachineUpdateBiosResponse, error) {
-	biosUpdate := machine.NewUpdateBIOSParams()
-	biosUpdate.ID = machineID
-	biosUpdate.Body = &models.V1MachineUpdate{
+// MachineUpdateFirmware updates given firmware of given machine
+func (d *Driver) MachineUpdateFirmware(kind FirmwareKind, machineID, revision, description string) (*MachineUpdateFirmwareResponse, error) {
+	updateFirmware := machine.NewUpdateFirmwareParams()
+	updateFirmware.Kind = string(kind)
+	updateFirmware.ID = machineID
+	updateFirmware.Body = &models.V1MachineUpdateFirmware{
 		Description: &description,
 		Revision:    &revision,
 	}
 
-	response := &MachineUpdateBiosResponse{}
-	resp, err := d.machine.UpdateBIOS(biosUpdate, nil)
-	if err != nil {
-		return response, err
+	response := &MachineUpdateFirmwareResponse{
+		Kind: kind,
 	}
-	response.Machine = resp.Payload
-	return response, nil
-}
-
-// MachineBmcUpdate updates given machine BIOS
-func (d *Driver) MachineBmcUpdate(machineID, revision, description string) (*MachineUpdateBmcResponse, error) {
-	bmcUpdate := machine.NewUpdateBMCParams()
-	bmcUpdate.ID = machineID
-	bmcUpdate.Body = &models.V1MachineUpdate{
-		Description: &description,
-		Revision:    &revision,
-	}
-
-	response := &MachineUpdateBmcResponse{}
-	resp, err := d.machine.UpdateBMC(bmcUpdate, nil)
+	resp, err := d.machine.UpdateFirmware(updateFirmware, nil)
 	if err != nil {
 		return response, err
 	}
@@ -578,12 +538,12 @@ func (d *Driver) MachineBmcUpdate(machineID, revision, description string) (*Mac
 }
 
 // MachineBootBios boots given machine into BIOS
-func (d *Driver) MachineBootBios(machineID string) (*MachineBiosResponse, error) {
+func (d *Driver) MachineBootBios(machineID string) (*MachineFirmwareResponse, error) {
 	machineBios := machine.NewMachineBiosParams()
 	machineBios.ID = machineID
 	machineBios.Body = []string{}
 
-	response := &MachineBiosResponse{}
+	response := &MachineFirmwareResponse{}
 	resp, err := d.machine.MachineBios(machineBios, nil)
 	if err != nil {
 		return response, err
