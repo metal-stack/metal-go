@@ -1015,7 +1015,7 @@ func (a *Client) UploadFirmware(params *UploadFirmwareParams, authInfo runtime.C
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "uploadFirmware",
-		Method:             "POST",
+		Method:             "PUT",
 		PathPattern:        "/v1/machine/upload-firmware/{vendor}/{board}/{revision}",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"multipart/form-data"},

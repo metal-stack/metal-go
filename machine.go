@@ -519,11 +519,12 @@ func (d *Driver) MachineAvailableFirmwares(kind FirmwareKind, machineID string) 
 // MachineUpdateFirmware updates given firmware of given machine
 func (d *Driver) MachineUpdateFirmware(kind FirmwareKind, machineID, revision, description string) (*MachineUpdateFirmwareResponse, error) {
 	updateFirmware := machine.NewUpdateFirmwareParams()
-	updateFirmware.Kind = string(kind)
 	updateFirmware.ID = machineID
+	k := string(kind)
 	updateFirmware.Body = &models.V1MachineUpdateFirmware{
-		Description: &description,
+		Kind:        &k,
 		Revision:    &revision,
+		Description: &description,
 	}
 
 	response := &MachineUpdateFirmwareResponse{

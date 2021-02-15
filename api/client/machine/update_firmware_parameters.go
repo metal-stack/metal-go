@@ -69,11 +69,6 @@ type UpdateFirmwareParams struct {
 
 	*/
 	ID string
-	/*Kind
-	  the kind, i.e. 'bios' or 'bmc'
-
-	*/
-	Kind string
 
 	timeout    time.Duration
 	Context    context.Context
@@ -135,17 +130,6 @@ func (o *UpdateFirmwareParams) SetID(id string) {
 	o.ID = id
 }
 
-// WithKind adds the kind to the update firmware params
-func (o *UpdateFirmwareParams) WithKind(kind string) *UpdateFirmwareParams {
-	o.SetKind(kind)
-	return o
-}
-
-// SetKind adds the kind to the update firmware params
-func (o *UpdateFirmwareParams) SetKind(kind string) {
-	o.Kind = kind
-}
-
 // WriteToRequest writes these params to a swagger request
 func (o *UpdateFirmwareParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -163,15 +147,6 @@ func (o *UpdateFirmwareParams) WriteToRequest(r runtime.ClientRequest, reg strfm
 	// path param id
 	if err := r.SetPathParam("id", o.ID); err != nil {
 		return err
-	}
-
-	// query param kind
-	qrKind := o.Kind
-	qKind := qrKind
-	if qKind != "" {
-		if err := r.SetQueryParam("kind", qKind); err != nil {
-			return err
-		}
 	}
 
 	if len(res) > 0 {

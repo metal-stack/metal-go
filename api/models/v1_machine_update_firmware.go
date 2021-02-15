@@ -21,6 +21,10 @@ type V1MachineUpdateFirmware struct {
 	// Required: true
 	Description *string `json:"description"`
 
+	// the firmware kind, i.e. 'bios' of 'bmc'
+	// Required: true
+	Kind *string `json:"kind"`
+
 	// the update revision
 	// Required: true
 	Revision *string `json:"revision"`
@@ -31,6 +35,10 @@ func (m *V1MachineUpdateFirmware) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateDescription(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateKind(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -47,6 +55,15 @@ func (m *V1MachineUpdateFirmware) Validate(formats strfmt.Registry) error {
 func (m *V1MachineUpdateFirmware) validateDescription(formats strfmt.Registry) error {
 
 	if err := validate.Required("description", "body", m.Description); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *V1MachineUpdateFirmware) validateKind(formats strfmt.Registry) error {
+
+	if err := validate.Required("kind", "body", m.Kind); err != nil {
 		return err
 	}
 
