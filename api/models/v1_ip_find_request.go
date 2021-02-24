@@ -23,6 +23,9 @@ type V1IPFindRequest struct {
 	// the machine an ip address is associated to
 	Machineid string `json:"machineid,omitempty"`
 
+	// the name of the ip address
+	Name string `json:"name,omitempty"`
+
 	// the network this ip allocate request address belongs to
 	Networkid string `json:"networkid,omitempty"`
 

@@ -20,6 +20,9 @@ type V1NetworkAllocateRequest struct {
 	// a description for this entity
 	Description string `json:"description,omitempty"`
 
+	// the destination prefixes of this network
+	Destinationprefixes []string `json:"destinationprefixes"`
+
 	// free labels that you associate with this network.
 	Labels map[string]string `json:"labels,omitempty"`
 

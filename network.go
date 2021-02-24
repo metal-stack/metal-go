@@ -48,6 +48,10 @@ type NetworkAllocateRequest struct {
 	// A map of key/value pairs treated as labels.
 	// Required: false
 	Labels map[string]string `json:"labels"`
+
+	// the destination prefixes of this network
+	// Required: false
+	Destinationprefixes []string `json:"destinationprefixes"`
 }
 
 // NetworkCreateRequest is the request for create a new network
@@ -292,12 +296,13 @@ func (d *Driver) NetworkAllocate(ncr *NetworkAllocateRequest) (*NetworkDetailRes
 	acquireNetwork := network.NewAllocateNetworkParams()
 
 	acquireRequest := &models.V1NetworkAllocateRequest{
-		Description: ncr.Description,
-		Name:        ncr.Name,
-		Partitionid: ncr.PartitionID,
-		Projectid:   ncr.ProjectID,
-		Shared:      ncr.Shared,
-		Labels:      ncr.Labels,
+		Description:         ncr.Description,
+		Name:                ncr.Name,
+		Partitionid:         ncr.PartitionID,
+		Projectid:           ncr.ProjectID,
+		Shared:              ncr.Shared,
+		Labels:              ncr.Labels,
+		Destinationprefixes: ncr.Destinationprefixes,
 	}
 	acquireNetwork.SetBody(acquireRequest)
 	resp, err := d.network.AllocateNetwork(acquireNetwork, nil)
