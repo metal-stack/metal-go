@@ -45,6 +45,10 @@ type NetworkAllocateRequest struct {
 	// Required: false
 	Shared bool `json:"shared,omitempty"`
 
+	// Packets leaving this network get masqueraded
+	// Required: false
+	Nat bool `json:"nat,omitempty"`
+
 	// A map of key/value pairs treated as labels.
 	// Required: false
 	Labels map[string]string `json:"labels"`
