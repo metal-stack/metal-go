@@ -55,7 +55,7 @@ type NetworkAllocateRequest struct {
 
 	// the destination prefixes of this network
 	// Required: false
-	Destinationprefixes []string `json:"destinationprefixes"`
+	Destinationprefixes []string `json:"destinationprefixes,omitempty"`
 }
 
 // NetworkCreateRequest is the request for create a new network
