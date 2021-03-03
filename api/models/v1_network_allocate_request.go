@@ -20,11 +20,17 @@ type V1NetworkAllocateRequest struct {
 	// a description for this entity
 	Description string `json:"description,omitempty"`
 
+	// the destination prefixes of this network
+	Destinationprefixes []string `json:"destinationprefixes"`
+
 	// free labels that you associate with this network.
 	Labels map[string]string `json:"labels,omitempty"`
 
 	// a readable name for this entity
 	Name string `json:"name,omitempty"`
+
+	// if set to true, packets leaving this network get masqueraded behind interface ip
+	Nat bool `json:"nat,omitempty"`
 
 	// the partition this network belongs to
 	Partitionid string `json:"partitionid,omitempty"`
