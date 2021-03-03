@@ -305,6 +305,7 @@ func (d *Driver) NetworkAllocate(ncr *NetworkAllocateRequest) (*NetworkDetailRes
 		Partitionid:         ncr.PartitionID,
 		Projectid:           ncr.ProjectID,
 		Shared:              ncr.Shared,
+		Nat:                 ncr.Nat,
 		Labels:              ncr.Labels,
 		Destinationprefixes: ncr.Destinationprefixes,
 	}
