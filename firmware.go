@@ -6,6 +6,7 @@ import (
 	"github.com/metal-stack/metal-go/api/client/machine"
 	"github.com/metal-stack/metal-go/api/models"
 	"os"
+	"strings"
 	"time"
 )
 
@@ -20,6 +21,7 @@ func (f *AvailableFirmwaresResponse) FilterVendor(vendor string) map[string][]st
 		return nil
 	}
 
+	vendor = strings.ToLower(vendor)
 	m, ok := f.Firmwares.Revisions[vendor]
 	if !ok {
 		return nil
@@ -33,6 +35,7 @@ func (f *AvailableFirmwaresResponse) FilterBoard(vendor, board string) []string 
 		return nil
 	}
 
+	board = strings.ToUpper(board)
 	rr, ok := m[board]
 	if !ok {
 		return nil
