@@ -6,45 +6,45 @@ import (
 	"github.com/metal-stack/metal-go/api/client/machine"
 	"github.com/metal-stack/metal-go/api/models"
 	"os"
-	"strings"
 	"time"
 )
 
 // FirmwaresResponse contains all firmwares matching the requested parameters
 type FirmwaresResponse struct {
-	Firmwares *models.V1FirmwaresList
-	Kind      FirmwareKind
+	Firmwares []*models.V1Firmwares
 }
 
-func (f *FirmwaresResponse) FilterVendor(vendor string) map[string][]string {
-	if f.Firmwares == nil {
-		return nil
+func (f *FirmwaresResponse) FilterKind(kind FirmwareKind) []*models.V1VendorFirmwares {
+	for _, ff := range f.Firmwares {
+		if string(kind) == *ff.Kind {
+			return ff.VendorFirmwares
+		}
 	}
-
-	vendor = strings.ToLower(vendor)
-	m, ok := f.Firmwares.Revisions[vendor]
-	if !ok {
-		return nil
-	}
-	return m
+	return nil
 }
 
-func (f *FirmwaresResponse) FilterBoard(vendor, board string) []string {
-	m := f.FilterVendor(vendor)
-	if m == nil {
-		return nil
+func (f *FirmwaresResponse) FilterVendor(kind FirmwareKind, vendor string) []*models.V1BoardFirmwares {
+	vv := f.FilterKind(kind)
+	for _, v := range vv {
+		if vendor == *v.Vendor {
+			return v.BoardFirmwares
+		}
 	}
-
-	board = strings.ToUpper(board)
-	rr, ok := m[board]
-	if !ok {
-		return nil
-	}
-	return rr
+	return nil
 }
 
-func (f *FirmwaresResponse) ContainsRevision(vendor, board, revision string) bool {
-	rr := f.FilterBoard(vendor, board)
+func (f *FirmwaresResponse) FilterBoard(kind FirmwareKind, vendor, board string) []string {
+	bb := f.FilterVendor(kind, vendor)
+	for _, b := range bb {
+		if board == *b.Board {
+			return b.Revisions
+		}
+	}
+	return nil
+}
+
+func (f *FirmwaresResponse) ContainsRevision(kind FirmwareKind, vendor, board, revision string) bool {
+	rr := f.FilterBoard(kind, vendor, board)
 	for _, r := range rr {
 		if r == revision {
 			return true
@@ -110,16 +110,12 @@ func (d *Driver) listFirmwares(kind FirmwareKind, vendor, board string, machineI
 	availableFirmwares.Board = &board
 	availableFirmwares.ID = machineID
 
-	response := &FirmwaresResponse{
-		Kind: kind,
-	}
+	response := new(FirmwaresResponse)
 	resp, err := d.firmware.ListFirmwares(availableFirmwares, nil)
 	if err != nil {
 		return response, err
 	}
-	response.Firmwares = &models.V1FirmwaresList{
-		Revisions: resp.Payload.Revisions,
-	}
+	response.Firmwares = resp.Payload
 	return response, nil
 }
 
