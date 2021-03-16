@@ -66,13 +66,13 @@ type MachineFirmwareResponse struct {
 }
 
 // UploadFirmware uploads the given firmware for the given vendor and board, which is tagged as specified revision
-func (d *Driver) UploadFirmware(kind FirmwareKind, vendor, board, revision, updateFile string) (*firmware.UploadFirmwareOK, error) {
+func (d *Driver) UploadFirmware(kind FirmwareKind, vendor, board, revision, file string) (*firmware.UploadFirmwareOK, error) {
 	uploadFirmware := firmware.NewUploadFirmwareParams().WithTimeout(5 * time.Minute)
 	uploadFirmware.Kind = string(kind)
 	uploadFirmware.Vendor = vendor
 	uploadFirmware.Board = board
 	uploadFirmware.Revision = revision
-	reader, err := os.Open(updateFile)
+	reader, err := os.Open(file)
 	if err != nil {
 		return nil, err
 	}
