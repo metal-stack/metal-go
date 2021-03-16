@@ -23,59 +23,62 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
+// ClientOption is the option for Client methods
+type ClientOption func(*runtime.ClientOperation)
+
 // ClientService is the interface for Client methods
 type ClientService interface {
-	AbortReinstallMachine(params *AbortReinstallMachineParams, authInfo runtime.ClientAuthInfoWriter) (*AbortReinstallMachineOK, error)
+	AbortReinstallMachine(params *AbortReinstallMachineParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*AbortReinstallMachineOK, error)
 
-	AddProvisioningEvent(params *AddProvisioningEventParams, authInfo runtime.ClientAuthInfoWriter) (*AddProvisioningEventOK, error)
+	AddProvisioningEvent(params *AddProvisioningEventParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*AddProvisioningEventOK, error)
 
-	AllocateMachine(params *AllocateMachineParams, authInfo runtime.ClientAuthInfoWriter) (*AllocateMachineOK, error)
+	AllocateMachine(params *AllocateMachineParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*AllocateMachineOK, error)
 
-	ChassisIdentifyLEDOff(params *ChassisIdentifyLEDOffParams, authInfo runtime.ClientAuthInfoWriter) (*ChassisIdentifyLEDOffOK, error)
+	ChassisIdentifyLEDOff(params *ChassisIdentifyLEDOffParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ChassisIdentifyLEDOffOK, error)
 
-	ChassisIdentifyLEDOn(params *ChassisIdentifyLEDOnParams, authInfo runtime.ClientAuthInfoWriter) (*ChassisIdentifyLEDOnOK, error)
+	ChassisIdentifyLEDOn(params *ChassisIdentifyLEDOnParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ChassisIdentifyLEDOnOK, error)
 
-	DeleteMachine(params *DeleteMachineParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteMachineOK, error)
+	DeleteMachine(params *DeleteMachineParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteMachineOK, error)
 
-	FinalizeAllocation(params *FinalizeAllocationParams, authInfo runtime.ClientAuthInfoWriter) (*FinalizeAllocationOK, error)
+	FinalizeAllocation(params *FinalizeAllocationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FinalizeAllocationOK, error)
 
-	FindIPMIMachine(params *FindIPMIMachineParams, authInfo runtime.ClientAuthInfoWriter) (*FindIPMIMachineOK, error)
+	FindIPMIMachine(params *FindIPMIMachineParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FindIPMIMachineOK, error)
 
-	FindIPMIMachines(params *FindIPMIMachinesParams, authInfo runtime.ClientAuthInfoWriter) (*FindIPMIMachinesOK, error)
+	FindIPMIMachines(params *FindIPMIMachinesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FindIPMIMachinesOK, error)
 
-	FindMachine(params *FindMachineParams, authInfo runtime.ClientAuthInfoWriter) (*FindMachineOK, error)
+	FindMachine(params *FindMachineParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FindMachineOK, error)
 
-	FindMachines(params *FindMachinesParams, authInfo runtime.ClientAuthInfoWriter) (*FindMachinesOK, error)
+	FindMachines(params *FindMachinesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FindMachinesOK, error)
 
-	FreeMachine(params *FreeMachineParams, authInfo runtime.ClientAuthInfoWriter) (*FreeMachineOK, error)
+	FreeMachine(params *FreeMachineParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FreeMachineOK, error)
 
-	GetProvisioningEventContainer(params *GetProvisioningEventContainerParams, authInfo runtime.ClientAuthInfoWriter) (*GetProvisioningEventContainerOK, error)
+	GetProvisioningEventContainer(params *GetProvisioningEventContainerParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetProvisioningEventContainerOK, error)
 
-	IpmiReport(params *IpmiReportParams, authInfo runtime.ClientAuthInfoWriter) (*IpmiReportOK, error)
+	IpmiReport(params *IpmiReportParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*IpmiReportOK, error)
 
-	ListMachines(params *ListMachinesParams, authInfo runtime.ClientAuthInfoWriter) (*ListMachinesOK, error)
+	ListMachines(params *ListMachinesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListMachinesOK, error)
 
-	MachineBios(params *MachineBiosParams, authInfo runtime.ClientAuthInfoWriter) (*MachineBiosOK, error)
+	MachineBios(params *MachineBiosParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*MachineBiosOK, error)
 
-	MachineDisk(params *MachineDiskParams, authInfo runtime.ClientAuthInfoWriter) (*MachineDiskOK, error)
+	MachineDisk(params *MachineDiskParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*MachineDiskOK, error)
 
-	MachineOff(params *MachineOffParams, authInfo runtime.ClientAuthInfoWriter) (*MachineOffOK, error)
+	MachineOff(params *MachineOffParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*MachineOffOK, error)
 
-	MachineOn(params *MachineOnParams, authInfo runtime.ClientAuthInfoWriter) (*MachineOnOK, error)
+	MachineOn(params *MachineOnParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*MachineOnOK, error)
 
-	MachinePxe(params *MachinePxeParams, authInfo runtime.ClientAuthInfoWriter) (*MachinePxeOK, error)
+	MachinePxe(params *MachinePxeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*MachinePxeOK, error)
 
-	MachineReset(params *MachineResetParams, authInfo runtime.ClientAuthInfoWriter) (*MachineResetOK, error)
+	MachineReset(params *MachineResetParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*MachineResetOK, error)
 
-	RegisterMachine(params *RegisterMachineParams, authInfo runtime.ClientAuthInfoWriter) (*RegisterMachineOK, *RegisterMachineCreated, error)
+	RegisterMachine(params *RegisterMachineParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*RegisterMachineOK, *RegisterMachineCreated, error)
 
-	ReinstallMachine(params *ReinstallMachineParams, authInfo runtime.ClientAuthInfoWriter) (*ReinstallMachineOK, error)
+	ReinstallMachine(params *ReinstallMachineParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ReinstallMachineOK, error)
 
-	SetChassisIdentifyLEDState(params *SetChassisIdentifyLEDStateParams, authInfo runtime.ClientAuthInfoWriter) (*SetChassisIdentifyLEDStateOK, error)
+	SetChassisIdentifyLEDState(params *SetChassisIdentifyLEDStateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetChassisIdentifyLEDStateOK, error)
 
-	SetMachineState(params *SetMachineStateParams, authInfo runtime.ClientAuthInfoWriter) (*SetMachineStateOK, error)
+	SetMachineState(params *SetMachineStateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetMachineStateOK, error)
 
-	UpdateFirmware(params *UpdateFirmwareParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateFirmwareOK, error)
+	UpdateFirmware(params *UpdateFirmwareParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateFirmwareOK, error)
 
 	SetTransport(transport runtime.ClientTransport)
 }
@@ -83,13 +86,12 @@ type ClientService interface {
 /*
   AbortReinstallMachine aborts reinstall this machine
 */
-func (a *Client) AbortReinstallMachine(params *AbortReinstallMachineParams, authInfo runtime.ClientAuthInfoWriter) (*AbortReinstallMachineOK, error) {
+func (a *Client) AbortReinstallMachine(params *AbortReinstallMachineParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*AbortReinstallMachineOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewAbortReinstallMachineParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "abortReinstallMachine",
 		Method:             "POST",
 		PathPattern:        "/v1/machine/{id}/abort-reinstall",
@@ -101,7 +103,12 @@ func (a *Client) AbortReinstallMachine(params *AbortReinstallMachineParams, auth
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -117,13 +124,12 @@ func (a *Client) AbortReinstallMachine(params *AbortReinstallMachineParams, auth
 /*
   AddProvisioningEvent adds a machine provisioning event
 */
-func (a *Client) AddProvisioningEvent(params *AddProvisioningEventParams, authInfo runtime.ClientAuthInfoWriter) (*AddProvisioningEventOK, error) {
+func (a *Client) AddProvisioningEvent(params *AddProvisioningEventParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*AddProvisioningEventOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewAddProvisioningEventParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "addProvisioningEvent",
 		Method:             "POST",
 		PathPattern:        "/v1/machine/{id}/event",
@@ -135,7 +141,12 @@ func (a *Client) AddProvisioningEvent(params *AddProvisioningEventParams, authIn
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -151,13 +162,12 @@ func (a *Client) AddProvisioningEvent(params *AddProvisioningEventParams, authIn
 /*
   AllocateMachine allocates a machine
 */
-func (a *Client) AllocateMachine(params *AllocateMachineParams, authInfo runtime.ClientAuthInfoWriter) (*AllocateMachineOK, error) {
+func (a *Client) AllocateMachine(params *AllocateMachineParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*AllocateMachineOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewAllocateMachineParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "allocateMachine",
 		Method:             "POST",
 		PathPattern:        "/v1/machine/allocate",
@@ -169,7 +179,12 @@ func (a *Client) AllocateMachine(params *AllocateMachineParams, authInfo runtime
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -185,13 +200,12 @@ func (a *Client) AllocateMachine(params *AllocateMachineParams, authInfo runtime
 /*
   ChassisIdentifyLEDOff sends a power off to the chassis identify l e d
 */
-func (a *Client) ChassisIdentifyLEDOff(params *ChassisIdentifyLEDOffParams, authInfo runtime.ClientAuthInfoWriter) (*ChassisIdentifyLEDOffOK, error) {
+func (a *Client) ChassisIdentifyLEDOff(params *ChassisIdentifyLEDOffParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ChassisIdentifyLEDOffOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewChassisIdentifyLEDOffParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "chassisIdentifyLEDOff",
 		Method:             "POST",
 		PathPattern:        "/v1/machine/{id}/power/chassis-identify-led-off",
@@ -203,7 +217,12 @@ func (a *Client) ChassisIdentifyLEDOff(params *ChassisIdentifyLEDOffParams, auth
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -219,13 +238,12 @@ func (a *Client) ChassisIdentifyLEDOff(params *ChassisIdentifyLEDOffParams, auth
 /*
   ChassisIdentifyLEDOn sends a power on to the chassis identify l e d
 */
-func (a *Client) ChassisIdentifyLEDOn(params *ChassisIdentifyLEDOnParams, authInfo runtime.ClientAuthInfoWriter) (*ChassisIdentifyLEDOnOK, error) {
+func (a *Client) ChassisIdentifyLEDOn(params *ChassisIdentifyLEDOnParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ChassisIdentifyLEDOnOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewChassisIdentifyLEDOnParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "chassisIdentifyLEDOn",
 		Method:             "POST",
 		PathPattern:        "/v1/machine/{id}/power/chassis-identify-led-on",
@@ -237,7 +255,12 @@ func (a *Client) ChassisIdentifyLEDOn(params *ChassisIdentifyLEDOnParams, authIn
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -253,13 +276,12 @@ func (a *Client) ChassisIdentifyLEDOn(params *ChassisIdentifyLEDOnParams, authIn
 /*
   DeleteMachine deletes a machine from the database
 */
-func (a *Client) DeleteMachine(params *DeleteMachineParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteMachineOK, error) {
+func (a *Client) DeleteMachine(params *DeleteMachineParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteMachineOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteMachineParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "deleteMachine",
 		Method:             "DELETE",
 		PathPattern:        "/v1/machine/{id}",
@@ -271,7 +293,12 @@ func (a *Client) DeleteMachine(params *DeleteMachineParams, authInfo runtime.Cli
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -287,13 +314,12 @@ func (a *Client) DeleteMachine(params *DeleteMachineParams, authInfo runtime.Cli
 /*
   FinalizeAllocation finalizes the allocation of the machine by reconfiguring the switch sent on successful image installation
 */
-func (a *Client) FinalizeAllocation(params *FinalizeAllocationParams, authInfo runtime.ClientAuthInfoWriter) (*FinalizeAllocationOK, error) {
+func (a *Client) FinalizeAllocation(params *FinalizeAllocationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FinalizeAllocationOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewFinalizeAllocationParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "finalizeAllocation",
 		Method:             "POST",
 		PathPattern:        "/v1/machine/{id}/finalize-allocation",
@@ -305,7 +331,12 @@ func (a *Client) FinalizeAllocation(params *FinalizeAllocationParams, authInfo r
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -321,13 +352,12 @@ func (a *Client) FinalizeAllocation(params *FinalizeAllocationParams, authInfo r
 /*
   FindIPMIMachine returns a machine including the ipmi connection data
 */
-func (a *Client) FindIPMIMachine(params *FindIPMIMachineParams, authInfo runtime.ClientAuthInfoWriter) (*FindIPMIMachineOK, error) {
+func (a *Client) FindIPMIMachine(params *FindIPMIMachineParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FindIPMIMachineOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewFindIPMIMachineParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "findIPMIMachine",
 		Method:             "GET",
 		PathPattern:        "/v1/machine/{id}/ipmi",
@@ -339,7 +369,12 @@ func (a *Client) FindIPMIMachine(params *FindIPMIMachineParams, authInfo runtime
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -355,13 +390,12 @@ func (a *Client) FindIPMIMachine(params *FindIPMIMachineParams, authInfo runtime
 /*
   FindIPMIMachines returns machines including the ipmi connection data
 */
-func (a *Client) FindIPMIMachines(params *FindIPMIMachinesParams, authInfo runtime.ClientAuthInfoWriter) (*FindIPMIMachinesOK, error) {
+func (a *Client) FindIPMIMachines(params *FindIPMIMachinesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FindIPMIMachinesOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewFindIPMIMachinesParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "findIPMIMachines",
 		Method:             "POST",
 		PathPattern:        "/v1/machine/ipmi/find",
@@ -373,7 +407,12 @@ func (a *Client) FindIPMIMachines(params *FindIPMIMachinesParams, authInfo runti
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -389,13 +428,12 @@ func (a *Client) FindIPMIMachines(params *FindIPMIMachinesParams, authInfo runti
 /*
   FindMachine gets machine by id
 */
-func (a *Client) FindMachine(params *FindMachineParams, authInfo runtime.ClientAuthInfoWriter) (*FindMachineOK, error) {
+func (a *Client) FindMachine(params *FindMachineParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FindMachineOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewFindMachineParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "findMachine",
 		Method:             "GET",
 		PathPattern:        "/v1/machine/{id}",
@@ -407,7 +445,12 @@ func (a *Client) FindMachine(params *FindMachineParams, authInfo runtime.ClientA
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -423,13 +466,12 @@ func (a *Client) FindMachine(params *FindMachineParams, authInfo runtime.ClientA
 /*
   FindMachines finds machines by multiple criteria
 */
-func (a *Client) FindMachines(params *FindMachinesParams, authInfo runtime.ClientAuthInfoWriter) (*FindMachinesOK, error) {
+func (a *Client) FindMachines(params *FindMachinesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FindMachinesOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewFindMachinesParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "findMachines",
 		Method:             "POST",
 		PathPattern:        "/v1/machine/find",
@@ -441,7 +483,12 @@ func (a *Client) FindMachines(params *FindMachinesParams, authInfo runtime.Clien
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -457,13 +504,12 @@ func (a *Client) FindMachines(params *FindMachinesParams, authInfo runtime.Clien
 /*
   FreeMachine frees a machine
 */
-func (a *Client) FreeMachine(params *FreeMachineParams, authInfo runtime.ClientAuthInfoWriter) (*FreeMachineOK, error) {
+func (a *Client) FreeMachine(params *FreeMachineParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FreeMachineOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewFreeMachineParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "freeMachine",
 		Method:             "DELETE",
 		PathPattern:        "/v1/machine/{id}/free",
@@ -475,7 +521,12 @@ func (a *Client) FreeMachine(params *FreeMachineParams, authInfo runtime.ClientA
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -491,13 +542,12 @@ func (a *Client) FreeMachine(params *FreeMachineParams, authInfo runtime.ClientA
 /*
   GetProvisioningEventContainer gets the current machine provisioning event container
 */
-func (a *Client) GetProvisioningEventContainer(params *GetProvisioningEventContainerParams, authInfo runtime.ClientAuthInfoWriter) (*GetProvisioningEventContainerOK, error) {
+func (a *Client) GetProvisioningEventContainer(params *GetProvisioningEventContainerParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetProvisioningEventContainerOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetProvisioningEventContainerParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "getProvisioningEventContainer",
 		Method:             "GET",
 		PathPattern:        "/v1/machine/{id}/event",
@@ -509,7 +559,12 @@ func (a *Client) GetProvisioningEventContainer(params *GetProvisioningEventConta
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -525,13 +580,12 @@ func (a *Client) GetProvisioningEventContainer(params *GetProvisioningEventConta
 /*
   IpmiReport reports IP m i ip addresses leased by a management server for machines
 */
-func (a *Client) IpmiReport(params *IpmiReportParams, authInfo runtime.ClientAuthInfoWriter) (*IpmiReportOK, error) {
+func (a *Client) IpmiReport(params *IpmiReportParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*IpmiReportOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewIpmiReportParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "ipmiReport",
 		Method:             "POST",
 		PathPattern:        "/v1/machine/ipmi",
@@ -543,7 +597,12 @@ func (a *Client) IpmiReport(params *IpmiReportParams, authInfo runtime.ClientAut
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -559,13 +618,12 @@ func (a *Client) IpmiReport(params *IpmiReportParams, authInfo runtime.ClientAut
 /*
   ListMachines gets all known machines
 */
-func (a *Client) ListMachines(params *ListMachinesParams, authInfo runtime.ClientAuthInfoWriter) (*ListMachinesOK, error) {
+func (a *Client) ListMachines(params *ListMachinesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListMachinesOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewListMachinesParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "listMachines",
 		Method:             "GET",
 		PathPattern:        "/v1/machine",
@@ -577,7 +635,12 @@ func (a *Client) ListMachines(params *ListMachinesParams, authInfo runtime.Clien
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -593,13 +656,12 @@ func (a *Client) ListMachines(params *ListMachinesParams, authInfo runtime.Clien
 /*
   MachineBios boots machine into b i o s
 */
-func (a *Client) MachineBios(params *MachineBiosParams, authInfo runtime.ClientAuthInfoWriter) (*MachineBiosOK, error) {
+func (a *Client) MachineBios(params *MachineBiosParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*MachineBiosOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewMachineBiosParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "machineBios",
 		Method:             "POST",
 		PathPattern:        "/v1/machine/{id}/power/bios",
@@ -611,7 +673,12 @@ func (a *Client) MachineBios(params *MachineBiosParams, authInfo runtime.ClientA
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -627,13 +694,12 @@ func (a *Client) MachineBios(params *MachineBiosParams, authInfo runtime.ClientA
 /*
   MachineDisk boots machine from disk
 */
-func (a *Client) MachineDisk(params *MachineDiskParams, authInfo runtime.ClientAuthInfoWriter) (*MachineDiskOK, error) {
+func (a *Client) MachineDisk(params *MachineDiskParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*MachineDiskOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewMachineDiskParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "machineDisk",
 		Method:             "POST",
 		PathPattern:        "/v1/machine/{id}/power/disk",
@@ -645,7 +711,12 @@ func (a *Client) MachineDisk(params *MachineDiskParams, authInfo runtime.ClientA
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -661,13 +732,12 @@ func (a *Client) MachineDisk(params *MachineDiskParams, authInfo runtime.ClientA
 /*
   MachineOff sends a power off to the machine
 */
-func (a *Client) MachineOff(params *MachineOffParams, authInfo runtime.ClientAuthInfoWriter) (*MachineOffOK, error) {
+func (a *Client) MachineOff(params *MachineOffParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*MachineOffOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewMachineOffParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "machineOff",
 		Method:             "POST",
 		PathPattern:        "/v1/machine/{id}/power/off",
@@ -679,7 +749,12 @@ func (a *Client) MachineOff(params *MachineOffParams, authInfo runtime.ClientAut
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -695,13 +770,12 @@ func (a *Client) MachineOff(params *MachineOffParams, authInfo runtime.ClientAut
 /*
   MachineOn sends a power on to the machine
 */
-func (a *Client) MachineOn(params *MachineOnParams, authInfo runtime.ClientAuthInfoWriter) (*MachineOnOK, error) {
+func (a *Client) MachineOn(params *MachineOnParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*MachineOnOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewMachineOnParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "machineOn",
 		Method:             "POST",
 		PathPattern:        "/v1/machine/{id}/power/on",
@@ -713,7 +787,12 @@ func (a *Client) MachineOn(params *MachineOnParams, authInfo runtime.ClientAuthI
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -729,13 +808,12 @@ func (a *Client) MachineOn(params *MachineOnParams, authInfo runtime.ClientAuthI
 /*
   MachinePxe boots machine from p x e
 */
-func (a *Client) MachinePxe(params *MachinePxeParams, authInfo runtime.ClientAuthInfoWriter) (*MachinePxeOK, error) {
+func (a *Client) MachinePxe(params *MachinePxeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*MachinePxeOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewMachinePxeParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "machinePxe",
 		Method:             "POST",
 		PathPattern:        "/v1/machine/{id}/power/pxe",
@@ -747,7 +825,12 @@ func (a *Client) MachinePxe(params *MachinePxeParams, authInfo runtime.ClientAut
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -763,13 +846,12 @@ func (a *Client) MachinePxe(params *MachinePxeParams, authInfo runtime.ClientAut
 /*
   MachineReset sends a reset to the machine
 */
-func (a *Client) MachineReset(params *MachineResetParams, authInfo runtime.ClientAuthInfoWriter) (*MachineResetOK, error) {
+func (a *Client) MachineReset(params *MachineResetParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*MachineResetOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewMachineResetParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "machineReset",
 		Method:             "POST",
 		PathPattern:        "/v1/machine/{id}/power/reset",
@@ -781,7 +863,12 @@ func (a *Client) MachineReset(params *MachineResetParams, authInfo runtime.Clien
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -797,13 +884,12 @@ func (a *Client) MachineReset(params *MachineResetParams, authInfo runtime.Clien
 /*
   RegisterMachine registers a machine
 */
-func (a *Client) RegisterMachine(params *RegisterMachineParams, authInfo runtime.ClientAuthInfoWriter) (*RegisterMachineOK, *RegisterMachineCreated, error) {
+func (a *Client) RegisterMachine(params *RegisterMachineParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*RegisterMachineOK, *RegisterMachineCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewRegisterMachineParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "registerMachine",
 		Method:             "POST",
 		PathPattern:        "/v1/machine/register",
@@ -815,7 +901,12 @@ func (a *Client) RegisterMachine(params *RegisterMachineParams, authInfo runtime
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -833,13 +924,12 @@ func (a *Client) RegisterMachine(params *RegisterMachineParams, authInfo runtime
 /*
   ReinstallMachine reinstalls this machine
 */
-func (a *Client) ReinstallMachine(params *ReinstallMachineParams, authInfo runtime.ClientAuthInfoWriter) (*ReinstallMachineOK, error) {
+func (a *Client) ReinstallMachine(params *ReinstallMachineParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ReinstallMachineOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewReinstallMachineParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "reinstallMachine",
 		Method:             "POST",
 		PathPattern:        "/v1/machine/{id}/reinstall",
@@ -851,7 +941,12 @@ func (a *Client) ReinstallMachine(params *ReinstallMachineParams, authInfo runti
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -867,13 +962,12 @@ func (a *Client) ReinstallMachine(params *ReinstallMachineParams, authInfo runti
 /*
   SetChassisIdentifyLEDState sets the state of a chassis identify l e d
 */
-func (a *Client) SetChassisIdentifyLEDState(params *SetChassisIdentifyLEDStateParams, authInfo runtime.ClientAuthInfoWriter) (*SetChassisIdentifyLEDStateOK, error) {
+func (a *Client) SetChassisIdentifyLEDState(params *SetChassisIdentifyLEDStateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetChassisIdentifyLEDStateOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewSetChassisIdentifyLEDStateParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "setChassisIdentifyLEDState",
 		Method:             "POST",
 		PathPattern:        "/v1/machine/{id}/chassis-identify-led-state",
@@ -885,7 +979,12 @@ func (a *Client) SetChassisIdentifyLEDState(params *SetChassisIdentifyLEDStatePa
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -901,13 +1000,12 @@ func (a *Client) SetChassisIdentifyLEDState(params *SetChassisIdentifyLEDStatePa
 /*
   SetMachineState sets the state of a machine
 */
-func (a *Client) SetMachineState(params *SetMachineStateParams, authInfo runtime.ClientAuthInfoWriter) (*SetMachineStateOK, error) {
+func (a *Client) SetMachineState(params *SetMachineStateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetMachineStateOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewSetMachineStateParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "setMachineState",
 		Method:             "POST",
 		PathPattern:        "/v1/machine/{id}/state",
@@ -919,7 +1017,12 @@ func (a *Client) SetMachineState(params *SetMachineStateParams, authInfo runtime
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -935,13 +1038,12 @@ func (a *Client) SetMachineState(params *SetMachineStateParams, authInfo runtime
 /*
   UpdateFirmware sends a firmware command to the machine
 */
-func (a *Client) UpdateFirmware(params *UpdateFirmwareParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateFirmwareOK, error) {
+func (a *Client) UpdateFirmware(params *UpdateFirmwareParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateFirmwareOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewUpdateFirmwareParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "updateFirmware",
 		Method:             "POST",
 		PathPattern:        "/v1/machine/update-firmware/{id}",
@@ -953,7 +1055,12 @@ func (a *Client) UpdateFirmware(params *UpdateFirmwareParams, authInfo runtime.C
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}

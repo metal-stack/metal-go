@@ -6,6 +6,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -68,6 +69,38 @@ func (m *V1Firmwares) validateVendorFirmwares(formats strfmt.Registry) error {
 
 		if m.VendorFirmwares[i] != nil {
 			if err := m.VendorFirmwares[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("vendor_firmwares" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// ContextValidate validate this v1 firmwares based on the context it is used
+func (m *V1Firmwares) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateVendorFirmwares(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *V1Firmwares) contextValidateVendorFirmwares(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.VendorFirmwares); i++ {
+
+		if m.VendorFirmwares[i] != nil {
+			if err := m.VendorFirmwares[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("vendor_firmwares" + "." + strconv.Itoa(i))
 				}

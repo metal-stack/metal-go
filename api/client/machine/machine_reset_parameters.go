@@ -18,61 +18,76 @@ import (
 	"github.com/metal-stack/metal-go/api/models"
 )
 
-// NewMachineResetParams creates a new MachineResetParams object
-// with the default values initialized.
+// NewMachineResetParams creates a new MachineResetParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewMachineResetParams() *MachineResetParams {
-	var ()
 	return &MachineResetParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewMachineResetParamsWithTimeout creates a new MachineResetParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewMachineResetParamsWithTimeout(timeout time.Duration) *MachineResetParams {
-	var ()
 	return &MachineResetParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewMachineResetParamsWithContext creates a new MachineResetParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewMachineResetParamsWithContext(ctx context.Context) *MachineResetParams {
-	var ()
 	return &MachineResetParams{
-
 		Context: ctx,
 	}
 }
 
 // NewMachineResetParamsWithHTTPClient creates a new MachineResetParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewMachineResetParamsWithHTTPClient(client *http.Client) *MachineResetParams {
-	var ()
 	return &MachineResetParams{
 		HTTPClient: client,
 	}
 }
 
-/*MachineResetParams contains all the parameters to send to the API endpoint
-for the machine reset operation typically these are written to a http.Request
+/* MachineResetParams contains all the parameters to send to the API endpoint
+   for the machine reset operation.
+
+   Typically these are written to a http.Request.
 */
 type MachineResetParams struct {
 
-	/*Body*/
+	// Body.
 	Body models.V1EmptyBody
-	/*ID
-	  identifier of the machine
 
+	/* ID.
+
+	   identifier of the machine
 	*/
 	ID string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the machine reset params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *MachineResetParams) WithDefaults() *MachineResetParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the machine reset params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *MachineResetParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the machine reset params
@@ -137,7 +152,6 @@ func (o *MachineResetParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.
 		return err
 	}
 	var res []error
-
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err

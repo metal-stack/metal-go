@@ -16,74 +16,91 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewListFirmwaresParams creates a new ListFirmwaresParams object
-// with the default values initialized.
+// NewListFirmwaresParams creates a new ListFirmwaresParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewListFirmwaresParams() *ListFirmwaresParams {
-	var ()
 	return &ListFirmwaresParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewListFirmwaresParamsWithTimeout creates a new ListFirmwaresParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewListFirmwaresParamsWithTimeout(timeout time.Duration) *ListFirmwaresParams {
-	var ()
 	return &ListFirmwaresParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewListFirmwaresParamsWithContext creates a new ListFirmwaresParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewListFirmwaresParamsWithContext(ctx context.Context) *ListFirmwaresParams {
-	var ()
 	return &ListFirmwaresParams{
-
 		Context: ctx,
 	}
 }
 
 // NewListFirmwaresParamsWithHTTPClient creates a new ListFirmwaresParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewListFirmwaresParamsWithHTTPClient(client *http.Client) *ListFirmwaresParams {
-	var ()
 	return &ListFirmwaresParams{
 		HTTPClient: client,
 	}
 }
 
-/*ListFirmwaresParams contains all the parameters to send to the API endpoint
-for the list firmwares operation typically these are written to a http.Request
+/* ListFirmwaresParams contains all the parameters to send to the API endpoint
+   for the list firmwares operation.
+
+   Typically these are written to a http.Request.
 */
 type ListFirmwaresParams struct {
 
-	/*Board
-	  the board
+	/* Board.
 
+	   the board
 	*/
 	Board *string
-	/*ID
-	  restrict firmwares to the machine identified by this query parameter
 
+	/* ID.
+
+	   restrict firmwares to the machine identified by this query parameter
 	*/
 	ID *string
-	/*Kind
-	  the firmware kind [bios|bmc]
 
+	/* Kind.
+
+	   the firmware kind [bios|bmc]
 	*/
 	Kind *string
-	/*Vendor
-	  the vendor
 
+	/* Vendor.
+
+	   the vendor
 	*/
 	Vendor *string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the list firmwares params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *ListFirmwaresParams) WithDefaults() *ListFirmwaresParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the list firmwares params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *ListFirmwaresParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the list firmwares params
@@ -175,64 +192,68 @@ func (o *ListFirmwaresParams) WriteToRequest(r runtime.ClientRequest, reg strfmt
 
 		// query param board
 		var qrBoard string
+
 		if o.Board != nil {
 			qrBoard = *o.Board
 		}
 		qBoard := qrBoard
 		if qBoard != "" {
+
 			if err := r.SetQueryParam("board", qBoard); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.ID != nil {
 
 		// query param id
 		var qrID string
+
 		if o.ID != nil {
 			qrID = *o.ID
 		}
 		qID := qrID
 		if qID != "" {
+
 			if err := r.SetQueryParam("id", qID); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.Kind != nil {
 
 		// query param kind
 		var qrKind string
+
 		if o.Kind != nil {
 			qrKind = *o.Kind
 		}
 		qKind := qrKind
 		if qKind != "" {
+
 			if err := r.SetQueryParam("kind", qKind); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.Vendor != nil {
 
 		// query param vendor
 		var qrVendor string
+
 		if o.Vendor != nil {
 			qrVendor = *o.Vendor
 		}
 		qVendor := qrVendor
 		if qVendor != "" {
+
 			if err := r.SetQueryParam("vendor", qVendor); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {

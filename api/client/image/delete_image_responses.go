@@ -47,7 +47,7 @@ func NewDeleteImageOK() *DeleteImageOK {
 	return &DeleteImageOK{}
 }
 
-/*DeleteImageOK handles this case with default header values.
+/* DeleteImageOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -58,7 +58,6 @@ type DeleteImageOK struct {
 func (o *DeleteImageOK) Error() string {
 	return fmt.Sprintf("[DELETE /v1/image/{id}][%d] deleteImageOK  %+v", 200, o.Payload)
 }
-
 func (o *DeleteImageOK) GetPayload() *models.V1ImageResponse {
 	return o.Payload
 }
@@ -82,7 +81,7 @@ func NewDeleteImageDefault(code int) *DeleteImageDefault {
 	}
 }
 
-/*DeleteImageDefault handles this case with default header values.
+/* DeleteImageDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -100,7 +99,6 @@ func (o *DeleteImageDefault) Code() int {
 func (o *DeleteImageDefault) Error() string {
 	return fmt.Sprintf("[DELETE /v1/image/{id}][%d] deleteImage default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *DeleteImageDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

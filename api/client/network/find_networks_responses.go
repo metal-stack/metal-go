@@ -47,7 +47,7 @@ func NewFindNetworksOK() *FindNetworksOK {
 	return &FindNetworksOK{}
 }
 
-/*FindNetworksOK handles this case with default header values.
+/* FindNetworksOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -58,7 +58,6 @@ type FindNetworksOK struct {
 func (o *FindNetworksOK) Error() string {
 	return fmt.Sprintf("[POST /v1/network/find][%d] findNetworksOK  %+v", 200, o.Payload)
 }
-
 func (o *FindNetworksOK) GetPayload() []*models.V1NetworkResponse {
 	return o.Payload
 }
@@ -80,7 +79,7 @@ func NewFindNetworksDefault(code int) *FindNetworksDefault {
 	}
 }
 
-/*FindNetworksDefault handles this case with default header values.
+/* FindNetworksDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -98,7 +97,6 @@ func (o *FindNetworksDefault) Code() int {
 func (o *FindNetworksDefault) Error() string {
 	return fmt.Sprintf("[POST /v1/network/find][%d] findNetworks default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *FindNetworksDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

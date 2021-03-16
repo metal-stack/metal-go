@@ -23,19 +23,22 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
+// ClientOption is the option for Client methods
+type ClientOption func(*runtime.ClientOperation)
+
 // ClientService is the interface for Client methods
 type ClientService interface {
-	CreatePartition(params *CreatePartitionParams, authInfo runtime.ClientAuthInfoWriter) (*CreatePartitionCreated, error)
+	CreatePartition(params *CreatePartitionParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreatePartitionCreated, error)
 
-	DeletePartition(params *DeletePartitionParams, authInfo runtime.ClientAuthInfoWriter) (*DeletePartitionOK, error)
+	DeletePartition(params *DeletePartitionParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeletePartitionOK, error)
 
-	FindPartition(params *FindPartitionParams, authInfo runtime.ClientAuthInfoWriter) (*FindPartitionOK, error)
+	FindPartition(params *FindPartitionParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FindPartitionOK, error)
 
-	ListPartitions(params *ListPartitionsParams, authInfo runtime.ClientAuthInfoWriter) (*ListPartitionsOK, error)
+	ListPartitions(params *ListPartitionsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListPartitionsOK, error)
 
-	PartitionCapacity(params *PartitionCapacityParams, authInfo runtime.ClientAuthInfoWriter) (*PartitionCapacityOK, error)
+	PartitionCapacity(params *PartitionCapacityParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PartitionCapacityOK, error)
 
-	UpdatePartition(params *UpdatePartitionParams, authInfo runtime.ClientAuthInfoWriter) (*UpdatePartitionOK, error)
+	UpdatePartition(params *UpdatePartitionParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdatePartitionOK, error)
 
 	SetTransport(transport runtime.ClientTransport)
 }
@@ -43,13 +46,12 @@ type ClientService interface {
 /*
   CreatePartition creates a partition if the given ID already exists a conflict is returned
 */
-func (a *Client) CreatePartition(params *CreatePartitionParams, authInfo runtime.ClientAuthInfoWriter) (*CreatePartitionCreated, error) {
+func (a *Client) CreatePartition(params *CreatePartitionParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreatePartitionCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreatePartitionParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "createPartition",
 		Method:             "PUT",
 		PathPattern:        "/v1/partition",
@@ -61,7 +63,12 @@ func (a *Client) CreatePartition(params *CreatePartitionParams, authInfo runtime
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -77,13 +84,12 @@ func (a *Client) CreatePartition(params *CreatePartitionParams, authInfo runtime
 /*
   DeletePartition deletes a partition and returns the deleted entity
 */
-func (a *Client) DeletePartition(params *DeletePartitionParams, authInfo runtime.ClientAuthInfoWriter) (*DeletePartitionOK, error) {
+func (a *Client) DeletePartition(params *DeletePartitionParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeletePartitionOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeletePartitionParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "deletePartition",
 		Method:             "DELETE",
 		PathPattern:        "/v1/partition/{id}",
@@ -95,7 +101,12 @@ func (a *Client) DeletePartition(params *DeletePartitionParams, authInfo runtime
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -111,13 +122,12 @@ func (a *Client) DeletePartition(params *DeletePartitionParams, authInfo runtime
 /*
   FindPartition gets partition by id
 */
-func (a *Client) FindPartition(params *FindPartitionParams, authInfo runtime.ClientAuthInfoWriter) (*FindPartitionOK, error) {
+func (a *Client) FindPartition(params *FindPartitionParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FindPartitionOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewFindPartitionParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "findPartition",
 		Method:             "GET",
 		PathPattern:        "/v1/partition/{id}",
@@ -129,7 +139,12 @@ func (a *Client) FindPartition(params *FindPartitionParams, authInfo runtime.Cli
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -145,13 +160,12 @@ func (a *Client) FindPartition(params *FindPartitionParams, authInfo runtime.Cli
 /*
   ListPartitions gets all partitions
 */
-func (a *Client) ListPartitions(params *ListPartitionsParams, authInfo runtime.ClientAuthInfoWriter) (*ListPartitionsOK, error) {
+func (a *Client) ListPartitions(params *ListPartitionsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListPartitionsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewListPartitionsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "listPartitions",
 		Method:             "GET",
 		PathPattern:        "/v1/partition",
@@ -163,7 +177,12 @@ func (a *Client) ListPartitions(params *ListPartitionsParams, authInfo runtime.C
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -179,13 +198,12 @@ func (a *Client) ListPartitions(params *ListPartitionsParams, authInfo runtime.C
 /*
   PartitionCapacity gets partition capacity
 */
-func (a *Client) PartitionCapacity(params *PartitionCapacityParams, authInfo runtime.ClientAuthInfoWriter) (*PartitionCapacityOK, error) {
+func (a *Client) PartitionCapacity(params *PartitionCapacityParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PartitionCapacityOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPartitionCapacityParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "partitionCapacity",
 		Method:             "GET",
 		PathPattern:        "/v1/partition/capacity",
@@ -197,7 +215,12 @@ func (a *Client) PartitionCapacity(params *PartitionCapacityParams, authInfo run
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -213,13 +236,12 @@ func (a *Client) PartitionCapacity(params *PartitionCapacityParams, authInfo run
 /*
   UpdatePartition updates a partition if the partition was changed since this one was read a conflict is returned
 */
-func (a *Client) UpdatePartition(params *UpdatePartitionParams, authInfo runtime.ClientAuthInfoWriter) (*UpdatePartitionOK, error) {
+func (a *Client) UpdatePartition(params *UpdatePartitionParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdatePartitionOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewUpdatePartitionParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "updatePartition",
 		Method:             "POST",
 		PathPattern:        "/v1/partition",
@@ -231,7 +253,12 @@ func (a *Client) UpdatePartition(params *UpdatePartitionParams, authInfo runtime
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}

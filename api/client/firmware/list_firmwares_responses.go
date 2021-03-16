@@ -47,7 +47,7 @@ func NewListFirmwaresOK() *ListFirmwaresOK {
 	return &ListFirmwaresOK{}
 }
 
-/*ListFirmwaresOK handles this case with default header values.
+/* ListFirmwaresOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -58,7 +58,6 @@ type ListFirmwaresOK struct {
 func (o *ListFirmwaresOK) Error() string {
 	return fmt.Sprintf("[GET /v1/firmware][%d] listFirmwaresOK  %+v", 200, o.Payload)
 }
-
 func (o *ListFirmwaresOK) GetPayload() []*models.V1Firmwares {
 	return o.Payload
 }
@@ -80,7 +79,7 @@ func NewListFirmwaresDefault(code int) *ListFirmwaresDefault {
 	}
 }
 
-/*ListFirmwaresDefault handles this case with default header values.
+/* ListFirmwaresDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -98,7 +97,6 @@ func (o *ListFirmwaresDefault) Code() int {
 func (o *ListFirmwaresDefault) Error() string {
 	return fmt.Sprintf("[GET /v1/firmware][%d] listFirmwares default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *ListFirmwaresDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

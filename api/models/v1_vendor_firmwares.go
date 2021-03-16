@@ -6,6 +6,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -75,6 +76,38 @@ func (m *V1VendorFirmwares) validateVendor(formats strfmt.Registry) error {
 
 	if err := validate.Required("vendor", "body", m.Vendor); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validate this v1 vendor firmwares based on the context it is used
+func (m *V1VendorFirmwares) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateBoardFirmwares(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *V1VendorFirmwares) contextValidateBoardFirmwares(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.BoardFirmwares); i++ {
+
+		if m.BoardFirmwares[i] != nil {
+			if err := m.BoardFirmwares[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("board_firmwares" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
 	}
 
 	return nil

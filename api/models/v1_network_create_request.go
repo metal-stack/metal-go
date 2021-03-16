@@ -6,6 +6,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -26,7 +28,6 @@ type V1NetworkCreateRequest struct {
 
 	// the unique ID of this entity, auto-generated if left empty
 	// Required: true
-	// Unique: true
 	ID *string `json:"id"`
 
 	// free labels that you associate with this network.
@@ -155,6 +156,11 @@ func (m *V1NetworkCreateRequest) validateUnderlay(formats strfmt.Registry) error
 		return err
 	}
 
+	return nil
+}
+
+// ContextValidate validates this v1 network create request based on context it is used
+func (m *V1NetworkCreateRequest) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

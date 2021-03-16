@@ -6,6 +6,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -151,6 +153,34 @@ func (m *V1MachineIPMI) validateUser(formats strfmt.Registry) error {
 
 	if err := validate.Required("user", "body", m.User); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validate this v1 machine IP m i based on the context it is used
+func (m *V1MachineIPMI) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateFru(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *V1MachineIPMI) contextValidateFru(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Fru != nil {
+		if err := m.Fru.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("fru")
+			}
+			return err
+		}
 	}
 
 	return nil

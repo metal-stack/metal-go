@@ -47,7 +47,7 @@ func NewListMachinesOK() *ListMachinesOK {
 	return &ListMachinesOK{}
 }
 
-/*ListMachinesOK handles this case with default header values.
+/* ListMachinesOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -58,7 +58,6 @@ type ListMachinesOK struct {
 func (o *ListMachinesOK) Error() string {
 	return fmt.Sprintf("[GET /v1/machine][%d] listMachinesOK  %+v", 200, o.Payload)
 }
-
 func (o *ListMachinesOK) GetPayload() []*models.V1MachineResponse {
 	return o.Payload
 }
@@ -80,7 +79,7 @@ func NewListMachinesDefault(code int) *ListMachinesDefault {
 	}
 }
 
-/*ListMachinesDefault handles this case with default header values.
+/* ListMachinesDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -98,7 +97,6 @@ func (o *ListMachinesDefault) Code() int {
 func (o *ListMachinesDefault) Error() string {
 	return fmt.Sprintf("[GET /v1/machine][%d] listMachines default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *ListMachinesDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

@@ -53,7 +53,7 @@ func NewUpdateImageOK() *UpdateImageOK {
 	return &UpdateImageOK{}
 }
 
-/*UpdateImageOK handles this case with default header values.
+/* UpdateImageOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -64,7 +64,6 @@ type UpdateImageOK struct {
 func (o *UpdateImageOK) Error() string {
 	return fmt.Sprintf("[POST /v1/image][%d] updateImageOK  %+v", 200, o.Payload)
 }
-
 func (o *UpdateImageOK) GetPayload() *models.V1ImageResponse {
 	return o.Payload
 }
@@ -86,7 +85,7 @@ func NewUpdateImageConflict() *UpdateImageConflict {
 	return &UpdateImageConflict{}
 }
 
-/*UpdateImageConflict handles this case with default header values.
+/* UpdateImageConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -97,7 +96,6 @@ type UpdateImageConflict struct {
 func (o *UpdateImageConflict) Error() string {
 	return fmt.Sprintf("[POST /v1/image][%d] updateImageConflict  %+v", 409, o.Payload)
 }
-
 func (o *UpdateImageConflict) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }
@@ -121,7 +119,7 @@ func NewUpdateImageDefault(code int) *UpdateImageDefault {
 	}
 }
 
-/*UpdateImageDefault handles this case with default header values.
+/* UpdateImageDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -139,7 +137,6 @@ func (o *UpdateImageDefault) Code() int {
 func (o *UpdateImageDefault) Error() string {
 	return fmt.Sprintf("[POST /v1/image][%d] updateImage default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *UpdateImageDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

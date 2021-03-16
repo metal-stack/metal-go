@@ -18,56 +18,70 @@ import (
 	"github.com/metal-stack/metal-go/api/models"
 )
 
-// NewAllocateNetworkParams creates a new AllocateNetworkParams object
-// with the default values initialized.
+// NewAllocateNetworkParams creates a new AllocateNetworkParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewAllocateNetworkParams() *AllocateNetworkParams {
-	var ()
 	return &AllocateNetworkParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewAllocateNetworkParamsWithTimeout creates a new AllocateNetworkParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewAllocateNetworkParamsWithTimeout(timeout time.Duration) *AllocateNetworkParams {
-	var ()
 	return &AllocateNetworkParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewAllocateNetworkParamsWithContext creates a new AllocateNetworkParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewAllocateNetworkParamsWithContext(ctx context.Context) *AllocateNetworkParams {
-	var ()
 	return &AllocateNetworkParams{
-
 		Context: ctx,
 	}
 }
 
 // NewAllocateNetworkParamsWithHTTPClient creates a new AllocateNetworkParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewAllocateNetworkParamsWithHTTPClient(client *http.Client) *AllocateNetworkParams {
-	var ()
 	return &AllocateNetworkParams{
 		HTTPClient: client,
 	}
 }
 
-/*AllocateNetworkParams contains all the parameters to send to the API endpoint
-for the allocate network operation typically these are written to a http.Request
+/* AllocateNetworkParams contains all the parameters to send to the API endpoint
+   for the allocate network operation.
+
+   Typically these are written to a http.Request.
 */
 type AllocateNetworkParams struct {
 
-	/*Body*/
+	// Body.
 	Body *models.V1NetworkAllocateRequest
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the allocate network params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *AllocateNetworkParams) WithDefaults() *AllocateNetworkParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the allocate network params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *AllocateNetworkParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the allocate network params
@@ -121,7 +135,6 @@ func (o *AllocateNetworkParams) WriteToRequest(r runtime.ClientRequest, reg strf
 		return err
 	}
 	var res []error
-
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err

@@ -47,7 +47,7 @@ func NewDeleteNetworkOK() *DeleteNetworkOK {
 	return &DeleteNetworkOK{}
 }
 
-/*DeleteNetworkOK handles this case with default header values.
+/* DeleteNetworkOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -58,7 +58,6 @@ type DeleteNetworkOK struct {
 func (o *DeleteNetworkOK) Error() string {
 	return fmt.Sprintf("[DELETE /v1/network/{id}][%d] deleteNetworkOK  %+v", 200, o.Payload)
 }
-
 func (o *DeleteNetworkOK) GetPayload() *models.V1NetworkResponse {
 	return o.Payload
 }
@@ -82,7 +81,7 @@ func NewDeleteNetworkDefault(code int) *DeleteNetworkDefault {
 	}
 }
 
-/*DeleteNetworkDefault handles this case with default header values.
+/* DeleteNetworkDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -100,7 +99,6 @@ func (o *DeleteNetworkDefault) Code() int {
 func (o *DeleteNetworkDefault) Error() string {
 	return fmt.Sprintf("[DELETE /v1/network/{id}][%d] deleteNetwork default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *DeleteNetworkDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

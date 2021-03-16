@@ -6,6 +6,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"encoding/json"
 
 	"github.com/go-openapi/errors"
@@ -38,7 +39,6 @@ type V1IPResponse struct {
 
 	// the address (ipv4 or ipv6) of this ip
 	// Required: true
-	// Unique: true
 	Ipaddress *string `json:"ipaddress"`
 
 	// a readable name for this entity
@@ -109,7 +109,6 @@ func (m *V1IPResponse) validateAllocationuuid(formats strfmt.Registry) error {
 }
 
 func (m *V1IPResponse) validateChanged(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Changed) { // not required
 		return nil
 	}
@@ -122,7 +121,6 @@ func (m *V1IPResponse) validateChanged(formats strfmt.Registry) error {
 }
 
 func (m *V1IPResponse) validateCreated(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Created) { // not required
 		return nil
 	}
@@ -198,6 +196,42 @@ func (m *V1IPResponse) validateType(formats strfmt.Registry) error {
 
 	// value enum
 	if err := m.validateTypeEnum("type", "body", *m.Type); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validate this v1 IP response based on the context it is used
+func (m *V1IPResponse) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateChanged(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateCreated(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *V1IPResponse) contextValidateChanged(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := validate.ReadOnly(ctx, "changed", "body", strfmt.DateTime(m.Changed)); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *V1IPResponse) contextValidateCreated(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := validate.ReadOnly(ctx, "created", "body", strfmt.DateTime(m.Created)); err != nil {
 		return err
 	}
 

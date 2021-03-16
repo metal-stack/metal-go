@@ -46,7 +46,7 @@ func NewUploadFirmwareOK() *UploadFirmwareOK {
 	return &UploadFirmwareOK{}
 }
 
-/*UploadFirmwareOK handles this case with default header values.
+/* UploadFirmwareOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -69,7 +69,7 @@ func NewUploadFirmwareDefault(code int) *UploadFirmwareDefault {
 	}
 }
 
-/*UploadFirmwareDefault handles this case with default header values.
+/* UploadFirmwareDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -87,7 +87,6 @@ func (o *UploadFirmwareDefault) Code() int {
 func (o *UploadFirmwareDefault) Error() string {
 	return fmt.Sprintf("[PUT /v1/firmware/{kind}/{vendor}/{board}/{revision}][%d] uploadFirmware default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *UploadFirmwareDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

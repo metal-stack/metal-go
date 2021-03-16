@@ -23,21 +23,24 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
+// ClientOption is the option for Client methods
+type ClientOption func(*runtime.ClientOperation)
+
 // ClientService is the interface for Client methods
 type ClientService interface {
-	AllocateIP(params *AllocateIPParams, authInfo runtime.ClientAuthInfoWriter) (*AllocateIPCreated, error)
+	AllocateIP(params *AllocateIPParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*AllocateIPCreated, error)
 
-	AllocateSpecificIP(params *AllocateSpecificIPParams, authInfo runtime.ClientAuthInfoWriter) (*AllocateSpecificIPCreated, error)
+	AllocateSpecificIP(params *AllocateSpecificIPParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*AllocateSpecificIPCreated, error)
 
-	FindIP(params *FindIPParams, authInfo runtime.ClientAuthInfoWriter) (*FindIPOK, error)
+	FindIP(params *FindIPParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FindIPOK, error)
 
-	FindIPs(params *FindIPsParams, authInfo runtime.ClientAuthInfoWriter) (*FindIPsOK, error)
+	FindIPs(params *FindIPsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FindIPsOK, error)
 
-	FreeIP(params *FreeIPParams, authInfo runtime.ClientAuthInfoWriter) (*FreeIPOK, error)
+	FreeIP(params *FreeIPParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FreeIPOK, error)
 
-	ListIPs(params *ListIPsParams, authInfo runtime.ClientAuthInfoWriter) (*ListIPsOK, error)
+	ListIPs(params *ListIPsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListIPsOK, error)
 
-	UpdateIP(params *UpdateIPParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateIPOK, error)
+	UpdateIP(params *UpdateIPParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateIPOK, error)
 
 	SetTransport(transport runtime.ClientTransport)
 }
@@ -45,13 +48,12 @@ type ClientService interface {
 /*
   AllocateIP allocates an ip in the given network
 */
-func (a *Client) AllocateIP(params *AllocateIPParams, authInfo runtime.ClientAuthInfoWriter) (*AllocateIPCreated, error) {
+func (a *Client) AllocateIP(params *AllocateIPParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*AllocateIPCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewAllocateIPParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "allocateIP",
 		Method:             "POST",
 		PathPattern:        "/v1/ip/allocate",
@@ -63,7 +65,12 @@ func (a *Client) AllocateIP(params *AllocateIPParams, authInfo runtime.ClientAut
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -79,13 +86,12 @@ func (a *Client) AllocateIP(params *AllocateIPParams, authInfo runtime.ClientAut
 /*
   AllocateSpecificIP allocates a specific ip in the given network
 */
-func (a *Client) AllocateSpecificIP(params *AllocateSpecificIPParams, authInfo runtime.ClientAuthInfoWriter) (*AllocateSpecificIPCreated, error) {
+func (a *Client) AllocateSpecificIP(params *AllocateSpecificIPParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*AllocateSpecificIPCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewAllocateSpecificIPParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "allocateSpecificIP",
 		Method:             "POST",
 		PathPattern:        "/v1/ip/allocate/{ip}",
@@ -97,7 +103,12 @@ func (a *Client) AllocateSpecificIP(params *AllocateSpecificIPParams, authInfo r
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -113,13 +124,12 @@ func (a *Client) AllocateSpecificIP(params *AllocateSpecificIPParams, authInfo r
 /*
   FindIP gets ip by id
 */
-func (a *Client) FindIP(params *FindIPParams, authInfo runtime.ClientAuthInfoWriter) (*FindIPOK, error) {
+func (a *Client) FindIP(params *FindIPParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FindIPOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewFindIPParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "findIP",
 		Method:             "GET",
 		PathPattern:        "/v1/ip/{id}",
@@ -131,7 +141,12 @@ func (a *Client) FindIP(params *FindIPParams, authInfo runtime.ClientAuthInfoWri
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -147,13 +162,12 @@ func (a *Client) FindIP(params *FindIPParams, authInfo runtime.ClientAuthInfoWri
 /*
   FindIPs gets all ips that match given properties
 */
-func (a *Client) FindIPs(params *FindIPsParams, authInfo runtime.ClientAuthInfoWriter) (*FindIPsOK, error) {
+func (a *Client) FindIPs(params *FindIPsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FindIPsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewFindIPsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "findIPs",
 		Method:             "POST",
 		PathPattern:        "/v1/ip/find",
@@ -165,7 +179,12 @@ func (a *Client) FindIPs(params *FindIPsParams, authInfo runtime.ClientAuthInfoW
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -181,13 +200,12 @@ func (a *Client) FindIPs(params *FindIPsParams, authInfo runtime.ClientAuthInfoW
 /*
   FreeIP frees an ip
 */
-func (a *Client) FreeIP(params *FreeIPParams, authInfo runtime.ClientAuthInfoWriter) (*FreeIPOK, error) {
+func (a *Client) FreeIP(params *FreeIPParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FreeIPOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewFreeIPParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "freeIP",
 		Method:             "POST",
 		PathPattern:        "/v1/ip/free/{id}",
@@ -199,7 +217,12 @@ func (a *Client) FreeIP(params *FreeIPParams, authInfo runtime.ClientAuthInfoWri
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -215,13 +238,12 @@ func (a *Client) FreeIP(params *FreeIPParams, authInfo runtime.ClientAuthInfoWri
 /*
   ListIPs gets all ips
 */
-func (a *Client) ListIPs(params *ListIPsParams, authInfo runtime.ClientAuthInfoWriter) (*ListIPsOK, error) {
+func (a *Client) ListIPs(params *ListIPsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListIPsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewListIPsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "listIPs",
 		Method:             "GET",
 		PathPattern:        "/v1/ip",
@@ -233,7 +255,12 @@ func (a *Client) ListIPs(params *ListIPsParams, authInfo runtime.ClientAuthInfoW
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -249,13 +276,12 @@ func (a *Client) ListIPs(params *ListIPsParams, authInfo runtime.ClientAuthInfoW
 /*
   UpdateIP updates an ip if the ip was changed since this one was read a conflict is returned
 */
-func (a *Client) UpdateIP(params *UpdateIPParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateIPOK, error) {
+func (a *Client) UpdateIP(params *UpdateIPParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateIPOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewUpdateIPParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "updateIP",
 		Method:             "POST",
 		PathPattern:        "/v1/ip",
@@ -267,7 +293,12 @@ func (a *Client) UpdateIP(params *UpdateIPParams, authInfo runtime.ClientAuthInf
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}

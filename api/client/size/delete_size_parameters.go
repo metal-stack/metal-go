@@ -16,59 +16,73 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewDeleteSizeParams creates a new DeleteSizeParams object
-// with the default values initialized.
+// NewDeleteSizeParams creates a new DeleteSizeParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewDeleteSizeParams() *DeleteSizeParams {
-	var ()
 	return &DeleteSizeParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewDeleteSizeParamsWithTimeout creates a new DeleteSizeParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewDeleteSizeParamsWithTimeout(timeout time.Duration) *DeleteSizeParams {
-	var ()
 	return &DeleteSizeParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewDeleteSizeParamsWithContext creates a new DeleteSizeParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewDeleteSizeParamsWithContext(ctx context.Context) *DeleteSizeParams {
-	var ()
 	return &DeleteSizeParams{
-
 		Context: ctx,
 	}
 }
 
 // NewDeleteSizeParamsWithHTTPClient creates a new DeleteSizeParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewDeleteSizeParamsWithHTTPClient(client *http.Client) *DeleteSizeParams {
-	var ()
 	return &DeleteSizeParams{
 		HTTPClient: client,
 	}
 }
 
-/*DeleteSizeParams contains all the parameters to send to the API endpoint
-for the delete size operation typically these are written to a http.Request
+/* DeleteSizeParams contains all the parameters to send to the API endpoint
+   for the delete size operation.
+
+   Typically these are written to a http.Request.
 */
 type DeleteSizeParams struct {
 
-	/*ID
-	  identifier of the size
+	/* ID.
 
+	   identifier of the size
 	*/
 	ID string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the delete size params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *DeleteSizeParams) WithDefaults() *DeleteSizeParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the delete size params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *DeleteSizeParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the delete size params

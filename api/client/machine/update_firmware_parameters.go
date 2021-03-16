@@ -18,61 +18,76 @@ import (
 	"github.com/metal-stack/metal-go/api/models"
 )
 
-// NewUpdateFirmwareParams creates a new UpdateFirmwareParams object
-// with the default values initialized.
+// NewUpdateFirmwareParams creates a new UpdateFirmwareParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewUpdateFirmwareParams() *UpdateFirmwareParams {
-	var ()
 	return &UpdateFirmwareParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewUpdateFirmwareParamsWithTimeout creates a new UpdateFirmwareParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewUpdateFirmwareParamsWithTimeout(timeout time.Duration) *UpdateFirmwareParams {
-	var ()
 	return &UpdateFirmwareParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewUpdateFirmwareParamsWithContext creates a new UpdateFirmwareParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewUpdateFirmwareParamsWithContext(ctx context.Context) *UpdateFirmwareParams {
-	var ()
 	return &UpdateFirmwareParams{
-
 		Context: ctx,
 	}
 }
 
 // NewUpdateFirmwareParamsWithHTTPClient creates a new UpdateFirmwareParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewUpdateFirmwareParamsWithHTTPClient(client *http.Client) *UpdateFirmwareParams {
-	var ()
 	return &UpdateFirmwareParams{
 		HTTPClient: client,
 	}
 }
 
-/*UpdateFirmwareParams contains all the parameters to send to the API endpoint
-for the update firmware operation typically these are written to a http.Request
+/* UpdateFirmwareParams contains all the parameters to send to the API endpoint
+   for the update firmware operation.
+
+   Typically these are written to a http.Request.
 */
 type UpdateFirmwareParams struct {
 
-	/*Body*/
+	// Body.
 	Body *models.V1MachineUpdateFirmware
-	/*ID
-	  identifier of the machine
 
+	/* ID.
+
+	   identifier of the machine
 	*/
 	ID string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the update firmware params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *UpdateFirmwareParams) WithDefaults() *UpdateFirmwareParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the update firmware params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *UpdateFirmwareParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the update firmware params
@@ -137,7 +152,6 @@ func (o *UpdateFirmwareParams) WriteToRequest(r runtime.ClientRequest, reg strfm
 		return err
 	}
 	var res []error
-
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err

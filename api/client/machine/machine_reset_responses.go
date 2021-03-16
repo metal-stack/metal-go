@@ -47,7 +47,7 @@ func NewMachineResetOK() *MachineResetOK {
 	return &MachineResetOK{}
 }
 
-/*MachineResetOK handles this case with default header values.
+/* MachineResetOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -58,7 +58,6 @@ type MachineResetOK struct {
 func (o *MachineResetOK) Error() string {
 	return fmt.Sprintf("[POST /v1/machine/{id}/power/reset][%d] machineResetOK  %+v", 200, o.Payload)
 }
-
 func (o *MachineResetOK) GetPayload() *models.V1MachineResponse {
 	return o.Payload
 }
@@ -82,7 +81,7 @@ func NewMachineResetDefault(code int) *MachineResetDefault {
 	}
 }
 
-/*MachineResetDefault handles this case with default header values.
+/* MachineResetDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -100,7 +99,6 @@ func (o *MachineResetDefault) Code() int {
 func (o *MachineResetDefault) Error() string {
 	return fmt.Sprintf("[POST /v1/machine/{id}/power/reset][%d] machineReset default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *MachineResetDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

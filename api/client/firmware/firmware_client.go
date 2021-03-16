@@ -23,13 +23,16 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
+// ClientOption is the option for Client methods
+type ClientOption func(*runtime.ClientOperation)
+
 // ClientService is the interface for Client methods
 type ClientService interface {
-	ListFirmwares(params *ListFirmwaresParams, authInfo runtime.ClientAuthInfoWriter) (*ListFirmwaresOK, error)
+	ListFirmwares(params *ListFirmwaresParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListFirmwaresOK, error)
 
-	RemoveFirmware(params *RemoveFirmwareParams, authInfo runtime.ClientAuthInfoWriter) (*RemoveFirmwareOK, error)
+	RemoveFirmware(params *RemoveFirmwareParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*RemoveFirmwareOK, error)
 
-	UploadFirmware(params *UploadFirmwareParams, authInfo runtime.ClientAuthInfoWriter) (*UploadFirmwareOK, error)
+	UploadFirmware(params *UploadFirmwareParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UploadFirmwareOK, error)
 
 	SetTransport(transport runtime.ClientTransport)
 }
@@ -37,13 +40,12 @@ type ClientService interface {
 /*
   ListFirmwares returns all firmwares for a specific machine
 */
-func (a *Client) ListFirmwares(params *ListFirmwaresParams, authInfo runtime.ClientAuthInfoWriter) (*ListFirmwaresOK, error) {
+func (a *Client) ListFirmwares(params *ListFirmwaresParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListFirmwaresOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewListFirmwaresParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "listFirmwares",
 		Method:             "GET",
 		PathPattern:        "/v1/firmware",
@@ -55,7 +57,12 @@ func (a *Client) ListFirmwares(params *ListFirmwaresParams, authInfo runtime.Cli
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -71,13 +78,12 @@ func (a *Client) ListFirmwares(params *ListFirmwaresParams, authInfo runtime.Cli
 /*
   RemoveFirmware removes given firmware
 */
-func (a *Client) RemoveFirmware(params *RemoveFirmwareParams, authInfo runtime.ClientAuthInfoWriter) (*RemoveFirmwareOK, error) {
+func (a *Client) RemoveFirmware(params *RemoveFirmwareParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*RemoveFirmwareOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewRemoveFirmwareParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "removeFirmware",
 		Method:             "DELETE",
 		PathPattern:        "/v1/firmware/{kind}/{vendor}/{board}/{revision}",
@@ -89,7 +95,12 @@ func (a *Client) RemoveFirmware(params *RemoveFirmwareParams, authInfo runtime.C
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -105,13 +116,12 @@ func (a *Client) RemoveFirmware(params *RemoveFirmwareParams, authInfo runtime.C
 /*
   UploadFirmware uploads given firmware
 */
-func (a *Client) UploadFirmware(params *UploadFirmwareParams, authInfo runtime.ClientAuthInfoWriter) (*UploadFirmwareOK, error) {
+func (a *Client) UploadFirmware(params *UploadFirmwareParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UploadFirmwareOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewUploadFirmwareParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "uploadFirmware",
 		Method:             "PUT",
 		PathPattern:        "/v1/firmware/{kind}/{vendor}/{board}/{revision}",
@@ -123,7 +133,12 @@ func (a *Client) UploadFirmware(params *UploadFirmwareParams, authInfo runtime.C
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}

@@ -16,79 +16,97 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewUploadFirmwareParams creates a new UploadFirmwareParams object
-// with the default values initialized.
+// NewUploadFirmwareParams creates a new UploadFirmwareParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewUploadFirmwareParams() *UploadFirmwareParams {
-	var ()
 	return &UploadFirmwareParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewUploadFirmwareParamsWithTimeout creates a new UploadFirmwareParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewUploadFirmwareParamsWithTimeout(timeout time.Duration) *UploadFirmwareParams {
-	var ()
 	return &UploadFirmwareParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewUploadFirmwareParamsWithContext creates a new UploadFirmwareParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewUploadFirmwareParamsWithContext(ctx context.Context) *UploadFirmwareParams {
-	var ()
 	return &UploadFirmwareParams{
-
 		Context: ctx,
 	}
 }
 
 // NewUploadFirmwareParamsWithHTTPClient creates a new UploadFirmwareParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewUploadFirmwareParamsWithHTTPClient(client *http.Client) *UploadFirmwareParams {
-	var ()
 	return &UploadFirmwareParams{
 		HTTPClient: client,
 	}
 }
 
-/*UploadFirmwareParams contains all the parameters to send to the API endpoint
-for the upload firmware operation typically these are written to a http.Request
+/* UploadFirmwareParams contains all the parameters to send to the API endpoint
+   for the upload firmware operation.
+
+   Typically these are written to a http.Request.
 */
 type UploadFirmwareParams struct {
 
-	/*Board
-	  the board
+	/* Board.
 
+	   the board
 	*/
 	Board string
-	/*File
-	  the firmware file
 
+	/* File.
+
+	   the firmware file
 	*/
 	File runtime.NamedReadCloser
-	/*Kind
-	  the firmware kind [bios|bmc]
 
+	/* Kind.
+
+	   the firmware kind [bios|bmc]
 	*/
 	Kind string
-	/*Revision
-	  the firmware revision
 
+	/* Revision.
+
+	   the firmware revision
 	*/
 	Revision string
-	/*Vendor
-	  the vendor
 
+	/* Vendor.
+
+	   the vendor
 	*/
 	Vendor string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the upload firmware params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *UploadFirmwareParams) WithDefaults() *UploadFirmwareParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the upload firmware params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *UploadFirmwareParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the upload firmware params
@@ -195,14 +213,11 @@ func (o *UploadFirmwareParams) WriteToRequest(r runtime.ClientRequest, reg strfm
 	if o.File != nil {
 
 		if o.File != nil {
-
 			// form file param file
 			if err := r.SetFileParam("file", o.File); err != nil {
 				return err
 			}
-
 		}
-
 	}
 
 	// path param kind

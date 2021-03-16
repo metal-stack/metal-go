@@ -47,7 +47,7 @@ func NewUpdateFirmwareOK() *UpdateFirmwareOK {
 	return &UpdateFirmwareOK{}
 }
 
-/*UpdateFirmwareOK handles this case with default header values.
+/* UpdateFirmwareOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -58,7 +58,6 @@ type UpdateFirmwareOK struct {
 func (o *UpdateFirmwareOK) Error() string {
 	return fmt.Sprintf("[POST /v1/machine/update-firmware/{id}][%d] updateFirmwareOK  %+v", 200, o.Payload)
 }
-
 func (o *UpdateFirmwareOK) GetPayload() *models.V1MachineResponse {
 	return o.Payload
 }
@@ -82,7 +81,7 @@ func NewUpdateFirmwareDefault(code int) *UpdateFirmwareDefault {
 	}
 }
 
-/*UpdateFirmwareDefault handles this case with default header values.
+/* UpdateFirmwareDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -100,7 +99,6 @@ func (o *UpdateFirmwareDefault) Code() int {
 func (o *UpdateFirmwareDefault) Error() string {
 	return fmt.Sprintf("[POST /v1/machine/update-firmware/{id}][%d] updateFirmware default  %+v", o._statusCode, o.Payload)
 }
-
 func (o *UpdateFirmwareDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }
