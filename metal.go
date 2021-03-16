@@ -2,6 +2,7 @@ package metalgo
 
 import (
 	"fmt"
+	"github.com/metal-stack/metal-go/api/client/firmware"
 	"net/url"
 	"time"
 
@@ -29,6 +30,7 @@ const (
 type Driver struct {
 	client       *client.MetalAPI
 	image        image.ClientService
+	firmware     firmware.ClientService
 	machine      machine.ClientService
 	firewall     firewall.ClientService
 	partition    partition.ClientService
@@ -63,19 +65,20 @@ func NewDriver(baseURL, bearer, hmacKey string, options ...option) (*Driver, err
 	}
 
 	transport := httptransport.New(parsedURL.Host, parsedURL.Path, []string{parsedURL.Scheme})
-	client := client.New(transport, strfmt.Default)
+	c := client.New(transport, strfmt.Default)
 
 	driver := &Driver{
-		client:       client,
-		machine:      client.Machine,
-		firewall:     client.Firewall,
-		size:         client.Size,
-		image:        client.Image,
-		project:      client.Project,
-		partition:    client.Partition,
-		sw:           client.SwitchOperations,
-		network:      client.Network,
-		ip:           client.IP,
+		client:       c,
+		firmware:     c.Firmware,
+		machine:      c.Machine,
+		firewall:     c.Firewall,
+		size:         c.Size,
+		image:        c.Image,
+		project:      c.Project,
+		partition:    c.Partition,
+		sw:           c.SwitchOperations,
+		network:      c.Network,
+		ip:           c.IP,
 		bearer:       bearer,
 		hmacAuthType: defaultHMACAuthType,
 	}

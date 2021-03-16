@@ -2,6 +2,7 @@ package metalgo
 
 import (
 	"github.com/go-openapi/runtime"
+	"github.com/metal-stack/metal-go/api/client/firmware"
 	"github.com/metal-stack/metal-go/api/client/machine"
 	"github.com/metal-stack/metal-go/api/models"
 	"os"
@@ -12,6 +13,41 @@ import (
 type AvailableFirmwaresResponse struct {
 	Kind      FirmwareKind
 	Firmwares *models.V1AvailableFirmwares
+}
+
+func (f *AvailableFirmwaresResponse) FilterVendor(vendor string) map[string][]string {
+	if f.Firmwares == nil {
+		return nil
+	}
+
+	m, ok := f.Firmwares.Revisions[vendor]
+	if !ok {
+		return nil
+	}
+	return m
+}
+
+func (f *AvailableFirmwaresResponse) FilterBoard(vendor, board string) []string {
+	m := f.FilterVendor(vendor)
+	if m == nil {
+		return nil
+	}
+
+	rr, ok := m[board]
+	if !ok {
+		return nil
+	}
+	return rr
+}
+
+func (f *AvailableFirmwaresResponse) ContainsRevision(vendor, board, revision string) bool {
+	rr := f.FilterBoard(vendor, board)
+	for _, r := range rr {
+		if r == revision {
+			return true
+		}
+	}
+	return false
 }
 
 // MachineUpdateFirmwareResponse contains the firmware update result
@@ -27,8 +63,8 @@ type MachineFirmwareResponse struct {
 }
 
 // UploadFirmware uploads the given firmware for the given vendor and board, which is tagged as specified revision
-func (d *Driver) UploadFirmware(kind FirmwareKind, vendor, board, revision, updateFile string) (*machine.UploadFirmwareOK, error) {
-	uploadFirmware := machine.NewUploadFirmwareParams().WithTimeout(5 * time.Minute)
+func (d *Driver) UploadFirmware(kind FirmwareKind, vendor, board, revision, updateFile string) (*firmware.UploadFirmwareOK, error) {
+	uploadFirmware := firmware.NewUploadFirmwareParams().WithTimeout(5 * time.Minute)
 	uploadFirmware.Kind = string(kind)
 	uploadFirmware.Vendor = vendor
 	uploadFirmware.Board = board
@@ -39,18 +75,18 @@ func (d *Driver) UploadFirmware(kind FirmwareKind, vendor, board, revision, upda
 	}
 	uploadFirmware.File = runtime.NamedReader(revision, reader)
 
-	return d.machine.UploadFirmware(uploadFirmware, nil)
+	return d.firmware.UploadFirmware(uploadFirmware, nil)
 }
 
 // RemoveFirmware removes the given firmware revision of the given vendor and board
-func (d *Driver) RemoveFirmware(kind FirmwareKind, vendor, board, revision string) (*machine.RemoveFirmwareOK, error) {
-	removeFirmware := machine.NewRemoveFirmwareParams().WithTimeout(5 * time.Minute)
+func (d *Driver) RemoveFirmware(kind FirmwareKind, vendor, board, revision string) (*firmware.RemoveFirmwareOK, error) {
+	removeFirmware := firmware.NewRemoveFirmwareParams().WithTimeout(5 * time.Minute)
 	removeFirmware.Kind = string(kind)
 	removeFirmware.Vendor = vendor
 	removeFirmware.Board = board
 	removeFirmware.Revision = revision
 
-	return d.machine.RemoveFirmware(removeFirmware, nil)
+	return d.firmware.RemoveFirmware(removeFirmware, nil)
 }
 
 // AvailableFirmwares returns all available firmwares of given kind that matches given vendor and board (if not empty).
@@ -64,7 +100,7 @@ func (d *Driver) MachineAvailableFirmwares(kind FirmwareKind, machineID string) 
 }
 
 func (d *Driver) availableFirmwares(kind FirmwareKind, vendor, board string, machineID *string) (*AvailableFirmwaresResponse, error) {
-	availableFirmwares := machine.NewAvailableFirmwaresParams()
+	availableFirmwares := firmware.NewAvailableFirmwaresParams()
 	k := string(kind)
 	availableFirmwares.Kind = &k
 	availableFirmwares.Vendor = vendor
@@ -74,11 +110,13 @@ func (d *Driver) availableFirmwares(kind FirmwareKind, vendor, board string, mac
 	response := &AvailableFirmwaresResponse{
 		Kind: kind,
 	}
-	resp, err := d.machine.AvailableFirmwares(availableFirmwares, nil)
+	resp, err := d.firmware.AvailableFirmwares(availableFirmwares, nil)
 	if err != nil {
 		return response, err
 	}
-	response.Firmwares = resp.Payload
+	response.Firmwares = &models.V1AvailableFirmwares{
+		Revisions: resp.Payload.Revisions,
+	}
 	return response, nil
 }
 

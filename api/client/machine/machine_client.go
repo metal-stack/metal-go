@@ -31,8 +31,6 @@ type ClientService interface {
 
 	AllocateMachine(params *AllocateMachineParams, authInfo runtime.ClientAuthInfoWriter) (*AllocateMachineOK, error)
 
-	AvailableFirmwares(params *AvailableFirmwaresParams, authInfo runtime.ClientAuthInfoWriter) (*AvailableFirmwaresOK, error)
-
 	ChassisIdentifyLEDOff(params *ChassisIdentifyLEDOffParams, authInfo runtime.ClientAuthInfoWriter) (*ChassisIdentifyLEDOffOK, error)
 
 	ChassisIdentifyLEDOn(params *ChassisIdentifyLEDOnParams, authInfo runtime.ClientAuthInfoWriter) (*ChassisIdentifyLEDOnOK, error)
@@ -73,15 +71,11 @@ type ClientService interface {
 
 	ReinstallMachine(params *ReinstallMachineParams, authInfo runtime.ClientAuthInfoWriter) (*ReinstallMachineOK, error)
 
-	RemoveFirmware(params *RemoveFirmwareParams, authInfo runtime.ClientAuthInfoWriter) (*RemoveFirmwareOK, error)
-
 	SetChassisIdentifyLEDState(params *SetChassisIdentifyLEDStateParams, authInfo runtime.ClientAuthInfoWriter) (*SetChassisIdentifyLEDStateOK, error)
 
 	SetMachineState(params *SetMachineStateParams, authInfo runtime.ClientAuthInfoWriter) (*SetMachineStateOK, error)
 
 	UpdateFirmware(params *UpdateFirmwareParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateFirmwareOK, error)
-
-	UploadFirmware(params *UploadFirmwareParams, authInfo runtime.ClientAuthInfoWriter) (*UploadFirmwareOK, error)
 
 	SetTransport(transport runtime.ClientTransport)
 }
@@ -185,40 +179,6 @@ func (a *Client) AllocateMachine(params *AllocateMachineParams, authInfo runtime
 	}
 	// unexpected success response
 	unexpectedSuccess := result.(*AllocateMachineDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
-}
-
-/*
-  AvailableFirmwares returns all available firmwares as well as all available firmwares for a specific machine
-*/
-func (a *Client) AvailableFirmwares(params *AvailableFirmwaresParams, authInfo runtime.ClientAuthInfoWriter) (*AvailableFirmwaresOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewAvailableFirmwaresParams()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "availableFirmwares",
-		Method:             "GET",
-		PathPattern:        "/v1/machine/available-firmwares",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
-		Params:             params,
-		Reader:             &AvailableFirmwaresReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*AvailableFirmwaresOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	unexpectedSuccess := result.(*AvailableFirmwaresDefault)
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
@@ -905,40 +865,6 @@ func (a *Client) ReinstallMachine(params *ReinstallMachineParams, authInfo runti
 }
 
 /*
-  RemoveFirmware removes given firmware
-*/
-func (a *Client) RemoveFirmware(params *RemoveFirmwareParams, authInfo runtime.ClientAuthInfoWriter) (*RemoveFirmwareOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewRemoveFirmwareParams()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "removeFirmware",
-		Method:             "DELETE",
-		PathPattern:        "/v1/machine/remove-firmware/{kind}/{vendor}/{board}/{revision}",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
-		Params:             params,
-		Reader:             &RemoveFirmwareReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*RemoveFirmwareOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	unexpectedSuccess := result.(*RemoveFirmwareDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
-}
-
-/*
   SetChassisIdentifyLEDState sets the state of a chassis identify l e d
 */
 func (a *Client) SetChassisIdentifyLEDState(params *SetChassisIdentifyLEDStateParams, authInfo runtime.ClientAuthInfoWriter) (*SetChassisIdentifyLEDStateOK, error) {
@@ -1037,40 +963,6 @@ func (a *Client) UpdateFirmware(params *UpdateFirmwareParams, authInfo runtime.C
 	}
 	// unexpected success response
 	unexpectedSuccess := result.(*UpdateFirmwareDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
-}
-
-/*
-  UploadFirmware uploads given firmware
-*/
-func (a *Client) UploadFirmware(params *UploadFirmwareParams, authInfo runtime.ClientAuthInfoWriter) (*UploadFirmwareOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewUploadFirmwareParams()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "uploadFirmware",
-		Method:             "PUT",
-		PathPattern:        "/v1/machine/upload-firmware/{kind}/{vendor}/{board}/{revision}",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"multipart/form-data"},
-		Schemes:            []string{"http"},
-		Params:             params,
-		Reader:             &UploadFirmwareReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*UploadFirmwareOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	unexpectedSuccess := result.(*UploadFirmwareDefault)
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
