@@ -905,7 +905,7 @@ func (a *Client) ReinstallMachine(params *ReinstallMachineParams, authInfo runti
 }
 
 /*
-  RemoveFirmware removes given firmware update
+  RemoveFirmware removes given firmware
 */
 func (a *Client) RemoveFirmware(params *RemoveFirmwareParams, authInfo runtime.ClientAuthInfoWriter) (*RemoveFirmwareOK, error) {
 	// TODO: Validate the params before sending
@@ -1041,7 +1041,7 @@ func (a *Client) UpdateFirmware(params *UpdateFirmwareParams, authInfo runtime.C
 }
 
 /*
-  UploadFirmware uploads given firmware update
+  UploadFirmware uploads given firmware
 */
 func (a *Client) UploadFirmware(params *UploadFirmwareParams, authInfo runtime.ClientAuthInfoWriter) (*UploadFirmwareOK, error) {
 	// TODO: Validate the params before sending

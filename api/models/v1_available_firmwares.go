@@ -17,7 +17,7 @@ import (
 // swagger:model v1.AvailableFirmwares
 type V1AvailableFirmwares struct {
 
-	// list of all available firmware updates
+	// list of all available firmwares
 	// Required: true
 	Revisions map[string]V1AvailableFirmwaresRevisions `json:"revisions"`
 }

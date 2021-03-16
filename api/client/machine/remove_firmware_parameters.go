@@ -75,7 +75,7 @@ type RemoveFirmwareParams struct {
 	*/
 	Kind string
 	/*Revision
-	  the firmware update revision
+	  the firmware revision
 
 	*/
 	Revision string

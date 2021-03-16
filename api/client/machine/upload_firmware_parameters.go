@@ -66,7 +66,7 @@ type UploadFirmwareParams struct {
 	*/
 	Board string
 	/*File
-	  the firmware update file
+	  the firmware file
 
 	*/
 	File runtime.NamedReadCloser
@@ -76,7 +76,7 @@ type UploadFirmwareParams struct {
 	*/
 	Kind string
 	/*Revision
-	  the firmware update revision
+	  the firmware revision
 
 	*/
 	Revision string
