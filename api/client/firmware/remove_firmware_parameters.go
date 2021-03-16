@@ -70,7 +70,7 @@ type RemoveFirmwareParams struct {
 	/*Body*/
 	Body models.V1EmptyBody
 	/*Kind
-	  the kind, i.e. 'bios' or 'bmc'
+	  the firmware kind [bios|bmc]
 
 	*/
 	Kind string

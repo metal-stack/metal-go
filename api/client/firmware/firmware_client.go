@@ -25,7 +25,7 @@ type Client struct {
 
 // ClientService is the interface for Client methods
 type ClientService interface {
-	AvailableFirmwares(params *AvailableFirmwaresParams, authInfo runtime.ClientAuthInfoWriter) (*AvailableFirmwaresOK, error)
+	ListFirmwares(params *ListFirmwaresParams, authInfo runtime.ClientAuthInfoWriter) (*ListFirmwaresOK, error)
 
 	RemoveFirmware(params *RemoveFirmwareParams, authInfo runtime.ClientAuthInfoWriter) (*RemoveFirmwareOK, error)
 
@@ -35,23 +35,23 @@ type ClientService interface {
 }
 
 /*
-  AvailableFirmwares returns all available firmwares as well as all available firmwares for a specific machine
+  ListFirmwares returns all firmwares for a specific machine
 */
-func (a *Client) AvailableFirmwares(params *AvailableFirmwaresParams, authInfo runtime.ClientAuthInfoWriter) (*AvailableFirmwaresOK, error) {
+func (a *Client) ListFirmwares(params *ListFirmwaresParams, authInfo runtime.ClientAuthInfoWriter) (*ListFirmwaresOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewAvailableFirmwaresParams()
+		params = NewListFirmwaresParams()
 	}
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "availableFirmwares",
+		ID:                 "listFirmwares",
 		Method:             "GET",
 		PathPattern:        "/v1/firmware",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http"},
 		Params:             params,
-		Reader:             &AvailableFirmwaresReader{formats: a.formats},
+		Reader:             &ListFirmwaresReader{formats: a.formats},
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
@@ -59,12 +59,12 @@ func (a *Client) AvailableFirmwares(params *AvailableFirmwaresParams, authInfo r
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*AvailableFirmwaresOK)
+	success, ok := result.(*ListFirmwaresOK)
 	if ok {
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*AvailableFirmwaresDefault)
+	unexpectedSuccess := result.(*ListFirmwaresDefault)
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 

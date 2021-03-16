@@ -71,7 +71,7 @@ type UploadFirmwareParams struct {
 	*/
 	File runtime.NamedReadCloser
 	/*Kind
-	  the kind, i.e. 'bios' or 'bmc'
+	  the firmware kind [bios|bmc]
 
 	*/
 	Kind string

@@ -10,13 +10,13 @@ import (
 	"time"
 )
 
-// AvailableFirmwaresResponse contains available firmwares matching the requested parameters
-type AvailableFirmwaresResponse struct {
+// FirmwaresResponse contains all firmwares matching the requested parameters
+type FirmwaresResponse struct {
+	Firmwares *models.V1FirmwaresList
 	Kind      FirmwareKind
-	Firmwares *models.V1AvailableFirmwares
 }
 
-func (f *AvailableFirmwaresResponse) FilterVendor(vendor string) map[string][]string {
+func (f *FirmwaresResponse) FilterVendor(vendor string) map[string][]string {
 	if f.Firmwares == nil {
 		return nil
 	}
@@ -29,7 +29,7 @@ func (f *AvailableFirmwaresResponse) FilterVendor(vendor string) map[string][]st
 	return m
 }
 
-func (f *AvailableFirmwaresResponse) FilterBoard(vendor, board string) []string {
+func (f *FirmwaresResponse) FilterBoard(vendor, board string) []string {
 	m := f.FilterVendor(vendor)
 	if m == nil {
 		return nil
@@ -43,7 +43,7 @@ func (f *AvailableFirmwaresResponse) FilterBoard(vendor, board string) []string 
 	return rr
 }
 
-func (f *AvailableFirmwaresResponse) ContainsRevision(vendor, board, revision string) bool {
+func (f *FirmwaresResponse) ContainsRevision(vendor, board, revision string) bool {
 	rr := f.FilterBoard(vendor, board)
 	for _, r := range rr {
 		if r == revision {
@@ -92,32 +92,32 @@ func (d *Driver) RemoveFirmware(kind FirmwareKind, vendor, board, revision strin
 	return d.firmware.RemoveFirmware(removeFirmware, nil)
 }
 
-// AvailableFirmwares returns all available firmwares of given kind that matches given vendor and board (if not empty).
-func (d *Driver) AvailableFirmwares(kind FirmwareKind, vendor, board string) (*AvailableFirmwaresResponse, error) {
-	return d.availableFirmwares(kind, vendor, board, nil)
+// ListFirmwares returns all firmwares of given kind that matches given vendor and board (if not empty).
+func (d *Driver) ListFirmwares(kind FirmwareKind, vendor, board string) (*FirmwaresResponse, error) {
+	return d.listFirmwares(kind, vendor, board, nil)
 }
 
-// MachineAvailableFirmwares returns all available firmwares of given kind for given machine
-func (d *Driver) MachineAvailableFirmwares(kind FirmwareKind, machineID string) (*AvailableFirmwaresResponse, error) {
-	return d.availableFirmwares(kind, "", "", &machineID)
+// MachineListFirmwares returns all firmwares of given kind for given machine
+func (d *Driver) MachineListFirmwares(kind FirmwareKind, machineID string) (*FirmwaresResponse, error) {
+	return d.listFirmwares(kind, "", "", &machineID)
 }
 
-func (d *Driver) availableFirmwares(kind FirmwareKind, vendor, board string, machineID *string) (*AvailableFirmwaresResponse, error) {
-	availableFirmwares := firmware.NewAvailableFirmwaresParams()
+func (d *Driver) listFirmwares(kind FirmwareKind, vendor, board string, machineID *string) (*FirmwaresResponse, error) {
+	availableFirmwares := firmware.NewListFirmwaresParams()
 	k := string(kind)
 	availableFirmwares.Kind = &k
-	availableFirmwares.Vendor = vendor
-	availableFirmwares.Board = board
+	availableFirmwares.Vendor = &vendor
+	availableFirmwares.Board = &board
 	availableFirmwares.ID = machineID
 
-	response := &AvailableFirmwaresResponse{
+	response := &FirmwaresResponse{
 		Kind: kind,
 	}
-	resp, err := d.firmware.AvailableFirmwares(availableFirmwares, nil)
+	resp, err := d.firmware.ListFirmwares(availableFirmwares, nil)
 	if err != nil {
 		return response, err
 	}
-	response.Firmwares = &models.V1AvailableFirmwares{
+	response.Firmwares = &models.V1FirmwaresList{
 		Revisions: resp.Payload.Revisions,
 	}
 	return response, nil
