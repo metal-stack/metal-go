@@ -2,6 +2,7 @@ package metalgo
 
 import (
 	"fmt"
+	"github.com/metal-stack/metal-go/api/client/tenant"
 	"net/url"
 	"time"
 
@@ -33,6 +34,7 @@ type Driver struct {
 	firewall     firewall.ClientService
 	partition    partition.ClientService
 	project      project.ClientService
+	tenant       tenant.ClientService
 	size         size.ClientService
 	sw           sw.ClientService
 	network      network.ClientService
@@ -72,6 +74,7 @@ func NewDriver(baseURL, bearer, hmacKey string, options ...option) (*Driver, err
 		size:         client.Size,
 		image:        client.Image,
 		project:      client.Project,
+		tenant:       client.Tenant,
 		partition:    client.Partition,
 		sw:           client.SwitchOperations,
 		network:      client.Network,
