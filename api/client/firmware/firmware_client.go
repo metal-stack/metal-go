@@ -46,7 +46,7 @@ func (a *Client) AvailableFirmwares(params *AvailableFirmwaresParams, authInfo r
 	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "availableFirmwares",
 		Method:             "GET",
-		PathPattern:        "/v1/firmware/available-firmwares",
+		PathPattern:        "/v1/firmware",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http"},
@@ -80,7 +80,7 @@ func (a *Client) RemoveFirmware(params *RemoveFirmwareParams, authInfo runtime.C
 	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "removeFirmware",
 		Method:             "DELETE",
-		PathPattern:        "/v1/firmware/remove-firmware/{kind}/{vendor}/{board}/{revision}",
+		PathPattern:        "/v1/firmware/{kind}/{vendor}/{board}/{revision}",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http"},
@@ -114,7 +114,7 @@ func (a *Client) UploadFirmware(params *UploadFirmwareParams, authInfo runtime.C
 	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "uploadFirmware",
 		Method:             "PUT",
-		PathPattern:        "/v1/firmware/upload-firmware/{kind}/{vendor}/{board}/{revision}",
+		PathPattern:        "/v1/firmware/{kind}/{vendor}/{board}/{revision}",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"multipart/form-data"},
 		Schemes:            []string{"http"},

@@ -54,7 +54,7 @@ type RemoveFirmwareOK struct {
 }
 
 func (o *RemoveFirmwareOK) Error() string {
-	return fmt.Sprintf("[DELETE /v1/firmware/remove-firmware/{kind}/{vendor}/{board}/{revision}][%d] removeFirmwareOK ", 200)
+	return fmt.Sprintf("[DELETE /v1/firmware/{kind}/{vendor}/{board}/{revision}][%d] removeFirmwareOK ", 200)
 }
 
 func (o *RemoveFirmwareOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -85,7 +85,7 @@ func (o *RemoveFirmwareDefault) Code() int {
 }
 
 func (o *RemoveFirmwareDefault) Error() string {
-	return fmt.Sprintf("[DELETE /v1/firmware/remove-firmware/{kind}/{vendor}/{board}/{revision}][%d] removeFirmware default  %+v", o._statusCode, o.Payload)
+	return fmt.Sprintf("[DELETE /v1/firmware/{kind}/{vendor}/{board}/{revision}][%d] removeFirmware default  %+v", o._statusCode, o.Payload)
 }
 
 func (o *RemoveFirmwareDefault) GetPayload() *httperrors.HTTPErrorResponse {

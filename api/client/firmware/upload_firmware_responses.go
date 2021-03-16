@@ -54,7 +54,7 @@ type UploadFirmwareOK struct {
 }
 
 func (o *UploadFirmwareOK) Error() string {
-	return fmt.Sprintf("[PUT /v1/firmware/upload-firmware/{kind}/{vendor}/{board}/{revision}][%d] uploadFirmwareOK ", 200)
+	return fmt.Sprintf("[PUT /v1/firmware/{kind}/{vendor}/{board}/{revision}][%d] uploadFirmwareOK ", 200)
 }
 
 func (o *UploadFirmwareOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -85,7 +85,7 @@ func (o *UploadFirmwareDefault) Code() int {
 }
 
 func (o *UploadFirmwareDefault) Error() string {
-	return fmt.Sprintf("[PUT /v1/firmware/upload-firmware/{kind}/{vendor}/{board}/{revision}][%d] uploadFirmware default  %+v", o._statusCode, o.Payload)
+	return fmt.Sprintf("[PUT /v1/firmware/{kind}/{vendor}/{board}/{revision}][%d] uploadFirmware default  %+v", o._statusCode, o.Payload)
 }
 
 func (o *UploadFirmwareDefault) GetPayload() *httperrors.HTTPErrorResponse {

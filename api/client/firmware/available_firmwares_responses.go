@@ -56,7 +56,7 @@ type AvailableFirmwaresOK struct {
 }
 
 func (o *AvailableFirmwaresOK) Error() string {
-	return fmt.Sprintf("[GET /v1/firmware/available-firmwares][%d] availableFirmwaresOK  %+v", 200, o.Payload)
+	return fmt.Sprintf("[GET /v1/firmware][%d] availableFirmwaresOK  %+v", 200, o.Payload)
 }
 
 func (o *AvailableFirmwaresOK) GetPayload() *models.V1AvailableFirmwares {
@@ -98,7 +98,7 @@ func (o *AvailableFirmwaresDefault) Code() int {
 }
 
 func (o *AvailableFirmwaresDefault) Error() string {
-	return fmt.Sprintf("[GET /v1/firmware/available-firmwares][%d] availableFirmwares default  %+v", o._statusCode, o.Payload)
+	return fmt.Sprintf("[GET /v1/firmware][%d] availableFirmwares default  %+v", o._statusCode, o.Payload)
 }
 
 func (o *AvailableFirmwaresDefault) GetPayload() *httperrors.HTTPErrorResponse {
