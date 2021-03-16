@@ -160,24 +160,6 @@ const (
 	Bmc  FirmwareKind = "bmc"
 )
 
-// MachineAvailableFirmwaresResponse contains all available firmwares
-type MachineAvailableFirmwaresResponse struct {
-	Kind    FirmwareKind
-	Updates *models.V1AvailableFirmwares
-}
-
-// MachineUpdateFirmwareResponse contains the firmware update result
-type MachineUpdateFirmwareResponse struct {
-	Kind    FirmwareKind
-	Machine *models.V1MachineResponse
-}
-
-// MachineFirmwareResponse contains the machine firmware result
-type MachineFirmwareResponse struct {
-	Kind    FirmwareKind
-	Machine *models.V1MachineResponse
-}
-
 // MachineDiskResponse contains the machine Disk result
 type MachineDiskResponse struct {
 	Machine *models.V1MachineResponse
@@ -473,46 +455,6 @@ func (d *Driver) MachinePowerReset(machineID string) (*MachinePowerResponse, err
 
 	response := &MachinePowerResponse{}
 	resp, err := d.machine.MachineReset(machineReset, nil)
-	if err != nil {
-		return response, err
-	}
-	response.Machine = resp.Payload
-	return response, nil
-}
-
-// MachineAvailableFirmwares returns all available firmwares of given kind for given machine
-func (d *Driver) MachineAvailableFirmwares(kind FirmwareKind, machineID string) (*MachineAvailableFirmwaresResponse, error) {
-	availableFirmwares := machine.NewAvailableFirmwaresParams()
-	k := string(kind)
-	availableFirmwares.Kind = &k
-	availableFirmwares.ID = &machineID
-
-	response := &MachineAvailableFirmwaresResponse{
-		Kind: kind,
-	}
-	resp, err := d.machine.AvailableFirmwares(availableFirmwares, nil)
-	if err != nil {
-		return response, err
-	}
-	response.Updates = resp.Payload
-	return response, nil
-}
-
-// MachineUpdateFirmware updates given firmware of given machine
-func (d *Driver) MachineUpdateFirmware(kind FirmwareKind, machineID, revision, description string) (*MachineUpdateFirmwareResponse, error) {
-	updateFirmware := machine.NewUpdateFirmwareParams()
-	updateFirmware.ID = machineID
-	k := string(kind)
-	updateFirmware.Body = &models.V1MachineUpdateFirmware{
-		Kind:        &k,
-		Revision:    &revision,
-		Description: &description,
-	}
-
-	response := &MachineUpdateFirmwareResponse{
-		Kind: kind,
-	}
-	resp, err := d.machine.UpdateFirmware(updateFirmware, nil)
 	if err != nil {
 		return response, err
 	}
