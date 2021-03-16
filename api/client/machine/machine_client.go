@@ -73,6 +73,8 @@ type ClientService interface {
 
 	ReinstallMachine(params *ReinstallMachineParams, authInfo runtime.ClientAuthInfoWriter) (*ReinstallMachineOK, error)
 
+	RemoveFirmware(params *RemoveFirmwareParams, authInfo runtime.ClientAuthInfoWriter) (*RemoveFirmwareOK, error)
+
 	SetChassisIdentifyLEDState(params *SetChassisIdentifyLEDStateParams, authInfo runtime.ClientAuthInfoWriter) (*SetChassisIdentifyLEDStateOK, error)
 
 	SetMachineState(params *SetMachineStateParams, authInfo runtime.ClientAuthInfoWriter) (*SetMachineStateOK, error)
@@ -187,7 +189,7 @@ func (a *Client) AllocateMachine(params *AllocateMachineParams, authInfo runtime
 }
 
 /*
-  AvailableFirmwares returns all available firmwares for the machine
+  AvailableFirmwares returns all available firmwares as well as all available firmwares for a specific machine
 */
 func (a *Client) AvailableFirmwares(params *AvailableFirmwaresParams, authInfo runtime.ClientAuthInfoWriter) (*AvailableFirmwaresOK, error) {
 	// TODO: Validate the params before sending
@@ -198,7 +200,7 @@ func (a *Client) AvailableFirmwares(params *AvailableFirmwaresParams, authInfo r
 	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "availableFirmwares",
 		Method:             "GET",
-		PathPattern:        "/v1/machine/{id}/available-firmwares",
+		PathPattern:        "/v1/machine/available-firmwares",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http"},
@@ -903,6 +905,40 @@ func (a *Client) ReinstallMachine(params *ReinstallMachineParams, authInfo runti
 }
 
 /*
+  RemoveFirmware removes given firmware update
+*/
+func (a *Client) RemoveFirmware(params *RemoveFirmwareParams, authInfo runtime.ClientAuthInfoWriter) (*RemoveFirmwareOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewRemoveFirmwareParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "removeFirmware",
+		Method:             "DELETE",
+		PathPattern:        "/v1/machine/remove-firmware/{kind}/{vendor}/{board}/{revision}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &RemoveFirmwareReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*RemoveFirmwareOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*RemoveFirmwareDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
   SetChassisIdentifyLEDState sets the state of a chassis identify l e d
 */
 func (a *Client) SetChassisIdentifyLEDState(params *SetChassisIdentifyLEDStateParams, authInfo runtime.ClientAuthInfoWriter) (*SetChassisIdentifyLEDStateOK, error) {
@@ -982,7 +1018,7 @@ func (a *Client) UpdateFirmware(params *UpdateFirmwareParams, authInfo runtime.C
 	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "updateFirmware",
 		Method:             "POST",
-		PathPattern:        "/v1/machine/{id}/update-firmware",
+		PathPattern:        "/v1/machine/update-firmware/{id}",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http"},
@@ -1005,7 +1041,7 @@ func (a *Client) UpdateFirmware(params *UpdateFirmwareParams, authInfo runtime.C
 }
 
 /*
-  UploadFirmware uploads given firmware update for given machine
+  UploadFirmware uploads given firmware update
 */
 func (a *Client) UploadFirmware(params *UploadFirmwareParams, authInfo runtime.ClientAuthInfoWriter) (*UploadFirmwareOK, error) {
 	// TODO: Validate the params before sending

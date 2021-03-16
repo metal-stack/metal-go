@@ -56,7 +56,7 @@ type UpdateFirmwareOK struct {
 }
 
 func (o *UpdateFirmwareOK) Error() string {
-	return fmt.Sprintf("[POST /v1/machine/{id}/update-firmware][%d] updateFirmwareOK  %+v", 200, o.Payload)
+	return fmt.Sprintf("[POST /v1/machine/update-firmware/{id}][%d] updateFirmwareOK  %+v", 200, o.Payload)
 }
 
 func (o *UpdateFirmwareOK) GetPayload() *models.V1MachineResponse {
@@ -98,7 +98,7 @@ func (o *UpdateFirmwareDefault) Code() int {
 }
 
 func (o *UpdateFirmwareDefault) Error() string {
-	return fmt.Sprintf("[POST /v1/machine/{id}/update-firmware][%d] updateFirmware default  %+v", o._statusCode, o.Payload)
+	return fmt.Sprintf("[POST /v1/machine/update-firmware/{id}][%d] updateFirmware default  %+v", o._statusCode, o.Payload)
 }
 
 func (o *UpdateFirmwareDefault) GetPayload() *httperrors.HTTPErrorResponse {

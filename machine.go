@@ -1,11 +1,8 @@
 package metalgo
 
 import (
-	"github.com/go-openapi/runtime"
 	"github.com/metal-stack/metal-go/api/client/machine"
 	"github.com/metal-stack/metal-go/api/models"
-	"os"
-	"time"
 )
 
 // MachineCreateRequest contains data for a machine creation
@@ -166,7 +163,7 @@ const (
 // MachineAvailableFirmwaresResponse contains all available firmwares
 type MachineAvailableFirmwaresResponse struct {
 	Kind    FirmwareKind
-	Updates *models.V1MachineAvailableFirmwares
+	Updates *models.V1AvailableFirmwares
 }
 
 // MachineUpdateFirmwareResponse contains the firmware update result
@@ -483,27 +480,12 @@ func (d *Driver) MachinePowerReset(machineID string) (*MachinePowerResponse, err
 	return response, nil
 }
 
-// MachineUploadFirmware uploads the given firmware for the given machine
-func (d *Driver) MachineUploadFirmware(kind FirmwareKind, vendor, board, revision, updateFile string) (*machine.UploadFirmwareOK, error) {
-	uploadFirmware := machine.NewUploadFirmwareParams().WithTimeout(5 * time.Minute)
-	uploadFirmware.Kind = string(kind)
-	uploadFirmware.Vendor = vendor
-	uploadFirmware.Board = board
-	uploadFirmware.Revision = revision
-	reader, err := os.Open(updateFile)
-	if err != nil {
-		return nil, err
-	}
-	uploadFirmware.File = runtime.NamedReader(revision, reader)
-
-	return d.machine.UploadFirmware(uploadFirmware, nil)
-}
-
 // MachineAvailableFirmwares returns all available firmwares of given kind for given machine
 func (d *Driver) MachineAvailableFirmwares(kind FirmwareKind, machineID string) (*MachineAvailableFirmwaresResponse, error) {
 	availableFirmwares := machine.NewAvailableFirmwaresParams()
-	availableFirmwares.Kind = string(kind)
-	availableFirmwares.ID = machineID
+	k := string(kind)
+	availableFirmwares.Kind = &k
+	availableFirmwares.ID = &machineID
 
 	response := &MachineAvailableFirmwaresResponse{
 		Kind: kind,

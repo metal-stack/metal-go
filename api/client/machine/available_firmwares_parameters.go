@@ -60,16 +60,26 @@ for the available firmwares operation typically these are written to a http.Requ
 */
 type AvailableFirmwaresParams struct {
 
-	/*ID
-	  identifier of the machine
+	/*Board
+	  the board
 
 	*/
-	ID string
+	Board string
+	/*ID
+	  restrict available firmwares to the machine identified by this query parameter
+
+	*/
+	ID *string
 	/*Kind
 	  the kind, i.e. 'bios' or 'bmc'
 
 	*/
-	Kind string
+	Kind *string
+	/*Vendor
+	  the vendor
+
+	*/
+	Vendor string
 
 	timeout    time.Duration
 	Context    context.Context
@@ -109,26 +119,48 @@ func (o *AvailableFirmwaresParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithBoard adds the board to the available firmwares params
+func (o *AvailableFirmwaresParams) WithBoard(board string) *AvailableFirmwaresParams {
+	o.SetBoard(board)
+	return o
+}
+
+// SetBoard adds the board to the available firmwares params
+func (o *AvailableFirmwaresParams) SetBoard(board string) {
+	o.Board = board
+}
+
 // WithID adds the id to the available firmwares params
-func (o *AvailableFirmwaresParams) WithID(id string) *AvailableFirmwaresParams {
+func (o *AvailableFirmwaresParams) WithID(id *string) *AvailableFirmwaresParams {
 	o.SetID(id)
 	return o
 }
 
 // SetID adds the id to the available firmwares params
-func (o *AvailableFirmwaresParams) SetID(id string) {
+func (o *AvailableFirmwaresParams) SetID(id *string) {
 	o.ID = id
 }
 
 // WithKind adds the kind to the available firmwares params
-func (o *AvailableFirmwaresParams) WithKind(kind string) *AvailableFirmwaresParams {
+func (o *AvailableFirmwaresParams) WithKind(kind *string) *AvailableFirmwaresParams {
 	o.SetKind(kind)
 	return o
 }
 
 // SetKind adds the kind to the available firmwares params
-func (o *AvailableFirmwaresParams) SetKind(kind string) {
+func (o *AvailableFirmwaresParams) SetKind(kind *string) {
 	o.Kind = kind
+}
+
+// WithVendor adds the vendor to the available firmwares params
+func (o *AvailableFirmwaresParams) WithVendor(vendor string) *AvailableFirmwaresParams {
+	o.SetVendor(vendor)
+	return o
+}
+
+// SetVendor adds the vendor to the available firmwares params
+func (o *AvailableFirmwaresParams) SetVendor(vendor string) {
+	o.Vendor = vendor
 }
 
 // WriteToRequest writes these params to a swagger request
@@ -139,18 +171,46 @@ func (o *AvailableFirmwaresParams) WriteToRequest(r runtime.ClientRequest, reg s
 	}
 	var res []error
 
-	// path param id
-	if err := r.SetPathParam("id", o.ID); err != nil {
+	// path param board
+	if err := r.SetPathParam("board", o.Board); err != nil {
 		return err
 	}
 
-	// query param kind
-	qrKind := o.Kind
-	qKind := qrKind
-	if qKind != "" {
-		if err := r.SetQueryParam("kind", qKind); err != nil {
-			return err
+	if o.ID != nil {
+
+		// query param id
+		var qrID string
+		if o.ID != nil {
+			qrID = *o.ID
 		}
+		qID := qrID
+		if qID != "" {
+			if err := r.SetQueryParam("id", qID); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	if o.Kind != nil {
+
+		// query param kind
+		var qrKind string
+		if o.Kind != nil {
+			qrKind = *o.Kind
+		}
+		qKind := qrKind
+		if qKind != "" {
+			if err := r.SetQueryParam("kind", qKind); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	// path param vendor
+	if err := r.SetPathParam("vendor", o.Vendor); err != nil {
+		return err
 	}
 
 	if len(res) > 0 {

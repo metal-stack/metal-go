@@ -52,20 +52,20 @@ func NewAvailableFirmwaresOK() *AvailableFirmwaresOK {
 OK
 */
 type AvailableFirmwaresOK struct {
-	Payload *models.V1MachineAvailableFirmwares
+	Payload *models.V1AvailableFirmwares
 }
 
 func (o *AvailableFirmwaresOK) Error() string {
-	return fmt.Sprintf("[GET /v1/machine/{id}/available-firmwares][%d] availableFirmwaresOK  %+v", 200, o.Payload)
+	return fmt.Sprintf("[GET /v1/machine/available-firmwares][%d] availableFirmwaresOK  %+v", 200, o.Payload)
 }
 
-func (o *AvailableFirmwaresOK) GetPayload() *models.V1MachineAvailableFirmwares {
+func (o *AvailableFirmwaresOK) GetPayload() *models.V1AvailableFirmwares {
 	return o.Payload
 }
 
 func (o *AvailableFirmwaresOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.V1MachineAvailableFirmwares)
+	o.Payload = new(models.V1AvailableFirmwares)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -98,7 +98,7 @@ func (o *AvailableFirmwaresDefault) Code() int {
 }
 
 func (o *AvailableFirmwaresDefault) Error() string {
-	return fmt.Sprintf("[GET /v1/machine/{id}/available-firmwares][%d] availableFirmwares default  %+v", o._statusCode, o.Payload)
+	return fmt.Sprintf("[GET /v1/machine/available-firmwares][%d] availableFirmwares default  %+v", o._statusCode, o.Payload)
 }
 
 func (o *AvailableFirmwaresDefault) GetPayload() *httperrors.HTTPErrorResponse {
