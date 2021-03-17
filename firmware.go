@@ -6,6 +6,7 @@ import (
 	"github.com/metal-stack/metal-go/api/client/machine"
 	"github.com/metal-stack/metal-go/api/models"
 	"os"
+	"strings"
 	"time"
 )
 
@@ -16,7 +17,7 @@ type FirmwaresResponse struct {
 
 func (f *FirmwaresResponse) FilterKind(kind FirmwareKind) []*models.V1VendorFirmwares {
 	for _, ff := range f.Firmwares {
-		if string(kind) == *ff.Kind {
+		if strings.EqualFold(string(kind), *ff.Kind) {
 			return ff.VendorFirmwares
 		}
 	}
@@ -26,7 +27,7 @@ func (f *FirmwaresResponse) FilterKind(kind FirmwareKind) []*models.V1VendorFirm
 func (f *FirmwaresResponse) FilterVendor(kind FirmwareKind, vendor string) []*models.V1BoardFirmwares {
 	vv := f.FilterKind(kind)
 	for _, v := range vv {
-		if vendor == *v.Vendor {
+		if strings.EqualFold(vendor, *v.Vendor) {
 			return v.BoardFirmwares
 		}
 	}
@@ -36,7 +37,7 @@ func (f *FirmwaresResponse) FilterVendor(kind FirmwareKind, vendor string) []*mo
 func (f *FirmwaresResponse) FilterBoard(kind FirmwareKind, vendor, board string) []string {
 	bb := f.FilterVendor(kind, vendor)
 	for _, b := range bb {
-		if board == *b.Board {
+		if strings.EqualFold(board, *b.Board) {
 			return b.Revisions
 		}
 	}
@@ -46,7 +47,7 @@ func (f *FirmwaresResponse) FilterBoard(kind FirmwareKind, vendor, board string)
 func (f *FirmwaresResponse) ContainsRevision(kind FirmwareKind, vendor, board, revision string) bool {
 	rr := f.FilterBoard(kind, vendor, board)
 	for _, r := range rr {
-		if r == revision {
+		if strings.EqualFold(r, revision) {
 			return true
 		}
 	}
