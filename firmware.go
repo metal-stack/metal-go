@@ -6,52 +6,12 @@ import (
 	"github.com/metal-stack/metal-go/api/client/machine"
 	"github.com/metal-stack/metal-go/api/models"
 	"os"
-	"strings"
 	"time"
 )
 
 // FirmwaresResponse contains all firmwares matching the requested parameters
 type FirmwaresResponse struct {
 	Firmwares []*models.V1Firmwares
-}
-
-func (f *FirmwaresResponse) FilterKind(kind FirmwareKind) []*models.V1VendorFirmwares {
-	for _, ff := range f.Firmwares {
-		if strings.EqualFold(string(kind), *ff.Kind) {
-			return ff.VendorFirmwares
-		}
-	}
-	return nil
-}
-
-func (f *FirmwaresResponse) FilterVendor(kind FirmwareKind, vendor string) []*models.V1BoardFirmwares {
-	vv := f.FilterKind(kind)
-	for _, v := range vv {
-		if strings.EqualFold(vendor, *v.Vendor) {
-			return v.BoardFirmwares
-		}
-	}
-	return nil
-}
-
-func (f *FirmwaresResponse) FilterBoard(kind FirmwareKind, vendor, board string) []string {
-	bb := f.FilterVendor(kind, vendor)
-	for _, b := range bb {
-		if strings.EqualFold(board, *b.Board) {
-			return b.Revisions
-		}
-	}
-	return nil
-}
-
-func (f *FirmwaresResponse) ContainsRevision(kind FirmwareKind, vendor, board, revision string) bool {
-	rr := f.FilterBoard(kind, vendor, board)
-	for _, r := range rr {
-		if strings.EqualFold(r, revision) {
-			return true
-		}
-	}
-	return false
 }
 
 // MachineUpdateFirmwareResponse contains the firmware update result
