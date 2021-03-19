@@ -11,7 +11,7 @@ import (
 
 // FirmwaresResponse contains all firmwares matching the requested parameters
 type FirmwaresResponse struct {
-	Firmwares []*models.V1Firmwares
+	Firmwares *models.V1FirmwaresResponse
 }
 
 // MachineUpdateFirmwareResponse contains the firmware update result
@@ -69,7 +69,7 @@ func (d *Driver) listFirmwares(kind FirmwareKind, vendor, board string, machineI
 	availableFirmwares.Kind = &k
 	availableFirmwares.Vendor = &vendor
 	availableFirmwares.Board = &board
-	availableFirmwares.ID = machineID
+	availableFirmwares.MachineID = machineID
 
 	response := new(FirmwaresResponse)
 	resp, err := d.firmware.ListFirmwares(availableFirmwares, nil)
@@ -85,7 +85,7 @@ func (d *Driver) MachineUpdateFirmware(kind FirmwareKind, machineID, revision, d
 	updateFirmware := machine.NewUpdateFirmwareParams()
 	updateFirmware.ID = machineID
 	k := string(kind)
-	updateFirmware.Body = &models.V1MachineUpdateFirmware{
+	updateFirmware.Body = &models.V1MachineUpdateFirmwareRequest{
 		Kind:        &k,
 		Revision:    &revision,
 		Description: &description,

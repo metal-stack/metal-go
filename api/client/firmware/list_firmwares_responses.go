@@ -52,20 +52,22 @@ func NewListFirmwaresOK() *ListFirmwaresOK {
 OK
 */
 type ListFirmwaresOK struct {
-	Payload []*models.V1Firmwares
+	Payload *models.V1FirmwaresResponse
 }
 
 func (o *ListFirmwaresOK) Error() string {
 	return fmt.Sprintf("[GET /v1/firmware][%d] listFirmwaresOK  %+v", 200, o.Payload)
 }
-func (o *ListFirmwaresOK) GetPayload() []*models.V1Firmwares {
+func (o *ListFirmwaresOK) GetPayload() *models.V1FirmwaresResponse {
 	return o.Payload
 }
 
 func (o *ListFirmwaresOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
+	o.Payload = new(models.V1FirmwaresResponse)
+
 	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

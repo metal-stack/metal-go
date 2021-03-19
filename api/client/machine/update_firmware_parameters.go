@@ -62,7 +62,7 @@ func NewUpdateFirmwareParamsWithHTTPClient(client *http.Client) *UpdateFirmwareP
 type UpdateFirmwareParams struct {
 
 	// Body.
-	Body *models.V1MachineUpdateFirmware
+	Body *models.V1MachineUpdateFirmwareRequest
 
 	/* ID.
 
@@ -124,13 +124,13 @@ func (o *UpdateFirmwareParams) SetHTTPClient(client *http.Client) {
 }
 
 // WithBody adds the body to the update firmware params
-func (o *UpdateFirmwareParams) WithBody(body *models.V1MachineUpdateFirmware) *UpdateFirmwareParams {
+func (o *UpdateFirmwareParams) WithBody(body *models.V1MachineUpdateFirmwareRequest) *UpdateFirmwareParams {
 	o.SetBody(body)
 	return o
 }
 
 // SetBody adds the body to the update firmware params
-func (o *UpdateFirmwareParams) SetBody(body *models.V1MachineUpdateFirmware) {
+func (o *UpdateFirmwareParams) SetBody(body *models.V1MachineUpdateFirmwareRequest) {
 	o.Body = body
 }
 

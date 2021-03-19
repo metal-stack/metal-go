@@ -14,10 +14,10 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// V1MachineUpdateFirmware v1 machine update firmware
+// V1MachineUpdateFirmwareRequest v1 machine update firmware request
 //
-// swagger:model v1.MachineUpdateFirmware
-type V1MachineUpdateFirmware struct {
+// swagger:model v1.MachineUpdateFirmwareRequest
+type V1MachineUpdateFirmwareRequest struct {
 
 	// a description why the machine has been updated
 	// Required: true
@@ -32,8 +32,8 @@ type V1MachineUpdateFirmware struct {
 	Revision *string `json:"revision"`
 }
 
-// Validate validates this v1 machine update firmware
-func (m *V1MachineUpdateFirmware) Validate(formats strfmt.Registry) error {
+// Validate validates this v1 machine update firmware request
+func (m *V1MachineUpdateFirmwareRequest) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateDescription(formats); err != nil {
@@ -54,7 +54,7 @@ func (m *V1MachineUpdateFirmware) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *V1MachineUpdateFirmware) validateDescription(formats strfmt.Registry) error {
+func (m *V1MachineUpdateFirmwareRequest) validateDescription(formats strfmt.Registry) error {
 
 	if err := validate.Required("description", "body", m.Description); err != nil {
 		return err
@@ -63,7 +63,7 @@ func (m *V1MachineUpdateFirmware) validateDescription(formats strfmt.Registry) e
 	return nil
 }
 
-func (m *V1MachineUpdateFirmware) validateKind(formats strfmt.Registry) error {
+func (m *V1MachineUpdateFirmwareRequest) validateKind(formats strfmt.Registry) error {
 
 	if err := validate.Required("kind", "body", m.Kind); err != nil {
 		return err
@@ -72,7 +72,7 @@ func (m *V1MachineUpdateFirmware) validateKind(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *V1MachineUpdateFirmware) validateRevision(formats strfmt.Registry) error {
+func (m *V1MachineUpdateFirmwareRequest) validateRevision(formats strfmt.Registry) error {
 
 	if err := validate.Required("revision", "body", m.Revision); err != nil {
 		return err
@@ -81,13 +81,13 @@ func (m *V1MachineUpdateFirmware) validateRevision(formats strfmt.Registry) erro
 	return nil
 }
 
-// ContextValidate validates this v1 machine update firmware based on context it is used
-func (m *V1MachineUpdateFirmware) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+// ContextValidate validates this v1 machine update firmware request based on context it is used
+func (m *V1MachineUpdateFirmwareRequest) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 
 // MarshalBinary interface implementation
-func (m *V1MachineUpdateFirmware) MarshalBinary() ([]byte, error) {
+func (m *V1MachineUpdateFirmwareRequest) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -95,8 +95,8 @@ func (m *V1MachineUpdateFirmware) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *V1MachineUpdateFirmware) UnmarshalBinary(b []byte) error {
-	var res V1MachineUpdateFirmware
+func (m *V1MachineUpdateFirmwareRequest) UnmarshalBinary(b []byte) error {
+	var res V1MachineUpdateFirmwareRequest
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

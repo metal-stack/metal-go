@@ -65,17 +65,17 @@ type ListFirmwaresParams struct {
 	*/
 	Board *string
 
-	/* ID.
-
-	   restrict firmwares to the machine identified by this query parameter
-	*/
-	ID *string
-
 	/* Kind.
 
 	   the firmware kind [bios|bmc]
 	*/
 	Kind *string
+
+	/* MachineID.
+
+	   restrict firmwares to the given machine
+	*/
+	MachineID *string
 
 	/* Vendor.
 
@@ -147,17 +147,6 @@ func (o *ListFirmwaresParams) SetBoard(board *string) {
 	o.Board = board
 }
 
-// WithID adds the id to the list firmwares params
-func (o *ListFirmwaresParams) WithID(id *string) *ListFirmwaresParams {
-	o.SetID(id)
-	return o
-}
-
-// SetID adds the id to the list firmwares params
-func (o *ListFirmwaresParams) SetID(id *string) {
-	o.ID = id
-}
-
 // WithKind adds the kind to the list firmwares params
 func (o *ListFirmwaresParams) WithKind(kind *string) *ListFirmwaresParams {
 	o.SetKind(kind)
@@ -167,6 +156,17 @@ func (o *ListFirmwaresParams) WithKind(kind *string) *ListFirmwaresParams {
 // SetKind adds the kind to the list firmwares params
 func (o *ListFirmwaresParams) SetKind(kind *string) {
 	o.Kind = kind
+}
+
+// WithMachineID adds the machineID to the list firmwares params
+func (o *ListFirmwaresParams) WithMachineID(machineID *string) *ListFirmwaresParams {
+	o.SetMachineID(machineID)
+	return o
+}
+
+// SetMachineID adds the machineId to the list firmwares params
+func (o *ListFirmwaresParams) SetMachineID(machineID *string) {
+	o.MachineID = machineID
 }
 
 // WithVendor adds the vendor to the list firmwares params
@@ -205,23 +205,6 @@ func (o *ListFirmwaresParams) WriteToRequest(r runtime.ClientRequest, reg strfmt
 		}
 	}
 
-	if o.ID != nil {
-
-		// query param id
-		var qrID string
-
-		if o.ID != nil {
-			qrID = *o.ID
-		}
-		qID := qrID
-		if qID != "" {
-
-			if err := r.SetQueryParam("id", qID); err != nil {
-				return err
-			}
-		}
-	}
-
 	if o.Kind != nil {
 
 		// query param kind
@@ -234,6 +217,23 @@ func (o *ListFirmwaresParams) WriteToRequest(r runtime.ClientRequest, reg strfmt
 		if qKind != "" {
 
 			if err := r.SetQueryParam("kind", qKind); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.MachineID != nil {
+
+		// query param machine-id
+		var qrMachineID string
+
+		if o.MachineID != nil {
+			qrMachineID = *o.MachineID
+		}
+		qMachineID := qrMachineID
+		if qMachineID != "" {
+
+			if err := r.SetQueryParam("machine-id", qMachineID); err != nil {
 				return err
 			}
 		}
