@@ -23,19 +23,22 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
+// ClientOption is the option for Client methods
+type ClientOption func(*runtime.ClientOperation)
+
 // ClientService is the interface for Client methods
 type ClientService interface {
-	CreateSize(params *CreateSizeParams, authInfo runtime.ClientAuthInfoWriter) (*CreateSizeCreated, error)
+	CreateSize(params *CreateSizeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateSizeCreated, error)
 
-	DeleteSize(params *DeleteSizeParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteSizeOK, error)
+	DeleteSize(params *DeleteSizeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteSizeOK, error)
 
-	FindSize(params *FindSizeParams, authInfo runtime.ClientAuthInfoWriter) (*FindSizeOK, error)
+	FindSize(params *FindSizeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FindSizeOK, error)
 
-	FromHardware(params *FromHardwareParams, authInfo runtime.ClientAuthInfoWriter) (*FromHardwareOK, error)
+	FromHardware(params *FromHardwareParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FromHardwareOK, error)
 
-	ListSizes(params *ListSizesParams, authInfo runtime.ClientAuthInfoWriter) (*ListSizesOK, error)
+	ListSizes(params *ListSizesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListSizesOK, error)
 
-	UpdateSize(params *UpdateSizeParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateSizeOK, error)
+	UpdateSize(params *UpdateSizeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateSizeOK, error)
 
 	SetTransport(transport runtime.ClientTransport)
 }
@@ -43,13 +46,12 @@ type ClientService interface {
 /*
   CreateSize creates a size if the given ID already exists a conflict is returned
 */
-func (a *Client) CreateSize(params *CreateSizeParams, authInfo runtime.ClientAuthInfoWriter) (*CreateSizeCreated, error) {
+func (a *Client) CreateSize(params *CreateSizeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateSizeCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateSizeParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "createSize",
 		Method:             "PUT",
 		PathPattern:        "/v1/size",
@@ -61,7 +63,12 @@ func (a *Client) CreateSize(params *CreateSizeParams, authInfo runtime.ClientAut
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -77,13 +84,12 @@ func (a *Client) CreateSize(params *CreateSizeParams, authInfo runtime.ClientAut
 /*
   DeleteSize deletes an size and returns the deleted entity
 */
-func (a *Client) DeleteSize(params *DeleteSizeParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteSizeOK, error) {
+func (a *Client) DeleteSize(params *DeleteSizeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteSizeOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteSizeParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "deleteSize",
 		Method:             "DELETE",
 		PathPattern:        "/v1/size/{id}",
@@ -95,7 +101,12 @@ func (a *Client) DeleteSize(params *DeleteSizeParams, authInfo runtime.ClientAut
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -111,13 +122,12 @@ func (a *Client) DeleteSize(params *DeleteSizeParams, authInfo runtime.ClientAut
 /*
   FindSize gets size by id
 */
-func (a *Client) FindSize(params *FindSizeParams, authInfo runtime.ClientAuthInfoWriter) (*FindSizeOK, error) {
+func (a *Client) FindSize(params *FindSizeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FindSizeOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewFindSizeParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "findSize",
 		Method:             "GET",
 		PathPattern:        "/v1/size/{id}",
@@ -129,7 +139,12 @@ func (a *Client) FindSize(params *FindSizeParams, authInfo runtime.ClientAuthInf
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -145,13 +160,12 @@ func (a *Client) FindSize(params *FindSizeParams, authInfo runtime.ClientAuthInf
 /*
   FromHardware searches all sizes for one to match the given hardwarespecs if nothing is found a list of entries is returned which describe the constraint which did not match
 */
-func (a *Client) FromHardware(params *FromHardwareParams, authInfo runtime.ClientAuthInfoWriter) (*FromHardwareOK, error) {
+func (a *Client) FromHardware(params *FromHardwareParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FromHardwareOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewFromHardwareParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "fromHardware",
 		Method:             "POST",
 		PathPattern:        "/v1/size/from-hardware",
@@ -163,7 +177,12 @@ func (a *Client) FromHardware(params *FromHardwareParams, authInfo runtime.Clien
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -179,13 +198,12 @@ func (a *Client) FromHardware(params *FromHardwareParams, authInfo runtime.Clien
 /*
   ListSizes gets all sizes
 */
-func (a *Client) ListSizes(params *ListSizesParams, authInfo runtime.ClientAuthInfoWriter) (*ListSizesOK, error) {
+func (a *Client) ListSizes(params *ListSizesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListSizesOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewListSizesParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "listSizes",
 		Method:             "GET",
 		PathPattern:        "/v1/size",
@@ -197,7 +215,12 @@ func (a *Client) ListSizes(params *ListSizesParams, authInfo runtime.ClientAuthI
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -213,13 +236,12 @@ func (a *Client) ListSizes(params *ListSizesParams, authInfo runtime.ClientAuthI
 /*
   UpdateSize updates a size if the size was changed since this one was read a conflict is returned
 */
-func (a *Client) UpdateSize(params *UpdateSizeParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateSizeOK, error) {
+func (a *Client) UpdateSize(params *UpdateSizeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateSizeOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewUpdateSizeParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "updateSize",
 		Method:             "POST",
 		PathPattern:        "/v1/size",
@@ -231,7 +253,12 @@ func (a *Client) UpdateSize(params *UpdateSizeParams, authInfo runtime.ClientAut
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}

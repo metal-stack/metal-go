@@ -153,10 +153,12 @@ type ChassisIdentifyLEDPowerResponse struct {
 	Machine *models.V1MachineResponse
 }
 
-// MachineBiosResponse contains the machine bios result
-type MachineBiosResponse struct {
-	Machine *models.V1MachineResponse
-}
+type FirmwareKind string
+
+const (
+	Bios FirmwareKind = "bios"
+	Bmc  FirmwareKind = "bmc"
+)
 
 // MachineDiskResponse contains the machine Disk result
 type MachineDiskResponse struct {
@@ -461,12 +463,12 @@ func (d *Driver) MachinePowerReset(machineID string) (*MachinePowerResponse, err
 }
 
 // MachineBootBios boots given machine into BIOS
-func (d *Driver) MachineBootBios(machineID string) (*MachineBiosResponse, error) {
+func (d *Driver) MachineBootBios(machineID string) (*MachineFirmwareResponse, error) {
 	machineBios := machine.NewMachineBiosParams()
 	machineBios.ID = machineID
 	machineBios.Body = []string{}
 
-	response := &MachineBiosResponse{}
+	response := &MachineFirmwareResponse{}
 	resp, err := d.machine.MachineBios(machineBios, nil)
 	if err != nil {
 		return response, err

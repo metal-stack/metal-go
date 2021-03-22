@@ -23,19 +23,22 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
+// ClientOption is the option for Client methods
+type ClientOption func(*runtime.ClientOperation)
+
 // ClientService is the interface for Client methods
 type ClientService interface {
-	CreateImage(params *CreateImageParams, authInfo runtime.ClientAuthInfoWriter) (*CreateImageCreated, error)
+	CreateImage(params *CreateImageParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateImageCreated, error)
 
-	DeleteImage(params *DeleteImageParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteImageOK, error)
+	DeleteImage(params *DeleteImageParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteImageOK, error)
 
-	FindImage(params *FindImageParams, authInfo runtime.ClientAuthInfoWriter) (*FindImageOK, error)
+	FindImage(params *FindImageParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FindImageOK, error)
 
-	FindLatestImage(params *FindLatestImageParams, authInfo runtime.ClientAuthInfoWriter) (*FindLatestImageOK, error)
+	FindLatestImage(params *FindLatestImageParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FindLatestImageOK, error)
 
-	ListImages(params *ListImagesParams, authInfo runtime.ClientAuthInfoWriter) (*ListImagesOK, error)
+	ListImages(params *ListImagesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListImagesOK, error)
 
-	UpdateImage(params *UpdateImageParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateImageOK, error)
+	UpdateImage(params *UpdateImageParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateImageOK, error)
 
 	SetTransport(transport runtime.ClientTransport)
 }
@@ -43,13 +46,12 @@ type ClientService interface {
 /*
   CreateImage creates an image if the given ID already exists a conflict is returned
 */
-func (a *Client) CreateImage(params *CreateImageParams, authInfo runtime.ClientAuthInfoWriter) (*CreateImageCreated, error) {
+func (a *Client) CreateImage(params *CreateImageParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateImageCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateImageParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "createImage",
 		Method:             "PUT",
 		PathPattern:        "/v1/image",
@@ -61,7 +63,12 @@ func (a *Client) CreateImage(params *CreateImageParams, authInfo runtime.ClientA
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -77,13 +84,12 @@ func (a *Client) CreateImage(params *CreateImageParams, authInfo runtime.ClientA
 /*
   DeleteImage deletes an image and returns the deleted entity
 */
-func (a *Client) DeleteImage(params *DeleteImageParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteImageOK, error) {
+func (a *Client) DeleteImage(params *DeleteImageParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteImageOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteImageParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "deleteImage",
 		Method:             "DELETE",
 		PathPattern:        "/v1/image/{id}",
@@ -95,7 +101,12 @@ func (a *Client) DeleteImage(params *DeleteImageParams, authInfo runtime.ClientA
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -111,13 +122,12 @@ func (a *Client) DeleteImage(params *DeleteImageParams, authInfo runtime.ClientA
 /*
   FindImage gets image by id
 */
-func (a *Client) FindImage(params *FindImageParams, authInfo runtime.ClientAuthInfoWriter) (*FindImageOK, error) {
+func (a *Client) FindImage(params *FindImageParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FindImageOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewFindImageParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "findImage",
 		Method:             "GET",
 		PathPattern:        "/v1/image/{id}",
@@ -129,7 +139,12 @@ func (a *Client) FindImage(params *FindImageParams, authInfo runtime.ClientAuthI
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -145,13 +160,12 @@ func (a *Client) FindImage(params *FindImageParams, authInfo runtime.ClientAuthI
 /*
   FindLatestImage finds latest image by id
 */
-func (a *Client) FindLatestImage(params *FindLatestImageParams, authInfo runtime.ClientAuthInfoWriter) (*FindLatestImageOK, error) {
+func (a *Client) FindLatestImage(params *FindLatestImageParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FindLatestImageOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewFindLatestImageParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "findLatestImage",
 		Method:             "GET",
 		PathPattern:        "/v1/image/{id}/latest",
@@ -163,7 +177,12 @@ func (a *Client) FindLatestImage(params *FindLatestImageParams, authInfo runtime
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -179,13 +198,12 @@ func (a *Client) FindLatestImage(params *FindLatestImageParams, authInfo runtime
 /*
   ListImages gets all images
 */
-func (a *Client) ListImages(params *ListImagesParams, authInfo runtime.ClientAuthInfoWriter) (*ListImagesOK, error) {
+func (a *Client) ListImages(params *ListImagesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListImagesOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewListImagesParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "listImages",
 		Method:             "GET",
 		PathPattern:        "/v1/image",
@@ -197,7 +215,12 @@ func (a *Client) ListImages(params *ListImagesParams, authInfo runtime.ClientAut
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -213,13 +236,12 @@ func (a *Client) ListImages(params *ListImagesParams, authInfo runtime.ClientAut
 /*
   UpdateImage updates an image if the image was changed since this one was read a conflict is returned
 */
-func (a *Client) UpdateImage(params *UpdateImageParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateImageOK, error) {
+func (a *Client) UpdateImage(params *UpdateImageParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateImageOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewUpdateImageParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "updateImage",
 		Method:             "POST",
 		PathPattern:        "/v1/image",
@@ -231,7 +253,12 @@ func (a *Client) UpdateImage(params *UpdateImageParams, authInfo runtime.ClientA
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}

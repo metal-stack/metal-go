@@ -25,9 +25,12 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
+// ClientOption is the option for Client methods
+type ClientOption func(*runtime.ClientOperation)
+
 // ClientService is the interface for Client methods
 type ClientService interface {
-	Info(params *InfoParams, authInfo runtime.ClientAuthInfoWriter) (*InfoOK, error)
+	Info(params *InfoParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*InfoOK, error)
 
 	SetTransport(transport runtime.ClientTransport)
 }
@@ -35,13 +38,12 @@ type ClientService interface {
 /*
   Info returns the current version information of this module
 */
-func (a *Client) Info(params *InfoParams, authInfo runtime.ClientAuthInfoWriter) (*InfoOK, error) {
+func (a *Client) Info(params *InfoParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*InfoOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewInfoParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "info",
 		Method:             "GET",
 		PathPattern:        "/v1/version",
@@ -53,7 +55,12 @@ func (a *Client) Info(params *InfoParams, authInfo runtime.ClientAuthInfoWriter)
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}

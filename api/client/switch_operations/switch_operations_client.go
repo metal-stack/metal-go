@@ -23,19 +23,22 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
+// ClientOption is the option for Client methods
+type ClientOption func(*runtime.ClientOperation)
+
 // ClientService is the interface for Client methods
 type ClientService interface {
-	DeleteSwitch(params *DeleteSwitchParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteSwitchOK, error)
+	DeleteSwitch(params *DeleteSwitchParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteSwitchOK, error)
 
-	FindSwitch(params *FindSwitchParams, authInfo runtime.ClientAuthInfoWriter) (*FindSwitchOK, error)
+	FindSwitch(params *FindSwitchParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FindSwitchOK, error)
 
-	ListSwitches(params *ListSwitchesParams, authInfo runtime.ClientAuthInfoWriter) (*ListSwitchesOK, error)
+	ListSwitches(params *ListSwitchesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListSwitchesOK, error)
 
-	NotifySwitch(params *NotifySwitchParams, authInfo runtime.ClientAuthInfoWriter) (*NotifySwitchOK, error)
+	NotifySwitch(params *NotifySwitchParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*NotifySwitchOK, error)
 
-	RegisterSwitch(params *RegisterSwitchParams, authInfo runtime.ClientAuthInfoWriter) (*RegisterSwitchOK, *RegisterSwitchCreated, error)
+	RegisterSwitch(params *RegisterSwitchParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*RegisterSwitchOK, *RegisterSwitchCreated, error)
 
-	UpdateSwitch(params *UpdateSwitchParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateSwitchOK, error)
+	UpdateSwitch(params *UpdateSwitchParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateSwitchOK, error)
 
 	SetTransport(transport runtime.ClientTransport)
 }
@@ -43,13 +46,12 @@ type ClientService interface {
 /*
   DeleteSwitch deletes an switch and returns the deleted entity
 */
-func (a *Client) DeleteSwitch(params *DeleteSwitchParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteSwitchOK, error) {
+func (a *Client) DeleteSwitch(params *DeleteSwitchParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteSwitchOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteSwitchParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "deleteSwitch",
 		Method:             "DELETE",
 		PathPattern:        "/v1/switch/{id}",
@@ -61,7 +63,12 @@ func (a *Client) DeleteSwitch(params *DeleteSwitchParams, authInfo runtime.Clien
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -77,13 +84,12 @@ func (a *Client) DeleteSwitch(params *DeleteSwitchParams, authInfo runtime.Clien
 /*
   FindSwitch gets switch by id
 */
-func (a *Client) FindSwitch(params *FindSwitchParams, authInfo runtime.ClientAuthInfoWriter) (*FindSwitchOK, error) {
+func (a *Client) FindSwitch(params *FindSwitchParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FindSwitchOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewFindSwitchParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "findSwitch",
 		Method:             "GET",
 		PathPattern:        "/v1/switch/{id}",
@@ -95,7 +101,12 @@ func (a *Client) FindSwitch(params *FindSwitchParams, authInfo runtime.ClientAut
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -111,13 +122,12 @@ func (a *Client) FindSwitch(params *FindSwitchParams, authInfo runtime.ClientAut
 /*
   ListSwitches gets all switches
 */
-func (a *Client) ListSwitches(params *ListSwitchesParams, authInfo runtime.ClientAuthInfoWriter) (*ListSwitchesOK, error) {
+func (a *Client) ListSwitches(params *ListSwitchesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListSwitchesOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewListSwitchesParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "listSwitches",
 		Method:             "GET",
 		PathPattern:        "/v1/switch",
@@ -129,7 +139,12 @@ func (a *Client) ListSwitches(params *ListSwitchesParams, authInfo runtime.Clien
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -145,13 +160,12 @@ func (a *Client) ListSwitches(params *ListSwitchesParams, authInfo runtime.Clien
 /*
   NotifySwitch notifies the metal api about a configuration change of a switch
 */
-func (a *Client) NotifySwitch(params *NotifySwitchParams, authInfo runtime.ClientAuthInfoWriter) (*NotifySwitchOK, error) {
+func (a *Client) NotifySwitch(params *NotifySwitchParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*NotifySwitchOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewNotifySwitchParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "notifySwitch",
 		Method:             "POST",
 		PathPattern:        "/v1/switch/{id}/notify",
@@ -163,7 +177,12 @@ func (a *Client) NotifySwitch(params *NotifySwitchParams, authInfo runtime.Clien
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -179,13 +198,12 @@ func (a *Client) NotifySwitch(params *NotifySwitchParams, authInfo runtime.Clien
 /*
   RegisterSwitch registers a switch
 */
-func (a *Client) RegisterSwitch(params *RegisterSwitchParams, authInfo runtime.ClientAuthInfoWriter) (*RegisterSwitchOK, *RegisterSwitchCreated, error) {
+func (a *Client) RegisterSwitch(params *RegisterSwitchParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*RegisterSwitchOK, *RegisterSwitchCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewRegisterSwitchParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "registerSwitch",
 		Method:             "POST",
 		PathPattern:        "/v1/switch/register",
@@ -197,7 +215,12 @@ func (a *Client) RegisterSwitch(params *RegisterSwitchParams, authInfo runtime.C
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -215,13 +238,12 @@ func (a *Client) RegisterSwitch(params *RegisterSwitchParams, authInfo runtime.C
 /*
   UpdateSwitch updates a switch if the switch was changed since this one was read a conflict is returned
 */
-func (a *Client) UpdateSwitch(params *UpdateSwitchParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateSwitchOK, error) {
+func (a *Client) UpdateSwitch(params *UpdateSwitchParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateSwitchOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewUpdateSwitchParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "updateSwitch",
 		Method:             "POST",
 		PathPattern:        "/v1/switch",
@@ -233,7 +255,12 @@ func (a *Client) UpdateSwitch(params *UpdateSwitchParams, authInfo runtime.Clien
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}

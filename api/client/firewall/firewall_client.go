@@ -23,15 +23,18 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
+// ClientOption is the option for Client methods
+type ClientOption func(*runtime.ClientOperation)
+
 // ClientService is the interface for Client methods
 type ClientService interface {
-	AllocateFirewall(params *AllocateFirewallParams, authInfo runtime.ClientAuthInfoWriter) (*AllocateFirewallOK, error)
+	AllocateFirewall(params *AllocateFirewallParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*AllocateFirewallOK, error)
 
-	FindFirewall(params *FindFirewallParams, authInfo runtime.ClientAuthInfoWriter) (*FindFirewallOK, error)
+	FindFirewall(params *FindFirewallParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FindFirewallOK, error)
 
-	FindFirewalls(params *FindFirewallsParams, authInfo runtime.ClientAuthInfoWriter) (*FindFirewallsOK, error)
+	FindFirewalls(params *FindFirewallsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FindFirewallsOK, error)
 
-	ListFirewalls(params *ListFirewallsParams, authInfo runtime.ClientAuthInfoWriter) (*ListFirewallsOK, error)
+	ListFirewalls(params *ListFirewallsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListFirewallsOK, error)
 
 	SetTransport(transport runtime.ClientTransport)
 }
@@ -39,13 +42,12 @@ type ClientService interface {
 /*
   AllocateFirewall allocates a firewall
 */
-func (a *Client) AllocateFirewall(params *AllocateFirewallParams, authInfo runtime.ClientAuthInfoWriter) (*AllocateFirewallOK, error) {
+func (a *Client) AllocateFirewall(params *AllocateFirewallParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*AllocateFirewallOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewAllocateFirewallParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "allocateFirewall",
 		Method:             "POST",
 		PathPattern:        "/v1/firewall/allocate",
@@ -57,7 +59,12 @@ func (a *Client) AllocateFirewall(params *AllocateFirewallParams, authInfo runti
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -73,13 +80,12 @@ func (a *Client) AllocateFirewall(params *AllocateFirewallParams, authInfo runti
 /*
   FindFirewall gets firewall by id
 */
-func (a *Client) FindFirewall(params *FindFirewallParams, authInfo runtime.ClientAuthInfoWriter) (*FindFirewallOK, error) {
+func (a *Client) FindFirewall(params *FindFirewallParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FindFirewallOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewFindFirewallParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "findFirewall",
 		Method:             "GET",
 		PathPattern:        "/v1/firewall/{id}",
@@ -91,7 +97,12 @@ func (a *Client) FindFirewall(params *FindFirewallParams, authInfo runtime.Clien
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -107,13 +118,12 @@ func (a *Client) FindFirewall(params *FindFirewallParams, authInfo runtime.Clien
 /*
   FindFirewalls finds firewalls by multiple criteria
 */
-func (a *Client) FindFirewalls(params *FindFirewallsParams, authInfo runtime.ClientAuthInfoWriter) (*FindFirewallsOK, error) {
+func (a *Client) FindFirewalls(params *FindFirewallsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FindFirewallsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewFindFirewallsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "findFirewalls",
 		Method:             "POST",
 		PathPattern:        "/v1/firewall/find",
@@ -125,7 +135,12 @@ func (a *Client) FindFirewalls(params *FindFirewallsParams, authInfo runtime.Cli
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -141,13 +156,12 @@ func (a *Client) FindFirewalls(params *FindFirewallsParams, authInfo runtime.Cli
 /*
   ListFirewalls gets all known firewalls
 */
-func (a *Client) ListFirewalls(params *ListFirewallsParams, authInfo runtime.ClientAuthInfoWriter) (*ListFirewallsOK, error) {
+func (a *Client) ListFirewalls(params *ListFirewallsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListFirewallsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewListFirewallsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "listFirewalls",
 		Method:             "GET",
 		PathPattern:        "/v1/firewall",
@@ -159,7 +173,12 @@ func (a *Client) ListFirewalls(params *ListFirewallsParams, authInfo runtime.Cli
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}

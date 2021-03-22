@@ -11,6 +11,7 @@ import (
 	"github.com/go-openapi/strfmt"
 
 	"github.com/metal-stack/metal-go/api/client/firewall"
+	"github.com/metal-stack/metal-go/api/client/firmware"
 	"github.com/metal-stack/metal-go/api/client/health"
 	"github.com/metal-stack/metal-go/api/client/image"
 	"github.com/metal-stack/metal-go/api/client/ip"
@@ -66,6 +67,7 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *MetalAPI {
 	cli := new(MetalAPI)
 	cli.Transport = transport
 	cli.Firewall = firewall.New(transport, formats)
+	cli.Firmware = firmware.New(transport, formats)
 	cli.Health = health.New(transport, formats)
 	cli.Image = image.New(transport, formats)
 	cli.IP = ip.New(transport, formats)
@@ -122,6 +124,8 @@ func (cfg *TransportConfig) WithSchemes(schemes []string) *TransportConfig {
 type MetalAPI struct {
 	Firewall firewall.ClientService
 
+	Firmware firmware.ClientService
+
 	Health health.ClientService
 
 	Image image.ClientService
@@ -149,6 +153,7 @@ type MetalAPI struct {
 func (c *MetalAPI) SetTransport(transport runtime.ClientTransport) {
 	c.Transport = transport
 	c.Firewall.SetTransport(transport)
+	c.Firmware.SetTransport(transport)
 	c.Health.SetTransport(transport)
 	c.Image.SetTransport(transport)
 	c.IP.SetTransport(transport)

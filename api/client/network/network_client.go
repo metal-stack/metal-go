@@ -23,23 +23,26 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
+// ClientOption is the option for Client methods
+type ClientOption func(*runtime.ClientOperation)
+
 // ClientService is the interface for Client methods
 type ClientService interface {
-	AllocateNetwork(params *AllocateNetworkParams, authInfo runtime.ClientAuthInfoWriter) (*AllocateNetworkCreated, error)
+	AllocateNetwork(params *AllocateNetworkParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*AllocateNetworkCreated, error)
 
-	CreateNetwork(params *CreateNetworkParams, authInfo runtime.ClientAuthInfoWriter) (*CreateNetworkCreated, error)
+	CreateNetwork(params *CreateNetworkParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateNetworkCreated, error)
 
-	DeleteNetwork(params *DeleteNetworkParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteNetworkOK, error)
+	DeleteNetwork(params *DeleteNetworkParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteNetworkOK, error)
 
-	FindNetwork(params *FindNetworkParams, authInfo runtime.ClientAuthInfoWriter) (*FindNetworkOK, error)
+	FindNetwork(params *FindNetworkParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FindNetworkOK, error)
 
-	FindNetworks(params *FindNetworksParams, authInfo runtime.ClientAuthInfoWriter) (*FindNetworksOK, error)
+	FindNetworks(params *FindNetworksParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FindNetworksOK, error)
 
-	FreeNetwork(params *FreeNetworkParams, authInfo runtime.ClientAuthInfoWriter) (*FreeNetworkOK, error)
+	FreeNetwork(params *FreeNetworkParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FreeNetworkOK, error)
 
-	ListNetworks(params *ListNetworksParams, authInfo runtime.ClientAuthInfoWriter) (*ListNetworksOK, error)
+	ListNetworks(params *ListNetworksParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListNetworksOK, error)
 
-	UpdateNetwork(params *UpdateNetworkParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateNetworkOK, error)
+	UpdateNetwork(params *UpdateNetworkParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateNetworkOK, error)
 
 	SetTransport(transport runtime.ClientTransport)
 }
@@ -47,13 +50,12 @@ type ClientService interface {
 /*
   AllocateNetwork allocates a child network from a partition s private super network
 */
-func (a *Client) AllocateNetwork(params *AllocateNetworkParams, authInfo runtime.ClientAuthInfoWriter) (*AllocateNetworkCreated, error) {
+func (a *Client) AllocateNetwork(params *AllocateNetworkParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*AllocateNetworkCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewAllocateNetworkParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "allocateNetwork",
 		Method:             "POST",
 		PathPattern:        "/v1/network/allocate",
@@ -65,7 +67,12 @@ func (a *Client) AllocateNetwork(params *AllocateNetworkParams, authInfo runtime
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -81,13 +88,12 @@ func (a *Client) AllocateNetwork(params *AllocateNetworkParams, authInfo runtime
 /*
   CreateNetwork creates a network if the given ID already exists a conflict is returned
 */
-func (a *Client) CreateNetwork(params *CreateNetworkParams, authInfo runtime.ClientAuthInfoWriter) (*CreateNetworkCreated, error) {
+func (a *Client) CreateNetwork(params *CreateNetworkParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateNetworkCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateNetworkParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "createNetwork",
 		Method:             "PUT",
 		PathPattern:        "/v1/network",
@@ -99,7 +105,12 @@ func (a *Client) CreateNetwork(params *CreateNetworkParams, authInfo runtime.Cli
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -115,13 +126,12 @@ func (a *Client) CreateNetwork(params *CreateNetworkParams, authInfo runtime.Cli
 /*
   DeleteNetwork deletes a network and returns the deleted entity
 */
-func (a *Client) DeleteNetwork(params *DeleteNetworkParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteNetworkOK, error) {
+func (a *Client) DeleteNetwork(params *DeleteNetworkParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteNetworkOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteNetworkParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "deleteNetwork",
 		Method:             "DELETE",
 		PathPattern:        "/v1/network/{id}",
@@ -133,7 +143,12 @@ func (a *Client) DeleteNetwork(params *DeleteNetworkParams, authInfo runtime.Cli
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -149,13 +164,12 @@ func (a *Client) DeleteNetwork(params *DeleteNetworkParams, authInfo runtime.Cli
 /*
   FindNetwork gets network by id
 */
-func (a *Client) FindNetwork(params *FindNetworkParams, authInfo runtime.ClientAuthInfoWriter) (*FindNetworkOK, error) {
+func (a *Client) FindNetwork(params *FindNetworkParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FindNetworkOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewFindNetworkParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "findNetwork",
 		Method:             "GET",
 		PathPattern:        "/v1/network/{id}",
@@ -167,7 +181,12 @@ func (a *Client) FindNetwork(params *FindNetworkParams, authInfo runtime.ClientA
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -183,13 +202,12 @@ func (a *Client) FindNetwork(params *FindNetworkParams, authInfo runtime.ClientA
 /*
   FindNetworks gets all networks that match given properties
 */
-func (a *Client) FindNetworks(params *FindNetworksParams, authInfo runtime.ClientAuthInfoWriter) (*FindNetworksOK, error) {
+func (a *Client) FindNetworks(params *FindNetworksParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FindNetworksOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewFindNetworksParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "findNetworks",
 		Method:             "POST",
 		PathPattern:        "/v1/network/find",
@@ -201,7 +219,12 @@ func (a *Client) FindNetworks(params *FindNetworksParams, authInfo runtime.Clien
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -217,13 +240,12 @@ func (a *Client) FindNetworks(params *FindNetworksParams, authInfo runtime.Clien
 /*
   FreeNetwork frees a network
 */
-func (a *Client) FreeNetwork(params *FreeNetworkParams, authInfo runtime.ClientAuthInfoWriter) (*FreeNetworkOK, error) {
+func (a *Client) FreeNetwork(params *FreeNetworkParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FreeNetworkOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewFreeNetworkParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "freeNetwork",
 		Method:             "POST",
 		PathPattern:        "/v1/network/free/{id}",
@@ -235,7 +257,12 @@ func (a *Client) FreeNetwork(params *FreeNetworkParams, authInfo runtime.ClientA
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -251,13 +278,12 @@ func (a *Client) FreeNetwork(params *FreeNetworkParams, authInfo runtime.ClientA
 /*
   ListNetworks gets all networks
 */
-func (a *Client) ListNetworks(params *ListNetworksParams, authInfo runtime.ClientAuthInfoWriter) (*ListNetworksOK, error) {
+func (a *Client) ListNetworks(params *ListNetworksParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListNetworksOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewListNetworksParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "listNetworks",
 		Method:             "GET",
 		PathPattern:        "/v1/network",
@@ -269,7 +295,12 @@ func (a *Client) ListNetworks(params *ListNetworksParams, authInfo runtime.Clien
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -285,13 +316,12 @@ func (a *Client) ListNetworks(params *ListNetworksParams, authInfo runtime.Clien
 /*
   UpdateNetwork updates a network if the network was changed since this one was read a conflict is returned
 */
-func (a *Client) UpdateNetwork(params *UpdateNetworkParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateNetworkOK, error) {
+func (a *Client) UpdateNetwork(params *UpdateNetworkParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateNetworkOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewUpdateNetworkParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "updateNetwork",
 		Method:             "POST",
 		PathPattern:        "/v1/network",
@@ -303,7 +333,12 @@ func (a *Client) UpdateNetwork(params *UpdateNetworkParams, authInfo runtime.Cli
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
