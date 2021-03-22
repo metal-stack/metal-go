@@ -3,6 +3,7 @@ package metalgo
 import (
 	"fmt"
 	"github.com/metal-stack/metal-go/api/client/firmware"
+	"github.com/metal-stack/metal-go/api/client/tenant"
 	"net/url"
 	"time"
 
@@ -35,6 +36,7 @@ type Driver struct {
 	firewall     firewall.ClientService
 	partition    partition.ClientService
 	project      project.ClientService
+	tenant       tenant.ClientService
 	size         size.ClientService
 	sw           sw.ClientService
 	network      network.ClientService
