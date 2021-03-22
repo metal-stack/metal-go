@@ -77,6 +77,7 @@ func NewDriver(baseURL, bearer, hmacKey string, options ...option) (*Driver, err
 		size:         c.Size,
 		image:        c.Image,
 		project:      c.Project,
+		tenant:       c.Tenant,
 		partition:    c.Partition,
 		sw:           c.SwitchOperations,
 		network:      c.Network,
