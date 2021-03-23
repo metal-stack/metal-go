@@ -1,3 +1,5 @@
+METAL_API_VERSION := $(or ${METAL_API_VERSION},$(shell cat VERSION))
+
 .ONESHELL:
 CGO_ENABLED := $(or ${CGO_ENABLED},0)
 GO := go
@@ -15,9 +17,12 @@ test:
 
 .PHONY: generate-client
 generate-client:
+	curl -LO https://raw.githubusercontent.com/metal-stack/metal-api/$(METAL_API_VERSION)/spec/metal-api.json
+	# writing version into the spec as otherwise it's invalid
+	docker run --rm --user $$(id -u):$$(id -g) -it -v $(PWD)/metal-api.json:/metal-api.json mikefarah/yq:4 e '.info.version = "$(METAL_API_VERSION)"' -ji /metal-api.json
 	rm -rf api
 	mkdir -p api
-	GO111MODULE=off docker run -it --user $$(id -u):$$(id -g) --rm -v ${PWD}:/work metalstack/builder swagger generate client -f metal-api.json -t api --skip-validation
+	GO111MODULE=off docker run -it --user $$(id -u):$$(id -g) --rm -v ${PWD}:/work metalstack/builder swagger generate client -f metal-api.json -t api
 
 .PHONY: golangcicheck
 golangcicheck:
