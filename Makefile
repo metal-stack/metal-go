@@ -18,6 +18,10 @@ test:
 .PHONY: generate-client
 generate-client:
 	curl -LO https://raw.githubusercontent.com/metal-stack/metal-api/$(METAL_API_VERSION)/spec/metal-api.json
+	$(MAKE) generate-client-local
+
+.PHONY: generate-client-local
+generate-client-local:
 	# writing version into the spec as otherwise it's invalid
 	docker run --rm --user $$(id -u):$$(id -g) -it -v $(PWD)/metal-api.json:/metal-api.json mikefarah/yq:4 e '.info.version = "$(METAL_API_VERSION)"' -ji /metal-api.json
 	rm -rf api
