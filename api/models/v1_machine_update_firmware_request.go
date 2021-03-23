@@ -23,7 +23,7 @@ type V1MachineUpdateFirmwareRequest struct {
 	// Required: true
 	Description *string `json:"description"`
 
-	// the firmware kind, i.e. 'bios' of 'bmc'
+	// the firmware kind, i.e. [bios|bmc]
 	// Required: true
 	Kind *string `json:"kind"`
 
