@@ -23,6 +23,10 @@ type V1FirewallCreateRequest struct {
 	// a description for this entity
 	Description string `json:"description,omitempty"`
 
+	// the filesystemlayout id to assing to this machine
+	// Required: true
+	Filesystemlayoutid *string `json:"filesystemlayoutid"`
+
 	// if set to true, this firewall is set up in a High Available manner
 	Ha bool `json:"ha,omitempty"`
 
@@ -72,6 +76,10 @@ type V1FirewallCreateRequest struct {
 func (m *V1FirewallCreateRequest) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateFilesystemlayoutid(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateImageid(formats); err != nil {
 		res = append(res, err)
 	}
@@ -99,6 +107,15 @@ func (m *V1FirewallCreateRequest) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *V1FirewallCreateRequest) validateFilesystemlayoutid(formats strfmt.Registry) error {
+
+	if err := validate.Required("filesystemlayoutid", "body", m.Filesystemlayoutid); err != nil {
+		return err
+	}
+
 	return nil
 }
 
