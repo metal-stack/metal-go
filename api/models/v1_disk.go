@@ -32,9 +32,9 @@ type V1Disk struct {
 	// Required: true
 	Partitions []*V1DiskPartition `json:"Partitions"`
 
-	// wipe
+	// wipe on reinstall
 	// Required: true
-	Wipe *bool `json:"Wipe"`
+	WipeOnReinstall *bool `json:"WipeOnReinstall"`
 }
 
 // Validate validates this v1 disk
@@ -53,7 +53,7 @@ func (m *V1Disk) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validateWipe(formats); err != nil {
+	if err := m.validateWipeOnReinstall(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -106,9 +106,9 @@ func (m *V1Disk) validatePartitions(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *V1Disk) validateWipe(formats strfmt.Registry) error {
+func (m *V1Disk) validateWipeOnReinstall(formats strfmt.Registry) error {
 
-	if err := validate.Required("Wipe", "body", m.Wipe); err != nil {
+	if err := validate.Required("WipeOnReinstall", "body", m.WipeOnReinstall); err != nil {
 		return err
 	}
 
