@@ -23,10 +23,6 @@ type V1DiskPartition struct {
 	// Required: true
 	GPTType *string `json:"GPTType"`
 
-	// GUID
-	// Required: true
-	GUID *string `json:"GUID"`
-
 	// label
 	// Required: true
 	Label *string `json:"Label"`
@@ -45,10 +41,6 @@ func (m *V1DiskPartition) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateGPTType(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateGUID(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -73,15 +65,6 @@ func (m *V1DiskPartition) Validate(formats strfmt.Registry) error {
 func (m *V1DiskPartition) validateGPTType(formats strfmt.Registry) error {
 
 	if err := validate.Required("GPTType", "body", m.GPTType); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *V1DiskPartition) validateGUID(formats strfmt.Registry) error {
-
-	if err := validate.Required("GUID", "body", m.GUID); err != nil {
 		return err
 	}
 
