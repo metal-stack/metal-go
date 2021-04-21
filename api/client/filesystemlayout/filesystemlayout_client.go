@@ -28,112 +28,36 @@ type ClientOption func(*runtime.ClientOperation)
 
 // ClientService is the interface for Client methods
 type ClientService interface {
-	FindFilesystemLayout(params *FindFilesystemLayoutParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FindFilesystemLayoutOK, error)
+	CreateFilesystemLayout(params *CreateFilesystemLayoutParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateFilesystemLayoutCreated, error)
 
-	Func1(params *Func1Params, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*Func1OK, error)
+	DeleteFilesystemLayout(params *DeleteFilesystemLayoutParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteFilesystemLayoutOK, error)
 
-	Func2(params *Func2Params, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*Func2Created, error)
-
-	Func3(params *Func3Params, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*Func3OK, error)
+	GetFilesystemLayout(params *GetFilesystemLayoutParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetFilesystemLayoutOK, error)
 
 	ListFilesystemLayouts(params *ListFilesystemLayoutsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListFilesystemLayoutsOK, error)
+
+	UpdateFilesystemLayout(params *UpdateFilesystemLayoutParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateFilesystemLayoutOK, error)
 
 	SetTransport(transport runtime.ClientTransport)
 }
 
 /*
-  FindFilesystemLayout gets filesystemlayout by id
+  CreateFilesystemLayout creates a filesystemlayout if the given ID already exists a conflict is returned
 */
-func (a *Client) FindFilesystemLayout(params *FindFilesystemLayoutParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FindFilesystemLayoutOK, error) {
+func (a *Client) CreateFilesystemLayout(params *CreateFilesystemLayoutParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateFilesystemLayoutCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewFindFilesystemLayoutParams()
+		params = NewCreateFilesystemLayoutParams()
 	}
 	op := &runtime.ClientOperation{
-		ID:                 "findFilesystemLayout",
-		Method:             "GET",
-		PathPattern:        "/v1/filesystemlayout/{id}",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
-		Params:             params,
-		Reader:             &FindFilesystemLayoutReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*FindFilesystemLayoutOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	unexpectedSuccess := result.(*FindFilesystemLayoutDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
-}
-
-/*
-  Func1 deletes an filesystemlayout and returns the deleted entity
-*/
-func (a *Client) Func1(params *Func1Params, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*Func1OK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewFunc1Params()
-	}
-	op := &runtime.ClientOperation{
-		ID:                 "func1",
-		Method:             "DELETE",
-		PathPattern:        "/v1/filesystemlayout/{id}",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
-		Params:             params,
-		Reader:             &Func1Reader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*Func1OK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	unexpectedSuccess := result.(*Func1Default)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
-}
-
-/*
-  Func2 creates a filesystemlayout if the given ID already exists a conflict is returned
-*/
-func (a *Client) Func2(params *Func2Params, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*Func2Created, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewFunc2Params()
-	}
-	op := &runtime.ClientOperation{
-		ID:                 "func2",
+		ID:                 "createFilesystemLayout",
 		Method:             "PUT",
 		PathPattern:        "/v1/filesystemlayout",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http"},
 		Params:             params,
-		Reader:             &Func2Reader{formats: a.formats},
+		Reader:             &CreateFilesystemLayoutReader{formats: a.formats},
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
@@ -146,32 +70,32 @@ func (a *Client) Func2(params *Func2Params, authInfo runtime.ClientAuthInfoWrite
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*Func2Created)
+	success, ok := result.(*CreateFilesystemLayoutCreated)
 	if ok {
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*Func2Default)
+	unexpectedSuccess := result.(*CreateFilesystemLayoutDefault)
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-  Func3 updates a filesystemlayout if the filesystemlayout was changed since this one was read a conflict is returned
+  DeleteFilesystemLayout deletes an filesystemlayout and returns the deleted entity
 */
-func (a *Client) Func3(params *Func3Params, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*Func3OK, error) {
+func (a *Client) DeleteFilesystemLayout(params *DeleteFilesystemLayoutParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteFilesystemLayoutOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewFunc3Params()
+		params = NewDeleteFilesystemLayoutParams()
 	}
 	op := &runtime.ClientOperation{
-		ID:                 "func3",
-		Method:             "POST",
-		PathPattern:        "/v1/filesystemlayout",
+		ID:                 "deleteFilesystemLayout",
+		Method:             "DELETE",
+		PathPattern:        "/v1/filesystemlayout/{id}",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http"},
 		Params:             params,
-		Reader:             &Func3Reader{formats: a.formats},
+		Reader:             &DeleteFilesystemLayoutReader{formats: a.formats},
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
@@ -184,12 +108,50 @@ func (a *Client) Func3(params *Func3Params, authInfo runtime.ClientAuthInfoWrite
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*Func3OK)
+	success, ok := result.(*DeleteFilesystemLayoutOK)
 	if ok {
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*Func3Default)
+	unexpectedSuccess := result.(*DeleteFilesystemLayoutDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+  GetFilesystemLayout gets filesystemlayout by id
+*/
+func (a *Client) GetFilesystemLayout(params *GetFilesystemLayoutParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetFilesystemLayoutOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetFilesystemLayoutParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "getFilesystemLayout",
+		Method:             "GET",
+		PathPattern:        "/v1/filesystemlayout/{id}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &GetFilesystemLayoutReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*GetFilesystemLayoutOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*GetFilesystemLayoutDefault)
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
@@ -228,6 +190,44 @@ func (a *Client) ListFilesystemLayouts(params *ListFilesystemLayoutsParams, auth
 	}
 	// unexpected success response
 	unexpectedSuccess := result.(*ListFilesystemLayoutsDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+  UpdateFilesystemLayout updates a filesystemlayout if the filesystemlayout was changed since this one was read a conflict is returned
+*/
+func (a *Client) UpdateFilesystemLayout(params *UpdateFilesystemLayoutParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateFilesystemLayoutOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUpdateFilesystemLayoutParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "updateFilesystemLayout",
+		Method:             "POST",
+		PathPattern:        "/v1/filesystemlayout",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &UpdateFilesystemLayoutReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*UpdateFilesystemLayoutOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*UpdateFilesystemLayoutDefault)
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
