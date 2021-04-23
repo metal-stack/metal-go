@@ -7,19 +7,20 @@ import (
 
 // MachineCreateRequest contains data for a machine creation
 type MachineCreateRequest struct {
-	Description   string
-	Hostname      string
-	Name          string
-	UserData      string
-	Size          string
-	Project       string
-	Partition     string
-	Image         string
-	Tags          []string
-	SSHPublicKeys []string
-	UUID          string
-	Networks      []MachineAllocationNetwork
-	IPs           []string
+	Description      string
+	Hostname         string
+	Name             string
+	UserData         string
+	Size             string
+	FilesystemLayout string
+	Project          string
+	Partition        string
+	Image            string
+	Tags             []string
+	SSHPublicKeys    []string
+	UUID             string
+	Networks         []MachineAllocationNetwork
+	IPs              []string
 }
 
 // MachineFindRequest contains criteria for a machine listing
@@ -180,19 +181,20 @@ func (d *Driver) MachineCreate(mcr *MachineCreateRequest) (*MachineCreateRespons
 	response := &MachineCreateResponse{}
 
 	allocateRequest := &models.V1MachineAllocateRequest{
-		Description: mcr.Description,
-		Partitionid: &mcr.Partition,
-		Hostname:    mcr.Hostname,
-		Imageid:     &mcr.Image,
-		Name:        mcr.Name,
-		UUID:        mcr.UUID,
-		Projectid:   &mcr.Project,
-		Sizeid:      &mcr.Size,
-		SSHPubKeys:  mcr.SSHPublicKeys,
-		UserData:    mcr.UserData,
-		Tags:        mcr.Tags,
-		Networks:    mcr.translateNetworks(),
-		Ips:         mcr.IPs,
+		Description:        mcr.Description,
+		Partitionid:        &mcr.Partition,
+		Hostname:           mcr.Hostname,
+		Imageid:            &mcr.Image,
+		Name:               mcr.Name,
+		UUID:               mcr.UUID,
+		Projectid:          &mcr.Project,
+		Sizeid:             &mcr.Size,
+		Filesystemlayoutid: &mcr.FilesystemLayout,
+		SSHPubKeys:         mcr.SSHPublicKeys,
+		UserData:           mcr.UserData,
+		Tags:               mcr.Tags,
+		Networks:           mcr.translateNetworks(),
+		Ips:                mcr.IPs,
 	}
 	allocMachine := machine.NewAllocateMachineParams()
 	allocMachine.SetBody(allocateRequest)
