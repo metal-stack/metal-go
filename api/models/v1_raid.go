@@ -19,44 +19,44 @@ import (
 // swagger:model v1.Raid
 type V1Raid struct {
 
-	// devices
+	// the name of the resulting array device
 	// Required: true
-	Devices []string `json:"Devices"`
+	Arrayname *string `json:"arrayname"`
 
-	// level
+	// the options to use to create the raid array
 	// Required: true
-	Level *string `json:"Level"`
+	Createoptions []string `json:"createoptions"`
 
-	// name
+	// list of devices to form the raid array from
 	// Required: true
-	Name *string `json:"Name"`
+	Devices []string `json:"devices"`
 
-	// options
+	// raid level to create, should be 0 or 1
 	// Required: true
-	Options []string `json:"Options"`
+	Level *string `json:"level"`
 
-	// spares
+	// number of spares for the raid array
 	// Required: true
-	Spares *int32 `json:"Spares"`
+	Spares *int32 `json:"spares"`
 }
 
 // Validate validates this v1 raid
 func (m *V1Raid) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateArrayname(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateCreateoptions(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateDevices(formats); err != nil {
 		res = append(res, err)
 	}
 
 	if err := m.validateLevel(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateName(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateOptions(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -70,9 +70,27 @@ func (m *V1Raid) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
+func (m *V1Raid) validateArrayname(formats strfmt.Registry) error {
+
+	if err := validate.Required("arrayname", "body", m.Arrayname); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *V1Raid) validateCreateoptions(formats strfmt.Registry) error {
+
+	if err := validate.Required("createoptions", "body", m.Createoptions); err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func (m *V1Raid) validateDevices(formats strfmt.Registry) error {
 
-	if err := validate.Required("Devices", "body", m.Devices); err != nil {
+	if err := validate.Required("devices", "body", m.Devices); err != nil {
 		return err
 	}
 
@@ -81,25 +99,7 @@ func (m *V1Raid) validateDevices(formats strfmt.Registry) error {
 
 func (m *V1Raid) validateLevel(formats strfmt.Registry) error {
 
-	if err := validate.Required("Level", "body", m.Level); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *V1Raid) validateName(formats strfmt.Registry) error {
-
-	if err := validate.Required("Name", "body", m.Name); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *V1Raid) validateOptions(formats strfmt.Registry) error {
-
-	if err := validate.Required("Options", "body", m.Options); err != nil {
+	if err := validate.Required("level", "body", m.Level); err != nil {
 		return err
 	}
 
@@ -108,7 +108,7 @@ func (m *V1Raid) validateOptions(formats strfmt.Registry) error {
 
 func (m *V1Raid) validateSpares(formats strfmt.Registry) error {
 
-	if err := validate.Required("Spares", "body", m.Spares); err != nil {
+	if err := validate.Required("spares", "body", m.Spares); err != nil {
 		return err
 	}
 

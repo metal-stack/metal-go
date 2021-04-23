@@ -20,21 +20,21 @@ import (
 // swagger:model v1.Disk
 type V1Disk struct {
 
-	// device
+	// the device to create the partitions
 	// Required: true
-	Device *string `json:"Device"`
+	Device *string `json:"device"`
 
-	// partition prefix
+	// if a partition is created on device partitionprefix defines how individual devices from a partition are numbered
 	// Required: true
-	PartitionPrefix *string `json:"PartitionPrefix"`
+	Partitionprefix *string `json:"partitionprefix"`
 
-	// partitions
+	// list of partitions to create on this disk
 	// Required: true
-	Partitions []*V1DiskPartition `json:"Partitions"`
+	Partitions []*V1DiskPartition `json:"partitions"`
 
-	// wipe on reinstall
+	// if set to true, this disk will be wiped before reinstallation
 	// Required: true
-	WipeOnReinstall *bool `json:"WipeOnReinstall"`
+	Wipeonreinstall *bool `json:"wipeonreinstall"`
 }
 
 // Validate validates this v1 disk
@@ -45,7 +45,7 @@ func (m *V1Disk) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validatePartitionPrefix(formats); err != nil {
+	if err := m.validatePartitionprefix(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -53,7 +53,7 @@ func (m *V1Disk) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validateWipeOnReinstall(formats); err != nil {
+	if err := m.validateWipeonreinstall(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -65,16 +65,16 @@ func (m *V1Disk) Validate(formats strfmt.Registry) error {
 
 func (m *V1Disk) validateDevice(formats strfmt.Registry) error {
 
-	if err := validate.Required("Device", "body", m.Device); err != nil {
+	if err := validate.Required("device", "body", m.Device); err != nil {
 		return err
 	}
 
 	return nil
 }
 
-func (m *V1Disk) validatePartitionPrefix(formats strfmt.Registry) error {
+func (m *V1Disk) validatePartitionprefix(formats strfmt.Registry) error {
 
-	if err := validate.Required("PartitionPrefix", "body", m.PartitionPrefix); err != nil {
+	if err := validate.Required("partitionprefix", "body", m.Partitionprefix); err != nil {
 		return err
 	}
 
@@ -83,7 +83,7 @@ func (m *V1Disk) validatePartitionPrefix(formats strfmt.Registry) error {
 
 func (m *V1Disk) validatePartitions(formats strfmt.Registry) error {
 
-	if err := validate.Required("Partitions", "body", m.Partitions); err != nil {
+	if err := validate.Required("partitions", "body", m.Partitions); err != nil {
 		return err
 	}
 
@@ -95,7 +95,7 @@ func (m *V1Disk) validatePartitions(formats strfmt.Registry) error {
 		if m.Partitions[i] != nil {
 			if err := m.Partitions[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("Partitions" + "." + strconv.Itoa(i))
+					return ve.ValidateName("partitions" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -106,9 +106,9 @@ func (m *V1Disk) validatePartitions(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *V1Disk) validateWipeOnReinstall(formats strfmt.Registry) error {
+func (m *V1Disk) validateWipeonreinstall(formats strfmt.Registry) error {
 
-	if err := validate.Required("WipeOnReinstall", "body", m.WipeOnReinstall); err != nil {
+	if err := validate.Required("wipeonreinstall", "body", m.Wipeonreinstall); err != nil {
 		return err
 	}
 
@@ -136,7 +136,7 @@ func (m *V1Disk) contextValidatePartitions(ctx context.Context, formats strfmt.R
 		if m.Partitions[i] != nil {
 			if err := m.Partitions[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("Partitions" + "." + strconv.Itoa(i))
+					return ve.ValidateName("partitions" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

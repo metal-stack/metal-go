@@ -20,24 +20,20 @@ import (
 // swagger:model v1.FilesystemLayoutUpdateRequest
 type V1FilesystemLayoutUpdateRequest struct {
 
-	// constraints
+	// constraints which must match that this layout is taken
 	// Required: true
-	Constraints *V1FilesystemLayoutConstraints `json:"Constraints"`
-
-	// disks
-	// Required: true
-	Disks []*V1Disk `json:"Disks"`
-
-	// filesystems
-	// Required: true
-	Filesystems []*V1Filesystem `json:"Filesystems"`
-
-	// raid
-	// Required: true
-	Raid []*V1Raid `json:"Raid"`
+	Constraints *V1FilesystemLayoutConstraints `json:"constraints"`
 
 	// a description for this entity
 	Description string `json:"description,omitempty"`
+
+	// list of disks to to modify
+	// Required: true
+	Disks []*V1Disk `json:"disks"`
+
+	// list of filesystems to create
+	// Required: true
+	Filesystems []*V1Filesystem `json:"filesystems"`
 
 	// the unique ID of this entity
 	// Required: true
@@ -45,6 +41,10 @@ type V1FilesystemLayoutUpdateRequest struct {
 
 	// a readable name for this entity
 	Name string `json:"name,omitempty"`
+
+	// list of raid arrays to create
+	// Required: true
+	Raid []*V1Raid `json:"raid"`
 }
 
 // Validate validates this v1 filesystem layout update request
@@ -63,11 +63,11 @@ func (m *V1FilesystemLayoutUpdateRequest) Validate(formats strfmt.Registry) erro
 		res = append(res, err)
 	}
 
-	if err := m.validateRaid(formats); err != nil {
+	if err := m.validateID(formats); err != nil {
 		res = append(res, err)
 	}
 
-	if err := m.validateID(formats); err != nil {
+	if err := m.validateRaid(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -79,14 +79,14 @@ func (m *V1FilesystemLayoutUpdateRequest) Validate(formats strfmt.Registry) erro
 
 func (m *V1FilesystemLayoutUpdateRequest) validateConstraints(formats strfmt.Registry) error {
 
-	if err := validate.Required("Constraints", "body", m.Constraints); err != nil {
+	if err := validate.Required("constraints", "body", m.Constraints); err != nil {
 		return err
 	}
 
 	if m.Constraints != nil {
 		if err := m.Constraints.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("Constraints")
+				return ve.ValidateName("constraints")
 			}
 			return err
 		}
@@ -97,7 +97,7 @@ func (m *V1FilesystemLayoutUpdateRequest) validateConstraints(formats strfmt.Reg
 
 func (m *V1FilesystemLayoutUpdateRequest) validateDisks(formats strfmt.Registry) error {
 
-	if err := validate.Required("Disks", "body", m.Disks); err != nil {
+	if err := validate.Required("disks", "body", m.Disks); err != nil {
 		return err
 	}
 
@@ -109,7 +109,7 @@ func (m *V1FilesystemLayoutUpdateRequest) validateDisks(formats strfmt.Registry)
 		if m.Disks[i] != nil {
 			if err := m.Disks[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("Disks" + "." + strconv.Itoa(i))
+					return ve.ValidateName("disks" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -122,7 +122,7 @@ func (m *V1FilesystemLayoutUpdateRequest) validateDisks(formats strfmt.Registry)
 
 func (m *V1FilesystemLayoutUpdateRequest) validateFilesystems(formats strfmt.Registry) error {
 
-	if err := validate.Required("Filesystems", "body", m.Filesystems); err != nil {
+	if err := validate.Required("filesystems", "body", m.Filesystems); err != nil {
 		return err
 	}
 
@@ -134,32 +134,7 @@ func (m *V1FilesystemLayoutUpdateRequest) validateFilesystems(formats strfmt.Reg
 		if m.Filesystems[i] != nil {
 			if err := m.Filesystems[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("Filesystems" + "." + strconv.Itoa(i))
-				}
-				return err
-			}
-		}
-
-	}
-
-	return nil
-}
-
-func (m *V1FilesystemLayoutUpdateRequest) validateRaid(formats strfmt.Registry) error {
-
-	if err := validate.Required("Raid", "body", m.Raid); err != nil {
-		return err
-	}
-
-	for i := 0; i < len(m.Raid); i++ {
-		if swag.IsZero(m.Raid[i]) { // not required
-			continue
-		}
-
-		if m.Raid[i] != nil {
-			if err := m.Raid[i].Validate(formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("Raid" + "." + strconv.Itoa(i))
+					return ve.ValidateName("filesystems" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -174,6 +149,31 @@ func (m *V1FilesystemLayoutUpdateRequest) validateID(formats strfmt.Registry) er
 
 	if err := validate.Required("id", "body", m.ID); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+func (m *V1FilesystemLayoutUpdateRequest) validateRaid(formats strfmt.Registry) error {
+
+	if err := validate.Required("raid", "body", m.Raid); err != nil {
+		return err
+	}
+
+	for i := 0; i < len(m.Raid); i++ {
+		if swag.IsZero(m.Raid[i]) { // not required
+			continue
+		}
+
+		if m.Raid[i] != nil {
+			if err := m.Raid[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("raid" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
 	}
 
 	return nil
@@ -210,7 +210,7 @@ func (m *V1FilesystemLayoutUpdateRequest) contextValidateConstraints(ctx context
 	if m.Constraints != nil {
 		if err := m.Constraints.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("Constraints")
+				return ve.ValidateName("constraints")
 			}
 			return err
 		}
@@ -226,7 +226,7 @@ func (m *V1FilesystemLayoutUpdateRequest) contextValidateDisks(ctx context.Conte
 		if m.Disks[i] != nil {
 			if err := m.Disks[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("Disks" + "." + strconv.Itoa(i))
+					return ve.ValidateName("disks" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -244,7 +244,7 @@ func (m *V1FilesystemLayoutUpdateRequest) contextValidateFilesystems(ctx context
 		if m.Filesystems[i] != nil {
 			if err := m.Filesystems[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("Filesystems" + "." + strconv.Itoa(i))
+					return ve.ValidateName("filesystems" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -262,7 +262,7 @@ func (m *V1FilesystemLayoutUpdateRequest) contextValidateRaid(ctx context.Contex
 		if m.Raid[i] != nil {
 			if err := m.Raid[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("Raid" + "." + strconv.Itoa(i))
+					return ve.ValidateName("raid" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

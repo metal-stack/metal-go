@@ -19,28 +19,28 @@ import (
 // swagger:model v1.DiskPartition
 type V1DiskPartition struct {
 
-	// g p t type
+	// the gpt partition table type of this partition
 	// Required: true
-	GPTType *string `json:"GPTType"`
+	Gpttype *string `json:"gpttype"`
 
-	// label
+	// optional label for this this partition
 	// Required: true
-	Label *string `json:"Label"`
+	Label *string `json:"label"`
 
-	// number
+	// partition number, will be appended to partitionprefix to create the final devicename
 	// Required: true
-	Number *int64 `json:"Number"`
+	Number *int64 `json:"number"`
 
-	// size
+	// size in mebibytes of this partition
 	// Required: true
-	Size *int64 `json:"Size"`
+	Size *int64 `json:"size"`
 }
 
 // Validate validates this v1 disk partition
 func (m *V1DiskPartition) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateGPTType(formats); err != nil {
+	if err := m.validateGpttype(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -62,9 +62,9 @@ func (m *V1DiskPartition) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *V1DiskPartition) validateGPTType(formats strfmt.Registry) error {
+func (m *V1DiskPartition) validateGpttype(formats strfmt.Registry) error {
 
-	if err := validate.Required("GPTType", "body", m.GPTType); err != nil {
+	if err := validate.Required("gpttype", "body", m.Gpttype); err != nil {
 		return err
 	}
 
@@ -73,7 +73,7 @@ func (m *V1DiskPartition) validateGPTType(formats strfmt.Registry) error {
 
 func (m *V1DiskPartition) validateLabel(formats strfmt.Registry) error {
 
-	if err := validate.Required("Label", "body", m.Label); err != nil {
+	if err := validate.Required("label", "body", m.Label); err != nil {
 		return err
 	}
 
@@ -82,7 +82,7 @@ func (m *V1DiskPartition) validateLabel(formats strfmt.Registry) error {
 
 func (m *V1DiskPartition) validateNumber(formats strfmt.Registry) error {
 
-	if err := validate.Required("Number", "body", m.Number); err != nil {
+	if err := validate.Required("number", "body", m.Number); err != nil {
 		return err
 	}
 
@@ -91,7 +91,7 @@ func (m *V1DiskPartition) validateNumber(formats strfmt.Registry) error {
 
 func (m *V1DiskPartition) validateSize(formats strfmt.Registry) error {
 
-	if err := validate.Required("Size", "body", m.Size); err != nil {
+	if err := validate.Required("size", "body", m.Size); err != nil {
 		return err
 	}
 

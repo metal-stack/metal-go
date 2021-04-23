@@ -19,34 +19,38 @@ import (
 // swagger:model v1.Filesystem
 type V1Filesystem struct {
 
-	// device
+	// the options to use to create (mkfs) this filesystem
 	// Required: true
-	Device *string `json:"Device"`
+	Createoptions []string `json:"createoptions"`
 
-	// format
+	// the underlaying device where this filesystem should be created
 	// Required: true
-	Format *string `json:"Format"`
+	Device *string `json:"device"`
 
-	// label
+	// the filesystem format
 	// Required: true
-	Label *string `json:"Label"`
+	Format *string `json:"format"`
 
-	// mount options
+	// optional label for this this filesystem
 	// Required: true
-	MountOptions []string `json:"MountOptions"`
+	Label *string `json:"label"`
 
-	// options
+	// the options to use to mount this filesystem
 	// Required: true
-	Options []string `json:"Options"`
+	Mountoptions []string `json:"mountoptions"`
 
-	// path
+	// the mountpoint where this filesystem should be mounted on
 	// Required: true
-	Path *string `json:"Path"`
+	Path *string `json:"path"`
 }
 
 // Validate validates this v1 filesystem
 func (m *V1Filesystem) Validate(formats strfmt.Registry) error {
 	var res []error
+
+	if err := m.validateCreateoptions(formats); err != nil {
+		res = append(res, err)
+	}
 
 	if err := m.validateDevice(formats); err != nil {
 		res = append(res, err)
@@ -60,11 +64,7 @@ func (m *V1Filesystem) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validateMountOptions(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateOptions(formats); err != nil {
+	if err := m.validateMountoptions(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -78,9 +78,18 @@ func (m *V1Filesystem) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
+func (m *V1Filesystem) validateCreateoptions(formats strfmt.Registry) error {
+
+	if err := validate.Required("createoptions", "body", m.Createoptions); err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func (m *V1Filesystem) validateDevice(formats strfmt.Registry) error {
 
-	if err := validate.Required("Device", "body", m.Device); err != nil {
+	if err := validate.Required("device", "body", m.Device); err != nil {
 		return err
 	}
 
@@ -89,7 +98,7 @@ func (m *V1Filesystem) validateDevice(formats strfmt.Registry) error {
 
 func (m *V1Filesystem) validateFormat(formats strfmt.Registry) error {
 
-	if err := validate.Required("Format", "body", m.Format); err != nil {
+	if err := validate.Required("format", "body", m.Format); err != nil {
 		return err
 	}
 
@@ -98,25 +107,16 @@ func (m *V1Filesystem) validateFormat(formats strfmt.Registry) error {
 
 func (m *V1Filesystem) validateLabel(formats strfmt.Registry) error {
 
-	if err := validate.Required("Label", "body", m.Label); err != nil {
+	if err := validate.Required("label", "body", m.Label); err != nil {
 		return err
 	}
 
 	return nil
 }
 
-func (m *V1Filesystem) validateMountOptions(formats strfmt.Registry) error {
+func (m *V1Filesystem) validateMountoptions(formats strfmt.Registry) error {
 
-	if err := validate.Required("MountOptions", "body", m.MountOptions); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *V1Filesystem) validateOptions(formats strfmt.Registry) error {
-
-	if err := validate.Required("Options", "body", m.Options); err != nil {
+	if err := validate.Required("mountoptions", "body", m.Mountoptions); err != nil {
 		return err
 	}
 
@@ -125,7 +125,7 @@ func (m *V1Filesystem) validateOptions(formats strfmt.Registry) error {
 
 func (m *V1Filesystem) validatePath(formats strfmt.Registry) error {
 
-	if err := validate.Required("Path", "body", m.Path); err != nil {
+	if err := validate.Required("path", "body", m.Path); err != nil {
 		return err
 	}
 

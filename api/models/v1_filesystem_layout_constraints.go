@@ -19,13 +19,13 @@ import (
 // swagger:model v1.FilesystemLayoutConstraints
 type V1FilesystemLayoutConstraints struct {
 
-	// images
+	// list of images this layout applies to
 	// Required: true
-	Images []string `json:"Images"`
+	Images []string `json:"images"`
 
-	// sizes
+	// list of sizes this layout applies to
 	// Required: true
-	Sizes []string `json:"Sizes"`
+	Sizes []string `json:"sizes"`
 }
 
 // Validate validates this v1 filesystem layout constraints
@@ -48,7 +48,7 @@ func (m *V1FilesystemLayoutConstraints) Validate(formats strfmt.Registry) error 
 
 func (m *V1FilesystemLayoutConstraints) validateImages(formats strfmt.Registry) error {
 
-	if err := validate.Required("Images", "body", m.Images); err != nil {
+	if err := validate.Required("images", "body", m.Images); err != nil {
 		return err
 	}
 
@@ -57,7 +57,7 @@ func (m *V1FilesystemLayoutConstraints) validateImages(formats strfmt.Registry) 
 
 func (m *V1FilesystemLayoutConstraints) validateSizes(formats strfmt.Registry) error {
 
-	if err := validate.Required("Sizes", "body", m.Sizes); err != nil {
+	if err := validate.Required("sizes", "body", m.Sizes); err != nil {
 		return err
 	}
 
