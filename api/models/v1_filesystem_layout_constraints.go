@@ -21,7 +21,7 @@ type V1FilesystemLayoutConstraints struct {
 
 	// list of images this layout applies to
 	// Required: true
-	Images []string `json:"images"`
+	Images map[string]string `json:"images"`
 
 	// list of sizes this layout applies to
 	// Required: true

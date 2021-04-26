@@ -20,7 +20,7 @@ import (
 // swagger:model v1.FilesystemLayoutCreateRequest
 type V1FilesystemLayoutCreateRequest struct {
 
-	// constraints which must match that this layout is taken
+	// constraints which must match that this layout is taken, if sizes and images are empty these are develop layouts
 	// Required: true
 	Constraints *V1FilesystemLayoutConstraints `json:"constraints"`
 

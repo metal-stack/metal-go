@@ -31,7 +31,7 @@ type V1DiskPartition struct {
 	// Required: true
 	Number *int64 `json:"number"`
 
-	// size in mebibytes of this partition
+	// size in mebibytes (MiB) of this partition
 	// Required: true
 	Size *int64 `json:"size"`
 }
