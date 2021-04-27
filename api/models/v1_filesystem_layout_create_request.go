@@ -39,12 +39,20 @@ type V1FilesystemLayoutCreateRequest struct {
 	// Required: true
 	ID *string `json:"id"`
 
+	// list of logicalvolumes to create
+	// Required: true
+	Logicalvolumes []*V1LogicalVolume `json:"logicalvolumes"`
+
 	// a readable name for this entity
 	Name string `json:"name,omitempty"`
 
 	// list of raid arrays to create
 	// Required: true
 	Raid []*V1Raid `json:"raid"`
+
+	// list of volumegroups to create
+	// Required: true
+	Volumegroups []*V1VolumeGroup `json:"volumegroups"`
 }
 
 // Validate validates this v1 filesystem layout create request
@@ -67,7 +75,15 @@ func (m *V1FilesystemLayoutCreateRequest) Validate(formats strfmt.Registry) erro
 		res = append(res, err)
 	}
 
+	if err := m.validateLogicalvolumes(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateRaid(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateVolumegroups(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -154,6 +170,31 @@ func (m *V1FilesystemLayoutCreateRequest) validateID(formats strfmt.Registry) er
 	return nil
 }
 
+func (m *V1FilesystemLayoutCreateRequest) validateLogicalvolumes(formats strfmt.Registry) error {
+
+	if err := validate.Required("logicalvolumes", "body", m.Logicalvolumes); err != nil {
+		return err
+	}
+
+	for i := 0; i < len(m.Logicalvolumes); i++ {
+		if swag.IsZero(m.Logicalvolumes[i]) { // not required
+			continue
+		}
+
+		if m.Logicalvolumes[i] != nil {
+			if err := m.Logicalvolumes[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("logicalvolumes" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
 func (m *V1FilesystemLayoutCreateRequest) validateRaid(formats strfmt.Registry) error {
 
 	if err := validate.Required("raid", "body", m.Raid); err != nil {
@@ -169,6 +210,31 @@ func (m *V1FilesystemLayoutCreateRequest) validateRaid(formats strfmt.Registry) 
 			if err := m.Raid[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("raid" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *V1FilesystemLayoutCreateRequest) validateVolumegroups(formats strfmt.Registry) error {
+
+	if err := validate.Required("volumegroups", "body", m.Volumegroups); err != nil {
+		return err
+	}
+
+	for i := 0; i < len(m.Volumegroups); i++ {
+		if swag.IsZero(m.Volumegroups[i]) { // not required
+			continue
+		}
+
+		if m.Volumegroups[i] != nil {
+			if err := m.Volumegroups[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("volumegroups" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -195,7 +261,15 @@ func (m *V1FilesystemLayoutCreateRequest) ContextValidate(ctx context.Context, f
 		res = append(res, err)
 	}
 
+	if err := m.contextValidateLogicalvolumes(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.contextValidateRaid(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateVolumegroups(ctx, formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -255,6 +329,24 @@ func (m *V1FilesystemLayoutCreateRequest) contextValidateFilesystems(ctx context
 	return nil
 }
 
+func (m *V1FilesystemLayoutCreateRequest) contextValidateLogicalvolumes(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Logicalvolumes); i++ {
+
+		if m.Logicalvolumes[i] != nil {
+			if err := m.Logicalvolumes[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("logicalvolumes" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
 func (m *V1FilesystemLayoutCreateRequest) contextValidateRaid(ctx context.Context, formats strfmt.Registry) error {
 
 	for i := 0; i < len(m.Raid); i++ {
@@ -263,6 +355,24 @@ func (m *V1FilesystemLayoutCreateRequest) contextValidateRaid(ctx context.Contex
 			if err := m.Raid[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("raid" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *V1FilesystemLayoutCreateRequest) contextValidateVolumegroups(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Volumegroups); i++ {
+
+		if m.Volumegroups[i] != nil {
+			if err := m.Volumegroups[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("volumegroups" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
