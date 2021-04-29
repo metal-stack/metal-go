@@ -19,7 +19,7 @@ import (
 // swagger:model v1.LogicalVolume
 type V1LogicalVolume struct {
 
-	// the type of this logical volume can be either striped|raid1
+	// the type of this logical volume can be either linear|striped|raid1
 	// Required: true
 	Lvmtype *string `json:"lvmtype"`
 

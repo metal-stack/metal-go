@@ -24,10 +24,6 @@ type V1Disk struct {
 	// Required: true
 	Device *string `json:"device"`
 
-	// if a partition is created on device partitionprefix defines how individual devices from a partition are numbered
-	// Required: true
-	Partitionprefix *string `json:"partitionprefix"`
-
 	// list of partitions to create on this disk
 	// Required: true
 	Partitions []*V1DiskPartition `json:"partitions"`
@@ -42,10 +38,6 @@ func (m *V1Disk) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateDevice(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validatePartitionprefix(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -66,15 +58,6 @@ func (m *V1Disk) Validate(formats strfmt.Registry) error {
 func (m *V1Disk) validateDevice(formats strfmt.Registry) error {
 
 	if err := validate.Required("device", "body", m.Device); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *V1Disk) validatePartitionprefix(formats strfmt.Registry) error {
-
-	if err := validate.Required("partitionprefix", "body", m.Partitionprefix); err != nil {
 		return err
 	}
 
