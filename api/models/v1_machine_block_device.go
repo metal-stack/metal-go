@@ -7,7 +7,6 @@ package models
 
 import (
 	"context"
-	"strconv"
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
@@ -24,13 +23,6 @@ type V1MachineBlockDevice struct {
 	// Required: true
 	Name *string `json:"name"`
 
-	// the partitions of this disk
-	Partitions []*V1MachineDiskPartition `json:"partitions"`
-
-	// whether this disk has the OS installed
-	// Required: true
-	Primary *bool `json:"primary"`
-
 	// the size of this block device
 	// Required: true
 	Size *int64 `json:"size"`
@@ -41,14 +33,6 @@ func (m *V1MachineBlockDevice) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateName(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validatePartitions(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validatePrimary(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -71,39 +55,6 @@ func (m *V1MachineBlockDevice) validateName(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *V1MachineBlockDevice) validatePartitions(formats strfmt.Registry) error {
-	if swag.IsZero(m.Partitions) { // not required
-		return nil
-	}
-
-	for i := 0; i < len(m.Partitions); i++ {
-		if swag.IsZero(m.Partitions[i]) { // not required
-			continue
-		}
-
-		if m.Partitions[i] != nil {
-			if err := m.Partitions[i].Validate(formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("partitions" + "." + strconv.Itoa(i))
-				}
-				return err
-			}
-		}
-
-	}
-
-	return nil
-}
-
-func (m *V1MachineBlockDevice) validatePrimary(formats strfmt.Registry) error {
-
-	if err := validate.Required("primary", "body", m.Primary); err != nil {
-		return err
-	}
-
-	return nil
-}
-
 func (m *V1MachineBlockDevice) validateSize(formats strfmt.Registry) error {
 
 	if err := validate.Required("size", "body", m.Size); err != nil {
@@ -113,35 +64,8 @@ func (m *V1MachineBlockDevice) validateSize(formats strfmt.Registry) error {
 	return nil
 }
 
-// ContextValidate validate this v1 machine block device based on the context it is used
+// ContextValidate validates this v1 machine block device based on context it is used
 func (m *V1MachineBlockDevice) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
-	var res []error
-
-	if err := m.contextValidatePartitions(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (m *V1MachineBlockDevice) contextValidatePartitions(ctx context.Context, formats strfmt.Registry) error {
-
-	for i := 0; i < len(m.Partitions); i++ {
-
-		if m.Partitions[i] != nil {
-			if err := m.Partitions[i].ContextValidate(ctx, formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("partitions" + "." + strconv.Itoa(i))
-				}
-				return err
-			}
-		}
-
-	}
-
 	return nil
 }
 
