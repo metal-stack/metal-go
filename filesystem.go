@@ -58,3 +58,13 @@ func (d *Driver) FilesystemLayoutDelete(filesystemlayoutID string) (*models.V1Fi
 	}
 	return resp.Payload, nil
 }
+
+// FilesystemLayoutTry with size and image
+func (d *Driver) FilesystemLayoutTry(try models.V1FilesystemLayoutTryRequest) (*models.V1FilesystemLayoutResponse, error) {
+	request := filesystemlayout.NewTryFilesystemLayoutParams()
+	resp, err := d.filesystemlayout.TryFilesystemLayout(request, nil)
+	if err != nil {
+		return nil, err
+	}
+	return resp.Payload, nil
+}
