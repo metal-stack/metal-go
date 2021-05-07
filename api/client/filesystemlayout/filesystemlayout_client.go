@@ -36,6 +36,8 @@ type ClientService interface {
 
 	ListFilesystemLayouts(params *ListFilesystemLayoutsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListFilesystemLayoutsOK, error)
 
+	TryFilesystemLayout(params *TryFilesystemLayoutParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*TryFilesystemLayoutOK, error)
+
 	UpdateFilesystemLayout(params *UpdateFilesystemLayoutParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateFilesystemLayoutOK, error)
 
 	SetTransport(transport runtime.ClientTransport)
@@ -190,6 +192,44 @@ func (a *Client) ListFilesystemLayouts(params *ListFilesystemLayoutsParams, auth
 	}
 	// unexpected success response
 	unexpectedSuccess := result.(*ListFilesystemLayoutsDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+  TryFilesystemLayout tries to detect a filesystemlayout based on given size and image
+*/
+func (a *Client) TryFilesystemLayout(params *TryFilesystemLayoutParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*TryFilesystemLayoutOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewTryFilesystemLayoutParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "tryFilesystemLayout",
+		Method:             "POST",
+		PathPattern:        "/v1/filesystemlayout/try",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &TryFilesystemLayoutReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*TryFilesystemLayoutOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*TryFilesystemLayoutDefault)
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 

@@ -27,7 +27,7 @@ type V1FilesystemLayoutUpdateRequest struct {
 	// a description for this entity
 	Description string `json:"description,omitempty"`
 
-	// list of disks to to modify
+	// list of disks that belong to this layout
 	// Required: true
 	Disks []*V1Disk `json:"disks"`
 
