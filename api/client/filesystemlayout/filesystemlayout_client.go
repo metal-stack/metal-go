@@ -36,6 +36,8 @@ type ClientService interface {
 
 	ListFilesystemLayouts(params *ListFilesystemLayoutsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListFilesystemLayoutsOK, error)
 
+	MatchFilesystemLayout(params *MatchFilesystemLayoutParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*MatchFilesystemLayoutOK, error)
+
 	TryFilesystemLayout(params *TryFilesystemLayoutParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*TryFilesystemLayoutOK, error)
 
 	UpdateFilesystemLayout(params *UpdateFilesystemLayoutParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateFilesystemLayoutOK, error)
@@ -192,6 +194,44 @@ func (a *Client) ListFilesystemLayouts(params *ListFilesystemLayoutsParams, auth
 	}
 	// unexpected success response
 	unexpectedSuccess := result.(*ListFilesystemLayoutsDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+  MatchFilesystemLayout checks if the given machine id satisfies the disk requirements of the filesystemlayout in question
+*/
+func (a *Client) MatchFilesystemLayout(params *MatchFilesystemLayoutParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*MatchFilesystemLayoutOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewMatchFilesystemLayoutParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "matchFilesystemLayout",
+		Method:             "POST",
+		PathPattern:        "/v1/filesystemlayout/matches",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &MatchFilesystemLayoutReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*MatchFilesystemLayoutOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*MatchFilesystemLayoutDefault)
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 

@@ -30,12 +30,6 @@ func (o *TryFilesystemLayoutReader) ReadResponse(response runtime.ClientResponse
 			return nil, err
 		}
 		return result, nil
-	case 409:
-		result := NewTryFilesystemLayoutConflict()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	default:
 		result := NewTryFilesystemLayoutDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -71,38 +65,6 @@ func (o *TryFilesystemLayoutOK) GetPayload() *models.V1FilesystemLayoutResponse 
 func (o *TryFilesystemLayoutOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.V1FilesystemLayoutResponse)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewTryFilesystemLayoutConflict creates a TryFilesystemLayoutConflict with default headers values
-func NewTryFilesystemLayoutConflict() *TryFilesystemLayoutConflict {
-	return &TryFilesystemLayoutConflict{}
-}
-
-/* TryFilesystemLayoutConflict describes a response with status code 409, with default header values.
-
-Conflict
-*/
-type TryFilesystemLayoutConflict struct {
-	Payload *httperrors.HTTPErrorResponse
-}
-
-func (o *TryFilesystemLayoutConflict) Error() string {
-	return fmt.Sprintf("[POST /v1/filesystemlayout/try][%d] tryFilesystemLayoutConflict  %+v", 409, o.Payload)
-}
-func (o *TryFilesystemLayoutConflict) GetPayload() *httperrors.HTTPErrorResponse {
-	return o.Payload
-}
-
-func (o *TryFilesystemLayoutConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(httperrors.HTTPErrorResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

@@ -68,3 +68,13 @@ func (d *Driver) FilesystemLayoutTry(try models.V1FilesystemLayoutTryRequest) (*
 	}
 	return resp.Payload, nil
 }
+
+// FilesystemLayoutMatch with machine and filesystemlayout
+func (d *Driver) FilesystemLayoutMatch(try models.V1FilesystemLayoutMatchRequest) (*models.V1FilesystemLayoutResponse, error) {
+	request := filesystemlayout.NewMatchFilesystemLayoutParams()
+	resp, err := d.filesystemlayout.MatchFilesystemLayout(request, nil)
+	if err != nil {
+		return nil, err
+	}
+	return resp.Payload, nil
+}
