@@ -189,7 +189,7 @@ func (d *Driver) MachineCreate(mcr *MachineCreateRequest) (*MachineCreateRespons
 		UUID:               mcr.UUID,
 		Projectid:          &mcr.Project,
 		Sizeid:             &mcr.Size,
-		Filesystemlayoutid: &mcr.FilesystemLayout,
+		Filesystemlayoutid: mcr.FilesystemLayout,
 		SSHPubKeys:         mcr.SSHPublicKeys,
 		UserData:           mcr.UserData,
 		Tags:               mcr.Tags,

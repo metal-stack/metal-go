@@ -24,8 +24,7 @@ type V1MachineAllocateRequest struct {
 	Description string `json:"description,omitempty"`
 
 	// the filesystemlayout id to assing to this machine
-	// Required: true
-	Filesystemlayoutid *string `json:"filesystemlayoutid"`
+	Filesystemlayoutid string `json:"filesystemlayoutid,omitempty"`
 
 	// the hostname for the allocated machine (defaults to metal)
 	Hostname string `json:"hostname,omitempty"`
@@ -73,10 +72,6 @@ type V1MachineAllocateRequest struct {
 func (m *V1MachineAllocateRequest) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateFilesystemlayoutid(formats); err != nil {
-		res = append(res, err)
-	}
-
 	if err := m.validateImageid(formats); err != nil {
 		res = append(res, err)
 	}
@@ -104,15 +99,6 @@ func (m *V1MachineAllocateRequest) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
-	return nil
-}
-
-func (m *V1MachineAllocateRequest) validateFilesystemlayoutid(formats strfmt.Registry) error {
-
-	if err := validate.Required("filesystemlayoutid", "body", m.Filesystemlayoutid); err != nil {
-		return err
-	}
-
 	return nil
 }
 
