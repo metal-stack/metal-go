@@ -62,6 +62,7 @@ func (d *Driver) FilesystemLayoutDelete(filesystemlayoutID string) (*models.V1Fi
 // FilesystemLayoutTry with size and image
 func (d *Driver) FilesystemLayoutTry(try models.V1FilesystemLayoutTryRequest) (*models.V1FilesystemLayoutResponse, error) {
 	request := filesystemlayout.NewTryFilesystemLayoutParams()
+	request.SetBody(&try)
 	resp, err := d.filesystemlayout.TryFilesystemLayout(request, nil)
 	if err != nil {
 		return nil, err
@@ -70,8 +71,9 @@ func (d *Driver) FilesystemLayoutTry(try models.V1FilesystemLayoutTryRequest) (*
 }
 
 // FilesystemLayoutMatch with machine and filesystemlayout
-func (d *Driver) FilesystemLayoutMatch(try models.V1FilesystemLayoutMatchRequest) (*models.V1FilesystemLayoutResponse, error) {
+func (d *Driver) FilesystemLayoutMatch(match models.V1FilesystemLayoutMatchRequest) (*models.V1FilesystemLayoutResponse, error) {
 	request := filesystemlayout.NewMatchFilesystemLayoutParams()
+	request.SetBody(&match)
 	resp, err := d.filesystemlayout.MatchFilesystemLayout(request, nil)
 	if err != nil {
 		return nil, err
