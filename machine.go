@@ -258,7 +258,10 @@ func (d *Driver) MachineConsolePassword(id, reason string) (*models.V1MachineCon
 	}
 
 	resp, err := d.machine.GetMachineConsolePassword(cp, nil)
-	return resp.Payload, err
+	if err != nil {
+		return nil, err
+	}
+	return resp.Payload, nil
 }
 
 // MachineList lists all machines
