@@ -249,6 +249,16 @@ func (d *Driver) MachineGet(id string) (*MachineGetResponse, error) {
 	return response, nil
 }
 
+// MachineConsolePassword returns the consolepassword of the machine
+func (d *Driver) MachineConsolePassword(id, reason string) (*models.V1MachineConsolePasswordResponse, error) {
+	cp := machine.NewGetMachineConsolePasswordParams()
+	cp.Body.ID = &id
+	cp.Body.Reason = &reason
+
+	resp, err := d.machine.GetMachineConsolePassword(cp, nil)
+	return resp.Payload, err
+}
+
 // MachineList lists all machines
 func (d *Driver) MachineList() (*MachineListResponse, error) {
 	listMachines := machine.NewListMachinesParams()
