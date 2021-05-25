@@ -252,8 +252,10 @@ func (d *Driver) MachineGet(id string) (*MachineGetResponse, error) {
 // MachineConsolePassword returns the consolepassword of the machine
 func (d *Driver) MachineConsolePassword(id, reason string) (*models.V1MachineConsolePasswordResponse, error) {
 	cp := machine.NewGetMachineConsolePasswordParams()
-	cp.Body.ID = &id
-	cp.Body.Reason = &reason
+	cp.Body = &models.V1MachineConsolePasswordRequest{
+		ID:     &id,
+		Reason: &reason,
+	}
 
 	resp, err := d.machine.GetMachineConsolePassword(cp, nil)
 	return resp.Payload, err
