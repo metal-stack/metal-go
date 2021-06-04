@@ -24,11 +24,9 @@ type V1Raid struct {
 	Arrayname *string `json:"arrayname"`
 
 	// the options to use to create the raid array
-	// Required: true
 	Createoptions []string `json:"createoptions"`
 
 	// list of devices to form the raid array from
-	// Required: true
 	Devices []string `json:"devices"`
 
 	// raid level to create, should be 0 or 1
@@ -45,14 +43,6 @@ func (m *V1Raid) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateArrayname(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateCreateoptions(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateDevices(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -73,24 +63,6 @@ func (m *V1Raid) Validate(formats strfmt.Registry) error {
 func (m *V1Raid) validateArrayname(formats strfmt.Registry) error {
 
 	if err := validate.Required("arrayname", "body", m.Arrayname); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *V1Raid) validateCreateoptions(formats strfmt.Registry) error {
-
-	if err := validate.Required("createoptions", "body", m.Createoptions); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *V1Raid) validateDevices(formats strfmt.Registry) error {
-
-	if err := validate.Required("devices", "body", m.Devices); err != nil {
 		return err
 	}
 

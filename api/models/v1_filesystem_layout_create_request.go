@@ -28,11 +28,9 @@ type V1FilesystemLayoutCreateRequest struct {
 	Description string `json:"description,omitempty"`
 
 	// list of disks that belong to this layout
-	// Required: true
 	Disks []*V1Disk `json:"disks"`
 
 	// list of filesystems to create
-	// Required: true
 	Filesystems []*V1Filesystem `json:"filesystems"`
 
 	// the unique ID of this entity
@@ -40,18 +38,15 @@ type V1FilesystemLayoutCreateRequest struct {
 	ID *string `json:"id"`
 
 	// list of logicalvolumes to create
-	// Required: true
 	Logicalvolumes []*V1LogicalVolume `json:"logicalvolumes"`
 
 	// a readable name for this entity
 	Name string `json:"name,omitempty"`
 
 	// list of raid arrays to create
-	// Required: true
 	Raid []*V1Raid `json:"raid"`
 
 	// list of volumegroups to create
-	// Required: true
 	Volumegroups []*V1VolumeGroup `json:"volumegroups"`
 }
 
@@ -112,9 +107,8 @@ func (m *V1FilesystemLayoutCreateRequest) validateConstraints(formats strfmt.Reg
 }
 
 func (m *V1FilesystemLayoutCreateRequest) validateDisks(formats strfmt.Registry) error {
-
-	if err := validate.Required("disks", "body", m.Disks); err != nil {
-		return err
+	if swag.IsZero(m.Disks) { // not required
+		return nil
 	}
 
 	for i := 0; i < len(m.Disks); i++ {
@@ -137,9 +131,8 @@ func (m *V1FilesystemLayoutCreateRequest) validateDisks(formats strfmt.Registry)
 }
 
 func (m *V1FilesystemLayoutCreateRequest) validateFilesystems(formats strfmt.Registry) error {
-
-	if err := validate.Required("filesystems", "body", m.Filesystems); err != nil {
-		return err
+	if swag.IsZero(m.Filesystems) { // not required
+		return nil
 	}
 
 	for i := 0; i < len(m.Filesystems); i++ {
@@ -171,9 +164,8 @@ func (m *V1FilesystemLayoutCreateRequest) validateID(formats strfmt.Registry) er
 }
 
 func (m *V1FilesystemLayoutCreateRequest) validateLogicalvolumes(formats strfmt.Registry) error {
-
-	if err := validate.Required("logicalvolumes", "body", m.Logicalvolumes); err != nil {
-		return err
+	if swag.IsZero(m.Logicalvolumes) { // not required
+		return nil
 	}
 
 	for i := 0; i < len(m.Logicalvolumes); i++ {
@@ -196,9 +188,8 @@ func (m *V1FilesystemLayoutCreateRequest) validateLogicalvolumes(formats strfmt.
 }
 
 func (m *V1FilesystemLayoutCreateRequest) validateRaid(formats strfmt.Registry) error {
-
-	if err := validate.Required("raid", "body", m.Raid); err != nil {
-		return err
+	if swag.IsZero(m.Raid) { // not required
+		return nil
 	}
 
 	for i := 0; i < len(m.Raid); i++ {
@@ -221,9 +212,8 @@ func (m *V1FilesystemLayoutCreateRequest) validateRaid(formats strfmt.Registry) 
 }
 
 func (m *V1FilesystemLayoutCreateRequest) validateVolumegroups(formats strfmt.Registry) error {
-
-	if err := validate.Required("volumegroups", "body", m.Volumegroups); err != nil {
-		return err
+	if swag.IsZero(m.Volumegroups) { // not required
+		return nil
 	}
 
 	for i := 0; i < len(m.Volumegroups); i++ {

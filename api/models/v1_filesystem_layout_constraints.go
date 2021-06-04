@@ -24,7 +24,6 @@ type V1FilesystemLayoutConstraints struct {
 	Images map[string]string `json:"images"`
 
 	// list of sizes this layout applies to
-	// Required: true
 	Sizes []string `json:"sizes"`
 }
 
@@ -33,10 +32,6 @@ func (m *V1FilesystemLayoutConstraints) Validate(formats strfmt.Registry) error 
 	var res []error
 
 	if err := m.validateImages(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateSizes(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -49,15 +44,6 @@ func (m *V1FilesystemLayoutConstraints) Validate(formats strfmt.Registry) error 
 func (m *V1FilesystemLayoutConstraints) validateImages(formats strfmt.Registry) error {
 
 	if err := validate.Required("images", "body", m.Images); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *V1FilesystemLayoutConstraints) validateSizes(formats strfmt.Registry) error {
-
-	if err := validate.Required("sizes", "body", m.Sizes); err != nil {
 		return err
 	}
 

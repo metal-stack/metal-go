@@ -20,7 +20,6 @@ import (
 type V1VolumeGroup struct {
 
 	// list of devices to form the volume group from
-	// Required: true
 	Devices []string `json:"devices"`
 
 	// the name of the resulting volume group
@@ -28,7 +27,6 @@ type V1VolumeGroup struct {
 	Name *string `json:"name"`
 
 	// list of tags to add to the volume group
-	// Required: true
 	Tags []string `json:"tags"`
 }
 
@@ -36,15 +34,7 @@ type V1VolumeGroup struct {
 func (m *V1VolumeGroup) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateDevices(formats); err != nil {
-		res = append(res, err)
-	}
-
 	if err := m.validateName(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateTags(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -54,27 +44,9 @@ func (m *V1VolumeGroup) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *V1VolumeGroup) validateDevices(formats strfmt.Registry) error {
-
-	if err := validate.Required("devices", "body", m.Devices); err != nil {
-		return err
-	}
-
-	return nil
-}
-
 func (m *V1VolumeGroup) validateName(formats strfmt.Registry) error {
 
 	if err := validate.Required("name", "body", m.Name); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *V1VolumeGroup) validateTags(formats strfmt.Registry) error {
-
-	if err := validate.Required("tags", "body", m.Tags); err != nil {
 		return err
 	}
 

@@ -24,8 +24,7 @@ type V1DiskPartition struct {
 	Gpttype *string `json:"gpttype"`
 
 	// optional label for this this partition
-	// Required: true
-	Label *string `json:"label"`
+	Label string `json:"label,omitempty"`
 
 	// partition number, will be appended to partitionprefix to create the final devicename
 	// Required: true
@@ -41,10 +40,6 @@ func (m *V1DiskPartition) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateGpttype(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateLabel(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -65,15 +60,6 @@ func (m *V1DiskPartition) Validate(formats strfmt.Registry) error {
 func (m *V1DiskPartition) validateGpttype(formats strfmt.Registry) error {
 
 	if err := validate.Required("gpttype", "body", m.Gpttype); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *V1DiskPartition) validateLabel(formats strfmt.Registry) error {
-
-	if err := validate.Required("label", "body", m.Label); err != nil {
 		return err
 	}
 

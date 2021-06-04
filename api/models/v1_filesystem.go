@@ -20,7 +20,6 @@ import (
 type V1Filesystem struct {
 
 	// the options to use to create (mkfs) this filesystem
-	// Required: true
 	Createoptions []string `json:"createoptions"`
 
 	// the underlaying device where this filesystem should be created
@@ -32,25 +31,18 @@ type V1Filesystem struct {
 	Format *string `json:"format"`
 
 	// optional label for this this filesystem
-	// Required: true
-	Label *string `json:"label"`
+	Label string `json:"label,omitempty"`
 
 	// the options to use to mount this filesystem
-	// Required: true
 	Mountoptions []string `json:"mountoptions"`
 
 	// the mountpoint where this filesystem should be mounted on
-	// Required: true
-	Path *string `json:"path"`
+	Path string `json:"path,omitempty"`
 }
 
 // Validate validates this v1 filesystem
 func (m *V1Filesystem) Validate(formats strfmt.Registry) error {
 	var res []error
-
-	if err := m.validateCreateoptions(formats); err != nil {
-		res = append(res, err)
-	}
 
 	if err := m.validateDevice(formats); err != nil {
 		res = append(res, err)
@@ -60,30 +52,9 @@ func (m *V1Filesystem) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validateLabel(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateMountoptions(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validatePath(formats); err != nil {
-		res = append(res, err)
-	}
-
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
-	return nil
-}
-
-func (m *V1Filesystem) validateCreateoptions(formats strfmt.Registry) error {
-
-	if err := validate.Required("createoptions", "body", m.Createoptions); err != nil {
-		return err
-	}
-
 	return nil
 }
 
@@ -99,33 +70,6 @@ func (m *V1Filesystem) validateDevice(formats strfmt.Registry) error {
 func (m *V1Filesystem) validateFormat(formats strfmt.Registry) error {
 
 	if err := validate.Required("format", "body", m.Format); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *V1Filesystem) validateLabel(formats strfmt.Registry) error {
-
-	if err := validate.Required("label", "body", m.Label); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *V1Filesystem) validateMountoptions(formats strfmt.Registry) error {
-
-	if err := validate.Required("mountoptions", "body", m.Mountoptions); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *V1Filesystem) validatePath(formats strfmt.Registry) error {
-
-	if err := validate.Required("path", "body", m.Path); err != nil {
 		return err
 	}
 

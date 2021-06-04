@@ -25,7 +25,6 @@ type V1Disk struct {
 	Device *string `json:"device"`
 
 	// list of partitions to create on this disk
-	// Required: true
 	Partitions []*V1DiskPartition `json:"partitions"`
 
 	// if set to true, this disk will be wiped before reinstallation
@@ -65,9 +64,8 @@ func (m *V1Disk) validateDevice(formats strfmt.Registry) error {
 }
 
 func (m *V1Disk) validatePartitions(formats strfmt.Registry) error {
-
-	if err := validate.Required("partitions", "body", m.Partitions); err != nil {
-		return err
+	if swag.IsZero(m.Partitions) { // not required
+		return nil
 	}
 
 	for i := 0; i < len(m.Partitions); i++ {
