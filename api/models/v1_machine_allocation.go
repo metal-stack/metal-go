@@ -23,9 +23,6 @@ type V1MachineAllocation struct {
 	// information required for booting the machine from HD
 	BootInfo *V1BootInfo `json:"boot_info,omitempty"`
 
-	// the console password which was generated while provisioning
-	ConsolePassword string `json:"console_password,omitempty"`
-
 	// the time when the machine was created
 	// Required: true
 	// Format: date-time
