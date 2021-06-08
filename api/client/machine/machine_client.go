@@ -52,6 +52,8 @@ type ClientService interface {
 
 	FreeMachine(params *FreeMachineParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FreeMachineOK, error)
 
+	GetMachineConsolePassword(params *GetMachineConsolePasswordParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetMachineConsolePasswordOK, error)
+
 	GetProvisioningEventContainer(params *GetProvisioningEventContainerParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetProvisioningEventContainerOK, error)
 
 	IpmiReport(params *IpmiReportParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*IpmiReportOK, error)
@@ -536,6 +538,44 @@ func (a *Client) FreeMachine(params *FreeMachineParams, authInfo runtime.ClientA
 	}
 	// unexpected success response
 	unexpectedSuccess := result.(*FreeMachineDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+  GetMachineConsolePassword gets consolepassword for machine by id
+*/
+func (a *Client) GetMachineConsolePassword(params *GetMachineConsolePasswordParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetMachineConsolePasswordOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetMachineConsolePasswordParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "getMachineConsolePassword",
+		Method:             "GET",
+		PathPattern:        "/v1/machine/consolepassword",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &GetMachineConsolePasswordReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*GetMachineConsolePasswordOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*GetMachineConsolePasswordDefault)
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
