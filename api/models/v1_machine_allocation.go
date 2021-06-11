@@ -31,6 +31,9 @@ type V1MachineAllocation struct {
 	// a description for this machine
 	Description string `json:"description,omitempty"`
 
+	// filesystemlayout to create on this machine
+	Filesystemlayout *V1FilesystemLayoutResponse `json:"filesystemlayout,omitempty"`
+
 	// the hostname which will be used when creating the machine
 	// Required: true
 	Hostname *string `json:"hostname"`
@@ -76,6 +79,10 @@ func (m *V1MachineAllocation) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateCreated(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateFilesystemlayout(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -142,6 +149,23 @@ func (m *V1MachineAllocation) validateCreated(formats strfmt.Registry) error {
 
 	if err := validate.FormatOf("created", "body", "date-time", m.Created.String(), formats); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+func (m *V1MachineAllocation) validateFilesystemlayout(formats strfmt.Registry) error {
+	if swag.IsZero(m.Filesystemlayout) { // not required
+		return nil
+	}
+
+	if m.Filesystemlayout != nil {
+		if err := m.Filesystemlayout.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("filesystemlayout")
+			}
+			return err
+		}
 	}
 
 	return nil
@@ -251,6 +275,10 @@ func (m *V1MachineAllocation) ContextValidate(ctx context.Context, formats strfm
 		res = append(res, err)
 	}
 
+	if err := m.contextValidateFilesystemlayout(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.contextValidateImage(ctx, formats); err != nil {
 		res = append(res, err)
 	}
@@ -271,6 +299,20 @@ func (m *V1MachineAllocation) contextValidateBootInfo(ctx context.Context, forma
 		if err := m.BootInfo.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("boot_info")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *V1MachineAllocation) contextValidateFilesystemlayout(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Filesystemlayout != nil {
+		if err := m.Filesystemlayout.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("filesystemlayout")
 			}
 			return err
 		}

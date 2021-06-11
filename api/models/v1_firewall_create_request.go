@@ -23,6 +23,9 @@ type V1FirewallCreateRequest struct {
 	// a description for this entity
 	Description string `json:"description,omitempty"`
 
+	// the filesystemlayout id to assing to this machine
+	Filesystemlayoutid string `json:"filesystemlayoutid,omitempty"`
+
 	// if set to true, this firewall is set up in a High Available manner
 	Ha bool `json:"ha,omitempty"`
 
