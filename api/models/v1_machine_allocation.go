@@ -28,6 +28,10 @@ type V1MachineAllocation struct {
 	// Format: date-time
 	Created *strfmt.DateTime `json:"created"`
 
+	// email of machine creator
+	// Required: true
+	Creator *string `json:"creator"`
+
 	// a description for this machine
 	Description string `json:"description,omitempty"`
 
@@ -79,6 +83,10 @@ func (m *V1MachineAllocation) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateCreated(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateCreator(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -148,6 +156,15 @@ func (m *V1MachineAllocation) validateCreated(formats strfmt.Registry) error {
 	}
 
 	if err := validate.FormatOf("created", "body", "date-time", m.Created.String(), formats); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *V1MachineAllocation) validateCreator(formats strfmt.Registry) error {
+
+	if err := validate.Required("creator", "body", m.Creator); err != nil {
 		return err
 	}
 
