@@ -195,6 +195,7 @@ type IPFindRequest struct {
 	MachineID        *string
 	Type             *string
 	Tags             []string
+	Name             *string
 }
 
 // IPDetailResponse is the response to an IP detail request.
@@ -486,6 +487,7 @@ func (d *Driver) IPFind(ifr *IPFindRequest) (*IPListResponse, error) {
 		Machineid:     StrDeref(ifr.MachineID),
 		Type:          StrDeref(ifr.Type),
 		Tags:          ifr.Tags,
+		Name:          StrDeref(ifr.Name),
 	}
 	findIPs.SetBody(req)
 
