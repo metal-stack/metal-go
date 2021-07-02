@@ -84,6 +84,7 @@ func (d *Driver) SizeTry(cores int32, memory, storage uint64) (*SizeTryResponse,
 	if err == nil {
 		response.Logs = []*models.V1SizeMatchingLog{resp.Payload}
 	} else {
+		//nolint:errorlint
 		if e, ok := err.(*size.FromHardwareDefault); ok {
 			if e.Code() == http.StatusNotFound {
 				response.Logs = []*models.V1SizeMatchingLog{}
