@@ -372,7 +372,7 @@ func (d *Driver) NetworkUpdate(ncr *NetworkCreateRequest) (*NetworkDetailRespons
 func (d *Driver) NetworkAddPrefix(nur *NetworkUpdateRequest) (*NetworkDetailResponse, error) {
 	old, err := d.NetworkGet(nur.Networkid)
 	if err != nil {
-		return nil, fmt.Errorf("unable to fetch network: %s to update:%v", nur.Networkid, err)
+		return nil, fmt.Errorf("unable to fetch network: %s to update:%w", nur.Networkid, err)
 	}
 	oldNetwork := old.Network
 	newPrefixes := append(oldNetwork.Prefixes, nur.Prefix)
@@ -396,7 +396,7 @@ func (d *Driver) NetworkAddPrefix(nur *NetworkUpdateRequest) (*NetworkDetailResp
 func (d *Driver) NetworkRemovePrefix(nur *NetworkUpdateRequest) (*NetworkDetailResponse, error) {
 	old, err := d.NetworkGet(nur.Networkid)
 	if err != nil {
-		return nil, fmt.Errorf("unable to fetch network: %s to update:%v", nur.Networkid, err)
+		return nil, fmt.Errorf("unable to fetch network: %s to update:%w", nur.Networkid, err)
 	}
 	oldNetwork := old.Network
 	var newPrefixes []string

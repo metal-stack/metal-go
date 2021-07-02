@@ -59,6 +59,7 @@ func TestMachineCreate(t *testing.T) {
 }
 
 func startServerAndGetDriver() (*http.Server, *Driver) {
+	//nolint:gosec
 	listener, _ := net.Listen("tcp", ":0")
 
 	server := &http.Server{}
@@ -116,6 +117,7 @@ func Test_translateNetworks(t *testing.T) {
 	}
 
 	for _, test := range tests {
+		test := test
 		translatedNetworks := test.request.translateNetworks()
 		assert.NotNil(translatedNetworks)
 		assert.Len(translatedNetworks, len(test.request.Networks))
