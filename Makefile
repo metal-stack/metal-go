@@ -3,7 +3,7 @@ CGO_ENABLED := $(or ${CGO_ENABLED},0)
 GO := go
 GO111MODULE := on
 
-release:: generate-client gofmt test;
+release:: generate-client mocks gofmt test;
 
 .PHONY: gofmt
 gofmt:
@@ -26,3 +26,8 @@ golangcicheck:
 .PHONY: lint
 lint: golangcicheck
 	CGO_ENABLED=1 golangci-lint run
+
+.PHONY: mocks
+mocks:
+	@if ! which mockery > /dev/null; then echo "mockery needs to be installed (https://github.com/vektra/mockery)"; exit 1; fi
+	mockery -r --keeptree --inpackage --dir api/client --output test/mocks --all
