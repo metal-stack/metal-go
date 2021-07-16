@@ -479,6 +479,21 @@ func (d *Driver) MachinePowerReset(machineID string) (*MachinePowerResponse, err
 	return response, nil
 }
 
+// MachinePowerCycle power-cycles the given machine
+func (d *Driver) MachinePowerCycle(machineID string) (*MachinePowerResponse, error) {
+	machineCycle := machine.NewMachineCycleParams()
+	machineCycle.ID = machineID
+	machineCycle.Body = []string{}
+
+	response := &MachinePowerResponse{}
+	resp, err := d.machine.MachineCycle(machineCycle, nil)
+	if err != nil {
+		return response, err
+	}
+	response.Machine = resp.Payload
+	return response, nil
+}
+
 // MachineBootBios boots given machine into BIOS
 func (d *Driver) MachineBootBios(machineID string) (*MachineFirmwareResponse, error) {
 	machineBios := machine.NewMachineBiosParams()
