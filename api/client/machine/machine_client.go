@@ -62,6 +62,8 @@ type ClientService interface {
 
 	MachineBios(params *MachineBiosParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*MachineBiosOK, error)
 
+	MachineCycle(params *MachineCycleParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*MachineCycleOK, error)
+
 	MachineDisk(params *MachineDiskParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*MachineDiskOK, error)
 
 	MachineOff(params *MachineOffParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*MachineOffOK, error)
@@ -728,6 +730,44 @@ func (a *Client) MachineBios(params *MachineBiosParams, authInfo runtime.ClientA
 	}
 	// unexpected success response
 	unexpectedSuccess := result.(*MachineBiosDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+  MachineCycle sends a power cycle to the machine
+*/
+func (a *Client) MachineCycle(params *MachineCycleParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*MachineCycleOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewMachineCycleParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "machineCycle",
+		Method:             "POST",
+		PathPattern:        "/v1/machine/{id}/power/cycle",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &MachineCycleReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*MachineCycleOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*MachineCycleDefault)
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
