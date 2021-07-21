@@ -29,5 +29,4 @@ lint: golangcicheck
 
 .PHONY: mocks
 mocks:
-	@if ! which mockery > /dev/null; then echo "mockery needs to be installed (https://github.com/vektra/mockery)"; exit 1; fi
-	mockery -r --keeptree --inpackage --dir api/client --output test/mocks --all
+	docker run --user $$(id -u):$$(id -g) --rm -w /work -v ${PWD}:/work vektra/mockery:v2.7.4 -r --keeptree --inpackage --dir api/client --output test/mocks --all
