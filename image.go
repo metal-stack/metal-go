@@ -46,12 +46,12 @@ func (d *Driver) ImageList() (*ImageListResponse, error) {
 	return response, nil
 }
 
-// ImageList return all machine images
-func (d *Driver) ImageListFor(imageID string) (*ImageListResponse, error) {
+// ImageQueryByID return all machine images
+func (d *Driver) ImageQueryByID(imageID string) (*ImageListResponse, error) {
 	response := &ImageListResponse{}
-	request := image.NewFindImagesByIDParams()
+	request := image.NewQueryImagesByIDParams()
 	request.ID = imageID
-	resp, err := d.image.FindImagesByID(request, nil)
+	resp, err := d.image.QueryImagesByID(request, nil)
 	if err != nil {
 		return response, err
 	}

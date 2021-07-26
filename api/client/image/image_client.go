@@ -34,11 +34,11 @@ type ClientService interface {
 
 	FindImage(params *FindImageParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FindImageOK, error)
 
-	FindImagesByID(params *FindImagesByIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FindImagesByIDOK, error)
-
 	FindLatestImage(params *FindLatestImageParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FindLatestImageOK, error)
 
 	ListImages(params *ListImagesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListImagesOK, error)
+
+	QueryImagesByID(params *QueryImagesByIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*QueryImagesByIDOK, error)
 
 	UpdateImage(params *UpdateImageParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateImageOK, error)
 
@@ -160,44 +160,6 @@ func (a *Client) FindImage(params *FindImageParams, authInfo runtime.ClientAuthI
 }
 
 /*
-  FindImagesByID findas all images by id
-*/
-func (a *Client) FindImagesByID(params *FindImagesByIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FindImagesByIDOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewFindImagesByIDParams()
-	}
-	op := &runtime.ClientOperation{
-		ID:                 "findImages by id",
-		Method:             "GET",
-		PathPattern:        "/v1/image/{id}/list",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
-		Params:             params,
-		Reader:             &FindImagesByIDReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*FindImagesByIDOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	unexpectedSuccess := result.(*FindImagesByIDDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
-}
-
-/*
   FindLatestImage finds latest image by id
 */
 func (a *Client) FindLatestImage(params *FindLatestImageParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FindLatestImageOK, error) {
@@ -270,6 +232,44 @@ func (a *Client) ListImages(params *ListImagesParams, authInfo runtime.ClientAut
 	}
 	// unexpected success response
 	unexpectedSuccess := result.(*ListImagesDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+  QueryImagesByID queries all images which match at least id
+*/
+func (a *Client) QueryImagesByID(params *QueryImagesByIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*QueryImagesByIDOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewQueryImagesByIDParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "queryImages by id",
+		Method:             "GET",
+		PathPattern:        "/v1/image/{id}/query",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &QueryImagesByIDReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*QueryImagesByIDOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*QueryImagesByIDDefault)
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
