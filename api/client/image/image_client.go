@@ -34,6 +34,8 @@ type ClientService interface {
 
 	FindImage(params *FindImageParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FindImageOK, error)
 
+	FindImagesByID(params *FindImagesByIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FindImagesByIDOK, error)
+
 	FindLatestImage(params *FindLatestImageParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FindLatestImageOK, error)
 
 	ListImages(params *ListImagesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListImagesOK, error)
@@ -154,6 +156,44 @@ func (a *Client) FindImage(params *FindImageParams, authInfo runtime.ClientAuthI
 	}
 	// unexpected success response
 	unexpectedSuccess := result.(*FindImageDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+  FindImagesByID findas all images by id
+*/
+func (a *Client) FindImagesByID(params *FindImagesByIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FindImagesByIDOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewFindImagesByIDParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "findImages by id",
+		Method:             "GET",
+		PathPattern:        "/v1/image/{id}/list",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &FindImagesByIDReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*FindImagesByIDOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*FindImagesByIDDefault)
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
