@@ -38,6 +38,8 @@ type ClientService interface {
 
 	ListImages(params *ListImagesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListImagesOK, error)
 
+	QueryImagesByID(params *QueryImagesByIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*QueryImagesByIDOK, error)
+
 	UpdateImage(params *UpdateImageParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateImageOK, error)
 
 	SetTransport(transport runtime.ClientTransport)
@@ -230,6 +232,44 @@ func (a *Client) ListImages(params *ListImagesParams, authInfo runtime.ClientAut
 	}
 	// unexpected success response
 	unexpectedSuccess := result.(*ListImagesDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+  QueryImagesByID queries all images which match at least id
+*/
+func (a *Client) QueryImagesByID(params *QueryImagesByIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*QueryImagesByIDOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewQueryImagesByIDParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "queryImages by id",
+		Method:             "GET",
+		PathPattern:        "/v1/image/{id}/query",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &QueryImagesByIDReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*QueryImagesByIDOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*QueryImagesByIDDefault)
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
