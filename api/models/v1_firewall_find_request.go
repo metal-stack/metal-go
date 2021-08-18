@@ -29,6 +29,9 @@ type V1FirewallFindRequest struct {
 	// allocation project
 	AllocationProject string `json:"allocation_project,omitempty"`
 
+	// allocation role
+	AllocationRole string `json:"allocation_role,omitempty"`
+
 	// allocation succeeded
 	AllocationSucceeded bool `json:"allocation_succeeded,omitempty"`
 

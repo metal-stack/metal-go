@@ -7,6 +7,7 @@ package models
 
 import (
 	"context"
+	"encoding/json"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -62,6 +63,11 @@ type V1MachineAllocation struct {
 	// Required: true
 	Reinstall *bool `json:"reinstall"`
 
+	// the role of the machine
+	// Required: true
+	// Enum: [firewall machine]
+	Role *string `json:"role"`
+
 	// the public ssh keys to access the machine with
 	// Required: true
 	SSHPubKeys []string `json:"ssh_pub_keys"`
@@ -115,6 +121,10 @@ func (m *V1MachineAllocation) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateReinstall(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateRole(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -260,6 +270,49 @@ func (m *V1MachineAllocation) validateProject(formats strfmt.Registry) error {
 func (m *V1MachineAllocation) validateReinstall(formats strfmt.Registry) error {
 
 	if err := validate.Required("reinstall", "body", m.Reinstall); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+var v1MachineAllocationTypeRolePropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["firewall","machine"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		v1MachineAllocationTypeRolePropEnum = append(v1MachineAllocationTypeRolePropEnum, v)
+	}
+}
+
+const (
+
+	// V1MachineAllocationRoleFirewall captures enum value "firewall"
+	V1MachineAllocationRoleFirewall string = "firewall"
+
+	// V1MachineAllocationRoleMachine captures enum value "machine"
+	V1MachineAllocationRoleMachine string = "machine"
+)
+
+// prop value enum
+func (m *V1MachineAllocation) validateRoleEnum(path, location string, value string) error {
+	if err := validate.EnumCase(path, location, value, v1MachineAllocationTypeRolePropEnum, true); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *V1MachineAllocation) validateRole(formats strfmt.Registry) error {
+
+	if err := validate.Required("role", "body", m.Role); err != nil {
+		return err
+	}
+
+	// value enum
+	if err := m.validateRoleEnum("role", "body", *m.Role); err != nil {
 		return err
 	}
 
