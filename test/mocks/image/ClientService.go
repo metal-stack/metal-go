@@ -164,6 +164,36 @@ func (_m *ClientService) ListImages(params *image.ListImagesParams, authInfo run
 	return r0, r1
 }
 
+// QueryImagesByID provides a mock function with given fields: params, authInfo, opts
+func (_m *ClientService) QueryImagesByID(params *image.QueryImagesByIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...image.ClientOption) (*image.QueryImagesByIDOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
+
+	var r0 *image.QueryImagesByIDOK
+	if rf, ok := ret.Get(0).(func(*image.QueryImagesByIDParams, runtime.ClientAuthInfoWriter, ...image.ClientOption) *image.QueryImagesByIDOK); ok {
+		r0 = rf(params, authInfo, opts...)
+	} else {
+		if ret.Get(0) != nil {
+			r0 = ret.Get(0).(*image.QueryImagesByIDOK)
+		}
+	}
+
+	var r1 error
+	if rf, ok := ret.Get(1).(func(*image.QueryImagesByIDParams, runtime.ClientAuthInfoWriter, ...image.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
+	} else {
+		r1 = ret.Error(1)
+	}
+
+	return r0, r1
+}
+
 // SetTransport provides a mock function with given fields: transport
 func (_m *ClientService) SetTransport(transport runtime.ClientTransport) {
 	_m.Called(transport)
