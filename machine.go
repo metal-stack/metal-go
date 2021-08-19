@@ -38,6 +38,7 @@ type MachineFindRequest struct {
 	AllocationImageID   *string
 	AllocationHostname  *string
 	AllocationSucceeded *bool
+	AllocationRole      *string
 
 	// network
 	NetworkIDs                 []string
@@ -301,6 +302,7 @@ func (d *Driver) MachineFind(mfr *MachineFindRequest) (*MachineListResponse, err
 		AllocationProject:          StrDeref(mfr.AllocationProject),
 		AllocationImageID:          StrDeref(mfr.AllocationImageID),
 		AllocationHostname:         StrDeref(mfr.AllocationHostname),
+		AllocationRole:             StrDeref(mfr.AllocationRole),
 		AllocationSucceeded:        BoolDeref(mfr.AllocationSucceeded),
 		NetworkIds:                 mfr.NetworkIDs,
 		NetworkPrefixes:            mfr.NetworkPrefixes,
@@ -377,6 +379,7 @@ func (d *Driver) MachineIPMIList(mfr *MachineFindRequest) (*MachineIPMIListRespo
 		AllocationImageID:          StrDeref(mfr.AllocationImageID),
 		AllocationHostname:         StrDeref(mfr.AllocationHostname),
 		AllocationSucceeded:        BoolDeref(mfr.AllocationSucceeded),
+		AllocationRole:             StrDeref(mfr.AllocationRole),
 		NetworkIds:                 mfr.NetworkIDs,
 		NetworkPrefixes:            mfr.NetworkPrefixes,
 		NetworkIps:                 mfr.NetworkIPs,
