@@ -34,6 +34,10 @@ type V1MachineIpmiReport struct {
 	// f r u
 	// Required: true
 	FRU *V1MachineFru `json:"FRU"`
+
+	// power state
+	// Required: true
+	PowerState *string `json:"PowerState"`
 }
 
 // Validate validates this v1 machine ipmi report
@@ -53,6 +57,10 @@ func (m *V1MachineIpmiReport) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateFRU(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validatePowerState(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -102,6 +110,15 @@ func (m *V1MachineIpmiReport) validateFRU(formats strfmt.Registry) error {
 			}
 			return err
 		}
+	}
+
+	return nil
+}
+
+func (m *V1MachineIpmiReport) validatePowerState(formats strfmt.Registry) error {
+
+	if err := validate.Required("PowerState", "body", m.PowerState); err != nil {
+		return err
 	}
 
 	return nil
