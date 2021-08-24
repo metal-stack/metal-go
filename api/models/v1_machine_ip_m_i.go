@@ -43,6 +43,10 @@ type V1MachineIPMI struct {
 	// Required: true
 	Password *string `json:"password"`
 
+	// powerstate
+	// Required: true
+	Powerstate *string `json:"powerstate"`
+
 	// user
 	// Required: true
 	User *string `json:"user"`
@@ -73,6 +77,10 @@ func (m *V1MachineIPMI) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validatePassword(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validatePowerstate(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -143,6 +151,15 @@ func (m *V1MachineIPMI) validateMac(formats strfmt.Registry) error {
 func (m *V1MachineIPMI) validatePassword(formats strfmt.Registry) error {
 
 	if err := validate.Required("password", "body", m.Password); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *V1MachineIPMI) validatePowerstate(formats strfmt.Registry) error {
+
+	if err := validate.Required("powerstate", "body", m.Powerstate); err != nil {
 		return err
 	}
 
