@@ -205,7 +205,7 @@ func (a *Client) PartitionCapacity(params *PartitionCapacityParams, authInfo run
 	}
 	op := &runtime.ClientOperation{
 		ID:                 "partitionCapacity",
-		Method:             "GET",
+		Method:             "POST",
 		PathPattern:        "/v1/partition/capacity",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},

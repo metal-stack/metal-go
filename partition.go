@@ -30,6 +30,11 @@ type PartitionCreateRequest struct {
 	Privatenetworkprefixlength int32
 }
 
+type PartitionCapacityRequest struct {
+	ID   *string
+	Size *string
+}
+
 // BootConfig in the partition
 type BootConfig struct {
 	Commandline string
@@ -76,13 +81,18 @@ func (d *Driver) PartitionGet(partitionID string) (*PartitionGetResponse, error)
 }
 
 // PartitionCapacity return a partition
-func (d *Driver) PartitionCapacity() (*PartitionCapacityResponse, error) {
+func (d *Driver) PartitionCapacity(pcr PartitionCapacityRequest) (*PartitionCapacityResponse, error) {
 	response := &PartitionCapacityResponse{}
-	partitionParams := partition.NewPartitionCapacityParams()
+
+	partitionParams := partition.NewPartitionCapacityParams().WithBody(&models.V1PartitionCapacityRequest{
+		ID:     StrDeref(pcr.ID),
+		Sizeid: StrDeref(pcr.Size),
+	})
 	resp, err := d.partition.PartitionCapacity(partitionParams, nil)
 	if err != nil {
 		return response, err
 	}
+
 	response.Capacity = resp.Payload
 	return response, nil
 }
