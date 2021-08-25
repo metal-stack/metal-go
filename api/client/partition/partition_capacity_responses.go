@@ -56,7 +56,7 @@ type PartitionCapacityOK struct {
 }
 
 func (o *PartitionCapacityOK) Error() string {
-	return fmt.Sprintf("[GET /v1/partition/capacity][%d] partitionCapacityOK  %+v", 200, o.Payload)
+	return fmt.Sprintf("[POST /v1/partition/capacity][%d] partitionCapacityOK  %+v", 200, o.Payload)
 }
 func (o *PartitionCapacityOK) GetPayload() []*models.V1PartitionCapacity {
 	return o.Payload
@@ -95,7 +95,7 @@ func (o *PartitionCapacityDefault) Code() int {
 }
 
 func (o *PartitionCapacityDefault) Error() string {
-	return fmt.Sprintf("[GET /v1/partition/capacity][%d] partitionCapacity default  %+v", o._statusCode, o.Payload)
+	return fmt.Sprintf("[POST /v1/partition/capacity][%d] partitionCapacity default  %+v", o._statusCode, o.Payload)
 }
 func (o *PartitionCapacityDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
