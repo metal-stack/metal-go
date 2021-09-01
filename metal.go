@@ -8,6 +8,7 @@ import (
 	"github.com/metal-stack/metal-go/api/client/filesystemlayout"
 	"github.com/metal-stack/metal-go/api/client/firmware"
 	"github.com/metal-stack/metal-go/api/client/tenant"
+	"github.com/metal-stack/metal-go/api/client/user"
 
 	"github.com/go-openapi/runtime"
 	httptransport "github.com/go-openapi/runtime/client"
@@ -40,6 +41,7 @@ type Driver struct {
 	partition        partition.ClientService
 	project          project.ClientService
 	tenant           tenant.ClientService
+	user             user.ClientService
 	size             size.ClientService
 	sw               sw.ClientService
 	network          network.ClientService
@@ -82,6 +84,7 @@ func NewDriver(baseURL, bearer, hmacKey string, options ...option) (*Driver, err
 		image:            c.Image,
 		project:          c.Project,
 		tenant:           c.Tenant,
+		user:             c.User,
 		partition:        c.Partition,
 		sw:               c.SwitchOperations,
 		network:          c.Network,

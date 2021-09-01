@@ -13,6 +13,7 @@ import (
 	"github.com/go-openapi/strfmt"
 
 	"github.com/metal-stack/metal-go/api/models"
+	"github.com/metal-stack/metal-lib/httperrors"
 )
 
 // HealthReader is a Reader for the Health structure.
@@ -36,7 +37,14 @@ func (o *HealthReader) ReadResponse(response runtime.ClientResponse, consumer ru
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		result := NewHealthDefault(response.Code())
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		if response.Code()/100 == 2 {
+			return result, nil
+		}
+		return nil, result
 	}
 }
 
@@ -95,6 +103,47 @@ func (o *HealthInternalServerError) GetPayload() *models.RestStatus {
 func (o *HealthInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.RestStatus)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewHealthDefault creates a HealthDefault with default headers values
+func NewHealthDefault(code int) *HealthDefault {
+	return &HealthDefault{
+		_statusCode: code,
+	}
+}
+
+/* HealthDefault describes a response with status code -1, with default header values.
+
+Error
+*/
+type HealthDefault struct {
+	_statusCode int
+
+	Payload *httperrors.HTTPErrorResponse
+}
+
+// Code gets the status code for the health default response
+func (o *HealthDefault) Code() int {
+	return o._statusCode
+}
+
+func (o *HealthDefault) Error() string {
+	return fmt.Sprintf("[GET /v1/health][%d] health default  %+v", o._statusCode, o.Payload)
+}
+func (o *HealthDefault) GetPayload() *httperrors.HTTPErrorResponse {
+	return o.Payload
+}
+
+func (o *HealthDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(httperrors.HTTPErrorResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

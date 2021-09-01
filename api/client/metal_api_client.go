@@ -23,6 +23,7 @@ import (
 	"github.com/metal-stack/metal-go/api/client/size"
 	"github.com/metal-stack/metal-go/api/client/switch_operations"
 	"github.com/metal-stack/metal-go/api/client/tenant"
+	"github.com/metal-stack/metal-go/api/client/user"
 	"github.com/metal-stack/metal-go/api/client/version"
 )
 
@@ -81,6 +82,7 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *MetalAPI {
 	cli.Size = size.New(transport, formats)
 	cli.SwitchOperations = switch_operations.New(transport, formats)
 	cli.Tenant = tenant.New(transport, formats)
+	cli.User = user.New(transport, formats)
 	cli.Version = version.New(transport, formats)
 	return cli
 }
@@ -152,6 +154,8 @@ type MetalAPI struct {
 
 	Tenant tenant.ClientService
 
+	User user.ClientService
+
 	Version version.ClientService
 
 	Transport runtime.ClientTransport
@@ -173,5 +177,6 @@ func (c *MetalAPI) SetTransport(transport runtime.ClientTransport) {
 	c.Size.SetTransport(transport)
 	c.SwitchOperations.SetTransport(transport)
 	c.Tenant.SetTransport(transport)
+	c.User.SetTransport(transport)
 	c.Version.SetTransport(transport)
 }
