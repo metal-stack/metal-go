@@ -14,10 +14,10 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// SecurityUser security user
+// V1User v1 user
 //
-// swagger:model security.User
-type SecurityUser struct {
+// swagger:model v1.User
+type V1User struct {
 
 	// e mail
 	// Required: true
@@ -44,8 +44,8 @@ type SecurityUser struct {
 	Tenant *string `json:"Tenant"`
 }
 
-// Validate validates this security user
-func (m *SecurityUser) Validate(formats strfmt.Registry) error {
+// Validate validates this v1 user
+func (m *V1User) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateEMail(formats); err != nil {
@@ -78,7 +78,7 @@ func (m *SecurityUser) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *SecurityUser) validateEMail(formats strfmt.Registry) error {
+func (m *V1User) validateEMail(formats strfmt.Registry) error {
 
 	if err := validate.Required("EMail", "body", m.EMail); err != nil {
 		return err
@@ -87,7 +87,7 @@ func (m *SecurityUser) validateEMail(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *SecurityUser) validateGroups(formats strfmt.Registry) error {
+func (m *V1User) validateGroups(formats strfmt.Registry) error {
 
 	if err := validate.Required("Groups", "body", m.Groups); err != nil {
 		return err
@@ -96,7 +96,7 @@ func (m *SecurityUser) validateGroups(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *SecurityUser) validateIssuer(formats strfmt.Registry) error {
+func (m *V1User) validateIssuer(formats strfmt.Registry) error {
 
 	if err := validate.Required("Issuer", "body", m.Issuer); err != nil {
 		return err
@@ -105,7 +105,7 @@ func (m *SecurityUser) validateIssuer(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *SecurityUser) validateName(formats strfmt.Registry) error {
+func (m *V1User) validateName(formats strfmt.Registry) error {
 
 	if err := validate.Required("Name", "body", m.Name); err != nil {
 		return err
@@ -114,7 +114,7 @@ func (m *SecurityUser) validateName(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *SecurityUser) validateSubject(formats strfmt.Registry) error {
+func (m *V1User) validateSubject(formats strfmt.Registry) error {
 
 	if err := validate.Required("Subject", "body", m.Subject); err != nil {
 		return err
@@ -123,7 +123,7 @@ func (m *SecurityUser) validateSubject(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *SecurityUser) validateTenant(formats strfmt.Registry) error {
+func (m *V1User) validateTenant(formats strfmt.Registry) error {
 
 	if err := validate.Required("Tenant", "body", m.Tenant); err != nil {
 		return err
@@ -132,13 +132,13 @@ func (m *SecurityUser) validateTenant(formats strfmt.Registry) error {
 	return nil
 }
 
-// ContextValidate validates this security user based on context it is used
-func (m *SecurityUser) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+// ContextValidate validates this v1 user based on context it is used
+func (m *V1User) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 
 // MarshalBinary interface implementation
-func (m *SecurityUser) MarshalBinary() ([]byte, error) {
+func (m *V1User) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -146,8 +146,8 @@ func (m *SecurityUser) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *SecurityUser) UnmarshalBinary(b []byte) error {
-	var res SecurityUser
+func (m *V1User) UnmarshalBinary(b []byte) error {
+	var res V1User
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

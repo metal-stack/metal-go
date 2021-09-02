@@ -52,19 +52,19 @@ func NewGetUserOK() *GetUserOK {
 OK
 */
 type GetUserOK struct {
-	Payload *models.SecurityUser
+	Payload *models.V1User
 }
 
 func (o *GetUserOK) Error() string {
 	return fmt.Sprintf("[GET /v1/user/{token}][%d] getUserOK  %+v", 200, o.Payload)
 }
-func (o *GetUserOK) GetPayload() *models.SecurityUser {
+func (o *GetUserOK) GetPayload() *models.V1User {
 	return o.Payload
 }
 
 func (o *GetUserOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.SecurityUser)
+	o.Payload = new(models.V1User)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

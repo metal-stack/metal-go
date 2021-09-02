@@ -7,7 +7,7 @@ import (
 
 // UserGetResponse is the response of a UserGet action
 type UserGetResponse struct {
-	User *models.SecurityUser
+	User *models.V1User
 }
 
 // UserGet return a User from given token
