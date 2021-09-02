@@ -56,7 +56,7 @@ type GetUserOK struct {
 }
 
 func (o *GetUserOK) Error() string {
-	return fmt.Sprintf("[GET /v1/user/{token}][%d] getUserOK  %+v", 200, o.Payload)
+	return fmt.Sprintf("[GET /v1/user][%d] getUserOK  %+v", 200, o.Payload)
 }
 func (o *GetUserOK) GetPayload() *models.V1User {
 	return o.Payload
@@ -97,7 +97,7 @@ func (o *GetUserDefault) Code() int {
 }
 
 func (o *GetUserDefault) Error() string {
-	return fmt.Sprintf("[GET /v1/user/{token}][%d] getUser default  %+v", o._statusCode, o.Payload)
+	return fmt.Sprintf("[GET /v1/user][%d] getUser default  %+v", o._statusCode, o.Payload)
 }
 func (o *GetUserDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload

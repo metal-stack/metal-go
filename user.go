@@ -11,11 +11,9 @@ type UserGetResponse struct {
 }
 
 // UserGet return a User from given token
-func (d *Driver) UserGet(token string) (*UserGetResponse, error) {
+func (d *Driver) UserGet() (*UserGetResponse, error) {
 	response := &UserGetResponse{}
 	params := user.NewGetUserParams()
-	params.Token = token
-
 	resp, err := d.client.User.GetUser(params, nil)
 	if err != nil {
 		return response, err

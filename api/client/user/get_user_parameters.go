@@ -58,13 +58,6 @@ func NewGetUserParamsWithHTTPClient(client *http.Client) *GetUserParams {
    Typically these are written to a http.Request.
 */
 type GetUserParams struct {
-
-	/* Token.
-
-	   jwt token with user information
-	*/
-	Token string
-
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
@@ -118,17 +111,6 @@ func (o *GetUserParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
-// WithToken adds the token to the get user params
-func (o *GetUserParams) WithToken(token string) *GetUserParams {
-	o.SetToken(token)
-	return o
-}
-
-// SetToken adds the token to the get user params
-func (o *GetUserParams) SetToken(token string) {
-	o.Token = token
-}
-
 // WriteToRequest writes these params to a swagger request
 func (o *GetUserParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -136,11 +118,6 @@ func (o *GetUserParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Regis
 		return err
 	}
 	var res []error
-
-	// path param token
-	if err := r.SetPathParam("token", o.Token); err != nil {
-		return err
-	}
 
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)

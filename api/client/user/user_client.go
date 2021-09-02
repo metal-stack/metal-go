@@ -44,7 +44,7 @@ func (a *Client) GetUser(params *GetUserParams, authInfo runtime.ClientAuthInfoW
 	op := &runtime.ClientOperation{
 		ID:                 "getUser",
 		Method:             "GET",
-		PathPattern:        "/v1/user/{token}",
+		PathPattern:        "/v1/user",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http"},
