@@ -28,28 +28,28 @@ type ClientOption func(*runtime.ClientOperation)
 
 // ClientService is the interface for Client methods
 type ClientService interface {
-	GetUser(params *GetUserParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetUserOK, error)
+	GetMe(params *GetMeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetMeOK, error)
 
 	SetTransport(transport runtime.ClientTransport)
 }
 
 /*
-  GetUser extracts and validate user from token
+  GetMe extracts the connecting user from auth header
 */
-func (a *Client) GetUser(params *GetUserParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetUserOK, error) {
+func (a *Client) GetMe(params *GetMeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetMeOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewGetUserParams()
+		params = NewGetMeParams()
 	}
 	op := &runtime.ClientOperation{
-		ID:                 "getUser",
+		ID:                 "getMe",
 		Method:             "GET",
-		PathPattern:        "/v1/user",
+		PathPattern:        "/v1/user/me",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http"},
 		Params:             params,
-		Reader:             &GetUserReader{formats: a.formats},
+		Reader:             &GetMeReader{formats: a.formats},
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
@@ -62,12 +62,12 @@ func (a *Client) GetUser(params *GetUserParams, authInfo runtime.ClientAuthInfoW
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*GetUserOK)
+	success, ok := result.(*GetMeOK)
 	if ok {
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*GetUserDefault)
+	unexpectedSuccess := result.(*GetMeDefault)
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 

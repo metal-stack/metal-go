@@ -14,8 +14,8 @@ type ClientService struct {
 	mock.Mock
 }
 
-// GetUser provides a mock function with given fields: params, authInfo, opts
-func (_m *ClientService) GetUser(params *user.GetUserParams, authInfo runtime.ClientAuthInfoWriter, opts ...user.ClientOption) (*user.GetUserOK, error) {
+// GetMe provides a mock function with given fields: params, authInfo, opts
+func (_m *ClientService) GetMe(params *user.GetMeParams, authInfo runtime.ClientAuthInfoWriter, opts ...user.ClientOption) (*user.GetMeOK, error) {
 	_va := make([]interface{}, len(opts))
 	for _i := range opts {
 		_va[_i] = opts[_i]
@@ -25,17 +25,17 @@ func (_m *ClientService) GetUser(params *user.GetUserParams, authInfo runtime.Cl
 	_ca = append(_ca, _va...)
 	ret := _m.Called(_ca...)
 
-	var r0 *user.GetUserOK
-	if rf, ok := ret.Get(0).(func(*user.GetUserParams, runtime.ClientAuthInfoWriter, ...user.ClientOption) *user.GetUserOK); ok {
+	var r0 *user.GetMeOK
+	if rf, ok := ret.Get(0).(func(*user.GetMeParams, runtime.ClientAuthInfoWriter, ...user.ClientOption) *user.GetMeOK); ok {
 		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
-			r0 = ret.Get(0).(*user.GetUserOK)
+			r0 = ret.Get(0).(*user.GetMeOK)
 		}
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*user.GetUserParams, runtime.ClientAuthInfoWriter, ...user.ClientOption) error); ok {
+	if rf, ok := ret.Get(1).(func(*user.GetMeParams, runtime.ClientAuthInfoWriter, ...user.ClientOption) error); ok {
 		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)

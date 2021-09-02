@@ -5,19 +5,12 @@ import (
 	"github.com/metal-stack/metal-go/api/models"
 )
 
-// UserGetResponse is the response of a UserGet action
-type UserGetResponse struct {
-	User *models.V1User
-}
-
-// UserGet return a User from given token
-func (d *Driver) UserGet() (*UserGetResponse, error) {
-	response := &UserGetResponse{}
-	params := user.NewGetUserParams()
-	resp, err := d.client.User.GetUser(params, nil)
+// Me return the connecting User
+func (d *Driver) Me() (*models.V1User, error) {
+	params := user.NewGetMeParams()
+	resp, err := d.client.User.GetMe(params, nil)
 	if err != nil {
-		return response, err
+		return nil, err
 	}
-	response.User = resp.Payload
-	return response, nil
+	return resp.Payload, nil
 }
