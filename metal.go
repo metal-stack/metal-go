@@ -32,7 +32,7 @@ const (
 
 // Driver holds the client connection to the metal api
 type Driver struct {
-	client           *client.MetalAPI
+	Client           *client.MetalAPI
 	image            image.ClientService
 	firmware         firmware.ClientService
 	filesystemlayout filesystemlayout.ClientService
@@ -75,7 +75,7 @@ func NewDriver(baseURL, bearer, hmacKey string, options ...option) (*Driver, err
 	c := client.New(transport, strfmt.Default)
 
 	driver := &Driver{
-		client:           c,
+		Client:           c,
 		firmware:         c.Firmware,
 		machine:          c.Machine,
 		firewall:         c.Firewall,

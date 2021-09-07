@@ -8,7 +8,7 @@ import (
 // Me return the connecting User
 func (d *Driver) Me() (*models.V1User, error) {
 	params := user.NewGetMeParams()
-	resp, err := d.client.User.GetMe(params, nil)
+	resp, err := d.Client.User.GetMe(params, nil)
 	if err != nil {
 		return nil, err
 	}
