@@ -1,14 +1,14 @@
 package metalgo
 
 import (
-	"github.com/metal-stack/metal-go/api/client/user"
-	"github.com/metal-stack/metal-go/api/models"
+	"github.com/metal-stack/metal-go/client/operations"
+	"github.com/metal-stack/metal-go/models"
 )
 
 // Me return the connecting User
 func (d *Driver) Me() (*models.V1User, error) {
-	params := user.NewGetMeParams()
-	resp, err := d.Client.User.GetMe(params, nil)
+	params := operations.NewGetMeParams()
+	resp, err := d.Client.GetMe(params, nil)
 	if err != nil {
 		return nil, err
 	}

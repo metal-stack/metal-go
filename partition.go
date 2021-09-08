@@ -1,8 +1,8 @@
 package metalgo
 
 import (
-	"github.com/metal-stack/metal-go/api/client/partition"
-	"github.com/metal-stack/metal-go/api/models"
+	"github.com/metal-stack/metal-go/client/operations"
+	"github.com/metal-stack/metal-go/models"
 )
 
 // PartitionListResponse is the response of a PartitionList action
@@ -58,8 +58,8 @@ type PartitionCreateResponse struct {
 // PartitionList return all partitions
 func (d *Driver) PartitionList() (*PartitionListResponse, error) {
 	response := &PartitionListResponse{}
-	listPartitions := partition.NewListPartitionsParams()
-	resp, err := d.partition.ListPartitions(listPartitions, nil)
+	listPartitions := operations.NewListPartitionsParams()
+	resp, err := d.Client.ListPartitions(listPartitions, nil)
 	if err != nil {
 		return response, err
 	}
@@ -70,9 +70,9 @@ func (d *Driver) PartitionList() (*PartitionListResponse, error) {
 // PartitionGet return a partition
 func (d *Driver) PartitionGet(partitionID string) (*PartitionGetResponse, error) {
 	response := &PartitionGetResponse{}
-	getPartition := partition.NewFindPartitionParams()
+	getPartition := operations.NewFindPartitionParams()
 	getPartition.ID = partitionID
-	resp, err := d.partition.FindPartition(getPartition, nil)
+	resp, err := d.Client.FindPartition(getPartition, nil)
 	if err != nil {
 		return response, err
 	}
@@ -84,11 +84,11 @@ func (d *Driver) PartitionGet(partitionID string) (*PartitionGetResponse, error)
 func (d *Driver) PartitionCapacity(pcr PartitionCapacityRequest) (*PartitionCapacityResponse, error) {
 	response := &PartitionCapacityResponse{}
 
-	partitionParams := partition.NewPartitionCapacityParams().WithBody(&models.V1PartitionCapacityRequest{
+	partitionParams := operations.NewPartitionCapacityParams().WithBody(&models.V1PartitionCapacityRequest{
 		ID:     StrDeref(pcr.ID),
 		Sizeid: StrDeref(pcr.Size),
 	})
-	resp, err := d.partition.PartitionCapacity(partitionParams, nil)
+	resp, err := d.Client.PartitionCapacity(partitionParams, nil)
 	if err != nil {
 		return response, err
 	}
@@ -109,9 +109,9 @@ func (d *Driver) PartitionCreate(pcr PartitionCreateRequest) (*PartitionCreateRe
 		Privatenetworkprefixlength: pcr.Privatenetworkprefixlength,
 		Bootconfig:                 pcr.Bootconfig.convert(),
 	}
-	request := partition.NewCreatePartitionParams()
+	request := operations.NewCreatePartitionParams()
 	request.SetBody(createPartition)
-	resp, err := d.partition.CreatePartition(request, nil)
+	resp, err := d.Client.CreatePartition(request, nil)
 	if err != nil {
 		return response, err
 	}
@@ -130,9 +130,9 @@ func (d *Driver) PartitionUpdate(pcr PartitionCreateRequest) (*PartitionCreateRe
 		Mgmtserviceaddress: pcr.Mgmtserviceaddress,
 		Bootconfig:         pcr.Bootconfig.convert(),
 	}
-	request := partition.NewUpdatePartitionParams()
+	request := operations.NewUpdatePartitionParams()
 	request.SetBody(updatePartition)
-	resp, err := d.partition.UpdatePartition(request, nil)
+	resp, err := d.Client.UpdatePartition(request, nil)
 	if err != nil {
 		return response, err
 	}
@@ -143,9 +143,9 @@ func (d *Driver) PartitionUpdate(pcr PartitionCreateRequest) (*PartitionCreateRe
 // PartitionDelete return a partition
 func (d *Driver) PartitionDelete(partitionID string) (*PartitionGetResponse, error) {
 	response := &PartitionGetResponse{}
-	request := partition.NewDeletePartitionParams()
+	request := operations.NewDeletePartitionParams()
 	request.ID = partitionID
-	resp, err := d.partition.DeletePartition(request, nil)
+	resp, err := d.Client.DeletePartition(request, nil)
 	if err != nil {
 		return response, err
 	}

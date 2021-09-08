@@ -1,8 +1,8 @@
 package metalgo
 
 import (
-	"github.com/metal-stack/metal-go/api/client/firewall"
-	"github.com/metal-stack/metal-go/api/models"
+	"github.com/metal-stack/metal-go/client/operations"
+	"github.com/metal-stack/metal-go/models"
 )
 
 // FirewallCreateRequest contains data for a machine creation
@@ -50,10 +50,10 @@ func (d *Driver) FirewallCreate(fcr *FirewallCreateRequest) (*FirewallCreateResp
 		Ips:         fcr.IPs,
 	}
 
-	allocFirewall := firewall.NewAllocateFirewallParams()
+	allocFirewall := operations.NewAllocateFirewallParams()
 	allocFirewall.SetBody(allocateRequest)
 
-	resp, err := d.firewall.AllocateFirewall(allocFirewall, nil)
+	resp, err := d.Client.AllocateFirewall(allocFirewall, nil)
 	if err != nil {
 		return response, err
 	}
@@ -66,8 +66,8 @@ func (d *Driver) FirewallCreate(fcr *FirewallCreateRequest) (*FirewallCreateResp
 func (d *Driver) FirewallList() (*FirewallListResponse, error) {
 	response := &FirewallListResponse{}
 
-	listFirewall := firewall.NewListFirewallsParams()
-	resp, err := d.firewall.ListFirewalls(listFirewall, nil)
+	listFirewall := operations.NewListFirewallsParams()
+	resp, err := d.Client.ListFirewalls(listFirewall, nil)
 	if err != nil {
 		return response, err
 	}
@@ -83,7 +83,7 @@ func (d *Driver) FirewallFind(ffr *FirewallFindRequest) (*FirewallListResponse, 
 
 	response := &FirewallListResponse{}
 	var err error
-	var resp *firewall.FindFirewallsOK
+	var resp *operations.FindFirewallsOK
 
 	req := &models.V1FirewallFindRequest{
 		ID:                         StrDeref(ffr.ID),
@@ -130,10 +130,10 @@ func (d *Driver) FirewallFind(ffr *FirewallFindRequest) (*FirewallListResponse, 
 		FruProductPartNumber:       StrDeref(ffr.FruProductPartNumber),
 		FruProductSerial:           StrDeref(ffr.FruProductSerial),
 	}
-	findFirewalls := firewall.NewFindFirewallsParams()
+	findFirewalls := operations.NewFindFirewallsParams()
 	findFirewalls.SetBody(req)
 
-	resp, err = d.firewall.FindFirewalls(findFirewalls, nil)
+	resp, err = d.Client.FindFirewalls(findFirewalls, nil)
 	if err != nil {
 		return response, err
 	}
@@ -143,11 +143,11 @@ func (d *Driver) FirewallFind(ffr *FirewallFindRequest) (*FirewallListResponse, 
 
 // FirewallGet will only return one machine
 func (d *Driver) FirewallGet(machineID string) (*FirewallGetResponse, error) {
-	findFirewall := firewall.NewFindFirewallParams()
+	findFirewall := operations.NewFindFirewallParams()
 	findFirewall.ID = machineID
 
 	response := &FirewallGetResponse{}
-	resp, err := d.firewall.FindFirewall(findFirewall, nil)
+	resp, err := d.Client.FindFirewall(findFirewall, nil)
 	if err != nil {
 		return response, err
 	}

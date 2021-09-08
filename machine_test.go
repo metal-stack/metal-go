@@ -10,7 +10,7 @@ import (
 	"github.com/stretchr/testify/assert"
 
 	"github.com/emicklei/go-restful/v3"
-	"github.com/metal-stack/metal-go/api/models"
+	"github.com/metal-stack/metal-go/models"
 	"github.com/metal-stack/metal-lib/httperrors"
 	"github.com/stretchr/testify/require"
 )

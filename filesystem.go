@@ -1,14 +1,14 @@
 package metalgo
 
 import (
-	"github.com/metal-stack/metal-go/api/client/filesystemlayout"
-	"github.com/metal-stack/metal-go/api/models"
+	"github.com/metal-stack/metal-go/client/operations"
+	"github.com/metal-stack/metal-go/models"
 )
 
 // FilesystemLayoutList return all machine filesystemlayouts
 func (d *Driver) FilesystemLayoutList() ([]*models.V1FilesystemLayoutResponse, error) {
-	listFilesystemLayouts := filesystemlayout.NewListFilesystemLayoutsParams()
-	resp, err := d.filesystemlayout.ListFilesystemLayouts(listFilesystemLayouts, nil)
+	listFilesystemLayouts := operations.NewListFilesystemLayoutsParams()
+	resp, err := d.Client.ListFilesystemLayouts(listFilesystemLayouts, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -17,9 +17,9 @@ func (d *Driver) FilesystemLayoutList() ([]*models.V1FilesystemLayoutResponse, e
 
 // FilesystemLayoutGet return a filesystemlayout
 func (d *Driver) FilesystemLayoutGet(filesystemlayoutID string) (*models.V1FilesystemLayoutResponse, error) {
-	request := filesystemlayout.NewGetFilesystemLayoutParams()
+	request := operations.NewGetFilesystemLayoutParams()
 	request.ID = filesystemlayoutID
-	resp, err := d.filesystemlayout.GetFilesystemLayout(request, nil)
+	resp, err := d.Client.GetFilesystemLayout(request, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -28,9 +28,9 @@ func (d *Driver) FilesystemLayoutGet(filesystemlayoutID string) (*models.V1Files
 
 // FilesystemLayoutCreate create a filesystemlayout
 func (d *Driver) FilesystemLayoutCreate(fcr models.V1FilesystemLayoutCreateRequest) (*models.V1FilesystemLayoutResponse, error) {
-	request := filesystemlayout.NewCreateFilesystemLayoutParams()
+	request := operations.NewCreateFilesystemLayoutParams()
 	request.SetBody(&fcr)
-	resp, err := d.filesystemlayout.CreateFilesystemLayout(request, nil)
+	resp, err := d.Client.CreateFilesystemLayout(request, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -39,9 +39,9 @@ func (d *Driver) FilesystemLayoutCreate(fcr models.V1FilesystemLayoutCreateReque
 
 // FilesystemLayoutUpdate create a filesystemlayout
 func (d *Driver) FilesystemLayoutUpdate(fur models.V1FilesystemLayoutUpdateRequest) (*models.V1FilesystemLayoutResponse, error) {
-	request := filesystemlayout.NewUpdateFilesystemLayoutParams()
+	request := operations.NewUpdateFilesystemLayoutParams()
 	request.SetBody(&fur)
-	resp, err := d.filesystemlayout.UpdateFilesystemLayout(request, nil)
+	resp, err := d.Client.UpdateFilesystemLayout(request, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -50,9 +50,9 @@ func (d *Driver) FilesystemLayoutUpdate(fur models.V1FilesystemLayoutUpdateReque
 
 // FilesystemLayoutDelete return a filesystemlayout
 func (d *Driver) FilesystemLayoutDelete(filesystemlayoutID string) (*models.V1FilesystemLayoutResponse, error) {
-	request := filesystemlayout.NewDeleteFilesystemLayoutParams()
+	request := operations.NewDeleteFilesystemLayoutParams()
 	request.ID = filesystemlayoutID
-	resp, err := d.filesystemlayout.DeleteFilesystemLayout(request, nil)
+	resp, err := d.Client.DeleteFilesystemLayout(request, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -61,9 +61,9 @@ func (d *Driver) FilesystemLayoutDelete(filesystemlayoutID string) (*models.V1Fi
 
 // FilesystemLayoutTry with size and image
 func (d *Driver) FilesystemLayoutTry(try models.V1FilesystemLayoutTryRequest) (*models.V1FilesystemLayoutResponse, error) {
-	request := filesystemlayout.NewTryFilesystemLayoutParams()
+	request := operations.NewTryFilesystemLayoutParams()
 	request.SetBody(&try)
-	resp, err := d.filesystemlayout.TryFilesystemLayout(request, nil)
+	resp, err := d.Client.TryFilesystemLayout(request, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -72,9 +72,9 @@ func (d *Driver) FilesystemLayoutTry(try models.V1FilesystemLayoutTryRequest) (*
 
 // FilesystemLayoutMatch with machine and filesystemlayout
 func (d *Driver) FilesystemLayoutMatch(match models.V1FilesystemLayoutMatchRequest) (*models.V1FilesystemLayoutResponse, error) {
-	request := filesystemlayout.NewMatchFilesystemLayoutParams()
+	request := operations.NewMatchFilesystemLayoutParams()
 	request.SetBody(&match)
-	resp, err := d.filesystemlayout.MatchFilesystemLayout(request, nil)
+	resp, err := d.Client.MatchFilesystemLayout(request, nil)
 	if err != nil {
 		return nil, err
 	}

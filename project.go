@@ -2,8 +2,8 @@ package metalgo
 
 import (
 	v1 "github.com/metal-stack/masterdata-api/api/rest/v1"
-	"github.com/metal-stack/metal-go/api/client/project"
-	"github.com/metal-stack/metal-go/api/models"
+	"github.com/metal-stack/metal-go/client/operations"
+	"github.com/metal-stack/metal-go/models"
 )
 
 // ProjectListResponse is the response of a ProjectList action
@@ -26,8 +26,8 @@ type ProjectFindRequest struct {
 // ProjectList return all projects
 func (d *Driver) ProjectList() (*ProjectListResponse, error) {
 	response := &ProjectListResponse{}
-	listProjects := project.NewListProjectsParams()
-	resp, err := d.project.ListProjects(listProjects, nil)
+	listProjects := operations.NewListProjectsParams()
+	resp, err := d.Client.ListProjects(listProjects, nil)
 	if err != nil {
 		return response, err
 	}
@@ -38,7 +38,7 @@ func (d *Driver) ProjectList() (*ProjectListResponse, error) {
 // ProjectFind return projects by given findRequest
 func (d *Driver) ProjectFind(pfr v1.ProjectFindRequest) (*ProjectListResponse, error) {
 	response := &ProjectListResponse{}
-	findProjects := project.NewFindProjectsParams()
+	findProjects := operations.NewFindProjectsParams()
 	body := &models.V1ProjectFindRequest{}
 	if pfr.Id != nil {
 		body.ID = *pfr.Id
@@ -50,7 +50,7 @@ func (d *Driver) ProjectFind(pfr v1.ProjectFindRequest) (*ProjectListResponse, e
 		body.TenantID = *pfr.TenantId
 	}
 	findProjects.Body = body
-	resp, err := d.project.FindProjects(findProjects, nil)
+	resp, err := d.Client.FindProjects(findProjects, nil)
 	if err != nil {
 		return response, err
 	}
@@ -61,9 +61,9 @@ func (d *Driver) ProjectFind(pfr v1.ProjectFindRequest) (*ProjectListResponse, e
 // ProjectGet return a Project
 func (d *Driver) ProjectGet(projectID string) (*ProjectGetResponse, error) {
 	response := &ProjectGetResponse{}
-	getProject := project.NewFindProjectParams()
+	getProject := operations.NewFindProjectParams()
 	getProject.ID = projectID
-	resp, err := d.project.FindProject(getProject, nil)
+	resp, err := d.Client.FindProject(getProject, nil)
 	if err != nil {
 		return response, err
 	}
@@ -74,7 +74,7 @@ func (d *Driver) ProjectGet(projectID string) (*ProjectGetResponse, error) {
 // ProjectCreate a new Project
 func (d *Driver) ProjectCreate(pcr v1.ProjectCreateRequest) (*ProjectGetResponse, error) {
 	response := &ProjectGetResponse{}
-	createProject := project.NewCreateProjectParams()
+	createProject := operations.NewCreateProjectParams()
 	body := &models.V1ProjectCreateRequest{
 		Description: pcr.Description,
 		Meta: &models.V1Meta{
@@ -90,7 +90,7 @@ func (d *Driver) ProjectCreate(pcr v1.ProjectCreateRequest) (*ProjectGetResponse
 		Quotas:   ToV1QuotaSet(pcr.Quotas),
 	}
 	createProject.Body = body
-	resp, err := d.project.CreateProject(createProject, nil)
+	resp, err := d.Client.CreateProject(createProject, nil)
 	if err != nil {
 		return response, err
 	}
@@ -101,7 +101,7 @@ func (d *Driver) ProjectCreate(pcr v1.ProjectCreateRequest) (*ProjectGetResponse
 // ProjectUpdate update a Project
 func (d *Driver) ProjectUpdate(pur v1.ProjectUpdateRequest) (*ProjectGetResponse, error) {
 	response := &ProjectGetResponse{}
-	updateProject := project.NewUpdateProjectParams()
+	updateProject := operations.NewUpdateProjectParams()
 	body := &models.V1ProjectUpdateRequest{
 		Description: pur.Description,
 		Meta: &models.V1Meta{
@@ -117,7 +117,7 @@ func (d *Driver) ProjectUpdate(pur v1.ProjectUpdateRequest) (*ProjectGetResponse
 		Quotas:   ToV1QuotaSet(pur.Quotas),
 	}
 	updateProject.Body = body
-	resp, err := d.project.UpdateProject(updateProject, nil)
+	resp, err := d.Client.UpdateProject(updateProject, nil)
 	if err != nil {
 		return response, err
 	}
@@ -128,9 +128,9 @@ func (d *Driver) ProjectUpdate(pur v1.ProjectUpdateRequest) (*ProjectGetResponse
 // ProjectDelete delete a Project
 func (d *Driver) ProjectDelete(projectID string) (*ProjectGetResponse, error) {
 	response := &ProjectGetResponse{}
-	getProject := project.NewDeleteProjectParams()
+	getProject := operations.NewDeleteProjectParams()
 	getProject.ID = projectID
-	resp, err := d.project.DeleteProject(getProject, nil)
+	resp, err := d.Client.DeleteProject(getProject, nil)
 	if err != nil {
 		return response, err
 	}

@@ -15,9 +15,8 @@ test:
 
 .PHONY: generate-client
 generate-client:
-	rm -rf api
-	mkdir -p api
-	GO111MODULE=off docker run -it --user $$(id -u):$$(id -g) --rm -v ${PWD}:/work metalstack/builder swagger generate client -f metal-api.json -t api --skip-validation
+	rm -rf client models
+	GO111MODULE=off docker run -it --user $$(id -u):$$(id -g) --rm -v ${PWD}:/work metalstack/builder swagger generate client -f metal-api.json --skip-validation --skip-tag-packages
 
 .PHONY: golangcicheck
 golangcicheck:
@@ -29,4 +28,5 @@ lint: golangcicheck
 
 .PHONY: mocks
 mocks:
-	docker run --user $$(id -u):$$(id -g) --rm -w /work -v ${PWD}:/work vektra/mockery:v2.7.4 -r --keeptree --inpackage --dir api/client --output test/mocks --all
+	rm -rf test/mocks
+	docker run --user $$(id -u):$$(id -g) --rm -w /work -v ${PWD}:/work vektra/mockery:v2.7.4 -r --keeptree --inpackage --dir client --output test/mocks --all
