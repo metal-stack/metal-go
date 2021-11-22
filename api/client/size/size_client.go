@@ -38,7 +38,7 @@ type ClientService interface {
 
 	FindSize(params *FindSizeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FindSizeOK, error)
 
-	FindSizeImageConstraints(params *FindSizeImageConstraintsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FindSizeImageConstraintsOK, error)
+	FindSizeImageConstraint(params *FindSizeImageConstraintParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FindSizeImageConstraintOK, error)
 
 	FromHardware(params *FromHardwareParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FromHardwareOK, error)
 
@@ -244,22 +244,22 @@ func (a *Client) FindSize(params *FindSizeParams, authInfo runtime.ClientAuthInf
 }
 
 /*
-  FindSizeImageConstraints gets sizeimageconstraint by id
+  FindSizeImageConstraint gets sizeimageconstraint by id
 */
-func (a *Client) FindSizeImageConstraints(params *FindSizeImageConstraintsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FindSizeImageConstraintsOK, error) {
+func (a *Client) FindSizeImageConstraint(params *FindSizeImageConstraintParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FindSizeImageConstraintOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewFindSizeImageConstraintsParams()
+		params = NewFindSizeImageConstraintParams()
 	}
 	op := &runtime.ClientOperation{
-		ID:                 "findSizeImageConstraints",
+		ID:                 "findSizeImageConstraint",
 		Method:             "GET",
 		PathPattern:        "/v1/size/sizeimageconstraints/{id}",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http"},
 		Params:             params,
-		Reader:             &FindSizeImageConstraintsReader{formats: a.formats},
+		Reader:             &FindSizeImageConstraintReader{formats: a.formats},
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
@@ -272,12 +272,12 @@ func (a *Client) FindSizeImageConstraints(params *FindSizeImageConstraintsParams
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*FindSizeImageConstraintsOK)
+	success, ok := result.(*FindSizeImageConstraintOK)
 	if ok {
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*FindSizeImageConstraintsDefault)
+	unexpectedSuccess := result.(*FindSizeImageConstraintDefault)
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 

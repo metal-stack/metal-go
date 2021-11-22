@@ -164,8 +164,8 @@ func (_m *ClientService) FindSize(params *size.FindSizeParams, authInfo runtime.
 	return r0, r1
 }
 
-// FindSizeImageConstraints provides a mock function with given fields: params, authInfo, opts
-func (_m *ClientService) FindSizeImageConstraints(params *size.FindSizeImageConstraintsParams, authInfo runtime.ClientAuthInfoWriter, opts ...size.ClientOption) (*size.FindSizeImageConstraintsOK, error) {
+// FindSizeImageConstraint provides a mock function with given fields: params, authInfo, opts
+func (_m *ClientService) FindSizeImageConstraint(params *size.FindSizeImageConstraintParams, authInfo runtime.ClientAuthInfoWriter, opts ...size.ClientOption) (*size.FindSizeImageConstraintOK, error) {
 	_va := make([]interface{}, len(opts))
 	for _i := range opts {
 		_va[_i] = opts[_i]
@@ -175,17 +175,17 @@ func (_m *ClientService) FindSizeImageConstraints(params *size.FindSizeImageCons
 	_ca = append(_ca, _va...)
 	ret := _m.Called(_ca...)
 
-	var r0 *size.FindSizeImageConstraintsOK
-	if rf, ok := ret.Get(0).(func(*size.FindSizeImageConstraintsParams, runtime.ClientAuthInfoWriter, ...size.ClientOption) *size.FindSizeImageConstraintsOK); ok {
+	var r0 *size.FindSizeImageConstraintOK
+	if rf, ok := ret.Get(0).(func(*size.FindSizeImageConstraintParams, runtime.ClientAuthInfoWriter, ...size.ClientOption) *size.FindSizeImageConstraintOK); ok {
 		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
-			r0 = ret.Get(0).(*size.FindSizeImageConstraintsOK)
+			r0 = ret.Get(0).(*size.FindSizeImageConstraintOK)
 		}
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*size.FindSizeImageConstraintsParams, runtime.ClientAuthInfoWriter, ...size.ClientOption) error); ok {
+	if rf, ok := ret.Get(1).(func(*size.FindSizeImageConstraintParams, runtime.ClientAuthInfoWriter, ...size.ClientOption) error); ok {
 		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)

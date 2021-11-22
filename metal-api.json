@@ -8022,7 +8022,7 @@
         "consumes": [
           "application/json"
         ],
-        "operationId": "findSizeImageConstraints",
+        "operationId": "findSizeImageConstraint",
         "parameters": [
           {
             "description": "identifier of the sizeimageconstraint",
