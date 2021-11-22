@@ -42,7 +42,7 @@ type Driver struct {
 	project          project.ClientService
 	tenant           tenant.ClientService
 	user             user.ClientService
-	size             size.ClientService
+	Size             size.ClientService
 	sw               sw.ClientService
 	network          network.ClientService
 	ip               ip.ClientService
@@ -80,7 +80,7 @@ func NewDriver(baseURL, bearer, hmacKey string, options ...option) (*Driver, err
 		machine:          c.Machine,
 		firewall:         c.Firewall,
 		filesystemlayout: c.Filesystemlayout,
-		size:             c.Size,
+		Size:             c.Size,
 		image:            c.Image,
 		project:          c.Project,
 		tenant:           c.Tenant,
