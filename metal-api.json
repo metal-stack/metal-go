@@ -8017,6 +8017,42 @@
         "tags": [
           "size"
         ]
+      },
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "operationId": "findSizeImageConstraints",
+        "parameters": [
+          {
+            "description": "identifier of the sizeimageconstraint",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/v1.SizeResponse"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/httperrors.HTTPErrorResponse"
+            }
+          }
+        },
+        "summary": "get sizeimageconstraint by id",
+        "tags": [
+          "size"
+        ]
       }
     },
     "/v1/size/{id}": {

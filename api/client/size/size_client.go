@@ -38,6 +38,8 @@ type ClientService interface {
 
 	FindSize(params *FindSizeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FindSizeOK, error)
 
+	FindSizeImageConstraints(params *FindSizeImageConstraintsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FindSizeImageConstraintsOK, error)
+
 	FromHardware(params *FromHardwareParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FromHardwareOK, error)
 
 	ListSizeImageConstraints(params *ListSizeImageConstraintsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListSizeImageConstraintsOK, error)
@@ -238,6 +240,44 @@ func (a *Client) FindSize(params *FindSizeParams, authInfo runtime.ClientAuthInf
 	}
 	// unexpected success response
 	unexpectedSuccess := result.(*FindSizeDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+  FindSizeImageConstraints gets sizeimageconstraint by id
+*/
+func (a *Client) FindSizeImageConstraints(params *FindSizeImageConstraintsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FindSizeImageConstraintsOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewFindSizeImageConstraintsParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "findSizeImageConstraints",
+		Method:             "GET",
+		PathPattern:        "/v1/size/sizeimageconstraints/{id}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &FindSizeImageConstraintsReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*FindSizeImageConstraintsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*FindSizeImageConstraintsDefault)
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
