@@ -40,7 +40,7 @@ type ClientService interface {
 
 	FromHardware(params *FromHardwareParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FromHardwareOK, error)
 
-	ListSizeSizeImageConstraints(params *ListSizeSizeImageConstraintsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListSizeSizeImageConstraintsOK, error)
+	ListSizeImageConstraints(params *ListSizeImageConstraintsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListSizeImageConstraintsOK, error)
 
 	ListSizes(params *ListSizesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListSizesOK, error)
 
@@ -280,22 +280,22 @@ func (a *Client) FromHardware(params *FromHardwareParams, authInfo runtime.Clien
 }
 
 /*
-  ListSizeSizeImageConstraints gets all sizeimageconstraints
+  ListSizeImageConstraints gets all sizeimageconstraints
 */
-func (a *Client) ListSizeSizeImageConstraints(params *ListSizeSizeImageConstraintsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListSizeSizeImageConstraintsOK, error) {
+func (a *Client) ListSizeImageConstraints(params *ListSizeImageConstraintsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListSizeImageConstraintsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewListSizeSizeImageConstraintsParams()
+		params = NewListSizeImageConstraintsParams()
 	}
 	op := &runtime.ClientOperation{
-		ID:                 "listSizeSizeImageConstraints",
+		ID:                 "listSizeImageConstraints",
 		Method:             "GET",
 		PathPattern:        "/v1/size/sizeimageconstraints",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http"},
 		Params:             params,
-		Reader:             &ListSizeSizeImageConstraintsReader{formats: a.formats},
+		Reader:             &ListSizeImageConstraintsReader{formats: a.formats},
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
@@ -308,12 +308,12 @@ func (a *Client) ListSizeSizeImageConstraints(params *ListSizeSizeImageConstrain
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*ListSizeSizeImageConstraintsOK)
+	success, ok := result.(*ListSizeImageConstraintsOK)
 	if ok {
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*ListSizeSizeImageConstraintsDefault)
+	unexpectedSuccess := result.(*ListSizeImageConstraintsDefault)
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 

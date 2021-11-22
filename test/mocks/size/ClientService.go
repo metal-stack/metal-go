@@ -194,8 +194,8 @@ func (_m *ClientService) FromHardware(params *size.FromHardwareParams, authInfo 
 	return r0, r1
 }
 
-// ListSizeSizeImageConstraints provides a mock function with given fields: params, authInfo, opts
-func (_m *ClientService) ListSizeSizeImageConstraints(params *size.ListSizeSizeImageConstraintsParams, authInfo runtime.ClientAuthInfoWriter, opts ...size.ClientOption) (*size.ListSizeSizeImageConstraintsOK, error) {
+// ListSizeImageConstraints provides a mock function with given fields: params, authInfo, opts
+func (_m *ClientService) ListSizeImageConstraints(params *size.ListSizeImageConstraintsParams, authInfo runtime.ClientAuthInfoWriter, opts ...size.ClientOption) (*size.ListSizeImageConstraintsOK, error) {
 	_va := make([]interface{}, len(opts))
 	for _i := range opts {
 		_va[_i] = opts[_i]
@@ -205,17 +205,17 @@ func (_m *ClientService) ListSizeSizeImageConstraints(params *size.ListSizeSizeI
 	_ca = append(_ca, _va...)
 	ret := _m.Called(_ca...)
 
-	var r0 *size.ListSizeSizeImageConstraintsOK
-	if rf, ok := ret.Get(0).(func(*size.ListSizeSizeImageConstraintsParams, runtime.ClientAuthInfoWriter, ...size.ClientOption) *size.ListSizeSizeImageConstraintsOK); ok {
+	var r0 *size.ListSizeImageConstraintsOK
+	if rf, ok := ret.Get(0).(func(*size.ListSizeImageConstraintsParams, runtime.ClientAuthInfoWriter, ...size.ClientOption) *size.ListSizeImageConstraintsOK); ok {
 		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
-			r0 = ret.Get(0).(*size.ListSizeSizeImageConstraintsOK)
+			r0 = ret.Get(0).(*size.ListSizeImageConstraintsOK)
 		}
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*size.ListSizeSizeImageConstraintsParams, runtime.ClientAuthInfoWriter, ...size.ClientOption) error); ok {
+	if rf, ok := ret.Get(1).(func(*size.ListSizeImageConstraintsParams, runtime.ClientAuthInfoWriter, ...size.ClientOption) error); ok {
 		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)

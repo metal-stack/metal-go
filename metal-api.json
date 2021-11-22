@@ -7868,7 +7868,7 @@
         "consumes": [
           "application/json"
         ],
-        "operationId": "listSizeSizeImageConstraints",
+        "operationId": "listSizeImageConstraints",
         "produces": [
           "application/json"
         ],
