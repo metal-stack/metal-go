@@ -138,3 +138,33 @@ func (_m *ClientService) ListFirewalls(params *firewall.ListFirewallsParams, aut
 func (_m *ClientService) SetTransport(transport runtime.ClientTransport) {
 	_m.Called(transport)
 }
+
+// TryAllocateFirewall provides a mock function with given fields: params, authInfo, opts
+func (_m *ClientService) TryAllocateFirewall(params *firewall.TryAllocateFirewallParams, authInfo runtime.ClientAuthInfoWriter, opts ...firewall.ClientOption) (*firewall.TryAllocateFirewallOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
+
+	var r0 *firewall.TryAllocateFirewallOK
+	if rf, ok := ret.Get(0).(func(*firewall.TryAllocateFirewallParams, runtime.ClientAuthInfoWriter, ...firewall.ClientOption) *firewall.TryAllocateFirewallOK); ok {
+		r0 = rf(params, authInfo, opts...)
+	} else {
+		if ret.Get(0) != nil {
+			r0 = ret.Get(0).(*firewall.TryAllocateFirewallOK)
+		}
+	}
+
+	var r1 error
+	if rf, ok := ret.Get(1).(func(*firewall.TryAllocateFirewallParams, runtime.ClientAuthInfoWriter, ...firewall.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
+	} else {
+		r1 = ret.Error(1)
+	}
+
+	return r0, r1
+}

@@ -139,6 +139,8 @@ func (m *V1SwitchResponse) validateConnections(formats strfmt.Registry) error {
 			if err := m.Connections[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("connections" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("connections" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -179,6 +181,8 @@ func (m *V1SwitchResponse) validateLastSync(formats strfmt.Registry) error {
 		if err := m.LastSync.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("last_sync")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("last_sync")
 			}
 			return err
 		}
@@ -196,6 +200,8 @@ func (m *V1SwitchResponse) validateLastSyncError(formats strfmt.Registry) error 
 		if err := m.LastSyncError.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("last_sync_error")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("last_sync_error")
 			}
 			return err
 		}
@@ -219,6 +225,8 @@ func (m *V1SwitchResponse) validateNics(formats strfmt.Registry) error {
 			if err := m.Nics[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("nics" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("nics" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -239,6 +247,8 @@ func (m *V1SwitchResponse) validatePartition(formats strfmt.Registry) error {
 		if err := m.Partition.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("partition")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("partition")
 			}
 			return err
 		}
@@ -311,6 +321,8 @@ func (m *V1SwitchResponse) contextValidateConnections(ctx context.Context, forma
 			if err := m.Connections[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("connections" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("connections" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -336,6 +348,8 @@ func (m *V1SwitchResponse) contextValidateLastSync(ctx context.Context, formats 
 		if err := m.LastSync.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("last_sync")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("last_sync")
 			}
 			return err
 		}
@@ -350,6 +364,8 @@ func (m *V1SwitchResponse) contextValidateLastSyncError(ctx context.Context, for
 		if err := m.LastSyncError.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("last_sync_error")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("last_sync_error")
 			}
 			return err
 		}
@@ -366,6 +382,8 @@ func (m *V1SwitchResponse) contextValidateNics(ctx context.Context, formats strf
 			if err := m.Nics[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("nics" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("nics" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -382,6 +400,8 @@ func (m *V1SwitchResponse) contextValidatePartition(ctx context.Context, formats
 		if err := m.Partition.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("partition")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("partition")
 			}
 			return err
 		}

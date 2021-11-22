@@ -96,6 +96,8 @@ func (m *V1MachineRegisterRequest) validateBios(formats strfmt.Registry) error {
 		if err := m.Bios.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("bios")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("bios")
 			}
 			return err
 		}
@@ -114,6 +116,8 @@ func (m *V1MachineRegisterRequest) validateHardware(formats strfmt.Registry) err
 		if err := m.Hardware.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("hardware")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("hardware")
 			}
 			return err
 		}
@@ -132,6 +136,8 @@ func (m *V1MachineRegisterRequest) validateIpmi(formats strfmt.Registry) error {
 		if err := m.Ipmi.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("ipmi")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("ipmi")
 			}
 			return err
 		}
@@ -204,6 +210,8 @@ func (m *V1MachineRegisterRequest) contextValidateBios(ctx context.Context, form
 		if err := m.Bios.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("bios")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("bios")
 			}
 			return err
 		}
@@ -218,6 +226,8 @@ func (m *V1MachineRegisterRequest) contextValidateHardware(ctx context.Context, 
 		if err := m.Hardware.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("hardware")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("hardware")
 			}
 			return err
 		}
@@ -232,6 +242,8 @@ func (m *V1MachineRegisterRequest) contextValidateIpmi(ctx context.Context, form
 		if err := m.Ipmi.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("ipmi")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("ipmi")
 			}
 			return err
 		}

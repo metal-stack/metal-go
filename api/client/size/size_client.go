@@ -30,15 +30,23 @@ type ClientOption func(*runtime.ClientOperation)
 type ClientService interface {
 	CreateSize(params *CreateSizeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateSizeCreated, error)
 
+	CreateSizeImageConstraint(params *CreateSizeImageConstraintParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateSizeImageConstraintCreated, error)
+
 	DeleteSize(params *DeleteSizeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteSizeOK, error)
+
+	DeleteSizeImageConstraint(params *DeleteSizeImageConstraintParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteSizeImageConstraintOK, error)
 
 	FindSize(params *FindSizeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FindSizeOK, error)
 
 	FromHardware(params *FromHardwareParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FromHardwareOK, error)
 
+	ListSizeSizeImageConstraints(params *ListSizeSizeImageConstraintsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListSizeSizeImageConstraintsOK, error)
+
 	ListSizes(params *ListSizesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListSizesOK, error)
 
 	UpdateSize(params *UpdateSizeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateSizeOK, error)
+
+	UpdateSizeImageConstraint(params *UpdateSizeImageConstraintParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateSizeImageConstraintOK, error)
 
 	SetTransport(transport runtime.ClientTransport)
 }
@@ -82,6 +90,44 @@ func (a *Client) CreateSize(params *CreateSizeParams, authInfo runtime.ClientAut
 }
 
 /*
+  CreateSizeImageConstraint creates a sizeimageconstraint if the given ID already exists a conflict is returned
+*/
+func (a *Client) CreateSizeImageConstraint(params *CreateSizeImageConstraintParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateSizeImageConstraintCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewCreateSizeImageConstraintParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "createSizeImageConstraint",
+		Method:             "PUT",
+		PathPattern:        "/v1/size/sizeimageconstraints",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &CreateSizeImageConstraintReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*CreateSizeImageConstraintCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*CreateSizeImageConstraintDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
   DeleteSize deletes an size and returns the deleted entity
 */
 func (a *Client) DeleteSize(params *DeleteSizeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteSizeOK, error) {
@@ -116,6 +162,44 @@ func (a *Client) DeleteSize(params *DeleteSizeParams, authInfo runtime.ClientAut
 	}
 	// unexpected success response
 	unexpectedSuccess := result.(*DeleteSizeDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+  DeleteSizeImageConstraint deletes an sizeimageconstraint and returns the deleted entity
+*/
+func (a *Client) DeleteSizeImageConstraint(params *DeleteSizeImageConstraintParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteSizeImageConstraintOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDeleteSizeImageConstraintParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "deleteSizeImageConstraint",
+		Method:             "DELETE",
+		PathPattern:        "/v1/size/sizeimageconstraints/{id}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &DeleteSizeImageConstraintReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DeleteSizeImageConstraintOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*DeleteSizeImageConstraintDefault)
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
@@ -196,6 +280,44 @@ func (a *Client) FromHardware(params *FromHardwareParams, authInfo runtime.Clien
 }
 
 /*
+  ListSizeSizeImageConstraints gets all sizeimageconstraints
+*/
+func (a *Client) ListSizeSizeImageConstraints(params *ListSizeSizeImageConstraintsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListSizeSizeImageConstraintsOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewListSizeSizeImageConstraintsParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "listSizeSizeImageConstraints",
+		Method:             "GET",
+		PathPattern:        "/v1/size/sizeimageconstraints",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &ListSizeSizeImageConstraintsReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*ListSizeSizeImageConstraintsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*ListSizeSizeImageConstraintsDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
   ListSizes gets all sizes
 */
 func (a *Client) ListSizes(params *ListSizesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListSizesOK, error) {
@@ -268,6 +390,44 @@ func (a *Client) UpdateSize(params *UpdateSizeParams, authInfo runtime.ClientAut
 	}
 	// unexpected success response
 	unexpectedSuccess := result.(*UpdateSizeDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+  UpdateSizeImageConstraint updates a sizeimageconstraint if the sizeimageconstraint was changed since this one was read a conflict is returned
+*/
+func (a *Client) UpdateSizeImageConstraint(params *UpdateSizeImageConstraintParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateSizeImageConstraintOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUpdateSizeImageConstraintParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "updateSizeImageConstraint",
+		Method:             "POST",
+		PathPattern:        "/v1/size/sizeimageconstraints",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &UpdateSizeImageConstraintReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*UpdateSizeImageConstraintOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*UpdateSizeImageConstraintDefault)
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 

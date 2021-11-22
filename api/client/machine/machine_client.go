@@ -82,6 +82,8 @@ type ClientService interface {
 
 	SetMachineState(params *SetMachineStateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetMachineStateOK, error)
 
+	TryAllocateMachine(params *TryAllocateMachineParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*TryAllocateMachineOK, error)
+
 	UpdateFirmware(params *UpdateFirmwareParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateFirmwareOK, error)
 
 	SetTransport(transport runtime.ClientTransport)
@@ -1112,6 +1114,44 @@ func (a *Client) SetMachineState(params *SetMachineStateParams, authInfo runtime
 	}
 	// unexpected success response
 	unexpectedSuccess := result.(*SetMachineStateDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+  TryAllocateMachine tries allocate a machine will only check if with given parameters a machine can be created
+*/
+func (a *Client) TryAllocateMachine(params *TryAllocateMachineParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*TryAllocateMachineOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewTryAllocateMachineParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "tryAllocateMachine",
+		Method:             "POST",
+		PathPattern:        "/v1/machine/tryallocate",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &TryAllocateMachineReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*TryAllocateMachineOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*TryAllocateMachineDefault)
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 

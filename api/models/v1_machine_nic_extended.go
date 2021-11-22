@@ -88,6 +88,8 @@ func (m *V1MachineNicExtended) validateNeighbors(formats strfmt.Registry) error 
 			if err := m.Neighbors[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("neighbors" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("neighbors" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -120,6 +122,8 @@ func (m *V1MachineNicExtended) contextValidateNeighbors(ctx context.Context, for
 			if err := m.Neighbors[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("neighbors" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("neighbors" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

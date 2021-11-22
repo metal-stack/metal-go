@@ -64,6 +64,8 @@ func (m *V1SizeConstraintMatchingLog) validateConstraint(formats strfmt.Registry
 		if err := m.Constraint.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("constraint")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("constraint")
 			}
 			return err
 		}
@@ -110,6 +112,8 @@ func (m *V1SizeConstraintMatchingLog) contextValidateConstraint(ctx context.Cont
 		if err := m.Constraint.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("constraint")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("constraint")
 			}
 			return err
 		}
