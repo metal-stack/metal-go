@@ -7,6 +7,7 @@ import (
 
 	"github.com/metal-stack/metal-go/api/client/filesystemlayout"
 	"github.com/metal-stack/metal-go/api/client/firmware"
+	"github.com/metal-stack/metal-go/api/client/sizeimageconstraint"
 	"github.com/metal-stack/metal-go/api/client/tenant"
 	"github.com/metal-stack/metal-go/api/client/user"
 
@@ -32,23 +33,24 @@ const (
 
 // Driver holds the client connection to the metal api
 type Driver struct {
-	client           *client.MetalAPI
-	image            image.ClientService
-	firmware         firmware.ClientService
-	filesystemlayout filesystemlayout.ClientService
-	machine          machine.ClientService
-	firewall         firewall.ClientService
-	partition        partition.ClientService
-	project          project.ClientService
-	tenant           tenant.ClientService
-	user             user.ClientService
-	Size             size.ClientService
-	sw               sw.ClientService
-	network          network.ClientService
-	ip               ip.ClientService
-	bearer           string
-	hmacAuthType     string
-	hmac             *security.HMACAuth
+	client              *client.MetalAPI
+	image               image.ClientService
+	firmware            firmware.ClientService
+	filesystemlayout    filesystemlayout.ClientService
+	machine             machine.ClientService
+	firewall            firewall.ClientService
+	partition           partition.ClientService
+	project             project.ClientService
+	tenant              tenant.ClientService
+	user                user.ClientService
+	Size                size.ClientService
+	SizeImageConstraint sizeimageconstraint.ClientService
+	sw                  sw.ClientService
+	network             network.ClientService
+	ip                  ip.ClientService
+	bearer              string
+	hmacAuthType        string
+	hmac                *security.HMACAuth
 }
 
 // Option for config of Driver
@@ -75,22 +77,23 @@ func NewDriver(baseURL, bearer, hmacKey string, options ...option) (*Driver, err
 	c := client.New(transport, strfmt.Default)
 
 	driver := &Driver{
-		client:           c,
-		firmware:         c.Firmware,
-		machine:          c.Machine,
-		firewall:         c.Firewall,
-		filesystemlayout: c.Filesystemlayout,
-		Size:             c.Size,
-		image:            c.Image,
-		project:          c.Project,
-		tenant:           c.Tenant,
-		user:             c.User,
-		partition:        c.Partition,
-		sw:               c.SwitchOperations,
-		network:          c.Network,
-		ip:               c.IP,
-		bearer:           bearer,
-		hmacAuthType:     defaultHMACAuthType,
+		client:              c,
+		firmware:            c.Firmware,
+		machine:             c.Machine,
+		firewall:            c.Firewall,
+		filesystemlayout:    c.Filesystemlayout,
+		Size:                c.Size,
+		SizeImageConstraint: c.Sizeimageconstraint,
+		image:               c.Image,
+		project:             c.Project,
+		tenant:              c.Tenant,
+		user:                c.User,
+		partition:           c.Partition,
+		sw:                  c.SwitchOperations,
+		network:             c.Network,
+		ip:                  c.IP,
+		bearer:              bearer,
+		hmacAuthType:        defaultHMACAuthType,
 	}
 
 	for _, opt := range options {
