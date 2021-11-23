@@ -56,7 +56,7 @@ type DeleteSizeImageConstraintOK struct {
 }
 
 func (o *DeleteSizeImageConstraintOK) Error() string {
-	return fmt.Sprintf("[DELETE /v1/sizeimageconstraint/sizeimageconstraints/{id}][%d] deleteSizeImageConstraintOK  %+v", 200, o.Payload)
+	return fmt.Sprintf("[DELETE /v1/sizeimageconstraint/{id}][%d] deleteSizeImageConstraintOK  %+v", 200, o.Payload)
 }
 func (o *DeleteSizeImageConstraintOK) GetPayload() *models.V1SizeImageConstraintResponse {
 	return o.Payload
@@ -97,7 +97,7 @@ func (o *DeleteSizeImageConstraintDefault) Code() int {
 }
 
 func (o *DeleteSizeImageConstraintDefault) Error() string {
-	return fmt.Sprintf("[DELETE /v1/sizeimageconstraint/sizeimageconstraints/{id}][%d] deleteSizeImageConstraint default  %+v", o._statusCode, o.Payload)
+	return fmt.Sprintf("[DELETE /v1/sizeimageconstraint/{id}][%d] deleteSizeImageConstraint default  %+v", o._statusCode, o.Payload)
 }
 func (o *DeleteSizeImageConstraintDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload

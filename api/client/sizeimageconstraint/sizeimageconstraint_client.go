@@ -52,7 +52,7 @@ func (a *Client) CreateSizeImageConstraint(params *CreateSizeImageConstraintPara
 	op := &runtime.ClientOperation{
 		ID:                 "createSizeImageConstraint",
 		Method:             "PUT",
-		PathPattern:        "/v1/sizeimageconstraint/sizeimageconstraints",
+		PathPattern:        "/v1/sizeimageconstraint",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http"},
@@ -90,7 +90,7 @@ func (a *Client) DeleteSizeImageConstraint(params *DeleteSizeImageConstraintPara
 	op := &runtime.ClientOperation{
 		ID:                 "deleteSizeImageConstraint",
 		Method:             "DELETE",
-		PathPattern:        "/v1/sizeimageconstraint/sizeimageconstraints/{id}",
+		PathPattern:        "/v1/sizeimageconstraint/{id}",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http"},
@@ -128,7 +128,7 @@ func (a *Client) FindSizeImageConstraint(params *FindSizeImageConstraintParams, 
 	op := &runtime.ClientOperation{
 		ID:                 "findSizeImageConstraint",
 		Method:             "GET",
-		PathPattern:        "/v1/sizeimageconstraint/sizeimageconstraints/{id}",
+		PathPattern:        "/v1/sizeimageconstraint/{id}",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http"},
@@ -166,7 +166,7 @@ func (a *Client) ListSizeImageConstraints(params *ListSizeImageConstraintsParams
 	op := &runtime.ClientOperation{
 		ID:                 "listSizeImageConstraints",
 		Method:             "GET",
-		PathPattern:        "/v1/sizeimageconstraint/sizeimageconstraints",
+		PathPattern:        "/v1/sizeimageconstraint",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http"},
@@ -204,7 +204,7 @@ func (a *Client) UpdateSizeImageConstraint(params *UpdateSizeImageConstraintPara
 	op := &runtime.ClientOperation{
 		ID:                 "updateSizeImageConstraint",
 		Method:             "POST",
-		PathPattern:        "/v1/sizeimageconstraint/sizeimageconstraints",
+		PathPattern:        "/v1/sizeimageconstraint",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http"},

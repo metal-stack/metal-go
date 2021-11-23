@@ -56,7 +56,7 @@ type ListSizeImageConstraintsOK struct {
 }
 
 func (o *ListSizeImageConstraintsOK) Error() string {
-	return fmt.Sprintf("[GET /v1/sizeimageconstraint/sizeimageconstraints][%d] listSizeImageConstraintsOK  %+v", 200, o.Payload)
+	return fmt.Sprintf("[GET /v1/sizeimageconstraint][%d] listSizeImageConstraintsOK  %+v", 200, o.Payload)
 }
 func (o *ListSizeImageConstraintsOK) GetPayload() []*models.V1SizeImageConstraintResponse {
 	return o.Payload
@@ -95,7 +95,7 @@ func (o *ListSizeImageConstraintsDefault) Code() int {
 }
 
 func (o *ListSizeImageConstraintsDefault) Error() string {
-	return fmt.Sprintf("[GET /v1/sizeimageconstraint/sizeimageconstraints][%d] listSizeImageConstraints default  %+v", o._statusCode, o.Payload)
+	return fmt.Sprintf("[GET /v1/sizeimageconstraint][%d] listSizeImageConstraints default  %+v", o._statusCode, o.Payload)
 }
 func (o *ListSizeImageConstraintsDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
