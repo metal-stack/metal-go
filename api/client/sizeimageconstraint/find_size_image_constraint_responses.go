@@ -52,19 +52,19 @@ func NewFindSizeImageConstraintOK() *FindSizeImageConstraintOK {
 OK
 */
 type FindSizeImageConstraintOK struct {
-	Payload *models.V1SizeResponse
+	Payload *models.V1SizeImageConstraintResponse
 }
 
 func (o *FindSizeImageConstraintOK) Error() string {
 	return fmt.Sprintf("[GET /v1/sizeimageconstraint/{id}][%d] findSizeImageConstraintOK  %+v", 200, o.Payload)
 }
-func (o *FindSizeImageConstraintOK) GetPayload() *models.V1SizeResponse {
+func (o *FindSizeImageConstraintOK) GetPayload() *models.V1SizeImageConstraintResponse {
 	return o.Payload
 }
 
 func (o *FindSizeImageConstraintOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.V1SizeResponse)
+	o.Payload = new(models.V1SizeImageConstraintResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
