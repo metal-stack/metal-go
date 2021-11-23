@@ -44,36 +44,6 @@ func (_m *ClientService) CreateSize(params *size.CreateSizeParams, authInfo runt
 	return r0, r1
 }
 
-// CreateSizeImageConstraint provides a mock function with given fields: params, authInfo, opts
-func (_m *ClientService) CreateSizeImageConstraint(params *size.CreateSizeImageConstraintParams, authInfo runtime.ClientAuthInfoWriter, opts ...size.ClientOption) (*size.CreateSizeImageConstraintCreated, error) {
-	_va := make([]interface{}, len(opts))
-	for _i := range opts {
-		_va[_i] = opts[_i]
-	}
-	var _ca []interface{}
-	_ca = append(_ca, params, authInfo)
-	_ca = append(_ca, _va...)
-	ret := _m.Called(_ca...)
-
-	var r0 *size.CreateSizeImageConstraintCreated
-	if rf, ok := ret.Get(0).(func(*size.CreateSizeImageConstraintParams, runtime.ClientAuthInfoWriter, ...size.ClientOption) *size.CreateSizeImageConstraintCreated); ok {
-		r0 = rf(params, authInfo, opts...)
-	} else {
-		if ret.Get(0) != nil {
-			r0 = ret.Get(0).(*size.CreateSizeImageConstraintCreated)
-		}
-	}
-
-	var r1 error
-	if rf, ok := ret.Get(1).(func(*size.CreateSizeImageConstraintParams, runtime.ClientAuthInfoWriter, ...size.ClientOption) error); ok {
-		r1 = rf(params, authInfo, opts...)
-	} else {
-		r1 = ret.Error(1)
-	}
-
-	return r0, r1
-}
-
 // DeleteSize provides a mock function with given fields: params, authInfo, opts
 func (_m *ClientService) DeleteSize(params *size.DeleteSizeParams, authInfo runtime.ClientAuthInfoWriter, opts ...size.ClientOption) (*size.DeleteSizeOK, error) {
 	_va := make([]interface{}, len(opts))
@@ -96,36 +66,6 @@ func (_m *ClientService) DeleteSize(params *size.DeleteSizeParams, authInfo runt
 
 	var r1 error
 	if rf, ok := ret.Get(1).(func(*size.DeleteSizeParams, runtime.ClientAuthInfoWriter, ...size.ClientOption) error); ok {
-		r1 = rf(params, authInfo, opts...)
-	} else {
-		r1 = ret.Error(1)
-	}
-
-	return r0, r1
-}
-
-// DeleteSizeImageConstraint provides a mock function with given fields: params, authInfo, opts
-func (_m *ClientService) DeleteSizeImageConstraint(params *size.DeleteSizeImageConstraintParams, authInfo runtime.ClientAuthInfoWriter, opts ...size.ClientOption) (*size.DeleteSizeImageConstraintOK, error) {
-	_va := make([]interface{}, len(opts))
-	for _i := range opts {
-		_va[_i] = opts[_i]
-	}
-	var _ca []interface{}
-	_ca = append(_ca, params, authInfo)
-	_ca = append(_ca, _va...)
-	ret := _m.Called(_ca...)
-
-	var r0 *size.DeleteSizeImageConstraintOK
-	if rf, ok := ret.Get(0).(func(*size.DeleteSizeImageConstraintParams, runtime.ClientAuthInfoWriter, ...size.ClientOption) *size.DeleteSizeImageConstraintOK); ok {
-		r0 = rf(params, authInfo, opts...)
-	} else {
-		if ret.Get(0) != nil {
-			r0 = ret.Get(0).(*size.DeleteSizeImageConstraintOK)
-		}
-	}
-
-	var r1 error
-	if rf, ok := ret.Get(1).(func(*size.DeleteSizeImageConstraintParams, runtime.ClientAuthInfoWriter, ...size.ClientOption) error); ok {
 		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
@@ -164,36 +104,6 @@ func (_m *ClientService) FindSize(params *size.FindSizeParams, authInfo runtime.
 	return r0, r1
 }
 
-// FindSizeImageConstraint provides a mock function with given fields: params, authInfo, opts
-func (_m *ClientService) FindSizeImageConstraint(params *size.FindSizeImageConstraintParams, authInfo runtime.ClientAuthInfoWriter, opts ...size.ClientOption) (*size.FindSizeImageConstraintOK, error) {
-	_va := make([]interface{}, len(opts))
-	for _i := range opts {
-		_va[_i] = opts[_i]
-	}
-	var _ca []interface{}
-	_ca = append(_ca, params, authInfo)
-	_ca = append(_ca, _va...)
-	ret := _m.Called(_ca...)
-
-	var r0 *size.FindSizeImageConstraintOK
-	if rf, ok := ret.Get(0).(func(*size.FindSizeImageConstraintParams, runtime.ClientAuthInfoWriter, ...size.ClientOption) *size.FindSizeImageConstraintOK); ok {
-		r0 = rf(params, authInfo, opts...)
-	} else {
-		if ret.Get(0) != nil {
-			r0 = ret.Get(0).(*size.FindSizeImageConstraintOK)
-		}
-	}
-
-	var r1 error
-	if rf, ok := ret.Get(1).(func(*size.FindSizeImageConstraintParams, runtime.ClientAuthInfoWriter, ...size.ClientOption) error); ok {
-		r1 = rf(params, authInfo, opts...)
-	} else {
-		r1 = ret.Error(1)
-	}
-
-	return r0, r1
-}
-
 // FromHardware provides a mock function with given fields: params, authInfo, opts
 func (_m *ClientService) FromHardware(params *size.FromHardwareParams, authInfo runtime.ClientAuthInfoWriter, opts ...size.ClientOption) (*size.FromHardwareOK, error) {
 	_va := make([]interface{}, len(opts))
@@ -216,36 +126,6 @@ func (_m *ClientService) FromHardware(params *size.FromHardwareParams, authInfo 
 
 	var r1 error
 	if rf, ok := ret.Get(1).(func(*size.FromHardwareParams, runtime.ClientAuthInfoWriter, ...size.ClientOption) error); ok {
-		r1 = rf(params, authInfo, opts...)
-	} else {
-		r1 = ret.Error(1)
-	}
-
-	return r0, r1
-}
-
-// ListSizeImageConstraints provides a mock function with given fields: params, authInfo, opts
-func (_m *ClientService) ListSizeImageConstraints(params *size.ListSizeImageConstraintsParams, authInfo runtime.ClientAuthInfoWriter, opts ...size.ClientOption) (*size.ListSizeImageConstraintsOK, error) {
-	_va := make([]interface{}, len(opts))
-	for _i := range opts {
-		_va[_i] = opts[_i]
-	}
-	var _ca []interface{}
-	_ca = append(_ca, params, authInfo)
-	_ca = append(_ca, _va...)
-	ret := _m.Called(_ca...)
-
-	var r0 *size.ListSizeImageConstraintsOK
-	if rf, ok := ret.Get(0).(func(*size.ListSizeImageConstraintsParams, runtime.ClientAuthInfoWriter, ...size.ClientOption) *size.ListSizeImageConstraintsOK); ok {
-		r0 = rf(params, authInfo, opts...)
-	} else {
-		if ret.Get(0) != nil {
-			r0 = ret.Get(0).(*size.ListSizeImageConstraintsOK)
-		}
-	}
-
-	var r1 error
-	if rf, ok := ret.Get(1).(func(*size.ListSizeImageConstraintsParams, runtime.ClientAuthInfoWriter, ...size.ClientOption) error); ok {
 		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
@@ -311,36 +191,6 @@ func (_m *ClientService) UpdateSize(params *size.UpdateSizeParams, authInfo runt
 
 	var r1 error
 	if rf, ok := ret.Get(1).(func(*size.UpdateSizeParams, runtime.ClientAuthInfoWriter, ...size.ClientOption) error); ok {
-		r1 = rf(params, authInfo, opts...)
-	} else {
-		r1 = ret.Error(1)
-	}
-
-	return r0, r1
-}
-
-// UpdateSizeImageConstraint provides a mock function with given fields: params, authInfo, opts
-func (_m *ClientService) UpdateSizeImageConstraint(params *size.UpdateSizeImageConstraintParams, authInfo runtime.ClientAuthInfoWriter, opts ...size.ClientOption) (*size.UpdateSizeImageConstraintOK, error) {
-	_va := make([]interface{}, len(opts))
-	for _i := range opts {
-		_va[_i] = opts[_i]
-	}
-	var _ca []interface{}
-	_ca = append(_ca, params, authInfo)
-	_ca = append(_ca, _va...)
-	ret := _m.Called(_ca...)
-
-	var r0 *size.UpdateSizeImageConstraintOK
-	if rf, ok := ret.Get(0).(func(*size.UpdateSizeImageConstraintParams, runtime.ClientAuthInfoWriter, ...size.ClientOption) *size.UpdateSizeImageConstraintOK); ok {
-		r0 = rf(params, authInfo, opts...)
-	} else {
-		if ret.Get(0) != nil {
-			r0 = ret.Get(0).(*size.UpdateSizeImageConstraintOK)
-		}
-	}
-
-	var r1 error
-	if rf, ok := ret.Get(1).(func(*size.UpdateSizeImageConstraintParams, runtime.ClientAuthInfoWriter, ...size.ClientOption) error); ok {
 		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
