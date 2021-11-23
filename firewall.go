@@ -62,6 +62,31 @@ func (d *Driver) FirewallCreate(fcr *FirewallCreateRequest) (*FirewallCreateResp
 	return response, nil
 }
 
+// FirewallTryAllocate try firewall allocation before actually doing so
+func (d *Driver) FirewallTryAllocate(mcr *FirewallCreateRequest) error {
+	allocateRequest := &models.V1FirewallCreateRequest{
+		Description:        mcr.Description,
+		Partitionid:        &mcr.Partition,
+		Hostname:           mcr.Hostname,
+		Imageid:            &mcr.Image,
+		Name:               mcr.Name,
+		UUID:               mcr.UUID,
+		Projectid:          &mcr.Project,
+		Sizeid:             &mcr.Size,
+		Filesystemlayoutid: mcr.FilesystemLayout,
+		SSHPubKeys:         mcr.SSHPublicKeys,
+		UserData:           mcr.UserData,
+		Tags:               mcr.Tags,
+		Networks:           mcr.translateNetworks(),
+		Ips:                mcr.IPs,
+	}
+	allocFirewall := firewall.NewTryAllocateFirewallParams()
+	allocFirewall.SetBody(allocateRequest)
+
+	_, err := d.firewall.TryAllocateFirewall(allocFirewall, nil)
+	return err
+}
+
 // FirewallList will list all machines
 func (d *Driver) FirewallList() (*FirewallListResponse, error) {
 	response := &FirewallListResponse{}

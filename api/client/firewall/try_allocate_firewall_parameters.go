@@ -62,7 +62,7 @@ func NewTryAllocateFirewallParamsWithHTTPClient(client *http.Client) *TryAllocat
 type TryAllocateFirewallParams struct {
 
 	// Body.
-	Body *models.V1MachineAllocateRequest
+	Body *models.V1FirewallCreateRequest
 
 	timeout    time.Duration
 	Context    context.Context
@@ -118,13 +118,13 @@ func (o *TryAllocateFirewallParams) SetHTTPClient(client *http.Client) {
 }
 
 // WithBody adds the body to the try allocate firewall params
-func (o *TryAllocateFirewallParams) WithBody(body *models.V1MachineAllocateRequest) *TryAllocateFirewallParams {
+func (o *TryAllocateFirewallParams) WithBody(body *models.V1FirewallCreateRequest) *TryAllocateFirewallParams {
 	o.SetBody(body)
 	return o
 }
 
 // SetBody adds the body to the try allocate firewall params
-func (o *TryAllocateFirewallParams) SetBody(body *models.V1MachineAllocateRequest) {
+func (o *TryAllocateFirewallParams) SetBody(body *models.V1FirewallCreateRequest) {
 	o.Body = body
 }
 

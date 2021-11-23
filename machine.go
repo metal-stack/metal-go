@@ -280,6 +280,31 @@ func (d *Driver) MachineList() (*MachineListResponse, error) {
 	return response, nil
 }
 
+// MachineTryAllocate try machine allocation before actually doing so
+func (d *Driver) MachineTryAllocate(mcr *MachineCreateRequest) error {
+	allocateRequest := &models.V1MachineAllocateRequest{
+		Description:        mcr.Description,
+		Partitionid:        &mcr.Partition,
+		Hostname:           mcr.Hostname,
+		Imageid:            &mcr.Image,
+		Name:               mcr.Name,
+		UUID:               mcr.UUID,
+		Projectid:          &mcr.Project,
+		Sizeid:             &mcr.Size,
+		Filesystemlayoutid: mcr.FilesystemLayout,
+		SSHPubKeys:         mcr.SSHPublicKeys,
+		UserData:           mcr.UserData,
+		Tags:               mcr.Tags,
+		Networks:           mcr.translateNetworks(),
+		Ips:                mcr.IPs,
+	}
+	allocMachine := machine.NewTryAllocateMachineParams()
+	allocMachine.SetBody(allocateRequest)
+
+	_, err := d.machine.TryAllocateMachine(allocMachine, nil)
+	return err
+}
+
 // MachineFind lists all machines that match the given properties
 func (d *Driver) MachineFind(mfr *MachineFindRequest) (*MachineListResponse, error) {
 	if mfr == nil {
