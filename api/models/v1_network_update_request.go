@@ -22,6 +22,9 @@ type V1NetworkUpdateRequest struct {
 	// a description for this entity
 	Description string `json:"description,omitempty"`
 
+	// the destination prefixes of this network
+	Destinationprefixes []string `json:"destinationprefixes"`
+
 	// the unique ID of this entity
 	// Required: true
 	ID *string `json:"id"`

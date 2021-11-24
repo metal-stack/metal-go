@@ -353,11 +353,12 @@ func (d *Driver) NetworkUpdate(ncr *NetworkCreateRequest) (*NetworkDetailRespons
 	updateNetwork := network.NewUpdateNetworkParams()
 
 	updateRequest := &models.V1NetworkUpdateRequest{
-		ID:          ncr.ID,
-		Description: ncr.Description,
-		Name:        ncr.Name,
-		Prefixes:    ncr.Prefixes,
-		Labels:      ncr.Labels,
+		ID:                  ncr.ID,
+		Description:         ncr.Description,
+		Name:                ncr.Name,
+		Prefixes:            ncr.Prefixes,
+		Destinationprefixes: ncr.Destinationprefixes,
+		Labels:              ncr.Labels,
 	}
 	updateNetwork.SetBody(updateRequest)
 	resp, err := d.network.UpdateNetwork(updateNetwork, nil)
@@ -412,6 +413,60 @@ func (d *Driver) NetworkRemovePrefix(nur *NetworkUpdateRequest) (*NetworkDetailR
 	updateRequest := &models.V1NetworkUpdateRequest{
 		ID:       &nur.Networkid,
 		Prefixes: newPrefixes,
+	}
+	updateNetwork.SetBody(updateRequest)
+	resp, err := d.network.UpdateNetwork(updateNetwork, nil)
+	if err != nil {
+		return response, err
+	}
+	response.Network = resp.Payload
+	return response, nil
+}
+
+// NetworkAddDestinationprefix adds a prefix to a network
+func (d *Driver) NetworkAddDestinationprefix(nur *NetworkUpdateRequest) (*NetworkDetailResponse, error) {
+	old, err := d.NetworkGet(nur.Networkid)
+	if err != nil {
+		return nil, fmt.Errorf("unable to fetch network: %s to update:%w", nur.Networkid, err)
+	}
+	oldNetwork := old.Network
+	newPrefixes := append(oldNetwork.Destinationprefixes, nur.Prefix)
+
+	response := &NetworkDetailResponse{}
+	updateNetwork := network.NewUpdateNetworkParams()
+	updateRequest := &models.V1NetworkUpdateRequest{
+		ID:                  &nur.Networkid,
+		Destinationprefixes: newPrefixes,
+	}
+	updateNetwork.SetBody(updateRequest)
+	resp, err := d.network.UpdateNetwork(updateNetwork, nil)
+	if err != nil {
+		return response, err
+	}
+	response.Network = resp.Payload
+	return response, nil
+}
+
+// NetworkRemoveDestinationprefix removes a prefix from a network
+func (d *Driver) NetworkRemoveDestinationprefix(nur *NetworkUpdateRequest) (*NetworkDetailResponse, error) {
+	old, err := d.NetworkGet(nur.Networkid)
+	if err != nil {
+		return nil, fmt.Errorf("unable to fetch network: %s to update:%w", nur.Networkid, err)
+	}
+	oldNetwork := old.Network
+	var newPrefixes []string
+	for _, p := range oldNetwork.Destinationprefixes {
+		if p == nur.Prefix {
+			continue
+		}
+		newPrefixes = append(newPrefixes, p)
+	}
+
+	response := &NetworkDetailResponse{}
+	updateNetwork := network.NewUpdateNetworkParams()
+	updateRequest := &models.V1NetworkUpdateRequest{
+		ID:                  &nur.Networkid,
+		Destinationprefixes: newPrefixes,
 	}
 	updateNetwork.SetBody(updateRequest)
 	resp, err := d.network.UpdateNetwork(updateNetwork, nil)
