@@ -50,7 +50,7 @@ func TestMachineCreate(t *testing.T) {
 	mcr := &MachineCreateRequest{}
 
 	// when
-	resp, err := driver.MachineCreate(mcr)
+	resp, err := driver.MachineCreate(mcr, false)
 
 	// then
 	require.Nil(t, err)

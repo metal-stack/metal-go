@@ -178,7 +178,7 @@ type MachineStateResponse struct {
 }
 
 // MachineCreate creates a single metal machine
-func (d *Driver) MachineCreate(mcr *MachineCreateRequest) (*MachineCreateResponse, error) {
+func (d *Driver) MachineCreate(mcr *MachineCreateRequest, try bool) (*MachineCreateResponse, error) {
 	response := &MachineCreateResponse{}
 
 	allocateRequest := &models.V1MachineAllocateRequest{
@@ -199,6 +199,7 @@ func (d *Driver) MachineCreate(mcr *MachineCreateRequest) (*MachineCreateRespons
 	}
 	allocMachine := machine.NewAllocateMachineParams()
 	allocMachine.SetBody(allocateRequest)
+	allocMachine.WithTry(&try)
 
 	resp, err := d.machine.AllocateMachine(allocMachine, nil)
 	if err != nil {
@@ -278,31 +279,6 @@ func (d *Driver) MachineList() (*MachineListResponse, error) {
 	response.Machines = resp.Payload
 
 	return response, nil
-}
-
-// MachineTryAllocate try machine allocation before actually doing so
-func (d *Driver) MachineTryAllocate(mcr *MachineCreateRequest) error {
-	allocateRequest := &models.V1MachineAllocateRequest{
-		Description:        mcr.Description,
-		Partitionid:        &mcr.Partition,
-		Hostname:           mcr.Hostname,
-		Imageid:            &mcr.Image,
-		Name:               mcr.Name,
-		UUID:               mcr.UUID,
-		Projectid:          &mcr.Project,
-		Sizeid:             &mcr.Size,
-		Filesystemlayoutid: mcr.FilesystemLayout,
-		SSHPubKeys:         mcr.SSHPublicKeys,
-		UserData:           mcr.UserData,
-		Tags:               mcr.Tags,
-		Networks:           mcr.translateNetworks(),
-		Ips:                mcr.IPs,
-	}
-	allocMachine := machine.NewTryAllocateMachineParams()
-	allocMachine.SetBody(allocateRequest)
-
-	_, err := d.machine.TryAllocateMachine(allocMachine, nil)
-	return err
 }
 
 // MachineFind lists all machines that match the given properties

@@ -14,6 +14,7 @@ import (
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
+	"github.com/go-openapi/swag"
 
 	"github.com/metal-stack/metal-go/api/models"
 )
@@ -64,6 +65,12 @@ type AllocateMachineParams struct {
 	// Body.
 	Body *models.V1MachineAllocateRequest
 
+	/* Try.
+
+	   try allocation before actually doing so to get informed early about possible incompatible allocation parameters
+	*/
+	Try *bool
+
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
@@ -81,7 +88,18 @@ func (o *AllocateMachineParams) WithDefaults() *AllocateMachineParams {
 //
 // All values with no default are reset to their zero value.
 func (o *AllocateMachineParams) SetDefaults() {
-	// no default values defined for this parameter
+	var (
+		tryDefault = bool(false)
+	)
+
+	val := AllocateMachineParams{
+		Try: &tryDefault,
+	}
+
+	val.timeout = o.timeout
+	val.Context = o.Context
+	val.HTTPClient = o.HTTPClient
+	*o = val
 }
 
 // WithTimeout adds the timeout to the allocate machine params
@@ -128,6 +146,17 @@ func (o *AllocateMachineParams) SetBody(body *models.V1MachineAllocateRequest) {
 	o.Body = body
 }
 
+// WithTry adds the try to the allocate machine params
+func (o *AllocateMachineParams) WithTry(try *bool) *AllocateMachineParams {
+	o.SetTry(try)
+	return o
+}
+
+// SetTry adds the try to the allocate machine params
+func (o *AllocateMachineParams) SetTry(try *bool) {
+	o.Try = try
+}
+
 // WriteToRequest writes these params to a swagger request
 func (o *AllocateMachineParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -138,6 +167,23 @@ func (o *AllocateMachineParams) WriteToRequest(r runtime.ClientRequest, reg strf
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err
+		}
+	}
+
+	if o.Try != nil {
+
+		// query param try
+		var qrTry bool
+
+		if o.Try != nil {
+			qrTry = *o.Try
+		}
+		qTry := swag.FormatBool(qrTry)
+		if qTry != "" {
+
+			if err := r.SetQueryParam("try", qTry); err != nil {
+				return err
+			}
 		}
 	}
 

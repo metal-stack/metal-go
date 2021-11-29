@@ -838,36 +838,6 @@ func (_m *ClientService) SetTransport(transport runtime.ClientTransport) {
 	_m.Called(transport)
 }
 
-// TryAllocateMachine provides a mock function with given fields: params, authInfo, opts
-func (_m *ClientService) TryAllocateMachine(params *machine.TryAllocateMachineParams, authInfo runtime.ClientAuthInfoWriter, opts ...machine.ClientOption) (*machine.TryAllocateMachineOK, error) {
-	_va := make([]interface{}, len(opts))
-	for _i := range opts {
-		_va[_i] = opts[_i]
-	}
-	var _ca []interface{}
-	_ca = append(_ca, params, authInfo)
-	_ca = append(_ca, _va...)
-	ret := _m.Called(_ca...)
-
-	var r0 *machine.TryAllocateMachineOK
-	if rf, ok := ret.Get(0).(func(*machine.TryAllocateMachineParams, runtime.ClientAuthInfoWriter, ...machine.ClientOption) *machine.TryAllocateMachineOK); ok {
-		r0 = rf(params, authInfo, opts...)
-	} else {
-		if ret.Get(0) != nil {
-			r0 = ret.Get(0).(*machine.TryAllocateMachineOK)
-		}
-	}
-
-	var r1 error
-	if rf, ok := ret.Get(1).(func(*machine.TryAllocateMachineParams, runtime.ClientAuthInfoWriter, ...machine.ClientOption) error); ok {
-		r1 = rf(params, authInfo, opts...)
-	} else {
-		r1 = ret.Error(1)
-	}
-
-	return r0, r1
-}
-
 // UpdateFirmware provides a mock function with given fields: params, authInfo, opts
 func (_m *ClientService) UpdateFirmware(params *machine.UpdateFirmwareParams, authInfo runtime.ClientAuthInfoWriter, opts ...machine.ClientOption) (*machine.UpdateFirmwareOK, error) {
 	_va := make([]interface{}, len(opts))
