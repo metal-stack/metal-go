@@ -177,8 +177,18 @@ type MachineStateResponse struct {
 	Machine *models.V1MachineResponse
 }
 
+// TryMachineCreate creates a single metal machine
+func (d *Driver) TryMachineCreate(mcr *MachineCreateRequest) (*MachineCreateResponse, error) {
+	return d.machineCreate(mcr, true)
+}
+
 // MachineCreate creates a single metal machine
-func (d *Driver) MachineCreate(mcr *MachineCreateRequest, try bool) (*MachineCreateResponse, error) {
+func (d *Driver) MachineCreate(mcr *MachineCreateRequest) (*MachineCreateResponse, error) {
+	return d.machineCreate(mcr, false)
+}
+
+// MachineCreate creates a single metal machine
+func (d *Driver) machineCreate(mcr *MachineCreateRequest, try bool) (*MachineCreateResponse, error) {
 	response := &MachineCreateResponse{}
 
 	allocateRequest := &models.V1MachineAllocateRequest{
