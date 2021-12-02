@@ -46,6 +46,20 @@ func (d *Driver) ImageList() (*ImageListResponse, error) {
 	return response, nil
 }
 
+// ImageListWithUsage return all machine images with usage info
+func (d *Driver) ImageListWithUsage() (*ImageListResponse, error) {
+	response := &ImageListResponse{}
+	listImages := image.NewListImagesParams()
+	showUsage := true
+	listImages.WithShowUsage(&showUsage)
+	resp, err := d.image.ListImages(listImages, nil)
+	if err != nil {
+		return response, err
+	}
+	response.Image = resp.Payload
+	return response, nil
+}
+
 // ImageQueryByID return all machine images
 func (d *Driver) ImageQueryByID(imageID string) (*ImageListResponse, error) {
 	response := &ImageListResponse{}

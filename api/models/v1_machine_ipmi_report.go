@@ -107,6 +107,8 @@ func (m *V1MachineIpmiReport) validateFRU(formats strfmt.Registry) error {
 		if err := m.FRU.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("FRU")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("FRU")
 			}
 			return err
 		}
@@ -144,6 +146,8 @@ func (m *V1MachineIpmiReport) contextValidateFRU(ctx context.Context, formats st
 		if err := m.FRU.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("FRU")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("FRU")
 			}
 			return err
 		}

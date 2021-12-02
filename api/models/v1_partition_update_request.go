@@ -63,6 +63,8 @@ func (m *V1PartitionUpdateRequest) validateBootconfig(formats strfmt.Registry) e
 		if err := m.Bootconfig.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("bootconfig")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("bootconfig")
 			}
 			return err
 		}
@@ -100,6 +102,8 @@ func (m *V1PartitionUpdateRequest) contextValidateBootconfig(ctx context.Context
 		if err := m.Bootconfig.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("bootconfig")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("bootconfig")
 			}
 			return err
 		}
