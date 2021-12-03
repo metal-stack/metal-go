@@ -128,6 +128,8 @@ func (m *V1FirewallCreateRequest) validateNetworks(formats strfmt.Registry) erro
 			if err := m.Networks[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("networks" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("networks" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -196,6 +198,8 @@ func (m *V1FirewallCreateRequest) contextValidateNetworks(ctx context.Context, f
 			if err := m.Networks[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("networks" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("networks" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

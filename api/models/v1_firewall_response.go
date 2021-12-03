@@ -154,6 +154,8 @@ func (m *V1FirewallResponse) validateAllocation(formats strfmt.Registry) error {
 		if err := m.Allocation.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("allocation")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("allocation")
 			}
 			return err
 		}
@@ -172,6 +174,8 @@ func (m *V1FirewallResponse) validateBios(formats strfmt.Registry) error {
 		if err := m.Bios.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("bios")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("bios")
 			}
 			return err
 		}
@@ -214,6 +218,8 @@ func (m *V1FirewallResponse) validateEvents(formats strfmt.Registry) error {
 		if err := m.Events.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("events")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("events")
 			}
 			return err
 		}
@@ -232,6 +238,8 @@ func (m *V1FirewallResponse) validateHardware(formats strfmt.Registry) error {
 		if err := m.Hardware.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("hardware")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("hardware")
 			}
 			return err
 		}
@@ -259,6 +267,8 @@ func (m *V1FirewallResponse) validateLedstate(formats strfmt.Registry) error {
 		if err := m.Ledstate.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("ledstate")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("ledstate")
 			}
 			return err
 		}
@@ -285,6 +295,8 @@ func (m *V1FirewallResponse) validatePartition(formats strfmt.Registry) error {
 		if err := m.Partition.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("partition")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("partition")
 			}
 			return err
 		}
@@ -302,6 +314,8 @@ func (m *V1FirewallResponse) validateSize(formats strfmt.Registry) error {
 		if err := m.Size.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("size")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("size")
 			}
 			return err
 		}
@@ -320,6 +334,8 @@ func (m *V1FirewallResponse) validateState(formats strfmt.Registry) error {
 		if err := m.State.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("state")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("state")
 			}
 			return err
 		}
@@ -397,6 +413,8 @@ func (m *V1FirewallResponse) contextValidateAllocation(ctx context.Context, form
 		if err := m.Allocation.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("allocation")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("allocation")
 			}
 			return err
 		}
@@ -411,6 +429,8 @@ func (m *V1FirewallResponse) contextValidateBios(ctx context.Context, formats st
 		if err := m.Bios.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("bios")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("bios")
 			}
 			return err
 		}
@@ -443,6 +463,8 @@ func (m *V1FirewallResponse) contextValidateEvents(ctx context.Context, formats 
 		if err := m.Events.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("events")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("events")
 			}
 			return err
 		}
@@ -457,6 +479,8 @@ func (m *V1FirewallResponse) contextValidateHardware(ctx context.Context, format
 		if err := m.Hardware.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("hardware")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("hardware")
 			}
 			return err
 		}
@@ -471,6 +495,8 @@ func (m *V1FirewallResponse) contextValidateLedstate(ctx context.Context, format
 		if err := m.Ledstate.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("ledstate")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("ledstate")
 			}
 			return err
 		}
@@ -485,6 +511,8 @@ func (m *V1FirewallResponse) contextValidatePartition(ctx context.Context, forma
 		if err := m.Partition.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("partition")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("partition")
 			}
 			return err
 		}
@@ -508,6 +536,8 @@ func (m *V1FirewallResponse) contextValidateSize(ctx context.Context, formats st
 		if err := m.Size.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("size")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("size")
 			}
 			return err
 		}
@@ -522,6 +552,8 @@ func (m *V1FirewallResponse) contextValidateState(ctx context.Context, formats s
 		if err := m.State.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("state")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("state")
 			}
 			return err
 		}

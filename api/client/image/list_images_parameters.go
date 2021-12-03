@@ -14,6 +14,7 @@ import (
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
+	"github.com/go-openapi/swag"
 )
 
 // NewListImagesParams creates a new ListImagesParams object,
@@ -58,6 +59,13 @@ func NewListImagesParamsWithHTTPClient(client *http.Client) *ListImagesParams {
    Typically these are written to a http.Request.
 */
 type ListImagesParams struct {
+
+	/* ShowUsage.
+
+	   include image usage into response
+	*/
+	ShowUsage *bool
+
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
@@ -75,7 +83,18 @@ func (o *ListImagesParams) WithDefaults() *ListImagesParams {
 //
 // All values with no default are reset to their zero value.
 func (o *ListImagesParams) SetDefaults() {
-	// no default values defined for this parameter
+	var (
+		showUsageDefault = bool(false)
+	)
+
+	val := ListImagesParams{
+		ShowUsage: &showUsageDefault,
+	}
+
+	val.timeout = o.timeout
+	val.Context = o.Context
+	val.HTTPClient = o.HTTPClient
+	*o = val
 }
 
 // WithTimeout adds the timeout to the list images params
@@ -111,6 +130,17 @@ func (o *ListImagesParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithShowUsage adds the showUsage to the list images params
+func (o *ListImagesParams) WithShowUsage(showUsage *bool) *ListImagesParams {
+	o.SetShowUsage(showUsage)
+	return o
+}
+
+// SetShowUsage adds the showUsage to the list images params
+func (o *ListImagesParams) SetShowUsage(showUsage *bool) {
+	o.ShowUsage = showUsage
+}
+
 // WriteToRequest writes these params to a swagger request
 func (o *ListImagesParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -118,6 +148,23 @@ func (o *ListImagesParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Re
 		return err
 	}
 	var res []error
+
+	if o.ShowUsage != nil {
+
+		// query param show-usage
+		var qrShowUsage bool
+
+		if o.ShowUsage != nil {
+			qrShowUsage = *o.ShowUsage
+		}
+		qShowUsage := swag.FormatBool(qrShowUsage)
+		if qShowUsage != "" {
+
+			if err := r.SetQueryParam("show-usage", qShowUsage); err != nil {
+				return err
+			}
+		}
+	}
 
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)

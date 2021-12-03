@@ -61,6 +61,8 @@ func (m *V1Project) validateMeta(formats strfmt.Registry) error {
 		if err := m.Meta.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("meta")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("meta")
 			}
 			return err
 		}
@@ -78,6 +80,8 @@ func (m *V1Project) validateQuotas(formats strfmt.Registry) error {
 		if err := m.Quotas.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("quotas")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("quotas")
 			}
 			return err
 		}
@@ -110,6 +114,8 @@ func (m *V1Project) contextValidateMeta(ctx context.Context, formats strfmt.Regi
 		if err := m.Meta.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("meta")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("meta")
 			}
 			return err
 		}
@@ -124,6 +130,8 @@ func (m *V1Project) contextValidateQuotas(ctx context.Context, formats strfmt.Re
 		if err := m.Quotas.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("quotas")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("quotas")
 			}
 			return err
 		}

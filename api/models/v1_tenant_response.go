@@ -72,6 +72,8 @@ func (m *V1TenantResponse) validateDefaultQuotas(formats strfmt.Registry) error 
 		if err := m.DefaultQuotas.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("default_quotas")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("default_quotas")
 			}
 			return err
 		}
@@ -89,6 +91,8 @@ func (m *V1TenantResponse) validateIamConfig(formats strfmt.Registry) error {
 		if err := m.IamConfig.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("iam_config")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("iam_config")
 			}
 			return err
 		}
@@ -106,6 +110,8 @@ func (m *V1TenantResponse) validateMeta(formats strfmt.Registry) error {
 		if err := m.Meta.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("meta")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("meta")
 			}
 			return err
 		}
@@ -123,6 +129,8 @@ func (m *V1TenantResponse) validateQuotas(formats strfmt.Registry) error {
 		if err := m.Quotas.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("quotas")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("quotas")
 			}
 			return err
 		}
@@ -163,6 +171,8 @@ func (m *V1TenantResponse) contextValidateDefaultQuotas(ctx context.Context, for
 		if err := m.DefaultQuotas.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("default_quotas")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("default_quotas")
 			}
 			return err
 		}
@@ -177,6 +187,8 @@ func (m *V1TenantResponse) contextValidateIamConfig(ctx context.Context, formats
 		if err := m.IamConfig.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("iam_config")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("iam_config")
 			}
 			return err
 		}
@@ -191,6 +203,8 @@ func (m *V1TenantResponse) contextValidateMeta(ctx context.Context, formats strf
 		if err := m.Meta.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("meta")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("meta")
 			}
 			return err
 		}
@@ -205,6 +219,8 @@ func (m *V1TenantResponse) contextValidateQuotas(ctx context.Context, formats st
 		if err := m.Quotas.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("quotas")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("quotas")
 			}
 			return err
 		}
