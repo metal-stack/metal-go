@@ -36,6 +36,8 @@ type ClientService interface {
 
 	ListSizeImageConstraints(params *ListSizeImageConstraintsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListSizeImageConstraintsOK, error)
 
+	TrySizeImageConstraint(params *TrySizeImageConstraintParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*TrySizeImageConstraintOK, error)
+
 	UpdateSizeImageConstraint(params *UpdateSizeImageConstraintParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateSizeImageConstraintOK, error)
 
 	SetTransport(transport runtime.ClientTransport)
@@ -52,7 +54,7 @@ func (a *Client) CreateSizeImageConstraint(params *CreateSizeImageConstraintPara
 	op := &runtime.ClientOperation{
 		ID:                 "createSizeImageConstraint",
 		Method:             "PUT",
-		PathPattern:        "/v1/sizeimageconstraint",
+		PathPattern:        "/v1/size-image-constraint",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http"},
@@ -90,7 +92,7 @@ func (a *Client) DeleteSizeImageConstraint(params *DeleteSizeImageConstraintPara
 	op := &runtime.ClientOperation{
 		ID:                 "deleteSizeImageConstraint",
 		Method:             "DELETE",
-		PathPattern:        "/v1/sizeimageconstraint/{id}",
+		PathPattern:        "/v1/size-image-constraint/{id}",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http"},
@@ -128,7 +130,7 @@ func (a *Client) FindSizeImageConstraint(params *FindSizeImageConstraintParams, 
 	op := &runtime.ClientOperation{
 		ID:                 "findSizeImageConstraint",
 		Method:             "GET",
-		PathPattern:        "/v1/sizeimageconstraint/{id}",
+		PathPattern:        "/v1/size-image-constraint/{id}",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http"},
@@ -166,7 +168,7 @@ func (a *Client) ListSizeImageConstraints(params *ListSizeImageConstraintsParams
 	op := &runtime.ClientOperation{
 		ID:                 "listSizeImageConstraints",
 		Method:             "GET",
-		PathPattern:        "/v1/sizeimageconstraint",
+		PathPattern:        "/v1/size-image-constraint",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http"},
@@ -194,6 +196,44 @@ func (a *Client) ListSizeImageConstraints(params *ListSizeImageConstraintsParams
 }
 
 /*
+  TrySizeImageConstraint tries if the given combination of image and size is supported and possible to allocate
+*/
+func (a *Client) TrySizeImageConstraint(params *TrySizeImageConstraintParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*TrySizeImageConstraintOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewTrySizeImageConstraintParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "trySizeImageConstraint",
+		Method:             "POST",
+		PathPattern:        "/v1/size-image-constraint/try",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &TrySizeImageConstraintReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*TrySizeImageConstraintOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*TrySizeImageConstraintDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
   UpdateSizeImageConstraint updates a sizeimageconstraint if the sizeimageconstraint was changed since this one was read a conflict is returned
 */
 func (a *Client) UpdateSizeImageConstraint(params *UpdateSizeImageConstraintParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateSizeImageConstraintOK, error) {
@@ -204,7 +244,7 @@ func (a *Client) UpdateSizeImageConstraint(params *UpdateSizeImageConstraintPara
 	op := &runtime.ClientOperation{
 		ID:                 "updateSizeImageConstraint",
 		Method:             "POST",
-		PathPattern:        "/v1/sizeimageconstraint",
+		PathPattern:        "/v1/size-image-constraint",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http"},

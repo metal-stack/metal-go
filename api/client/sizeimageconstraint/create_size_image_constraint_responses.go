@@ -62,7 +62,7 @@ type CreateSizeImageConstraintCreated struct {
 }
 
 func (o *CreateSizeImageConstraintCreated) Error() string {
-	return fmt.Sprintf("[PUT /v1/sizeimageconstraint][%d] createSizeImageConstraintCreated  %+v", 201, o.Payload)
+	return fmt.Sprintf("[PUT /v1/size-image-constraint][%d] createSizeImageConstraintCreated  %+v", 201, o.Payload)
 }
 func (o *CreateSizeImageConstraintCreated) GetPayload() *models.V1SizeImageConstraintResponse {
 	return o.Payload
@@ -94,7 +94,7 @@ type CreateSizeImageConstraintConflict struct {
 }
 
 func (o *CreateSizeImageConstraintConflict) Error() string {
-	return fmt.Sprintf("[PUT /v1/sizeimageconstraint][%d] createSizeImageConstraintConflict  %+v", 409, o.Payload)
+	return fmt.Sprintf("[PUT /v1/size-image-constraint][%d] createSizeImageConstraintConflict  %+v", 409, o.Payload)
 }
 func (o *CreateSizeImageConstraintConflict) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
@@ -135,7 +135,7 @@ func (o *CreateSizeImageConstraintDefault) Code() int {
 }
 
 func (o *CreateSizeImageConstraintDefault) Error() string {
-	return fmt.Sprintf("[PUT /v1/sizeimageconstraint][%d] createSizeImageConstraint default  %+v", o._statusCode, o.Payload)
+	return fmt.Sprintf("[PUT /v1/size-image-constraint][%d] createSizeImageConstraint default  %+v", o._statusCode, o.Payload)
 }
 func (o *CreateSizeImageConstraintDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload

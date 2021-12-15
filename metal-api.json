@@ -297,7 +297,28 @@
         "type": "HTTPErrorResponse"
       }
     },
-    "rest.status": {
+    "rest.HealthResponse": {
+      "properties": {
+        "message": {
+          "type": "string"
+        },
+        "services": {
+          "additionalProperties": {
+            "$ref": "#/definitions/rest.HealthResult"
+          },
+          "type": "object"
+        },
+        "status": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "message",
+        "services",
+        "status"
+      ]
+    },
+    "rest.HealthResult": {
       "properties": {
         "message": {
           "type": "string"
@@ -3915,6 +3936,20 @@
         "id"
       ]
     },
+    "v1.SizeImageConstraintTryRequest": {
+      "properties": {
+        "image": {
+          "type": "string"
+        },
+        "size": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "image",
+        "size"
+      ]
+    },
     "v1.SizeImageConstraintUpdateRequest": {
       "properties": {
         "constraints": {
@@ -4720,13 +4755,6 @@
         "operationId": "allocateFirewall",
         "parameters": [
           {
-            "default": false,
-            "description": "try allocation before actually doing so to get informed early about possible incompatible allocation parameters",
-            "in": "query",
-            "name": "try",
-            "type": "bool"
-          },
-          {
             "in": "body",
             "name": "body",
             "required": true,
@@ -5023,6 +5051,14 @@
           "application/json"
         ],
         "operationId": "health",
+        "parameters": [
+          {
+            "description": "return health for this specific service only",
+            "in": "query",
+            "name": "service",
+            "type": "string"
+          }
+        ],
         "produces": [
           "application/json"
         ],
@@ -5030,13 +5066,13 @@
           "200": {
             "description": "OK",
             "schema": {
-              "$ref": "#/definitions/rest.status"
+              "$ref": "#/definitions/rest.HealthResponse"
             }
           },
           "500": {
             "description": "Unhealthy",
             "schema": {
-              "$ref": "#/definitions/rest.status"
+              "$ref": "#/definitions/rest.HealthResponse"
             }
           },
           "default": {
@@ -5649,13 +5685,6 @@
         ],
         "operationId": "allocateMachine",
         "parameters": [
-          {
-            "default": false,
-            "description": "try allocation before actually doing so to get informed early about possible incompatible allocation parameters",
-            "in": "query",
-            "name": "try",
-            "type": "bool"
-          },
           {
             "in": "body",
             "name": "body",
@@ -7775,120 +7804,7 @@
         ]
       }
     },
-    "/v1/size/from-hardware": {
-      "post": {
-        "consumes": [
-          "application/json"
-        ],
-        "operationId": "fromHardware",
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/v1.MachineHardwareExtended"
-            }
-          }
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/v1.SizeMatchingLog"
-            }
-          },
-          "default": {
-            "description": "Error",
-            "schema": {
-              "$ref": "#/definitions/httperrors.HTTPErrorResponse"
-            }
-          }
-        },
-        "summary": "Searches all sizes for one to match the given hardwarespecs. If nothing is found, a list of entries is returned which describe the constraint which did not match",
-        "tags": [
-          "size"
-        ]
-      }
-    },
-    "/v1/size/{id}": {
-      "delete": {
-        "consumes": [
-          "application/json"
-        ],
-        "operationId": "deleteSize",
-        "parameters": [
-          {
-            "description": "identifier of the size",
-            "in": "path",
-            "name": "id",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/v1.SizeResponse"
-            }
-          },
-          "default": {
-            "description": "Error",
-            "schema": {
-              "$ref": "#/definitions/httperrors.HTTPErrorResponse"
-            }
-          }
-        },
-        "summary": "deletes an size and returns the deleted entity",
-        "tags": [
-          "size"
-        ]
-      },
-      "get": {
-        "consumes": [
-          "application/json"
-        ],
-        "operationId": "findSize",
-        "parameters": [
-          {
-            "description": "identifier of the size",
-            "in": "path",
-            "name": "id",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/v1.SizeResponse"
-            }
-          },
-          "default": {
-            "description": "Error",
-            "schema": {
-              "$ref": "#/definitions/httperrors.HTTPErrorResponse"
-            }
-          }
-        },
-        "summary": "get size by id",
-        "tags": [
-          "size"
-        ]
-      }
-    },
-    "/v1/sizeimageconstraint": {
+    "/v1/size-image-constraint": {
       "get": {
         "consumes": [
           "application/json"
@@ -8006,7 +7922,46 @@
         ]
       }
     },
-    "/v1/sizeimageconstraint/{id}": {
+    "/v1/size-image-constraint/try": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "operationId": "trySizeImageConstraint",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1.SizeImageConstraintTryRequest"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/v1.EmptyBody"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/httperrors.HTTPErrorResponse"
+            }
+          }
+        },
+        "summary": "try if the given combination of image and size is supported and possible to allocate",
+        "tags": [
+          "sizeimageconstraint"
+        ]
+      }
+    },
+    "/v1/size-image-constraint/{id}": {
       "delete": {
         "consumes": [
           "application/json"
@@ -8077,6 +8032,119 @@
         "summary": "get sizeimageconstraint by id",
         "tags": [
           "sizeimageconstraint"
+        ]
+      }
+    },
+    "/v1/size/from-hardware": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "operationId": "fromHardware",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1.MachineHardwareExtended"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/v1.SizeMatchingLog"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/httperrors.HTTPErrorResponse"
+            }
+          }
+        },
+        "summary": "Searches all sizes for one to match the given hardwarespecs. If nothing is found, a list of entries is returned which describe the constraint which did not match",
+        "tags": [
+          "size"
+        ]
+      }
+    },
+    "/v1/size/{id}": {
+      "delete": {
+        "consumes": [
+          "application/json"
+        ],
+        "operationId": "deleteSize",
+        "parameters": [
+          {
+            "description": "identifier of the size",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/v1.SizeResponse"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/httperrors.HTTPErrorResponse"
+            }
+          }
+        },
+        "summary": "deletes an size and returns the deleted entity",
+        "tags": [
+          "size"
+        ]
+      },
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "operationId": "findSize",
+        "parameters": [
+          {
+            "description": "identifier of the size",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/v1.SizeResponse"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/httperrors.HTTPErrorResponse"
+            }
+          }
+        },
+        "summary": "get size by id",
+        "tags": [
+          "size"
         ]
       }
     },

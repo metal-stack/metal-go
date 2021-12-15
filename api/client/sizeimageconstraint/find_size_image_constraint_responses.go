@@ -56,7 +56,7 @@ type FindSizeImageConstraintOK struct {
 }
 
 func (o *FindSizeImageConstraintOK) Error() string {
-	return fmt.Sprintf("[GET /v1/sizeimageconstraint/{id}][%d] findSizeImageConstraintOK  %+v", 200, o.Payload)
+	return fmt.Sprintf("[GET /v1/size-image-constraint/{id}][%d] findSizeImageConstraintOK  %+v", 200, o.Payload)
 }
 func (o *FindSizeImageConstraintOK) GetPayload() *models.V1SizeImageConstraintResponse {
 	return o.Payload
@@ -97,7 +97,7 @@ func (o *FindSizeImageConstraintDefault) Code() int {
 }
 
 func (o *FindSizeImageConstraintDefault) Error() string {
-	return fmt.Sprintf("[GET /v1/sizeimageconstraint/{id}][%d] findSizeImageConstraint default  %+v", o._statusCode, o.Payload)
+	return fmt.Sprintf("[GET /v1/size-image-constraint/{id}][%d] findSizeImageConstraint default  %+v", o._statusCode, o.Payload)
 }
 func (o *FindSizeImageConstraintDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload

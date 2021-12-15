@@ -62,7 +62,7 @@ type UpdateSizeImageConstraintOK struct {
 }
 
 func (o *UpdateSizeImageConstraintOK) Error() string {
-	return fmt.Sprintf("[POST /v1/sizeimageconstraint][%d] updateSizeImageConstraintOK  %+v", 200, o.Payload)
+	return fmt.Sprintf("[POST /v1/size-image-constraint][%d] updateSizeImageConstraintOK  %+v", 200, o.Payload)
 }
 func (o *UpdateSizeImageConstraintOK) GetPayload() *models.V1SizeImageConstraintResponse {
 	return o.Payload
@@ -94,7 +94,7 @@ type UpdateSizeImageConstraintConflict struct {
 }
 
 func (o *UpdateSizeImageConstraintConflict) Error() string {
-	return fmt.Sprintf("[POST /v1/sizeimageconstraint][%d] updateSizeImageConstraintConflict  %+v", 409, o.Payload)
+	return fmt.Sprintf("[POST /v1/size-image-constraint][%d] updateSizeImageConstraintConflict  %+v", 409, o.Payload)
 }
 func (o *UpdateSizeImageConstraintConflict) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
@@ -135,7 +135,7 @@ func (o *UpdateSizeImageConstraintDefault) Code() int {
 }
 
 func (o *UpdateSizeImageConstraintDefault) Error() string {
-	return fmt.Sprintf("[POST /v1/sizeimageconstraint][%d] updateSizeImageConstraint default  %+v", o._statusCode, o.Payload)
+	return fmt.Sprintf("[POST /v1/size-image-constraint][%d] updateSizeImageConstraint default  %+v", o._statusCode, o.Payload)
 }
 func (o *UpdateSizeImageConstraintDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload

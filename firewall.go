@@ -30,18 +30,8 @@ type FirewallGetResponse struct {
 	Firewall *models.V1FirewallResponse
 }
 
-// TryFirewallCreate try if createRequest is valid
-func (d *Driver) TryFirewallCreate(fcr *FirewallCreateRequest) (*FirewallCreateResponse, error) {
-	return d.firewallCreate(fcr, true)
-}
-
 // FirewallCreate will create a single metal machine
 func (d *Driver) FirewallCreate(fcr *FirewallCreateRequest) (*FirewallCreateResponse, error) {
-	return d.firewallCreate(fcr, false)
-}
-
-// firewallCreate will create a single metal machine
-func (d *Driver) firewallCreate(fcr *FirewallCreateRequest, try bool) (*FirewallCreateResponse, error) {
 	response := &FirewallCreateResponse{}
 
 	allocateRequest := &models.V1FirewallCreateRequest{
@@ -62,7 +52,6 @@ func (d *Driver) firewallCreate(fcr *FirewallCreateRequest, try bool) (*Firewall
 
 	allocFirewall := firewall.NewAllocateFirewallParams()
 	allocFirewall.SetBody(allocateRequest)
-	allocFirewall.WithTry(&try)
 
 	resp, err := d.firewall.AllocateFirewall(allocFirewall, nil)
 	if err != nil {
