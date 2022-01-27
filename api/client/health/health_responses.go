@@ -58,19 +58,19 @@ func NewHealthOK() *HealthOK {
 OK
 */
 type HealthOK struct {
-	Payload *models.RestStatus
+	Payload *models.RestHealthResponse
 }
 
 func (o *HealthOK) Error() string {
 	return fmt.Sprintf("[GET /v1/health][%d] healthOK  %+v", 200, o.Payload)
 }
-func (o *HealthOK) GetPayload() *models.RestStatus {
+func (o *HealthOK) GetPayload() *models.RestHealthResponse {
 	return o.Payload
 }
 
 func (o *HealthOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.RestStatus)
+	o.Payload = new(models.RestHealthResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -90,19 +90,19 @@ func NewHealthInternalServerError() *HealthInternalServerError {
 Unhealthy
 */
 type HealthInternalServerError struct {
-	Payload *models.RestStatus
+	Payload *models.RestHealthResponse
 }
 
 func (o *HealthInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /v1/health][%d] healthInternalServerError  %+v", 500, o.Payload)
 }
-func (o *HealthInternalServerError) GetPayload() *models.RestStatus {
+func (o *HealthInternalServerError) GetPayload() *models.RestHealthResponse {
 	return o.Payload
 }
 
 func (o *HealthInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.RestStatus)
+	o.Payload = new(models.RestHealthResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

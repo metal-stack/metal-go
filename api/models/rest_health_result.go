@@ -14,10 +14,10 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// RestStatus rest status
+// RestHealthResult rest health result
 //
-// swagger:model rest.status
-type RestStatus struct {
+// swagger:model rest.HealthResult
+type RestHealthResult struct {
 
 	// message
 	// Required: true
@@ -28,8 +28,8 @@ type RestStatus struct {
 	Status *string `json:"status"`
 }
 
-// Validate validates this rest status
-func (m *RestStatus) Validate(formats strfmt.Registry) error {
+// Validate validates this rest health result
+func (m *RestHealthResult) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateMessage(formats); err != nil {
@@ -46,7 +46,7 @@ func (m *RestStatus) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *RestStatus) validateMessage(formats strfmt.Registry) error {
+func (m *RestHealthResult) validateMessage(formats strfmt.Registry) error {
 
 	if err := validate.Required("message", "body", m.Message); err != nil {
 		return err
@@ -55,7 +55,7 @@ func (m *RestStatus) validateMessage(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *RestStatus) validateStatus(formats strfmt.Registry) error {
+func (m *RestHealthResult) validateStatus(formats strfmt.Registry) error {
 
 	if err := validate.Required("status", "body", m.Status); err != nil {
 		return err
@@ -64,13 +64,13 @@ func (m *RestStatus) validateStatus(formats strfmt.Registry) error {
 	return nil
 }
 
-// ContextValidate validates this rest status based on context it is used
-func (m *RestStatus) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+// ContextValidate validates this rest health result based on context it is used
+func (m *RestHealthResult) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 
 // MarshalBinary interface implementation
-func (m *RestStatus) MarshalBinary() ([]byte, error) {
+func (m *RestHealthResult) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -78,8 +78,8 @@ func (m *RestStatus) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *RestStatus) UnmarshalBinary(b []byte) error {
-	var res RestStatus
+func (m *RestHealthResult) UnmarshalBinary(b []byte) error {
+	var res RestHealthResult
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

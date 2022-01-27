@@ -6,7 +6,7 @@ import (
 
 // HealthGetResponse is the response of a HealthGet action
 type HealthGetResponse struct {
-	Health *models.RestStatus
+	Health *models.RestHealthResponse
 }
 
 // HealthGet returns the health status
