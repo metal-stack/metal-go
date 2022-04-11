@@ -176,7 +176,7 @@ func (a *Client) AddProvisioningEvents(params *AddProvisioningEventsParams, auth
 	op := &runtime.ClientOperation{
 		ID:                 "addProvisioningEvents",
 		Method:             "POST",
-		PathPattern:        "/v1/machine/events",
+		PathPattern:        "/v1/machine/event",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http"},

@@ -52,20 +52,22 @@ func NewAddProvisioningEventsOK() *AddProvisioningEventsOK {
 OK
 */
 type AddProvisioningEventsOK struct {
-	Payload models.V1MachineRecentProvisioningEventsMap
+	Payload *models.V1MachineRecentProvisioningEventsResponse
 }
 
 func (o *AddProvisioningEventsOK) Error() string {
-	return fmt.Sprintf("[POST /v1/machine/events][%d] addProvisioningEventsOK  %+v", 200, o.Payload)
+	return fmt.Sprintf("[POST /v1/machine/event][%d] addProvisioningEventsOK  %+v", 200, o.Payload)
 }
-func (o *AddProvisioningEventsOK) GetPayload() models.V1MachineRecentProvisioningEventsMap {
+func (o *AddProvisioningEventsOK) GetPayload() *models.V1MachineRecentProvisioningEventsResponse {
 	return o.Payload
 }
 
 func (o *AddProvisioningEventsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
+	o.Payload = new(models.V1MachineRecentProvisioningEventsResponse)
+
 	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 
@@ -95,7 +97,7 @@ func (o *AddProvisioningEventsDefault) Code() int {
 }
 
 func (o *AddProvisioningEventsDefault) Error() string {
-	return fmt.Sprintf("[POST /v1/machine/events][%d] addProvisioningEvents default  %+v", o._statusCode, o.Payload)
+	return fmt.Sprintf("[POST /v1/machine/event][%d] addProvisioningEvents default  %+v", o._statusCode, o.Payload)
 }
 func (o *AddProvisioningEventsDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
