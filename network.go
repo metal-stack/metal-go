@@ -189,6 +189,7 @@ type NetworkFindRequest struct {
 // IPFindRequest contains criteria for a ip listing
 type IPFindRequest struct {
 	IPAddress        *string
+	AllocationUUID   *string
 	ProjectID        *string
 	ParentPrefixCidr *string
 	NetworkID        *string
@@ -480,14 +481,15 @@ func (d *Driver) IPFind(ifr *IPFindRequest) (*IPListResponse, error) {
 
 	findIPs := ip.NewFindIPsParams()
 	req := &models.V1IPFindRequest{
-		Ipaddress:     StrDeref(ifr.IPAddress),
-		Projectid:     StrDeref(ifr.ProjectID),
-		Networkprefix: StrDeref(ifr.ParentPrefixCidr),
-		Networkid:     StrDeref(ifr.NetworkID),
-		Machineid:     StrDeref(ifr.MachineID),
-		Type:          StrDeref(ifr.Type),
-		Tags:          ifr.Tags,
-		Name:          StrDeref(ifr.Name),
+		Ipaddress:      StrDeref(ifr.IPAddress),
+		Allocationuuid: StrDeref(ifr.AllocationUUID),
+		Projectid:      StrDeref(ifr.ProjectID),
+		Networkprefix:  StrDeref(ifr.ParentPrefixCidr),
+		Networkid:      StrDeref(ifr.NetworkID),
+		Machineid:      StrDeref(ifr.MachineID),
+		Type:           StrDeref(ifr.Type),
+		Tags:           ifr.Tags,
+		Name:           StrDeref(ifr.Name),
 	}
 	findIPs.SetBody(req)
 

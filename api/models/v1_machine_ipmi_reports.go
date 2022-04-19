@@ -52,6 +52,11 @@ func (m *V1MachineIpmiReports) validateReports(formats strfmt.Registry) error {
 		}
 		if val, ok := m.Reports[k]; ok {
 			if err := val.Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("reports" + "." + k)
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("reports" + "." + k)
+				}
 				return err
 			}
 		}
