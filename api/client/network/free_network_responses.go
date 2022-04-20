@@ -62,7 +62,7 @@ type FreeNetworkOK struct {
 }
 
 func (o *FreeNetworkOK) Error() string {
-	return fmt.Sprintf("[POST /v1/network/free/{id}][%d] freeNetworkOK  %+v", 200, o.Payload)
+	return fmt.Sprintf("[DELETE /v1/network/free/{id}][%d] freeNetworkOK  %+v", 200, o.Payload)
 }
 func (o *FreeNetworkOK) GetPayload() *models.V1NetworkResponse {
 	return o.Payload
@@ -94,7 +94,7 @@ type FreeNetworkConflict struct {
 }
 
 func (o *FreeNetworkConflict) Error() string {
-	return fmt.Sprintf("[POST /v1/network/free/{id}][%d] freeNetworkConflict  %+v", 409, o.Payload)
+	return fmt.Sprintf("[DELETE /v1/network/free/{id}][%d] freeNetworkConflict  %+v", 409, o.Payload)
 }
 func (o *FreeNetworkConflict) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
@@ -135,7 +135,7 @@ func (o *FreeNetworkDefault) Code() int {
 }
 
 func (o *FreeNetworkDefault) Error() string {
-	return fmt.Sprintf("[POST /v1/network/free/{id}][%d] freeNetwork default  %+v", o._statusCode, o.Payload)
+	return fmt.Sprintf("[DELETE /v1/network/free/{id}][%d] freeNetwork default  %+v", o._statusCode, o.Payload)
 }
 func (o *FreeNetworkDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload

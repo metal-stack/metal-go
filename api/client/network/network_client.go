@@ -40,6 +40,8 @@ type ClientService interface {
 
 	FreeNetwork(params *FreeNetworkParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FreeNetworkOK, error)
 
+	FreeNetworkDeprecated(params *FreeNetworkDeprecatedParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FreeNetworkDeprecatedOK, error)
+
 	ListNetworks(params *ListNetworksParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListNetworksOK, error)
 
 	UpdateNetwork(params *UpdateNetworkParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateNetworkOK, error)
@@ -247,7 +249,7 @@ func (a *Client) FreeNetwork(params *FreeNetworkParams, authInfo runtime.ClientA
 	}
 	op := &runtime.ClientOperation{
 		ID:                 "freeNetwork",
-		Method:             "POST",
+		Method:             "DELETE",
 		PathPattern:        "/v1/network/free/{id}",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
@@ -272,6 +274,44 @@ func (a *Client) FreeNetwork(params *FreeNetworkParams, authInfo runtime.ClientA
 	}
 	// unexpected success response
 	unexpectedSuccess := result.(*FreeNetworkDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+  FreeNetworkDeprecated frees a network
+*/
+func (a *Client) FreeNetworkDeprecated(params *FreeNetworkDeprecatedParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FreeNetworkDeprecatedOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewFreeNetworkDeprecatedParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "freeNetworkDeprecated",
+		Method:             "POST",
+		PathPattern:        "/v1/network/free/{id}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*", "application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &FreeNetworkDeprecatedReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*FreeNetworkDeprecatedOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*FreeNetworkDeprecatedDefault)
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
