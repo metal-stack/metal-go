@@ -17,6 +17,9 @@ import (
 // swagger:model v1.IPFindRequest
 type V1IPFindRequest struct {
 
+	// a unique identifier for this ip address allocation, can be used to distinguish between ip address allocation over time.
+	Allocationuuid string `json:"allocationuuid,omitempty"`
+
 	// the address (ipv4 or ipv6) of this ip
 	Ipaddress string `json:"ipaddress,omitempty"`
 

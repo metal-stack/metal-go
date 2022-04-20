@@ -51,6 +51,11 @@ func (m *V1VendorRevisions) validateVendorRevisions(formats strfmt.Registry) err
 		}
 		if val, ok := m.VendorRevisions[k]; ok {
 			if err := val.Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("VendorRevisions" + "." + k)
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("VendorRevisions" + "." + k)
+				}
 				return err
 			}
 		}

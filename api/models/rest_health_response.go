@@ -76,6 +76,11 @@ func (m *RestHealthResponse) validateServices(formats strfmt.Registry) error {
 		}
 		if val, ok := m.Services[k]; ok {
 			if err := val.Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("services" + "." + k)
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("services" + "." + k)
+				}
 				return err
 			}
 		}
