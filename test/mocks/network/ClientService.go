@@ -193,6 +193,36 @@ func (_m *ClientService) FreeNetwork(params *network.FreeNetworkParams, authInfo
 	return r0, r1
 }
 
+// FreeNetworkDeprecated provides a mock function with given fields: params, authInfo, opts
+func (_m *ClientService) FreeNetworkDeprecated(params *network.FreeNetworkDeprecatedParams, authInfo runtime.ClientAuthInfoWriter, opts ...network.ClientOption) (*network.FreeNetworkDeprecatedOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
+
+	var r0 *network.FreeNetworkDeprecatedOK
+	if rf, ok := ret.Get(0).(func(*network.FreeNetworkDeprecatedParams, runtime.ClientAuthInfoWriter, ...network.ClientOption) *network.FreeNetworkDeprecatedOK); ok {
+		r0 = rf(params, authInfo, opts...)
+	} else {
+		if ret.Get(0) != nil {
+			r0 = ret.Get(0).(*network.FreeNetworkDeprecatedOK)
+		}
+	}
+
+	var r1 error
+	if rf, ok := ret.Get(1).(func(*network.FreeNetworkDeprecatedParams, runtime.ClientAuthInfoWriter, ...network.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
+	} else {
+		r1 = ret.Error(1)
+	}
+
+	return r0, r1
+}
+
 // ListNetworks provides a mock function with given fields: params, authInfo, opts
 func (_m *ClientService) ListNetworks(params *network.ListNetworksParams, authInfo runtime.ClientAuthInfoWriter, opts ...network.ClientOption) (*network.ListNetworksOK, error) {
 	_va := make([]interface{}, len(opts))
