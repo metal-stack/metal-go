@@ -38,6 +38,8 @@ type ClientService interface {
 
 	FreeIP(params *FreeIPParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FreeIPOK, error)
 
+	FreeIPDeprecated(params *FreeIPDeprecatedParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FreeIPDeprecatedOK, error)
+
 	ListIPs(params *ListIPsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListIPsOK, error)
 
 	UpdateIP(params *UpdateIPParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateIPOK, error)
@@ -207,7 +209,7 @@ func (a *Client) FreeIP(params *FreeIPParams, authInfo runtime.ClientAuthInfoWri
 	}
 	op := &runtime.ClientOperation{
 		ID:                 "freeIP",
-		Method:             "POST",
+		Method:             "DELETE",
 		PathPattern:        "/v1/ip/free/{id}",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
@@ -232,6 +234,44 @@ func (a *Client) FreeIP(params *FreeIPParams, authInfo runtime.ClientAuthInfoWri
 	}
 	// unexpected success response
 	unexpectedSuccess := result.(*FreeIPDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+  FreeIPDeprecated frees an ip
+*/
+func (a *Client) FreeIPDeprecated(params *FreeIPDeprecatedParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FreeIPDeprecatedOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewFreeIPDeprecatedParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "freeIPDeprecated",
+		Method:             "POST",
+		PathPattern:        "/v1/ip/free/{id}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*", "application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &FreeIPDeprecatedReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*FreeIPDeprecatedOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*FreeIPDeprecatedDefault)
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
