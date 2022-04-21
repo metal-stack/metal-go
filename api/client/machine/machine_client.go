@@ -32,6 +32,8 @@ type ClientService interface {
 
 	AddProvisioningEvent(params *AddProvisioningEventParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*AddProvisioningEventOK, error)
 
+	AddProvisioningEvents(params *AddProvisioningEventsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*AddProvisioningEventsOK, error)
+
 	AllocateMachine(params *AllocateMachineParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*AllocateMachineOK, error)
 
 	ChassisIdentifyLEDOff(params *ChassisIdentifyLEDOffParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ChassisIdentifyLEDOffOK, error)
@@ -160,6 +162,44 @@ func (a *Client) AddProvisioningEvent(params *AddProvisioningEventParams, authIn
 	}
 	// unexpected success response
 	unexpectedSuccess := result.(*AddProvisioningEventDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+  AddProvisioningEvents adds machine provisioning events
+*/
+func (a *Client) AddProvisioningEvents(params *AddProvisioningEventsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*AddProvisioningEventsOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewAddProvisioningEventsParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "addProvisioningEvents",
+		Method:             "POST",
+		PathPattern:        "/v1/machine/event",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &AddProvisioningEventsReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*AddProvisioningEventsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*AddProvisioningEventsDefault)
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
