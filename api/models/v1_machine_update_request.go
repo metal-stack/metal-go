@@ -19,15 +19,12 @@ import (
 // swagger:model v1.MachineUpdateRequest
 type V1MachineUpdateRequest struct {
 
-	// a description for this entity
+	// a description for this machine
 	Description string `json:"description,omitempty"`
 
 	// the unique ID of this entity
 	// Required: true
 	ID *string `json:"id"`
-
-	// a readable name for this entity
-	Name string `json:"name,omitempty"`
 
 	// tags for this machine.
 	Tags []string `json:"tags"`

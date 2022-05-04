@@ -27,7 +27,6 @@ type MachineCreateRequest struct {
 type MachineUpdateRequest struct {
 	ID          string
 	Description *string
-	Name        *string
 	Tags        []string
 }
 
@@ -230,9 +229,6 @@ func (d *Driver) MachineUpdate(mur *MachineUpdateRequest) (*MachineUpdateRespons
 		Tags: mur.Tags,
 	}
 
-	if mur.Name != nil {
-		body.Name = *mur.Name
-	}
 	if mur.Description != nil {
 		body.Description = *mur.Description
 	}
