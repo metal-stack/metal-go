@@ -230,7 +230,7 @@ func (d *Driver) MachineUpdate(mur *MachineUpdateRequest) (*MachineUpdateRespons
 	}
 
 	if mur.Description != nil {
-		body.Description = *mur.Description
+		body.Description = mur.Description
 	}
 
 	params := machine.NewUpdateMachineParams().WithBody(body)

@@ -20,7 +20,8 @@ import (
 type V1MachineUpdateRequest struct {
 
 	// a description for this machine
-	Description string `json:"description,omitempty"`
+	// Required: true
+	Description *string `json:"description"`
 
 	// the unique ID of this entity
 	// Required: true
@@ -34,6 +35,10 @@ type V1MachineUpdateRequest struct {
 func (m *V1MachineUpdateRequest) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateDescription(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateID(formats); err != nil {
 		res = append(res, err)
 	}
@@ -41,6 +46,15 @@ func (m *V1MachineUpdateRequest) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *V1MachineUpdateRequest) validateDescription(formats strfmt.Registry) error {
+
+	if err := validate.Required("description", "body", m.Description); err != nil {
+		return err
+	}
+
 	return nil
 }
 

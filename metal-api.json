@@ -2998,6 +2998,7 @@
         }
       },
       "required": [
+        "description",
         "id"
       ]
     },
