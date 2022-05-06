@@ -86,6 +86,8 @@ type ClientService interface {
 
 	UpdateFirmware(params *UpdateFirmwareParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateFirmwareOK, error)
 
+	UpdateMachine(params *UpdateMachineParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateMachineOK, error)
+
 	SetTransport(transport runtime.ClientTransport)
 }
 
@@ -1190,6 +1192,44 @@ func (a *Client) UpdateFirmware(params *UpdateFirmwareParams, authInfo runtime.C
 	}
 	// unexpected success response
 	unexpectedSuccess := result.(*UpdateFirmwareDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+  UpdateMachine updates a machine if the machine was changed since this one was read a conflict is returned
+*/
+func (a *Client) UpdateMachine(params *UpdateMachineParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateMachineOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUpdateMachineParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "updateMachine",
+		Method:             "POST",
+		PathPattern:        "/v1/machine",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &UpdateMachineReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*UpdateMachineOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*UpdateMachineDefault)
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 

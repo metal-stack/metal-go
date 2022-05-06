@@ -23,6 +23,13 @@ type MachineCreateRequest struct {
 	IPs              []string
 }
 
+// MachineCreateRequest contains data for a machine update
+type MachineUpdateRequest struct {
+	ID          string
+	Description *string
+	Tags        []string
+}
+
 // MachineFindRequest contains criteria for a machine listing
 type MachineFindRequest struct {
 	ID          *string
@@ -107,6 +114,11 @@ func (n *MachineCreateRequest) translateNetworks() []*models.V1MachineAllocation
 
 // MachineCreateResponse is returned when a machine was created
 type MachineCreateResponse struct {
+	Machine *models.V1MachineResponse
+}
+
+// MachineUpdateResponse is returned when a machine was updated
+type MachineUpdateResponse struct {
 	Machine *models.V1MachineResponse
 }
 
@@ -207,6 +219,28 @@ func (d *Driver) MachineCreate(mcr *MachineCreateRequest) (*MachineCreateRespons
 
 	response.Machine = resp.Payload
 
+	return response, nil
+}
+
+// MachineUpdate updated a single metal machine, be cautios that this can remove tags when empty tags are passed
+func (d *Driver) MachineUpdate(mur *MachineUpdateRequest) (*MachineUpdateResponse, error) {
+	body := &models.V1MachineUpdateRequest{
+		ID:   &mur.ID,
+		Tags: mur.Tags,
+	}
+
+	if mur.Description != nil {
+		body.Description = mur.Description
+	}
+
+	params := machine.NewUpdateMachineParams().WithBody(body)
+
+	response := &MachineUpdateResponse{}
+	resp, err := d.machine.UpdateMachine(params, nil)
+	if err != nil {
+		return response, err
+	}
+	response.Machine = resp.Payload
 	return response, nil
 }
 
