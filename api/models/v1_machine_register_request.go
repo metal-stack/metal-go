@@ -25,7 +25,7 @@ type V1MachineRegisterRequest struct {
 
 	// the hardware of this machine
 	// Required: true
-	Hardware *V1MachineHardwareExtended `json:"hardware"`
+	Hardware *V1MachineHardware `json:"hardware"`
 
 	// the ipmi access infos
 	// Required: true
