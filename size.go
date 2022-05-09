@@ -68,7 +68,7 @@ func (d *Driver) SizeTry(cores int32, memory, storage uint64) (*SizeTryResponse,
 	s := int64(storage)
 	diskName := "/dev/trydisk"
 
-	hardware := &models.V1MachineHardwareExtended{
+	hardware := &models.V1MachineHardware{
 		CPUCores: &cores,
 		Memory:   &m,
 		Disks: []*models.V1MachineBlockDevice{{
