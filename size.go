@@ -3,7 +3,7 @@ package metalgo
 import (
 	"net/http"
 
-	"github.com/metal-stack/metal-go/client/operations"
+	"github.com/metal-stack/metal-go/client/size"
 	"github.com/metal-stack/metal-go/models"
 )
 
@@ -50,7 +50,7 @@ func (d *Driver) SizeList() (*SizeListResponse, error) {
 // SizeGet return a size
 func (d *Driver) SizeGet(sizeID string) (*SizeGetResponse, error) {
 	response := &SizeGetResponse{}
-	request := operations.NewFindSizeParams()
+	request := size.NewFindSizeParams()
 	request.ID = sizeID
 	resp, err := d.Size.FindSize(request, nil)
 	if err != nil {
@@ -77,7 +77,7 @@ func (d *Driver) SizeTry(cores int32, memory, storage uint64) (*SizeTryResponse,
 		}},
 	}
 
-	trySize := operations.NewFromHardwareParams()
+	trySize := size.NewFromHardwareParams()
 	trySize.Body = hardware
 
 	resp, err := d.Size.FromHardware(trySize, nil)
@@ -85,7 +85,7 @@ func (d *Driver) SizeTry(cores int32, memory, storage uint64) (*SizeTryResponse,
 		response.Logs = []*models.V1SizeMatchingLog{resp.Payload}
 	} else {
 		//nolint:errorlint
-		if e, ok := err.(*operations.FromHardwareDefault); ok {
+		if e, ok := err.(*size.FromHardwareDefault); ok {
 			if e.Code() == http.StatusNotFound {
 				response.Logs = []*models.V1SizeMatchingLog{}
 				err = nil
@@ -106,7 +106,7 @@ func (d *Driver) SizeCreate(pcr SizeCreateRequest) (*SizeCreateResponse, error) 
 		Description: pcr.Description,
 		Constraints: pcr.Constraints,
 	}
-	request := operations.NewCreateSizeParams()
+	request := size.NewCreateSizeParams()
 	request.SetBody(createSize)
 	resp, err := d.Size.CreateSize(request, nil)
 	if err != nil {
@@ -126,7 +126,7 @@ func (d *Driver) SizeUpdate(pcr SizeCreateRequest) (*SizeCreateResponse, error) 
 		Description: pcr.Description,
 		Constraints: pcr.Constraints,
 	}
-	request := operations.NewUpdateSizeParams()
+	request := size.NewUpdateSizeParams()
 	request.SetBody(updateSize)
 	resp, err := d.Size.UpdateSize(request, nil)
 	if err != nil {
@@ -139,7 +139,7 @@ func (d *Driver) SizeUpdate(pcr SizeCreateRequest) (*SizeCreateResponse, error) 
 // SizeDelete return a size
 func (d *Driver) SizeDelete(sizeID string) (*SizeGetResponse, error) {
 	response := &SizeGetResponse{}
-	request := operations.NewDeleteSizeParams()
+	request := size.NewDeleteSizeParams()
 	request.ID = sizeID
 	resp, err := d.Size.DeleteSize(request, nil)
 	if err != nil {

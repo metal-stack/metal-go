@@ -4,7 +4,7 @@ import (
 	"time"
 
 	"github.com/go-openapi/strfmt"
-	"github.com/metal-stack/metal-go/client/operations"
+	"github.com/metal-stack/metal-go/client/image"
 	"github.com/metal-stack/metal-go/models"
 )
 
@@ -37,8 +37,8 @@ type ImageCreateResponse struct {
 // ImageList return all machine images
 func (d *Driver) ImageList() (*ImageListResponse, error) {
 	response := &ImageListResponse{}
-	listImages := operations.NewListImagesParams()
-	resp, err := d.Client.ListImages(listImages, nil)
+	listImages := image.NewListImagesParams()
+	resp, err := d.Image.ListImages(listImages, nil)
 	if err != nil {
 		return response, err
 	}
@@ -52,7 +52,7 @@ func (d *Driver) ImageListWithUsage() (*ImageListResponse, error) {
 	listImages := image.NewListImagesParams()
 	showUsage := true
 	listImages.WithShowUsage(&showUsage)
-	resp, err := d.image.ListImages(listImages, nil)
+	resp, err := d.Image.ListImages(listImages, nil)
 	if err != nil {
 		return response, err
 	}
@@ -63,9 +63,9 @@ func (d *Driver) ImageListWithUsage() (*ImageListResponse, error) {
 // ImageQueryByID return all machine images
 func (d *Driver) ImageQueryByID(imageID string) (*ImageListResponse, error) {
 	response := &ImageListResponse{}
-	request := operations.NewQueryImagesByIDParams()
+	request := image.NewQueryImagesByIDParams()
 	request.ID = imageID
-	resp, err := d.Client.QueryImagesByID(request, nil)
+	resp, err := d.Image.QueryImagesByID(request, nil)
 	if err != nil {
 		return response, err
 	}
@@ -76,9 +76,9 @@ func (d *Driver) ImageQueryByID(imageID string) (*ImageListResponse, error) {
 // ImageGet return a image
 func (d *Driver) ImageGet(imageID string) (*ImageGetResponse, error) {
 	response := &ImageGetResponse{}
-	request := operations.NewFindImageParams()
+	request := image.NewFindImageParams()
 	request.ID = imageID
-	resp, err := d.Client.FindImage(request, nil)
+	resp, err := d.Image.FindImage(request, nil)
 	if err != nil {
 		return response, err
 	}
@@ -89,9 +89,9 @@ func (d *Driver) ImageGet(imageID string) (*ImageGetResponse, error) {
 // ImageGetLatest returns the latest image to a given imageID if no patch version was specified.
 func (d *Driver) ImageGetLatest(imageID string) (*ImageGetResponse, error) {
 	response := &ImageGetResponse{}
-	request := operations.NewFindLatestImageParams()
+	request := image.NewFindLatestImageParams()
 	request.ID = imageID
-	resp, err := d.Client.FindLatestImage(request, nil)
+	resp, err := d.Image.FindLatestImage(request, nil)
 	if err != nil {
 		return response, err
 	}
@@ -110,9 +110,9 @@ func (d *Driver) ImageCreate(icr ImageCreateRequest) (*ImageCreateResponse, erro
 		Name:        icr.Name,
 		URL:         &icr.URL,
 	}
-	request := operations.NewCreateImageParams()
+	request := image.NewCreateImageParams()
 	request.SetBody(createImage)
-	resp, err := d.Client.CreateImage(request, nil)
+	resp, err := d.Image.CreateImage(request, nil)
 	if err != nil {
 		return response, err
 	}
@@ -139,9 +139,9 @@ func (d *Driver) ImageUpdate(icr ImageCreateRequest) (*ImageCreateResponse, erro
 		updateImage.Classification = *icr.Classification
 	}
 
-	request := operations.NewUpdateImageParams()
+	request := image.NewUpdateImageParams()
 	request.SetBody(updateImage)
-	resp, err := d.Client.UpdateImage(request, nil)
+	resp, err := d.Image.UpdateImage(request, nil)
 	if err != nil {
 		return response, err
 	}
@@ -152,9 +152,9 @@ func (d *Driver) ImageUpdate(icr ImageCreateRequest) (*ImageCreateResponse, erro
 // ImageDelete return a image
 func (d *Driver) ImageDelete(imageID string) (*ImageGetResponse, error) {
 	response := &ImageGetResponse{}
-	request := operations.NewDeleteImageParams()
+	request := image.NewDeleteImageParams()
 	request.ID = imageID
-	resp, err := d.Client.DeleteImage(request, nil)
+	resp, err := d.Image.DeleteImage(request, nil)
 	if err != nil {
 		return response, err
 	}

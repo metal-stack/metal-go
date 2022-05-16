@@ -1,7 +1,7 @@
 package metalgo
 
 import (
-	"github.com/metal-stack/metal-go/client/operations"
+	"github.com/metal-stack/metal-go/client/tenant"
 	"github.com/metal-stack/metal-go/models"
 )
 
@@ -25,8 +25,8 @@ type TenantFindRequest struct {
 // TenantList return all Tenants
 func (d *Driver) TenantList() (*TenantListResponse, error) {
 	response := &TenantListResponse{}
-	listTenants := operations.NewListTenantsParams()
-	resp, err := d.Client.ListTenants(listTenants, nil)
+	listTenants := tenant.NewListTenantsParams()
+	resp, err := d.Tenant.ListTenants(listTenants, nil)
 	if err != nil {
 		return response, err
 	}
@@ -37,9 +37,9 @@ func (d *Driver) TenantList() (*TenantListResponse, error) {
 // TenantGet return a Tenant
 func (d *Driver) TenantGet(TenantID string) (*TenantGetResponse, error) {
 	response := &TenantGetResponse{}
-	getTenant := operations.NewGetTenantParams()
+	getTenant := tenant.NewGetTenantParams()
 	getTenant.ID = TenantID
-	resp, err := d.Client.GetTenant(getTenant, nil)
+	resp, err := d.Tenant.GetTenant(getTenant, nil)
 	if err != nil {
 		return response, err
 	}

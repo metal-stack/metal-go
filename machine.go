@@ -1,7 +1,7 @@
 package metalgo
 
 import (
-	"github.com/metal-stack/metal-go/client/operations"
+	"github.com/metal-stack/metal-go/client/machine"
 	"github.com/metal-stack/metal-go/models"
 )
 
@@ -92,6 +92,18 @@ type MachineFindRequest struct {
 	FruProductManufacturer *string
 	FruProductPartNumber   *string
 	FruProductSerial       *string
+}
+
+// MachineUpdateFirmwareResponse contains the firmware update result
+type MachineUpdateFirmwareResponse struct {
+	Kind    FirmwareKind
+	Machine *models.V1MachineResponse
+}
+
+// MachineFirmwareResponse contains the machine firmware result
+type MachineFirmwareResponse struct {
+	Kind    FirmwareKind
+	Machine *models.V1MachineResponse
 }
 
 // MachineAllocationNetwork contains configuration for machine networks
@@ -209,10 +221,10 @@ func (d *Driver) MachineCreate(mcr *MachineCreateRequest) (*MachineCreateRespons
 		Networks:           mcr.translateNetworks(),
 		Ips:                mcr.IPs,
 	}
-	allocMachine := operations.NewAllocateMachineParams()
+	allocMachine := machine.NewAllocateMachineParams()
 	allocMachine.SetBody(allocateRequest)
 
-	resp, err := d.Client.AllocateMachine(allocMachine, nil)
+	resp, err := d.Machine.AllocateMachine(allocMachine, nil)
 	if err != nil {
 		return response, err
 	}
@@ -236,7 +248,7 @@ func (d *Driver) MachineUpdate(mur *MachineUpdateRequest) (*MachineUpdateRespons
 	params := machine.NewUpdateMachineParams().WithBody(body)
 
 	response := &MachineUpdateResponse{}
-	resp, err := d.machine.UpdateMachine(params, nil)
+	resp, err := d.Machine.UpdateMachine(params, nil)
 	if err != nil {
 		return response, err
 	}
@@ -246,11 +258,11 @@ func (d *Driver) MachineUpdate(mur *MachineUpdateRequest) (*MachineUpdateRespons
 
 // MachineDelete deletes a single metal machine
 func (d *Driver) MachineDelete(machineID string) (*MachineDeleteResponse, error) {
-	freeMachine := operations.NewFreeMachineParams()
+	freeMachine := machine.NewFreeMachineParams()
 	freeMachine.ID = machineID
 
 	response := &MachineDeleteResponse{}
-	resp, err := d.Client.FreeMachine(freeMachine, nil)
+	resp, err := d.Machine.FreeMachine(freeMachine, nil)
 	if err != nil {
 		return response, err
 	}
@@ -260,10 +272,10 @@ func (d *Driver) MachineDelete(machineID string) (*MachineDeleteResponse, error)
 
 // MachineDeleteFromDatabase deletes a single metal machine from the database
 func (d *Driver) MachineDeleteFromDatabase(machineID string) (*MachineDeleteResponse, error) {
-	p := operations.NewDeleteMachineParams().WithID(machineID)
+	p := machine.NewDeleteMachineParams().WithID(machineID)
 
 	response := &MachineDeleteResponse{}
-	resp, err := d.Client.DeleteMachine(p, nil)
+	resp, err := d.Machine.DeleteMachine(p, nil)
 	if err != nil {
 		return response, err
 	}
@@ -273,11 +285,11 @@ func (d *Driver) MachineDeleteFromDatabase(machineID string) (*MachineDeleteResp
 
 // MachineGet returns the machine with the given ID
 func (d *Driver) MachineGet(id string) (*MachineGetResponse, error) {
-	findMachine := operations.NewFindMachineParams()
+	findMachine := machine.NewFindMachineParams()
 	findMachine.ID = id
 
 	response := &MachineGetResponse{}
-	resp, err := d.Client.FindMachine(findMachine, nil)
+	resp, err := d.Machine.FindMachine(findMachine, nil)
 	if err != nil {
 		return response, err
 	}
@@ -288,13 +300,13 @@ func (d *Driver) MachineGet(id string) (*MachineGetResponse, error) {
 
 // MachineConsolePassword returns the consolepassword of the machine
 func (d *Driver) MachineConsolePassword(id, reason string) (*models.V1MachineConsolePasswordResponse, error) {
-	cp := operations.NewGetMachineConsolePasswordParams()
+	cp := machine.NewGetMachineConsolePasswordParams()
 	cp.Body = &models.V1MachineConsolePasswordRequest{
 		ID:     &id,
 		Reason: &reason,
 	}
 
-	resp, err := d.Client.GetMachineConsolePassword(cp, nil)
+	resp, err := d.Machine.GetMachineConsolePassword(cp, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -303,9 +315,9 @@ func (d *Driver) MachineConsolePassword(id, reason string) (*models.V1MachineCon
 
 // MachineList lists all machines
 func (d *Driver) MachineList() (*MachineListResponse, error) {
-	listMachines := operations.NewListMachinesParams()
+	listMachines := machine.NewListMachinesParams()
 	response := &MachineListResponse{}
-	resp, err := d.Client.ListMachines(listMachines, nil)
+	resp, err := d.Machine.ListMachines(listMachines, nil)
 	if err != nil {
 		return response, err
 	}
@@ -322,9 +334,9 @@ func (d *Driver) MachineFind(mfr *MachineFindRequest) (*MachineListResponse, err
 
 	response := &MachineListResponse{}
 	var err error
-	var resp *operations.FindMachinesOK
+	var resp *machine.FindMachinesOK
 
-	findMachines := operations.NewFindMachinesParams()
+	findMachines := machine.NewFindMachinesParams()
 	req := &models.V1MachineFindRequest{
 		ID:                         StrDeref(mfr.ID),
 		Name:                       StrDeref(mfr.Name),
@@ -373,7 +385,7 @@ func (d *Driver) MachineFind(mfr *MachineFindRequest) (*MachineListResponse, err
 	}
 	findMachines.SetBody(req)
 
-	resp, err = d.Client.FindMachines(findMachines, nil)
+	resp, err = d.Machine.FindMachines(findMachines, nil)
 	if err != nil {
 		return response, err
 	}
@@ -384,10 +396,10 @@ func (d *Driver) MachineFind(mfr *MachineFindRequest) (*MachineListResponse, err
 
 // MachineIPMIGet returns the machine with the given ID including IPMI data
 func (d *Driver) MachineIPMIGet(id string) (*MachineIPMIGetResponse, error) {
-	findMachine := operations.NewFindIPMIMachineParams().WithID(id)
+	findMachine := machine.NewFindIPMIMachineParams().WithID(id)
 
 	response := &MachineIPMIGetResponse{}
-	resp, err := d.Client.FindIPMIMachine(findMachine, nil)
+	resp, err := d.Machine.FindIPMIMachine(findMachine, nil)
 	if err != nil {
 		return response, err
 	}
@@ -400,7 +412,7 @@ func (d *Driver) MachineIPMIGet(id string) (*MachineIPMIGetResponse, error) {
 func (d *Driver) MachineIPMIList(mfr *MachineFindRequest) (*MachineIPMIListResponse, error) {
 	response := &MachineIPMIListResponse{}
 
-	findMachines := operations.NewFindIPMIMachinesParams()
+	findMachines := machine.NewFindIPMIMachinesParams()
 	req := &models.V1MachineFindRequest{
 		ID:                         StrDeref(mfr.ID),
 		Name:                       StrDeref(mfr.Name),
@@ -449,7 +461,7 @@ func (d *Driver) MachineIPMIList(mfr *MachineFindRequest) (*MachineIPMIListRespo
 	}
 	findMachines.SetBody(req)
 
-	resp, err := d.Client.FindIPMIMachines(findMachines, nil)
+	resp, err := d.Machine.FindIPMIMachines(findMachines, nil)
 	if err != nil {
 		return response, err
 	}
@@ -460,9 +472,9 @@ func (d *Driver) MachineIPMIList(mfr *MachineFindRequest) (*MachineIPMIListRespo
 
 // MachineIPMIReport send leases of this partition to the metal-api
 func (d *Driver) MachineIPMIReport(report MachineIPMIReports) (*MachineIPMIReportResponse, error) {
-	params := operations.NewIpmiReportParams()
+	params := machine.NewIpmiReportParams()
 	params.SetBody(report.Reports)
-	ok, err := d.Client.IpmiReport(params, nil)
+	ok, err := d.Machine.IpmiReport(params, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -473,12 +485,12 @@ func (d *Driver) MachineIPMIReport(report MachineIPMIReports) (*MachineIPMIRepor
 
 // MachinePowerOn powers on the given machine
 func (d *Driver) MachinePowerOn(machineID string) (*MachinePowerResponse, error) {
-	machineOn := operations.NewMachineOnParams()
+	machineOn := machine.NewMachineOnParams()
 	machineOn.ID = machineID
 	machineOn.Body = []string{}
 
 	response := &MachinePowerResponse{}
-	resp, err := d.Client.MachineOn(machineOn, nil)
+	resp, err := d.Machine.MachineOn(machineOn, nil)
 	if err != nil {
 		return response, err
 	}
@@ -488,12 +500,12 @@ func (d *Driver) MachinePowerOn(machineID string) (*MachinePowerResponse, error)
 
 // MachinePowerOff powers off the given machine
 func (d *Driver) MachinePowerOff(machineID string) (*MachinePowerResponse, error) {
-	machineOff := operations.NewMachineOffParams()
+	machineOff := machine.NewMachineOffParams()
 	machineOff.ID = machineID
 	machineOff.Body = []string{}
 
 	response := &MachinePowerResponse{}
-	resp, err := d.Client.MachineOff(machineOff, nil)
+	resp, err := d.Machine.MachineOff(machineOff, nil)
 	if err != nil {
 		return response, err
 	}
@@ -503,12 +515,12 @@ func (d *Driver) MachinePowerOff(machineID string) (*MachinePowerResponse, error
 
 // MachinePowerReset power-resets the given machine
 func (d *Driver) MachinePowerReset(machineID string) (*MachinePowerResponse, error) {
-	machineReset := operations.NewMachineResetParams()
+	machineReset := machine.NewMachineResetParams()
 	machineReset.ID = machineID
 	machineReset.Body = []string{}
 
 	response := &MachinePowerResponse{}
-	resp, err := d.Client.MachineReset(machineReset, nil)
+	resp, err := d.Machine.MachineReset(machineReset, nil)
 	if err != nil {
 		return response, err
 	}
@@ -518,12 +530,12 @@ func (d *Driver) MachinePowerReset(machineID string) (*MachinePowerResponse, err
 
 // MachinePowerCycle power-cycles the given machine
 func (d *Driver) MachinePowerCycle(machineID string) (*MachinePowerResponse, error) {
-	machineCycle := operations.NewMachineCycleParams()
+	machineCycle := machine.NewMachineCycleParams()
 	machineCycle.ID = machineID
 	machineCycle.Body = []string{}
 
 	response := &MachinePowerResponse{}
-	resp, err := d.Client.MachineCycle(machineCycle, nil)
+	resp, err := d.Machine.MachineCycle(machineCycle, nil)
 	if err != nil {
 		return response, err
 	}
@@ -533,12 +545,12 @@ func (d *Driver) MachinePowerCycle(machineID string) (*MachinePowerResponse, err
 
 // MachineBootBios boots given machine into BIOS
 func (d *Driver) MachineBootBios(machineID string) (*MachineFirmwareResponse, error) {
-	machineBios := operations.NewMachineBiosParams()
+	machineBios := machine.NewMachineBiosParams()
 	machineBios.ID = machineID
 	machineBios.Body = []string{}
 
 	response := &MachineFirmwareResponse{}
-	resp, err := d.Client.MachineBios(machineBios, nil)
+	resp, err := d.Machine.MachineBios(machineBios, nil)
 	if err != nil {
 		return response, err
 	}
@@ -548,12 +560,12 @@ func (d *Driver) MachineBootBios(machineID string) (*MachineFirmwareResponse, er
 
 // MachineBootDisk boots given machine from disk
 func (d *Driver) MachineBootDisk(machineID string) (*MachineDiskResponse, error) {
-	machineDisk := operations.NewMachineDiskParams()
+	machineDisk := machine.NewMachineDiskParams()
 	machineDisk.ID = machineID
 	machineDisk.Body = []string{}
 
 	response := &MachineDiskResponse{}
-	resp, err := d.Client.MachineDisk(machineDisk, nil)
+	resp, err := d.Machine.MachineDisk(machineDisk, nil)
 	if err != nil {
 		return response, err
 	}
@@ -563,12 +575,12 @@ func (d *Driver) MachineBootDisk(machineID string) (*MachineDiskResponse, error)
 
 // MachineBootPxe boots given machine from PXE
 func (d *Driver) MachineBootPxe(machineID string) (*MachinePxeResponse, error) {
-	machinePxe := operations.NewMachinePxeParams()
+	machinePxe := machine.NewMachinePxeParams()
 	machinePxe.ID = machineID
 	machinePxe.Body = []string{}
 
 	response := &MachinePxeResponse{}
-	resp, err := d.Client.MachinePxe(machinePxe, nil)
+	resp, err := d.Machine.MachinePxe(machinePxe, nil)
 	if err != nil {
 		return response, err
 	}
@@ -602,12 +614,12 @@ func (d *Driver) MachineReinstall(machineID, imageID, description string) (*Mach
 		Imageid:     &imageID,
 		Description: description,
 	}
-	machineReinstall := operations.NewReinstallMachineParams()
+	machineReinstall := machine.NewReinstallMachineParams()
 	machineReinstall.ID = machineID
 	machineReinstall.Body = request
 
 	response := &MachineGetResponse{}
-	resp, err := d.Client.ReinstallMachine(machineReinstall, nil)
+	resp, err := d.Machine.ReinstallMachine(machineReinstall, nil)
 	if err != nil {
 		return response, err
 	}
@@ -616,7 +628,7 @@ func (d *Driver) MachineReinstall(machineID, imageID, description string) (*Mach
 }
 
 func (d *Driver) machineState(machineID, state, description string) (*MachineStateResponse, error) {
-	machineState := operations.NewSetMachineStateParams()
+	machineState := machine.NewSetMachineStateParams()
 	machineState.ID = machineID
 	machineState.Body = &models.V1MachineState{
 		Value:       &state,
@@ -624,7 +636,7 @@ func (d *Driver) machineState(machineID, state, description string) (*MachineSta
 	}
 
 	response := &MachineStateResponse{}
-	resp, err := d.Client.SetMachineState(machineState, nil)
+	resp, err := d.Machine.SetMachineState(machineState, nil)
 	if err != nil {
 		return response, err
 	}
@@ -634,13 +646,13 @@ func (d *Driver) machineState(machineID, state, description string) (*MachineSta
 
 // ChassisIdentifyLEDPowerOn powers on the given machine
 func (d *Driver) ChassisIdentifyLEDPowerOn(machineID, description string) (*ChassisIdentifyLEDPowerResponse, error) {
-	machineLedOn := operations.NewChassisIdentifyLEDOnParams()
+	machineLedOn := machine.NewChassisIdentifyLEDOnParams()
 	machineLedOn.ID = machineID
 	machineLedOn.Description = &description
 	machineLedOn.Body = []string{}
 
 	response := &ChassisIdentifyLEDPowerResponse{}
-	resp, err := d.Client.ChassisIdentifyLEDOn(machineLedOn, nil)
+	resp, err := d.Machine.ChassisIdentifyLEDOn(machineLedOn, nil)
 	if err != nil {
 		return response, err
 	}
@@ -650,13 +662,35 @@ func (d *Driver) ChassisIdentifyLEDPowerOn(machineID, description string) (*Chas
 
 // ChassisIdentifyLEDPowerOff powers off the given machine
 func (d *Driver) ChassisIdentifyLEDPowerOff(machineID, description string) (*ChassisIdentifyLEDPowerResponse, error) {
-	machineLedOff := operations.NewChassisIdentifyLEDOffParams()
+	machineLedOff := machine.NewChassisIdentifyLEDOffParams()
 	machineLedOff.ID = machineID
 	machineLedOff.Description = &description
 	machineLedOff.Body = []string{}
 
 	response := &ChassisIdentifyLEDPowerResponse{}
-	resp, err := d.Client.ChassisIdentifyLEDOff(machineLedOff, nil)
+	resp, err := d.Machine.ChassisIdentifyLEDOff(machineLedOff, nil)
+	if err != nil {
+		return response, err
+	}
+	response.Machine = resp.Payload
+	return response, nil
+}
+
+// MachineUpdateFirmware updates given firmware of given machine
+func (d *Driver) UpdateFirmware(kind FirmwareKind, machineID, revision, description string) (*MachineUpdateFirmwareResponse, error) {
+	updateFirmware := machine.NewUpdateFirmwareParams()
+	updateFirmware.ID = machineID
+	k := string(kind)
+	updateFirmware.Body = &models.V1MachineUpdateFirmwareRequest{
+		Kind:        &k,
+		Revision:    &revision,
+		Description: &description,
+	}
+
+	response := &MachineUpdateFirmwareResponse{
+		Kind: kind,
+	}
+	resp, err := d.Machine.UpdateFirmware(updateFirmware, nil)
 	if err != nil {
 		return response, err
 	}

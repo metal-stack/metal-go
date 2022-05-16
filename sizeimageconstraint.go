@@ -1,8 +1,8 @@
 package metalgo
 
 import (
-	"github.com/metal-stack/metal-go/api/client/sizeimageconstraint"
-	"github.com/metal-stack/metal-go/api/models"
+	"github.com/metal-stack/metal-go/client/sizeimageconstraint"
+	"github.com/metal-stack/metal-go/models"
 )
 
 // TrySizeImageConstraint try if size and image can be used for a allocation
@@ -13,7 +13,7 @@ func (d *Driver) TrySizeImageConstraint(size, image string) error {
 		Image: &image,
 	})
 
-	_, err := d.client.Sizeimageconstraint.TrySizeImageConstraint(params, nil)
+	_, err := d.Sizeimageconstraint.TrySizeImageConstraint(params, nil)
 	if err != nil {
 		return err
 	}

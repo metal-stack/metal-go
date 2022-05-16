@@ -9,7 +9,23 @@ import (
 	"github.com/go-openapi/runtime"
 	httptransport "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
-	"github.com/metal-stack/metal-go/client/operations"
+
+	"github.com/metal-stack/metal-go/client/filesystemlayout"
+	"github.com/metal-stack/metal-go/client/firewall"
+	"github.com/metal-stack/metal-go/client/firmware"
+	"github.com/metal-stack/metal-go/client/health"
+	"github.com/metal-stack/metal-go/client/image"
+	"github.com/metal-stack/metal-go/client/ip"
+	"github.com/metal-stack/metal-go/client/machine"
+	"github.com/metal-stack/metal-go/client/network"
+	"github.com/metal-stack/metal-go/client/partition"
+	"github.com/metal-stack/metal-go/client/project"
+	"github.com/metal-stack/metal-go/client/size"
+	"github.com/metal-stack/metal-go/client/sizeimageconstraint"
+	"github.com/metal-stack/metal-go/client/switch_operations"
+	"github.com/metal-stack/metal-go/client/tenant"
+	"github.com/metal-stack/metal-go/client/user"
+	"github.com/metal-stack/metal-go/client/version"
 )
 
 // Default metal API HTTP client.
@@ -54,7 +70,22 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *MetalAPI {
 
 	cli := new(MetalAPI)
 	cli.Transport = transport
-	cli.Operations = operations.New(transport, formats)
+	cli.Filesystemlayout = filesystemlayout.New(transport, formats)
+	cli.Firewall = firewall.New(transport, formats)
+	cli.Firmware = firmware.New(transport, formats)
+	cli.Health = health.New(transport, formats)
+	cli.Image = image.New(transport, formats)
+	cli.IP = ip.New(transport, formats)
+	cli.Machine = machine.New(transport, formats)
+	cli.Network = network.New(transport, formats)
+	cli.Partition = partition.New(transport, formats)
+	cli.Project = project.New(transport, formats)
+	cli.Size = size.New(transport, formats)
+	cli.Sizeimageconstraint = sizeimageconstraint.New(transport, formats)
+	cli.SwitchOperations = switch_operations.New(transport, formats)
+	cli.Tenant = tenant.New(transport, formats)
+	cli.User = user.New(transport, formats)
+	cli.Version = version.New(transport, formats)
 	return cli
 }
 
@@ -99,7 +130,37 @@ func (cfg *TransportConfig) WithSchemes(schemes []string) *TransportConfig {
 
 // MetalAPI is a client for metal API
 type MetalAPI struct {
-	Operations operations.ClientService
+	Filesystemlayout filesystemlayout.ClientService
+
+	Firewall firewall.ClientService
+
+	Firmware firmware.ClientService
+
+	Health health.ClientService
+
+	Image image.ClientService
+
+	IP ip.ClientService
+
+	Machine machine.ClientService
+
+	Network network.ClientService
+
+	Partition partition.ClientService
+
+	Project project.ClientService
+
+	Size size.ClientService
+
+	Sizeimageconstraint sizeimageconstraint.ClientService
+
+	SwitchOperations switch_operations.ClientService
+
+	Tenant tenant.ClientService
+
+	User user.ClientService
+
+	Version version.ClientService
 
 	Transport runtime.ClientTransport
 }
@@ -107,5 +168,20 @@ type MetalAPI struct {
 // SetTransport changes the transport on the client and all its subresources
 func (c *MetalAPI) SetTransport(transport runtime.ClientTransport) {
 	c.Transport = transport
-	c.Operations.SetTransport(transport)
+	c.Filesystemlayout.SetTransport(transport)
+	c.Firewall.SetTransport(transport)
+	c.Firmware.SetTransport(transport)
+	c.Health.SetTransport(transport)
+	c.Image.SetTransport(transport)
+	c.IP.SetTransport(transport)
+	c.Machine.SetTransport(transport)
+	c.Network.SetTransport(transport)
+	c.Partition.SetTransport(transport)
+	c.Project.SetTransport(transport)
+	c.Size.SetTransport(transport)
+	c.Sizeimageconstraint.SetTransport(transport)
+	c.SwitchOperations.SetTransport(transport)
+	c.Tenant.SetTransport(transport)
+	c.User.SetTransport(transport)
+	c.Version.SetTransport(transport)
 }

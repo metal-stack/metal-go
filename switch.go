@@ -1,7 +1,7 @@
 package metalgo
 
 import (
-	"github.com/metal-stack/metal-go/client/operations"
+	sw "github.com/metal-stack/metal-go/client/switch_operations"
 	"github.com/metal-stack/metal-go/models"
 )
 
@@ -27,8 +27,8 @@ type SwitchUpdateRequest struct {
 // SwitchList return all switches
 func (d *Driver) SwitchList() (*SwitchListResponse, error) {
 	response := &SwitchListResponse{}
-	listSwitchs := operations.NewListSwitchesParams()
-	resp, err := d.Client.ListSwitches(listSwitchs, nil)
+	listSwitchs := sw.NewListSwitchesParams()
+	resp, err := d.SwitchOperations.ListSwitches(listSwitchs, nil)
 	if err != nil {
 		return response, err
 	}
@@ -39,9 +39,9 @@ func (d *Driver) SwitchList() (*SwitchListResponse, error) {
 // SwitchGet return a switch
 func (d *Driver) SwitchGet(switchID string) (*SwitchGetResponse, error) {
 	response := &SwitchGetResponse{}
-	get := operations.NewFindSwitchParams()
+	get := sw.NewFindSwitchParams()
 	get.ID = switchID
-	resp, err := d.Client.FindSwitch(get, nil)
+	resp, err := d.SwitchOperations.FindSwitch(get, nil)
 	if err != nil {
 		return response, err
 	}
@@ -59,9 +59,9 @@ func (d *Driver) SwitchUpdate(sur SwitchUpdateRequest) (*SwitchGetResponse, erro
 		RackID:      &sur.RackID,
 		Mode:        sur.Mode,
 	}
-	request := operations.NewUpdateSwitchParams()
+	request := sw.NewUpdateSwitchParams()
 	request.SetBody(updateSwitch)
-	resp, err := d.Client.UpdateSwitch(request, nil)
+	resp, err := d.SwitchOperations.UpdateSwitch(request, nil)
 	if err != nil {
 		return response, err
 	}
