@@ -77,6 +77,8 @@ func (m *V1Disk) validatePartitions(formats strfmt.Registry) error {
 			if err := m.Partitions[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("partitions" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("partitions" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -118,6 +120,8 @@ func (m *V1Disk) contextValidatePartitions(ctx context.Context, formats strfmt.R
 			if err := m.Partitions[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("partitions" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("partitions" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

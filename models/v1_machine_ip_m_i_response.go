@@ -162,6 +162,8 @@ func (m *V1MachineIPMIResponse) validateAllocation(formats strfmt.Registry) erro
 		if err := m.Allocation.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("allocation")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("allocation")
 			}
 			return err
 		}
@@ -180,6 +182,8 @@ func (m *V1MachineIPMIResponse) validateBios(formats strfmt.Registry) error {
 		if err := m.Bios.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("bios")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("bios")
 			}
 			return err
 		}
@@ -222,6 +226,8 @@ func (m *V1MachineIPMIResponse) validateEvents(formats strfmt.Registry) error {
 		if err := m.Events.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("events")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("events")
 			}
 			return err
 		}
@@ -240,6 +246,8 @@ func (m *V1MachineIPMIResponse) validateHardware(formats strfmt.Registry) error 
 		if err := m.Hardware.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("hardware")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("hardware")
 			}
 			return err
 		}
@@ -267,6 +275,8 @@ func (m *V1MachineIPMIResponse) validateIpmi(formats strfmt.Registry) error {
 		if err := m.Ipmi.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("ipmi")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("ipmi")
 			}
 			return err
 		}
@@ -285,6 +295,8 @@ func (m *V1MachineIPMIResponse) validateLedstate(formats strfmt.Registry) error 
 		if err := m.Ledstate.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("ledstate")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("ledstate")
 			}
 			return err
 		}
@@ -311,6 +323,8 @@ func (m *V1MachineIPMIResponse) validatePartition(formats strfmt.Registry) error
 		if err := m.Partition.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("partition")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("partition")
 			}
 			return err
 		}
@@ -328,6 +342,8 @@ func (m *V1MachineIPMIResponse) validateSize(formats strfmt.Registry) error {
 		if err := m.Size.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("size")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("size")
 			}
 			return err
 		}
@@ -346,6 +362,8 @@ func (m *V1MachineIPMIResponse) validateState(formats strfmt.Registry) error {
 		if err := m.State.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("state")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("state")
 			}
 			return err
 		}
@@ -427,6 +445,8 @@ func (m *V1MachineIPMIResponse) contextValidateAllocation(ctx context.Context, f
 		if err := m.Allocation.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("allocation")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("allocation")
 			}
 			return err
 		}
@@ -441,6 +461,8 @@ func (m *V1MachineIPMIResponse) contextValidateBios(ctx context.Context, formats
 		if err := m.Bios.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("bios")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("bios")
 			}
 			return err
 		}
@@ -473,6 +495,8 @@ func (m *V1MachineIPMIResponse) contextValidateEvents(ctx context.Context, forma
 		if err := m.Events.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("events")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("events")
 			}
 			return err
 		}
@@ -487,6 +511,8 @@ func (m *V1MachineIPMIResponse) contextValidateHardware(ctx context.Context, for
 		if err := m.Hardware.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("hardware")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("hardware")
 			}
 			return err
 		}
@@ -501,6 +527,8 @@ func (m *V1MachineIPMIResponse) contextValidateIpmi(ctx context.Context, formats
 		if err := m.Ipmi.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("ipmi")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("ipmi")
 			}
 			return err
 		}
@@ -515,6 +543,8 @@ func (m *V1MachineIPMIResponse) contextValidateLedstate(ctx context.Context, for
 		if err := m.Ledstate.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("ledstate")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("ledstate")
 			}
 			return err
 		}
@@ -529,6 +559,8 @@ func (m *V1MachineIPMIResponse) contextValidatePartition(ctx context.Context, fo
 		if err := m.Partition.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("partition")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("partition")
 			}
 			return err
 		}
@@ -552,6 +584,8 @@ func (m *V1MachineIPMIResponse) contextValidateSize(ctx context.Context, formats
 		if err := m.Size.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("size")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("size")
 			}
 			return err
 		}
@@ -566,6 +600,8 @@ func (m *V1MachineIPMIResponse) contextValidateState(ctx context.Context, format
 		if err := m.State.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("state")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("state")
 			}
 			return err
 		}

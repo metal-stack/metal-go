@@ -52,6 +52,8 @@ func (m *V1IAMConfig) validateIdmConfig(formats strfmt.Registry) error {
 		if err := m.IdmConfig.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("idm_config")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("idm_config")
 			}
 			return err
 		}
@@ -69,6 +71,8 @@ func (m *V1IAMConfig) validateIssuerConfig(formats strfmt.Registry) error {
 		if err := m.IssuerConfig.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("issuer_config")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("issuer_config")
 			}
 			return err
 		}
@@ -101,6 +105,8 @@ func (m *V1IAMConfig) contextValidateIdmConfig(ctx context.Context, formats strf
 		if err := m.IdmConfig.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("idm_config")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("idm_config")
 			}
 			return err
 		}
@@ -115,6 +121,8 @@ func (m *V1IAMConfig) contextValidateIssuerConfig(ctx context.Context, formats s
 		if err := m.IssuerConfig.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("issuer_config")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("issuer_config")
 			}
 			return err
 		}

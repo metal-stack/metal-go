@@ -51,6 +51,8 @@ func (m *V1SwitchConnection) validateNic(formats strfmt.Registry) error {
 		if err := m.Nic.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("nic")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("nic")
 			}
 			return err
 		}
@@ -79,6 +81,8 @@ func (m *V1SwitchConnection) contextValidateNic(ctx context.Context, formats str
 		if err := m.Nic.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("nic")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("nic")
 			}
 			return err
 		}

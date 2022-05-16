@@ -38,8 +38,8 @@ type SizeTryResponse struct {
 // SizeList return all machine sizes
 func (d *Driver) SizeList() (*SizeListResponse, error) {
 	response := &SizeListResponse{}
-	listSizes := operations.NewListSizesParams()
-	resp, err := d.Client.ListSizes(listSizes, nil)
+	listSizes := size.NewListSizesParams()
+	resp, err := d.Size.ListSizes(listSizes, nil)
 	if err != nil {
 		return response, err
 	}
@@ -52,7 +52,7 @@ func (d *Driver) SizeGet(sizeID string) (*SizeGetResponse, error) {
 	response := &SizeGetResponse{}
 	request := operations.NewFindSizeParams()
 	request.ID = sizeID
-	resp, err := d.Client.FindSize(request, nil)
+	resp, err := d.Size.FindSize(request, nil)
 	if err != nil {
 		return response, err
 	}
@@ -80,7 +80,7 @@ func (d *Driver) SizeTry(cores int32, memory, storage uint64) (*SizeTryResponse,
 	trySize := operations.NewFromHardwareParams()
 	trySize.Body = hardware
 
-	resp, err := d.Client.FromHardware(trySize, nil)
+	resp, err := d.Size.FromHardware(trySize, nil)
 	if err == nil {
 		response.Logs = []*models.V1SizeMatchingLog{resp.Payload}
 	} else {
@@ -108,7 +108,7 @@ func (d *Driver) SizeCreate(pcr SizeCreateRequest) (*SizeCreateResponse, error) 
 	}
 	request := operations.NewCreateSizeParams()
 	request.SetBody(createSize)
-	resp, err := d.Client.CreateSize(request, nil)
+	resp, err := d.Size.CreateSize(request, nil)
 	if err != nil {
 		return response, err
 	}
@@ -128,7 +128,7 @@ func (d *Driver) SizeUpdate(pcr SizeCreateRequest) (*SizeCreateResponse, error) 
 	}
 	request := operations.NewUpdateSizeParams()
 	request.SetBody(updateSize)
-	resp, err := d.Client.UpdateSize(request, nil)
+	resp, err := d.Size.UpdateSize(request, nil)
 	if err != nil {
 		return response, err
 	}
@@ -141,7 +141,7 @@ func (d *Driver) SizeDelete(sizeID string) (*SizeGetResponse, error) {
 	response := &SizeGetResponse{}
 	request := operations.NewDeleteSizeParams()
 	request.ID = sizeID
-	resp, err := d.Client.DeleteSize(request, nil)
+	resp, err := d.Size.DeleteSize(request, nil)
 	if err != nil {
 		return response, err
 	}
