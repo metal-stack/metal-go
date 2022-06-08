@@ -71,7 +71,8 @@ func AuthType(authType string) option {
 }
 
 // NewDriver Create a new Driver for Metal to given url. Either bearer OR hmacKey must be set.
-func NewDriver(baseURL, bearer, hmacKey string, options ...option) (*Driver, Client, error) {
+// The returned *Driver will be deprecated at some point in time, please migrate to use the Client interface instead.
+func NewDriver(baseURL, bearer, hmacKey string, options ...option) (Client, *Driver, error) {
 	parsedURL, err := url.Parse(baseURL)
 	if err != nil {
 		return nil, nil, err
@@ -100,6 +101,8 @@ func NewDriver(baseURL, bearer, hmacKey string, options ...option) (*Driver, Cli
 
 	transport.DefaultAuthentication = runtime.ClientAuthInfoWriterFunc(driver.auther)
 
+	// TODO: remove *Driver return at some point in the future in order to get rid off the handwritten wrappers
+	// see: https://github.com/metal-stack/metal-go/issues/33
 	return driver, driver, nil
 }
 
