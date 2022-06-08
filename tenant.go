@@ -26,7 +26,7 @@ type TenantFindRequest struct {
 func (d *Driver) TenantList() (*TenantListResponse, error) {
 	response := &TenantListResponse{}
 	listTenants := tenant.NewListTenantsParams()
-	resp, err := d.Tenant.ListTenants(listTenants, nil)
+	resp, err := d.Tenant().ListTenants(listTenants, nil)
 	if err != nil {
 		return response, err
 	}
@@ -39,7 +39,7 @@ func (d *Driver) TenantGet(TenantID string) (*TenantGetResponse, error) {
 	response := &TenantGetResponse{}
 	getTenant := tenant.NewGetTenantParams()
 	getTenant.ID = TenantID
-	resp, err := d.Tenant.GetTenant(getTenant, nil)
+	resp, err := d.Tenant().GetTenant(getTenant, nil)
 	if err != nil {
 		return response, err
 	}

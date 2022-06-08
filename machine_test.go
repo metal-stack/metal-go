@@ -73,7 +73,7 @@ func startServerAndGetDriver() (*http.Server, *Driver) {
 	port := listener.Addr().(*net.TCPAddr).Port
 	addr := fmt.Sprintf("http://localhost:%d", port)
 
-	driver, _ := NewDriver(addr, "", "")
+	driver, _, _ := NewDriver(addr, "", "")
 
 	return server, driver
 }

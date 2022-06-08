@@ -28,7 +28,7 @@ func (d *Driver) UploadFirmware(kind FirmwareKind, vendor, board, revision, file
 	}
 	uploadFirmware.File = runtime.NamedReader(revision, reader)
 
-	return d.Firmware.UploadFirmware(uploadFirmware, nil)
+	return d.Firmware().UploadFirmware(uploadFirmware, nil)
 }
 
 // RemoveFirmware removes the given firmware revision of the given vendor and board
@@ -39,7 +39,7 @@ func (d *Driver) RemoveFirmware(kind FirmwareKind, vendor, board, revision strin
 	removeFirmware.Board = board
 	removeFirmware.Revision = revision
 
-	return d.Firmware.RemoveFirmware(removeFirmware, nil)
+	return d.Firmware().RemoveFirmware(removeFirmware, nil)
 }
 
 // ListFirmwares returns all firmwares of given kind that matches given vendor and board (if not empty).
@@ -61,7 +61,7 @@ func (d *Driver) listFirmwares(kind FirmwareKind, vendor, board string, machineI
 	availableFirmwares.MachineID = machineID
 
 	response := new(FirmwaresResponse)
-	resp, err := d.Firmware.ListFirmwares(availableFirmwares, nil)
+	resp, err := d.Firmware().ListFirmwares(availableFirmwares, nil)
 	if err != nil {
 		return response, err
 	}

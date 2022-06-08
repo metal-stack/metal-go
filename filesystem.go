@@ -8,7 +8,7 @@ import (
 // FilesystemLayoutList return all machine filesystemlayouts
 func (d *Driver) FilesystemLayoutList() ([]*models.V1FilesystemLayoutResponse, error) {
 	listFilesystemLayouts := filesystemlayout.NewListFilesystemLayoutsParams()
-	resp, err := d.Filesystemlayout.ListFilesystemLayouts(listFilesystemLayouts, nil)
+	resp, err := d.Filesystemlayout().ListFilesystemLayouts(listFilesystemLayouts, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -19,7 +19,7 @@ func (d *Driver) FilesystemLayoutList() ([]*models.V1FilesystemLayoutResponse, e
 func (d *Driver) FilesystemLayoutGet(filesystemlayoutID string) (*models.V1FilesystemLayoutResponse, error) {
 	request := filesystemlayout.NewGetFilesystemLayoutParams()
 	request.ID = filesystemlayoutID
-	resp, err := d.Filesystemlayout.GetFilesystemLayout(request, nil)
+	resp, err := d.Filesystemlayout().GetFilesystemLayout(request, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -30,7 +30,7 @@ func (d *Driver) FilesystemLayoutGet(filesystemlayoutID string) (*models.V1Files
 func (d *Driver) FilesystemLayoutCreate(fcr models.V1FilesystemLayoutCreateRequest) (*models.V1FilesystemLayoutResponse, error) {
 	request := filesystemlayout.NewCreateFilesystemLayoutParams()
 	request.SetBody(&fcr)
-	resp, err := d.Filesystemlayout.CreateFilesystemLayout(request, nil)
+	resp, err := d.Filesystemlayout().CreateFilesystemLayout(request, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -41,7 +41,7 @@ func (d *Driver) FilesystemLayoutCreate(fcr models.V1FilesystemLayoutCreateReque
 func (d *Driver) FilesystemLayoutUpdate(fur models.V1FilesystemLayoutUpdateRequest) (*models.V1FilesystemLayoutResponse, error) {
 	request := filesystemlayout.NewUpdateFilesystemLayoutParams()
 	request.SetBody(&fur)
-	resp, err := d.Filesystemlayout.UpdateFilesystemLayout(request, nil)
+	resp, err := d.Filesystemlayout().UpdateFilesystemLayout(request, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -52,7 +52,7 @@ func (d *Driver) FilesystemLayoutUpdate(fur models.V1FilesystemLayoutUpdateReque
 func (d *Driver) FilesystemLayoutDelete(filesystemlayoutID string) (*models.V1FilesystemLayoutResponse, error) {
 	request := filesystemlayout.NewDeleteFilesystemLayoutParams()
 	request.ID = filesystemlayoutID
-	resp, err := d.Filesystemlayout.DeleteFilesystemLayout(request, nil)
+	resp, err := d.Filesystemlayout().DeleteFilesystemLayout(request, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -63,7 +63,7 @@ func (d *Driver) FilesystemLayoutDelete(filesystemlayoutID string) (*models.V1Fi
 func (d *Driver) FilesystemLayoutTry(try models.V1FilesystemLayoutTryRequest) (*models.V1FilesystemLayoutResponse, error) {
 	request := filesystemlayout.NewTryFilesystemLayoutParams()
 	request.SetBody(&try)
-	resp, err := d.Filesystemlayout.TryFilesystemLayout(request, nil)
+	resp, err := d.Filesystemlayout().TryFilesystemLayout(request, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -74,7 +74,7 @@ func (d *Driver) FilesystemLayoutTry(try models.V1FilesystemLayoutTryRequest) (*
 func (d *Driver) FilesystemLayoutMatch(match models.V1FilesystemLayoutMatchRequest) (*models.V1FilesystemLayoutResponse, error) {
 	request := filesystemlayout.NewMatchFilesystemLayoutParams()
 	request.SetBody(&match)
-	resp, err := d.Filesystemlayout.MatchFilesystemLayout(request, nil)
+	resp, err := d.Filesystemlayout().MatchFilesystemLayout(request, nil)
 	if err != nil {
 		return nil, err
 	}
