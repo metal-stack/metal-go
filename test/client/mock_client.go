@@ -39,7 +39,6 @@ import (
 	usermocks "github.com/metal-stack/metal-go/test/mocks/user"
 	versionmocks "github.com/metal-stack/metal-go/test/mocks/version"
 
-	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 )
 
@@ -220,20 +219,20 @@ func (c *MetalMockClient) Version() version.ClientService {
 }
 
 func (c *MetalMockClient) AssertExpectations(t *testing.T) {
-	assert.True(t, c.filesystemlayout.AssertExpectations(t))
-	assert.True(t, c.firewall.AssertExpectations(t))
-	assert.True(t, c.firmware.AssertExpectations(t))
-	assert.True(t, c.health.AssertExpectations(t))
-	assert.True(t, c.image.AssertExpectations(t))
-	assert.True(t, c.ip.AssertExpectations(t))
-	assert.True(t, c.machine.AssertExpectations(t))
-	assert.True(t, c.network.AssertExpectations(t))
-	assert.True(t, c.partition.AssertExpectations(t))
-	assert.True(t, c.project.AssertExpectations(t))
-	assert.True(t, c.size.AssertExpectations(t))
-	assert.True(t, c.sizeimageconstraint.AssertExpectations(t))
-	assert.True(t, c.switchoperations.AssertExpectations(t))
-	assert.True(t, c.tenant.AssertExpectations(t))
-	assert.True(t, c.user.AssertExpectations(t))
-	assert.True(t, c.version.AssertExpectations(t))
+	_ = c.filesystemlayout.AssertExpectations(t)
+	_ = c.firewall.AssertExpectations(t)
+	_ = c.firmware.AssertExpectations(t)
+	_ = c.health.AssertExpectations(t)
+	_ = c.image.AssertExpectations(t)
+	_ = c.ip.AssertExpectations(t)
+	_ = c.machine.AssertExpectations(t)
+	_ = c.network.AssertExpectations(t)
+	_ = c.partition.AssertExpectations(t)
+	_ = c.project.AssertExpectations(t)
+	_ = c.size.AssertExpectations(t)
+	_ = c.sizeimageconstraint.AssertExpectations(t)
+	_ = c.switchoperations.AssertExpectations(t)
+	_ = c.tenant.AssertExpectations(t)
+	_ = c.user.AssertExpectations(t)
+	_ = c.version.AssertExpectations(t)
 }
