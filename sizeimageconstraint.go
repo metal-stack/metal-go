@@ -1,8 +1,8 @@
 package metalgo
 
 import (
-	"github.com/metal-stack/metal-go/client/sizeimageconstraint"
-	"github.com/metal-stack/metal-go/models"
+	"github.com/metal-stack/metal-go/api/client/sizeimageconstraint"
+	"github.com/metal-stack/metal-go/api/models"
 )
 
 // TrySizeImageConstraint try if size and image can be used for a allocation

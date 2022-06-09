@@ -3,7 +3,7 @@
 package firmware
 
 import (
-	clientfirmware "github.com/metal-stack/metal-go/client/firmware"
+	clientfirmware "github.com/metal-stack/metal-go/api/client/firmware"
 	mock "github.com/stretchr/testify/mock"
 
 	runtime "github.com/go-openapi/runtime"

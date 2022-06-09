@@ -3,7 +3,7 @@
 package size
 
 import (
-	clientsize "github.com/metal-stack/metal-go/client/size"
+	clientsize "github.com/metal-stack/metal-go/api/client/size"
 	mock "github.com/stretchr/testify/mock"
 
 	runtime "github.com/go-openapi/runtime"

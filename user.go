@@ -1,8 +1,8 @@
 package metalgo
 
 import (
-	"github.com/metal-stack/metal-go/client/user"
-	"github.com/metal-stack/metal-go/models"
+	"github.com/metal-stack/metal-go/api/client/user"
+	"github.com/metal-stack/metal-go/api/models"
 )
 
 // Me return the connecting User

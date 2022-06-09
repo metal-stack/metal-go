@@ -3,7 +3,7 @@
 package project
 
 import (
-	clientproject "github.com/metal-stack/metal-go/client/project"
+	clientproject "github.com/metal-stack/metal-go/api/client/project"
 	mock "github.com/stretchr/testify/mock"
 
 	runtime "github.com/go-openapi/runtime"

@@ -3,7 +3,7 @@
 package switch_operations
 
 import (
-	clientswitch_operations "github.com/metal-stack/metal-go/client/switch_operations"
+	clientswitch_operations "github.com/metal-stack/metal-go/api/client/switch_operations"
 	mock "github.com/stretchr/testify/mock"
 
 	runtime "github.com/go-openapi/runtime"

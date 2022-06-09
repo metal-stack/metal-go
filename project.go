@@ -2,8 +2,8 @@ package metalgo
 
 import (
 	v1 "github.com/metal-stack/masterdata-api/api/rest/v1"
-	"github.com/metal-stack/metal-go/client/project"
-	"github.com/metal-stack/metal-go/models"
+	"github.com/metal-stack/metal-go/api/client/project"
+	"github.com/metal-stack/metal-go/api/models"
 )
 
 // ProjectListResponse is the response of a ProjectList action

@@ -1,8 +1,8 @@
 package metalgo
 
 import (
-	"github.com/metal-stack/metal-go/client/filesystemlayout"
-	"github.com/metal-stack/metal-go/models"
+	"github.com/metal-stack/metal-go/api/client/filesystemlayout"
+	"github.com/metal-stack/metal-go/api/models"
 )
 
 // FilesystemLayoutList return all machine filesystemlayouts

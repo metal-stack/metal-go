@@ -3,7 +3,7 @@
 package network
 
 import (
-	clientnetwork "github.com/metal-stack/metal-go/client/network"
+	clientnetwork "github.com/metal-stack/metal-go/api/client/network"
 	mock "github.com/stretchr/testify/mock"
 
 	runtime "github.com/go-openapi/runtime"

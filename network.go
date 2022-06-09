@@ -3,9 +3,9 @@ package metalgo
 import (
 	"fmt"
 
-	"github.com/metal-stack/metal-go/client/ip"
-	"github.com/metal-stack/metal-go/client/network"
-	"github.com/metal-stack/metal-go/models"
+	"github.com/metal-stack/metal-go/api/client/ip"
+	"github.com/metal-stack/metal-go/api/client/network"
+	"github.com/metal-stack/metal-go/api/models"
 )
 
 const (

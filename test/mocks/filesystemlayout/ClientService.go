@@ -3,7 +3,7 @@
 package filesystemlayout
 
 import (
-	clientfilesystemlayout "github.com/metal-stack/metal-go/client/filesystemlayout"
+	clientfilesystemlayout "github.com/metal-stack/metal-go/api/client/filesystemlayout"
 	mock "github.com/stretchr/testify/mock"
 
 	runtime "github.com/go-openapi/runtime"

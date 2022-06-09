@@ -1,8 +1,8 @@
 package metalgo
 
 import (
-	"github.com/metal-stack/metal-go/client/tenant"
-	"github.com/metal-stack/metal-go/models"
+	"github.com/metal-stack/metal-go/api/client/tenant"
+	"github.com/metal-stack/metal-go/api/models"
 )
 
 // TenantListResponse is the response of a TenantList action

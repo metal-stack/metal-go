@@ -3,7 +3,7 @@
 package partition
 
 import (
-	clientpartition "github.com/metal-stack/metal-go/client/partition"
+	clientpartition "github.com/metal-stack/metal-go/api/client/partition"
 	mock "github.com/stretchr/testify/mock"
 
 	runtime "github.com/go-openapi/runtime"

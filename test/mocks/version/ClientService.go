@@ -3,7 +3,7 @@
 package version
 
 import (
-	clientversion "github.com/metal-stack/metal-go/client/version"
+	clientversion "github.com/metal-stack/metal-go/api/client/version"
 	mock "github.com/stretchr/testify/mock"
 
 	runtime "github.com/go-openapi/runtime"

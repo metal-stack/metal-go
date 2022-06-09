@@ -1,8 +1,8 @@
 package metalgo
 
 import (
-	"github.com/metal-stack/metal-go/client/machine"
-	"github.com/metal-stack/metal-go/models"
+	"github.com/metal-stack/metal-go/api/client/machine"
+	"github.com/metal-stack/metal-go/api/models"
 )
 
 // MachineCreateRequest contains data for a machine creation

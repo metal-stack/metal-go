@@ -3,7 +3,7 @@
 package user
 
 import (
-	clientuser "github.com/metal-stack/metal-go/client/user"
+	clientuser "github.com/metal-stack/metal-go/api/client/user"
 	mock "github.com/stretchr/testify/mock"
 
 	runtime "github.com/go-openapi/runtime"

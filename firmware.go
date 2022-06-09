@@ -6,8 +6,8 @@ import (
 
 	"github.com/go-openapi/runtime"
 
-	"github.com/metal-stack/metal-go/client/firmware"
-	"github.com/metal-stack/metal-go/models"
+	"github.com/metal-stack/metal-go/api/client/firmware"
+	"github.com/metal-stack/metal-go/api/models"
 )
 
 // FirmwaresResponse contains all firmwares matching the requested parameters

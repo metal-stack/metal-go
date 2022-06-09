@@ -3,7 +3,7 @@
 package ip
 
 import (
-	clientip "github.com/metal-stack/metal-go/client/ip"
+	clientip "github.com/metal-stack/metal-go/api/client/ip"
 	mock "github.com/stretchr/testify/mock"
 
 	runtime "github.com/go-openapi/runtime"

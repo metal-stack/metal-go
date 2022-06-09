@@ -3,7 +3,7 @@
 package image
 
 import (
-	clientimage "github.com/metal-stack/metal-go/client/image"
+	clientimage "github.com/metal-stack/metal-go/api/client/image"
 	mock "github.com/stretchr/testify/mock"
 
 	runtime "github.com/go-openapi/runtime"

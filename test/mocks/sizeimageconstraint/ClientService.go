@@ -3,7 +3,7 @@
 package sizeimageconstraint
 
 import (
-	clientsizeimageconstraint "github.com/metal-stack/metal-go/client/sizeimageconstraint"
+	clientsizeimageconstraint "github.com/metal-stack/metal-go/api/client/sizeimageconstraint"
 	mock "github.com/stretchr/testify/mock"
 
 	runtime "github.com/go-openapi/runtime"

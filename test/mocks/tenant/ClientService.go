@@ -3,7 +3,7 @@
 package tenant
 
 import (
-	clienttenant "github.com/metal-stack/metal-go/client/tenant"
+	clienttenant "github.com/metal-stack/metal-go/api/client/tenant"
 	mock "github.com/stretchr/testify/mock"
 
 	runtime "github.com/go-openapi/runtime"

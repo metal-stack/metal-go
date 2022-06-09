@@ -1,8 +1,8 @@
 package metalgo
 
 import (
-	"github.com/metal-stack/metal-go/client/firewall"
-	"github.com/metal-stack/metal-go/models"
+	"github.com/metal-stack/metal-go/api/client/firewall"
+	"github.com/metal-stack/metal-go/api/models"
 )
 
 // FirewallCreateRequest contains data for a machine creation

@@ -3,7 +3,7 @@
 package machine
 
 import (
-	clientmachine "github.com/metal-stack/metal-go/client/machine"
+	clientmachine "github.com/metal-stack/metal-go/api/client/machine"
 	mock "github.com/stretchr/testify/mock"
 
 	runtime "github.com/go-openapi/runtime"

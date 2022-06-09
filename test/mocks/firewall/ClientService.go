@@ -3,7 +3,7 @@
 package firewall
 
 import (
-	clientfirewall "github.com/metal-stack/metal-go/client/firewall"
+	clientfirewall "github.com/metal-stack/metal-go/api/client/firewall"
 	mock "github.com/stretchr/testify/mock"
 
 	runtime "github.com/go-openapi/runtime"

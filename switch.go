@@ -1,8 +1,8 @@
 package metalgo
 
 import (
-	sw "github.com/metal-stack/metal-go/client/switch_operations"
-	"github.com/metal-stack/metal-go/models"
+	sw "github.com/metal-stack/metal-go/api/client/switch_operations"
+	"github.com/metal-stack/metal-go/api/models"
 )
 
 // SwitchListResponse is the response of a SwitchList action

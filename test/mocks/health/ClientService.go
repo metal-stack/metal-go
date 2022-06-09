@@ -3,7 +3,7 @@
 package health
 
 import (
-	clienthealth "github.com/metal-stack/metal-go/client/health"
+	clienthealth "github.com/metal-stack/metal-go/api/client/health"
 	mock "github.com/stretchr/testify/mock"
 
 	runtime "github.com/go-openapi/runtime"

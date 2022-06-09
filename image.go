@@ -4,8 +4,8 @@ import (
 	"time"
 
 	"github.com/go-openapi/strfmt"
-	"github.com/metal-stack/metal-go/client/image"
-	"github.com/metal-stack/metal-go/models"
+	"github.com/metal-stack/metal-go/api/client/image"
+	"github.com/metal-stack/metal-go/api/models"
 )
 
 // ImageListResponse is the response of a ImageList action

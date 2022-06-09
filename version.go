@@ -1,7 +1,7 @@
 package metalgo
 
 import (
-	"github.com/metal-stack/metal-go/models"
+	"github.com/metal-stack/metal-go/api/models"
 )
 
 // VersionGetResponse is the response of a VersionGet action
