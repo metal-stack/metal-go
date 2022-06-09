@@ -142,7 +142,7 @@ type IPListResponse struct {
 // IPAllocateRequest is the request to allocate an IP
 type IPAllocateRequest struct {
 
-	// SpecificIP tries to acquire this network.
+	// SpecificIP tries to acquire this ip.
 	// Required: false
 	IPAddress string `json:"ipaddress"`
 
