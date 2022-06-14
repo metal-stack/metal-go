@@ -7,6 +7,7 @@ package models
 
 import (
 	"context"
+	"strconv"
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
@@ -26,6 +27,10 @@ type V1MachineNic struct {
 	// the name of this network interface
 	// Required: true
 	Name *string `json:"name"`
+
+	// the neighbors visible to this network interface
+	// Required: true
+	Neighbors []*V1MachineNic `json:"neighbors"`
 }
 
 // Validate validates this v1 machine nic
@@ -37,6 +42,10 @@ func (m *V1MachineNic) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateName(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateNeighbors(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -64,8 +73,64 @@ func (m *V1MachineNic) validateName(formats strfmt.Registry) error {
 	return nil
 }
 
-// ContextValidate validates this v1 machine nic based on context it is used
+func (m *V1MachineNic) validateNeighbors(formats strfmt.Registry) error {
+
+	if err := validate.Required("neighbors", "body", m.Neighbors); err != nil {
+		return err
+	}
+
+	for i := 0; i < len(m.Neighbors); i++ {
+		if swag.IsZero(m.Neighbors[i]) { // not required
+			continue
+		}
+
+		if m.Neighbors[i] != nil {
+			if err := m.Neighbors[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("neighbors" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("neighbors" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// ContextValidate validate this v1 machine nic based on the context it is used
 func (m *V1MachineNic) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateNeighbors(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *V1MachineNic) contextValidateNeighbors(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Neighbors); i++ {
+
+		if m.Neighbors[i] != nil {
+			if err := m.Neighbors[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("neighbors" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("neighbors" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
 	return nil
 }
 
