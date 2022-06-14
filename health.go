@@ -12,7 +12,7 @@ type HealthGetResponse struct {
 // HealthGet returns the health status
 func (d *Driver) HealthGet() (*HealthGetResponse, error) {
 	response := &HealthGetResponse{}
-	resp, err := d.client.Health.Health(nil, nil)
+	resp, err := d.Health().Health(nil, nil)
 	if err != nil {
 		return response, err
 	}

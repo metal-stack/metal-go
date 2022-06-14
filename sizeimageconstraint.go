@@ -13,7 +13,7 @@ func (d *Driver) TrySizeImageConstraint(size, image string) error {
 		Image: &image,
 	})
 
-	_, err := d.client.Sizeimageconstraint.TrySizeImageConstraint(params, nil)
+	_, err := d.Sizeimageconstraint().TrySizeImageConstraint(params, nil)
 	if err != nil {
 		return err
 	}

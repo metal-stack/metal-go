@@ -29,4 +29,5 @@ lint: golangcicheck
 
 .PHONY: mocks
 mocks:
-	docker run --user $$(id -u):$$(id -g) --rm -w /work -v ${PWD}:/work vektra/mockery:v2.7.4 -r --keeptree --inpackage --dir api/client --output test/mocks --all
+	rm -rf test/mocks
+	docker run --user $$(id -u):$$(id -g) --rm -w /work -v ${PWD}:/work vektra/mockery:v2.12.2 -r --keeptree --inpackage --dir api/client --output test/mocks --all

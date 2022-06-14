@@ -12,7 +12,7 @@ type VersionGetResponse struct {
 // VersionGet return a Version
 func (d *Driver) VersionGet() (*VersionGetResponse, error) {
 	response := &VersionGetResponse{}
-	resp, err := d.client.Version.Info(nil, nil)
+	resp, err := d.Version().Info(nil, nil)
 	if err != nil {
 		return response, err
 	}
