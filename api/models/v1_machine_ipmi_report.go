@@ -35,6 +35,10 @@ type V1MachineIpmiReport struct {
 	// Required: true
 	FRU *V1MachineFru `json:"FRU"`
 
+	// indicator l e d state
+	// Required: true
+	IndicatorLEDState *string `json:"IndicatorLEDState"`
+
 	// power state
 	// Required: true
 	PowerState *string `json:"PowerState"`
@@ -57,6 +61,10 @@ func (m *V1MachineIpmiReport) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateFRU(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateIndicatorLEDState(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -112,6 +120,15 @@ func (m *V1MachineIpmiReport) validateFRU(formats strfmt.Registry) error {
 			}
 			return err
 		}
+	}
+
+	return nil
+}
+
+func (m *V1MachineIpmiReport) validateIndicatorLEDState(formats strfmt.Registry) error {
+
+	if err := validate.Required("IndicatorLEDState", "body", m.IndicatorLEDState); err != nil {
+		return err
 	}
 
 	return nil
