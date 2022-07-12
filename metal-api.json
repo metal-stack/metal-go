@@ -1878,6 +1878,10 @@
         "user_data": {
           "description": "userdata to execute post installation tasks",
           "type": "string"
+        },
+        "vpn": {
+          "$ref": "#/definitions/v1.MachineVPN",
+          "description": "vpn connection info for machine"
         }
       },
       "required": [
@@ -2907,6 +2911,11 @@
         },
         "value": {
           "description": "the state of this machine. empty means available for all",
+          "enum": [
+            "",
+            "LOCKED",
+            "RESERVED"
+          ],
           "type": "string"
         }
       },
@@ -2924,6 +2933,10 @@
         },
         "kind": {
           "description": "the firmware kind, i.e. [bios|bmc]",
+          "enum": [
+            "bios",
+            "bmc"
+          ],
           "type": "string"
         },
         "revision": {
@@ -2959,6 +2972,22 @@
       "required": [
         "description",
         "id"
+      ]
+    },
+    "v1.MachineVPN": {
+      "properties": {
+        "address": {
+          "description": "address of VPN control plane",
+          "type": "string"
+        },
+        "auth_key": {
+          "description": "auth key used to connect to VPN",
+          "type": "string"
+        }
+      },
+      "required": [
+        "address",
+        "auth_key"
       ]
     },
     "v1.Meta": {
