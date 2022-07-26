@@ -7,6 +7,7 @@ package models
 
 import (
 	"context"
+	"encoding/json"
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
@@ -25,6 +26,7 @@ type V1MachineUpdateFirmwareRequest struct {
 
 	// the firmware kind, i.e. [bios|bmc]
 	// Required: true
+	// Enum: [bios bmc]
 	Kind *string `json:"kind"`
 
 	// the update revision
@@ -63,9 +65,43 @@ func (m *V1MachineUpdateFirmwareRequest) validateDescription(formats strfmt.Regi
 	return nil
 }
 
+var v1MachineUpdateFirmwareRequestTypeKindPropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["bios","bmc"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		v1MachineUpdateFirmwareRequestTypeKindPropEnum = append(v1MachineUpdateFirmwareRequestTypeKindPropEnum, v)
+	}
+}
+
+const (
+
+	// V1MachineUpdateFirmwareRequestKindBios captures enum value "bios"
+	V1MachineUpdateFirmwareRequestKindBios string = "bios"
+
+	// V1MachineUpdateFirmwareRequestKindBmc captures enum value "bmc"
+	V1MachineUpdateFirmwareRequestKindBmc string = "bmc"
+)
+
+// prop value enum
+func (m *V1MachineUpdateFirmwareRequest) validateKindEnum(path, location string, value string) error {
+	if err := validate.EnumCase(path, location, value, v1MachineUpdateFirmwareRequestTypeKindPropEnum, true); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (m *V1MachineUpdateFirmwareRequest) validateKind(formats strfmt.Registry) error {
 
 	if err := validate.Required("kind", "body", m.Kind); err != nil {
+		return err
+	}
+
+	// value enum
+	if err := m.validateKindEnum("kind", "body", *m.Kind); err != nil {
 		return err
 	}
 

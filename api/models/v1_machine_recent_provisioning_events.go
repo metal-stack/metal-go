@@ -20,7 +20,15 @@ import (
 // swagger:model v1.MachineRecentProvisioningEvents
 type V1MachineRecentProvisioningEvents struct {
 
-	// the amount of incomplete provisioning cycles in the event container
+	// indicates that machine is provisioning crash loop
+	// Required: true
+	CrashLoop *bool `json:"crash_loop"`
+
+	// indicates that machine reclaim has failed
+	// Required: true
+	FailedMachineReclaim *bool `json:"failed_machine_reclaim"`
+
+	// The field 'IncompleteProvisioningCycles' in the provisioning events container is now deprecated and replaced by two new bool flags 'CrashLoop' and 'MachineReclaimFailed'.
 	// Required: true
 	IncompleteProvisioningCycles *string `json:"incomplete_provisioning_cycles"`
 
@@ -37,6 +45,14 @@ type V1MachineRecentProvisioningEvents struct {
 func (m *V1MachineRecentProvisioningEvents) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateCrashLoop(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateFailedMachineReclaim(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateIncompleteProvisioningCycles(formats); err != nil {
 		res = append(res, err)
 	}
@@ -52,6 +68,24 @@ func (m *V1MachineRecentProvisioningEvents) Validate(formats strfmt.Registry) er
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *V1MachineRecentProvisioningEvents) validateCrashLoop(formats strfmt.Registry) error {
+
+	if err := validate.Required("crash_loop", "body", m.CrashLoop); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *V1MachineRecentProvisioningEvents) validateFailedMachineReclaim(formats strfmt.Registry) error {
+
+	if err := validate.Required("failed_machine_reclaim", "body", m.FailedMachineReclaim); err != nil {
+		return err
+	}
+
 	return nil
 }
 

@@ -7,6 +7,7 @@ package models
 
 import (
 	"context"
+	"encoding/json"
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
@@ -29,6 +30,7 @@ type V1MachineState struct {
 
 	// the state of this machine. empty means available for all
 	// Required: true
+	// Enum: [ LOCKED RESERVED]
 	Value *string `json:"value"`
 }
 
@@ -72,9 +74,46 @@ func (m *V1MachineState) validateMetalHammerVersion(formats strfmt.Registry) err
 	return nil
 }
 
+var v1MachineStateTypeValuePropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["","LOCKED","RESERVED"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		v1MachineStateTypeValuePropEnum = append(v1MachineStateTypeValuePropEnum, v)
+	}
+}
+
+const (
+
+	// V1MachineStateValueEmpty captures enum value ""
+	V1MachineStateValueEmpty string = ""
+
+	// V1MachineStateValueLOCKED captures enum value "LOCKED"
+	V1MachineStateValueLOCKED string = "LOCKED"
+
+	// V1MachineStateValueRESERVED captures enum value "RESERVED"
+	V1MachineStateValueRESERVED string = "RESERVED"
+)
+
+// prop value enum
+func (m *V1MachineState) validateValueEnum(path, location string, value string) error {
+	if err := validate.EnumCase(path, location, value, v1MachineStateTypeValuePropEnum, true); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (m *V1MachineState) validateValue(formats strfmt.Registry) error {
 
 	if err := validate.Required("value", "body", m.Value); err != nil {
+		return err
+	}
+
+	// value enum
+	if err := m.validateValueEnum("value", "body", *m.Value); err != nil {
 		return err
 	}
 
