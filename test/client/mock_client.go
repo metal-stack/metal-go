@@ -3,7 +3,7 @@ package client
 import (
 	"testing"
 
-	"github.com/metal-stack/metal-go/api/client/operations"
+	"github.com/metal-stack/metal-go/api/client/vpn"
 
 	metalgo "github.com/metal-stack/metal-go"
 
@@ -32,7 +32,6 @@ import (
 	ipmocks "github.com/metal-stack/metal-go/test/mocks/ip"
 	machinemocks "github.com/metal-stack/metal-go/test/mocks/machine"
 	networkmocks "github.com/metal-stack/metal-go/test/mocks/network"
-	operationsmocks "github.com/metal-stack/metal-go/test/mocks/operations"
 	partitionmocks "github.com/metal-stack/metal-go/test/mocks/partition"
 	projectmocks "github.com/metal-stack/metal-go/test/mocks/project"
 	sizemocks "github.com/metal-stack/metal-go/test/mocks/size"
@@ -41,6 +40,7 @@ import (
 	tenantmocks "github.com/metal-stack/metal-go/test/mocks/tenant"
 	usermocks "github.com/metal-stack/metal-go/test/mocks/user"
 	versionmocks "github.com/metal-stack/metal-go/test/mocks/version"
+	vpnmocks "github.com/metal-stack/metal-go/test/mocks/vpn"
 
 	"github.com/stretchr/testify/mock"
 )
@@ -76,11 +76,11 @@ type MetalMockClient struct {
 	partition           partitionmocks.ClientService
 	project             projectmocks.ClientService
 	size                sizemocks.ClientService
-	operations          operationsmocks.ClientService
 	sizeimageconstraint sizeimageconstraintmocks.ClientService
 	switchoperations    switchoperationsmocks.ClientService
 	tenant              tenantmocks.ClientService
 	user                usermocks.ClientService
+	vpn                 vpnmocks.ClientService
 	version             versionmocks.ClientService
 }
 
@@ -97,7 +97,7 @@ func NewMetalMockClient(mockFns *MetalMockFns) (*MetalMockClient, metalgo.Client
 		partition:           partitionmocks.ClientService{},
 		project:             projectmocks.ClientService{},
 		size:                sizemocks.ClientService{},
-		operations:          operationsmocks.ClientService{},
+		vpn:                 vpnmocks.ClientService{},
 		sizeimageconstraint: sizeimageconstraintmocks.ClientService{},
 		switchoperations:    switchoperationsmocks.ClientService{},
 		tenant:              tenantmocks.ClientService{},
@@ -205,8 +205,8 @@ func (c *MetalMockClient) Size() size.ClientService {
 	return &c.size
 }
 
-func (c *MetalMockClient) Operations() operations.ClientService {
-	return &c.operations
+func (c *MetalMockClient) VPN() vpn.ClientService {
+	return &c.vpn
 }
 
 func (c *MetalMockClient) Sizeimageconstraint() sizeimageconstraint.ClientService {
@@ -241,7 +241,7 @@ func (c *MetalMockClient) AssertExpectations(t *testing.T) {
 	_ = c.partition.AssertExpectations(t)
 	_ = c.project.AssertExpectations(t)
 	_ = c.size.AssertExpectations(t)
-	_ = c.operations.AssertExpectations(t)
+	_ = c.vpn.AssertExpectations(t)
 	_ = c.sizeimageconstraint.AssertExpectations(t)
 	_ = c.switchoperations.AssertExpectations(t)
 	_ = c.tenant.AssertExpectations(t)

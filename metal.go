@@ -5,7 +5,7 @@ import (
 	"net/url"
 	"time"
 
-	"github.com/metal-stack/metal-go/api/client/operations"
+	"github.com/metal-stack/metal-go/api/client/vpn"
 
 	"github.com/go-openapi/runtime"
 	httptransport "github.com/go-openapi/runtime/client"
@@ -48,10 +48,10 @@ type Client interface {
 	Project() project.ClientService
 	Size() size.ClientService
 	Sizeimageconstraint() sizeimageconstraint.ClientService
-	Operations() operations.ClientService
 	SwitchOperations() switch_operations.ClientService
 	Tenant() tenant.ClientService
 	User() user.ClientService
+	VPN() vpn.ClientService
 	Version() version.ClientService
 }
 
@@ -179,8 +179,8 @@ func (d *Driver) Size() size.ClientService {
 func (d *Driver) Sizeimageconstraint() sizeimageconstraint.ClientService {
 	return d.c.Sizeimageconstraint
 }
-func (d *Driver) Operations() operations.ClientService {
-	return d.c.Operations
+func (d *Driver) VPN() vpn.ClientService {
+	return d.c.Vpn
 }
 func (d *Driver) SwitchOperations() switch_operations.ClientService {
 	return d.c.SwitchOperations

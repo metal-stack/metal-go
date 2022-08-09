@@ -1,7 +1,7 @@
 package metalgo
 
 import (
-	"github.com/metal-stack/metal-go/api/client/operations"
+	"github.com/metal-stack/metal-go/api/client/vpn"
 	"github.com/metal-stack/metal-go/api/models"
 )
 
@@ -11,9 +11,9 @@ type VPNGetAuthKeyResponse struct {
 
 func (d *Driver) GetVPNAuthKey(projectID string) (*VPNGetAuthKeyResponse, error) {
 	response := &VPNGetAuthKeyResponse{}
-	getVPNAuthKeyParams := operations.NewGetVPNAuthKeyParams()
+	getVPNAuthKeyParams := vpn.NewGetVPNAuthKeyParams()
 	getVPNAuthKeyParams.Pid = projectID
-	resp, err := d.Operations().GetVPNAuthKey(getVPNAuthKeyParams, nil)
+	resp, err := d.VPN().GetVPNAuthKey(getVPNAuthKeyParams, nil)
 	if err != nil {
 		return nil, err
 	}

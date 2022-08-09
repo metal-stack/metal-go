@@ -18,7 +18,6 @@ import (
 	"github.com/metal-stack/metal-go/api/client/ip"
 	"github.com/metal-stack/metal-go/api/client/machine"
 	"github.com/metal-stack/metal-go/api/client/network"
-	"github.com/metal-stack/metal-go/api/client/operations"
 	"github.com/metal-stack/metal-go/api/client/partition"
 	"github.com/metal-stack/metal-go/api/client/project"
 	"github.com/metal-stack/metal-go/api/client/size"
@@ -27,6 +26,7 @@ import (
 	"github.com/metal-stack/metal-go/api/client/tenant"
 	"github.com/metal-stack/metal-go/api/client/user"
 	"github.com/metal-stack/metal-go/api/client/version"
+	"github.com/metal-stack/metal-go/api/client/vpn"
 )
 
 // Default metal API HTTP client.
@@ -79,7 +79,6 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *MetalAPI {
 	cli.IP = ip.New(transport, formats)
 	cli.Machine = machine.New(transport, formats)
 	cli.Network = network.New(transport, formats)
-	cli.Operations = operations.New(transport, formats)
 	cli.Partition = partition.New(transport, formats)
 	cli.Project = project.New(transport, formats)
 	cli.Size = size.New(transport, formats)
@@ -88,6 +87,7 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *MetalAPI {
 	cli.Tenant = tenant.New(transport, formats)
 	cli.User = user.New(transport, formats)
 	cli.Version = version.New(transport, formats)
+	cli.Vpn = vpn.New(transport, formats)
 	return cli
 }
 
@@ -148,8 +148,6 @@ type MetalAPI struct {
 
 	Network network.ClientService
 
-	Operations operations.ClientService
-
 	Partition partition.ClientService
 
 	Project project.ClientService
@@ -166,6 +164,8 @@ type MetalAPI struct {
 
 	Version version.ClientService
 
+	Vpn vpn.ClientService
+
 	Transport runtime.ClientTransport
 }
 
@@ -180,7 +180,6 @@ func (c *MetalAPI) SetTransport(transport runtime.ClientTransport) {
 	c.IP.SetTransport(transport)
 	c.Machine.SetTransport(transport)
 	c.Network.SetTransport(transport)
-	c.Operations.SetTransport(transport)
 	c.Partition.SetTransport(transport)
 	c.Project.SetTransport(transport)
 	c.Size.SetTransport(transport)
@@ -189,4 +188,5 @@ func (c *MetalAPI) SetTransport(transport runtime.ClientTransport) {
 	c.Tenant.SetTransport(transport)
 	c.User.SetTransport(transport)
 	c.Version.SetTransport(transport)
+	c.Vpn.SetTransport(transport)
 }
