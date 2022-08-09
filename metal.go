@@ -5,9 +5,13 @@ import (
 	"net/url"
 	"time"
 
+	"github.com/metal-stack/metal-go/api/client/operations"
+
 	"github.com/go-openapi/runtime"
 	httptransport "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
+	"github.com/metal-stack/security"
+
 	"github.com/metal-stack/metal-go/api/client"
 	"github.com/metal-stack/metal-go/api/client/filesystemlayout"
 	"github.com/metal-stack/metal-go/api/client/firewall"
@@ -25,7 +29,6 @@ import (
 	"github.com/metal-stack/metal-go/api/client/tenant"
 	"github.com/metal-stack/metal-go/api/client/user"
 	"github.com/metal-stack/metal-go/api/client/version"
-	"github.com/metal-stack/security"
 )
 
 const (
@@ -45,6 +48,7 @@ type Client interface {
 	Project() project.ClientService
 	Size() size.ClientService
 	Sizeimageconstraint() sizeimageconstraint.ClientService
+	Operations() operations.ClientService
 	SwitchOperations() switch_operations.ClientService
 	Tenant() tenant.ClientService
 	User() user.ClientService
@@ -174,6 +178,9 @@ func (d *Driver) Size() size.ClientService {
 }
 func (d *Driver) Sizeimageconstraint() sizeimageconstraint.ClientService {
 	return d.c.Sizeimageconstraint
+}
+func (d *Driver) Operations() operations.ClientService {
+	return d.c.Operations
 }
 func (d *Driver) SwitchOperations() switch_operations.ClientService {
 	return d.c.SwitchOperations
