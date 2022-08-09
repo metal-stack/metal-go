@@ -100,55 +100,57 @@ func NewMetalMockClient(mockFns *MetalMockFns) (*MetalMockClient, metalgo.Client
 		version:             versionmocks.ClientService{},
 	}
 
-	if mockFns != nil {
-		if mockFns.Filesystemlayout != nil {
-			mockFns.Filesystemlayout(&client.filesystemlayout.Mock)
-		}
-		if mockFns.Firewall != nil {
-			mockFns.Firewall(&client.firewall.Mock)
-		}
-		if mockFns.Firmware != nil {
-			mockFns.Firmware(&client.firmware.Mock)
-		}
-		if mockFns.Health != nil {
-			mockFns.Health(&client.health.Mock)
-		}
-		if mockFns.Image != nil {
-			mockFns.Image(&client.image.Mock)
-		}
-		if mockFns.IP != nil {
-			mockFns.IP(&client.ip.Mock)
-		}
-		if mockFns.Machine != nil {
-			mockFns.Machine(&client.machine.Mock)
-		}
-		if mockFns.Network != nil {
-			mockFns.Network(&client.network.Mock)
-		}
-		if mockFns.Partition != nil {
-			mockFns.Partition(&client.partition.Mock)
-		}
-		if mockFns.Project != nil {
-			mockFns.Project(&client.project.Mock)
-		}
-		if mockFns.Size != nil {
-			mockFns.Size(&client.size.Mock)
-		}
-		if mockFns.SizeImageConstraint != nil {
-			mockFns.SizeImageConstraint(&client.sizeimageconstraint.Mock)
-		}
-		if mockFns.Switch != nil {
-			mockFns.Switch(&client.switchoperations.Mock)
-		}
-		if mockFns.Tenant != nil {
-			mockFns.Tenant(&client.tenant.Mock)
-		}
-		if mockFns.User != nil {
-			mockFns.User(&client.user.Mock)
-		}
-		if mockFns.Version != nil {
-			mockFns.Version(&client.version.Mock)
-		}
+	if mockFns == nil {
+		return client, client
+	}
+
+	if mockFns.Filesystemlayout != nil {
+		mockFns.Filesystemlayout(&client.filesystemlayout.Mock)
+	}
+	if mockFns.Firewall != nil {
+		mockFns.Firewall(&client.firewall.Mock)
+	}
+	if mockFns.Firmware != nil {
+		mockFns.Firmware(&client.firmware.Mock)
+	}
+	if mockFns.Health != nil {
+		mockFns.Health(&client.health.Mock)
+	}
+	if mockFns.Image != nil {
+		mockFns.Image(&client.image.Mock)
+	}
+	if mockFns.IP != nil {
+		mockFns.IP(&client.ip.Mock)
+	}
+	if mockFns.Machine != nil {
+		mockFns.Machine(&client.machine.Mock)
+	}
+	if mockFns.Network != nil {
+		mockFns.Network(&client.network.Mock)
+	}
+	if mockFns.Partition != nil {
+		mockFns.Partition(&client.partition.Mock)
+	}
+	if mockFns.Project != nil {
+		mockFns.Project(&client.project.Mock)
+	}
+	if mockFns.Size != nil {
+		mockFns.Size(&client.size.Mock)
+	}
+	if mockFns.SizeImageConstraint != nil {
+		mockFns.SizeImageConstraint(&client.sizeimageconstraint.Mock)
+	}
+	if mockFns.Switch != nil {
+		mockFns.Switch(&client.switchoperations.Mock)
+	}
+	if mockFns.Tenant != nil {
+		mockFns.Tenant(&client.tenant.Mock)
+	}
+	if mockFns.User != nil {
+		mockFns.User(&client.user.Mock)
+	}
+	if mockFns.Version != nil {
+		mockFns.Version(&client.version.Mock)
 	}
 
 	return client, client

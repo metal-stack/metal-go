@@ -89,7 +89,7 @@ func startServerAndGetDriver() (*http.Server, Client, *Driver) {
 	//nolint:gosec
 	listener, _ := net.Listen("tcp", ":0")
 
-	server := &http.Server{}
+	server := &http.Server{ReadHeaderTimeout: time.Minute}
 
 	go func() {
 		_ = server.Serve(listener)
