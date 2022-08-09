@@ -3,6 +3,8 @@ package client
 import (
 	"testing"
 
+	"github.com/metal-stack/metal-go/api/client/operations"
+
 	metalgo "github.com/metal-stack/metal-go"
 
 	"github.com/metal-stack/metal-go/api/client/filesystemlayout"
@@ -30,6 +32,7 @@ import (
 	ipmocks "github.com/metal-stack/metal-go/test/mocks/ip"
 	machinemocks "github.com/metal-stack/metal-go/test/mocks/machine"
 	networkmocks "github.com/metal-stack/metal-go/test/mocks/network"
+	operationsmocks "github.com/metal-stack/metal-go/test/mocks/operations"
 	partitionmocks "github.com/metal-stack/metal-go/test/mocks/partition"
 	projectmocks "github.com/metal-stack/metal-go/test/mocks/project"
 	sizemocks "github.com/metal-stack/metal-go/test/mocks/size"
@@ -73,6 +76,7 @@ type MetalMockClient struct {
 	partition           partitionmocks.ClientService
 	project             projectmocks.ClientService
 	size                sizemocks.ClientService
+	operations          operationsmocks.ClientService
 	sizeimageconstraint sizeimageconstraintmocks.ClientService
 	switchoperations    switchoperationsmocks.ClientService
 	tenant              tenantmocks.ClientService
@@ -93,6 +97,7 @@ func NewMetalMockClient(mockFns *MetalMockFns) (*MetalMockClient, metalgo.Client
 		partition:           partitionmocks.ClientService{},
 		project:             projectmocks.ClientService{},
 		size:                sizemocks.ClientService{},
+		operations:          operationsmocks.ClientService{},
 		sizeimageconstraint: sizeimageconstraintmocks.ClientService{},
 		switchoperations:    switchoperationsmocks.ClientService{},
 		tenant:              tenantmocks.ClientService{},
@@ -200,6 +205,10 @@ func (c *MetalMockClient) Size() size.ClientService {
 	return &c.size
 }
 
+func (c *MetalMockClient) Operations() operations.ClientService {
+	return &c.operations
+}
+
 func (c *MetalMockClient) Sizeimageconstraint() sizeimageconstraint.ClientService {
 	return &c.sizeimageconstraint
 }
@@ -232,6 +241,7 @@ func (c *MetalMockClient) AssertExpectations(t *testing.T) {
 	_ = c.partition.AssertExpectations(t)
 	_ = c.project.AssertExpectations(t)
 	_ = c.size.AssertExpectations(t)
+	_ = c.operations.AssertExpectations(t)
 	_ = c.sizeimageconstraint.AssertExpectations(t)
 	_ = c.switchoperations.AssertExpectations(t)
 	_ = c.tenant.AssertExpectations(t)
