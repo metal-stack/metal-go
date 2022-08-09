@@ -7,7 +7,6 @@ import (
 
 // TrySizeImageConstraint try if size and image can be used for a allocation
 func (d *Driver) TrySizeImageConstraint(size, image string) error {
-
 	params := sizeimageconstraint.NewTrySizeImageConstraintParams().WithBody(&models.V1SizeImageConstraintTryRequest{
 		Size:  &size,
 		Image: &image,
