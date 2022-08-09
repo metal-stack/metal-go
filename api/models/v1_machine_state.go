@@ -24,6 +24,10 @@ type V1MachineState struct {
 	// Required: true
 	Description *string `json:"description"`
 
+	// the user that changed the state
+	// Required: true
+	Issuer *string `json:"issuer"`
+
 	// the version of metal hammer which put the machine in waiting state
 	// Required: true
 	MetalHammerVersion *string `json:"metal_hammer_version"`
@@ -39,6 +43,10 @@ func (m *V1MachineState) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateDescription(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateIssuer(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -59,6 +67,15 @@ func (m *V1MachineState) Validate(formats strfmt.Registry) error {
 func (m *V1MachineState) validateDescription(formats strfmt.Registry) error {
 
 	if err := validate.Required("description", "body", m.Description); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *V1MachineState) validateIssuer(formats strfmt.Registry) error {
+
+	if err := validate.Required("issuer", "body", m.Issuer); err != nil {
 		return err
 	}
 
