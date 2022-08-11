@@ -24,6 +24,9 @@ type V1MachineState struct {
 	// Required: true
 	Description *string `json:"description"`
 
+	// the user that changed the state
+	Issuer string `json:"issuer,omitempty"`
+
 	// the version of metal hammer which put the machine in waiting state
 	// Required: true
 	MetalHammerVersion *string `json:"metal_hammer_version"`
