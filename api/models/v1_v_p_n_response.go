@@ -19,6 +19,10 @@ import (
 // swagger:model v1.VPNResponse
 type V1VPNResponse struct {
 
+	// Address of VPN's control plane
+	// Required: true
+	Address *string `json:"address"`
+
 	// Auth key to connect to the VPN
 	// Required: true
 	AuthKey *string `json:"auth_key"`
@@ -28,6 +32,10 @@ type V1VPNResponse struct {
 func (m *V1VPNResponse) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateAddress(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateAuthKey(formats); err != nil {
 		res = append(res, err)
 	}
@@ -35,6 +43,15 @@ func (m *V1VPNResponse) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *V1VPNResponse) validateAddress(formats strfmt.Registry) error {
+
+	if err := validate.Required("address", "body", m.Address); err != nil {
+		return err
+	}
+
 	return nil
 }
 
