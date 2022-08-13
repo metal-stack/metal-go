@@ -21,31 +21,31 @@ type V1BootInfo struct {
 
 	// the bootloader ID
 	// Required: true
-	Bootloaderid *string `json:"bootloaderid"`
+	Bootloaderid *string `json:"bootloaderid" yaml:"bootloaderid"`
 
 	// the cmdline
 	// Required: true
-	Cmdline *string `json:"cmdline"`
+	Cmdline *string `json:"cmdline" yaml:"cmdline"`
 
 	// the ID of the current image
 	// Required: true
-	ImageID *string `json:"image_id"`
+	ImageID *string `json:"image_id" yaml:"image_id"`
 
 	// the initrd image
 	// Required: true
-	Initrd *string `json:"initrd"`
+	Initrd *string `json:"initrd" yaml:"initrd"`
 
 	// the kernel
 	// Required: true
-	Kernel *string `json:"kernel"`
+	Kernel *string `json:"kernel" yaml:"kernel"`
 
 	// the partition containing the OS
 	// Required: true
-	OsPartition *string `json:"os_partition"`
+	OsPartition *string `json:"os_partition" yaml:"os_partition"`
 
 	// the primary disk
 	// Required: true
-	PrimaryDisk *string `json:"primary_disk"`
+	PrimaryDisk *string `json:"primary_disk" yaml:"primary_disk"`
 }
 
 // Validate validates this v1 boot info

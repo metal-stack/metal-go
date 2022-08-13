@@ -21,10 +21,10 @@ type V1FilesystemLayoutConstraints struct {
 
 	// list of images this layout applies to
 	// Required: true
-	Images map[string]string `json:"images"`
+	Images map[string]string `json:"images" yaml:"images"`
 
 	// list of sizes this layout applies to
-	Sizes []string `json:"sizes"`
+	Sizes []string `json:"sizes" yaml:"sizes"`
 }
 
 // Validate validates this v1 filesystem layout constraints

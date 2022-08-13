@@ -22,14 +22,14 @@ type V1Disk struct {
 
 	// the device to create the partitions
 	// Required: true
-	Device *string `json:"device"`
+	Device *string `json:"device" yaml:"device"`
 
 	// list of partitions to create on this disk
-	Partitions []*V1DiskPartition `json:"partitions"`
+	Partitions []*V1DiskPartition `json:"partitions" yaml:"partitions"`
 
 	// if set to true, this disk will be wiped before reinstallation
 	// Required: true
-	Wipeonreinstall *bool `json:"wipeonreinstall"`
+	Wipeonreinstall *bool `json:"wipeonreinstall" yaml:"wipeonreinstall"`
 }
 
 // Validate validates this v1 disk

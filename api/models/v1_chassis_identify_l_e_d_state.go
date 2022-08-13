@@ -21,11 +21,11 @@ type V1ChassisIdentifyLEDState struct {
 
 	// a description why this chassis identify LED is in the given state
 	// Required: true
-	Description *string `json:"description"`
+	Description *string `json:"description" yaml:"description"`
 
 	// the state of this chassis identify LED. empty means LED-OFF
 	// Required: true
-	Value *string `json:"value"`
+	Value *string `json:"value" yaml:"value"`
 }
 
 // Validate validates this v1 chassis identify l e d state

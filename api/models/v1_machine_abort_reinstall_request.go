@@ -21,7 +21,7 @@ type V1MachineAbortReinstallRequest struct {
 
 	// indicates whether the primary disk is already wiped
 	// Required: true
-	PrimaryDiskWiped *bool `json:"primary_disk_wiped"`
+	PrimaryDiskWiped *bool `json:"primary_disk_wiped" yaml:"primary_disk_wiped"`
 }
 
 // Validate validates this v1 machine abort reinstall request

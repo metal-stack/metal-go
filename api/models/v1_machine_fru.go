@@ -18,28 +18,28 @@ import (
 type V1MachineFru struct {
 
 	// the board mfg
-	BoardMfg string `json:"board_mfg,omitempty"`
+	BoardMfg string `json:"board_mfg,omitempty" yaml:"board_mfg,omitempty"`
 
 	// the board mfg serial
-	BoardMfgSerial string `json:"board_mfg_serial,omitempty"`
+	BoardMfgSerial string `json:"board_mfg_serial,omitempty" yaml:"board_mfg_serial,omitempty"`
 
 	// the board part number
-	BoardPartNumber string `json:"board_part_number,omitempty"`
+	BoardPartNumber string `json:"board_part_number,omitempty" yaml:"board_part_number,omitempty"`
 
 	// the chassis part number
-	ChassisPartNumber string `json:"chassis_part_number,omitempty"`
+	ChassisPartNumber string `json:"chassis_part_number,omitempty" yaml:"chassis_part_number,omitempty"`
 
 	// the chassis part serial
-	ChassisPartSerial string `json:"chassis_part_serial,omitempty"`
+	ChassisPartSerial string `json:"chassis_part_serial,omitempty" yaml:"chassis_part_serial,omitempty"`
 
 	// the product manufacturer
-	ProductManufacturer string `json:"product_manufacturer,omitempty"`
+	ProductManufacturer string `json:"product_manufacturer,omitempty" yaml:"product_manufacturer,omitempty"`
 
 	// the product part number
-	ProductPartNumber string `json:"product_part_number,omitempty"`
+	ProductPartNumber string `json:"product_part_number,omitempty" yaml:"product_part_number,omitempty"`
 
 	// the product serial
-	ProductSerial string `json:"product_serial,omitempty"`
+	ProductSerial string `json:"product_serial,omitempty" yaml:"product_serial,omitempty"`
 }
 
 // Validate validates this v1 machine fru

@@ -18,10 +18,10 @@ import (
 type V1IssuerConfig struct {
 
 	// client id
-	ClientID string `json:"client_id,omitempty"`
+	ClientID string `json:"client_id,omitempty" yaml:"client_id,omitempty"`
 
 	// url
-	URL string `json:"url,omitempty"`
+	URL string `json:"url,omitempty" yaml:"url,omitempty"`
 }
 
 // Validate validates this v1 issuer config

@@ -21,15 +21,15 @@ type V1MachineProvisioningEvent struct {
 
 	// the event emitted by the machine
 	// Required: true
-	Event *string `json:"event"`
+	Event *string `json:"event" yaml:"event"`
 
 	// an additional message to add to the event
-	Message string `json:"message,omitempty"`
+	Message string `json:"message,omitempty" yaml:"message,omitempty"`
 
 	// the time that this event was received
 	// Read Only: true
 	// Format: date-time
-	Time strfmt.DateTime `json:"time,omitempty"`
+	Time strfmt.DateTime `json:"time,omitempty" yaml:"time,omitempty"`
 }
 
 // Validate validates this v1 machine provisioning event

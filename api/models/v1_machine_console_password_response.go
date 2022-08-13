@@ -21,17 +21,17 @@ type V1MachineConsolePasswordResponse struct {
 
 	// the console password which was generated while provisioning
 	// Required: true
-	ConsolePassword *string `json:"console_password"`
+	ConsolePassword *string `json:"console_password" yaml:"console_password"`
 
 	// a description for this entity
-	Description string `json:"description,omitempty"`
+	Description string `json:"description,omitempty" yaml:"description,omitempty"`
 
 	// the unique ID of this entity
 	// Required: true
-	ID *string `json:"id"`
+	ID *string `json:"id" yaml:"id"`
 
 	// a readable name for this entity
-	Name string `json:"name,omitempty"`
+	Name string `json:"name,omitempty" yaml:"name,omitempty"`
 }
 
 // Validate validates this v1 machine console password response

@@ -22,32 +22,32 @@ type V1FilesystemLayoutResponse struct {
 
 	// constraints which must match that this layout is taken, if sizes and images are empty these are develop layouts
 	// Required: true
-	Constraints *V1FilesystemLayoutConstraints `json:"constraints"`
+	Constraints *V1FilesystemLayoutConstraints `json:"constraints" yaml:"constraints"`
 
 	// a description for this entity
-	Description string `json:"description,omitempty"`
+	Description string `json:"description,omitempty" yaml:"description,omitempty"`
 
 	// list of disks that belong to this layout
-	Disks []*V1Disk `json:"disks"`
+	Disks []*V1Disk `json:"disks" yaml:"disks"`
 
 	// list of filesystems to create
-	Filesystems []*V1Filesystem `json:"filesystems"`
+	Filesystems []*V1Filesystem `json:"filesystems" yaml:"filesystems"`
 
 	// the unique ID of this entity
 	// Required: true
-	ID *string `json:"id"`
+	ID *string `json:"id" yaml:"id"`
 
 	// list of logicalvolumes to create
-	Logicalvolumes []*V1LogicalVolume `json:"logicalvolumes"`
+	Logicalvolumes []*V1LogicalVolume `json:"logicalvolumes" yaml:"logicalvolumes"`
 
 	// a readable name for this entity
-	Name string `json:"name,omitempty"`
+	Name string `json:"name,omitempty" yaml:"name,omitempty"`
 
 	// list of raid arrays to create
-	Raid []*V1Raid `json:"raid"`
+	Raid []*V1Raid `json:"raid" yaml:"raid"`
 
 	// list of volumegroups to create
-	Volumegroups []*V1VolumeGroup `json:"volumegroups"`
+	Volumegroups []*V1VolumeGroup `json:"volumegroups" yaml:"volumegroups"`
 }
 
 // Validate validates this v1 filesystem layout response

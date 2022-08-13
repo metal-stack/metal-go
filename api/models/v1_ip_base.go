@@ -22,19 +22,19 @@ type V1IPBase struct {
 
 	// the network this ip allocate request address belongs to
 	// Required: true
-	Networkid *string `json:"networkid"`
+	Networkid *string `json:"networkid" yaml:"networkid"`
 
 	// the project this ip address belongs to
 	// Required: true
-	Projectid *string `json:"projectid"`
+	Projectid *string `json:"projectid" yaml:"projectid"`
 
 	// free tags that you associate with this ip.
-	Tags []string `json:"tags"`
+	Tags []string `json:"tags" yaml:"tags"`
 
 	// the ip type, ephemeral leads to automatic cleanup of the ip address, static will enable re-use of the ip at a later point in time
 	// Required: true
 	// Enum: [ephemeral static]
-	Type *string `json:"type"`
+	Type *string `json:"type" yaml:"type"`
 }
 
 // Validate validates this v1 IP base

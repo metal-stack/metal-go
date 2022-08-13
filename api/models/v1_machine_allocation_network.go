@@ -21,11 +21,11 @@ type V1MachineAllocationNetwork struct {
 
 	// will automatically acquire an ip in this network if set to true, default is true
 	// Required: true
-	Autoacquire *bool `json:"autoacquire"`
+	Autoacquire *bool `json:"autoacquire" yaml:"autoacquire"`
 
 	// the id of the network that this machine will be placed in
 	// Required: true
-	Networkid *string `json:"networkid"`
+	Networkid *string `json:"networkid" yaml:"networkid"`
 }
 
 // Validate validates this v1 machine allocation network

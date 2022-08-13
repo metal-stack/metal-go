@@ -19,22 +19,22 @@ import (
 type V1Tenant struct {
 
 	// default quotas
-	DefaultQuotas *V1QuotaSet `json:"default_quotas,omitempty"`
+	DefaultQuotas *V1QuotaSet `json:"default_quotas,omitempty" yaml:"default_quotas,omitempty"`
 
 	// description
-	Description string `json:"description,omitempty"`
+	Description string `json:"description,omitempty" yaml:"description,omitempty"`
 
 	// iam config
-	IamConfig *V1IAMConfig `json:"iam_config,omitempty"`
+	IamConfig *V1IAMConfig `json:"iam_config,omitempty" yaml:"iam_config,omitempty"`
 
 	// meta
-	Meta *V1Meta `json:"meta,omitempty"`
+	Meta *V1Meta `json:"meta,omitempty" yaml:"meta,omitempty"`
 
 	// name
-	Name string `json:"name,omitempty"`
+	Name string `json:"name,omitempty" yaml:"name,omitempty"`
 
 	// quotas
-	Quotas *V1QuotaSet `json:"quotas,omitempty"`
+	Quotas *V1QuotaSet `json:"quotas,omitempty" yaml:"quotas,omitempty"`
 }
 
 // Validate validates this v1 tenant

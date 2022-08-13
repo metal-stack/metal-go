@@ -20,23 +20,23 @@ import (
 type V1NetworkUpdateRequest struct {
 
 	// a description for this entity
-	Description string `json:"description,omitempty"`
+	Description string `json:"description,omitempty" yaml:"description,omitempty"`
 
 	// the unique ID of this entity
 	// Required: true
-	ID *string `json:"id"`
+	ID *string `json:"id" yaml:"id"`
 
 	// free labels that you associate with this network.
-	Labels map[string]string `json:"labels,omitempty"`
+	Labels map[string]string `json:"labels,omitempty" yaml:"labels,omitempty"`
 
 	// a readable name for this entity
-	Name string `json:"name,omitempty"`
+	Name string `json:"name,omitempty" yaml:"name,omitempty"`
 
 	// the prefixes of this network
-	Prefixes []string `json:"prefixes"`
+	Prefixes []string `json:"prefixes" yaml:"prefixes"`
 
 	// marks a network as shareable.
-	Shared bool `json:"shared,omitempty"`
+	Shared bool `json:"shared,omitempty" yaml:"shared,omitempty"`
 }
 
 // Validate validates this v1 network update request

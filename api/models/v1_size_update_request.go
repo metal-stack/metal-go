@@ -21,17 +21,17 @@ import (
 type V1SizeUpdateRequest struct {
 
 	// a list of constraints that defines this size
-	Constraints []*V1SizeConstraint `json:"constraints"`
+	Constraints []*V1SizeConstraint `json:"constraints" yaml:"constraints"`
 
 	// a description for this entity
-	Description string `json:"description,omitempty"`
+	Description string `json:"description,omitempty" yaml:"description,omitempty"`
 
 	// the unique ID of this entity
 	// Required: true
-	ID *string `json:"id"`
+	ID *string `json:"id" yaml:"id"`
 
 	// a readable name for this entity
-	Name string `json:"name,omitempty"`
+	Name string `json:"name,omitempty" yaml:"name,omitempty"`
 }
 
 // Validate validates this v1 size update request

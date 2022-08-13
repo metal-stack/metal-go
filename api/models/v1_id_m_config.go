@@ -18,7 +18,7 @@ import (
 type V1IDMConfig struct {
 
 	// idm type
-	IdmType string `json:"idm_type,omitempty"`
+	IdmType string `json:"idm_type,omitempty" yaml:"idm_type,omitempty"`
 }
 
 // Validate validates this v1 ID m config

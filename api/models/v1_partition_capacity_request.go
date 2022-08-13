@@ -18,10 +18,10 @@ import (
 type V1PartitionCapacityRequest struct {
 
 	// the id of the partition
-	ID string `json:"id,omitempty"`
+	ID string `json:"id,omitempty" yaml:"id,omitempty"`
 
 	// the size to filter for
-	Sizeid string `json:"sizeid,omitempty"`
+	Sizeid string `json:"sizeid,omitempty" yaml:"sizeid,omitempty"`
 }
 
 // Validate validates this v1 partition capacity request

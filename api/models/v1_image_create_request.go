@@ -20,28 +20,28 @@ import (
 type V1ImageCreateRequest struct {
 
 	// classification of this image
-	Classification string `json:"classification,omitempty"`
+	Classification string `json:"classification,omitempty" yaml:"classification,omitempty"`
 
 	// a description for this entity
-	Description string `json:"description,omitempty"`
+	Description string `json:"description,omitempty" yaml:"description,omitempty"`
 
 	// expirationDate of this image
 	// Format: date-time
-	ExpirationDate strfmt.DateTime `json:"expirationDate,omitempty"`
+	ExpirationDate strfmt.DateTime `json:"expirationDate,omitempty" yaml:"expirationDate,omitempty"`
 
 	// features of this image
-	Features []string `json:"features"`
+	Features []string `json:"features" yaml:"features"`
 
 	// the unique ID of this entity
 	// Required: true
-	ID *string `json:"id"`
+	ID *string `json:"id" yaml:"id"`
 
 	// a readable name for this entity
-	Name string `json:"name,omitempty"`
+	Name string `json:"name,omitempty" yaml:"name,omitempty"`
 
 	// the url of this image
 	// Required: true
-	URL *string `json:"url"`
+	URL *string `json:"url" yaml:"url"`
 }
 
 // Validate validates this v1 image create request

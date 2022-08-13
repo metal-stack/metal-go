@@ -22,26 +22,26 @@ type V1MachineRecentProvisioningEvents struct {
 
 	// indicates that machine is provisioning crash loop
 	// Required: true
-	CrashLoop *bool `json:"crash_loop"`
+	CrashLoop *bool `json:"crash_loop" yaml:"crash_loop"`
 
 	// indicates that machine reclaim has failed
 	// Required: true
-	FailedMachineReclaim *bool `json:"failed_machine_reclaim"`
+	FailedMachineReclaim *bool `json:"failed_machine_reclaim" yaml:"failed_machine_reclaim"`
 
 	// The field 'IncompleteProvisioningCycles' in the provisioning events container is now deprecated and replaced by two new bool flags 'CrashLoop' and 'MachineReclaimFailed'.
 	// Required: true
-	IncompleteProvisioningCycles *string `json:"incomplete_provisioning_cycles"`
+	IncompleteProvisioningCycles *string `json:"incomplete_provisioning_cycles" yaml:"incomplete_provisioning_cycles"`
 
 	// the last erroneous event received
-	LastErrorEvent *V1MachineProvisioningEvent `json:"last_error_event,omitempty"`
+	LastErrorEvent *V1MachineProvisioningEvent `json:"last_error_event,omitempty" yaml:"last_error_event,omitempty"`
 
 	// the time where the last event was received
 	// Format: date-time
-	LastEventTime strfmt.DateTime `json:"last_event_time,omitempty"`
+	LastEventTime strfmt.DateTime `json:"last_event_time,omitempty" yaml:"last_event_time,omitempty"`
 
 	// the log of recent machine provisioning events
 	// Required: true
-	Log []*V1MachineProvisioningEvent `json:"log"`
+	Log []*V1MachineProvisioningEvent `json:"log" yaml:"log"`
 }
 
 // Validate validates this v1 machine recent provisioning events

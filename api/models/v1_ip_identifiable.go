@@ -21,11 +21,11 @@ type V1IPIdentifiable struct {
 
 	// a unique identifier for this ip address allocation, can be used to distinguish between ip address allocation over time.
 	// Required: true
-	Allocationuuid *string `json:"allocationuuid"`
+	Allocationuuid *string `json:"allocationuuid" yaml:"allocationuuid"`
 
 	// the address (ipv4 or ipv6) of this ip
 	// Required: true
-	Ipaddress *string `json:"ipaddress"`
+	Ipaddress *string `json:"ipaddress" yaml:"ipaddress"`
 }
 
 // Validate validates this v1 IP identifiable

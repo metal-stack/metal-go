@@ -20,55 +20,55 @@ import (
 type V1NetworkCreateRequest struct {
 
 	// a description for this entity
-	Description string `json:"description,omitempty"`
+	Description string `json:"description,omitempty" yaml:"description,omitempty"`
 
 	// the destination prefixes of this network
 	// Required: true
-	Destinationprefixes []string `json:"destinationprefixes"`
+	Destinationprefixes []string `json:"destinationprefixes" yaml:"destinationprefixes"`
 
 	// the unique ID of this entity, auto-generated if left empty
 	// Required: true
-	ID *string `json:"id"`
+	ID *string `json:"id" yaml:"id"`
 
 	// free labels that you associate with this network.
-	Labels map[string]string `json:"labels,omitempty"`
+	Labels map[string]string `json:"labels,omitempty" yaml:"labels,omitempty"`
 
 	// a readable name for this entity
-	Name string `json:"name,omitempty"`
+	Name string `json:"name,omitempty" yaml:"name,omitempty"`
 
 	// if set to true, packets leaving this network get masqueraded behind interface ip
 	// Required: true
-	Nat *bool `json:"nat"`
+	Nat *bool `json:"nat" yaml:"nat"`
 
 	// the id of the parent network
-	Parentnetworkid string `json:"parentnetworkid,omitempty"`
+	Parentnetworkid string `json:"parentnetworkid,omitempty" yaml:"parentnetworkid,omitempty"`
 
 	// the partition this network belongs to
-	Partitionid string `json:"partitionid,omitempty"`
+	Partitionid string `json:"partitionid,omitempty" yaml:"partitionid,omitempty"`
 
 	// the prefixes of this network
 	// Required: true
-	Prefixes []string `json:"prefixes"`
+	Prefixes []string `json:"prefixes" yaml:"prefixes"`
 
 	// if set to true, this network will serve as a partition's super network for the internal machine networks,there can only be one privatesuper network per partition
 	// Required: true
-	Privatesuper *bool `json:"privatesuper"`
+	Privatesuper *bool `json:"privatesuper" yaml:"privatesuper"`
 
 	// the project id this network belongs to, can be empty if globally available
-	Projectid string `json:"projectid,omitempty"`
+	Projectid string `json:"projectid,omitempty" yaml:"projectid,omitempty"`
 
 	// marks a network as shareable.
-	Shared bool `json:"shared,omitempty"`
+	Shared bool `json:"shared,omitempty" yaml:"shared,omitempty"`
 
 	// if set to true, this network can be used for underlay communication
 	// Required: true
-	Underlay *bool `json:"underlay"`
+	Underlay *bool `json:"underlay" yaml:"underlay"`
 
 	// the vrf this network is associated with
-	Vrf int64 `json:"vrf,omitempty"`
+	Vrf int64 `json:"vrf,omitempty" yaml:"vrf,omitempty"`
 
 	// if set to true, given vrf can be used by multiple networks, which is sometimes useful for network partioning (default: false)
-	Vrfshared bool `json:"vrfshared,omitempty"`
+	Vrfshared bool `json:"vrfshared,omitempty" yaml:"vrfshared,omitempty"`
 }
 
 // Validate validates this v1 network create request

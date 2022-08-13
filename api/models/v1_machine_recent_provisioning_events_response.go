@@ -21,11 +21,11 @@ type V1MachineRecentProvisioningEventsResponse struct {
 
 	// number of events stored
 	// Required: true
-	Events *int64 `json:"events"`
+	Events *int64 `json:"events" yaml:"events"`
 
 	// slice of machineIDs for which event was not published
 	// Required: true
-	Failed []string `json:"failed"`
+	Failed []string `json:"failed" yaml:"failed"`
 }
 
 // Validate validates this v1 machine recent provisioning events response

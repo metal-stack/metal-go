@@ -21,35 +21,35 @@ type V1ServerCapacity struct {
 
 	// allocated servers with this size
 	// Required: true
-	Allocated *int32 `json:"allocated"`
+	Allocated *int32 `json:"allocated" yaml:"allocated"`
 
 	// servers with issues with this size
 	// Required: true
-	Faulty *int32 `json:"faulty"`
+	Faulty *int32 `json:"faulty" yaml:"faulty"`
 
 	// servers with issues with this size
 	// Required: true
-	Faultymachines []string `json:"faultymachines"`
+	Faultymachines []string `json:"faultymachines" yaml:"faultymachines"`
 
 	// free servers with this size
 	// Required: true
-	Free *int32 `json:"free"`
+	Free *int32 `json:"free" yaml:"free"`
 
 	// servers neither free, allocated or faulty with this size
 	// Required: true
-	Other *int32 `json:"other"`
+	Other *int32 `json:"other" yaml:"other"`
 
 	// servers neither free, allocated or faulty with this size
 	// Required: true
-	Othermachines []string `json:"othermachines"`
+	Othermachines []string `json:"othermachines" yaml:"othermachines"`
 
 	// the size of the server
 	// Required: true
-	Size *string `json:"size"`
+	Size *string `json:"size" yaml:"size"`
 
 	// total amount of servers with this size
 	// Required: true
-	Total *int32 `json:"total"`
+	Total *int32 `json:"total" yaml:"total"`
 }
 
 // Validate validates this v1 server capacity

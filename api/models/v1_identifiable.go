@@ -21,7 +21,7 @@ type V1Identifiable struct {
 
 	// the unique ID of this entity
 	// Required: true
-	ID *string `json:"id"`
+	ID *string `json:"id" yaml:"id"`
 }
 
 // Validate validates this v1 identifiable

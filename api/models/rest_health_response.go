@@ -21,15 +21,15 @@ type RestHealthResponse struct {
 
 	// message
 	// Required: true
-	Message *string `json:"message"`
+	Message *string `json:"message" yaml:"message"`
 
 	// services
 	// Required: true
-	Services map[string]RestHealthResult `json:"services"`
+	Services map[string]RestHealthResult `json:"services" yaml:"services"`
 
 	// status
 	// Required: true
-	Status *string `json:"status"`
+	Status *string `json:"status" yaml:"status"`
 }
 
 // Validate validates this rest health response

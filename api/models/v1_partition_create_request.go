@@ -21,25 +21,25 @@ type V1PartitionCreateRequest struct {
 
 	// the boot configuration of this partition
 	// Required: true
-	Bootconfig *V1PartitionBootConfiguration `json:"bootconfig"`
+	Bootconfig *V1PartitionBootConfiguration `json:"bootconfig" yaml:"bootconfig"`
 
 	// a description for this entity
-	Description string `json:"description,omitempty"`
+	Description string `json:"description,omitempty" yaml:"description,omitempty"`
 
 	// the unique ID of this entity
 	// Required: true
-	ID *string `json:"id"`
+	ID *string `json:"id" yaml:"id"`
 
 	// the address to the management service of this partition
-	Mgmtserviceaddress string `json:"mgmtserviceaddress,omitempty"`
+	Mgmtserviceaddress string `json:"mgmtserviceaddress,omitempty" yaml:"mgmtserviceaddress,omitempty"`
 
 	// a readable name for this entity
-	Name string `json:"name,omitempty"`
+	Name string `json:"name,omitempty" yaml:"name,omitempty"`
 
 	// the length of private networks for the machine's child networks in this partition, default 22
 	// Maximum: 30
 	// Minimum: 16
-	Privatenetworkprefixlength int32 `json:"privatenetworkprefixlength,omitempty"`
+	Privatenetworkprefixlength int32 `json:"privatenetworkprefixlength,omitempty" yaml:"privatenetworkprefixlength,omitempty"`
 }
 
 // Validate validates this v1 partition create request
