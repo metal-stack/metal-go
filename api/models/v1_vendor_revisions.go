@@ -21,7 +21,7 @@ type V1VendorRevisions struct {
 
 	// vendor revisions
 	// Required: true
-	VendorRevisions map[string]V1BoardRevisions `json:"VendorRevisions"`
+	VendorRevisions map[string]V1BoardRevisions `json:"VendorRevisions" yaml:"VendorRevisions"`
 }
 
 // Validate validates this v1 vendor revisions

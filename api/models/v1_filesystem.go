@@ -20,24 +20,24 @@ import (
 type V1Filesystem struct {
 
 	// the options to use to create (mkfs) this filesystem
-	Createoptions []string `json:"createoptions"`
+	Createoptions []string `json:"createoptions" yaml:"createoptions"`
 
 	// the underlaying device where this filesystem should be created
 	// Required: true
-	Device *string `json:"device"`
+	Device *string `json:"device" yaml:"device"`
 
 	// the filesystem format
 	// Required: true
-	Format *string `json:"format"`
+	Format *string `json:"format" yaml:"format"`
 
 	// optional label for this this filesystem
-	Label string `json:"label,omitempty"`
+	Label string `json:"label,omitempty" yaml:"label,omitempty"`
 
 	// the options to use to mount this filesystem
-	Mountoptions []string `json:"mountoptions"`
+	Mountoptions []string `json:"mountoptions" yaml:"mountoptions"`
 
 	// the mountpoint where this filesystem should be mounted on
-	Path string `json:"path,omitempty"`
+	Path string `json:"path,omitempty" yaml:"path,omitempty"`
 }
 
 // Validate validates this v1 filesystem

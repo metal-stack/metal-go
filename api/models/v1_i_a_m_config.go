@@ -19,10 +19,10 @@ import (
 type V1IAMConfig struct {
 
 	// idm config
-	IdmConfig *V1IDMConfig `json:"idm_config,omitempty"`
+	IdmConfig *V1IDMConfig `json:"idm_config,omitempty" yaml:"idm_config,omitempty"`
 
 	// issuer config
-	IssuerConfig *V1IssuerConfig `json:"issuer_config,omitempty"`
+	IssuerConfig *V1IssuerConfig `json:"issuer_config,omitempty" yaml:"issuer_config,omitempty"`
 }
 
 // Validate validates this v1 i a m config

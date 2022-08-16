@@ -22,16 +22,16 @@ type V1SizeConstraint struct {
 
 	// the maximum value of the constraint
 	// Required: true
-	Max *int64 `json:"max"`
+	Max *int64 `json:"max" yaml:"max"`
 
 	// the minimum value of the constraint
 	// Required: true
-	Min *int64 `json:"min"`
+	Min *int64 `json:"min" yaml:"min"`
 
 	// the type of the constraint
 	// Required: true
 	// Enum: [cores memory storage]
-	Type *string `json:"type"`
+	Type *string `json:"type" yaml:"type"`
 }
 
 // Validate validates this v1 size constraint

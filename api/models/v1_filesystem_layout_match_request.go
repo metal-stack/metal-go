@@ -21,11 +21,11 @@ type V1FilesystemLayoutMatchRequest struct {
 
 	// filesystemlayout id to check
 	// Required: true
-	Filesystemlayout *string `json:"filesystemlayout"`
+	Filesystemlayout *string `json:"filesystemlayout" yaml:"filesystemlayout"`
 
 	// machine id to check
 	// Required: true
-	Machine *string `json:"machine"`
+	Machine *string `json:"machine" yaml:"machine"`
 }
 
 // Validate validates this v1 filesystem layout match request

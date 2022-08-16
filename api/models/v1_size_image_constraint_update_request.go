@@ -20,17 +20,17 @@ import (
 type V1SizeImageConstraintUpdateRequest struct {
 
 	// a list of constraints that for this size
-	Constraints *V1SizeImageConstraintBase `json:"constraints,omitempty"`
+	Constraints *V1SizeImageConstraintBase `json:"constraints,omitempty" yaml:"constraints,omitempty"`
 
 	// a description for this entity
-	Description string `json:"description,omitempty"`
+	Description string `json:"description,omitempty" yaml:"description,omitempty"`
 
 	// the unique ID of this entity
 	// Required: true
-	ID *string `json:"id"`
+	ID *string `json:"id" yaml:"id"`
 
 	// a readable name for this entity
-	Name string `json:"name,omitempty"`
+	Name string `json:"name,omitempty" yaml:"name,omitempty"`
 }
 
 // Validate validates this v1 size image constraint update request

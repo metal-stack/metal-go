@@ -21,14 +21,14 @@ type V1MachineUpdateRequest struct {
 
 	// a description for this machine
 	// Required: true
-	Description *string `json:"description"`
+	Description *string `json:"description" yaml:"description"`
 
 	// the unique ID of this entity
 	// Required: true
-	ID *string `json:"id"`
+	ID *string `json:"id" yaml:"id"`
 
 	// tags for this machine.
-	Tags []string `json:"tags"`
+	Tags []string `json:"tags" yaml:"tags"`
 }
 
 // Validate validates this v1 machine update request

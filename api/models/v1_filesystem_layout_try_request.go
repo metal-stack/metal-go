@@ -21,11 +21,11 @@ type V1FilesystemLayoutTryRequest struct {
 
 	// image to try
 	// Required: true
-	Image *string `json:"image"`
+	Image *string `json:"image" yaml:"image"`
 
 	// machine size to try
 	// Required: true
-	Size *string `json:"size"`
+	Size *string `json:"size" yaml:"size"`
 }
 
 // Validate validates this v1 filesystem layout try request

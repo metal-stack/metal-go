@@ -20,21 +20,21 @@ import (
 type V1ImageBase struct {
 
 	// classification of this image
-	Classification string `json:"classification,omitempty"`
+	Classification string `json:"classification,omitempty" yaml:"classification,omitempty"`
 
 	// expirationDate of this image
 	// Required: true
 	// Format: date-time
-	ExpirationDate *strfmt.DateTime `json:"expirationDate"`
+	ExpirationDate *strfmt.DateTime `json:"expirationDate" yaml:"expirationDate"`
 
 	// features of this image
-	Features []string `json:"features"`
+	Features []string `json:"features" yaml:"features"`
 
 	// the url of this image
-	URL string `json:"url,omitempty"`
+	URL string `json:"url,omitempty" yaml:"url,omitempty"`
 
 	// machines where this image is in use
-	Usedby []string `json:"usedby"`
+	Usedby []string `json:"usedby" yaml:"usedby"`
 }
 
 // Validate validates this v1 image base

@@ -22,43 +22,43 @@ type V1IPResponse struct {
 
 	// a unique identifier for this ip address allocation, can be used to distinguish between ip address allocation over time.
 	// Required: true
-	Allocationuuid *string `json:"allocationuuid"`
+	Allocationuuid *string `json:"allocationuuid" yaml:"allocationuuid"`
 
 	// the last changed timestamp of this entity
 	// Read Only: true
 	// Format: date-time
-	Changed strfmt.DateTime `json:"changed,omitempty"`
+	Changed strfmt.DateTime `json:"changed,omitempty" yaml:"changed,omitempty"`
 
 	// the creation time of this entity
 	// Read Only: true
 	// Format: date-time
-	Created strfmt.DateTime `json:"created,omitempty"`
+	Created strfmt.DateTime `json:"created,omitempty" yaml:"created,omitempty"`
 
 	// a description for this entity
-	Description string `json:"description,omitempty"`
+	Description string `json:"description,omitempty" yaml:"description,omitempty"`
 
 	// the address (ipv4 or ipv6) of this ip
 	// Required: true
-	Ipaddress *string `json:"ipaddress"`
+	Ipaddress *string `json:"ipaddress" yaml:"ipaddress"`
 
 	// a readable name for this entity
-	Name string `json:"name,omitempty"`
+	Name string `json:"name,omitempty" yaml:"name,omitempty"`
 
 	// the network this ip allocate request address belongs to
 	// Required: true
-	Networkid *string `json:"networkid"`
+	Networkid *string `json:"networkid" yaml:"networkid"`
 
 	// the project this ip address belongs to
 	// Required: true
-	Projectid *string `json:"projectid"`
+	Projectid *string `json:"projectid" yaml:"projectid"`
 
 	// free tags that you associate with this ip.
-	Tags []string `json:"tags"`
+	Tags []string `json:"tags" yaml:"tags"`
 
 	// the ip type, ephemeral leads to automatic cleanup of the ip address, static will enable re-use of the ip at a later point in time
 	// Required: true
 	// Enum: [ephemeral static]
-	Type *string `json:"type"`
+	Type *string `json:"type" yaml:"type"`
 }
 
 // Validate validates this v1 IP response

@@ -20,71 +20,71 @@ import (
 type V1MachineIPMIResponse struct {
 
 	// the allocation data of an allocated machine
-	Allocation *V1MachineAllocation `json:"allocation,omitempty"`
+	Allocation *V1MachineAllocation `json:"allocation,omitempty" yaml:"allocation,omitempty"`
 
 	// bios information of this machine
 	// Required: true
-	Bios *V1MachineBIOS `json:"bios"`
+	Bios *V1MachineBIOS `json:"bios" yaml:"bios"`
 
 	// the last changed timestamp of this entity
 	// Read Only: true
 	// Format: date-time
-	Changed strfmt.DateTime `json:"changed,omitempty"`
+	Changed strfmt.DateTime `json:"changed,omitempty" yaml:"changed,omitempty"`
 
 	// the creation time of this entity
 	// Read Only: true
 	// Format: date-time
-	Created strfmt.DateTime `json:"created,omitempty"`
+	Created strfmt.DateTime `json:"created,omitempty" yaml:"created,omitempty"`
 
 	// a description for this entity
-	Description string `json:"description,omitempty"`
+	Description string `json:"description,omitempty" yaml:"description,omitempty"`
 
 	// recent events of this machine during provisioning
 	// Required: true
-	Events *V1MachineRecentProvisioningEvents `json:"events"`
+	Events *V1MachineRecentProvisioningEvents `json:"events" yaml:"events"`
 
 	// the hardware of this machine
 	// Required: true
-	Hardware *V1MachineHardware `json:"hardware"`
+	Hardware *V1MachineHardware `json:"hardware" yaml:"hardware"`
 
 	// the unique ID of this entity
 	// Required: true
-	ID *string `json:"id"`
+	ID *string `json:"id" yaml:"id"`
 
 	// ipmi information of this machine
 	// Required: true
-	Ipmi *V1MachineIPMI `json:"ipmi"`
+	Ipmi *V1MachineIPMI `json:"ipmi" yaml:"ipmi"`
 
 	// the state of this chassis identify LED
 	// Required: true
-	Ledstate *V1ChassisIdentifyLEDState `json:"ledstate"`
+	Ledstate *V1ChassisIdentifyLEDState `json:"ledstate" yaml:"ledstate"`
 
 	// the liveliness of this machine
 	// Required: true
-	Liveliness *string `json:"liveliness"`
+	Liveliness *string `json:"liveliness" yaml:"liveliness"`
 
 	// a readable name for this entity
-	Name string `json:"name,omitempty"`
+	Name string `json:"name,omitempty" yaml:"name,omitempty"`
 
 	// the partition assigned to this machine
 	// Read Only: true
-	Partition *V1PartitionResponse `json:"partition,omitempty"`
+	Partition *V1PartitionResponse `json:"partition,omitempty" yaml:"partition,omitempty"`
 
 	// the rack assigned to this machine
 	// Read Only: true
-	Rackid string `json:"rackid,omitempty"`
+	Rackid string `json:"rackid,omitempty" yaml:"rackid,omitempty"`
 
 	// the size of this machine
 	// Read Only: true
-	Size *V1SizeResponse `json:"size,omitempty"`
+	Size *V1SizeResponse `json:"size,omitempty" yaml:"size,omitempty"`
 
 	// the state of this machine
 	// Required: true
-	State *V1MachineState `json:"state"`
+	State *V1MachineState `json:"state" yaml:"state"`
 
 	// tags for this machine
 	// Required: true
-	Tags []string `json:"tags"`
+	Tags []string `json:"tags" yaml:"tags"`
 }
 
 // Validate validates this v1 machine IP m i response

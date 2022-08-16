@@ -21,54 +21,54 @@ import (
 type V1FirewallCreateRequest struct {
 
 	// a description for this entity
-	Description string `json:"description,omitempty"`
+	Description string `json:"description,omitempty" yaml:"description,omitempty"`
 
 	// the filesystemlayout id to assing to this machine
-	Filesystemlayoutid string `json:"filesystemlayoutid,omitempty"`
+	Filesystemlayoutid string `json:"filesystemlayoutid,omitempty" yaml:"filesystemlayoutid,omitempty"`
 
 	// if set to true, this firewall is set up in a High Available manner
-	Ha bool `json:"ha,omitempty"`
+	Ha bool `json:"ha,omitempty" yaml:"ha,omitempty"`
 
 	// the hostname for the allocated machine (defaults to metal)
-	Hostname string `json:"hostname,omitempty"`
+	Hostname string `json:"hostname,omitempty" yaml:"hostname,omitempty"`
 
 	// the image id to assign this machine to
 	// Required: true
-	Imageid *string `json:"imageid"`
+	Imageid *string `json:"imageid" yaml:"imageid"`
 
 	// the ips to attach to this machine additionally
-	Ips []string `json:"ips"`
+	Ips []string `json:"ips" yaml:"ips"`
 
 	// a readable name for this entity
-	Name string `json:"name,omitempty"`
+	Name string `json:"name,omitempty" yaml:"name,omitempty"`
 
 	// the networks that this machine will be placed in.
-	Networks []*V1MachineAllocationNetwork `json:"networks"`
+	Networks []*V1MachineAllocationNetwork `json:"networks" yaml:"networks"`
 
 	// the partition id to assign this machine to
 	// Required: true
-	Partitionid *string `json:"partitionid"`
+	Partitionid *string `json:"partitionid" yaml:"partitionid"`
 
 	// the project id to assign this machine to
 	// Required: true
-	Projectid *string `json:"projectid"`
+	Projectid *string `json:"projectid" yaml:"projectid"`
 
 	// the size id to assign this machine to
 	// Required: true
-	Sizeid *string `json:"sizeid"`
+	Sizeid *string `json:"sizeid" yaml:"sizeid"`
 
 	// the public ssh keys to access the machine with
 	// Required: true
-	SSHPubKeys []string `json:"ssh_pub_keys"`
+	SSHPubKeys []string `json:"ssh_pub_keys" yaml:"ssh_pub_keys"`
 
 	// tags for this machine
-	Tags []string `json:"tags"`
+	Tags []string `json:"tags" yaml:"tags"`
 
 	// cloud-init.io compatible userdata must be base64 encoded
-	UserData string `json:"user_data,omitempty"`
+	UserData string `json:"user_data,omitempty" yaml:"user_data,omitempty"`
 
 	// if this field is set, this specific machine will be allocated if it is not in available state and not currently allocated. this field overrules size and partition
-	UUID string `json:"uuid,omitempty"`
+	UUID string `json:"uuid,omitempty" yaml:"uuid,omitempty"`
 }
 
 // Validate validates this v1 firewall create request

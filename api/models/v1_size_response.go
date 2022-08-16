@@ -23,26 +23,26 @@ type V1SizeResponse struct {
 	// the last changed timestamp of this entity
 	// Read Only: true
 	// Format: date-time
-	Changed strfmt.DateTime `json:"changed,omitempty"`
+	Changed strfmt.DateTime `json:"changed,omitempty" yaml:"changed,omitempty"`
 
 	// a list of constraints that defines this size
 	// Required: true
-	Constraints []*V1SizeConstraint `json:"constraints"`
+	Constraints []*V1SizeConstraint `json:"constraints" yaml:"constraints"`
 
 	// the creation time of this entity
 	// Read Only: true
 	// Format: date-time
-	Created strfmt.DateTime `json:"created,omitempty"`
+	Created strfmt.DateTime `json:"created,omitempty" yaml:"created,omitempty"`
 
 	// a description for this entity
-	Description string `json:"description,omitempty"`
+	Description string `json:"description,omitempty" yaml:"description,omitempty"`
 
 	// the unique ID of this entity
 	// Required: true
-	ID *string `json:"id"`
+	ID *string `json:"id" yaml:"id"`
 
 	// a readable name for this entity
-	Name string `json:"name,omitempty"`
+	Name string `json:"name,omitempty" yaml:"name,omitempty"`
 }
 
 // Validate validates this v1 size response

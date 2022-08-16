@@ -21,11 +21,11 @@ type V1MachineIpmiReportResponse struct {
 
 	// the machine uuids that triggered a creation of a machine entity
 	// Required: true
-	Created []string `json:"created"`
+	Created []string `json:"created" yaml:"created"`
 
 	// the machine uuids that triggered an update of ipmi data
 	// Required: true
-	Updated []string `json:"updated"`
+	Updated []string `json:"updated" yaml:"updated"`
 }
 
 // Validate validates this v1 machine ipmi report response

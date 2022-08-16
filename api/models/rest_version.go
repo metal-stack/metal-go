@@ -21,23 +21,23 @@ type RestVersion struct {
 
 	// builddate
 	// Required: true
-	Builddate *string `json:"builddate"`
+	Builddate *string `json:"builddate" yaml:"builddate"`
 
 	// gitsha1
 	// Required: true
-	Gitsha1 *string `json:"gitsha1"`
+	Gitsha1 *string `json:"gitsha1" yaml:"gitsha1"`
 
 	// name
 	// Required: true
-	Name *string `json:"name"`
+	Name *string `json:"name" yaml:"name"`
 
 	// revision
 	// Required: true
-	Revision *string `json:"revision"`
+	Revision *string `json:"revision" yaml:"revision"`
 
 	// version
 	// Required: true
-	Version *string `json:"version"`
+	Version *string `json:"version" yaml:"version"`
 }
 
 // Validate validates this rest version

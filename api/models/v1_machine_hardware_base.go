@@ -22,15 +22,15 @@ type V1MachineHardwareBase struct {
 
 	// the number of cpu cores
 	// Required: true
-	CPUCores *int32 `json:"cpu_cores"`
+	CPUCores *int32 `json:"cpu_cores" yaml:"cpu_cores"`
 
 	// the list of block devices of this machine
 	// Required: true
-	Disks []*V1MachineBlockDevice `json:"disks"`
+	Disks []*V1MachineBlockDevice `json:"disks" yaml:"disks"`
 
 	// the total memory of the machine
 	// Required: true
-	Memory *int64 `json:"memory"`
+	Memory *int64 `json:"memory" yaml:"memory"`
 }
 
 // Validate validates this v1 machine hardware base

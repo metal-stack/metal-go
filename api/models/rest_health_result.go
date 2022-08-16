@@ -21,11 +21,11 @@ type RestHealthResult struct {
 
 	// message
 	// Required: true
-	Message *string `json:"message"`
+	Message *string `json:"message" yaml:"message"`
 
 	// status
 	// Required: true
-	Status *string `json:"status"`
+	Status *string `json:"status" yaml:"status"`
 }
 
 // Validate validates this rest health result

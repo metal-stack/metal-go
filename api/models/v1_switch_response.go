@@ -23,47 +23,47 @@ type V1SwitchResponse struct {
 	// the last changed timestamp of this entity
 	// Read Only: true
 	// Format: date-time
-	Changed strfmt.DateTime `json:"changed,omitempty"`
+	Changed strfmt.DateTime `json:"changed,omitempty" yaml:"changed,omitempty"`
 
 	// a connection between a switch port and a machine
 	// Required: true
-	Connections []*V1SwitchConnection `json:"connections"`
+	Connections []*V1SwitchConnection `json:"connections" yaml:"connections"`
 
 	// the creation time of this entity
 	// Read Only: true
 	// Format: date-time
-	Created strfmt.DateTime `json:"created,omitempty"`
+	Created strfmt.DateTime `json:"created,omitempty" yaml:"created,omitempty"`
 
 	// a description for this entity
-	Description string `json:"description,omitempty"`
+	Description string `json:"description,omitempty" yaml:"description,omitempty"`
 
 	// the unique ID of this entity
 	// Required: true
-	ID *string `json:"id"`
+	ID *string `json:"id" yaml:"id"`
 
 	// last successful synchronization to the switch
-	LastSync *V1SwitchSync `json:"last_sync,omitempty"`
+	LastSync *V1SwitchSync `json:"last_sync,omitempty" yaml:"last_sync,omitempty"`
 
 	// last synchronization to the switch that was erroneous
-	LastSyncError *V1SwitchSync `json:"last_sync_error,omitempty"`
+	LastSyncError *V1SwitchSync `json:"last_sync_error,omitempty" yaml:"last_sync_error,omitempty"`
 
 	// the mode the switch currently has
-	Mode string `json:"mode,omitempty"`
+	Mode string `json:"mode,omitempty" yaml:"mode,omitempty"`
 
 	// a readable name for this entity
-	Name string `json:"name,omitempty"`
+	Name string `json:"name,omitempty" yaml:"name,omitempty"`
 
 	// the list of network interfaces on the switch
 	// Required: true
-	Nics []*V1SwitchNic `json:"nics"`
+	Nics []*V1SwitchNic `json:"nics" yaml:"nics"`
 
 	// the partition in which this switch is located
 	// Required: true
-	Partition *V1PartitionResponse `json:"partition"`
+	Partition *V1PartitionResponse `json:"partition" yaml:"partition"`
 
 	// the id of the rack in which this switch is located
 	// Required: true
-	RackID *string `json:"rack_id"`
+	RackID *string `json:"rack_id" yaml:"rack_id"`
 }
 
 // Validate validates this v1 switch response

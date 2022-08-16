@@ -19,16 +19,16 @@ import (
 type V1QuotaSet struct {
 
 	// cluster
-	Cluster *V1Quota `json:"cluster,omitempty"`
+	Cluster *V1Quota `json:"cluster,omitempty" yaml:"cluster,omitempty"`
 
 	// ip
-	IP *V1Quota `json:"ip,omitempty"`
+	IP *V1Quota `json:"ip,omitempty" yaml:"ip,omitempty"`
 
 	// machine
-	Machine *V1Quota `json:"machine,omitempty"`
+	Machine *V1Quota `json:"machine,omitempty" yaml:"machine,omitempty"`
 
 	// project
-	Project *V1Quota `json:"project,omitempty"`
+	Project *V1Quota `json:"project,omitempty" yaml:"project,omitempty"`
 }
 
 // Validate validates this v1 quota set

@@ -21,11 +21,11 @@ type V1SizeImageConstraintTryRequest struct {
 
 	// image
 	// Required: true
-	Image *string `json:"image"`
+	Image *string `json:"image" yaml:"image"`
 
 	// size
 	// Required: true
-	Size *string `json:"size"`
+	Size *string `json:"size" yaml:"size"`
 }
 
 // Validate validates this v1 size image constraint try request

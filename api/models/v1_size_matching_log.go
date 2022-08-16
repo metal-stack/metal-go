@@ -22,19 +22,19 @@ type V1SizeMatchingLog struct {
 
 	// constraints
 	// Required: true
-	Constraints []*V1SizeConstraintMatchingLog `json:"constraints"`
+	Constraints []*V1SizeConstraintMatchingLog `json:"constraints" yaml:"constraints"`
 
 	// log
 	// Required: true
-	Log *string `json:"log"`
+	Log *string `json:"log" yaml:"log"`
 
 	// match
 	// Required: true
-	Match *bool `json:"match"`
+	Match *bool `json:"match" yaml:"match"`
 
 	// name
 	// Required: true
-	Name *string `json:"name"`
+	Name *string `json:"name" yaml:"name"`
 }
 
 // Validate validates this v1 size matching log

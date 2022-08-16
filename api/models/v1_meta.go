@@ -20,30 +20,30 @@ import (
 type V1Meta struct {
 
 	// annotations
-	Annotations map[string]string `json:"annotations,omitempty"`
+	Annotations map[string]string `json:"annotations,omitempty" yaml:"annotations,omitempty"`
 
 	// apiversion
-	Apiversion string `json:"apiversion,omitempty"`
+	Apiversion string `json:"apiversion,omitempty" yaml:"apiversion,omitempty"`
 
 	// created time
 	// Format: date-time
-	CreatedTime strfmt.DateTime `json:"created_time,omitempty"`
+	CreatedTime strfmt.DateTime `json:"created_time,omitempty" yaml:"created_time,omitempty"`
 
 	// id
-	ID string `json:"id,omitempty"`
+	ID string `json:"id,omitempty" yaml:"id,omitempty"`
 
 	// kind
-	Kind string `json:"kind,omitempty"`
+	Kind string `json:"kind,omitempty" yaml:"kind,omitempty"`
 
 	// labels
-	Labels []string `json:"labels"`
+	Labels []string `json:"labels" yaml:"labels"`
 
 	// updated time
 	// Format: date-time
-	UpdatedTime strfmt.DateTime `json:"updated_time,omitempty"`
+	UpdatedTime strfmt.DateTime `json:"updated_time,omitempty" yaml:"updated_time,omitempty"`
 
 	// version
-	Version int64 `json:"version,omitempty"`
+	Version int64 `json:"version,omitempty" yaml:"version,omitempty"`
 }
 
 // Validate validates this v1 meta

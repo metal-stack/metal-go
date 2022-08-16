@@ -21,19 +21,19 @@ type V1LogicalVolume struct {
 
 	// the type of this logical volume can be either linear|striped|raid1
 	// Required: true
-	Lvmtype *string `json:"lvmtype"`
+	Lvmtype *string `json:"lvmtype" yaml:"lvmtype"`
 
 	// the name of the logical volume
 	// Required: true
-	Name *string `json:"name"`
+	Name *string `json:"name" yaml:"name"`
 
 	// size in mebibytes (MiB) of this volume
 	// Required: true
-	Size *int64 `json:"size"`
+	Size *int64 `json:"size" yaml:"size"`
 
 	// the name of the volume group where to create the logical volume onto
 	// Required: true
-	Volumegroup *string `json:"volumegroup"`
+	Volumegroup *string `json:"volumegroup" yaml:"volumegroup"`
 }
 
 // Validate validates this v1 logical volume

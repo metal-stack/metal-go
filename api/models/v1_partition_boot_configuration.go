@@ -18,13 +18,13 @@ import (
 type V1PartitionBootConfiguration struct {
 
 	// the cmdline to the kernel for the boot image
-	Commandline string `json:"commandline,omitempty"`
+	Commandline string `json:"commandline,omitempty" yaml:"commandline,omitempty"`
 
 	// the url to download the initrd for the boot image
-	Imageurl string `json:"imageurl,omitempty"`
+	Imageurl string `json:"imageurl,omitempty" yaml:"imageurl,omitempty"`
 
 	// the url to download the kernel for the boot image
-	Kernelurl string `json:"kernelurl,omitempty"`
+	Kernelurl string `json:"kernelurl,omitempty" yaml:"kernelurl,omitempty"`
 }
 
 // Validate validates this v1 partition boot configuration

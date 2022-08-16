@@ -22,39 +22,39 @@ type V1ImageResponse struct {
 	// the last changed timestamp of this entity
 	// Read Only: true
 	// Format: date-time
-	Changed strfmt.DateTime `json:"changed,omitempty"`
+	Changed strfmt.DateTime `json:"changed,omitempty" yaml:"changed,omitempty"`
 
 	// classification of this image
-	Classification string `json:"classification,omitempty"`
+	Classification string `json:"classification,omitempty" yaml:"classification,omitempty"`
 
 	// the creation time of this entity
 	// Read Only: true
 	// Format: date-time
-	Created strfmt.DateTime `json:"created,omitempty"`
+	Created strfmt.DateTime `json:"created,omitempty" yaml:"created,omitempty"`
 
 	// a description for this entity
-	Description string `json:"description,omitempty"`
+	Description string `json:"description,omitempty" yaml:"description,omitempty"`
 
 	// expirationDate of this image
 	// Required: true
 	// Format: date-time
-	ExpirationDate *strfmt.DateTime `json:"expirationDate"`
+	ExpirationDate *strfmt.DateTime `json:"expirationDate" yaml:"expirationDate"`
 
 	// features of this image
-	Features []string `json:"features"`
+	Features []string `json:"features" yaml:"features"`
 
 	// the unique ID of this entity
 	// Required: true
-	ID *string `json:"id"`
+	ID *string `json:"id" yaml:"id"`
 
 	// a readable name for this entity
-	Name string `json:"name,omitempty"`
+	Name string `json:"name,omitempty" yaml:"name,omitempty"`
 
 	// the url of this image
-	URL string `json:"url,omitempty"`
+	URL string `json:"url,omitempty" yaml:"url,omitempty"`
 
 	// machines where this image is in use
-	Usedby []string `json:"usedby"`
+	Usedby []string `json:"usedby" yaml:"usedby"`
 }
 
 // Validate validates this v1 image response

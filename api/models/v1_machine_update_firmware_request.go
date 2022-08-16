@@ -22,16 +22,16 @@ type V1MachineUpdateFirmwareRequest struct {
 
 	// a description why the machine has been updated
 	// Required: true
-	Description *string `json:"description"`
+	Description *string `json:"description" yaml:"description"`
 
 	// the firmware kind, i.e. [bios|bmc]
 	// Required: true
 	// Enum: [bios bmc]
-	Kind *string `json:"kind"`
+	Kind *string `json:"kind" yaml:"kind"`
 
 	// the update revision
 	// Required: true
-	Revision *string `json:"revision"`
+	Revision *string `json:"revision" yaml:"revision"`
 }
 
 // Validate validates this v1 machine update firmware request

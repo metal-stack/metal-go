@@ -21,27 +21,27 @@ type V1MachineIpmiReport struct {
 
 	// b i o s version
 	// Required: true
-	BIOSVersion *string `json:"BIOSVersion"`
+	BIOSVersion *string `json:"BIOSVersion" yaml:"BIOSVersion"`
 
 	// b m c Ip
 	// Required: true
-	BMCIP *string `json:"BMCIp"`
+	BMCIP *string `json:"BMCIp" yaml:"BMCIp"`
 
 	// b m c version
 	// Required: true
-	BMCVersion *string `json:"BMCVersion"`
+	BMCVersion *string `json:"BMCVersion" yaml:"BMCVersion"`
 
 	// f r u
 	// Required: true
-	FRU *V1MachineFru `json:"FRU"`
+	FRU *V1MachineFru `json:"FRU" yaml:"FRU"`
 
 	// indicator l e d state
 	// Required: true
-	IndicatorLEDState *string `json:"IndicatorLEDState"`
+	IndicatorLEDState *string `json:"IndicatorLEDState" yaml:"IndicatorLEDState"`
 
 	// power state
 	// Required: true
-	PowerState *string `json:"PowerState"`
+	PowerState *string `json:"PowerState" yaml:"PowerState"`
 }
 
 // Validate validates this v1 machine ipmi report

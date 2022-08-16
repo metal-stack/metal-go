@@ -21,7 +21,7 @@ type V1SizeImageConstraintBase struct {
 
 	// a list of images for this contraints apply
 	// Required: true
-	Images map[string]string `json:"images"`
+	Images map[string]string `json:"images" yaml:"images"`
 }
 
 // Validate validates this v1 size image constraint base

@@ -22,15 +22,15 @@ type V1MachineNic struct {
 
 	// the mac address of this network interface
 	// Required: true
-	Mac *string `json:"mac"`
+	Mac *string `json:"mac" yaml:"mac"`
 
 	// the name of this network interface
 	// Required: true
-	Name *string `json:"name"`
+	Name *string `json:"name" yaml:"name"`
 
 	// the neighbors visible to this network interface
 	// Required: true
-	Neighbors []*V1MachineNic `json:"neighbors"`
+	Neighbors []*V1MachineNic `json:"neighbors" yaml:"neighbors"`
 }
 
 // Validate validates this v1 machine nic

@@ -19,19 +19,19 @@ import (
 type V1ProjectUpdateRequest struct {
 
 	// description
-	Description string `json:"description,omitempty"`
+	Description string `json:"description,omitempty" yaml:"description,omitempty"`
 
 	// meta
-	Meta *V1Meta `json:"meta,omitempty"`
+	Meta *V1Meta `json:"meta,omitempty" yaml:"meta,omitempty"`
 
 	// name
-	Name string `json:"name,omitempty"`
+	Name string `json:"name,omitempty" yaml:"name,omitempty"`
 
 	// quotas
-	Quotas *V1QuotaSet `json:"quotas,omitempty"`
+	Quotas *V1QuotaSet `json:"quotas,omitempty" yaml:"quotas,omitempty"`
 
 	// tenant id
-	TenantID string `json:"tenant_id,omitempty"`
+	TenantID string `json:"tenant_id,omitempty" yaml:"tenant_id,omitempty"`
 }
 
 // Validate validates this v1 project update request

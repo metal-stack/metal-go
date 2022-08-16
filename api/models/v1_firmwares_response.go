@@ -21,7 +21,7 @@ type V1FirmwaresResponse struct {
 
 	// list of firmwares per board per vendor per kind
 	// Required: true
-	Revisions map[string]V1VendorRevisions `json:"revisions"`
+	Revisions map[string]V1VendorRevisions `json:"revisions" yaml:"revisions"`
 }
 
 // Validate validates this v1 firmwares response

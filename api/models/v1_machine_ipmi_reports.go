@@ -20,10 +20,10 @@ import (
 type V1MachineIpmiReports struct {
 
 	// the partition id for the ipmi report
-	Partitionid string `json:"partitionid,omitempty"`
+	Partitionid string `json:"partitionid,omitempty" yaml:"partitionid,omitempty"`
 
 	// uuid to machinereport
-	Reports map[string]V1MachineIpmiReport `json:"reports,omitempty"`
+	Reports map[string]V1MachineIpmiReport `json:"reports,omitempty" yaml:"reports,omitempty"`
 }
 
 // Validate validates this v1 machine ipmi reports

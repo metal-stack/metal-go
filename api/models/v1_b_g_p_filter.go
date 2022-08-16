@@ -21,10 +21,10 @@ type V1BGPFilter struct {
 
 	// the cidr addresses that are allowed to be announced at this switch port
 	// Required: true
-	Cidrs []string `json:"cidrs"`
+	Cidrs []string `json:"cidrs" yaml:"cidrs"`
 
 	// the virtual networks that are exposed at this switch port
-	Vnis []string `json:"vnis"`
+	Vnis []string `json:"vnis" yaml:"vnis"`
 }
 
 // Validate validates this v1 b g p filter

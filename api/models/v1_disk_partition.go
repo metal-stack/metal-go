@@ -21,18 +21,18 @@ type V1DiskPartition struct {
 
 	// the gpt partition table type of this partition
 	// Required: true
-	Gpttype *string `json:"gpttype"`
+	Gpttype *string `json:"gpttype" yaml:"gpttype"`
 
 	// optional label for this this partition
-	Label string `json:"label,omitempty"`
+	Label string `json:"label,omitempty" yaml:"label,omitempty"`
 
 	// partition number, will be appended to partitionprefix to create the final devicename
 	// Required: true
-	Number *int64 `json:"number"`
+	Number *int64 `json:"number" yaml:"number"`
 
 	// size in mebibytes (MiB) of this partition
 	// Required: true
-	Size *int64 `json:"size"`
+	Size *int64 `json:"size" yaml:"size"`
 }
 
 // Validate validates this v1 disk partition

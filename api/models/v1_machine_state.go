@@ -22,19 +22,19 @@ type V1MachineState struct {
 
 	// a description why this machine is in the given state
 	// Required: true
-	Description *string `json:"description"`
+	Description *string `json:"description" yaml:"description"`
 
 	// the user that changed the state
-	Issuer string `json:"issuer,omitempty"`
+	Issuer string `json:"issuer,omitempty" yaml:"issuer,omitempty"`
 
 	// the version of metal hammer which put the machine in waiting state
 	// Required: true
-	MetalHammerVersion *string `json:"metal_hammer_version"`
+	MetalHammerVersion *string `json:"metal_hammer_version" yaml:"metal_hammer_version"`
 
 	// the state of this machine. empty means available for all
 	// Required: true
 	// Enum: [ LOCKED RESERVED]
-	Value *string `json:"value"`
+	Value *string `json:"value" yaml:"value"`
 }
 
 // Validate validates this v1 machine state

@@ -18,16 +18,16 @@ import (
 type V1NetworkBase struct {
 
 	// free labels that you associate with this network.
-	Labels map[string]string `json:"labels,omitempty"`
+	Labels map[string]string `json:"labels,omitempty" yaml:"labels,omitempty"`
 
 	// the partition this network belongs to
-	Partitionid string `json:"partitionid,omitempty"`
+	Partitionid string `json:"partitionid,omitempty" yaml:"partitionid,omitempty"`
 
 	// the project id this network belongs to, can be empty if globally available
-	Projectid string `json:"projectid,omitempty"`
+	Projectid string `json:"projectid,omitempty" yaml:"projectid,omitempty"`
 
 	// marks a network as shareable.
-	Shared bool `json:"shared,omitempty"`
+	Shared bool `json:"shared,omitempty" yaml:"shared,omitempty"`
 }
 
 // Validate validates this v1 network base

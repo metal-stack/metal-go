@@ -21,31 +21,31 @@ type V1MachineRegisterRequest struct {
 
 	// bios information of this machine
 	// Required: true
-	Bios *V1MachineBIOS `json:"bios"`
+	Bios *V1MachineBIOS `json:"bios" yaml:"bios"`
 
 	// the hardware of this machine
 	// Required: true
-	Hardware *V1MachineHardware `json:"hardware"`
+	Hardware *V1MachineHardware `json:"hardware" yaml:"hardware"`
 
 	// the ipmi access infos
 	// Required: true
-	Ipmi *V1MachineIPMI `json:"ipmi"`
+	Ipmi *V1MachineIPMI `json:"ipmi" yaml:"ipmi"`
 
 	// the partition id to register this machine with
 	// Required: true
-	Partitionid *string `json:"partitionid"`
+	Partitionid *string `json:"partitionid" yaml:"partitionid"`
 
 	// the rack id where this machine is connected to
 	// Required: true
-	Rackid *string `json:"rackid"`
+	Rackid *string `json:"rackid" yaml:"rackid"`
 
 	// tags for this machine
 	// Required: true
-	Tags []string `json:"tags"`
+	Tags []string `json:"tags" yaml:"tags"`
 
 	// the product uuid of the machine to register
 	// Required: true
-	UUID *string `json:"uuid"`
+	UUID *string `json:"uuid" yaml:"uuid"`
 }
 
 // Validate validates this v1 machine register request
