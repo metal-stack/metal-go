@@ -440,7 +440,7 @@ func (d *Driver) NetworkAddDestinationprefix(nur *NetworkUpdateRequest) (*Networ
 		Destinationprefixes: newPrefixes,
 	}
 	updateNetwork.SetBody(updateRequest)
-	resp, err := d.network.UpdateNetwork(updateNetwork, nil)
+	resp, err := d.Network().UpdateNetwork(updateNetwork, nil)
 	if err != nil {
 		return response, err
 	}
@@ -470,7 +470,7 @@ func (d *Driver) NetworkRemoveDestinationprefix(nur *NetworkUpdateRequest) (*Net
 		Destinationprefixes: newPrefixes,
 	}
 	updateNetwork.SetBody(updateRequest)
-	resp, err := d.network.UpdateNetwork(updateNetwork, nil)
+	resp, err := d.Network().UpdateNetwork(updateNetwork, nil)
 	if err != nil {
 		return response, err
 	}
