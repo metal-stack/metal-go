@@ -21,21 +21,21 @@ type V1Raid struct {
 
 	// the name of the resulting array device
 	// Required: true
-	Arrayname *string `json:"arrayname"`
+	Arrayname *string `json:"arrayname" yaml:"arrayname"`
 
 	// the options to use to create the raid array
-	Createoptions []string `json:"createoptions"`
+	Createoptions []string `json:"createoptions" yaml:"createoptions"`
 
 	// list of devices to form the raid array from
-	Devices []string `json:"devices"`
+	Devices []string `json:"devices" yaml:"devices"`
 
 	// raid level to create, should be 0 or 1
 	// Required: true
-	Level *string `json:"level"`
+	Level *string `json:"level" yaml:"level"`
 
 	// number of spares for the raid array
 	// Required: true
-	Spares *int32 `json:"spares"`
+	Spares *int32 `json:"spares" yaml:"spares"`
 }
 
 // Validate validates this v1 raid

@@ -22,19 +22,19 @@ type V1MachineHardware struct {
 
 	// the number of cpu cores
 	// Required: true
-	CPUCores *int32 `json:"cpu_cores"`
+	CPUCores *int32 `json:"cpu_cores" yaml:"cpu_cores"`
 
 	// the list of block devices of this machine
 	// Required: true
-	Disks []*V1MachineBlockDevice `json:"disks"`
+	Disks []*V1MachineBlockDevice `json:"disks" yaml:"disks"`
 
 	// the total memory of the machine
 	// Required: true
-	Memory *int64 `json:"memory"`
+	Memory *int64 `json:"memory" yaml:"memory"`
 
 	// the list of network interfaces of this machine
 	// Required: true
-	Nics []*V1MachineNic `json:"nics"`
+	Nics []*V1MachineNic `json:"nics" yaml:"nics"`
 }
 
 // Validate validates this v1 machine hardware
@@ -87,6 +87,8 @@ func (m *V1MachineHardware) validateDisks(formats strfmt.Registry) error {
 			if err := m.Disks[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("disks" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("disks" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -121,6 +123,8 @@ func (m *V1MachineHardware) validateNics(formats strfmt.Registry) error {
 			if err := m.Nics[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("nics" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("nics" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -157,6 +161,8 @@ func (m *V1MachineHardware) contextValidateDisks(ctx context.Context, formats st
 			if err := m.Disks[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("disks" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("disks" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -175,6 +181,8 @@ func (m *V1MachineHardware) contextValidateNics(ctx context.Context, formats str
 			if err := m.Nics[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("nics" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("nics" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

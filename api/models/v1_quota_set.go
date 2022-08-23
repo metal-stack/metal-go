@@ -19,16 +19,16 @@ import (
 type V1QuotaSet struct {
 
 	// cluster
-	Cluster *V1Quota `json:"cluster,omitempty"`
+	Cluster *V1Quota `json:"cluster,omitempty" yaml:"cluster,omitempty"`
 
 	// ip
-	IP *V1Quota `json:"ip,omitempty"`
+	IP *V1Quota `json:"ip,omitempty" yaml:"ip,omitempty"`
 
 	// machine
-	Machine *V1Quota `json:"machine,omitempty"`
+	Machine *V1Quota `json:"machine,omitempty" yaml:"machine,omitempty"`
 
 	// project
-	Project *V1Quota `json:"project,omitempty"`
+	Project *V1Quota `json:"project,omitempty" yaml:"project,omitempty"`
 }
 
 // Validate validates this v1 quota set
@@ -66,6 +66,8 @@ func (m *V1QuotaSet) validateCluster(formats strfmt.Registry) error {
 		if err := m.Cluster.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("cluster")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("cluster")
 			}
 			return err
 		}
@@ -83,6 +85,8 @@ func (m *V1QuotaSet) validateIP(formats strfmt.Registry) error {
 		if err := m.IP.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("ip")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("ip")
 			}
 			return err
 		}
@@ -100,6 +104,8 @@ func (m *V1QuotaSet) validateMachine(formats strfmt.Registry) error {
 		if err := m.Machine.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("machine")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("machine")
 			}
 			return err
 		}
@@ -117,6 +123,8 @@ func (m *V1QuotaSet) validateProject(formats strfmt.Registry) error {
 		if err := m.Project.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("project")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("project")
 			}
 			return err
 		}
@@ -157,6 +165,8 @@ func (m *V1QuotaSet) contextValidateCluster(ctx context.Context, formats strfmt.
 		if err := m.Cluster.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("cluster")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("cluster")
 			}
 			return err
 		}
@@ -171,6 +181,8 @@ func (m *V1QuotaSet) contextValidateIP(ctx context.Context, formats strfmt.Regis
 		if err := m.IP.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("ip")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("ip")
 			}
 			return err
 		}
@@ -185,6 +197,8 @@ func (m *V1QuotaSet) contextValidateMachine(ctx context.Context, formats strfmt.
 		if err := m.Machine.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("machine")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("machine")
 			}
 			return err
 		}
@@ -199,6 +213,8 @@ func (m *V1QuotaSet) contextValidateProject(ctx context.Context, formats strfmt.
 		if err := m.Project.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("project")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("project")
 			}
 			return err
 		}

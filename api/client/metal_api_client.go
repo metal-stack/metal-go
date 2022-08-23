@@ -21,6 +21,7 @@ import (
 	"github.com/metal-stack/metal-go/api/client/partition"
 	"github.com/metal-stack/metal-go/api/client/project"
 	"github.com/metal-stack/metal-go/api/client/size"
+	"github.com/metal-stack/metal-go/api/client/sizeimageconstraint"
 	"github.com/metal-stack/metal-go/api/client/switch_operations"
 	"github.com/metal-stack/metal-go/api/client/tenant"
 	"github.com/metal-stack/metal-go/api/client/user"
@@ -80,6 +81,7 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *MetalAPI {
 	cli.Partition = partition.New(transport, formats)
 	cli.Project = project.New(transport, formats)
 	cli.Size = size.New(transport, formats)
+	cli.Sizeimageconstraint = sizeimageconstraint.New(transport, formats)
 	cli.SwitchOperations = switch_operations.New(transport, formats)
 	cli.Tenant = tenant.New(transport, formats)
 	cli.User = user.New(transport, formats)
@@ -150,6 +152,8 @@ type MetalAPI struct {
 
 	Size size.ClientService
 
+	Sizeimageconstraint sizeimageconstraint.ClientService
+
 	SwitchOperations switch_operations.ClientService
 
 	Tenant tenant.ClientService
@@ -175,6 +179,7 @@ func (c *MetalAPI) SetTransport(transport runtime.ClientTransport) {
 	c.Partition.SetTransport(transport)
 	c.Project.SetTransport(transport)
 	c.Size.SetTransport(transport)
+	c.Sizeimageconstraint.SetTransport(transport)
 	c.SwitchOperations.SetTransport(transport)
 	c.Tenant.SetTransport(transport)
 	c.User.SetTransport(transport)

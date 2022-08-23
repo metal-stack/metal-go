@@ -21,31 +21,31 @@ type V1MachineFinalizeAllocationRequest struct {
 
 	// the bootloader ID
 	// Required: true
-	Bootloaderid *string `json:"bootloaderid"`
+	Bootloaderid *string `json:"bootloaderid" yaml:"bootloaderid"`
 
 	// the cmdline
 	// Required: true
-	Cmdline *string `json:"cmdline"`
+	Cmdline *string `json:"cmdline" yaml:"cmdline"`
 
 	// the console password which was generated while provisioning
 	// Required: true
-	ConsolePassword *string `json:"console_password"`
+	ConsolePassword *string `json:"console_password" yaml:"console_password"`
 
 	// the initrd image
 	// Required: true
-	Initrd *string `json:"initrd"`
+	Initrd *string `json:"initrd" yaml:"initrd"`
 
 	// the kernel
 	// Required: true
-	Kernel *string `json:"kernel"`
+	Kernel *string `json:"kernel" yaml:"kernel"`
 
 	// the partition that has the OS installed
 	// Required: true
-	Ospartition *string `json:"ospartition"`
+	Ospartition *string `json:"ospartition" yaml:"ospartition"`
 
 	// the device name of the primary disk
 	// Required: true
-	Primarydisk *string `json:"primarydisk"`
+	Primarydisk *string `json:"primarydisk" yaml:"primarydisk"`
 }
 
 // Validate validates this v1 machine finalize allocation request

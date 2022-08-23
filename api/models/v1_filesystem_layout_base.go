@@ -22,22 +22,22 @@ type V1FilesystemLayoutBase struct {
 
 	// constraints which must match that this layout is taken, if sizes and images are empty these are develop layouts
 	// Required: true
-	Constraints *V1FilesystemLayoutConstraints `json:"constraints"`
+	Constraints *V1FilesystemLayoutConstraints `json:"constraints" yaml:"constraints"`
 
 	// list of disks that belong to this layout
-	Disks []*V1Disk `json:"disks"`
+	Disks []*V1Disk `json:"disks" yaml:"disks"`
 
 	// list of filesystems to create
-	Filesystems []*V1Filesystem `json:"filesystems"`
+	Filesystems []*V1Filesystem `json:"filesystems" yaml:"filesystems"`
 
 	// list of logicalvolumes to create
-	Logicalvolumes []*V1LogicalVolume `json:"logicalvolumes"`
+	Logicalvolumes []*V1LogicalVolume `json:"logicalvolumes" yaml:"logicalvolumes"`
 
 	// list of raid arrays to create
-	Raid []*V1Raid `json:"raid"`
+	Raid []*V1Raid `json:"raid" yaml:"raid"`
 
 	// list of volumegroups to create
-	Volumegroups []*V1VolumeGroup `json:"volumegroups"`
+	Volumegroups []*V1VolumeGroup `json:"volumegroups" yaml:"volumegroups"`
 }
 
 // Validate validates this v1 filesystem layout base
@@ -84,6 +84,8 @@ func (m *V1FilesystemLayoutBase) validateConstraints(formats strfmt.Registry) er
 		if err := m.Constraints.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("constraints")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("constraints")
 			}
 			return err
 		}
@@ -106,6 +108,8 @@ func (m *V1FilesystemLayoutBase) validateDisks(formats strfmt.Registry) error {
 			if err := m.Disks[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("disks" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("disks" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -130,6 +134,8 @@ func (m *V1FilesystemLayoutBase) validateFilesystems(formats strfmt.Registry) er
 			if err := m.Filesystems[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("filesystems" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("filesystems" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -154,6 +160,8 @@ func (m *V1FilesystemLayoutBase) validateLogicalvolumes(formats strfmt.Registry)
 			if err := m.Logicalvolumes[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("logicalvolumes" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("logicalvolumes" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -178,6 +186,8 @@ func (m *V1FilesystemLayoutBase) validateRaid(formats strfmt.Registry) error {
 			if err := m.Raid[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("raid" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("raid" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -202,6 +212,8 @@ func (m *V1FilesystemLayoutBase) validateVolumegroups(formats strfmt.Registry) e
 			if err := m.Volumegroups[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("volumegroups" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("volumegroups" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -252,6 +264,8 @@ func (m *V1FilesystemLayoutBase) contextValidateConstraints(ctx context.Context,
 		if err := m.Constraints.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("constraints")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("constraints")
 			}
 			return err
 		}
@@ -268,6 +282,8 @@ func (m *V1FilesystemLayoutBase) contextValidateDisks(ctx context.Context, forma
 			if err := m.Disks[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("disks" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("disks" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -286,6 +302,8 @@ func (m *V1FilesystemLayoutBase) contextValidateFilesystems(ctx context.Context,
 			if err := m.Filesystems[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("filesystems" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("filesystems" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -304,6 +322,8 @@ func (m *V1FilesystemLayoutBase) contextValidateLogicalvolumes(ctx context.Conte
 			if err := m.Logicalvolumes[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("logicalvolumes" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("logicalvolumes" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -322,6 +342,8 @@ func (m *V1FilesystemLayoutBase) contextValidateRaid(ctx context.Context, format
 			if err := m.Raid[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("raid" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("raid" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -340,6 +362,8 @@ func (m *V1FilesystemLayoutBase) contextValidateVolumegroups(ctx context.Context
 			if err := m.Volumegroups[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("volumegroups" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("volumegroups" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

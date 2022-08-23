@@ -21,29 +21,29 @@ import (
 type V1SwitchRegisterRequest struct {
 
 	// a description for this entity
-	Description string `json:"description,omitempty"`
+	Description string `json:"description,omitempty" yaml:"description,omitempty"`
 
 	// the unique ID of this entity
 	// Required: true
-	ID *string `json:"id"`
+	ID *string `json:"id" yaml:"id"`
 
 	// the mode the switch currently has
-	Mode string `json:"mode,omitempty"`
+	Mode string `json:"mode,omitempty" yaml:"mode,omitempty"`
 
 	// a readable name for this entity
-	Name string `json:"name,omitempty"`
+	Name string `json:"name,omitempty" yaml:"name,omitempty"`
 
 	// the list of network interfaces on the switch
 	// Required: true
-	Nics []*V1SwitchNic `json:"nics"`
+	Nics []*V1SwitchNic `json:"nics" yaml:"nics"`
 
 	// the partition in which this switch is located
 	// Required: true
-	PartitionID *string `json:"partition_id"`
+	PartitionID *string `json:"partition_id" yaml:"partition_id"`
 
 	// the id of the rack in which this switch is located
 	// Required: true
-	RackID *string `json:"rack_id"`
+	RackID *string `json:"rack_id" yaml:"rack_id"`
 }
 
 // Validate validates this v1 switch register request
@@ -96,6 +96,8 @@ func (m *V1SwitchRegisterRequest) validateNics(formats strfmt.Registry) error {
 			if err := m.Nics[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("nics" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("nics" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -146,6 +148,8 @@ func (m *V1SwitchRegisterRequest) contextValidateNics(ctx context.Context, forma
 			if err := m.Nics[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("nics" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("nics" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

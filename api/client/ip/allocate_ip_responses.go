@@ -30,6 +30,12 @@ func (o *AllocateIPReader) ReadResponse(response runtime.ClientResponse, consume
 			return nil, err
 		}
 		return result, nil
+	case 409:
+		result := NewAllocateIPConflict()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		result := NewAllocateIPDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -65,6 +71,38 @@ func (o *AllocateIPCreated) GetPayload() *models.V1IPResponse {
 func (o *AllocateIPCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.V1IPResponse)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewAllocateIPConflict creates a AllocateIPConflict with default headers values
+func NewAllocateIPConflict() *AllocateIPConflict {
+	return &AllocateIPConflict{}
+}
+
+/* AllocateIPConflict describes a response with status code 409, with default header values.
+
+Conflict
+*/
+type AllocateIPConflict struct {
+	Payload *httperrors.HTTPErrorResponse
+}
+
+func (o *AllocateIPConflict) Error() string {
+	return fmt.Sprintf("[POST /v1/ip/allocate][%d] allocateIpConflict  %+v", 409, o.Payload)
+}
+func (o *AllocateIPConflict) GetPayload() *httperrors.HTTPErrorResponse {
+	return o.Payload
+}
+
+func (o *AllocateIPConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(httperrors.HTTPErrorResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

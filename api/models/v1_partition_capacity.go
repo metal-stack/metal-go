@@ -21,18 +21,18 @@ import (
 type V1PartitionCapacity struct {
 
 	// a description for this entity
-	Description string `json:"description,omitempty"`
+	Description string `json:"description,omitempty" yaml:"description,omitempty"`
 
 	// the unique ID of this entity
 	// Required: true
-	ID *string `json:"id"`
+	ID *string `json:"id" yaml:"id"`
 
 	// a readable name for this entity
-	Name string `json:"name,omitempty"`
+	Name string `json:"name,omitempty" yaml:"name,omitempty"`
 
 	// servers available in this partition
 	// Required: true
-	Servers []*V1ServerCapacity `json:"servers"`
+	Servers []*V1ServerCapacity `json:"servers" yaml:"servers"`
 }
 
 // Validate validates this v1 partition capacity
@@ -77,6 +77,8 @@ func (m *V1PartitionCapacity) validateServers(formats strfmt.Registry) error {
 			if err := m.Servers[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("servers" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("servers" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -109,6 +111,8 @@ func (m *V1PartitionCapacity) contextValidateServers(ctx context.Context, format
 			if err := m.Servers[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("servers" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("servers" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

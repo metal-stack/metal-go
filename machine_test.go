@@ -10,6 +10,7 @@ import (
 	"github.com/stretchr/testify/assert"
 
 	"github.com/emicklei/go-restful/v3"
+	"github.com/metal-stack/metal-go/api/client/machine"
 	"github.com/metal-stack/metal-go/api/models"
 	"github.com/metal-stack/metal-lib/httperrors"
 	"github.com/stretchr/testify/require"
@@ -42,7 +43,33 @@ func TestMachineCreate(t *testing.T) {
 		_ = resp.WriteEntity(metalMachine)
 	}
 
-	server, driver := startServerAndGetDriver()
+	server, client, _ := startServerAndGetDriver()
+	defer func() {
+		_ = server.Close()
+	}()
+
+	// when
+	resp, err := client.Machine().AllocateMachine(machine.NewAllocateMachineParams().WithBody(&models.V1MachineAllocateRequest{
+		UUID: machineID,
+	}), nil)
+
+	// then
+	require.Nil(t, err)
+	require.NotNil(t, resp)
+	require.Equal(t, metalMachine, resp.Payload)
+}
+
+func TestMachineCreateDriver(t *testing.T) {
+	// given
+	machineID := "machineID"
+	metalMachine := &models.V1MachineResponse{
+		ID: &machineID,
+	}
+	ws.Routes()[0].Function = func(req *restful.Request, resp *restful.Response) {
+		_ = resp.WriteEntity(metalMachine)
+	}
+
+	server, _, driver := startServerAndGetDriver()
 	defer func() {
 		_ = server.Close()
 	}()
@@ -58,11 +85,11 @@ func TestMachineCreate(t *testing.T) {
 	require.Equal(t, metalMachine, resp.Machine)
 }
 
-func startServerAndGetDriver() (*http.Server, *Driver) {
+func startServerAndGetDriver() (*http.Server, Client, *Driver) {
 	//nolint:gosec
 	listener, _ := net.Listen("tcp", ":0")
 
-	server := &http.Server{}
+	server := &http.Server{ReadHeaderTimeout: time.Minute}
 
 	go func() {
 		_ = server.Serve(listener)
@@ -73,9 +100,9 @@ func startServerAndGetDriver() (*http.Server, *Driver) {
 	port := listener.Addr().(*net.TCPAddr).Port
 	addr := fmt.Sprintf("http://localhost:%d", port)
 
-	driver, _ := NewDriver(addr, "", "")
+	client, driver, _ := NewDriver(addr, "", "")
 
-	return server, driver
+	return server, client, driver
 }
 
 func Test_translateNetworks(t *testing.T) {

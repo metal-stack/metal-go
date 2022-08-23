@@ -18,16 +18,16 @@ import (
 type V1ProjectFindRequest struct {
 
 	// description
-	Description string `json:"description,omitempty"`
+	Description string `json:"description,omitempty" yaml:"description,omitempty"`
 
 	// id
-	ID string `json:"id,omitempty"`
+	ID string `json:"id,omitempty" yaml:"id,omitempty"`
 
 	// name
-	Name string `json:"name,omitempty"`
+	Name string `json:"name,omitempty" yaml:"name,omitempty"`
 
 	// tenant id
-	TenantID string `json:"tenant_id,omitempty"`
+	TenantID string `json:"tenant_id,omitempty" yaml:"tenant_id,omitempty"`
 }
 
 // Validate validates this v1 project find request

@@ -21,27 +21,27 @@ type V1User struct {
 
 	// e mail
 	// Required: true
-	EMail *string `json:"EMail"`
+	EMail *string `json:"EMail" yaml:"EMail"`
 
 	// groups
 	// Required: true
-	Groups []string `json:"Groups"`
+	Groups []string `json:"Groups" yaml:"Groups"`
 
 	// issuer
 	// Required: true
-	Issuer *string `json:"Issuer"`
+	Issuer *string `json:"Issuer" yaml:"Issuer"`
 
 	// name
 	// Required: true
-	Name *string `json:"Name"`
+	Name *string `json:"Name" yaml:"Name"`
 
 	// subject
 	// Required: true
-	Subject *string `json:"Subject"`
+	Subject *string `json:"Subject" yaml:"Subject"`
 
 	// tenant
 	// Required: true
-	Tenant *string `json:"Tenant"`
+	Tenant *string `json:"Tenant" yaml:"Tenant"`
 }
 
 // Validate validates this v1 user

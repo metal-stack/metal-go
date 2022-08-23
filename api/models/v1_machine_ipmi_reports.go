@@ -20,10 +20,10 @@ import (
 type V1MachineIpmiReports struct {
 
 	// the partition id for the ipmi report
-	Partitionid string `json:"partitionid,omitempty"`
+	Partitionid string `json:"partitionid,omitempty" yaml:"partitionid,omitempty"`
 
 	// uuid to machinereport
-	Reports map[string]V1MachineIpmiReport `json:"reports,omitempty"`
+	Reports map[string]V1MachineIpmiReport `json:"reports,omitempty" yaml:"reports,omitempty"`
 }
 
 // Validate validates this v1 machine ipmi reports
@@ -52,6 +52,11 @@ func (m *V1MachineIpmiReports) validateReports(formats strfmt.Registry) error {
 		}
 		if val, ok := m.Reports[k]; ok {
 			if err := val.Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("reports" + "." + k)
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("reports" + "." + k)
+				}
 				return err
 			}
 		}

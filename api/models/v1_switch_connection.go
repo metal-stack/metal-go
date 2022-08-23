@@ -20,11 +20,11 @@ import (
 type V1SwitchConnection struct {
 
 	// the machine id of the machine connected to the nic
-	MachineID string `json:"machine_id,omitempty"`
+	MachineID string `json:"machine_id,omitempty" yaml:"machine_id,omitempty"`
 
 	// a network interface on the switch
 	// Required: true
-	Nic *V1SwitchNic `json:"nic"`
+	Nic *V1SwitchNic `json:"nic" yaml:"nic"`
 }
 
 // Validate validates this v1 switch connection
@@ -51,6 +51,8 @@ func (m *V1SwitchConnection) validateNic(formats strfmt.Registry) error {
 		if err := m.Nic.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("nic")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("nic")
 			}
 			return err
 		}
@@ -79,6 +81,8 @@ func (m *V1SwitchConnection) contextValidateNic(ctx context.Context, formats str
 		if err := m.Nic.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("nic")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("nic")
 			}
 			return err
 		}

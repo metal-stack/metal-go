@@ -5,16 +5,14 @@ import (
 	"net/url"
 	"time"
 
-	"github.com/metal-stack/metal-go/api/client/filesystemlayout"
-	"github.com/metal-stack/metal-go/api/client/firmware"
-	"github.com/metal-stack/metal-go/api/client/tenant"
-	"github.com/metal-stack/metal-go/api/client/user"
-
 	"github.com/go-openapi/runtime"
 	httptransport "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
 	"github.com/metal-stack/metal-go/api/client"
+	"github.com/metal-stack/metal-go/api/client/filesystemlayout"
 	"github.com/metal-stack/metal-go/api/client/firewall"
+	"github.com/metal-stack/metal-go/api/client/firmware"
+	"github.com/metal-stack/metal-go/api/client/health"
 	"github.com/metal-stack/metal-go/api/client/image"
 	"github.com/metal-stack/metal-go/api/client/ip"
 	"github.com/metal-stack/metal-go/api/client/machine"
@@ -22,7 +20,11 @@ import (
 	"github.com/metal-stack/metal-go/api/client/partition"
 	"github.com/metal-stack/metal-go/api/client/project"
 	"github.com/metal-stack/metal-go/api/client/size"
-	sw "github.com/metal-stack/metal-go/api/client/switch_operations"
+	"github.com/metal-stack/metal-go/api/client/sizeimageconstraint"
+	"github.com/metal-stack/metal-go/api/client/switch_operations"
+	"github.com/metal-stack/metal-go/api/client/tenant"
+	"github.com/metal-stack/metal-go/api/client/user"
+	"github.com/metal-stack/metal-go/api/client/version"
 	"github.com/metal-stack/security"
 )
 
@@ -30,25 +32,32 @@ const (
 	defaultHMACAuthType = "Metal-Admin"
 )
 
+type Client interface {
+	Filesystemlayout() filesystemlayout.ClientService
+	Firewall() firewall.ClientService
+	Firmware() firmware.ClientService
+	Health() health.ClientService
+	Image() image.ClientService
+	IP() ip.ClientService
+	Machine() machine.ClientService
+	Network() network.ClientService
+	Partition() partition.ClientService
+	Project() project.ClientService
+	Size() size.ClientService
+	Sizeimageconstraint() sizeimageconstraint.ClientService
+	SwitchOperations() switch_operations.ClientService
+	Tenant() tenant.ClientService
+	User() user.ClientService
+	Version() version.ClientService
+}
+
 // Driver holds the client connection to the metal api
 type Driver struct {
-	client           *client.MetalAPI
-	image            image.ClientService
-	firmware         firmware.ClientService
-	filesystemlayout filesystemlayout.ClientService
-	machine          machine.ClientService
-	firewall         firewall.ClientService
-	partition        partition.ClientService
-	project          project.ClientService
-	tenant           tenant.ClientService
-	user             user.ClientService
-	size             size.ClientService
-	sw               sw.ClientService
-	network          network.ClientService
-	ip               ip.ClientService
-	bearer           string
-	hmacAuthType     string
-	hmac             *security.HMACAuth
+	c *client.MetalAPI
+
+	bearer       string
+	hmacAuthType string
+	hmac         *security.HMACAuth
 }
 
 // Option for config of Driver
@@ -62,35 +71,23 @@ func AuthType(authType string) option {
 }
 
 // NewDriver Create a new Driver for Metal to given url. Either bearer OR hmacKey must be set.
-func NewDriver(baseURL, bearer, hmacKey string, options ...option) (*Driver, error) {
+// The returned *Driver will be deprecated at some point in time, please migrate to use the Client interface instead.
+func NewDriver(baseURL, bearer, hmacKey string, options ...option) (Client, *Driver, error) {
 	parsedURL, err := url.Parse(baseURL)
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
 	if parsedURL.Host == "" {
-		return nil, fmt.Errorf("invalid url:%s, must be in the form scheme://host[:port]/basepath", baseURL)
+		return nil, nil, fmt.Errorf("invalid url:%s, must be in the form scheme://host[:port]/basepath", baseURL)
 	}
 
 	transport := httptransport.New(parsedURL.Host, parsedURL.Path, []string{parsedURL.Scheme})
 	c := client.New(transport, strfmt.Default)
 
 	driver := &Driver{
-		client:           c,
-		firmware:         c.Firmware,
-		machine:          c.Machine,
-		firewall:         c.Firewall,
-		filesystemlayout: c.Filesystemlayout,
-		size:             c.Size,
-		image:            c.Image,
-		project:          c.Project,
-		tenant:           c.Tenant,
-		user:             c.User,
-		partition:        c.Partition,
-		sw:               c.SwitchOperations,
-		network:          c.Network,
-		ip:               c.IP,
-		bearer:           bearer,
-		hmacAuthType:     defaultHMACAuthType,
+		c:            c,
+		bearer:       bearer,
+		hmacAuthType: defaultHMACAuthType,
 	}
 
 	for _, opt := range options {
@@ -104,7 +101,9 @@ func NewDriver(baseURL, bearer, hmacKey string, options ...option) (*Driver, err
 
 	transport.DefaultAuthentication = runtime.ClientAuthInfoWriterFunc(driver.auther)
 
-	return driver, nil
+	// TODO: remove *Driver return at some point in the future in order to get rid off the handwritten wrappers
+	// see: https://github.com/metal-stack/metal-go/issues/33
+	return driver, driver, nil
 }
 
 func (d *Driver) auther(rq runtime.ClientRequest, rg strfmt.Registry) error {
@@ -138,4 +137,53 @@ func Int64Deref(i *int64) int64 {
 		return res
 	}
 	return *i
+}
+
+func (d *Driver) Filesystemlayout() filesystemlayout.ClientService {
+	return d.c.Filesystemlayout
+}
+func (d *Driver) Firewall() firewall.ClientService {
+	return d.c.Firewall
+}
+func (d *Driver) Firmware() firmware.ClientService {
+	return d.c.Firmware
+}
+func (d *Driver) Health() health.ClientService {
+	return d.c.Health
+}
+func (d *Driver) Image() image.ClientService {
+	return d.c.Image
+}
+func (d *Driver) IP() ip.ClientService {
+	return d.c.IP
+}
+func (d *Driver) Machine() machine.ClientService {
+	return d.c.Machine
+}
+func (d *Driver) Network() network.ClientService {
+	return d.c.Network
+}
+func (d *Driver) Partition() partition.ClientService {
+	return d.c.Partition
+}
+func (d *Driver) Project() project.ClientService {
+	return d.c.Project
+}
+func (d *Driver) Size() size.ClientService {
+	return d.c.Size
+}
+func (d *Driver) Sizeimageconstraint() sizeimageconstraint.ClientService {
+	return d.c.Sizeimageconstraint
+}
+func (d *Driver) SwitchOperations() switch_operations.ClientService {
+	return d.c.SwitchOperations
+}
+func (d *Driver) Tenant() tenant.ClientService {
+	return d.c.Tenant
+}
+func (d *Driver) User() user.ClientService {
+	return d.c.User
+}
+func (d *Driver) Version() version.ClientService {
+	return d.c.Version
 }

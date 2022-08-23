@@ -21,15 +21,15 @@ type V1SwitchSync struct {
 
 	// the duration that lat switch sync took
 	// Required: true
-	Duration *int64 `json:"duration"`
+	Duration *int64 `json:"duration" yaml:"duration"`
 
 	// shows the error occurred during the sync
-	Error string `json:"error,omitempty"`
+	Error string `json:"error,omitempty" yaml:"error,omitempty"`
 
 	// point in time when the last switch sync happened
 	// Required: true
 	// Format: date-time
-	Time *strfmt.DateTime `json:"time"`
+	Time *strfmt.DateTime `json:"time" yaml:"time"`
 }
 
 // Validate validates this v1 switch sync

@@ -39,7 +39,7 @@ type SizeTryResponse struct {
 func (d *Driver) SizeList() (*SizeListResponse, error) {
 	response := &SizeListResponse{}
 	listSizes := size.NewListSizesParams()
-	resp, err := d.size.ListSizes(listSizes, nil)
+	resp, err := d.Size().ListSizes(listSizes, nil)
 	if err != nil {
 		return response, err
 	}
@@ -52,7 +52,7 @@ func (d *Driver) SizeGet(sizeID string) (*SizeGetResponse, error) {
 	response := &SizeGetResponse{}
 	request := size.NewFindSizeParams()
 	request.ID = sizeID
-	resp, err := d.size.FindSize(request, nil)
+	resp, err := d.Size().FindSize(request, nil)
 	if err != nil {
 		return response, err
 	}
@@ -68,7 +68,7 @@ func (d *Driver) SizeTry(cores int32, memory, storage uint64) (*SizeTryResponse,
 	s := int64(storage)
 	diskName := "/dev/trydisk"
 
-	hardware := &models.V1MachineHardwareExtended{
+	hardware := &models.V1MachineHardware{
 		CPUCores: &cores,
 		Memory:   &m,
 		Disks: []*models.V1MachineBlockDevice{{
@@ -80,7 +80,7 @@ func (d *Driver) SizeTry(cores int32, memory, storage uint64) (*SizeTryResponse,
 	trySize := size.NewFromHardwareParams()
 	trySize.Body = hardware
 
-	resp, err := d.size.FromHardware(trySize, nil)
+	resp, err := d.Size().FromHardware(trySize, nil)
 	if err == nil {
 		response.Logs = []*models.V1SizeMatchingLog{resp.Payload}
 	} else {
@@ -108,7 +108,7 @@ func (d *Driver) SizeCreate(pcr SizeCreateRequest) (*SizeCreateResponse, error) 
 	}
 	request := size.NewCreateSizeParams()
 	request.SetBody(createSize)
-	resp, err := d.size.CreateSize(request, nil)
+	resp, err := d.Size().CreateSize(request, nil)
 	if err != nil {
 		return response, err
 	}
@@ -128,7 +128,7 @@ func (d *Driver) SizeUpdate(pcr SizeCreateRequest) (*SizeCreateResponse, error) 
 	}
 	request := size.NewUpdateSizeParams()
 	request.SetBody(updateSize)
-	resp, err := d.size.UpdateSize(request, nil)
+	resp, err := d.Size().UpdateSize(request, nil)
 	if err != nil {
 		return response, err
 	}
@@ -141,7 +141,7 @@ func (d *Driver) SizeDelete(sizeID string) (*SizeGetResponse, error) {
 	response := &SizeGetResponse{}
 	request := size.NewDeleteSizeParams()
 	request.ID = sizeID
-	resp, err := d.size.DeleteSize(request, nil)
+	resp, err := d.Size().DeleteSize(request, nil)
 	if err != nil {
 		return response, err
 	}

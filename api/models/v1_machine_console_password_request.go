@@ -21,11 +21,11 @@ type V1MachineConsolePasswordRequest struct {
 
 	// id of the machine to get the consolepassword for
 	// Required: true
-	ID *string `json:"id"`
+	ID *string `json:"id" yaml:"id"`
 
 	// reason why the consolepassword is requested, typically a incident number with short description
 	// Required: true
-	Reason *string `json:"reason"`
+	Reason *string `json:"reason" yaml:"reason"`
 }
 
 // Validate validates this v1 machine console password request

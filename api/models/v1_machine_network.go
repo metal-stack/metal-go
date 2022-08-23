@@ -21,43 +21,43 @@ type V1MachineNetwork struct {
 
 	// ASN number for this network in the bgp configuration
 	// Required: true
-	Asn *int64 `json:"asn"`
+	Asn *int64 `json:"asn" yaml:"asn"`
 
 	// the destination prefixes of this network
 	// Required: true
-	Destinationprefixes []string `json:"destinationprefixes"`
+	Destinationprefixes []string `json:"destinationprefixes" yaml:"destinationprefixes"`
 
 	// the ip addresses of the allocated machine in this vrf
 	// Required: true
-	Ips []string `json:"ips"`
+	Ips []string `json:"ips" yaml:"ips"`
 
 	// if set to true, packets leaving this network get masqueraded behind interface ip
 	// Required: true
-	Nat *bool `json:"nat"`
+	Nat *bool `json:"nat" yaml:"nat"`
 
 	// the networkID of the allocated machine in this vrf
 	// Required: true
-	Networkid *string `json:"networkid"`
+	Networkid *string `json:"networkid" yaml:"networkid"`
 
 	// the network type, types can be looked up in the network package of metal-lib
 	// Required: true
-	Networktype *string `json:"networktype"`
+	Networktype *string `json:"networktype" yaml:"networktype"`
 
 	// the prefixes of this network
 	// Required: true
-	Prefixes []string `json:"prefixes"`
+	Prefixes []string `json:"prefixes" yaml:"prefixes"`
 
 	// indicates whether this network is the private network of this machine
 	// Required: true
-	Private *bool `json:"private"`
+	Private *bool `json:"private" yaml:"private"`
 
 	// if set to true, this network can be used for underlay communication
 	// Required: true
-	Underlay *bool `json:"underlay"`
+	Underlay *bool `json:"underlay" yaml:"underlay"`
 
 	// the vrf of the allocated machine
 	// Required: true
-	Vrf *int64 `json:"vrf"`
+	Vrf *int64 `json:"vrf" yaml:"vrf"`
 }
 
 // Validate validates this v1 machine network

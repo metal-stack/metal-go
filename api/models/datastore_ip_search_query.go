@@ -17,29 +17,32 @@ import (
 // swagger:model datastore.IPSearchQuery
 type DatastoreIPSearchQuery struct {
 
+	// a unique identifier for this ip address allocation, can be used to distinguish between ip address allocation over time.
+	Allocationuuid string `json:"allocationuuid,omitempty" yaml:"allocationuuid,omitempty"`
+
 	// the address (ipv4 or ipv6) of this ip
-	Ipaddress string `json:"ipaddress,omitempty"`
+	Ipaddress string `json:"ipaddress,omitempty" yaml:"ipaddress,omitempty"`
 
 	// the machine an ip address is associated to
-	Machineid string `json:"machineid,omitempty"`
+	Machineid string `json:"machineid,omitempty" yaml:"machineid,omitempty"`
 
 	// the name of the ip address
-	Name string `json:"name,omitempty"`
+	Name string `json:"name,omitempty" yaml:"name,omitempty"`
 
 	// the network this ip allocate request address belongs to
-	Networkid string `json:"networkid,omitempty"`
+	Networkid string `json:"networkid,omitempty" yaml:"networkid,omitempty"`
 
 	// the prefix of the network this ip address belongs to
-	Networkprefix string `json:"networkprefix,omitempty"`
+	Networkprefix string `json:"networkprefix,omitempty" yaml:"networkprefix,omitempty"`
 
 	// the project this ip address belongs to, empty if not strong coupled
-	Projectid string `json:"projectid,omitempty"`
+	Projectid string `json:"projectid,omitempty" yaml:"projectid,omitempty"`
 
 	// the tags that are assigned to this ip address
-	Tags []string `json:"tags"`
+	Tags []string `json:"tags" yaml:"tags"`
 
 	// the type of the ip address, ephemeral or static
-	Type string `json:"type,omitempty"`
+	Type string `json:"type,omitempty" yaml:"type,omitempty"`
 }
 
 // Validate validates this datastore IP search query

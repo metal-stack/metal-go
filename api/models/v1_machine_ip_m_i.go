@@ -21,35 +21,35 @@ type V1MachineIPMI struct {
 
 	// address
 	// Required: true
-	Address *string `json:"address"`
+	Address *string `json:"address" yaml:"address"`
 
 	// bmcversion
 	// Required: true
-	Bmcversion *string `json:"bmcversion"`
+	Bmcversion *string `json:"bmcversion" yaml:"bmcversion"`
 
 	// fru
 	// Required: true
-	Fru *V1MachineFru `json:"fru"`
+	Fru *V1MachineFru `json:"fru" yaml:"fru"`
 
 	// interface
 	// Required: true
-	Interface *string `json:"interface"`
+	Interface *string `json:"interface" yaml:"interface"`
 
 	// mac
 	// Required: true
-	Mac *string `json:"mac"`
+	Mac *string `json:"mac" yaml:"mac"`
 
 	// password
 	// Required: true
-	Password *string `json:"password"`
+	Password *string `json:"password" yaml:"password"`
 
 	// powerstate
 	// Required: true
-	Powerstate *string `json:"powerstate"`
+	Powerstate *string `json:"powerstate" yaml:"powerstate"`
 
 	// user
 	// Required: true
-	User *string `json:"user"`
+	User *string `json:"user" yaml:"user"`
 }
 
 // Validate validates this v1 machine IP m i
@@ -122,6 +122,8 @@ func (m *V1MachineIPMI) validateFru(formats strfmt.Registry) error {
 		if err := m.Fru.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("fru")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("fru")
 			}
 			return err
 		}
@@ -195,6 +197,8 @@ func (m *V1MachineIPMI) contextValidateFru(ctx context.Context, formats strfmt.R
 		if err := m.Fru.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("fru")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("fru")
 			}
 			return err
 		}

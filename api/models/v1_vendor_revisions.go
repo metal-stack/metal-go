@@ -21,7 +21,7 @@ type V1VendorRevisions struct {
 
 	// vendor revisions
 	// Required: true
-	VendorRevisions map[string]V1BoardRevisions `json:"VendorRevisions"`
+	VendorRevisions map[string]V1BoardRevisions `json:"VendorRevisions" yaml:"VendorRevisions"`
 }
 
 // Validate validates this v1 vendor revisions
@@ -51,6 +51,11 @@ func (m *V1VendorRevisions) validateVendorRevisions(formats strfmt.Registry) err
 		}
 		if val, ok := m.VendorRevisions[k]; ok {
 			if err := val.Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("VendorRevisions" + "." + k)
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("VendorRevisions" + "." + k)
+				}
 				return err
 			}
 		}

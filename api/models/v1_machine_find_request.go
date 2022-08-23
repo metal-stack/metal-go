@@ -18,136 +18,136 @@ import (
 type V1MachineFindRequest struct {
 
 	// allocation hostname
-	AllocationHostname string `json:"allocation_hostname,omitempty"`
+	AllocationHostname string `json:"allocation_hostname,omitempty" yaml:"allocation_hostname,omitempty"`
 
 	// allocation image id
-	AllocationImageID string `json:"allocation_image_id,omitempty"`
+	AllocationImageID string `json:"allocation_image_id,omitempty" yaml:"allocation_image_id,omitempty"`
 
 	// allocation name
-	AllocationName string `json:"allocation_name,omitempty"`
+	AllocationName string `json:"allocation_name,omitempty" yaml:"allocation_name,omitempty"`
 
 	// allocation project
-	AllocationProject string `json:"allocation_project,omitempty"`
+	AllocationProject string `json:"allocation_project,omitempty" yaml:"allocation_project,omitempty"`
 
 	// allocation role
-	AllocationRole string `json:"allocation_role,omitempty"`
+	AllocationRole string `json:"allocation_role,omitempty" yaml:"allocation_role,omitempty"`
 
 	// allocation succeeded
-	AllocationSucceeded bool `json:"allocation_succeeded,omitempty"`
+	AllocationSucceeded bool `json:"allocation_succeeded,omitempty" yaml:"allocation_succeeded,omitempty"`
 
 	// disk names
-	DiskNames []string `json:"disk_names"`
+	DiskNames []string `json:"disk_names" yaml:"disk_names"`
 
 	// disk sizes
-	DiskSizes []int64 `json:"disk_sizes"`
+	DiskSizes []int64 `json:"disk_sizes" yaml:"disk_sizes"`
 
 	// fru board mfg
-	FruBoardMfg string `json:"fru_board_mfg,omitempty"`
+	FruBoardMfg string `json:"fru_board_mfg,omitempty" yaml:"fru_board_mfg,omitempty"`
 
 	// fru board mfg serial
-	FruBoardMfgSerial string `json:"fru_board_mfg_serial,omitempty"`
+	FruBoardMfgSerial string `json:"fru_board_mfg_serial,omitempty" yaml:"fru_board_mfg_serial,omitempty"`
 
 	// fru board part number
-	FruBoardPartNumber string `json:"fru_board_part_number,omitempty"`
+	FruBoardPartNumber string `json:"fru_board_part_number,omitempty" yaml:"fru_board_part_number,omitempty"`
 
 	// fru chassis part number
-	FruChassisPartNumber string `json:"fru_chassis_part_number,omitempty"`
+	FruChassisPartNumber string `json:"fru_chassis_part_number,omitempty" yaml:"fru_chassis_part_number,omitempty"`
 
 	// fru chassis part serial
-	FruChassisPartSerial string `json:"fru_chassis_part_serial,omitempty"`
+	FruChassisPartSerial string `json:"fru_chassis_part_serial,omitempty" yaml:"fru_chassis_part_serial,omitempty"`
 
 	// fru product manufacturer
-	FruProductManufacturer string `json:"fru_product_manufacturer,omitempty"`
+	FruProductManufacturer string `json:"fru_product_manufacturer,omitempty" yaml:"fru_product_manufacturer,omitempty"`
 
 	// fru product part number
-	FruProductPartNumber string `json:"fru_product_part_number,omitempty"`
+	FruProductPartNumber string `json:"fru_product_part_number,omitempty" yaml:"fru_product_part_number,omitempty"`
 
 	// fru product serial
-	FruProductSerial string `json:"fru_product_serial,omitempty"`
+	FruProductSerial string `json:"fru_product_serial,omitempty" yaml:"fru_product_serial,omitempty"`
 
 	// hardware cpu cores
-	HardwareCPUCores int64 `json:"hardware_cpu_cores,omitempty"`
+	HardwareCPUCores int64 `json:"hardware_cpu_cores,omitempty" yaml:"hardware_cpu_cores,omitempty"`
 
 	// hardware memory
-	HardwareMemory int64 `json:"hardware_memory,omitempty"`
+	HardwareMemory int64 `json:"hardware_memory,omitempty" yaml:"hardware_memory,omitempty"`
 
 	// id
-	ID string `json:"id,omitempty"`
+	ID string `json:"id,omitempty" yaml:"id,omitempty"`
 
 	// ipmi address
-	IpmiAddress string `json:"ipmi_address,omitempty"`
+	IpmiAddress string `json:"ipmi_address,omitempty" yaml:"ipmi_address,omitempty"`
 
 	// ipmi interface
-	IpmiInterface string `json:"ipmi_interface,omitempty"`
+	IpmiInterface string `json:"ipmi_interface,omitempty" yaml:"ipmi_interface,omitempty"`
 
 	// ipmi mac address
-	IpmiMacAddress string `json:"ipmi_mac_address,omitempty"`
+	IpmiMacAddress string `json:"ipmi_mac_address,omitempty" yaml:"ipmi_mac_address,omitempty"`
 
 	// ipmi user
-	IpmiUser string `json:"ipmi_user,omitempty"`
+	IpmiUser string `json:"ipmi_user,omitempty" yaml:"ipmi_user,omitempty"`
 
 	// name
-	Name string `json:"name,omitempty"`
+	Name string `json:"name,omitempty" yaml:"name,omitempty"`
 
 	// network asns
-	NetworkAsns []int64 `json:"network_asns"`
+	NetworkAsns []int64 `json:"network_asns" yaml:"network_asns"`
 
 	// network destination prefixes
-	NetworkDestinationPrefixes []string `json:"network_destination_prefixes"`
+	NetworkDestinationPrefixes []string `json:"network_destination_prefixes" yaml:"network_destination_prefixes"`
 
 	// network ids
-	NetworkIds []string `json:"network_ids"`
+	NetworkIds []string `json:"network_ids" yaml:"network_ids"`
 
 	// network ips
-	NetworkIps []string `json:"network_ips"`
+	NetworkIps []string `json:"network_ips" yaml:"network_ips"`
 
 	// network nat
-	NetworkNat bool `json:"network_nat,omitempty"`
+	NetworkNat bool `json:"network_nat,omitempty" yaml:"network_nat,omitempty"`
 
 	// network prefixes
-	NetworkPrefixes []string `json:"network_prefixes"`
+	NetworkPrefixes []string `json:"network_prefixes" yaml:"network_prefixes"`
 
 	// network private
-	NetworkPrivate bool `json:"network_private,omitempty"`
+	NetworkPrivate bool `json:"network_private,omitempty" yaml:"network_private,omitempty"`
 
 	// network underlay
-	NetworkUnderlay bool `json:"network_underlay,omitempty"`
+	NetworkUnderlay bool `json:"network_underlay,omitempty" yaml:"network_underlay,omitempty"`
 
 	// network vrfs
-	NetworkVrfs []int64 `json:"network_vrfs"`
+	NetworkVrfs []int64 `json:"network_vrfs" yaml:"network_vrfs"`
 
 	// nics mac addresses
-	NicsMacAddresses []string `json:"nics_mac_addresses"`
+	NicsMacAddresses []string `json:"nics_mac_addresses" yaml:"nics_mac_addresses"`
 
 	// nics names
-	NicsNames []string `json:"nics_names"`
+	NicsNames []string `json:"nics_names" yaml:"nics_names"`
 
 	// nics neighbor mac addresses
-	NicsNeighborMacAddresses []string `json:"nics_neighbor_mac_addresses"`
+	NicsNeighborMacAddresses []string `json:"nics_neighbor_mac_addresses" yaml:"nics_neighbor_mac_addresses"`
 
 	// nics neighbor names
-	NicsNeighborNames []string `json:"nics_neighbor_names"`
+	NicsNeighborNames []string `json:"nics_neighbor_names" yaml:"nics_neighbor_names"`
 
 	// nics neighbor vrfs
-	NicsNeighborVrfs []string `json:"nics_neighbor_vrfs"`
+	NicsNeighborVrfs []string `json:"nics_neighbor_vrfs" yaml:"nics_neighbor_vrfs"`
 
 	// nics vrfs
-	NicsVrfs []string `json:"nics_vrfs"`
+	NicsVrfs []string `json:"nics_vrfs" yaml:"nics_vrfs"`
 
 	// partition id
-	PartitionID string `json:"partition_id,omitempty"`
+	PartitionID string `json:"partition_id,omitempty" yaml:"partition_id,omitempty"`
 
 	// rackid
-	Rackid string `json:"rackid,omitempty"`
+	Rackid string `json:"rackid,omitempty" yaml:"rackid,omitempty"`
 
 	// sizeid
-	Sizeid string `json:"sizeid,omitempty"`
+	Sizeid string `json:"sizeid,omitempty" yaml:"sizeid,omitempty"`
 
 	// state value
-	StateValue string `json:"state_value,omitempty"`
+	StateValue string `json:"state_value,omitempty" yaml:"state_value,omitempty"`
 
 	// tags
-	Tags []string `json:"tags"`
+	Tags []string `json:"tags" yaml:"tags"`
 }
 
 // Validate validates this v1 machine find request

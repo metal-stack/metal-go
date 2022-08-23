@@ -22,15 +22,15 @@ type V1MachineHardwareBase struct {
 
 	// the number of cpu cores
 	// Required: true
-	CPUCores *int32 `json:"cpu_cores"`
+	CPUCores *int32 `json:"cpu_cores" yaml:"cpu_cores"`
 
 	// the list of block devices of this machine
 	// Required: true
-	Disks []*V1MachineBlockDevice `json:"disks"`
+	Disks []*V1MachineBlockDevice `json:"disks" yaml:"disks"`
 
 	// the total memory of the machine
 	// Required: true
-	Memory *int64 `json:"memory"`
+	Memory *int64 `json:"memory" yaml:"memory"`
 }
 
 // Validate validates this v1 machine hardware base
@@ -79,6 +79,8 @@ func (m *V1MachineHardwareBase) validateDisks(formats strfmt.Registry) error {
 			if err := m.Disks[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("disks" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("disks" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -120,6 +122,8 @@ func (m *V1MachineHardwareBase) contextValidateDisks(ctx context.Context, format
 			if err := m.Disks[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("disks" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("disks" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

@@ -19,22 +19,22 @@ import (
 type V1Tenant struct {
 
 	// default quotas
-	DefaultQuotas *V1QuotaSet `json:"default_quotas,omitempty"`
+	DefaultQuotas *V1QuotaSet `json:"default_quotas,omitempty" yaml:"default_quotas,omitempty"`
 
 	// description
-	Description string `json:"description,omitempty"`
+	Description string `json:"description,omitempty" yaml:"description,omitempty"`
 
 	// iam config
-	IamConfig *V1IAMConfig `json:"iam_config,omitempty"`
+	IamConfig *V1IAMConfig `json:"iam_config,omitempty" yaml:"iam_config,omitempty"`
 
 	// meta
-	Meta *V1Meta `json:"meta,omitempty"`
+	Meta *V1Meta `json:"meta,omitempty" yaml:"meta,omitempty"`
 
 	// name
-	Name string `json:"name,omitempty"`
+	Name string `json:"name,omitempty" yaml:"name,omitempty"`
 
 	// quotas
-	Quotas *V1QuotaSet `json:"quotas,omitempty"`
+	Quotas *V1QuotaSet `json:"quotas,omitempty" yaml:"quotas,omitempty"`
 }
 
 // Validate validates this v1 tenant
@@ -72,6 +72,8 @@ func (m *V1Tenant) validateDefaultQuotas(formats strfmt.Registry) error {
 		if err := m.DefaultQuotas.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("default_quotas")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("default_quotas")
 			}
 			return err
 		}
@@ -89,6 +91,8 @@ func (m *V1Tenant) validateIamConfig(formats strfmt.Registry) error {
 		if err := m.IamConfig.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("iam_config")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("iam_config")
 			}
 			return err
 		}
@@ -106,6 +110,8 @@ func (m *V1Tenant) validateMeta(formats strfmt.Registry) error {
 		if err := m.Meta.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("meta")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("meta")
 			}
 			return err
 		}
@@ -123,6 +129,8 @@ func (m *V1Tenant) validateQuotas(formats strfmt.Registry) error {
 		if err := m.Quotas.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("quotas")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("quotas")
 			}
 			return err
 		}
@@ -163,6 +171,8 @@ func (m *V1Tenant) contextValidateDefaultQuotas(ctx context.Context, formats str
 		if err := m.DefaultQuotas.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("default_quotas")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("default_quotas")
 			}
 			return err
 		}
@@ -177,6 +187,8 @@ func (m *V1Tenant) contextValidateIamConfig(ctx context.Context, formats strfmt.
 		if err := m.IamConfig.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("iam_config")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("iam_config")
 			}
 			return err
 		}
@@ -191,6 +203,8 @@ func (m *V1Tenant) contextValidateMeta(ctx context.Context, formats strfmt.Regis
 		if err := m.Meta.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("meta")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("meta")
 			}
 			return err
 		}
@@ -205,6 +219,8 @@ func (m *V1Tenant) contextValidateQuotas(ctx context.Context, formats strfmt.Reg
 		if err := m.Quotas.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("quotas")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("quotas")
 			}
 			return err
 		}

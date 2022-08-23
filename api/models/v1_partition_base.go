@@ -20,12 +20,12 @@ import (
 type V1PartitionBase struct {
 
 	// the address to the management service of this partition
-	Mgmtserviceaddress string `json:"mgmtserviceaddress,omitempty"`
+	Mgmtserviceaddress string `json:"mgmtserviceaddress,omitempty" yaml:"mgmtserviceaddress,omitempty"`
 
 	// the length of private networks for the machine's child networks in this partition, default 22
 	// Maximum: 30
 	// Minimum: 16
-	Privatenetworkprefixlength int32 `json:"privatenetworkprefixlength,omitempty"`
+	Privatenetworkprefixlength int32 `json:"privatenetworkprefixlength,omitempty" yaml:"privatenetworkprefixlength,omitempty"`
 }
 
 // Validate validates this v1 partition base

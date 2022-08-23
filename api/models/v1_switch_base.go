@@ -20,11 +20,11 @@ import (
 type V1SwitchBase struct {
 
 	// the mode the switch currently has
-	Mode string `json:"mode,omitempty"`
+	Mode string `json:"mode,omitempty" yaml:"mode,omitempty"`
 
 	// the id of the rack in which this switch is located
 	// Required: true
-	RackID *string `json:"rack_id"`
+	RackID *string `json:"rack_id" yaml:"rack_id"`
 }
 
 // Validate validates this v1 switch base

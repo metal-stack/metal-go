@@ -58,6 +58,13 @@ func NewHealthParamsWithHTTPClient(client *http.Client) *HealthParams {
    Typically these are written to a http.Request.
 */
 type HealthParams struct {
+
+	/* Service.
+
+	   return health for this specific service only
+	*/
+	Service *string
+
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
@@ -111,6 +118,17 @@ func (o *HealthParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithService adds the service to the health params
+func (o *HealthParams) WithService(service *string) *HealthParams {
+	o.SetService(service)
+	return o
+}
+
+// SetService adds the service to the health params
+func (o *HealthParams) SetService(service *string) {
+	o.Service = service
+}
+
 // WriteToRequest writes these params to a swagger request
 func (o *HealthParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -118,6 +136,23 @@ func (o *HealthParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Regist
 		return err
 	}
 	var res []error
+
+	if o.Service != nil {
+
+		// query param service
+		var qrService string
+
+		if o.Service != nil {
+			qrService = *o.Service
+		}
+		qService := qrService
+		if qService != "" {
+
+			if err := r.SetQueryParam("service", qService); err != nil {
+				return err
+			}
+		}
+	}
 
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)

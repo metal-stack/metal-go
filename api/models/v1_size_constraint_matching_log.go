@@ -21,15 +21,15 @@ type V1SizeConstraintMatchingLog struct {
 
 	// the size constraint to which this log relates to
 	// Required: true
-	Constraint *V1SizeConstraint `json:"constraint"`
+	Constraint *V1SizeConstraint `json:"constraint" yaml:"constraint"`
 
 	// a string represention of the matching condition
 	// Required: true
-	Log *string `json:"log"`
+	Log *string `json:"log" yaml:"log"`
 
 	// indicates whether the constraint matched or not
 	// Required: true
-	Match *bool `json:"match"`
+	Match *bool `json:"match" yaml:"match"`
 }
 
 // Validate validates this v1 size constraint matching log
@@ -64,6 +64,8 @@ func (m *V1SizeConstraintMatchingLog) validateConstraint(formats strfmt.Registry
 		if err := m.Constraint.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("constraint")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("constraint")
 			}
 			return err
 		}
@@ -110,6 +112,8 @@ func (m *V1SizeConstraintMatchingLog) contextValidateConstraint(ctx context.Cont
 		if err := m.Constraint.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("constraint")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("constraint")
 			}
 			return err
 		}

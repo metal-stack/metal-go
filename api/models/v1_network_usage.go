@@ -21,19 +21,19 @@ type V1NetworkUsage struct {
 
 	// the total available IPs
 	// Required: true
-	AvailableIps *int64 `json:"available_ips"`
+	AvailableIps *int64 `json:"available_ips" yaml:"available_ips"`
 
 	// the total available Prefixes
 	// Required: true
-	AvailablePrefixes *int64 `json:"available_prefixes"`
+	AvailablePrefixes *int64 `json:"available_prefixes" yaml:"available_prefixes"`
 
 	// the total used IPs
 	// Required: true
-	UsedIps *int64 `json:"used_ips"`
+	UsedIps *int64 `json:"used_ips" yaml:"used_ips"`
 
 	// the total used Prefixes
 	// Required: true
-	UsedPrefixes *int64 `json:"used_prefixes"`
+	UsedPrefixes *int64 `json:"used_prefixes" yaml:"used_prefixes"`
 }
 
 // Validate validates this v1 network usage

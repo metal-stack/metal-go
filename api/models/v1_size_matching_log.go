@@ -22,19 +22,19 @@ type V1SizeMatchingLog struct {
 
 	// constraints
 	// Required: true
-	Constraints []*V1SizeConstraintMatchingLog `json:"constraints"`
+	Constraints []*V1SizeConstraintMatchingLog `json:"constraints" yaml:"constraints"`
 
 	// log
 	// Required: true
-	Log *string `json:"log"`
+	Log *string `json:"log" yaml:"log"`
 
 	// match
 	// Required: true
-	Match *bool `json:"match"`
+	Match *bool `json:"match" yaml:"match"`
 
 	// name
 	// Required: true
-	Name *string `json:"name"`
+	Name *string `json:"name" yaml:"name"`
 }
 
 // Validate validates this v1 size matching log
@@ -78,6 +78,8 @@ func (m *V1SizeMatchingLog) validateConstraints(formats strfmt.Registry) error {
 			if err := m.Constraints[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("constraints" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("constraints" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -137,6 +139,8 @@ func (m *V1SizeMatchingLog) contextValidateConstraints(ctx context.Context, form
 			if err := m.Constraints[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("constraints" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("constraints" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

@@ -20,14 +20,14 @@ import (
 type V1VolumeGroup struct {
 
 	// list of devices to form the volume group from
-	Devices []string `json:"devices"`
+	Devices []string `json:"devices" yaml:"devices"`
 
 	// the name of the resulting volume group
 	// Required: true
-	Name *string `json:"name"`
+	Name *string `json:"name" yaml:"name"`
 
 	// list of tags to add to the volume group
-	Tags []string `json:"tags"`
+	Tags []string `json:"tags" yaml:"tags"`
 }
 
 // Validate validates this v1 volume group

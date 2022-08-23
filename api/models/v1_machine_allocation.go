@@ -22,62 +22,62 @@ import (
 type V1MachineAllocation struct {
 
 	// information required for booting the machine from HD
-	BootInfo *V1BootInfo `json:"boot_info,omitempty"`
+	BootInfo *V1BootInfo `json:"boot_info,omitempty" yaml:"boot_info,omitempty"`
 
 	// the time when the machine was created
 	// Required: true
 	// Format: date-time
-	Created *strfmt.DateTime `json:"created"`
+	Created *strfmt.DateTime `json:"created" yaml:"created"`
 
 	// email of machine creator
 	// Required: true
-	Creator *string `json:"creator"`
+	Creator *string `json:"creator" yaml:"creator"`
 
 	// a description for this machine
-	Description string `json:"description,omitempty"`
+	Description string `json:"description,omitempty" yaml:"description,omitempty"`
 
 	// filesystemlayout to create on this machine
-	Filesystemlayout *V1FilesystemLayoutResponse `json:"filesystemlayout,omitempty"`
+	Filesystemlayout *V1FilesystemLayoutResponse `json:"filesystemlayout,omitempty" yaml:"filesystemlayout,omitempty"`
 
 	// the hostname which will be used when creating the machine
 	// Required: true
-	Hostname *string `json:"hostname"`
+	Hostname *string `json:"hostname" yaml:"hostname"`
 
 	// the image assigned to this machine
 	// Read Only: true
-	Image *V1ImageResponse `json:"image,omitempty"`
+	Image *V1ImageResponse `json:"image,omitempty" yaml:"image,omitempty"`
 
 	// the name of the machine
 	// Required: true
-	Name *string `json:"name"`
+	Name *string `json:"name" yaml:"name"`
 
 	// the networks of this machine
 	// Required: true
-	Networks []*V1MachineNetwork `json:"networks"`
+	Networks []*V1MachineNetwork `json:"networks" yaml:"networks"`
 
 	// the project id that this machine is assigned to
 	// Required: true
-	Project *string `json:"project"`
+	Project *string `json:"project" yaml:"project"`
 
 	// indicates whether to reinstall the machine
 	// Required: true
-	Reinstall *bool `json:"reinstall"`
+	Reinstall *bool `json:"reinstall" yaml:"reinstall"`
 
 	// the role of the machine
 	// Required: true
 	// Enum: [firewall machine]
-	Role *string `json:"role"`
+	Role *string `json:"role" yaml:"role"`
 
 	// the public ssh keys to access the machine with
 	// Required: true
-	SSHPubKeys []string `json:"ssh_pub_keys"`
+	SSHPubKeys []string `json:"ssh_pub_keys" yaml:"ssh_pub_keys"`
 
 	// if the allocation of the machine was successful, this is set to true
 	// Required: true
-	Succeeded *bool `json:"succeeded"`
+	Succeeded *bool `json:"succeeded" yaml:"succeeded"`
 
 	// userdata to execute post installation tasks
-	UserData string `json:"user_data,omitempty"`
+	UserData string `json:"user_data,omitempty" yaml:"user_data,omitempty"`
 }
 
 // Validate validates this v1 machine allocation
@@ -151,6 +151,8 @@ func (m *V1MachineAllocation) validateBootInfo(formats strfmt.Registry) error {
 		if err := m.BootInfo.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("boot_info")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("boot_info")
 			}
 			return err
 		}
@@ -190,6 +192,8 @@ func (m *V1MachineAllocation) validateFilesystemlayout(formats strfmt.Registry) 
 		if err := m.Filesystemlayout.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("filesystemlayout")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("filesystemlayout")
 			}
 			return err
 		}
@@ -216,6 +220,8 @@ func (m *V1MachineAllocation) validateImage(formats strfmt.Registry) error {
 		if err := m.Image.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("image")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("image")
 			}
 			return err
 		}
@@ -248,6 +254,8 @@ func (m *V1MachineAllocation) validateNetworks(formats strfmt.Registry) error {
 			if err := m.Networks[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("networks" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("networks" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -369,6 +377,8 @@ func (m *V1MachineAllocation) contextValidateBootInfo(ctx context.Context, forma
 		if err := m.BootInfo.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("boot_info")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("boot_info")
 			}
 			return err
 		}
@@ -383,6 +393,8 @@ func (m *V1MachineAllocation) contextValidateFilesystemlayout(ctx context.Contex
 		if err := m.Filesystemlayout.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("filesystemlayout")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("filesystemlayout")
 			}
 			return err
 		}
@@ -397,6 +409,8 @@ func (m *V1MachineAllocation) contextValidateImage(ctx context.Context, formats 
 		if err := m.Image.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("image")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("image")
 			}
 			return err
 		}
@@ -413,6 +427,8 @@ func (m *V1MachineAllocation) contextValidateNetworks(ctx context.Context, forma
 			if err := m.Networks[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("networks" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("networks" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

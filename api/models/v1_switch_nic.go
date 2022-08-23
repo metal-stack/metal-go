@@ -20,18 +20,18 @@ import (
 type V1SwitchNic struct {
 
 	// configures the bgp filter applied at the switch port
-	Filter *V1BGPFilter `json:"filter,omitempty"`
+	Filter *V1BGPFilter `json:"filter,omitempty" yaml:"filter,omitempty"`
 
 	// the mac address of this network interface
 	// Required: true
-	Mac *string `json:"mac"`
+	Mac *string `json:"mac" yaml:"mac"`
 
 	// the name of this network interface
 	// Required: true
-	Name *string `json:"name"`
+	Name *string `json:"name" yaml:"name"`
 
 	// the vrf this network interface is part of
-	Vrf string `json:"vrf,omitempty"`
+	Vrf string `json:"vrf,omitempty" yaml:"vrf,omitempty"`
 }
 
 // Validate validates this v1 switch nic
@@ -65,6 +65,8 @@ func (m *V1SwitchNic) validateFilter(formats strfmt.Registry) error {
 		if err := m.Filter.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("filter")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("filter")
 			}
 			return err
 		}
@@ -111,6 +113,8 @@ func (m *V1SwitchNic) contextValidateFilter(ctx context.Context, formats strfmt.
 		if err := m.Filter.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("filter")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("filter")
 			}
 			return err
 		}

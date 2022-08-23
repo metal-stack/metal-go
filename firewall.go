@@ -53,7 +53,7 @@ func (d *Driver) FirewallCreate(fcr *FirewallCreateRequest) (*FirewallCreateResp
 	allocFirewall := firewall.NewAllocateFirewallParams()
 	allocFirewall.SetBody(allocateRequest)
 
-	resp, err := d.firewall.AllocateFirewall(allocFirewall, nil)
+	resp, err := d.Firewall().AllocateFirewall(allocFirewall, nil)
 	if err != nil {
 		return response, err
 	}
@@ -67,7 +67,7 @@ func (d *Driver) FirewallList() (*FirewallListResponse, error) {
 	response := &FirewallListResponse{}
 
 	listFirewall := firewall.NewListFirewallsParams()
-	resp, err := d.firewall.ListFirewalls(listFirewall, nil)
+	resp, err := d.Firewall().ListFirewalls(listFirewall, nil)
 	if err != nil {
 		return response, err
 	}
@@ -133,7 +133,7 @@ func (d *Driver) FirewallFind(ffr *FirewallFindRequest) (*FirewallListResponse, 
 	findFirewalls := firewall.NewFindFirewallsParams()
 	findFirewalls.SetBody(req)
 
-	resp, err = d.firewall.FindFirewalls(findFirewalls, nil)
+	resp, err = d.Firewall().FindFirewalls(findFirewalls, nil)
 	if err != nil {
 		return response, err
 	}
@@ -147,7 +147,7 @@ func (d *Driver) FirewallGet(machineID string) (*FirewallGetResponse, error) {
 	findFirewall.ID = machineID
 
 	response := &FirewallGetResponse{}
-	resp, err := d.firewall.FindFirewall(findFirewall, nil)
+	resp, err := d.Firewall().FindFirewall(findFirewall, nil)
 	if err != nil {
 		return response, err
 	}

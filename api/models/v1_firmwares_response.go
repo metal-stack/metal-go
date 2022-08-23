@@ -21,7 +21,7 @@ type V1FirmwaresResponse struct {
 
 	// list of firmwares per board per vendor per kind
 	// Required: true
-	Revisions map[string]V1VendorRevisions `json:"revisions"`
+	Revisions map[string]V1VendorRevisions `json:"revisions" yaml:"revisions"`
 }
 
 // Validate validates this v1 firmwares response
@@ -51,6 +51,11 @@ func (m *V1FirmwaresResponse) validateRevisions(formats strfmt.Registry) error {
 		}
 		if val, ok := m.Revisions[k]; ok {
 			if err := val.Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("revisions" + "." + k)
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("revisions" + "." + k)
+				}
 				return err
 			}
 		}

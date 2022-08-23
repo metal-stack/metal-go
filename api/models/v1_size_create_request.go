@@ -22,17 +22,17 @@ type V1SizeCreateRequest struct {
 
 	// a list of constraints that defines this size
 	// Required: true
-	Constraints []*V1SizeConstraint `json:"constraints"`
+	Constraints []*V1SizeConstraint `json:"constraints" yaml:"constraints"`
 
 	// a description for this entity
-	Description string `json:"description,omitempty"`
+	Description string `json:"description,omitempty" yaml:"description,omitempty"`
 
 	// the unique ID of this entity
 	// Required: true
-	ID *string `json:"id"`
+	ID *string `json:"id" yaml:"id"`
 
 	// a readable name for this entity
-	Name string `json:"name,omitempty"`
+	Name string `json:"name,omitempty" yaml:"name,omitempty"`
 }
 
 // Validate validates this v1 size create request
@@ -68,6 +68,8 @@ func (m *V1SizeCreateRequest) validateConstraints(formats strfmt.Registry) error
 			if err := m.Constraints[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("constraints" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("constraints" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -109,6 +111,8 @@ func (m *V1SizeCreateRequest) contextValidateConstraints(ctx context.Context, fo
 			if err := m.Constraints[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("constraints" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("constraints" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

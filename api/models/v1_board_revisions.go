@@ -21,7 +21,7 @@ type V1BoardRevisions struct {
 
 	// board revisions
 	// Required: true
-	BoardRevisions map[string][]string `json:"BoardRevisions"`
+	BoardRevisions map[string][]string `json:"BoardRevisions" yaml:"BoardRevisions"`
 }
 
 // Validate validates this v1 board revisions

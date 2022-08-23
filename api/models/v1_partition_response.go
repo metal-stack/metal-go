@@ -21,35 +21,35 @@ type V1PartitionResponse struct {
 
 	// the boot configuration of this partition
 	// Required: true
-	Bootconfig *V1PartitionBootConfiguration `json:"bootconfig"`
+	Bootconfig *V1PartitionBootConfiguration `json:"bootconfig" yaml:"bootconfig"`
 
 	// the last changed timestamp of this entity
 	// Read Only: true
 	// Format: date-time
-	Changed strfmt.DateTime `json:"changed,omitempty"`
+	Changed strfmt.DateTime `json:"changed,omitempty" yaml:"changed,omitempty"`
 
 	// the creation time of this entity
 	// Read Only: true
 	// Format: date-time
-	Created strfmt.DateTime `json:"created,omitempty"`
+	Created strfmt.DateTime `json:"created,omitempty" yaml:"created,omitempty"`
 
 	// a description for this entity
-	Description string `json:"description,omitempty"`
+	Description string `json:"description,omitempty" yaml:"description,omitempty"`
 
 	// the unique ID of this entity
 	// Required: true
-	ID *string `json:"id"`
+	ID *string `json:"id" yaml:"id"`
 
 	// the address to the management service of this partition
-	Mgmtserviceaddress string `json:"mgmtserviceaddress,omitempty"`
+	Mgmtserviceaddress string `json:"mgmtserviceaddress,omitempty" yaml:"mgmtserviceaddress,omitempty"`
 
 	// a readable name for this entity
-	Name string `json:"name,omitempty"`
+	Name string `json:"name,omitempty" yaml:"name,omitempty"`
 
 	// the length of private networks for the machine's child networks in this partition, default 22
 	// Maximum: 30
 	// Minimum: 16
-	Privatenetworkprefixlength int32 `json:"privatenetworkprefixlength,omitempty"`
+	Privatenetworkprefixlength int32 `json:"privatenetworkprefixlength,omitempty" yaml:"privatenetworkprefixlength,omitempty"`
 }
 
 // Validate validates this v1 partition response
@@ -92,6 +92,8 @@ func (m *V1PartitionResponse) validateBootconfig(formats strfmt.Registry) error 
 		if err := m.Bootconfig.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("bootconfig")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("bootconfig")
 			}
 			return err
 		}
@@ -177,6 +179,8 @@ func (m *V1PartitionResponse) contextValidateBootconfig(ctx context.Context, for
 		if err := m.Bootconfig.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("bootconfig")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("bootconfig")
 			}
 			return err
 		}

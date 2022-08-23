@@ -28,7 +28,7 @@ type SwitchUpdateRequest struct {
 func (d *Driver) SwitchList() (*SwitchListResponse, error) {
 	response := &SwitchListResponse{}
 	listSwitchs := sw.NewListSwitchesParams()
-	resp, err := d.sw.ListSwitches(listSwitchs, nil)
+	resp, err := d.SwitchOperations().ListSwitches(listSwitchs, nil)
 	if err != nil {
 		return response, err
 	}
@@ -41,7 +41,7 @@ func (d *Driver) SwitchGet(switchID string) (*SwitchGetResponse, error) {
 	response := &SwitchGetResponse{}
 	get := sw.NewFindSwitchParams()
 	get.ID = switchID
-	resp, err := d.sw.FindSwitch(get, nil)
+	resp, err := d.SwitchOperations().FindSwitch(get, nil)
 	if err != nil {
 		return response, err
 	}
@@ -61,7 +61,7 @@ func (d *Driver) SwitchUpdate(sur SwitchUpdateRequest) (*SwitchGetResponse, erro
 	}
 	request := sw.NewUpdateSwitchParams()
 	request.SetBody(updateSwitch)
-	resp, err := d.sw.UpdateSwitch(request, nil)
+	resp, err := d.SwitchOperations().UpdateSwitch(request, nil)
 	if err != nil {
 		return response, err
 	}

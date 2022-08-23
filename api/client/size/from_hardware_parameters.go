@@ -62,7 +62,7 @@ func NewFromHardwareParamsWithHTTPClient(client *http.Client) *FromHardwareParam
 type FromHardwareParams struct {
 
 	// Body.
-	Body *models.V1MachineHardwareExtended
+	Body *models.V1MachineHardware
 
 	timeout    time.Duration
 	Context    context.Context
@@ -118,13 +118,13 @@ func (o *FromHardwareParams) SetHTTPClient(client *http.Client) {
 }
 
 // WithBody adds the body to the from hardware params
-func (o *FromHardwareParams) WithBody(body *models.V1MachineHardwareExtended) *FromHardwareParams {
+func (o *FromHardwareParams) WithBody(body *models.V1MachineHardware) *FromHardwareParams {
 	o.SetBody(body)
 	return o
 }
 
 // SetBody adds the body to the from hardware params
-func (o *FromHardwareParams) SetBody(body *models.V1MachineHardwareExtended) {
+func (o *FromHardwareParams) SetBody(body *models.V1MachineHardware) {
 	o.Body = body
 }
 

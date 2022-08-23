@@ -67,7 +67,7 @@ type NetworkCreateRequest struct {
 	// the readable name
 	Name string `json:"name,omitempty"`
 
-	// if set to true, packets leaving this network get masqueraded behind interface ip.
+	// if set to true, packets leaving this network get masqueraded behind interface network.
 	// Required: true
 	Nat bool `json:"nat"`
 
@@ -189,6 +189,7 @@ type NetworkFindRequest struct {
 // IPFindRequest contains criteria for a ip listing
 type IPFindRequest struct {
 	IPAddress        *string
+	AllocationUUID   *string
 	ProjectID        *string
 	ParentPrefixCidr *string
 	NetworkID        *string
@@ -209,7 +210,7 @@ func (d *Driver) NetworkGet(id string) (*NetworkGetResponse, error) {
 	findNetwork.ID = id
 
 	response := &NetworkGetResponse{}
-	resp, err := d.network.FindNetwork(findNetwork, nil)
+	resp, err := d.Network().FindNetwork(findNetwork, nil)
 	if err != nil {
 		return response, err
 	}
@@ -222,7 +223,7 @@ func (d *Driver) NetworkGet(id string) (*NetworkGetResponse, error) {
 func (d *Driver) NetworkList() (*NetworkListResponse, error) {
 	response := &NetworkListResponse{}
 	listNetworks := network.NewListNetworksParams()
-	resp, err := d.network.ListNetworks(listNetworks, nil)
+	resp, err := d.Network().ListNetworks(listNetworks, nil)
 	if err != nil {
 		return response, err
 	}
@@ -257,7 +258,7 @@ func (d *Driver) NetworkFind(nfr *NetworkFindRequest) (*NetworkListResponse, err
 	}
 	findNetworks.SetBody(req)
 
-	resp, err = d.network.FindNetworks(findNetworks, nil)
+	resp, err = d.Network().FindNetworks(findNetworks, nil)
 	if err != nil {
 		return response, err
 	}
@@ -287,7 +288,7 @@ func (d *Driver) NetworkCreate(ncr *NetworkCreateRequest) (*NetworkDetailRespons
 		Labels:              ncr.Labels,
 	}
 	createNetwork.SetBody(createRequest)
-	resp, err := d.network.CreateNetwork(createNetwork, nil)
+	resp, err := d.Network().CreateNetwork(createNetwork, nil)
 	if err != nil {
 		return response, err
 	}
@@ -311,7 +312,7 @@ func (d *Driver) NetworkAllocate(ncr *NetworkAllocateRequest) (*NetworkDetailRes
 		Destinationprefixes: ncr.Destinationprefixes,
 	}
 	acquireNetwork.SetBody(acquireRequest)
-	resp, err := d.network.AllocateNetwork(acquireNetwork, nil)
+	resp, err := d.Network().AllocateNetwork(acquireNetwork, nil)
 	if err != nil {
 		return response, err
 	}
@@ -325,7 +326,7 @@ func (d *Driver) NetworkFree(id string) (*NetworkDetailResponse, error) {
 	releaseNetwork := network.NewFreeNetworkParams()
 
 	releaseNetwork.ID = id
-	resp, err := d.network.FreeNetwork(releaseNetwork, nil)
+	resp, err := d.Network().FreeNetwork(releaseNetwork, nil)
 	if err != nil {
 		return response, err
 	}
@@ -339,7 +340,7 @@ func (d *Driver) NetworkDelete(id string) (*NetworkDetailResponse, error) {
 	deleteNetwork := network.NewDeleteNetworkParams()
 
 	deleteNetwork.ID = id
-	resp, err := d.network.DeleteNetwork(deleteNetwork, nil)
+	resp, err := d.Network().DeleteNetwork(deleteNetwork, nil)
 	if err != nil {
 		return response, err
 	}
@@ -361,7 +362,7 @@ func (d *Driver) NetworkUpdate(ncr *NetworkCreateRequest) (*NetworkDetailRespons
 		Labels:              ncr.Labels,
 	}
 	updateNetwork.SetBody(updateRequest)
-	resp, err := d.network.UpdateNetwork(updateNetwork, nil)
+	resp, err := d.Network().UpdateNetwork(updateNetwork, nil)
 	if err != nil {
 		return response, err
 	}
@@ -385,7 +386,7 @@ func (d *Driver) NetworkAddPrefix(nur *NetworkUpdateRequest) (*NetworkDetailResp
 		Prefixes: newPrefixes,
 	}
 	updateNetwork.SetBody(updateRequest)
-	resp, err := d.network.UpdateNetwork(updateNetwork, nil)
+	resp, err := d.Network().UpdateNetwork(updateNetwork, nil)
 	if err != nil {
 		return response, err
 	}
@@ -415,7 +416,7 @@ func (d *Driver) NetworkRemovePrefix(nur *NetworkUpdateRequest) (*NetworkDetailR
 		Prefixes: newPrefixes,
 	}
 	updateNetwork.SetBody(updateRequest)
-	resp, err := d.network.UpdateNetwork(updateNetwork, nil)
+	resp, err := d.Network().UpdateNetwork(updateNetwork, nil)
 	if err != nil {
 		return response, err
 	}
@@ -482,7 +483,7 @@ func (d *Driver) IPGet(ipaddress string) (*IPDetailResponse, error) {
 	response := &IPDetailResponse{}
 	findIP := ip.NewFindIPParams()
 	findIP.ID = ipaddress
-	resp, err := d.ip.FindIP(findIP, nil)
+	resp, err := d.IP().FindIP(findIP, nil)
 	if err != nil {
 		return response, err
 	}
@@ -503,7 +504,7 @@ func (d *Driver) IPUpdate(iur *IPUpdateRequest) (*IPDetailResponse, error) {
 		Tags:        iur.Tags,
 	}
 	updateIP.SetBody(updateRequest)
-	resp, err := d.ip.UpdateIP(updateIP, nil)
+	resp, err := d.IP().UpdateIP(updateIP, nil)
 	if err != nil {
 		return response, err
 	}
@@ -515,7 +516,7 @@ func (d *Driver) IPUpdate(iur *IPUpdateRequest) (*IPDetailResponse, error) {
 func (d *Driver) IPList() (*IPListResponse, error) {
 	response := &IPListResponse{}
 	listIPs := ip.NewListIPsParams()
-	resp, err := d.ip.ListIPs(listIPs, nil)
+	resp, err := d.IP().ListIPs(listIPs, nil)
 	if err != nil {
 		return response, err
 	}
@@ -535,18 +536,19 @@ func (d *Driver) IPFind(ifr *IPFindRequest) (*IPListResponse, error) {
 
 	findIPs := ip.NewFindIPsParams()
 	req := &models.V1IPFindRequest{
-		Ipaddress:     StrDeref(ifr.IPAddress),
-		Projectid:     StrDeref(ifr.ProjectID),
-		Networkprefix: StrDeref(ifr.ParentPrefixCidr),
-		Networkid:     StrDeref(ifr.NetworkID),
-		Machineid:     StrDeref(ifr.MachineID),
-		Type:          StrDeref(ifr.Type),
-		Tags:          ifr.Tags,
-		Name:          StrDeref(ifr.Name),
+		Ipaddress:      StrDeref(ifr.IPAddress),
+		Allocationuuid: StrDeref(ifr.AllocationUUID),
+		Projectid:      StrDeref(ifr.ProjectID),
+		Networkprefix:  StrDeref(ifr.ParentPrefixCidr),
+		Networkid:      StrDeref(ifr.NetworkID),
+		Machineid:      StrDeref(ifr.MachineID),
+		Type:           StrDeref(ifr.Type),
+		Tags:           ifr.Tags,
+		Name:           StrDeref(ifr.Name),
 	}
 	findIPs.SetBody(req)
 
-	resp, err = d.ip.FindIPs(findIPs, nil)
+	resp, err = d.IP().FindIPs(findIPs, nil)
 	if err != nil {
 		return response, err
 	}
@@ -570,7 +572,7 @@ func (d *Driver) IPAllocate(iar *IPAllocateRequest) (*IPDetailResponse, error) {
 	if iar.IPAddress == "" {
 		acquireIP := ip.NewAllocateIPParams()
 		acquireIP.SetBody(acquireIPRequest)
-		resp, err := d.ip.AllocateIP(acquireIP, nil)
+		resp, err := d.IP().AllocateIP(acquireIP, nil)
 		if err != nil {
 			return response, err
 		}
@@ -579,7 +581,7 @@ func (d *Driver) IPAllocate(iar *IPAllocateRequest) (*IPDetailResponse, error) {
 		acquireIP := ip.NewAllocateSpecificIPParams()
 		acquireIP.IP = iar.IPAddress
 		acquireIP.SetBody(acquireIPRequest)
-		resp, err := d.ip.AllocateSpecificIP(acquireIP, nil)
+		resp, err := d.IP().AllocateSpecificIP(acquireIP, nil)
 		if err != nil {
 			return response, err
 		}
@@ -593,7 +595,7 @@ func (d *Driver) IPFree(id string) (*IPDetailResponse, error) {
 	response := &IPDetailResponse{}
 	deleteIP := ip.NewFreeIPParams()
 	deleteIP.ID = id
-	resp, err := d.ip.FreeIP(deleteIP, nil)
+	resp, err := d.IP().FreeIP(deleteIP, nil)
 	if err != nil {
 		return response, err
 	}

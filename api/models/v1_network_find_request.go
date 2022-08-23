@@ -18,40 +18,40 @@ import (
 type V1NetworkFindRequest struct {
 
 	// destinationprefixes
-	Destinationprefixes []string `json:"destinationprefixes"`
+	Destinationprefixes []string `json:"destinationprefixes" yaml:"destinationprefixes"`
 
 	// id
-	ID string `json:"id,omitempty"`
+	ID string `json:"id,omitempty" yaml:"id,omitempty"`
 
 	// labels
-	Labels map[string]string `json:"labels,omitempty"`
+	Labels map[string]string `json:"labels,omitempty" yaml:"labels,omitempty"`
 
 	// name
-	Name string `json:"name,omitempty"`
+	Name string `json:"name,omitempty" yaml:"name,omitempty"`
 
 	// nat
-	Nat bool `json:"nat,omitempty"`
+	Nat bool `json:"nat,omitempty" yaml:"nat,omitempty"`
 
 	// parentnetworkid
-	Parentnetworkid string `json:"parentnetworkid,omitempty"`
+	Parentnetworkid string `json:"parentnetworkid,omitempty" yaml:"parentnetworkid,omitempty"`
 
 	// partitionid
-	Partitionid string `json:"partitionid,omitempty"`
+	Partitionid string `json:"partitionid,omitempty" yaml:"partitionid,omitempty"`
 
 	// prefixes
-	Prefixes []string `json:"prefixes"`
+	Prefixes []string `json:"prefixes" yaml:"prefixes"`
 
 	// privatesuper
-	Privatesuper bool `json:"privatesuper,omitempty"`
+	Privatesuper bool `json:"privatesuper,omitempty" yaml:"privatesuper,omitempty"`
 
 	// projectid
-	Projectid string `json:"projectid,omitempty"`
+	Projectid string `json:"projectid,omitempty" yaml:"projectid,omitempty"`
 
 	// underlay
-	Underlay bool `json:"underlay,omitempty"`
+	Underlay bool `json:"underlay,omitempty" yaml:"underlay,omitempty"`
 
 	// vrf
-	Vrf int64 `json:"vrf,omitempty"`
+	Vrf int64 `json:"vrf,omitempty" yaml:"vrf,omitempty"`
 }
 
 // Validate validates this v1 network find request

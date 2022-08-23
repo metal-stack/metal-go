@@ -20,24 +20,47 @@ import (
 // swagger:model v1.MachineRecentProvisioningEvents
 type V1MachineRecentProvisioningEvents struct {
 
-	// the amount of incomplete provisioning cycles in the event container
+	// indicates that machine is provisioning crash loop
 	// Required: true
-	IncompleteProvisioningCycles *string `json:"incomplete_provisioning_cycles"`
+	CrashLoop *bool `json:"crash_loop" yaml:"crash_loop"`
+
+	// indicates that machine reclaim has failed
+	// Required: true
+	FailedMachineReclaim *bool `json:"failed_machine_reclaim" yaml:"failed_machine_reclaim"`
+
+	// The field 'IncompleteProvisioningCycles' in the provisioning events container is now deprecated and replaced by two new bool flags 'CrashLoop' and 'MachineReclaimFailed'.
+	// Required: true
+	IncompleteProvisioningCycles *string `json:"incomplete_provisioning_cycles" yaml:"incomplete_provisioning_cycles"`
+
+	// the last erroneous event received
+	LastErrorEvent *V1MachineProvisioningEvent `json:"last_error_event,omitempty" yaml:"last_error_event,omitempty"`
 
 	// the time where the last event was received
 	// Format: date-time
-	LastEventTime strfmt.DateTime `json:"last_event_time,omitempty"`
+	LastEventTime strfmt.DateTime `json:"last_event_time,omitempty" yaml:"last_event_time,omitempty"`
 
 	// the log of recent machine provisioning events
 	// Required: true
-	Log []*V1MachineProvisioningEvent `json:"log"`
+	Log []*V1MachineProvisioningEvent `json:"log" yaml:"log"`
 }
 
 // Validate validates this v1 machine recent provisioning events
 func (m *V1MachineRecentProvisioningEvents) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateCrashLoop(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateFailedMachineReclaim(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateIncompleteProvisioningCycles(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateLastErrorEvent(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -55,10 +78,47 @@ func (m *V1MachineRecentProvisioningEvents) Validate(formats strfmt.Registry) er
 	return nil
 }
 
+func (m *V1MachineRecentProvisioningEvents) validateCrashLoop(formats strfmt.Registry) error {
+
+	if err := validate.Required("crash_loop", "body", m.CrashLoop); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *V1MachineRecentProvisioningEvents) validateFailedMachineReclaim(formats strfmt.Registry) error {
+
+	if err := validate.Required("failed_machine_reclaim", "body", m.FailedMachineReclaim); err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func (m *V1MachineRecentProvisioningEvents) validateIncompleteProvisioningCycles(formats strfmt.Registry) error {
 
 	if err := validate.Required("incomplete_provisioning_cycles", "body", m.IncompleteProvisioningCycles); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+func (m *V1MachineRecentProvisioningEvents) validateLastErrorEvent(formats strfmt.Registry) error {
+	if swag.IsZero(m.LastErrorEvent) { // not required
+		return nil
+	}
+
+	if m.LastErrorEvent != nil {
+		if err := m.LastErrorEvent.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("last_error_event")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("last_error_event")
+			}
+			return err
+		}
 	}
 
 	return nil
@@ -91,6 +151,8 @@ func (m *V1MachineRecentProvisioningEvents) validateLog(formats strfmt.Registry)
 			if err := m.Log[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("log" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("log" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -105,6 +167,10 @@ func (m *V1MachineRecentProvisioningEvents) validateLog(formats strfmt.Registry)
 func (m *V1MachineRecentProvisioningEvents) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.contextValidateLastErrorEvent(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.contextValidateLog(ctx, formats); err != nil {
 		res = append(res, err)
 	}
@@ -112,6 +178,22 @@ func (m *V1MachineRecentProvisioningEvents) ContextValidate(ctx context.Context,
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *V1MachineRecentProvisioningEvents) contextValidateLastErrorEvent(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.LastErrorEvent != nil {
+		if err := m.LastErrorEvent.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("last_error_event")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("last_error_event")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 
@@ -123,6 +205,8 @@ func (m *V1MachineRecentProvisioningEvents) contextValidateLog(ctx context.Conte
 			if err := m.Log[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("log" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("log" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

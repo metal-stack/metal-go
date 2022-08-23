@@ -21,11 +21,11 @@ type V1SwitchNotifyRequest struct {
 
 	// error
 	// Required: true
-	Error *string `json:"error"`
+	Error *string `json:"error" yaml:"error"`
 
 	// the duration of the switch synchronization
 	// Required: true
-	SyncDuration *int64 `json:"sync_duration"`
+	SyncDuration *int64 `json:"sync_duration" yaml:"sync_duration"`
 }
 
 // Validate validates this v1 switch notify request

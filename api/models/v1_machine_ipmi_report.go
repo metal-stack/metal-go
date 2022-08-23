@@ -21,23 +21,27 @@ type V1MachineIpmiReport struct {
 
 	// b i o s version
 	// Required: true
-	BIOSVersion *string `json:"BIOSVersion"`
+	BIOSVersion *string `json:"BIOSVersion" yaml:"BIOSVersion"`
 
 	// b m c Ip
 	// Required: true
-	BMCIP *string `json:"BMCIp"`
+	BMCIP *string `json:"BMCIp" yaml:"BMCIp"`
 
 	// b m c version
 	// Required: true
-	BMCVersion *string `json:"BMCVersion"`
+	BMCVersion *string `json:"BMCVersion" yaml:"BMCVersion"`
 
 	// f r u
 	// Required: true
-	FRU *V1MachineFru `json:"FRU"`
+	FRU *V1MachineFru `json:"FRU" yaml:"FRU"`
+
+	// indicator l e d state
+	// Required: true
+	IndicatorLEDState *string `json:"IndicatorLEDState" yaml:"IndicatorLEDState"`
 
 	// power state
 	// Required: true
-	PowerState *string `json:"PowerState"`
+	PowerState *string `json:"PowerState" yaml:"PowerState"`
 }
 
 // Validate validates this v1 machine ipmi report
@@ -57,6 +61,10 @@ func (m *V1MachineIpmiReport) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateFRU(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateIndicatorLEDState(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -107,9 +115,20 @@ func (m *V1MachineIpmiReport) validateFRU(formats strfmt.Registry) error {
 		if err := m.FRU.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("FRU")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("FRU")
 			}
 			return err
 		}
+	}
+
+	return nil
+}
+
+func (m *V1MachineIpmiReport) validateIndicatorLEDState(formats strfmt.Registry) error {
+
+	if err := validate.Required("IndicatorLEDState", "body", m.IndicatorLEDState); err != nil {
+		return err
 	}
 
 	return nil
@@ -144,6 +163,8 @@ func (m *V1MachineIpmiReport) contextValidateFRU(ctx context.Context, formats st
 		if err := m.FRU.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("FRU")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("FRU")
 			}
 			return err
 		}

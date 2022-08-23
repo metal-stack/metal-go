@@ -20,18 +20,18 @@ import (
 type V1MachineReinstallRequest struct {
 
 	// a description for this entity
-	Description string `json:"description,omitempty"`
+	Description string `json:"description,omitempty" yaml:"description,omitempty"`
 
 	// the unique ID of this entity
 	// Required: true
-	ID *string `json:"id"`
+	ID *string `json:"id" yaml:"id"`
 
 	// the image id to be installed
 	// Required: true
-	Imageid *string `json:"imageid"`
+	Imageid *string `json:"imageid" yaml:"imageid"`
 
 	// a readable name for this entity
-	Name string `json:"name,omitempty"`
+	Name string `json:"name,omitempty" yaml:"name,omitempty"`
 }
 
 // Validate validates this v1 machine reinstall request

@@ -6,13 +6,13 @@ import (
 
 // HealthGetResponse is the response of a HealthGet action
 type HealthGetResponse struct {
-	Health *models.RestStatus
+	Health *models.RestHealthResponse
 }
 
 // HealthGet returns the health status
 func (d *Driver) HealthGet() (*HealthGetResponse, error) {
 	response := &HealthGetResponse{}
-	resp, err := d.client.Health.Health(nil, nil)
+	resp, err := d.Health().Health(nil, nil)
 	if err != nil {
 		return response, err
 	}

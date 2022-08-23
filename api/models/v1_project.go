@@ -19,19 +19,19 @@ import (
 type V1Project struct {
 
 	// description
-	Description string `json:"description,omitempty"`
+	Description string `json:"description,omitempty" yaml:"description,omitempty"`
 
 	// meta
-	Meta *V1Meta `json:"meta,omitempty"`
+	Meta *V1Meta `json:"meta,omitempty" yaml:"meta,omitempty"`
 
 	// name
-	Name string `json:"name,omitempty"`
+	Name string `json:"name,omitempty" yaml:"name,omitempty"`
 
 	// quotas
-	Quotas *V1QuotaSet `json:"quotas,omitempty"`
+	Quotas *V1QuotaSet `json:"quotas,omitempty" yaml:"quotas,omitempty"`
 
 	// tenant id
-	TenantID string `json:"tenant_id,omitempty"`
+	TenantID string `json:"tenant_id,omitempty" yaml:"tenant_id,omitempty"`
 }
 
 // Validate validates this v1 project
@@ -61,6 +61,8 @@ func (m *V1Project) validateMeta(formats strfmt.Registry) error {
 		if err := m.Meta.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("meta")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("meta")
 			}
 			return err
 		}
@@ -78,6 +80,8 @@ func (m *V1Project) validateQuotas(formats strfmt.Registry) error {
 		if err := m.Quotas.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("quotas")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("quotas")
 			}
 			return err
 		}
@@ -110,6 +114,8 @@ func (m *V1Project) contextValidateMeta(ctx context.Context, formats strfmt.Regi
 		if err := m.Meta.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("meta")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("meta")
 			}
 			return err
 		}
@@ -124,6 +130,8 @@ func (m *V1Project) contextValidateQuotas(ctx context.Context, formats strfmt.Re
 		if err := m.Quotas.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("quotas")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("quotas")
 			}
 			return err
 		}

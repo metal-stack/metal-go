@@ -20,20 +20,20 @@ import (
 type V1PartitionUpdateRequest struct {
 
 	// the boot configuration of this partition
-	Bootconfig *V1PartitionBootConfiguration `json:"bootconfig,omitempty"`
+	Bootconfig *V1PartitionBootConfiguration `json:"bootconfig,omitempty" yaml:"bootconfig,omitempty"`
 
 	// a description for this entity
-	Description string `json:"description,omitempty"`
+	Description string `json:"description,omitempty" yaml:"description,omitempty"`
 
 	// the unique ID of this entity
 	// Required: true
-	ID *string `json:"id"`
+	ID *string `json:"id" yaml:"id"`
 
 	// the address to the management service of this partition
-	Mgmtserviceaddress string `json:"mgmtserviceaddress,omitempty"`
+	Mgmtserviceaddress string `json:"mgmtserviceaddress,omitempty" yaml:"mgmtserviceaddress,omitempty"`
 
 	// a readable name for this entity
-	Name string `json:"name,omitempty"`
+	Name string `json:"name,omitempty" yaml:"name,omitempty"`
 }
 
 // Validate validates this v1 partition update request
@@ -63,6 +63,8 @@ func (m *V1PartitionUpdateRequest) validateBootconfig(formats strfmt.Registry) e
 		if err := m.Bootconfig.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("bootconfig")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("bootconfig")
 			}
 			return err
 		}
@@ -100,6 +102,8 @@ func (m *V1PartitionUpdateRequest) contextValidateBootconfig(ctx context.Context
 		if err := m.Bootconfig.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("bootconfig")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("bootconfig")
 			}
 			return err
 		}

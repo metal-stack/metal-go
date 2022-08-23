@@ -21,22 +21,22 @@ import (
 type V1IPUpdateRequest struct {
 
 	// a description for this entity
-	Description string `json:"description,omitempty"`
+	Description string `json:"description,omitempty" yaml:"description,omitempty"`
 
 	// the address (ipv4 or ipv6) of this ip
 	// Required: true
-	Ipaddress *string `json:"ipaddress"`
+	Ipaddress *string `json:"ipaddress" yaml:"ipaddress"`
 
 	// a readable name for this entity
-	Name string `json:"name,omitempty"`
+	Name string `json:"name,omitempty" yaml:"name,omitempty"`
 
 	// free tags that you associate with this ip.
-	Tags []string `json:"tags"`
+	Tags []string `json:"tags" yaml:"tags"`
 
 	// the ip type, ephemeral leads to automatic cleanup of the ip address, static will enable re-use of the ip at a later point in time
 	// Required: true
 	// Enum: [ephemeral static]
-	Type *string `json:"type"`
+	Type *string `json:"type" yaml:"type"`
 }
 
 // Validate validates this v1 IP update request

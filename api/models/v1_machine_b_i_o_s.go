@@ -21,15 +21,15 @@ type V1MachineBIOS struct {
 
 	// the bios date
 	// Required: true
-	Date *string `json:"date"`
+	Date *string `json:"date" yaml:"date"`
 
 	// the bios vendor
 	// Required: true
-	Vendor *string `json:"vendor"`
+	Vendor *string `json:"vendor" yaml:"vendor"`
 
 	// the bios version
 	// Required: true
-	Version *string `json:"version"`
+	Version *string `json:"version" yaml:"version"`
 }
 
 // Validate validates this v1 machine b i o s
