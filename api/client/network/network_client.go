@@ -50,7 +50,7 @@ type ClientService interface {
 }
 
 /*
-  AllocateNetwork allocates a child network from a partition s private super network
+AllocateNetwork allocates a child network from a partition s private super network
 */
 func (a *Client) AllocateNetwork(params *AllocateNetworkParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*AllocateNetworkCreated, error) {
 	// TODO: Validate the params before sending
@@ -88,7 +88,7 @@ func (a *Client) AllocateNetwork(params *AllocateNetworkParams, authInfo runtime
 }
 
 /*
-  CreateNetwork creates a network if the given ID already exists a conflict is returned
+CreateNetwork creates a network if the given ID already exists a conflict is returned
 */
 func (a *Client) CreateNetwork(params *CreateNetworkParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateNetworkCreated, error) {
 	// TODO: Validate the params before sending
@@ -126,7 +126,7 @@ func (a *Client) CreateNetwork(params *CreateNetworkParams, authInfo runtime.Cli
 }
 
 /*
-  DeleteNetwork deletes a network and returns the deleted entity
+DeleteNetwork deletes a network and returns the deleted entity
 */
 func (a *Client) DeleteNetwork(params *DeleteNetworkParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteNetworkOK, error) {
 	// TODO: Validate the params before sending
@@ -164,7 +164,7 @@ func (a *Client) DeleteNetwork(params *DeleteNetworkParams, authInfo runtime.Cli
 }
 
 /*
-  FindNetwork gets network by id
+FindNetwork gets network by id
 */
 func (a *Client) FindNetwork(params *FindNetworkParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FindNetworkOK, error) {
 	// TODO: Validate the params before sending
@@ -202,7 +202,7 @@ func (a *Client) FindNetwork(params *FindNetworkParams, authInfo runtime.ClientA
 }
 
 /*
-  FindNetworks gets all networks that match given properties
+FindNetworks gets all networks that match given properties
 */
 func (a *Client) FindNetworks(params *FindNetworksParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FindNetworksOK, error) {
 	// TODO: Validate the params before sending
@@ -240,7 +240,7 @@ func (a *Client) FindNetworks(params *FindNetworksParams, authInfo runtime.Clien
 }
 
 /*
-  FreeNetwork frees a network
+FreeNetwork frees a network
 */
 func (a *Client) FreeNetwork(params *FreeNetworkParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FreeNetworkOK, error) {
 	// TODO: Validate the params before sending
@@ -278,7 +278,7 @@ func (a *Client) FreeNetwork(params *FreeNetworkParams, authInfo runtime.ClientA
 }
 
 /*
-  FreeNetworkDeprecated frees a network
+FreeNetworkDeprecated frees a network
 */
 func (a *Client) FreeNetworkDeprecated(params *FreeNetworkDeprecatedParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FreeNetworkDeprecatedOK, error) {
 	// TODO: Validate the params before sending
@@ -316,7 +316,7 @@ func (a *Client) FreeNetworkDeprecated(params *FreeNetworkDeprecatedParams, auth
 }
 
 /*
-  ListNetworks gets all networks
+ListNetworks gets all networks
 */
 func (a *Client) ListNetworks(params *ListNetworksParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListNetworksOK, error) {
 	// TODO: Validate the params before sending
@@ -354,7 +354,7 @@ func (a *Client) ListNetworks(params *ListNetworksParams, authInfo runtime.Clien
 }
 
 /*
-  UpdateNetwork updates a network if the network was changed since this one was read a conflict is returned
+UpdateNetwork updates a network if the network was changed since this one was read a conflict is returned
 */
 func (a *Client) UpdateNetwork(params *UpdateNetworkParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateNetworkOK, error) {
 	// TODO: Validate the params before sending

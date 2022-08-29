@@ -54,10 +54,12 @@ func NewIpmiReportParamsWithHTTPClient(client *http.Client) *IpmiReportParams {
 	}
 }
 
-/* IpmiReportParams contains all the parameters to send to the API endpoint
-   for the ipmi report operation.
+/*
+IpmiReportParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the ipmi report operation.
+
+	Typically these are written to a http.Request.
 */
 type IpmiReportParams struct {
 

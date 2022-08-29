@@ -44,7 +44,7 @@ type ClientService interface {
 }
 
 /*
-  CreateSize creates a size if the given ID already exists a conflict is returned
+CreateSize creates a size if the given ID already exists a conflict is returned
 */
 func (a *Client) CreateSize(params *CreateSizeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateSizeCreated, error) {
 	// TODO: Validate the params before sending
@@ -82,7 +82,7 @@ func (a *Client) CreateSize(params *CreateSizeParams, authInfo runtime.ClientAut
 }
 
 /*
-  DeleteSize deletes an size and returns the deleted entity
+DeleteSize deletes an size and returns the deleted entity
 */
 func (a *Client) DeleteSize(params *DeleteSizeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteSizeOK, error) {
 	// TODO: Validate the params before sending
@@ -120,7 +120,7 @@ func (a *Client) DeleteSize(params *DeleteSizeParams, authInfo runtime.ClientAut
 }
 
 /*
-  FindSize gets size by id
+FindSize gets size by id
 */
 func (a *Client) FindSize(params *FindSizeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FindSizeOK, error) {
 	// TODO: Validate the params before sending
@@ -158,7 +158,7 @@ func (a *Client) FindSize(params *FindSizeParams, authInfo runtime.ClientAuthInf
 }
 
 /*
-  FromHardware searches all sizes for one to match the given hardwarespecs if nothing is found a list of entries is returned which describe the constraint which did not match
+FromHardware searches all sizes for one to match the given hardwarespecs if nothing is found a list of entries is returned which describe the constraint which did not match
 */
 func (a *Client) FromHardware(params *FromHardwareParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FromHardwareOK, error) {
 	// TODO: Validate the params before sending
@@ -196,7 +196,7 @@ func (a *Client) FromHardware(params *FromHardwareParams, authInfo runtime.Clien
 }
 
 /*
-  ListSizes gets all sizes
+ListSizes gets all sizes
 */
 func (a *Client) ListSizes(params *ListSizesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListSizesOK, error) {
 	// TODO: Validate the params before sending
@@ -234,7 +234,7 @@ func (a *Client) ListSizes(params *ListSizesParams, authInfo runtime.ClientAuthI
 }
 
 /*
-  UpdateSize updates a size if the size was changed since this one was read a conflict is returned
+UpdateSize updates a size if the size was changed since this one was read a conflict is returned
 */
 func (a *Client) UpdateSize(params *UpdateSizeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateSizeOK, error) {
 	// TODO: Validate the params before sending

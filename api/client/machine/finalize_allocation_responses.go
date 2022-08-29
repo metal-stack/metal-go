@@ -47,7 +47,8 @@ func NewFinalizeAllocationOK() *FinalizeAllocationOK {
 	return &FinalizeAllocationOK{}
 }
 
-/* FinalizeAllocationOK describes a response with status code 200, with default header values.
+/*
+	FinalizeAllocationOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -81,7 +82,8 @@ func NewFinalizeAllocationDefault(code int) *FinalizeAllocationDefault {
 	}
 }
 
-/* FinalizeAllocationDefault describes a response with status code -1, with default header values.
+/*
+	FinalizeAllocationDefault describes a response with status code -1, with default header values.
 
 Error
 */

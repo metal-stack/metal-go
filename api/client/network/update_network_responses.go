@@ -53,7 +53,8 @@ func NewUpdateNetworkOK() *UpdateNetworkOK {
 	return &UpdateNetworkOK{}
 }
 
-/* UpdateNetworkOK describes a response with status code 200, with default header values.
+/*
+	UpdateNetworkOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -85,7 +86,8 @@ func NewUpdateNetworkConflict() *UpdateNetworkConflict {
 	return &UpdateNetworkConflict{}
 }
 
-/* UpdateNetworkConflict describes a response with status code 409, with default header values.
+/*
+	UpdateNetworkConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -119,7 +121,8 @@ func NewUpdateNetworkDefault(code int) *UpdateNetworkDefault {
 	}
 }
 
-/* UpdateNetworkDefault describes a response with status code -1, with default header values.
+/*
+	UpdateNetworkDefault describes a response with status code -1, with default header values.
 
 Error
 */

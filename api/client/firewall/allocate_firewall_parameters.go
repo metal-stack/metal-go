@@ -54,10 +54,12 @@ func NewAllocateFirewallParamsWithHTTPClient(client *http.Client) *AllocateFirew
 	}
 }
 
-/* AllocateFirewallParams contains all the parameters to send to the API endpoint
-   for the allocate firewall operation.
+/*
+AllocateFirewallParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the allocate firewall operation.
+
+	Typically these are written to a http.Request.
 */
 type AllocateFirewallParams struct {
 

@@ -52,10 +52,12 @@ func NewFindSizeParamsWithHTTPClient(client *http.Client) *FindSizeParams {
 	}
 }
 
-/* FindSizeParams contains all the parameters to send to the API endpoint
-   for the find size operation.
+/*
+FindSizeParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the find size operation.
+
+	Typically these are written to a http.Request.
 */
 type FindSizeParams struct {
 

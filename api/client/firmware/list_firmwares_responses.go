@@ -47,7 +47,8 @@ func NewListFirmwaresOK() *ListFirmwaresOK {
 	return &ListFirmwaresOK{}
 }
 
-/* ListFirmwaresOK describes a response with status code 200, with default header values.
+/*
+	ListFirmwaresOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -81,7 +82,8 @@ func NewListFirmwaresDefault(code int) *ListFirmwaresDefault {
 	}
 }
 
-/* ListFirmwaresDefault describes a response with status code -1, with default header values.
+/*
+	ListFirmwaresDefault describes a response with status code -1, with default header values.
 
 Error
 */

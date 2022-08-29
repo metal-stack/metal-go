@@ -54,10 +54,12 @@ func NewTrySizeImageConstraintParamsWithHTTPClient(client *http.Client) *TrySize
 	}
 }
 
-/* TrySizeImageConstraintParams contains all the parameters to send to the API endpoint
-   for the try size image constraint operation.
+/*
+TrySizeImageConstraintParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the try size image constraint operation.
+
+	Typically these are written to a http.Request.
 */
 type TrySizeImageConstraintParams struct {
 

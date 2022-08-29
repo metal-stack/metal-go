@@ -53,7 +53,8 @@ func NewUpdateImageOK() *UpdateImageOK {
 	return &UpdateImageOK{}
 }
 
-/* UpdateImageOK describes a response with status code 200, with default header values.
+/*
+	UpdateImageOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -85,7 +86,8 @@ func NewUpdateImageConflict() *UpdateImageConflict {
 	return &UpdateImageConflict{}
 }
 
-/* UpdateImageConflict describes a response with status code 409, with default header values.
+/*
+	UpdateImageConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -119,7 +121,8 @@ func NewUpdateImageDefault(code int) *UpdateImageDefault {
 	}
 }
 
-/* UpdateImageDefault describes a response with status code -1, with default header values.
+/*
+	UpdateImageDefault describes a response with status code -1, with default header values.
 
 Error
 */

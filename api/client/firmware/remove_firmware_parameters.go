@@ -54,10 +54,12 @@ func NewRemoveFirmwareParamsWithHTTPClient(client *http.Client) *RemoveFirmwareP
 	}
 }
 
-/* RemoveFirmwareParams contains all the parameters to send to the API endpoint
-   for the remove firmware operation.
+/*
+RemoveFirmwareParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the remove firmware operation.
+
+	Typically these are written to a http.Request.
 */
 type RemoveFirmwareParams struct {
 

@@ -47,7 +47,8 @@ func NewGetFilesystemLayoutOK() *GetFilesystemLayoutOK {
 	return &GetFilesystemLayoutOK{}
 }
 
-/* GetFilesystemLayoutOK describes a response with status code 200, with default header values.
+/*
+	GetFilesystemLayoutOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -81,7 +82,8 @@ func NewGetFilesystemLayoutDefault(code int) *GetFilesystemLayoutDefault {
 	}
 }
 
-/* GetFilesystemLayoutDefault describes a response with status code -1, with default header values.
+/*
+	GetFilesystemLayoutDefault describes a response with status code -1, with default header values.
 
 Error
 */

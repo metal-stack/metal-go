@@ -92,7 +92,7 @@ type ClientService interface {
 }
 
 /*
-  AbortReinstallMachine aborts reinstall this machine
+AbortReinstallMachine aborts reinstall this machine
 */
 func (a *Client) AbortReinstallMachine(params *AbortReinstallMachineParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*AbortReinstallMachineOK, error) {
 	// TODO: Validate the params before sending
@@ -130,7 +130,7 @@ func (a *Client) AbortReinstallMachine(params *AbortReinstallMachineParams, auth
 }
 
 /*
-  AddProvisioningEvent adds a machine provisioning event
+AddProvisioningEvent adds a machine provisioning event
 */
 func (a *Client) AddProvisioningEvent(params *AddProvisioningEventParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*AddProvisioningEventOK, error) {
 	// TODO: Validate the params before sending
@@ -168,7 +168,7 @@ func (a *Client) AddProvisioningEvent(params *AddProvisioningEventParams, authIn
 }
 
 /*
-  AddProvisioningEvents adds machine provisioning events
+AddProvisioningEvents adds machine provisioning events
 */
 func (a *Client) AddProvisioningEvents(params *AddProvisioningEventsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*AddProvisioningEventsOK, error) {
 	// TODO: Validate the params before sending
@@ -206,7 +206,7 @@ func (a *Client) AddProvisioningEvents(params *AddProvisioningEventsParams, auth
 }
 
 /*
-  AllocateMachine allocates a machine
+AllocateMachine allocates a machine
 */
 func (a *Client) AllocateMachine(params *AllocateMachineParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*AllocateMachineOK, error) {
 	// TODO: Validate the params before sending
@@ -244,7 +244,7 @@ func (a *Client) AllocateMachine(params *AllocateMachineParams, authInfo runtime
 }
 
 /*
-  ChassisIdentifyLEDOff sends a power off to the chassis identify l e d
+ChassisIdentifyLEDOff sends a power off to the chassis identify l e d
 */
 func (a *Client) ChassisIdentifyLEDOff(params *ChassisIdentifyLEDOffParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ChassisIdentifyLEDOffOK, error) {
 	// TODO: Validate the params before sending
@@ -282,7 +282,7 @@ func (a *Client) ChassisIdentifyLEDOff(params *ChassisIdentifyLEDOffParams, auth
 }
 
 /*
-  ChassisIdentifyLEDOn sends a power on to the chassis identify l e d
+ChassisIdentifyLEDOn sends a power on to the chassis identify l e d
 */
 func (a *Client) ChassisIdentifyLEDOn(params *ChassisIdentifyLEDOnParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ChassisIdentifyLEDOnOK, error) {
 	// TODO: Validate the params before sending
@@ -320,7 +320,7 @@ func (a *Client) ChassisIdentifyLEDOn(params *ChassisIdentifyLEDOnParams, authIn
 }
 
 /*
-  DeleteMachine deletes a machine from the database
+DeleteMachine deletes a machine from the database
 */
 func (a *Client) DeleteMachine(params *DeleteMachineParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteMachineOK, error) {
 	// TODO: Validate the params before sending
@@ -358,7 +358,7 @@ func (a *Client) DeleteMachine(params *DeleteMachineParams, authInfo runtime.Cli
 }
 
 /*
-  FinalizeAllocation finalizes the allocation of the machine by reconfiguring the switch sent on successful image installation
+FinalizeAllocation finalizes the allocation of the machine by reconfiguring the switch sent on successful image installation
 */
 func (a *Client) FinalizeAllocation(params *FinalizeAllocationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FinalizeAllocationOK, error) {
 	// TODO: Validate the params before sending
@@ -396,7 +396,7 @@ func (a *Client) FinalizeAllocation(params *FinalizeAllocationParams, authInfo r
 }
 
 /*
-  FindIPMIMachine returns a machine including the ipmi connection data
+FindIPMIMachine returns a machine including the ipmi connection data
 */
 func (a *Client) FindIPMIMachine(params *FindIPMIMachineParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FindIPMIMachineOK, error) {
 	// TODO: Validate the params before sending
@@ -434,7 +434,7 @@ func (a *Client) FindIPMIMachine(params *FindIPMIMachineParams, authInfo runtime
 }
 
 /*
-  FindIPMIMachines returns machines including the ipmi connection data
+FindIPMIMachines returns machines including the ipmi connection data
 */
 func (a *Client) FindIPMIMachines(params *FindIPMIMachinesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FindIPMIMachinesOK, error) {
 	// TODO: Validate the params before sending
@@ -472,7 +472,7 @@ func (a *Client) FindIPMIMachines(params *FindIPMIMachinesParams, authInfo runti
 }
 
 /*
-  FindMachine gets machine by id
+FindMachine gets machine by id
 */
 func (a *Client) FindMachine(params *FindMachineParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FindMachineOK, error) {
 	// TODO: Validate the params before sending
@@ -510,7 +510,7 @@ func (a *Client) FindMachine(params *FindMachineParams, authInfo runtime.ClientA
 }
 
 /*
-  FindMachines finds machines by multiple criteria
+FindMachines finds machines by multiple criteria
 */
 func (a *Client) FindMachines(params *FindMachinesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FindMachinesOK, error) {
 	// TODO: Validate the params before sending
@@ -548,7 +548,7 @@ func (a *Client) FindMachines(params *FindMachinesParams, authInfo runtime.Clien
 }
 
 /*
-  FreeMachine frees a machine
+FreeMachine frees a machine
 */
 func (a *Client) FreeMachine(params *FreeMachineParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FreeMachineOK, error) {
 	// TODO: Validate the params before sending
@@ -586,7 +586,7 @@ func (a *Client) FreeMachine(params *FreeMachineParams, authInfo runtime.ClientA
 }
 
 /*
-  GetMachineConsolePassword gets consolepassword for machine by id
+GetMachineConsolePassword gets consolepassword for machine by id
 */
 func (a *Client) GetMachineConsolePassword(params *GetMachineConsolePasswordParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetMachineConsolePasswordOK, error) {
 	// TODO: Validate the params before sending
@@ -624,7 +624,7 @@ func (a *Client) GetMachineConsolePassword(params *GetMachineConsolePasswordPara
 }
 
 /*
-  GetProvisioningEventContainer gets the current machine provisioning event container
+GetProvisioningEventContainer gets the current machine provisioning event container
 */
 func (a *Client) GetProvisioningEventContainer(params *GetProvisioningEventContainerParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetProvisioningEventContainerOK, error) {
 	// TODO: Validate the params before sending
@@ -662,7 +662,7 @@ func (a *Client) GetProvisioningEventContainer(params *GetProvisioningEventConta
 }
 
 /*
-  IpmiReport reports IP m i ip addresses leased by a management server for machines
+IpmiReport reports IP m i ip addresses leased by a management server for machines
 */
 func (a *Client) IpmiReport(params *IpmiReportParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*IpmiReportOK, error) {
 	// TODO: Validate the params before sending
@@ -700,7 +700,7 @@ func (a *Client) IpmiReport(params *IpmiReportParams, authInfo runtime.ClientAut
 }
 
 /*
-  ListMachines gets all known machines
+ListMachines gets all known machines
 */
 func (a *Client) ListMachines(params *ListMachinesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListMachinesOK, error) {
 	// TODO: Validate the params before sending
@@ -738,7 +738,7 @@ func (a *Client) ListMachines(params *ListMachinesParams, authInfo runtime.Clien
 }
 
 /*
-  MachineBios boots machine into b i o s
+MachineBios boots machine into b i o s
 */
 func (a *Client) MachineBios(params *MachineBiosParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*MachineBiosOK, error) {
 	// TODO: Validate the params before sending
@@ -776,7 +776,7 @@ func (a *Client) MachineBios(params *MachineBiosParams, authInfo runtime.ClientA
 }
 
 /*
-  MachineCycle sends a power cycle to the machine
+MachineCycle sends a power cycle to the machine
 */
 func (a *Client) MachineCycle(params *MachineCycleParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*MachineCycleOK, error) {
 	// TODO: Validate the params before sending
@@ -814,7 +814,7 @@ func (a *Client) MachineCycle(params *MachineCycleParams, authInfo runtime.Clien
 }
 
 /*
-  MachineDisk boots machine from disk
+MachineDisk boots machine from disk
 */
 func (a *Client) MachineDisk(params *MachineDiskParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*MachineDiskOK, error) {
 	// TODO: Validate the params before sending
@@ -852,7 +852,7 @@ func (a *Client) MachineDisk(params *MachineDiskParams, authInfo runtime.ClientA
 }
 
 /*
-  MachineOff sends a power off to the machine
+MachineOff sends a power off to the machine
 */
 func (a *Client) MachineOff(params *MachineOffParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*MachineOffOK, error) {
 	// TODO: Validate the params before sending
@@ -890,7 +890,7 @@ func (a *Client) MachineOff(params *MachineOffParams, authInfo runtime.ClientAut
 }
 
 /*
-  MachineOn sends a power on to the machine
+MachineOn sends a power on to the machine
 */
 func (a *Client) MachineOn(params *MachineOnParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*MachineOnOK, error) {
 	// TODO: Validate the params before sending
@@ -928,7 +928,7 @@ func (a *Client) MachineOn(params *MachineOnParams, authInfo runtime.ClientAuthI
 }
 
 /*
-  MachinePxe boots machine from p x e
+MachinePxe boots machine from p x e
 */
 func (a *Client) MachinePxe(params *MachinePxeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*MachinePxeOK, error) {
 	// TODO: Validate the params before sending
@@ -966,7 +966,7 @@ func (a *Client) MachinePxe(params *MachinePxeParams, authInfo runtime.ClientAut
 }
 
 /*
-  MachineReset sends a reset to the machine
+MachineReset sends a reset to the machine
 */
 func (a *Client) MachineReset(params *MachineResetParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*MachineResetOK, error) {
 	// TODO: Validate the params before sending
@@ -1004,7 +1004,7 @@ func (a *Client) MachineReset(params *MachineResetParams, authInfo runtime.Clien
 }
 
 /*
-  RegisterMachine registers a machine
+RegisterMachine registers a machine
 */
 func (a *Client) RegisterMachine(params *RegisterMachineParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*RegisterMachineOK, *RegisterMachineCreated, error) {
 	// TODO: Validate the params before sending
@@ -1044,7 +1044,7 @@ func (a *Client) RegisterMachine(params *RegisterMachineParams, authInfo runtime
 }
 
 /*
-  ReinstallMachine reinstalls this machine
+ReinstallMachine reinstalls this machine
 */
 func (a *Client) ReinstallMachine(params *ReinstallMachineParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ReinstallMachineOK, error) {
 	// TODO: Validate the params before sending
@@ -1082,7 +1082,7 @@ func (a *Client) ReinstallMachine(params *ReinstallMachineParams, authInfo runti
 }
 
 /*
-  SetChassisIdentifyLEDState sets the state of a chassis identify l e d
+SetChassisIdentifyLEDState sets the state of a chassis identify l e d
 */
 func (a *Client) SetChassisIdentifyLEDState(params *SetChassisIdentifyLEDStateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetChassisIdentifyLEDStateOK, error) {
 	// TODO: Validate the params before sending
@@ -1120,7 +1120,7 @@ func (a *Client) SetChassisIdentifyLEDState(params *SetChassisIdentifyLEDStatePa
 }
 
 /*
-  SetMachineState sets the state of a machine
+SetMachineState sets the state of a machine
 */
 func (a *Client) SetMachineState(params *SetMachineStateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetMachineStateOK, error) {
 	// TODO: Validate the params before sending
@@ -1158,7 +1158,7 @@ func (a *Client) SetMachineState(params *SetMachineStateParams, authInfo runtime
 }
 
 /*
-  UpdateFirmware sends a firmware command to the machine
+UpdateFirmware sends a firmware command to the machine
 */
 func (a *Client) UpdateFirmware(params *UpdateFirmwareParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateFirmwareOK, error) {
 	// TODO: Validate the params before sending
@@ -1196,7 +1196,7 @@ func (a *Client) UpdateFirmware(params *UpdateFirmwareParams, authInfo runtime.C
 }
 
 /*
-  UpdateMachine updates a machine if the machine was changed since this one was read a conflict is returned
+UpdateMachine updates a machine if the machine was changed since this one was read a conflict is returned
 */
 func (a *Client) UpdateMachine(params *UpdateMachineParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateMachineOK, error) {
 	// TODO: Validate the params before sending

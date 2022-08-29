@@ -47,7 +47,8 @@ func NewFindSwitchOK() *FindSwitchOK {
 	return &FindSwitchOK{}
 }
 
-/* FindSwitchOK describes a response with status code 200, with default header values.
+/*
+	FindSwitchOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -81,7 +82,8 @@ func NewFindSwitchDefault(code int) *FindSwitchDefault {
 	}
 }
 
-/* FindSwitchDefault describes a response with status code -1, with default header values.
+/*
+	FindSwitchDefault describes a response with status code -1, with default header values.
 
 Error
 */

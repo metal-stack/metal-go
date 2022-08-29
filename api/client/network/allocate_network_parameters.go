@@ -54,10 +54,12 @@ func NewAllocateNetworkParamsWithHTTPClient(client *http.Client) *AllocateNetwor
 	}
 }
 
-/* AllocateNetworkParams contains all the parameters to send to the API endpoint
-   for the allocate network operation.
+/*
+AllocateNetworkParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the allocate network operation.
+
+	Typically these are written to a http.Request.
 */
 type AllocateNetworkParams struct {
 

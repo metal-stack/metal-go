@@ -54,10 +54,12 @@ func NewMachineOnParamsWithHTTPClient(client *http.Client) *MachineOnParams {
 	}
 }
 
-/* MachineOnParams contains all the parameters to send to the API endpoint
-   for the machine on operation.
+/*
+MachineOnParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the machine on operation.
+
+	Typically these are written to a http.Request.
 */
 type MachineOnParams struct {
 

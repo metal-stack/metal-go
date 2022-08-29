@@ -44,7 +44,7 @@ type ClientService interface {
 }
 
 /*
-  CreateSizeImageConstraint creates a sizeimageconstraint if the given ID already exists a conflict is returned
+CreateSizeImageConstraint creates a sizeimageconstraint if the given ID already exists a conflict is returned
 */
 func (a *Client) CreateSizeImageConstraint(params *CreateSizeImageConstraintParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateSizeImageConstraintCreated, error) {
 	// TODO: Validate the params before sending
@@ -82,7 +82,7 @@ func (a *Client) CreateSizeImageConstraint(params *CreateSizeImageConstraintPara
 }
 
 /*
-  DeleteSizeImageConstraint deletes an sizeimageconstraint and returns the deleted entity
+DeleteSizeImageConstraint deletes an sizeimageconstraint and returns the deleted entity
 */
 func (a *Client) DeleteSizeImageConstraint(params *DeleteSizeImageConstraintParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteSizeImageConstraintOK, error) {
 	// TODO: Validate the params before sending
@@ -120,7 +120,7 @@ func (a *Client) DeleteSizeImageConstraint(params *DeleteSizeImageConstraintPara
 }
 
 /*
-  FindSizeImageConstraint gets sizeimageconstraint by id
+FindSizeImageConstraint gets sizeimageconstraint by id
 */
 func (a *Client) FindSizeImageConstraint(params *FindSizeImageConstraintParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FindSizeImageConstraintOK, error) {
 	// TODO: Validate the params before sending
@@ -158,7 +158,7 @@ func (a *Client) FindSizeImageConstraint(params *FindSizeImageConstraintParams, 
 }
 
 /*
-  ListSizeImageConstraints gets all sizeimageconstraints
+ListSizeImageConstraints gets all sizeimageconstraints
 */
 func (a *Client) ListSizeImageConstraints(params *ListSizeImageConstraintsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListSizeImageConstraintsOK, error) {
 	// TODO: Validate the params before sending
@@ -196,7 +196,7 @@ func (a *Client) ListSizeImageConstraints(params *ListSizeImageConstraintsParams
 }
 
 /*
-  TrySizeImageConstraint tries if the given combination of image and size is supported and possible to allocate
+TrySizeImageConstraint tries if the given combination of image and size is supported and possible to allocate
 */
 func (a *Client) TrySizeImageConstraint(params *TrySizeImageConstraintParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*TrySizeImageConstraintOK, error) {
 	// TODO: Validate the params before sending
@@ -234,7 +234,7 @@ func (a *Client) TrySizeImageConstraint(params *TrySizeImageConstraintParams, au
 }
 
 /*
-  UpdateSizeImageConstraint updates a sizeimageconstraint if the sizeimageconstraint was changed since this one was read a conflict is returned
+UpdateSizeImageConstraint updates a sizeimageconstraint if the sizeimageconstraint was changed since this one was read a conflict is returned
 */
 func (a *Client) UpdateSizeImageConstraint(params *UpdateSizeImageConstraintParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateSizeImageConstraintOK, error) {
 	// TODO: Validate the params before sending

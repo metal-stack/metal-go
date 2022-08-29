@@ -54,10 +54,12 @@ func NewFindFirewallsParamsWithHTTPClient(client *http.Client) *FindFirewallsPar
 	}
 }
 
-/* FindFirewallsParams contains all the parameters to send to the API endpoint
-   for the find firewalls operation.
+/*
+FindFirewallsParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the find firewalls operation.
+
+	Typically these are written to a http.Request.
 */
 type FindFirewallsParams struct {
 

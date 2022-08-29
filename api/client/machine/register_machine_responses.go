@@ -53,7 +53,8 @@ func NewRegisterMachineOK() *RegisterMachineOK {
 	return &RegisterMachineOK{}
 }
 
-/* RegisterMachineOK describes a response with status code 200, with default header values.
+/*
+	RegisterMachineOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -85,7 +86,8 @@ func NewRegisterMachineCreated() *RegisterMachineCreated {
 	return &RegisterMachineCreated{}
 }
 
-/* RegisterMachineCreated describes a response with status code 201, with default header values.
+/*
+	RegisterMachineCreated describes a response with status code 201, with default header values.
 
 Created
 */
@@ -119,7 +121,8 @@ func NewRegisterMachineDefault(code int) *RegisterMachineDefault {
 	}
 }
 
-/* RegisterMachineDefault describes a response with status code -1, with default header values.
+/*
+	RegisterMachineDefault describes a response with status code -1, with default header values.
 
 Error
 */

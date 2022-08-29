@@ -47,7 +47,8 @@ func NewListMachinesOK() *ListMachinesOK {
 	return &ListMachinesOK{}
 }
 
-/* ListMachinesOK describes a response with status code 200, with default header values.
+/*
+	ListMachinesOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -79,7 +80,8 @@ func NewListMachinesDefault(code int) *ListMachinesDefault {
 	}
 }
 
-/* ListMachinesDefault describes a response with status code -1, with default header values.
+/*
+	ListMachinesDefault describes a response with status code -1, with default header values.
 
 Error
 */

@@ -54,10 +54,12 @@ func NewFromHardwareParamsWithHTTPClient(client *http.Client) *FromHardwareParam
 	}
 }
 
-/* FromHardwareParams contains all the parameters to send to the API endpoint
-   for the from hardware operation.
+/*
+FromHardwareParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the from hardware operation.
+
+	Typically these are written to a http.Request.
 */
 type FromHardwareParams struct {
 

@@ -52,10 +52,12 @@ func NewHealthParamsWithHTTPClient(client *http.Client) *HealthParams {
 	}
 }
 
-/* HealthParams contains all the parameters to send to the API endpoint
-   for the health operation.
+/*
+HealthParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the health operation.
+
+	Typically these are written to a http.Request.
 */
 type HealthParams struct {
 

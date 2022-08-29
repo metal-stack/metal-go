@@ -53,7 +53,8 @@ func NewCreateImageCreated() *CreateImageCreated {
 	return &CreateImageCreated{}
 }
 
-/* CreateImageCreated describes a response with status code 201, with default header values.
+/*
+	CreateImageCreated describes a response with status code 201, with default header values.
 
 Created
 */
@@ -85,7 +86,8 @@ func NewCreateImageConflict() *CreateImageConflict {
 	return &CreateImageConflict{}
 }
 
-/* CreateImageConflict describes a response with status code 409, with default header values.
+/*
+	CreateImageConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -119,7 +121,8 @@ func NewCreateImageDefault(code int) *CreateImageDefault {
 	}
 }
 
-/* CreateImageDefault describes a response with status code -1, with default header values.
+/*
+	CreateImageDefault describes a response with status code -1, with default header values.
 
 Error
 */

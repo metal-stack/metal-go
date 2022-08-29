@@ -44,7 +44,7 @@ type ClientService interface {
 }
 
 /*
-  DeleteSwitch deletes an switch and returns the deleted entity
+DeleteSwitch deletes an switch and returns the deleted entity
 */
 func (a *Client) DeleteSwitch(params *DeleteSwitchParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteSwitchOK, error) {
 	// TODO: Validate the params before sending
@@ -82,7 +82,7 @@ func (a *Client) DeleteSwitch(params *DeleteSwitchParams, authInfo runtime.Clien
 }
 
 /*
-  FindSwitch gets switch by id
+FindSwitch gets switch by id
 */
 func (a *Client) FindSwitch(params *FindSwitchParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FindSwitchOK, error) {
 	// TODO: Validate the params before sending
@@ -120,7 +120,7 @@ func (a *Client) FindSwitch(params *FindSwitchParams, authInfo runtime.ClientAut
 }
 
 /*
-  ListSwitches gets all switches
+ListSwitches gets all switches
 */
 func (a *Client) ListSwitches(params *ListSwitchesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListSwitchesOK, error) {
 	// TODO: Validate the params before sending
@@ -158,7 +158,7 @@ func (a *Client) ListSwitches(params *ListSwitchesParams, authInfo runtime.Clien
 }
 
 /*
-  NotifySwitch notifies the metal api about a configuration change of a switch
+NotifySwitch notifies the metal api about a configuration change of a switch
 */
 func (a *Client) NotifySwitch(params *NotifySwitchParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*NotifySwitchOK, error) {
 	// TODO: Validate the params before sending
@@ -196,7 +196,7 @@ func (a *Client) NotifySwitch(params *NotifySwitchParams, authInfo runtime.Clien
 }
 
 /*
-  RegisterSwitch registers a switch
+RegisterSwitch registers a switch
 */
 func (a *Client) RegisterSwitch(params *RegisterSwitchParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*RegisterSwitchOK, *RegisterSwitchCreated, error) {
 	// TODO: Validate the params before sending
@@ -236,7 +236,7 @@ func (a *Client) RegisterSwitch(params *RegisterSwitchParams, authInfo runtime.C
 }
 
 /*
-  UpdateSwitch updates a switch if the switch was changed since this one was read a conflict is returned
+UpdateSwitch updates a switch if the switch was changed since this one was read a conflict is returned
 */
 func (a *Client) UpdateSwitch(params *UpdateSwitchParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateSwitchOK, error) {
 	// TODO: Validate the params before sending

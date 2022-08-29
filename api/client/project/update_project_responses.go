@@ -53,7 +53,8 @@ func NewUpdateProjectOK() *UpdateProjectOK {
 	return &UpdateProjectOK{}
 }
 
-/* UpdateProjectOK describes a response with status code 200, with default header values.
+/*
+	UpdateProjectOK describes a response with status code 200, with default header values.
 
 Updated
 */
@@ -85,7 +86,8 @@ func NewUpdateProjectPreconditionFailed() *UpdateProjectPreconditionFailed {
 	return &UpdateProjectPreconditionFailed{}
 }
 
-/* UpdateProjectPreconditionFailed describes a response with status code 412, with default header values.
+/*
+	UpdateProjectPreconditionFailed describes a response with status code 412, with default header values.
 
 OptimisticLock
 */
@@ -119,7 +121,8 @@ func NewUpdateProjectDefault(code int) *UpdateProjectDefault {
 	}
 }
 
-/* UpdateProjectDefault describes a response with status code -1, with default header values.
+/*
+	UpdateProjectDefault describes a response with status code -1, with default header values.
 
 Error
 */

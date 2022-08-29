@@ -46,7 +46,7 @@ type ClientService interface {
 }
 
 /*
-  CreateFilesystemLayout creates a filesystemlayout if the given ID already exists a conflict is returned
+CreateFilesystemLayout creates a filesystemlayout if the given ID already exists a conflict is returned
 */
 func (a *Client) CreateFilesystemLayout(params *CreateFilesystemLayoutParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateFilesystemLayoutCreated, error) {
 	// TODO: Validate the params before sending
@@ -84,7 +84,7 @@ func (a *Client) CreateFilesystemLayout(params *CreateFilesystemLayoutParams, au
 }
 
 /*
-  DeleteFilesystemLayout deletes an filesystemlayout and returns the deleted entity
+DeleteFilesystemLayout deletes an filesystemlayout and returns the deleted entity
 */
 func (a *Client) DeleteFilesystemLayout(params *DeleteFilesystemLayoutParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteFilesystemLayoutOK, error) {
 	// TODO: Validate the params before sending
@@ -122,7 +122,7 @@ func (a *Client) DeleteFilesystemLayout(params *DeleteFilesystemLayoutParams, au
 }
 
 /*
-  GetFilesystemLayout gets filesystemlayout by id
+GetFilesystemLayout gets filesystemlayout by id
 */
 func (a *Client) GetFilesystemLayout(params *GetFilesystemLayoutParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetFilesystemLayoutOK, error) {
 	// TODO: Validate the params before sending
@@ -160,7 +160,7 @@ func (a *Client) GetFilesystemLayout(params *GetFilesystemLayoutParams, authInfo
 }
 
 /*
-  ListFilesystemLayouts gets all filesystemlayouts
+ListFilesystemLayouts gets all filesystemlayouts
 */
 func (a *Client) ListFilesystemLayouts(params *ListFilesystemLayoutsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListFilesystemLayoutsOK, error) {
 	// TODO: Validate the params before sending
@@ -198,7 +198,7 @@ func (a *Client) ListFilesystemLayouts(params *ListFilesystemLayoutsParams, auth
 }
 
 /*
-  MatchFilesystemLayout checks if the given machine id satisfies the disk requirements of the filesystemlayout in question
+MatchFilesystemLayout checks if the given machine id satisfies the disk requirements of the filesystemlayout in question
 */
 func (a *Client) MatchFilesystemLayout(params *MatchFilesystemLayoutParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*MatchFilesystemLayoutOK, error) {
 	// TODO: Validate the params before sending
@@ -236,7 +236,7 @@ func (a *Client) MatchFilesystemLayout(params *MatchFilesystemLayoutParams, auth
 }
 
 /*
-  TryFilesystemLayout tries to detect a filesystemlayout based on given size and image
+TryFilesystemLayout tries to detect a filesystemlayout based on given size and image
 */
 func (a *Client) TryFilesystemLayout(params *TryFilesystemLayoutParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*TryFilesystemLayoutOK, error) {
 	// TODO: Validate the params before sending
@@ -274,7 +274,7 @@ func (a *Client) TryFilesystemLayout(params *TryFilesystemLayoutParams, authInfo
 }
 
 /*
-  UpdateFilesystemLayout updates a filesystemlayout if the filesystemlayout was changed since this one was read a conflict is returned
+UpdateFilesystemLayout updates a filesystemlayout if the filesystemlayout was changed since this one was read a conflict is returned
 */
 func (a *Client) UpdateFilesystemLayout(params *UpdateFilesystemLayoutParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateFilesystemLayoutOK, error) {
 	// TODO: Validate the params before sending

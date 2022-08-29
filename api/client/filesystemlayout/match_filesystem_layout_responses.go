@@ -47,7 +47,8 @@ func NewMatchFilesystemLayoutOK() *MatchFilesystemLayoutOK {
 	return &MatchFilesystemLayoutOK{}
 }
 
-/* MatchFilesystemLayoutOK describes a response with status code 200, with default header values.
+/*
+	MatchFilesystemLayoutOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -81,7 +82,8 @@ func NewMatchFilesystemLayoutDefault(code int) *MatchFilesystemLayoutDefault {
 	}
 }
 
-/* MatchFilesystemLayoutDefault describes a response with status code -1, with default header values.
+/*
+	MatchFilesystemLayoutDefault describes a response with status code -1, with default header values.
 
 Error
 */

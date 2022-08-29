@@ -47,7 +47,8 @@ func NewGetMeOK() *GetMeOK {
 	return &GetMeOK{}
 }
 
-/* GetMeOK describes a response with status code 200, with default header values.
+/*
+	GetMeOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -81,7 +82,8 @@ func NewGetMeDefault(code int) *GetMeDefault {
 	}
 }
 
-/* GetMeDefault describes a response with status code -1, with default header values.
+/*
+	GetMeDefault describes a response with status code -1, with default header values.
 
 Error
 */

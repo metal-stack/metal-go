@@ -47,7 +47,8 @@ func NewFindFirewallOK() *FindFirewallOK {
 	return &FindFirewallOK{}
 }
 
-/* FindFirewallOK describes a response with status code 200, with default header values.
+/*
+	FindFirewallOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -81,7 +82,8 @@ func NewFindFirewallDefault(code int) *FindFirewallDefault {
 	}
 }
 
-/* FindFirewallDefault describes a response with status code -1, with default header values.
+/*
+	FindFirewallDefault describes a response with status code -1, with default header values.
 
 Error
 */

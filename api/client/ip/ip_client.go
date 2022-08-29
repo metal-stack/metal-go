@@ -48,7 +48,7 @@ type ClientService interface {
 }
 
 /*
-  AllocateIP allocates an ip in the given network
+AllocateIP allocates an ip in the given network
 */
 func (a *Client) AllocateIP(params *AllocateIPParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*AllocateIPCreated, error) {
 	// TODO: Validate the params before sending
@@ -86,7 +86,7 @@ func (a *Client) AllocateIP(params *AllocateIPParams, authInfo runtime.ClientAut
 }
 
 /*
-  AllocateSpecificIP allocates a specific ip in the given network
+AllocateSpecificIP allocates a specific ip in the given network
 */
 func (a *Client) AllocateSpecificIP(params *AllocateSpecificIPParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*AllocateSpecificIPCreated, error) {
 	// TODO: Validate the params before sending
@@ -124,7 +124,7 @@ func (a *Client) AllocateSpecificIP(params *AllocateSpecificIPParams, authInfo r
 }
 
 /*
-  FindIP gets ip by id
+FindIP gets ip by id
 */
 func (a *Client) FindIP(params *FindIPParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FindIPOK, error) {
 	// TODO: Validate the params before sending
@@ -162,7 +162,7 @@ func (a *Client) FindIP(params *FindIPParams, authInfo runtime.ClientAuthInfoWri
 }
 
 /*
-  FindIPs gets all ips that match given properties
+FindIPs gets all ips that match given properties
 */
 func (a *Client) FindIPs(params *FindIPsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FindIPsOK, error) {
 	// TODO: Validate the params before sending
@@ -200,7 +200,7 @@ func (a *Client) FindIPs(params *FindIPsParams, authInfo runtime.ClientAuthInfoW
 }
 
 /*
-  FreeIP frees an ip
+FreeIP frees an ip
 */
 func (a *Client) FreeIP(params *FreeIPParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FreeIPOK, error) {
 	// TODO: Validate the params before sending
@@ -238,7 +238,7 @@ func (a *Client) FreeIP(params *FreeIPParams, authInfo runtime.ClientAuthInfoWri
 }
 
 /*
-  FreeIPDeprecated frees an ip
+FreeIPDeprecated frees an ip
 */
 func (a *Client) FreeIPDeprecated(params *FreeIPDeprecatedParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FreeIPDeprecatedOK, error) {
 	// TODO: Validate the params before sending
@@ -276,7 +276,7 @@ func (a *Client) FreeIPDeprecated(params *FreeIPDeprecatedParams, authInfo runti
 }
 
 /*
-  ListIPs gets all ips
+ListIPs gets all ips
 */
 func (a *Client) ListIPs(params *ListIPsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListIPsOK, error) {
 	// TODO: Validate the params before sending
@@ -314,7 +314,7 @@ func (a *Client) ListIPs(params *ListIPsParams, authInfo runtime.ClientAuthInfoW
 }
 
 /*
-  UpdateIP updates an ip if the ip was changed since this one was read a conflict is returned
+UpdateIP updates an ip if the ip was changed since this one was read a conflict is returned
 */
 func (a *Client) UpdateIP(params *UpdateIPParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateIPOK, error) {
 	// TODO: Validate the params before sending

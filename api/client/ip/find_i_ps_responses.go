@@ -47,7 +47,8 @@ func NewFindIPsOK() *FindIPsOK {
 	return &FindIPsOK{}
 }
 
-/* FindIPsOK describes a response with status code 200, with default header values.
+/*
+	FindIPsOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -79,7 +80,8 @@ func NewFindIPsDefault(code int) *FindIPsDefault {
 	}
 }
 
-/* FindIPsDefault describes a response with status code -1, with default header values.
+/*
+	FindIPsDefault describes a response with status code -1, with default header values.
 
 Error
 */

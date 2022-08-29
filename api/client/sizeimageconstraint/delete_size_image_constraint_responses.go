@@ -47,7 +47,8 @@ func NewDeleteSizeImageConstraintOK() *DeleteSizeImageConstraintOK {
 	return &DeleteSizeImageConstraintOK{}
 }
 
-/* DeleteSizeImageConstraintOK describes a response with status code 200, with default header values.
+/*
+	DeleteSizeImageConstraintOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -81,7 +82,8 @@ func NewDeleteSizeImageConstraintDefault(code int) *DeleteSizeImageConstraintDef
 	}
 }
 
-/* DeleteSizeImageConstraintDefault describes a response with status code -1, with default header values.
+/*
+	DeleteSizeImageConstraintDefault describes a response with status code -1, with default header values.
 
 Error
 */

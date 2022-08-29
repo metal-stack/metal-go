@@ -38,7 +38,7 @@ type ClientService interface {
 }
 
 /*
-  ListFirmwares returns all firmwares for a specific machine
+ListFirmwares returns all firmwares for a specific machine
 */
 func (a *Client) ListFirmwares(params *ListFirmwaresParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListFirmwaresOK, error) {
 	// TODO: Validate the params before sending
@@ -76,7 +76,7 @@ func (a *Client) ListFirmwares(params *ListFirmwaresParams, authInfo runtime.Cli
 }
 
 /*
-  RemoveFirmware removes given firmware
+RemoveFirmware removes given firmware
 */
 func (a *Client) RemoveFirmware(params *RemoveFirmwareParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*RemoveFirmwareOK, error) {
 	// TODO: Validate the params before sending
@@ -114,7 +114,7 @@ func (a *Client) RemoveFirmware(params *RemoveFirmwareParams, authInfo runtime.C
 }
 
 /*
-  UploadFirmware uploads given firmware
+UploadFirmware uploads given firmware
 */
 func (a *Client) UploadFirmware(params *UploadFirmwareParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UploadFirmwareOK, error) {
 	// TODO: Validate the params before sending

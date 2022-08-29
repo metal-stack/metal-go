@@ -47,7 +47,8 @@ func NewGetProvisioningEventContainerOK() *GetProvisioningEventContainerOK {
 	return &GetProvisioningEventContainerOK{}
 }
 
-/* GetProvisioningEventContainerOK describes a response with status code 200, with default header values.
+/*
+	GetProvisioningEventContainerOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -81,7 +82,8 @@ func NewGetProvisioningEventContainerDefault(code int) *GetProvisioningEventCont
 	}
 }
 
-/* GetProvisioningEventContainerDefault describes a response with status code -1, with default header values.
+/*
+	GetProvisioningEventContainerDefault describes a response with status code -1, with default header values.
 
 Error
 */

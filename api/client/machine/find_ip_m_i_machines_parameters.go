@@ -54,10 +54,12 @@ func NewFindIPMIMachinesParamsWithHTTPClient(client *http.Client) *FindIPMIMachi
 	}
 }
 
-/* FindIPMIMachinesParams contains all the parameters to send to the API endpoint
-   for the find IP m i machines operation.
+/*
+FindIPMIMachinesParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the find IP m i machines operation.
+
+	Typically these are written to a http.Request.
 */
 type FindIPMIMachinesParams struct {
 

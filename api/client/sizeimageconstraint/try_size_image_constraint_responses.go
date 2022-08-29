@@ -47,7 +47,8 @@ func NewTrySizeImageConstraintOK() *TrySizeImageConstraintOK {
 	return &TrySizeImageConstraintOK{}
 }
 
-/* TrySizeImageConstraintOK describes a response with status code 200, with default header values.
+/*
+	TrySizeImageConstraintOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -79,7 +80,8 @@ func NewTrySizeImageConstraintDefault(code int) *TrySizeImageConstraintDefault {
 	}
 }
 
-/* TrySizeImageConstraintDefault describes a response with status code -1, with default header values.
+/*
+	TrySizeImageConstraintDefault describes a response with status code -1, with default header values.
 
 Error
 */

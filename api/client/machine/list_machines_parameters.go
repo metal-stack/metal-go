@@ -52,10 +52,12 @@ func NewListMachinesParamsWithHTTPClient(client *http.Client) *ListMachinesParam
 	}
 }
 
-/* ListMachinesParams contains all the parameters to send to the API endpoint
-   for the list machines operation.
+/*
+ListMachinesParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the list machines operation.
+
+	Typically these are written to a http.Request.
 */
 type ListMachinesParams struct {
 	timeout    time.Duration

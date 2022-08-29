@@ -47,7 +47,8 @@ func NewFindNetworkOK() *FindNetworkOK {
 	return &FindNetworkOK{}
 }
 
-/* FindNetworkOK describes a response with status code 200, with default header values.
+/*
+	FindNetworkOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -81,7 +82,8 @@ func NewFindNetworkDefault(code int) *FindNetworkDefault {
 	}
 }
 
-/* FindNetworkDefault describes a response with status code -1, with default header values.
+/*
+	FindNetworkDefault describes a response with status code -1, with default header values.
 
 Error
 */

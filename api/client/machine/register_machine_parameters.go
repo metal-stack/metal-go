@@ -54,10 +54,12 @@ func NewRegisterMachineParamsWithHTTPClient(client *http.Client) *RegisterMachin
 	}
 }
 
-/* RegisterMachineParams contains all the parameters to send to the API endpoint
-   for the register machine operation.
+/*
+RegisterMachineParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the register machine operation.
+
+	Typically these are written to a http.Request.
 */
 type RegisterMachineParams struct {
 

@@ -54,10 +54,12 @@ func NewNotifySwitchParamsWithHTTPClient(client *http.Client) *NotifySwitchParam
 	}
 }
 
-/* NotifySwitchParams contains all the parameters to send to the API endpoint
-   for the notify switch operation.
+/*
+NotifySwitchParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the notify switch operation.
+
+	Typically these are written to a http.Request.
 */
 type NotifySwitchParams struct {
 

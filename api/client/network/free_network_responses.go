@@ -53,7 +53,8 @@ func NewFreeNetworkOK() *FreeNetworkOK {
 	return &FreeNetworkOK{}
 }
 
-/* FreeNetworkOK describes a response with status code 200, with default header values.
+/*
+	FreeNetworkOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -85,7 +86,8 @@ func NewFreeNetworkConflict() *FreeNetworkConflict {
 	return &FreeNetworkConflict{}
 }
 
-/* FreeNetworkConflict describes a response with status code 409, with default header values.
+/*
+	FreeNetworkConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -119,7 +121,8 @@ func NewFreeNetworkDefault(code int) *FreeNetworkDefault {
 	}
 }
 
-/* FreeNetworkDefault describes a response with status code -1, with default header values.
+/*
+	FreeNetworkDefault describes a response with status code -1, with default header values.
 
 Error
 */

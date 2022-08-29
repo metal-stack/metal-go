@@ -53,7 +53,8 @@ func NewCreatePartitionCreated() *CreatePartitionCreated {
 	return &CreatePartitionCreated{}
 }
 
-/* CreatePartitionCreated describes a response with status code 201, with default header values.
+/*
+	CreatePartitionCreated describes a response with status code 201, with default header values.
 
 Created
 */
@@ -85,7 +86,8 @@ func NewCreatePartitionConflict() *CreatePartitionConflict {
 	return &CreatePartitionConflict{}
 }
 
-/* CreatePartitionConflict describes a response with status code 409, with default header values.
+/*
+	CreatePartitionConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -119,7 +121,8 @@ func NewCreatePartitionDefault(code int) *CreatePartitionDefault {
 	}
 }
 
-/* CreatePartitionDefault describes a response with status code -1, with default header values.
+/*
+	CreatePartitionDefault describes a response with status code -1, with default header values.
 
 Error
 */

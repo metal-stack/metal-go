@@ -47,7 +47,8 @@ func NewInfoOK() *InfoOK {
 	return &InfoOK{}
 }
 
-/* InfoOK describes a response with status code 200, with default header values.
+/*
+	InfoOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -81,7 +82,8 @@ func NewInfoDefault(code int) *InfoDefault {
 	}
 }
 
-/* InfoDefault describes a response with status code -1, with default header values.
+/*
+	InfoDefault describes a response with status code -1, with default header values.
 
 Error
 */

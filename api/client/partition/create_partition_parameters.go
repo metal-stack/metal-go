@@ -54,10 +54,12 @@ func NewCreatePartitionParamsWithHTTPClient(client *http.Client) *CreatePartitio
 	}
 }
 
-/* CreatePartitionParams contains all the parameters to send to the API endpoint
-   for the create partition operation.
+/*
+CreatePartitionParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the create partition operation.
+
+	Typically these are written to a http.Request.
 */
 type CreatePartitionParams struct {
 

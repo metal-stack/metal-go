@@ -52,10 +52,12 @@ func NewDeletePartitionParamsWithHTTPClient(client *http.Client) *DeletePartitio
 	}
 }
 
-/* DeletePartitionParams contains all the parameters to send to the API endpoint
-   for the delete partition operation.
+/*
+DeletePartitionParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the delete partition operation.
+
+	Typically these are written to a http.Request.
 */
 type DeletePartitionParams struct {
 

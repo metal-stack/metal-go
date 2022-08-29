@@ -47,7 +47,8 @@ func NewDeleteImageOK() *DeleteImageOK {
 	return &DeleteImageOK{}
 }
 
-/* DeleteImageOK describes a response with status code 200, with default header values.
+/*
+	DeleteImageOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -81,7 +82,8 @@ func NewDeleteImageDefault(code int) *DeleteImageDefault {
 	}
 }
 
-/* DeleteImageDefault describes a response with status code -1, with default header values.
+/*
+	DeleteImageDefault describes a response with status code -1, with default header values.
 
 Error
 */

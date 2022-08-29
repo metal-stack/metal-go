@@ -52,10 +52,12 @@ func NewFreeIPParamsWithHTTPClient(client *http.Client) *FreeIPParams {
 	}
 }
 
-/* FreeIPParams contains all the parameters to send to the API endpoint
-   for the free IP operation.
+/*
+FreeIPParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the free IP operation.
+
+	Typically these are written to a http.Request.
 */
 type FreeIPParams struct {
 

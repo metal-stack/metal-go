@@ -47,7 +47,8 @@ func NewFindIPMIMachinesOK() *FindIPMIMachinesOK {
 	return &FindIPMIMachinesOK{}
 }
 
-/* FindIPMIMachinesOK describes a response with status code 200, with default header values.
+/*
+	FindIPMIMachinesOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -79,7 +80,8 @@ func NewFindIPMIMachinesDefault(code int) *FindIPMIMachinesDefault {
 	}
 }
 
-/* FindIPMIMachinesDefault describes a response with status code -1, with default header values.
+/*
+	FindIPMIMachinesDefault describes a response with status code -1, with default header values.
 
 Error
 */

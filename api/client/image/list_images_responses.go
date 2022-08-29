@@ -47,7 +47,8 @@ func NewListImagesOK() *ListImagesOK {
 	return &ListImagesOK{}
 }
 
-/* ListImagesOK describes a response with status code 200, with default header values.
+/*
+	ListImagesOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -79,7 +80,8 @@ func NewListImagesDefault(code int) *ListImagesDefault {
 	}
 }
 
-/* ListImagesDefault describes a response with status code -1, with default header values.
+/*
+	ListImagesDefault describes a response with status code -1, with default header values.
 
 Error
 */

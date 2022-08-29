@@ -52,10 +52,12 @@ func NewGetProvisioningEventContainerParamsWithHTTPClient(client *http.Client) *
 	}
 }
 
-/* GetProvisioningEventContainerParams contains all the parameters to send to the API endpoint
-   for the get provisioning event container operation.
+/*
+GetProvisioningEventContainerParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the get provisioning event container operation.
+
+	Typically these are written to a http.Request.
 */
 type GetProvisioningEventContainerParams struct {
 

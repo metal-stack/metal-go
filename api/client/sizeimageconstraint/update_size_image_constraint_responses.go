@@ -53,7 +53,8 @@ func NewUpdateSizeImageConstraintOK() *UpdateSizeImageConstraintOK {
 	return &UpdateSizeImageConstraintOK{}
 }
 
-/* UpdateSizeImageConstraintOK describes a response with status code 200, with default header values.
+/*
+	UpdateSizeImageConstraintOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -85,7 +86,8 @@ func NewUpdateSizeImageConstraintConflict() *UpdateSizeImageConstraintConflict {
 	return &UpdateSizeImageConstraintConflict{}
 }
 
-/* UpdateSizeImageConstraintConflict describes a response with status code 409, with default header values.
+/*
+	UpdateSizeImageConstraintConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -119,7 +121,8 @@ func NewUpdateSizeImageConstraintDefault(code int) *UpdateSizeImageConstraintDef
 	}
 }
 
-/* UpdateSizeImageConstraintDefault describes a response with status code -1, with default header values.
+/*
+	UpdateSizeImageConstraintDefault describes a response with status code -1, with default header values.
 
 Error
 */

@@ -54,10 +54,12 @@ func NewMatchFilesystemLayoutParamsWithHTTPClient(client *http.Client) *MatchFil
 	}
 }
 
-/* MatchFilesystemLayoutParams contains all the parameters to send to the API endpoint
-   for the match filesystem layout operation.
+/*
+MatchFilesystemLayoutParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the match filesystem layout operation.
+
+	Typically these are written to a http.Request.
 */
 type MatchFilesystemLayoutParams struct {
 

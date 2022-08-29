@@ -47,7 +47,8 @@ func NewDeletePartitionOK() *DeletePartitionOK {
 	return &DeletePartitionOK{}
 }
 
-/* DeletePartitionOK describes a response with status code 200, with default header values.
+/*
+	DeletePartitionOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -81,7 +82,8 @@ func NewDeletePartitionDefault(code int) *DeletePartitionDefault {
 	}
 }
 
-/* DeletePartitionDefault describes a response with status code -1, with default header values.
+/*
+	DeletePartitionDefault describes a response with status code -1, with default header values.
 
 Error
 */

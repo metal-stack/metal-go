@@ -47,7 +47,8 @@ func NewMachineDiskOK() *MachineDiskOK {
 	return &MachineDiskOK{}
 }
 
-/* MachineDiskOK describes a response with status code 200, with default header values.
+/*
+	MachineDiskOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -81,7 +82,8 @@ func NewMachineDiskDefault(code int) *MachineDiskDefault {
 	}
 }
 
-/* MachineDiskDefault describes a response with status code -1, with default header values.
+/*
+	MachineDiskDefault describes a response with status code -1, with default header values.
 
 Error
 */

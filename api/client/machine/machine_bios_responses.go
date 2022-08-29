@@ -47,7 +47,8 @@ func NewMachineBiosOK() *MachineBiosOK {
 	return &MachineBiosOK{}
 }
 
-/* MachineBiosOK describes a response with status code 200, with default header values.
+/*
+	MachineBiosOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -81,7 +82,8 @@ func NewMachineBiosDefault(code int) *MachineBiosDefault {
 	}
 }
 
-/* MachineBiosDefault describes a response with status code -1, with default header values.
+/*
+	MachineBiosDefault describes a response with status code -1, with default header values.
 
 Error
 */

@@ -52,10 +52,12 @@ func NewFreeIPDeprecatedParamsWithHTTPClient(client *http.Client) *FreeIPDepreca
 	}
 }
 
-/* FreeIPDeprecatedParams contains all the parameters to send to the API endpoint
-   for the free IP deprecated operation.
+/*
+FreeIPDeprecatedParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the free IP deprecated operation.
+
+	Typically these are written to a http.Request.
 */
 type FreeIPDeprecatedParams struct {
 

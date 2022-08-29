@@ -52,10 +52,12 @@ func NewFindSwitchParamsWithHTTPClient(client *http.Client) *FindSwitchParams {
 	}
 }
 
-/* FindSwitchParams contains all the parameters to send to the API endpoint
-   for the find switch operation.
+/*
+FindSwitchParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the find switch operation.
+
+	Typically these are written to a http.Request.
 */
 type FindSwitchParams struct {
 

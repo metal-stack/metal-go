@@ -54,10 +54,12 @@ func NewAllocateMachineParamsWithHTTPClient(client *http.Client) *AllocateMachin
 	}
 }
 
-/* AllocateMachineParams contains all the parameters to send to the API endpoint
-   for the allocate machine operation.
+/*
+AllocateMachineParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the allocate machine operation.
+
+	Typically these are written to a http.Request.
 */
 type AllocateMachineParams struct {
 

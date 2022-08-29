@@ -47,7 +47,8 @@ func NewMachinePxeOK() *MachinePxeOK {
 	return &MachinePxeOK{}
 }
 
-/* MachinePxeOK describes a response with status code 200, with default header values.
+/*
+	MachinePxeOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -81,7 +82,8 @@ func NewMachinePxeDefault(code int) *MachinePxeDefault {
 	}
 }
 
-/* MachinePxeDefault describes a response with status code -1, with default header values.
+/*
+	MachinePxeDefault describes a response with status code -1, with default header values.
 
 Error
 */

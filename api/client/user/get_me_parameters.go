@@ -52,10 +52,12 @@ func NewGetMeParamsWithHTTPClient(client *http.Client) *GetMeParams {
 	}
 }
 
-/* GetMeParams contains all the parameters to send to the API endpoint
-   for the get me operation.
+/*
+GetMeParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the get me operation.
+
+	Typically these are written to a http.Request.
 */
 type GetMeParams struct {
 	timeout    time.Duration

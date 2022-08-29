@@ -53,7 +53,8 @@ func NewAllocateNetworkCreated() *AllocateNetworkCreated {
 	return &AllocateNetworkCreated{}
 }
 
-/* AllocateNetworkCreated describes a response with status code 201, with default header values.
+/*
+	AllocateNetworkCreated describes a response with status code 201, with default header values.
 
 Created
 */
@@ -85,7 +86,8 @@ func NewAllocateNetworkConflict() *AllocateNetworkConflict {
 	return &AllocateNetworkConflict{}
 }
 
-/* AllocateNetworkConflict describes a response with status code 409, with default header values.
+/*
+	AllocateNetworkConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -119,7 +121,8 @@ func NewAllocateNetworkDefault(code int) *AllocateNetworkDefault {
 	}
 }
 
-/* AllocateNetworkDefault describes a response with status code -1, with default header values.
+/*
+	AllocateNetworkDefault describes a response with status code -1, with default header values.
 
 Error
 */

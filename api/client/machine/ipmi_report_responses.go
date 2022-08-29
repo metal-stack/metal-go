@@ -47,7 +47,8 @@ func NewIpmiReportOK() *IpmiReportOK {
 	return &IpmiReportOK{}
 }
 
-/* IpmiReportOK describes a response with status code 200, with default header values.
+/*
+	IpmiReportOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -81,7 +82,8 @@ func NewIpmiReportDefault(code int) *IpmiReportDefault {
 	}
 }
 
-/* IpmiReportDefault describes a response with status code -1, with default header values.
+/*
+	IpmiReportDefault describes a response with status code -1, with default header values.
 
 Error
 */

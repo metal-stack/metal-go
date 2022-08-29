@@ -34,7 +34,7 @@ type ClientService interface {
 }
 
 /*
-  Info returns the current version information of this module
+Info returns the current version information of this module
 */
 func (a *Client) Info(params *InfoParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*InfoOK, error) {
 	// TODO: Validate the params before sending

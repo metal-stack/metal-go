@@ -54,10 +54,12 @@ func NewReinstallMachineParamsWithHTTPClient(client *http.Client) *ReinstallMach
 	}
 }
 
-/* ReinstallMachineParams contains all the parameters to send to the API endpoint
-   for the reinstall machine operation.
+/*
+ReinstallMachineParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the reinstall machine operation.
+
+	Typically these are written to a http.Request.
 */
 type ReinstallMachineParams struct {
 

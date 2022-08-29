@@ -53,7 +53,8 @@ func NewAllocateSpecificIPCreated() *AllocateSpecificIPCreated {
 	return &AllocateSpecificIPCreated{}
 }
 
-/* AllocateSpecificIPCreated describes a response with status code 201, with default header values.
+/*
+	AllocateSpecificIPCreated describes a response with status code 201, with default header values.
 
 Created
 */
@@ -85,7 +86,8 @@ func NewAllocateSpecificIPConflict() *AllocateSpecificIPConflict {
 	return &AllocateSpecificIPConflict{}
 }
 
-/* AllocateSpecificIPConflict describes a response with status code 409, with default header values.
+/*
+	AllocateSpecificIPConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -119,7 +121,8 @@ func NewAllocateSpecificIPDefault(code int) *AllocateSpecificIPDefault {
 	}
 }
 
-/* AllocateSpecificIPDefault describes a response with status code -1, with default header values.
+/*
+	AllocateSpecificIPDefault describes a response with status code -1, with default header values.
 
 Error
 */

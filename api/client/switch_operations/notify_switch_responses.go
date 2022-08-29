@@ -47,7 +47,8 @@ func NewNotifySwitchOK() *NotifySwitchOK {
 	return &NotifySwitchOK{}
 }
 
-/* NotifySwitchOK describes a response with status code 200, with default header values.
+/*
+	NotifySwitchOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -81,7 +82,8 @@ func NewNotifySwitchDefault(code int) *NotifySwitchDefault {
 	}
 }
 
-/* NotifySwitchDefault describes a response with status code -1, with default header values.
+/*
+	NotifySwitchDefault describes a response with status code -1, with default header values.
 
 Error
 */

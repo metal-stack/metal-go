@@ -52,10 +52,12 @@ func NewDeleteSizeImageConstraintParamsWithHTTPClient(client *http.Client) *Dele
 	}
 }
 
-/* DeleteSizeImageConstraintParams contains all the parameters to send to the API endpoint
-   for the delete size image constraint operation.
+/*
+DeleteSizeImageConstraintParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the delete size image constraint operation.
+
+	Typically these are written to a http.Request.
 */
 type DeleteSizeImageConstraintParams struct {
 

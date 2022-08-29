@@ -52,10 +52,12 @@ func NewFindIPParamsWithHTTPClient(client *http.Client) *FindIPParams {
 	}
 }
 
-/* FindIPParams contains all the parameters to send to the API endpoint
-   for the find IP operation.
+/*
+FindIPParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the find IP operation.
+
+	Typically these are written to a http.Request.
 */
 type FindIPParams struct {
 

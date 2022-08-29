@@ -53,7 +53,8 @@ func NewCreateSizeCreated() *CreateSizeCreated {
 	return &CreateSizeCreated{}
 }
 
-/* CreateSizeCreated describes a response with status code 201, with default header values.
+/*
+	CreateSizeCreated describes a response with status code 201, with default header values.
 
 Created
 */
@@ -85,7 +86,8 @@ func NewCreateSizeConflict() *CreateSizeConflict {
 	return &CreateSizeConflict{}
 }
 
-/* CreateSizeConflict describes a response with status code 409, with default header values.
+/*
+	CreateSizeConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -119,7 +121,8 @@ func NewCreateSizeDefault(code int) *CreateSizeDefault {
 	}
 }
 
-/* CreateSizeDefault describes a response with status code -1, with default header values.
+/*
+	CreateSizeDefault describes a response with status code -1, with default header values.
 
 Error
 */

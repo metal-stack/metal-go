@@ -54,10 +54,12 @@ func NewMachineOffParamsWithHTTPClient(client *http.Client) *MachineOffParams {
 	}
 }
 
-/* MachineOffParams contains all the parameters to send to the API endpoint
-   for the machine off operation.
+/*
+MachineOffParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the machine off operation.
+
+	Typically these are written to a http.Request.
 */
 type MachineOffParams struct {
 

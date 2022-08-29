@@ -52,10 +52,12 @@ func NewGetFilesystemLayoutParamsWithHTTPClient(client *http.Client) *GetFilesys
 	}
 }
 
-/* GetFilesystemLayoutParams contains all the parameters to send to the API endpoint
-   for the get filesystem layout operation.
+/*
+GetFilesystemLayoutParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the get filesystem layout operation.
+
+	Typically these are written to a http.Request.
 */
 type GetFilesystemLayoutParams struct {
 

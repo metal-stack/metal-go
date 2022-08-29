@@ -47,7 +47,8 @@ func NewListNetworksOK() *ListNetworksOK {
 	return &ListNetworksOK{}
 }
 
-/* ListNetworksOK describes a response with status code 200, with default header values.
+/*
+	ListNetworksOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -79,7 +80,8 @@ func NewListNetworksDefault(code int) *ListNetworksDefault {
 	}
 }
 
-/* ListNetworksDefault describes a response with status code -1, with default header values.
+/*
+	ListNetworksDefault describes a response with status code -1, with default header values.
 
 Error
 */

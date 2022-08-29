@@ -53,7 +53,8 @@ func NewUpdateSizeOK() *UpdateSizeOK {
 	return &UpdateSizeOK{}
 }
 
-/* UpdateSizeOK describes a response with status code 200, with default header values.
+/*
+	UpdateSizeOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -85,7 +86,8 @@ func NewUpdateSizeConflict() *UpdateSizeConflict {
 	return &UpdateSizeConflict{}
 }
 
-/* UpdateSizeConflict describes a response with status code 409, with default header values.
+/*
+	UpdateSizeConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -119,7 +121,8 @@ func NewUpdateSizeDefault(code int) *UpdateSizeDefault {
 	}
 }
 
-/* UpdateSizeDefault describes a response with status code -1, with default header values.
+/*
+	UpdateSizeDefault describes a response with status code -1, with default header values.
 
 Error
 */

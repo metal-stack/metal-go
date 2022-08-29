@@ -54,10 +54,12 @@ func NewFindNetworksParamsWithHTTPClient(client *http.Client) *FindNetworksParam
 	}
 }
 
-/* FindNetworksParams contains all the parameters to send to the API endpoint
-   for the find networks operation.
+/*
+FindNetworksParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the find networks operation.
+
+	Typically these are written to a http.Request.
 */
 type FindNetworksParams struct {
 

@@ -47,7 +47,8 @@ func NewMachineOffOK() *MachineOffOK {
 	return &MachineOffOK{}
 }
 
-/* MachineOffOK describes a response with status code 200, with default header values.
+/*
+	MachineOffOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -81,7 +82,8 @@ func NewMachineOffDefault(code int) *MachineOffDefault {
 	}
 }
 
-/* MachineOffDefault describes a response with status code -1, with default header values.
+/*
+	MachineOffDefault describes a response with status code -1, with default header values.
 
 Error
 */

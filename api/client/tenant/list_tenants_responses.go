@@ -47,7 +47,8 @@ func NewListTenantsOK() *ListTenantsOK {
 	return &ListTenantsOK{}
 }
 
-/* ListTenantsOK describes a response with status code 200, with default header values.
+/*
+	ListTenantsOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -79,7 +80,8 @@ func NewListTenantsDefault(code int) *ListTenantsDefault {
 	}
 }
 
-/* ListTenantsDefault describes a response with status code -1, with default header values.
+/*
+	ListTenantsDefault describes a response with status code -1, with default header values.
 
 Error
 */
