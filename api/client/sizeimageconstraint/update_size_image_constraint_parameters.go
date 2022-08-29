@@ -54,10 +54,12 @@ func NewUpdateSizeImageConstraintParamsWithHTTPClient(client *http.Client) *Upda
 	}
 }
 
-/* UpdateSizeImageConstraintParams contains all the parameters to send to the API endpoint
-   for the update size image constraint operation.
+/*
+UpdateSizeImageConstraintParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the update size image constraint operation.
+
+	Typically these are written to a http.Request.
 */
 type UpdateSizeImageConstraintParams struct {
 

@@ -47,7 +47,8 @@ func NewFreeIPOK() *FreeIPOK {
 	return &FreeIPOK{}
 }
 
-/* FreeIPOK describes a response with status code 200, with default header values.
+/*
+	FreeIPOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -81,7 +82,8 @@ func NewFreeIPDefault(code int) *FreeIPDefault {
 	}
 }
 
-/* FreeIPDefault describes a response with status code -1, with default header values.
+/*
+	FreeIPDefault describes a response with status code -1, with default header values.
 
 Error
 */

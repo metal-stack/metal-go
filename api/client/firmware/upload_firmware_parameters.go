@@ -52,10 +52,12 @@ func NewUploadFirmwareParamsWithHTTPClient(client *http.Client) *UploadFirmwareP
 	}
 }
 
-/* UploadFirmwareParams contains all the parameters to send to the API endpoint
-   for the upload firmware operation.
+/*
+UploadFirmwareParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the upload firmware operation.
+
+	Typically these are written to a http.Request.
 */
 type UploadFirmwareParams struct {
 

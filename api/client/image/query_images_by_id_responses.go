@@ -47,7 +47,8 @@ func NewQueryImagesByIDOK() *QueryImagesByIDOK {
 	return &QueryImagesByIDOK{}
 }
 
-/* QueryImagesByIDOK describes a response with status code 200, with default header values.
+/*
+	QueryImagesByIDOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -79,7 +80,8 @@ func NewQueryImagesByIDDefault(code int) *QueryImagesByIDDefault {
 	}
 }
 
-/* QueryImagesByIDDefault describes a response with status code -1, with default header values.
+/*
+	QueryImagesByIDDefault describes a response with status code -1, with default header values.
 
 Error
 */

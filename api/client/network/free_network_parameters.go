@@ -52,10 +52,12 @@ func NewFreeNetworkParamsWithHTTPClient(client *http.Client) *FreeNetworkParams 
 	}
 }
 
-/* FreeNetworkParams contains all the parameters to send to the API endpoint
-   for the free network operation.
+/*
+FreeNetworkParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the free network operation.
+
+	Typically these are written to a http.Request.
 */
 type FreeNetworkParams struct {
 

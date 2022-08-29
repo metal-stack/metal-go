@@ -47,7 +47,8 @@ func NewListFilesystemLayoutsOK() *ListFilesystemLayoutsOK {
 	return &ListFilesystemLayoutsOK{}
 }
 
-/* ListFilesystemLayoutsOK describes a response with status code 200, with default header values.
+/*
+	ListFilesystemLayoutsOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -79,7 +80,8 @@ func NewListFilesystemLayoutsDefault(code int) *ListFilesystemLayoutsDefault {
 	}
 }
 
-/* ListFilesystemLayoutsDefault describes a response with status code -1, with default header values.
+/*
+	ListFilesystemLayoutsDefault describes a response with status code -1, with default header values.
 
 Error
 */

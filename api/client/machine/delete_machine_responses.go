@@ -47,7 +47,8 @@ func NewDeleteMachineOK() *DeleteMachineOK {
 	return &DeleteMachineOK{}
 }
 
-/* DeleteMachineOK describes a response with status code 200, with default header values.
+/*
+	DeleteMachineOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -81,7 +82,8 @@ func NewDeleteMachineDefault(code int) *DeleteMachineDefault {
 	}
 }
 
-/* DeleteMachineDefault describes a response with status code -1, with default header values.
+/*
+	DeleteMachineDefault describes a response with status code -1, with default header values.
 
 Error
 */

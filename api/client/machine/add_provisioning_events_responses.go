@@ -47,7 +47,8 @@ func NewAddProvisioningEventsOK() *AddProvisioningEventsOK {
 	return &AddProvisioningEventsOK{}
 }
 
-/* AddProvisioningEventsOK describes a response with status code 200, with default header values.
+/*
+	AddProvisioningEventsOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -81,7 +82,8 @@ func NewAddProvisioningEventsDefault(code int) *AddProvisioningEventsDefault {
 	}
 }
 
-/* AddProvisioningEventsDefault describes a response with status code -1, with default header values.
+/*
+	AddProvisioningEventsDefault describes a response with status code -1, with default header values.
 
 Error
 */

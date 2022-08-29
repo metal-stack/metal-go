@@ -52,10 +52,12 @@ func NewQueryImagesByIDParamsWithHTTPClient(client *http.Client) *QueryImagesByI
 	}
 }
 
-/* QueryImagesByIDParams contains all the parameters to send to the API endpoint
-   for the query images by id operation.
+/*
+QueryImagesByIDParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the query images by id operation.
+
+	Typically these are written to a http.Request.
 */
 type QueryImagesByIDParams struct {
 

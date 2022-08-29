@@ -47,7 +47,8 @@ func NewFreeMachineOK() *FreeMachineOK {
 	return &FreeMachineOK{}
 }
 
-/* FreeMachineOK describes a response with status code 200, with default header values.
+/*
+	FreeMachineOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -81,7 +82,8 @@ func NewFreeMachineDefault(code int) *FreeMachineDefault {
 	}
 }
 
-/* FreeMachineDefault describes a response with status code -1, with default header values.
+/*
+	FreeMachineDefault describes a response with status code -1, with default header values.
 
 Error
 */

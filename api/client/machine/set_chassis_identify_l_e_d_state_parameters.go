@@ -54,10 +54,12 @@ func NewSetChassisIdentifyLEDStateParamsWithHTTPClient(client *http.Client) *Set
 	}
 }
 
-/* SetChassisIdentifyLEDStateParams contains all the parameters to send to the API endpoint
-   for the set chassis identify l e d state operation.
+/*
+SetChassisIdentifyLEDStateParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the set chassis identify l e d state operation.
+
+	Typically these are written to a http.Request.
 */
 type SetChassisIdentifyLEDStateParams struct {
 

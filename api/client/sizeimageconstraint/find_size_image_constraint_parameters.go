@@ -52,10 +52,12 @@ func NewFindSizeImageConstraintParamsWithHTTPClient(client *http.Client) *FindSi
 	}
 }
 
-/* FindSizeImageConstraintParams contains all the parameters to send to the API endpoint
-   for the find size image constraint operation.
+/*
+FindSizeImageConstraintParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the find size image constraint operation.
+
+	Typically these are written to a http.Request.
 */
 type FindSizeImageConstraintParams struct {
 

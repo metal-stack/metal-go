@@ -52,10 +52,12 @@ func NewListFilesystemLayoutsParamsWithHTTPClient(client *http.Client) *ListFile
 	}
 }
 
-/* ListFilesystemLayoutsParams contains all the parameters to send to the API endpoint
-   for the list filesystem layouts operation.
+/*
+ListFilesystemLayoutsParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the list filesystem layouts operation.
+
+	Typically these are written to a http.Request.
 */
 type ListFilesystemLayoutsParams struct {
 	timeout    time.Duration

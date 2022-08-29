@@ -52,10 +52,12 @@ func NewListSwitchesParamsWithHTTPClient(client *http.Client) *ListSwitchesParam
 	}
 }
 
-/* ListSwitchesParams contains all the parameters to send to the API endpoint
-   for the list switches operation.
+/*
+ListSwitchesParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the list switches operation.
+
+	Typically these are written to a http.Request.
 */
 type ListSwitchesParams struct {
 	timeout    time.Duration

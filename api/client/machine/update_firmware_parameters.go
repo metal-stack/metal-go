@@ -54,10 +54,12 @@ func NewUpdateFirmwareParamsWithHTTPClient(client *http.Client) *UpdateFirmwareP
 	}
 }
 
-/* UpdateFirmwareParams contains all the parameters to send to the API endpoint
-   for the update firmware operation.
+/*
+UpdateFirmwareParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the update firmware operation.
+
+	Typically these are written to a http.Request.
 */
 type UpdateFirmwareParams struct {
 

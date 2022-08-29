@@ -34,7 +34,7 @@ type ClientService interface {
 }
 
 /*
-  Health performs a healthcheck
+Health performs a healthcheck
 */
 func (a *Client) Health(params *HealthParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*HealthOK, error) {
 	// TODO: Validate the params before sending

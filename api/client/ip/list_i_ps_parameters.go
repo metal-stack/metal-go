@@ -52,10 +52,12 @@ func NewListIPsParamsWithHTTPClient(client *http.Client) *ListIPsParams {
 	}
 }
 
-/* ListIPsParams contains all the parameters to send to the API endpoint
-   for the list i ps operation.
+/*
+ListIPsParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the list i ps operation.
+
+	Typically these are written to a http.Request.
 */
 type ListIPsParams struct {
 	timeout    time.Duration

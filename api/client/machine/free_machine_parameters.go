@@ -52,10 +52,12 @@ func NewFreeMachineParamsWithHTTPClient(client *http.Client) *FreeMachineParams 
 	}
 }
 
-/* FreeMachineParams contains all the parameters to send to the API endpoint
-   for the free machine operation.
+/*
+FreeMachineParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the free machine operation.
+
+	Typically these are written to a http.Request.
 */
 type FreeMachineParams struct {
 

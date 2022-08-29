@@ -47,7 +47,8 @@ func NewListFirewallsOK() *ListFirewallsOK {
 	return &ListFirewallsOK{}
 }
 
-/* ListFirewallsOK describes a response with status code 200, with default header values.
+/*
+	ListFirewallsOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -79,7 +80,8 @@ func NewListFirewallsDefault(code int) *ListFirewallsDefault {
 	}
 }
 
-/* ListFirewallsDefault describes a response with status code -1, with default header values.
+/*
+	ListFirewallsDefault describes a response with status code -1, with default header values.
 
 Error
 */

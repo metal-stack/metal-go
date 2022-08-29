@@ -47,7 +47,8 @@ func NewListIPsOK() *ListIPsOK {
 	return &ListIPsOK{}
 }
 
-/* ListIPsOK describes a response with status code 200, with default header values.
+/*
+	ListIPsOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -79,7 +80,8 @@ func NewListIPsDefault(code int) *ListIPsDefault {
 	}
 }
 
-/* ListIPsDefault describes a response with status code -1, with default header values.
+/*
+	ListIPsDefault describes a response with status code -1, with default header values.
 
 Error
 */

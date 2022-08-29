@@ -54,10 +54,12 @@ func NewRegisterSwitchParamsWithHTTPClient(client *http.Client) *RegisterSwitchP
 	}
 }
 
-/* RegisterSwitchParams contains all the parameters to send to the API endpoint
-   for the register switch operation.
+/*
+RegisterSwitchParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the register switch operation.
+
+	Typically these are written to a http.Request.
 */
 type RegisterSwitchParams struct {
 

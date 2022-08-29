@@ -1,0 +1,42 @@
+name: Auto Generate
+
+on:
+  push:
+    branches:
+      - auto-generate/*
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: Set up Go 1.19
+      uses: actions/setup-go@v3
+      with:
+        go-version: 1.19
+
+    - name: Check out code into the Go module directory
+      uses: actions/checkout@v3
+
+    - name: Lint
+      uses: golangci/golangci-lint-action@v3
+      with:
+        args: -p bugs -p unused
+
+    - name: Generate
+      run: |
+        if ! which yq; then
+          sudo curl -Lo /usr/local/bin/yq https://github.com/mikefarah/yq/releases/download/v4.27.2/yq_linux_amd64
+          sudo chmod +x /usr/local/bin/yq
+        fi
+        make
+
+    - name: Push
+      run: |
+        if ! git diff --exit-code; then
+          git config --global user.name "auto-build"
+          git config --global user.email "info@metal-stack.io"
+          git add .
+          git commit -m "Bump to version $(cat VERSION)"
+          git push
+        fi

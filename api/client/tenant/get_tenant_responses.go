@@ -47,7 +47,8 @@ func NewGetTenantOK() *GetTenantOK {
 	return &GetTenantOK{}
 }
 
-/* GetTenantOK describes a response with status code 200, with default header values.
+/*
+	GetTenantOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -81,7 +82,8 @@ func NewGetTenantDefault(code int) *GetTenantDefault {
 	}
 }
 
-/* GetTenantDefault describes a response with status code -1, with default header values.
+/*
+	GetTenantDefault describes a response with status code -1, with default header values.
 
 Error
 */

@@ -54,10 +54,12 @@ func NewAddProvisioningEventsParamsWithHTTPClient(client *http.Client) *AddProvi
 	}
 }
 
-/* AddProvisioningEventsParams contains all the parameters to send to the API endpoint
-   for the add provisioning events operation.
+/*
+AddProvisioningEventsParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the add provisioning events operation.
+
+	Typically these are written to a http.Request.
 */
 type AddProvisioningEventsParams struct {
 

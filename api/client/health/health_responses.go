@@ -53,7 +53,8 @@ func NewHealthOK() *HealthOK {
 	return &HealthOK{}
 }
 
-/* HealthOK describes a response with status code 200, with default header values.
+/*
+	HealthOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -85,7 +86,8 @@ func NewHealthInternalServerError() *HealthInternalServerError {
 	return &HealthInternalServerError{}
 }
 
-/* HealthInternalServerError describes a response with status code 500, with default header values.
+/*
+	HealthInternalServerError describes a response with status code 500, with default header values.
 
 Unhealthy
 */
@@ -119,7 +121,8 @@ func NewHealthDefault(code int) *HealthDefault {
 	}
 }
 
-/* HealthDefault describes a response with status code -1, with default header values.
+/*
+	HealthDefault describes a response with status code -1, with default header values.
 
 Error
 */

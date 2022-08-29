@@ -47,7 +47,8 @@ func NewChassisIdentifyLEDOffOK() *ChassisIdentifyLEDOffOK {
 	return &ChassisIdentifyLEDOffOK{}
 }
 
-/* ChassisIdentifyLEDOffOK describes a response with status code 200, with default header values.
+/*
+	ChassisIdentifyLEDOffOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -81,7 +82,8 @@ func NewChassisIdentifyLEDOffDefault(code int) *ChassisIdentifyLEDOffDefault {
 	}
 }
 
-/* ChassisIdentifyLEDOffDefault describes a response with status code -1, with default header values.
+/*
+	ChassisIdentifyLEDOffDefault describes a response with status code -1, with default header values.
 
 Error
 */

@@ -53,7 +53,8 @@ func NewUpdatePartitionOK() *UpdatePartitionOK {
 	return &UpdatePartitionOK{}
 }
 
-/* UpdatePartitionOK describes a response with status code 200, with default header values.
+/*
+	UpdatePartitionOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -85,7 +86,8 @@ func NewUpdatePartitionConflict() *UpdatePartitionConflict {
 	return &UpdatePartitionConflict{}
 }
 
-/* UpdatePartitionConflict describes a response with status code 409, with default header values.
+/*
+	UpdatePartitionConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -119,7 +121,8 @@ func NewUpdatePartitionDefault(code int) *UpdatePartitionDefault {
 	}
 }
 
-/* UpdatePartitionDefault describes a response with status code -1, with default header values.
+/*
+	UpdatePartitionDefault describes a response with status code -1, with default header values.
 
 Error
 */

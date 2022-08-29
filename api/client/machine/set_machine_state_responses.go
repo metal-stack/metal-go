@@ -47,7 +47,8 @@ func NewSetMachineStateOK() *SetMachineStateOK {
 	return &SetMachineStateOK{}
 }
 
-/* SetMachineStateOK describes a response with status code 200, with default header values.
+/*
+	SetMachineStateOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -81,7 +82,8 @@ func NewSetMachineStateDefault(code int) *SetMachineStateDefault {
 	}
 }
 
-/* SetMachineStateDefault describes a response with status code -1, with default header values.
+/*
+	SetMachineStateDefault describes a response with status code -1, with default header values.
 
 Error
 */

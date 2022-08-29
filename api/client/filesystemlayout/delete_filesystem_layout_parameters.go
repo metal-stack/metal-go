@@ -52,10 +52,12 @@ func NewDeleteFilesystemLayoutParamsWithHTTPClient(client *http.Client) *DeleteF
 	}
 }
 
-/* DeleteFilesystemLayoutParams contains all the parameters to send to the API endpoint
-   for the delete filesystem layout operation.
+/*
+DeleteFilesystemLayoutParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the delete filesystem layout operation.
+
+	Typically these are written to a http.Request.
 */
 type DeleteFilesystemLayoutParams struct {
 

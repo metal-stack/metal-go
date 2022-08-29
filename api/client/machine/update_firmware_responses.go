@@ -47,7 +47,8 @@ func NewUpdateFirmwareOK() *UpdateFirmwareOK {
 	return &UpdateFirmwareOK{}
 }
 
-/* UpdateFirmwareOK describes a response with status code 200, with default header values.
+/*
+	UpdateFirmwareOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -81,7 +82,8 @@ func NewUpdateFirmwareDefault(code int) *UpdateFirmwareDefault {
 	}
 }
 
-/* UpdateFirmwareDefault describes a response with status code -1, with default header values.
+/*
+	UpdateFirmwareDefault describes a response with status code -1, with default header values.
 
 Error
 */

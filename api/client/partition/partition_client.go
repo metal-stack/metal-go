@@ -38,13 +38,15 @@ type ClientService interface {
 
 	PartitionCapacity(params *PartitionCapacityParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PartitionCapacityOK, error)
 
+	PartitionCapacityCompat(params *PartitionCapacityCompatParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PartitionCapacityCompatOK, error)
+
 	UpdatePartition(params *UpdatePartitionParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdatePartitionOK, error)
 
 	SetTransport(transport runtime.ClientTransport)
 }
 
 /*
-  CreatePartition creates a partition if the given ID already exists a conflict is returned
+CreatePartition creates a partition if the given ID already exists a conflict is returned
 */
 func (a *Client) CreatePartition(params *CreatePartitionParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreatePartitionCreated, error) {
 	// TODO: Validate the params before sending
@@ -82,7 +84,7 @@ func (a *Client) CreatePartition(params *CreatePartitionParams, authInfo runtime
 }
 
 /*
-  DeletePartition deletes a partition and returns the deleted entity
+DeletePartition deletes a partition and returns the deleted entity
 */
 func (a *Client) DeletePartition(params *DeletePartitionParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeletePartitionOK, error) {
 	// TODO: Validate the params before sending
@@ -120,7 +122,7 @@ func (a *Client) DeletePartition(params *DeletePartitionParams, authInfo runtime
 }
 
 /*
-  FindPartition gets partition by id
+FindPartition gets partition by id
 */
 func (a *Client) FindPartition(params *FindPartitionParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FindPartitionOK, error) {
 	// TODO: Validate the params before sending
@@ -158,7 +160,7 @@ func (a *Client) FindPartition(params *FindPartitionParams, authInfo runtime.Cli
 }
 
 /*
-  ListPartitions gets all partitions
+ListPartitions gets all partitions
 */
 func (a *Client) ListPartitions(params *ListPartitionsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListPartitionsOK, error) {
 	// TODO: Validate the params before sending
@@ -196,7 +198,7 @@ func (a *Client) ListPartitions(params *ListPartitionsParams, authInfo runtime.C
 }
 
 /*
-  PartitionCapacity gets partition capacity
+PartitionCapacity gets partition capacity
 */
 func (a *Client) PartitionCapacity(params *PartitionCapacityParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PartitionCapacityOK, error) {
 	// TODO: Validate the params before sending
@@ -234,7 +236,45 @@ func (a *Client) PartitionCapacity(params *PartitionCapacityParams, authInfo run
 }
 
 /*
-  UpdatePartition updates a partition if the partition was changed since this one was read a conflict is returned
+PartitionCapacityCompat gets partition capacity
+*/
+func (a *Client) PartitionCapacityCompat(params *PartitionCapacityCompatParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PartitionCapacityCompatOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewPartitionCapacityCompatParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "partitionCapacityCompat",
+		Method:             "GET",
+		PathPattern:        "/v1/partition/capacity",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &PartitionCapacityCompatReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*PartitionCapacityCompatOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*PartitionCapacityCompatDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+UpdatePartition updates a partition if the partition was changed since this one was read a conflict is returned
 */
 func (a *Client) UpdatePartition(params *UpdatePartitionParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdatePartitionOK, error) {
 	// TODO: Validate the params before sending

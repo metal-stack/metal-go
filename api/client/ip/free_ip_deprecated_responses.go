@@ -47,7 +47,8 @@ func NewFreeIPDeprecatedOK() *FreeIPDeprecatedOK {
 	return &FreeIPDeprecatedOK{}
 }
 
-/* FreeIPDeprecatedOK describes a response with status code 200, with default header values.
+/*
+	FreeIPDeprecatedOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -81,7 +82,8 @@ func NewFreeIPDeprecatedDefault(code int) *FreeIPDeprecatedDefault {
 	}
 }
 
-/* FreeIPDeprecatedDefault describes a response with status code -1, with default header values.
+/*
+	FreeIPDeprecatedDefault describes a response with status code -1, with default header values.
 
 Error
 */

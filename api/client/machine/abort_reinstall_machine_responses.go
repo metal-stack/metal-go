@@ -47,7 +47,8 @@ func NewAbortReinstallMachineOK() *AbortReinstallMachineOK {
 	return &AbortReinstallMachineOK{}
 }
 
-/* AbortReinstallMachineOK describes a response with status code 200, with default header values.
+/*
+	AbortReinstallMachineOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -81,7 +82,8 @@ func NewAbortReinstallMachineDefault(code int) *AbortReinstallMachineDefault {
 	}
 }
 
-/* AbortReinstallMachineDefault describes a response with status code -1, with default header values.
+/*
+	AbortReinstallMachineDefault describes a response with status code -1, with default header values.
 
 Error
 */

@@ -52,10 +52,12 @@ func NewListSizeImageConstraintsParamsWithHTTPClient(client *http.Client) *ListS
 	}
 }
 
-/* ListSizeImageConstraintsParams contains all the parameters to send to the API endpoint
-   for the list size image constraints operation.
+/*
+ListSizeImageConstraintsParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the list size image constraints operation.
+
+	Typically these are written to a http.Request.
 */
 type ListSizeImageConstraintsParams struct {
 	timeout    time.Duration

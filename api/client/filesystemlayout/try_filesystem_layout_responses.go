@@ -47,7 +47,8 @@ func NewTryFilesystemLayoutOK() *TryFilesystemLayoutOK {
 	return &TryFilesystemLayoutOK{}
 }
 
-/* TryFilesystemLayoutOK describes a response with status code 200, with default header values.
+/*
+	TryFilesystemLayoutOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -81,7 +82,8 @@ func NewTryFilesystemLayoutDefault(code int) *TryFilesystemLayoutDefault {
 	}
 }
 
-/* TryFilesystemLayoutDefault describes a response with status code -1, with default header values.
+/*
+	TryFilesystemLayoutDefault describes a response with status code -1, with default header values.
 
 Error
 */

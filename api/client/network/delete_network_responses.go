@@ -47,7 +47,8 @@ func NewDeleteNetworkOK() *DeleteNetworkOK {
 	return &DeleteNetworkOK{}
 }
 
-/* DeleteNetworkOK describes a response with status code 200, with default header values.
+/*
+	DeleteNetworkOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -81,7 +82,8 @@ func NewDeleteNetworkDefault(code int) *DeleteNetworkDefault {
 	}
 }
 
-/* DeleteNetworkDefault describes a response with status code -1, with default header values.
+/*
+	DeleteNetworkDefault describes a response with status code -1, with default header values.
 
 Error
 */

@@ -52,10 +52,12 @@ func NewFindMachineParamsWithHTTPClient(client *http.Client) *FindMachineParams 
 	}
 }
 
-/* FindMachineParams contains all the parameters to send to the API endpoint
-   for the find machine operation.
+/*
+FindMachineParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the find machine operation.
+
+	Typically these are written to a http.Request.
 */
 type FindMachineParams struct {
 

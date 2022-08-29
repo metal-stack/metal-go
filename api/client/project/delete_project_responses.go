@@ -47,7 +47,8 @@ func NewDeleteProjectOK() *DeleteProjectOK {
 	return &DeleteProjectOK{}
 }
 
-/* DeleteProjectOK describes a response with status code 200, with default header values.
+/*
+	DeleteProjectOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -81,7 +82,8 @@ func NewDeleteProjectDefault(code int) *DeleteProjectDefault {
 	}
 }
 
-/* DeleteProjectDefault describes a response with status code -1, with default header values.
+/*
+	DeleteProjectDefault describes a response with status code -1, with default header values.
 
 Error
 */

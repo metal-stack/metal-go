@@ -53,7 +53,8 @@ func NewUpdateMachineOK() *UpdateMachineOK {
 	return &UpdateMachineOK{}
 }
 
-/* UpdateMachineOK describes a response with status code 200, with default header values.
+/*
+	UpdateMachineOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -85,7 +86,8 @@ func NewUpdateMachineConflict() *UpdateMachineConflict {
 	return &UpdateMachineConflict{}
 }
 
-/* UpdateMachineConflict describes a response with status code 409, with default header values.
+/*
+	UpdateMachineConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -119,7 +121,8 @@ func NewUpdateMachineDefault(code int) *UpdateMachineDefault {
 	}
 }
 
-/* UpdateMachineDefault describes a response with status code -1, with default header values.
+/*
+	UpdateMachineDefault describes a response with status code -1, with default header values.
 
 Error
 */

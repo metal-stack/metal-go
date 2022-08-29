@@ -54,10 +54,12 @@ func NewAbortReinstallMachineParamsWithHTTPClient(client *http.Client) *AbortRei
 	}
 }
 
-/* AbortReinstallMachineParams contains all the parameters to send to the API endpoint
-   for the abort reinstall machine operation.
+/*
+AbortReinstallMachineParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the abort reinstall machine operation.
+
+	Typically these are written to a http.Request.
 */
 type AbortReinstallMachineParams struct {
 

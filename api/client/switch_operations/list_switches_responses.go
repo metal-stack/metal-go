@@ -47,7 +47,8 @@ func NewListSwitchesOK() *ListSwitchesOK {
 	return &ListSwitchesOK{}
 }
 
-/* ListSwitchesOK describes a response with status code 200, with default header values.
+/*
+	ListSwitchesOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -79,7 +80,8 @@ func NewListSwitchesDefault(code int) *ListSwitchesDefault {
 	}
 }
 
-/* ListSwitchesDefault describes a response with status code -1, with default header values.
+/*
+	ListSwitchesDefault describes a response with status code -1, with default header values.
 
 Error
 */

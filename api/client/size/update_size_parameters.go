@@ -54,10 +54,12 @@ func NewUpdateSizeParamsWithHTTPClient(client *http.Client) *UpdateSizeParams {
 	}
 }
 
-/* UpdateSizeParams contains all the parameters to send to the API endpoint
-   for the update size operation.
+/*
+UpdateSizeParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the update size operation.
+
+	Typically these are written to a http.Request.
 */
 type UpdateSizeParams struct {
 

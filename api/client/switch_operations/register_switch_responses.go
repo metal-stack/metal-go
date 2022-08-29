@@ -53,7 +53,8 @@ func NewRegisterSwitchOK() *RegisterSwitchOK {
 	return &RegisterSwitchOK{}
 }
 
-/* RegisterSwitchOK describes a response with status code 200, with default header values.
+/*
+	RegisterSwitchOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -85,7 +86,8 @@ func NewRegisterSwitchCreated() *RegisterSwitchCreated {
 	return &RegisterSwitchCreated{}
 }
 
-/* RegisterSwitchCreated describes a response with status code 201, with default header values.
+/*
+	RegisterSwitchCreated describes a response with status code 201, with default header values.
 
 Created
 */
@@ -119,7 +121,8 @@ func NewRegisterSwitchDefault(code int) *RegisterSwitchDefault {
 	}
 }
 
-/* RegisterSwitchDefault describes a response with status code -1, with default header values.
+/*
+	RegisterSwitchDefault describes a response with status code -1, with default header values.
 
 Error
 */

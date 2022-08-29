@@ -47,7 +47,8 @@ func NewFindMachineOK() *FindMachineOK {
 	return &FindMachineOK{}
 }
 
-/* FindMachineOK describes a response with status code 200, with default header values.
+/*
+	FindMachineOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -81,7 +82,8 @@ func NewFindMachineDefault(code int) *FindMachineDefault {
 	}
 }
 
-/* FindMachineDefault describes a response with status code -1, with default header values.
+/*
+	FindMachineDefault describes a response with status code -1, with default header values.
 
 Error
 */

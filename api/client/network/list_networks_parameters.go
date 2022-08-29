@@ -52,10 +52,12 @@ func NewListNetworksParamsWithHTTPClient(client *http.Client) *ListNetworksParam
 	}
 }
 
-/* ListNetworksParams contains all the parameters to send to the API endpoint
-   for the list networks operation.
+/*
+ListNetworksParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the list networks operation.
+
+	Typically these are written to a http.Request.
 */
 type ListNetworksParams struct {
 	timeout    time.Duration

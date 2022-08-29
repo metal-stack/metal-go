@@ -53,7 +53,8 @@ func NewCreateProjectCreated() *CreateProjectCreated {
 	return &CreateProjectCreated{}
 }
 
-/* CreateProjectCreated describes a response with status code 201, with default header values.
+/*
+	CreateProjectCreated describes a response with status code 201, with default header values.
 
 Created
 */
@@ -85,7 +86,8 @@ func NewCreateProjectConflict() *CreateProjectConflict {
 	return &CreateProjectConflict{}
 }
 
-/* CreateProjectConflict describes a response with status code 409, with default header values.
+/*
+	CreateProjectConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -119,7 +121,8 @@ func NewCreateProjectDefault(code int) *CreateProjectDefault {
 	}
 }
 
-/* CreateProjectDefault describes a response with status code -1, with default header values.
+/*
+	CreateProjectDefault describes a response with status code -1, with default header values.
 
 Error
 */

@@ -53,7 +53,8 @@ func NewCreateFilesystemLayoutCreated() *CreateFilesystemLayoutCreated {
 	return &CreateFilesystemLayoutCreated{}
 }
 
-/* CreateFilesystemLayoutCreated describes a response with status code 201, with default header values.
+/*
+	CreateFilesystemLayoutCreated describes a response with status code 201, with default header values.
 
 Created
 */
@@ -85,7 +86,8 @@ func NewCreateFilesystemLayoutConflict() *CreateFilesystemLayoutConflict {
 	return &CreateFilesystemLayoutConflict{}
 }
 
-/* CreateFilesystemLayoutConflict describes a response with status code 409, with default header values.
+/*
+	CreateFilesystemLayoutConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -119,7 +121,8 @@ func NewCreateFilesystemLayoutDefault(code int) *CreateFilesystemLayoutDefault {
 	}
 }
 
-/* CreateFilesystemLayoutDefault describes a response with status code -1, with default header values.
+/*
+	CreateFilesystemLayoutDefault describes a response with status code -1, with default header values.
 
 Error
 */

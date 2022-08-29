@@ -52,10 +52,12 @@ func NewListFirmwaresParamsWithHTTPClient(client *http.Client) *ListFirmwaresPar
 	}
 }
 
-/* ListFirmwaresParams contains all the parameters to send to the API endpoint
-   for the list firmwares operation.
+/*
+ListFirmwaresParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the list firmwares operation.
+
+	Typically these are written to a http.Request.
 */
 type ListFirmwaresParams struct {
 

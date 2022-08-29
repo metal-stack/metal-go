@@ -47,7 +47,8 @@ func NewFindProjectsOK() *FindProjectsOK {
 	return &FindProjectsOK{}
 }
 
-/* FindProjectsOK describes a response with status code 200, with default header values.
+/*
+	FindProjectsOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -79,7 +80,8 @@ func NewFindProjectsDefault(code int) *FindProjectsDefault {
 	}
 }
 
-/* FindProjectsDefault describes a response with status code -1, with default header values.
+/*
+	FindProjectsDefault describes a response with status code -1, with default header values.
 
 Error
 */

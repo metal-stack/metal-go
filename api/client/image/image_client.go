@@ -46,7 +46,7 @@ type ClientService interface {
 }
 
 /*
-  CreateImage creates an image if the given ID already exists a conflict is returned
+CreateImage creates an image if the given ID already exists a conflict is returned
 */
 func (a *Client) CreateImage(params *CreateImageParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateImageCreated, error) {
 	// TODO: Validate the params before sending
@@ -84,7 +84,7 @@ func (a *Client) CreateImage(params *CreateImageParams, authInfo runtime.ClientA
 }
 
 /*
-  DeleteImage deletes an image and returns the deleted entity
+DeleteImage deletes an image and returns the deleted entity
 */
 func (a *Client) DeleteImage(params *DeleteImageParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteImageOK, error) {
 	// TODO: Validate the params before sending
@@ -122,7 +122,7 @@ func (a *Client) DeleteImage(params *DeleteImageParams, authInfo runtime.ClientA
 }
 
 /*
-  FindImage gets image by id
+FindImage gets image by id
 */
 func (a *Client) FindImage(params *FindImageParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FindImageOK, error) {
 	// TODO: Validate the params before sending
@@ -160,7 +160,7 @@ func (a *Client) FindImage(params *FindImageParams, authInfo runtime.ClientAuthI
 }
 
 /*
-  FindLatestImage finds latest image by id
+FindLatestImage finds latest image by id
 */
 func (a *Client) FindLatestImage(params *FindLatestImageParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FindLatestImageOK, error) {
 	// TODO: Validate the params before sending
@@ -198,7 +198,7 @@ func (a *Client) FindLatestImage(params *FindLatestImageParams, authInfo runtime
 }
 
 /*
-  ListImages gets all images
+ListImages gets all images
 */
 func (a *Client) ListImages(params *ListImagesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListImagesOK, error) {
 	// TODO: Validate the params before sending
@@ -236,7 +236,7 @@ func (a *Client) ListImages(params *ListImagesParams, authInfo runtime.ClientAut
 }
 
 /*
-  QueryImagesByID queries all images which match at least id
+QueryImagesByID queries all images which match at least id
 */
 func (a *Client) QueryImagesByID(params *QueryImagesByIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*QueryImagesByIDOK, error) {
 	// TODO: Validate the params before sending
@@ -274,7 +274,7 @@ func (a *Client) QueryImagesByID(params *QueryImagesByIDParams, authInfo runtime
 }
 
 /*
-  UpdateImage updates an image if the image was changed since this one was read a conflict is returned
+UpdateImage updates an image if the image was changed since this one was read a conflict is returned
 */
 func (a *Client) UpdateImage(params *UpdateImageParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateImageOK, error) {
 	// TODO: Validate the params before sending

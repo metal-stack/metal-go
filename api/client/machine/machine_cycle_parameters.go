@@ -54,10 +54,12 @@ func NewMachineCycleParamsWithHTTPClient(client *http.Client) *MachineCycleParam
 	}
 }
 
-/* MachineCycleParams contains all the parameters to send to the API endpoint
-   for the machine cycle operation.
+/*
+MachineCycleParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the machine cycle operation.
+
+	Typically these are written to a http.Request.
 */
 type MachineCycleParams struct {
 

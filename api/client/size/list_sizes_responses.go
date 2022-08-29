@@ -47,7 +47,8 @@ func NewListSizesOK() *ListSizesOK {
 	return &ListSizesOK{}
 }
 
-/* ListSizesOK describes a response with status code 200, with default header values.
+/*
+	ListSizesOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -79,7 +80,8 @@ func NewListSizesDefault(code int) *ListSizesDefault {
 	}
 }
 
-/* ListSizesDefault describes a response with status code -1, with default header values.
+/*
+	ListSizesDefault describes a response with status code -1, with default header values.
 
 Error
 */

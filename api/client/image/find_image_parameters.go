@@ -52,10 +52,12 @@ func NewFindImageParamsWithHTTPClient(client *http.Client) *FindImageParams {
 	}
 }
 
-/* FindImageParams contains all the parameters to send to the API endpoint
-   for the find image operation.
+/*
+FindImageParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the find image operation.
+
+	Typically these are written to a http.Request.
 */
 type FindImageParams struct {
 

@@ -44,7 +44,7 @@ type ClientService interface {
 }
 
 /*
-  CreateProject creates a project if the given ID already exists a conflict is returned
+CreateProject creates a project if the given ID already exists a conflict is returned
 */
 func (a *Client) CreateProject(params *CreateProjectParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateProjectCreated, error) {
 	// TODO: Validate the params before sending
@@ -82,7 +82,7 @@ func (a *Client) CreateProject(params *CreateProjectParams, authInfo runtime.Cli
 }
 
 /*
-  DeleteProject deletes a project and returns the deleted entity
+DeleteProject deletes a project and returns the deleted entity
 */
 func (a *Client) DeleteProject(params *DeleteProjectParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteProjectOK, error) {
 	// TODO: Validate the params before sending
@@ -120,7 +120,7 @@ func (a *Client) DeleteProject(params *DeleteProjectParams, authInfo runtime.Cli
 }
 
 /*
-  FindProject gets project by id
+FindProject gets project by id
 */
 func (a *Client) FindProject(params *FindProjectParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FindProjectOK, error) {
 	// TODO: Validate the params before sending
@@ -158,7 +158,7 @@ func (a *Client) FindProject(params *FindProjectParams, authInfo runtime.ClientA
 }
 
 /*
-  FindProjects gets all projects that match given properties
+FindProjects gets all projects that match given properties
 */
 func (a *Client) FindProjects(params *FindProjectsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FindProjectsOK, error) {
 	// TODO: Validate the params before sending
@@ -196,7 +196,7 @@ func (a *Client) FindProjects(params *FindProjectsParams, authInfo runtime.Clien
 }
 
 /*
-  ListProjects gets all projects
+ListProjects gets all projects
 */
 func (a *Client) ListProjects(params *ListProjectsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListProjectsOK, error) {
 	// TODO: Validate the params before sending
@@ -234,7 +234,7 @@ func (a *Client) ListProjects(params *ListProjectsParams, authInfo runtime.Clien
 }
 
 /*
-  UpdateProject updates a project optimistic lock error can occur
+UpdateProject updates a project optimistic lock error can occur
 */
 func (a *Client) UpdateProject(params *UpdateProjectParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateProjectOK, error) {
 	// TODO: Validate the params before sending

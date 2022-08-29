@@ -36,7 +36,7 @@ type ClientService interface {
 }
 
 /*
-  GetTenant gets tenant by id
+GetTenant gets tenant by id
 */
 func (a *Client) GetTenant(params *GetTenantParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetTenantOK, error) {
 	// TODO: Validate the params before sending
@@ -74,7 +74,7 @@ func (a *Client) GetTenant(params *GetTenantParams, authInfo runtime.ClientAuthI
 }
 
 /*
-  ListTenants gets all tenants
+ListTenants gets all tenants
 */
 func (a *Client) ListTenants(params *ListTenantsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListTenantsOK, error) {
 	// TODO: Validate the params before sending

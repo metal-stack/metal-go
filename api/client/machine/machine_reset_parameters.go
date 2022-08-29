@@ -54,10 +54,12 @@ func NewMachineResetParamsWithHTTPClient(client *http.Client) *MachineResetParam
 	}
 }
 
-/* MachineResetParams contains all the parameters to send to the API endpoint
-   for the machine reset operation.
+/*
+MachineResetParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the machine reset operation.
+
+	Typically these are written to a http.Request.
 */
 type MachineResetParams struct {
 

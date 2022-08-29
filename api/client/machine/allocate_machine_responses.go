@@ -47,7 +47,8 @@ func NewAllocateMachineOK() *AllocateMachineOK {
 	return &AllocateMachineOK{}
 }
 
-/* AllocateMachineOK describes a response with status code 200, with default header values.
+/*
+	AllocateMachineOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -81,7 +82,8 @@ func NewAllocateMachineDefault(code int) *AllocateMachineDefault {
 	}
 }
 
-/* AllocateMachineDefault describes a response with status code -1, with default header values.
+/*
+	AllocateMachineDefault describes a response with status code -1, with default header values.
 
 Error
 */

@@ -47,7 +47,8 @@ func NewFindPartitionOK() *FindPartitionOK {
 	return &FindPartitionOK{}
 }
 
-/* FindPartitionOK describes a response with status code 200, with default header values.
+/*
+	FindPartitionOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -81,7 +82,8 @@ func NewFindPartitionDefault(code int) *FindPartitionDefault {
 	}
 }
 
-/* FindPartitionDefault describes a response with status code -1, with default header values.
+/*
+	FindPartitionDefault describes a response with status code -1, with default header values.
 
 Error
 */

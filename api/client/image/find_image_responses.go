@@ -47,7 +47,8 @@ func NewFindImageOK() *FindImageOK {
 	return &FindImageOK{}
 }
 
-/* FindImageOK describes a response with status code 200, with default header values.
+/*
+	FindImageOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -81,7 +82,8 @@ func NewFindImageDefault(code int) *FindImageDefault {
 	}
 }
 
-/* FindImageDefault describes a response with status code -1, with default header values.
+/*
+	FindImageDefault describes a response with status code -1, with default header values.
 
 Error
 */

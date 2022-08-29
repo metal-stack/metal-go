@@ -54,10 +54,12 @@ func NewFinalizeAllocationParamsWithHTTPClient(client *http.Client) *FinalizeAll
 	}
 }
 
-/* FinalizeAllocationParams contains all the parameters to send to the API endpoint
-   for the finalize allocation operation.
+/*
+FinalizeAllocationParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the finalize allocation operation.
+
+	Typically these are written to a http.Request.
 */
 type FinalizeAllocationParams struct {
 

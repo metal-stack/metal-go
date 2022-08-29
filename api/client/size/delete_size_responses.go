@@ -47,7 +47,8 @@ func NewDeleteSizeOK() *DeleteSizeOK {
 	return &DeleteSizeOK{}
 }
 
-/* DeleteSizeOK describes a response with status code 200, with default header values.
+/*
+	DeleteSizeOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -81,7 +82,8 @@ func NewDeleteSizeDefault(code int) *DeleteSizeDefault {
 	}
 }
 
-/* DeleteSizeDefault describes a response with status code -1, with default header values.
+/*
+	DeleteSizeDefault describes a response with status code -1, with default header values.
 
 Error
 */

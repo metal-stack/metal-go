@@ -47,7 +47,8 @@ func NewListPartitionsOK() *ListPartitionsOK {
 	return &ListPartitionsOK{}
 }
 
-/* ListPartitionsOK describes a response with status code 200, with default header values.
+/*
+	ListPartitionsOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -79,7 +80,8 @@ func NewListPartitionsDefault(code int) *ListPartitionsDefault {
 	}
 }
 
-/* ListPartitionsDefault describes a response with status code -1, with default header values.
+/*
+	ListPartitionsDefault describes a response with status code -1, with default header values.
 
 Error
 */

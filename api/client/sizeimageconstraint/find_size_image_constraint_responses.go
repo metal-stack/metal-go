@@ -47,7 +47,8 @@ func NewFindSizeImageConstraintOK() *FindSizeImageConstraintOK {
 	return &FindSizeImageConstraintOK{}
 }
 
-/* FindSizeImageConstraintOK describes a response with status code 200, with default header values.
+/*
+	FindSizeImageConstraintOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -81,7 +82,8 @@ func NewFindSizeImageConstraintDefault(code int) *FindSizeImageConstraintDefault
 	}
 }
 
-/* FindSizeImageConstraintDefault describes a response with status code -1, with default header values.
+/*
+	FindSizeImageConstraintDefault describes a response with status code -1, with default header values.
 
 Error
 */

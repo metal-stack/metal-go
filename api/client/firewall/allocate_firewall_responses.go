@@ -47,7 +47,8 @@ func NewAllocateFirewallOK() *AllocateFirewallOK {
 	return &AllocateFirewallOK{}
 }
 
-/* AllocateFirewallOK describes a response with status code 200, with default header values.
+/*
+	AllocateFirewallOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -81,7 +82,8 @@ func NewAllocateFirewallDefault(code int) *AllocateFirewallDefault {
 	}
 }
 
-/* AllocateFirewallDefault describes a response with status code -1, with default header values.
+/*
+	AllocateFirewallDefault describes a response with status code -1, with default header values.
 
 Error
 */

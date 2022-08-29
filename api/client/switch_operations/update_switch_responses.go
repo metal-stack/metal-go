@@ -53,7 +53,8 @@ func NewUpdateSwitchOK() *UpdateSwitchOK {
 	return &UpdateSwitchOK{}
 }
 
-/* UpdateSwitchOK describes a response with status code 200, with default header values.
+/*
+	UpdateSwitchOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -85,7 +86,8 @@ func NewUpdateSwitchConflict() *UpdateSwitchConflict {
 	return &UpdateSwitchConflict{}
 }
 
-/* UpdateSwitchConflict describes a response with status code 409, with default header values.
+/*
+	UpdateSwitchConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -119,7 +121,8 @@ func NewUpdateSwitchDefault(code int) *UpdateSwitchDefault {
 	}
 }
 
-/* UpdateSwitchDefault describes a response with status code -1, with default header values.
+/*
+	UpdateSwitchDefault describes a response with status code -1, with default header values.
 
 Error
 */

@@ -46,7 +46,8 @@ func NewRemoveFirmwareOK() *RemoveFirmwareOK {
 	return &RemoveFirmwareOK{}
 }
 
-/* RemoveFirmwareOK describes a response with status code 200, with default header values.
+/*
+	RemoveFirmwareOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -69,7 +70,8 @@ func NewRemoveFirmwareDefault(code int) *RemoveFirmwareDefault {
 	}
 }
 
-/* RemoveFirmwareDefault describes a response with status code -1, with default header values.
+/*
+	RemoveFirmwareDefault describes a response with status code -1, with default header values.
 
 Error
 */

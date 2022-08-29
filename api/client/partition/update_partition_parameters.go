@@ -54,10 +54,12 @@ func NewUpdatePartitionParamsWithHTTPClient(client *http.Client) *UpdatePartitio
 	}
 }
 
-/* UpdatePartitionParams contains all the parameters to send to the API endpoint
-   for the update partition operation.
+/*
+UpdatePartitionParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the update partition operation.
+
+	Typically these are written to a http.Request.
 */
 type UpdatePartitionParams struct {
 

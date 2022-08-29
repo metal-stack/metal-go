@@ -54,10 +54,12 @@ func NewMachineDiskParamsWithHTTPClient(client *http.Client) *MachineDiskParams 
 	}
 }
 
-/* MachineDiskParams contains all the parameters to send to the API endpoint
-   for the machine disk operation.
+/*
+MachineDiskParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the machine disk operation.
+
+	Typically these are written to a http.Request.
 */
 type MachineDiskParams struct {
 

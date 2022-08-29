@@ -54,10 +54,12 @@ func NewSetMachineStateParamsWithHTTPClient(client *http.Client) *SetMachineStat
 	}
 }
 
-/* SetMachineStateParams contains all the parameters to send to the API endpoint
-   for the set machine state operation.
+/*
+SetMachineStateParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the set machine state operation.
+
+	Typically these are written to a http.Request.
 */
 type SetMachineStateParams struct {
 

@@ -53,7 +53,8 @@ func NewFreeNetworkDeprecatedOK() *FreeNetworkDeprecatedOK {
 	return &FreeNetworkDeprecatedOK{}
 }
 
-/* FreeNetworkDeprecatedOK describes a response with status code 200, with default header values.
+/*
+	FreeNetworkDeprecatedOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -85,7 +86,8 @@ func NewFreeNetworkDeprecatedConflict() *FreeNetworkDeprecatedConflict {
 	return &FreeNetworkDeprecatedConflict{}
 }
 
-/* FreeNetworkDeprecatedConflict describes a response with status code 409, with default header values.
+/*
+	FreeNetworkDeprecatedConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -119,7 +121,8 @@ func NewFreeNetworkDeprecatedDefault(code int) *FreeNetworkDeprecatedDefault {
 	}
 }
 
-/* FreeNetworkDeprecatedDefault describes a response with status code -1, with default header values.
+/*
+	FreeNetworkDeprecatedDefault describes a response with status code -1, with default header values.
 
 Error
 */

@@ -53,7 +53,8 @@ func NewUpdateFilesystemLayoutOK() *UpdateFilesystemLayoutOK {
 	return &UpdateFilesystemLayoutOK{}
 }
 
-/* UpdateFilesystemLayoutOK describes a response with status code 200, with default header values.
+/*
+	UpdateFilesystemLayoutOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -85,7 +86,8 @@ func NewUpdateFilesystemLayoutConflict() *UpdateFilesystemLayoutConflict {
 	return &UpdateFilesystemLayoutConflict{}
 }
 
-/* UpdateFilesystemLayoutConflict describes a response with status code 409, with default header values.
+/*
+	UpdateFilesystemLayoutConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -119,7 +121,8 @@ func NewUpdateFilesystemLayoutDefault(code int) *UpdateFilesystemLayoutDefault {
 	}
 }
 
-/* UpdateFilesystemLayoutDefault describes a response with status code -1, with default header values.
+/*
+	UpdateFilesystemLayoutDefault describes a response with status code -1, with default header values.
 
 Error
 */

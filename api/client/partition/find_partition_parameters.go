@@ -52,10 +52,12 @@ func NewFindPartitionParamsWithHTTPClient(client *http.Client) *FindPartitionPar
 	}
 }
 
-/* FindPartitionParams contains all the parameters to send to the API endpoint
-   for the find partition operation.
+/*
+FindPartitionParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the find partition operation.
+
+	Typically these are written to a http.Request.
 */
 type FindPartitionParams struct {
 

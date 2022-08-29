@@ -54,10 +54,12 @@ func NewChassisIdentifyLEDOnParamsWithHTTPClient(client *http.Client) *ChassisId
 	}
 }
 
-/* ChassisIdentifyLEDOnParams contains all the parameters to send to the API endpoint
-   for the chassis identify l e d on operation.
+/*
+ChassisIdentifyLEDOnParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the chassis identify l e d on operation.
+
+	Typically these are written to a http.Request.
 */
 type ChassisIdentifyLEDOnParams struct {
 

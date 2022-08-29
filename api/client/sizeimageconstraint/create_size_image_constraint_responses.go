@@ -53,7 +53,8 @@ func NewCreateSizeImageConstraintCreated() *CreateSizeImageConstraintCreated {
 	return &CreateSizeImageConstraintCreated{}
 }
 
-/* CreateSizeImageConstraintCreated describes a response with status code 201, with default header values.
+/*
+	CreateSizeImageConstraintCreated describes a response with status code 201, with default header values.
 
 Created
 */
@@ -85,7 +86,8 @@ func NewCreateSizeImageConstraintConflict() *CreateSizeImageConstraintConflict {
 	return &CreateSizeImageConstraintConflict{}
 }
 
-/* CreateSizeImageConstraintConflict describes a response with status code 409, with default header values.
+/*
+	CreateSizeImageConstraintConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -119,7 +121,8 @@ func NewCreateSizeImageConstraintDefault(code int) *CreateSizeImageConstraintDef
 	}
 }
 
-/* CreateSizeImageConstraintDefault describes a response with status code -1, with default header values.
+/*
+	CreateSizeImageConstraintDefault describes a response with status code -1, with default header values.
 
 Error
 */

@@ -53,7 +53,8 @@ func NewReinstallMachineOK() *ReinstallMachineOK {
 	return &ReinstallMachineOK{}
 }
 
-/* ReinstallMachineOK describes a response with status code 200, with default header values.
+/*
+	ReinstallMachineOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -85,7 +86,8 @@ func NewReinstallMachineBadRequest() *ReinstallMachineBadRequest {
 	return &ReinstallMachineBadRequest{}
 }
 
-/* ReinstallMachineBadRequest describes a response with status code 400, with default header values.
+/*
+	ReinstallMachineBadRequest describes a response with status code 400, with default header values.
 
 Bad Request
 */
@@ -119,7 +121,8 @@ func NewReinstallMachineDefault(code int) *ReinstallMachineDefault {
 	}
 }
 
-/* ReinstallMachineDefault describes a response with status code -1, with default header values.
+/*
+	ReinstallMachineDefault describes a response with status code -1, with default header values.
 
 Error
 */

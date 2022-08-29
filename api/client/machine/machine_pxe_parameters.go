@@ -54,10 +54,12 @@ func NewMachinePxeParamsWithHTTPClient(client *http.Client) *MachinePxeParams {
 	}
 }
 
-/* MachinePxeParams contains all the parameters to send to the API endpoint
-   for the machine pxe operation.
+/*
+MachinePxeParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the machine pxe operation.
+
+	Typically these are written to a http.Request.
 */
 type MachinePxeParams struct {
 

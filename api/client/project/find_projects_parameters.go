@@ -54,10 +54,12 @@ func NewFindProjectsParamsWithHTTPClient(client *http.Client) *FindProjectsParam
 	}
 }
 
-/* FindProjectsParams contains all the parameters to send to the API endpoint
-   for the find projects operation.
+/*
+FindProjectsParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the find projects operation.
+
+	Typically these are written to a http.Request.
 */
 type FindProjectsParams struct {
 

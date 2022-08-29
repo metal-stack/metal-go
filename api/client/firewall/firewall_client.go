@@ -40,7 +40,7 @@ type ClientService interface {
 }
 
 /*
-  AllocateFirewall allocates a firewall
+AllocateFirewall allocates a firewall
 */
 func (a *Client) AllocateFirewall(params *AllocateFirewallParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*AllocateFirewallOK, error) {
 	// TODO: Validate the params before sending
@@ -78,7 +78,7 @@ func (a *Client) AllocateFirewall(params *AllocateFirewallParams, authInfo runti
 }
 
 /*
-  FindFirewall gets firewall by id
+FindFirewall gets firewall by id
 */
 func (a *Client) FindFirewall(params *FindFirewallParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FindFirewallOK, error) {
 	// TODO: Validate the params before sending
@@ -116,7 +116,7 @@ func (a *Client) FindFirewall(params *FindFirewallParams, authInfo runtime.Clien
 }
 
 /*
-  FindFirewalls finds firewalls by multiple criteria
+FindFirewalls finds firewalls by multiple criteria
 */
 func (a *Client) FindFirewalls(params *FindFirewallsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FindFirewallsOK, error) {
 	// TODO: Validate the params before sending
@@ -154,7 +154,7 @@ func (a *Client) FindFirewalls(params *FindFirewallsParams, authInfo runtime.Cli
 }
 
 /*
-  ListFirewalls gets all known firewalls
+ListFirewalls gets all known firewalls
 */
 func (a *Client) ListFirewalls(params *ListFirewallsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListFirewallsOK, error) {
 	// TODO: Validate the params before sending

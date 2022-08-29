@@ -47,7 +47,8 @@ func NewGetMachineConsolePasswordOK() *GetMachineConsolePasswordOK {
 	return &GetMachineConsolePasswordOK{}
 }
 
-/* GetMachineConsolePasswordOK describes a response with status code 200, with default header values.
+/*
+	GetMachineConsolePasswordOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -81,7 +82,8 @@ func NewGetMachineConsolePasswordDefault(code int) *GetMachineConsolePasswordDef
 	}
 }
 
-/* GetMachineConsolePasswordDefault describes a response with status code -1, with default header values.
+/*
+	GetMachineConsolePasswordDefault describes a response with status code -1, with default header values.
 
 Error
 */

@@ -34,7 +34,7 @@ type ClientService interface {
 }
 
 /*
-  GetMe extracts the connecting user from auth header
+GetMe extracts the connecting user from auth header
 */
 func (a *Client) GetMe(params *GetMeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetMeOK, error) {
 	// TODO: Validate the params before sending

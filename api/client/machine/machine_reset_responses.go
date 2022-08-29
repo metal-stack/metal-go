@@ -47,7 +47,8 @@ func NewMachineResetOK() *MachineResetOK {
 	return &MachineResetOK{}
 }
 
-/* MachineResetOK describes a response with status code 200, with default header values.
+/*
+	MachineResetOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -81,7 +82,8 @@ func NewMachineResetDefault(code int) *MachineResetDefault {
 	}
 }
 
-/* MachineResetDefault describes a response with status code -1, with default header values.
+/*
+	MachineResetDefault describes a response with status code -1, with default header values.
 
 Error
 */

@@ -47,7 +47,8 @@ func NewPartitionCapacityOK() *PartitionCapacityOK {
 	return &PartitionCapacityOK{}
 }
 
-/* PartitionCapacityOK describes a response with status code 200, with default header values.
+/*
+	PartitionCapacityOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -79,7 +80,8 @@ func NewPartitionCapacityDefault(code int) *PartitionCapacityDefault {
 	}
 }
 
-/* PartitionCapacityDefault describes a response with status code -1, with default header values.
+/*
+	PartitionCapacityDefault describes a response with status code -1, with default header values.
 
 Error
 */
