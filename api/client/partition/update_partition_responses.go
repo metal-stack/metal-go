@@ -54,7 +54,7 @@ func NewUpdatePartitionOK() *UpdatePartitionOK {
 }
 
 /*
-	UpdatePartitionOK describes a response with status code 200, with default header values.
+UpdatePartitionOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -62,9 +62,39 @@ type UpdatePartitionOK struct {
 	Payload *models.V1PartitionResponse
 }
 
+// IsSuccess returns true when this update partition o k response has a 2xx status code
+func (o *UpdatePartitionOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this update partition o k response has a 3xx status code
+func (o *UpdatePartitionOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this update partition o k response has a 4xx status code
+func (o *UpdatePartitionOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this update partition o k response has a 5xx status code
+func (o *UpdatePartitionOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this update partition o k response a status code equal to that given
+func (o *UpdatePartitionOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *UpdatePartitionOK) Error() string {
 	return fmt.Sprintf("[POST /v1/partition][%d] updatePartitionOK  %+v", 200, o.Payload)
 }
+
+func (o *UpdatePartitionOK) String() string {
+	return fmt.Sprintf("[POST /v1/partition][%d] updatePartitionOK  %+v", 200, o.Payload)
+}
+
 func (o *UpdatePartitionOK) GetPayload() *models.V1PartitionResponse {
 	return o.Payload
 }
@@ -87,7 +117,7 @@ func NewUpdatePartitionConflict() *UpdatePartitionConflict {
 }
 
 /*
-	UpdatePartitionConflict describes a response with status code 409, with default header values.
+UpdatePartitionConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -95,9 +125,39 @@ type UpdatePartitionConflict struct {
 	Payload *httperrors.HTTPErrorResponse
 }
 
+// IsSuccess returns true when this update partition conflict response has a 2xx status code
+func (o *UpdatePartitionConflict) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this update partition conflict response has a 3xx status code
+func (o *UpdatePartitionConflict) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this update partition conflict response has a 4xx status code
+func (o *UpdatePartitionConflict) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this update partition conflict response has a 5xx status code
+func (o *UpdatePartitionConflict) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this update partition conflict response a status code equal to that given
+func (o *UpdatePartitionConflict) IsCode(code int) bool {
+	return code == 409
+}
+
 func (o *UpdatePartitionConflict) Error() string {
 	return fmt.Sprintf("[POST /v1/partition][%d] updatePartitionConflict  %+v", 409, o.Payload)
 }
+
+func (o *UpdatePartitionConflict) String() string {
+	return fmt.Sprintf("[POST /v1/partition][%d] updatePartitionConflict  %+v", 409, o.Payload)
+}
+
 func (o *UpdatePartitionConflict) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }
@@ -122,7 +182,7 @@ func NewUpdatePartitionDefault(code int) *UpdatePartitionDefault {
 }
 
 /*
-	UpdatePartitionDefault describes a response with status code -1, with default header values.
+UpdatePartitionDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -137,9 +197,39 @@ func (o *UpdatePartitionDefault) Code() int {
 	return o._statusCode
 }
 
+// IsSuccess returns true when this update partition default response has a 2xx status code
+func (o *UpdatePartitionDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this update partition default response has a 3xx status code
+func (o *UpdatePartitionDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this update partition default response has a 4xx status code
+func (o *UpdatePartitionDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this update partition default response has a 5xx status code
+func (o *UpdatePartitionDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this update partition default response a status code equal to that given
+func (o *UpdatePartitionDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
 func (o *UpdatePartitionDefault) Error() string {
 	return fmt.Sprintf("[POST /v1/partition][%d] updatePartition default  %+v", o._statusCode, o.Payload)
 }
+
+func (o *UpdatePartitionDefault) String() string {
+	return fmt.Sprintf("[POST /v1/partition][%d] updatePartition default  %+v", o._statusCode, o.Payload)
+}
+
 func (o *UpdatePartitionDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

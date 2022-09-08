@@ -48,7 +48,7 @@ func NewDeleteSwitchOK() *DeleteSwitchOK {
 }
 
 /*
-	DeleteSwitchOK describes a response with status code 200, with default header values.
+DeleteSwitchOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -56,9 +56,39 @@ type DeleteSwitchOK struct {
 	Payload *models.V1SwitchResponse
 }
 
+// IsSuccess returns true when this delete switch o k response has a 2xx status code
+func (o *DeleteSwitchOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this delete switch o k response has a 3xx status code
+func (o *DeleteSwitchOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete switch o k response has a 4xx status code
+func (o *DeleteSwitchOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this delete switch o k response has a 5xx status code
+func (o *DeleteSwitchOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete switch o k response a status code equal to that given
+func (o *DeleteSwitchOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *DeleteSwitchOK) Error() string {
 	return fmt.Sprintf("[DELETE /v1/switch/{id}][%d] deleteSwitchOK  %+v", 200, o.Payload)
 }
+
+func (o *DeleteSwitchOK) String() string {
+	return fmt.Sprintf("[DELETE /v1/switch/{id}][%d] deleteSwitchOK  %+v", 200, o.Payload)
+}
+
 func (o *DeleteSwitchOK) GetPayload() *models.V1SwitchResponse {
 	return o.Payload
 }
@@ -83,7 +113,7 @@ func NewDeleteSwitchDefault(code int) *DeleteSwitchDefault {
 }
 
 /*
-	DeleteSwitchDefault describes a response with status code -1, with default header values.
+DeleteSwitchDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -98,9 +128,39 @@ func (o *DeleteSwitchDefault) Code() int {
 	return o._statusCode
 }
 
+// IsSuccess returns true when this delete switch default response has a 2xx status code
+func (o *DeleteSwitchDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this delete switch default response has a 3xx status code
+func (o *DeleteSwitchDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this delete switch default response has a 4xx status code
+func (o *DeleteSwitchDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this delete switch default response has a 5xx status code
+func (o *DeleteSwitchDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this delete switch default response a status code equal to that given
+func (o *DeleteSwitchDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
 func (o *DeleteSwitchDefault) Error() string {
 	return fmt.Sprintf("[DELETE /v1/switch/{id}][%d] deleteSwitch default  %+v", o._statusCode, o.Payload)
 }
+
+func (o *DeleteSwitchDefault) String() string {
+	return fmt.Sprintf("[DELETE /v1/switch/{id}][%d] deleteSwitch default  %+v", o._statusCode, o.Payload)
+}
+
 func (o *DeleteSwitchDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

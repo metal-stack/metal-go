@@ -48,7 +48,7 @@ func NewAbortReinstallMachineOK() *AbortReinstallMachineOK {
 }
 
 /*
-	AbortReinstallMachineOK describes a response with status code 200, with default header values.
+AbortReinstallMachineOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -56,9 +56,39 @@ type AbortReinstallMachineOK struct {
 	Payload *models.V1BootInfo
 }
 
+// IsSuccess returns true when this abort reinstall machine o k response has a 2xx status code
+func (o *AbortReinstallMachineOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this abort reinstall machine o k response has a 3xx status code
+func (o *AbortReinstallMachineOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this abort reinstall machine o k response has a 4xx status code
+func (o *AbortReinstallMachineOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this abort reinstall machine o k response has a 5xx status code
+func (o *AbortReinstallMachineOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this abort reinstall machine o k response a status code equal to that given
+func (o *AbortReinstallMachineOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *AbortReinstallMachineOK) Error() string {
 	return fmt.Sprintf("[POST /v1/machine/{id}/abort-reinstall][%d] abortReinstallMachineOK  %+v", 200, o.Payload)
 }
+
+func (o *AbortReinstallMachineOK) String() string {
+	return fmt.Sprintf("[POST /v1/machine/{id}/abort-reinstall][%d] abortReinstallMachineOK  %+v", 200, o.Payload)
+}
+
 func (o *AbortReinstallMachineOK) GetPayload() *models.V1BootInfo {
 	return o.Payload
 }
@@ -83,7 +113,7 @@ func NewAbortReinstallMachineDefault(code int) *AbortReinstallMachineDefault {
 }
 
 /*
-	AbortReinstallMachineDefault describes a response with status code -1, with default header values.
+AbortReinstallMachineDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -98,9 +128,39 @@ func (o *AbortReinstallMachineDefault) Code() int {
 	return o._statusCode
 }
 
+// IsSuccess returns true when this abort reinstall machine default response has a 2xx status code
+func (o *AbortReinstallMachineDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this abort reinstall machine default response has a 3xx status code
+func (o *AbortReinstallMachineDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this abort reinstall machine default response has a 4xx status code
+func (o *AbortReinstallMachineDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this abort reinstall machine default response has a 5xx status code
+func (o *AbortReinstallMachineDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this abort reinstall machine default response a status code equal to that given
+func (o *AbortReinstallMachineDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
 func (o *AbortReinstallMachineDefault) Error() string {
 	return fmt.Sprintf("[POST /v1/machine/{id}/abort-reinstall][%d] abortReinstallMachine default  %+v", o._statusCode, o.Payload)
 }
+
+func (o *AbortReinstallMachineDefault) String() string {
+	return fmt.Sprintf("[POST /v1/machine/{id}/abort-reinstall][%d] abortReinstallMachine default  %+v", o._statusCode, o.Payload)
+}
+
 func (o *AbortReinstallMachineDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

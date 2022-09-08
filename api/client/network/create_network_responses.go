@@ -54,7 +54,7 @@ func NewCreateNetworkCreated() *CreateNetworkCreated {
 }
 
 /*
-	CreateNetworkCreated describes a response with status code 201, with default header values.
+CreateNetworkCreated describes a response with status code 201, with default header values.
 
 Created
 */
@@ -62,9 +62,39 @@ type CreateNetworkCreated struct {
 	Payload *models.V1NetworkResponse
 }
 
+// IsSuccess returns true when this create network created response has a 2xx status code
+func (o *CreateNetworkCreated) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this create network created response has a 3xx status code
+func (o *CreateNetworkCreated) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this create network created response has a 4xx status code
+func (o *CreateNetworkCreated) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this create network created response has a 5xx status code
+func (o *CreateNetworkCreated) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this create network created response a status code equal to that given
+func (o *CreateNetworkCreated) IsCode(code int) bool {
+	return code == 201
+}
+
 func (o *CreateNetworkCreated) Error() string {
 	return fmt.Sprintf("[PUT /v1/network][%d] createNetworkCreated  %+v", 201, o.Payload)
 }
+
+func (o *CreateNetworkCreated) String() string {
+	return fmt.Sprintf("[PUT /v1/network][%d] createNetworkCreated  %+v", 201, o.Payload)
+}
+
 func (o *CreateNetworkCreated) GetPayload() *models.V1NetworkResponse {
 	return o.Payload
 }
@@ -87,7 +117,7 @@ func NewCreateNetworkConflict() *CreateNetworkConflict {
 }
 
 /*
-	CreateNetworkConflict describes a response with status code 409, with default header values.
+CreateNetworkConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -95,9 +125,39 @@ type CreateNetworkConflict struct {
 	Payload *httperrors.HTTPErrorResponse
 }
 
+// IsSuccess returns true when this create network conflict response has a 2xx status code
+func (o *CreateNetworkConflict) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this create network conflict response has a 3xx status code
+func (o *CreateNetworkConflict) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this create network conflict response has a 4xx status code
+func (o *CreateNetworkConflict) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this create network conflict response has a 5xx status code
+func (o *CreateNetworkConflict) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this create network conflict response a status code equal to that given
+func (o *CreateNetworkConflict) IsCode(code int) bool {
+	return code == 409
+}
+
 func (o *CreateNetworkConflict) Error() string {
 	return fmt.Sprintf("[PUT /v1/network][%d] createNetworkConflict  %+v", 409, o.Payload)
 }
+
+func (o *CreateNetworkConflict) String() string {
+	return fmt.Sprintf("[PUT /v1/network][%d] createNetworkConflict  %+v", 409, o.Payload)
+}
+
 func (o *CreateNetworkConflict) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }
@@ -122,7 +182,7 @@ func NewCreateNetworkDefault(code int) *CreateNetworkDefault {
 }
 
 /*
-	CreateNetworkDefault describes a response with status code -1, with default header values.
+CreateNetworkDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -137,9 +197,39 @@ func (o *CreateNetworkDefault) Code() int {
 	return o._statusCode
 }
 
+// IsSuccess returns true when this create network default response has a 2xx status code
+func (o *CreateNetworkDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this create network default response has a 3xx status code
+func (o *CreateNetworkDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this create network default response has a 4xx status code
+func (o *CreateNetworkDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this create network default response has a 5xx status code
+func (o *CreateNetworkDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this create network default response a status code equal to that given
+func (o *CreateNetworkDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
 func (o *CreateNetworkDefault) Error() string {
 	return fmt.Sprintf("[PUT /v1/network][%d] createNetwork default  %+v", o._statusCode, o.Payload)
 }
+
+func (o *CreateNetworkDefault) String() string {
+	return fmt.Sprintf("[PUT /v1/network][%d] createNetwork default  %+v", o._statusCode, o.Payload)
+}
+
 func (o *CreateNetworkDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

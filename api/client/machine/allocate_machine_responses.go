@@ -48,7 +48,7 @@ func NewAllocateMachineOK() *AllocateMachineOK {
 }
 
 /*
-	AllocateMachineOK describes a response with status code 200, with default header values.
+AllocateMachineOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -56,9 +56,39 @@ type AllocateMachineOK struct {
 	Payload *models.V1MachineResponse
 }
 
+// IsSuccess returns true when this allocate machine o k response has a 2xx status code
+func (o *AllocateMachineOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this allocate machine o k response has a 3xx status code
+func (o *AllocateMachineOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this allocate machine o k response has a 4xx status code
+func (o *AllocateMachineOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this allocate machine o k response has a 5xx status code
+func (o *AllocateMachineOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this allocate machine o k response a status code equal to that given
+func (o *AllocateMachineOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *AllocateMachineOK) Error() string {
 	return fmt.Sprintf("[POST /v1/machine/allocate][%d] allocateMachineOK  %+v", 200, o.Payload)
 }
+
+func (o *AllocateMachineOK) String() string {
+	return fmt.Sprintf("[POST /v1/machine/allocate][%d] allocateMachineOK  %+v", 200, o.Payload)
+}
+
 func (o *AllocateMachineOK) GetPayload() *models.V1MachineResponse {
 	return o.Payload
 }
@@ -83,7 +113,7 @@ func NewAllocateMachineDefault(code int) *AllocateMachineDefault {
 }
 
 /*
-	AllocateMachineDefault describes a response with status code -1, with default header values.
+AllocateMachineDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -98,9 +128,39 @@ func (o *AllocateMachineDefault) Code() int {
 	return o._statusCode
 }
 
+// IsSuccess returns true when this allocate machine default response has a 2xx status code
+func (o *AllocateMachineDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this allocate machine default response has a 3xx status code
+func (o *AllocateMachineDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this allocate machine default response has a 4xx status code
+func (o *AllocateMachineDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this allocate machine default response has a 5xx status code
+func (o *AllocateMachineDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this allocate machine default response a status code equal to that given
+func (o *AllocateMachineDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
 func (o *AllocateMachineDefault) Error() string {
 	return fmt.Sprintf("[POST /v1/machine/allocate][%d] allocateMachine default  %+v", o._statusCode, o.Payload)
 }
+
+func (o *AllocateMachineDefault) String() string {
+	return fmt.Sprintf("[POST /v1/machine/allocate][%d] allocateMachine default  %+v", o._statusCode, o.Payload)
+}
+
 func (o *AllocateMachineDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

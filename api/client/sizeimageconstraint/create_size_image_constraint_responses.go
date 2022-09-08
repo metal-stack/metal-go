@@ -54,7 +54,7 @@ func NewCreateSizeImageConstraintCreated() *CreateSizeImageConstraintCreated {
 }
 
 /*
-	CreateSizeImageConstraintCreated describes a response with status code 201, with default header values.
+CreateSizeImageConstraintCreated describes a response with status code 201, with default header values.
 
 Created
 */
@@ -62,9 +62,39 @@ type CreateSizeImageConstraintCreated struct {
 	Payload *models.V1SizeImageConstraintResponse
 }
 
+// IsSuccess returns true when this create size image constraint created response has a 2xx status code
+func (o *CreateSizeImageConstraintCreated) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this create size image constraint created response has a 3xx status code
+func (o *CreateSizeImageConstraintCreated) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this create size image constraint created response has a 4xx status code
+func (o *CreateSizeImageConstraintCreated) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this create size image constraint created response has a 5xx status code
+func (o *CreateSizeImageConstraintCreated) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this create size image constraint created response a status code equal to that given
+func (o *CreateSizeImageConstraintCreated) IsCode(code int) bool {
+	return code == 201
+}
+
 func (o *CreateSizeImageConstraintCreated) Error() string {
 	return fmt.Sprintf("[PUT /v1/size-image-constraint][%d] createSizeImageConstraintCreated  %+v", 201, o.Payload)
 }
+
+func (o *CreateSizeImageConstraintCreated) String() string {
+	return fmt.Sprintf("[PUT /v1/size-image-constraint][%d] createSizeImageConstraintCreated  %+v", 201, o.Payload)
+}
+
 func (o *CreateSizeImageConstraintCreated) GetPayload() *models.V1SizeImageConstraintResponse {
 	return o.Payload
 }
@@ -87,7 +117,7 @@ func NewCreateSizeImageConstraintConflict() *CreateSizeImageConstraintConflict {
 }
 
 /*
-	CreateSizeImageConstraintConflict describes a response with status code 409, with default header values.
+CreateSizeImageConstraintConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -95,9 +125,39 @@ type CreateSizeImageConstraintConflict struct {
 	Payload *httperrors.HTTPErrorResponse
 }
 
+// IsSuccess returns true when this create size image constraint conflict response has a 2xx status code
+func (o *CreateSizeImageConstraintConflict) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this create size image constraint conflict response has a 3xx status code
+func (o *CreateSizeImageConstraintConflict) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this create size image constraint conflict response has a 4xx status code
+func (o *CreateSizeImageConstraintConflict) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this create size image constraint conflict response has a 5xx status code
+func (o *CreateSizeImageConstraintConflict) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this create size image constraint conflict response a status code equal to that given
+func (o *CreateSizeImageConstraintConflict) IsCode(code int) bool {
+	return code == 409
+}
+
 func (o *CreateSizeImageConstraintConflict) Error() string {
 	return fmt.Sprintf("[PUT /v1/size-image-constraint][%d] createSizeImageConstraintConflict  %+v", 409, o.Payload)
 }
+
+func (o *CreateSizeImageConstraintConflict) String() string {
+	return fmt.Sprintf("[PUT /v1/size-image-constraint][%d] createSizeImageConstraintConflict  %+v", 409, o.Payload)
+}
+
 func (o *CreateSizeImageConstraintConflict) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }
@@ -122,7 +182,7 @@ func NewCreateSizeImageConstraintDefault(code int) *CreateSizeImageConstraintDef
 }
 
 /*
-	CreateSizeImageConstraintDefault describes a response with status code -1, with default header values.
+CreateSizeImageConstraintDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -137,9 +197,39 @@ func (o *CreateSizeImageConstraintDefault) Code() int {
 	return o._statusCode
 }
 
+// IsSuccess returns true when this create size image constraint default response has a 2xx status code
+func (o *CreateSizeImageConstraintDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this create size image constraint default response has a 3xx status code
+func (o *CreateSizeImageConstraintDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this create size image constraint default response has a 4xx status code
+func (o *CreateSizeImageConstraintDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this create size image constraint default response has a 5xx status code
+func (o *CreateSizeImageConstraintDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this create size image constraint default response a status code equal to that given
+func (o *CreateSizeImageConstraintDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
 func (o *CreateSizeImageConstraintDefault) Error() string {
 	return fmt.Sprintf("[PUT /v1/size-image-constraint][%d] createSizeImageConstraint default  %+v", o._statusCode, o.Payload)
 }
+
+func (o *CreateSizeImageConstraintDefault) String() string {
+	return fmt.Sprintf("[PUT /v1/size-image-constraint][%d] createSizeImageConstraint default  %+v", o._statusCode, o.Payload)
+}
+
 func (o *CreateSizeImageConstraintDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

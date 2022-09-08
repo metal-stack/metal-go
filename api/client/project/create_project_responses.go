@@ -54,7 +54,7 @@ func NewCreateProjectCreated() *CreateProjectCreated {
 }
 
 /*
-	CreateProjectCreated describes a response with status code 201, with default header values.
+CreateProjectCreated describes a response with status code 201, with default header values.
 
 Created
 */
@@ -62,9 +62,39 @@ type CreateProjectCreated struct {
 	Payload *models.V1ProjectResponse
 }
 
+// IsSuccess returns true when this create project created response has a 2xx status code
+func (o *CreateProjectCreated) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this create project created response has a 3xx status code
+func (o *CreateProjectCreated) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this create project created response has a 4xx status code
+func (o *CreateProjectCreated) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this create project created response has a 5xx status code
+func (o *CreateProjectCreated) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this create project created response a status code equal to that given
+func (o *CreateProjectCreated) IsCode(code int) bool {
+	return code == 201
+}
+
 func (o *CreateProjectCreated) Error() string {
 	return fmt.Sprintf("[PUT /v1/project][%d] createProjectCreated  %+v", 201, o.Payload)
 }
+
+func (o *CreateProjectCreated) String() string {
+	return fmt.Sprintf("[PUT /v1/project][%d] createProjectCreated  %+v", 201, o.Payload)
+}
+
 func (o *CreateProjectCreated) GetPayload() *models.V1ProjectResponse {
 	return o.Payload
 }
@@ -87,7 +117,7 @@ func NewCreateProjectConflict() *CreateProjectConflict {
 }
 
 /*
-	CreateProjectConflict describes a response with status code 409, with default header values.
+CreateProjectConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -95,9 +125,39 @@ type CreateProjectConflict struct {
 	Payload *httperrors.HTTPErrorResponse
 }
 
+// IsSuccess returns true when this create project conflict response has a 2xx status code
+func (o *CreateProjectConflict) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this create project conflict response has a 3xx status code
+func (o *CreateProjectConflict) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this create project conflict response has a 4xx status code
+func (o *CreateProjectConflict) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this create project conflict response has a 5xx status code
+func (o *CreateProjectConflict) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this create project conflict response a status code equal to that given
+func (o *CreateProjectConflict) IsCode(code int) bool {
+	return code == 409
+}
+
 func (o *CreateProjectConflict) Error() string {
 	return fmt.Sprintf("[PUT /v1/project][%d] createProjectConflict  %+v", 409, o.Payload)
 }
+
+func (o *CreateProjectConflict) String() string {
+	return fmt.Sprintf("[PUT /v1/project][%d] createProjectConflict  %+v", 409, o.Payload)
+}
+
 func (o *CreateProjectConflict) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }
@@ -122,7 +182,7 @@ func NewCreateProjectDefault(code int) *CreateProjectDefault {
 }
 
 /*
-	CreateProjectDefault describes a response with status code -1, with default header values.
+CreateProjectDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -137,9 +197,39 @@ func (o *CreateProjectDefault) Code() int {
 	return o._statusCode
 }
 
+// IsSuccess returns true when this create project default response has a 2xx status code
+func (o *CreateProjectDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this create project default response has a 3xx status code
+func (o *CreateProjectDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this create project default response has a 4xx status code
+func (o *CreateProjectDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this create project default response has a 5xx status code
+func (o *CreateProjectDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this create project default response a status code equal to that given
+func (o *CreateProjectDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
 func (o *CreateProjectDefault) Error() string {
 	return fmt.Sprintf("[PUT /v1/project][%d] createProject default  %+v", o._statusCode, o.Payload)
 }
+
+func (o *CreateProjectDefault) String() string {
+	return fmt.Sprintf("[PUT /v1/project][%d] createProject default  %+v", o._statusCode, o.Payload)
+}
+
 func (o *CreateProjectDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

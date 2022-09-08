@@ -54,7 +54,7 @@ func NewReinstallMachineOK() *ReinstallMachineOK {
 }
 
 /*
-	ReinstallMachineOK describes a response with status code 200, with default header values.
+ReinstallMachineOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -62,9 +62,39 @@ type ReinstallMachineOK struct {
 	Payload *models.V1MachineResponse
 }
 
+// IsSuccess returns true when this reinstall machine o k response has a 2xx status code
+func (o *ReinstallMachineOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this reinstall machine o k response has a 3xx status code
+func (o *ReinstallMachineOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this reinstall machine o k response has a 4xx status code
+func (o *ReinstallMachineOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this reinstall machine o k response has a 5xx status code
+func (o *ReinstallMachineOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this reinstall machine o k response a status code equal to that given
+func (o *ReinstallMachineOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *ReinstallMachineOK) Error() string {
 	return fmt.Sprintf("[POST /v1/machine/{id}/reinstall][%d] reinstallMachineOK  %+v", 200, o.Payload)
 }
+
+func (o *ReinstallMachineOK) String() string {
+	return fmt.Sprintf("[POST /v1/machine/{id}/reinstall][%d] reinstallMachineOK  %+v", 200, o.Payload)
+}
+
 func (o *ReinstallMachineOK) GetPayload() *models.V1MachineResponse {
 	return o.Payload
 }
@@ -87,7 +117,7 @@ func NewReinstallMachineBadRequest() *ReinstallMachineBadRequest {
 }
 
 /*
-	ReinstallMachineBadRequest describes a response with status code 400, with default header values.
+ReinstallMachineBadRequest describes a response with status code 400, with default header values.
 
 Bad Request
 */
@@ -95,9 +125,39 @@ type ReinstallMachineBadRequest struct {
 	Payload *httperrors.HTTPErrorResponse
 }
 
+// IsSuccess returns true when this reinstall machine bad request response has a 2xx status code
+func (o *ReinstallMachineBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this reinstall machine bad request response has a 3xx status code
+func (o *ReinstallMachineBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this reinstall machine bad request response has a 4xx status code
+func (o *ReinstallMachineBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this reinstall machine bad request response has a 5xx status code
+func (o *ReinstallMachineBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this reinstall machine bad request response a status code equal to that given
+func (o *ReinstallMachineBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
 func (o *ReinstallMachineBadRequest) Error() string {
 	return fmt.Sprintf("[POST /v1/machine/{id}/reinstall][%d] reinstallMachineBadRequest  %+v", 400, o.Payload)
 }
+
+func (o *ReinstallMachineBadRequest) String() string {
+	return fmt.Sprintf("[POST /v1/machine/{id}/reinstall][%d] reinstallMachineBadRequest  %+v", 400, o.Payload)
+}
+
 func (o *ReinstallMachineBadRequest) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }
@@ -122,7 +182,7 @@ func NewReinstallMachineDefault(code int) *ReinstallMachineDefault {
 }
 
 /*
-	ReinstallMachineDefault describes a response with status code -1, with default header values.
+ReinstallMachineDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -137,9 +197,39 @@ func (o *ReinstallMachineDefault) Code() int {
 	return o._statusCode
 }
 
+// IsSuccess returns true when this reinstall machine default response has a 2xx status code
+func (o *ReinstallMachineDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this reinstall machine default response has a 3xx status code
+func (o *ReinstallMachineDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this reinstall machine default response has a 4xx status code
+func (o *ReinstallMachineDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this reinstall machine default response has a 5xx status code
+func (o *ReinstallMachineDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this reinstall machine default response a status code equal to that given
+func (o *ReinstallMachineDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
 func (o *ReinstallMachineDefault) Error() string {
 	return fmt.Sprintf("[POST /v1/machine/{id}/reinstall][%d] reinstallMachine default  %+v", o._statusCode, o.Payload)
 }
+
+func (o *ReinstallMachineDefault) String() string {
+	return fmt.Sprintf("[POST /v1/machine/{id}/reinstall][%d] reinstallMachine default  %+v", o._statusCode, o.Payload)
+}
+
 func (o *ReinstallMachineDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

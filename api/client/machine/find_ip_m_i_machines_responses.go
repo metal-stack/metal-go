@@ -48,7 +48,7 @@ func NewFindIPMIMachinesOK() *FindIPMIMachinesOK {
 }
 
 /*
-	FindIPMIMachinesOK describes a response with status code 200, with default header values.
+FindIPMIMachinesOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -56,9 +56,39 @@ type FindIPMIMachinesOK struct {
 	Payload []*models.V1MachineIPMIResponse
 }
 
+// IsSuccess returns true when this find Ip m i machines o k response has a 2xx status code
+func (o *FindIPMIMachinesOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this find Ip m i machines o k response has a 3xx status code
+func (o *FindIPMIMachinesOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this find Ip m i machines o k response has a 4xx status code
+func (o *FindIPMIMachinesOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this find Ip m i machines o k response has a 5xx status code
+func (o *FindIPMIMachinesOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this find Ip m i machines o k response a status code equal to that given
+func (o *FindIPMIMachinesOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *FindIPMIMachinesOK) Error() string {
 	return fmt.Sprintf("[POST /v1/machine/ipmi/find][%d] findIpMIMachinesOK  %+v", 200, o.Payload)
 }
+
+func (o *FindIPMIMachinesOK) String() string {
+	return fmt.Sprintf("[POST /v1/machine/ipmi/find][%d] findIpMIMachinesOK  %+v", 200, o.Payload)
+}
+
 func (o *FindIPMIMachinesOK) GetPayload() []*models.V1MachineIPMIResponse {
 	return o.Payload
 }
@@ -81,7 +111,7 @@ func NewFindIPMIMachinesDefault(code int) *FindIPMIMachinesDefault {
 }
 
 /*
-	FindIPMIMachinesDefault describes a response with status code -1, with default header values.
+FindIPMIMachinesDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -96,9 +126,39 @@ func (o *FindIPMIMachinesDefault) Code() int {
 	return o._statusCode
 }
 
+// IsSuccess returns true when this find IP m i machines default response has a 2xx status code
+func (o *FindIPMIMachinesDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this find IP m i machines default response has a 3xx status code
+func (o *FindIPMIMachinesDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this find IP m i machines default response has a 4xx status code
+func (o *FindIPMIMachinesDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this find IP m i machines default response has a 5xx status code
+func (o *FindIPMIMachinesDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this find IP m i machines default response a status code equal to that given
+func (o *FindIPMIMachinesDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
 func (o *FindIPMIMachinesDefault) Error() string {
 	return fmt.Sprintf("[POST /v1/machine/ipmi/find][%d] findIPMIMachines default  %+v", o._statusCode, o.Payload)
 }
+
+func (o *FindIPMIMachinesDefault) String() string {
+	return fmt.Sprintf("[POST /v1/machine/ipmi/find][%d] findIPMIMachines default  %+v", o._statusCode, o.Payload)
+}
+
 func (o *FindIPMIMachinesDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

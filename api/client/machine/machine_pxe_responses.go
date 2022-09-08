@@ -48,7 +48,7 @@ func NewMachinePxeOK() *MachinePxeOK {
 }
 
 /*
-	MachinePxeOK describes a response with status code 200, with default header values.
+MachinePxeOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -56,9 +56,39 @@ type MachinePxeOK struct {
 	Payload *models.V1MachineResponse
 }
 
+// IsSuccess returns true when this machine pxe o k response has a 2xx status code
+func (o *MachinePxeOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this machine pxe o k response has a 3xx status code
+func (o *MachinePxeOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this machine pxe o k response has a 4xx status code
+func (o *MachinePxeOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this machine pxe o k response has a 5xx status code
+func (o *MachinePxeOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this machine pxe o k response a status code equal to that given
+func (o *MachinePxeOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *MachinePxeOK) Error() string {
 	return fmt.Sprintf("[POST /v1/machine/{id}/power/pxe][%d] machinePxeOK  %+v", 200, o.Payload)
 }
+
+func (o *MachinePxeOK) String() string {
+	return fmt.Sprintf("[POST /v1/machine/{id}/power/pxe][%d] machinePxeOK  %+v", 200, o.Payload)
+}
+
 func (o *MachinePxeOK) GetPayload() *models.V1MachineResponse {
 	return o.Payload
 }
@@ -83,7 +113,7 @@ func NewMachinePxeDefault(code int) *MachinePxeDefault {
 }
 
 /*
-	MachinePxeDefault describes a response with status code -1, with default header values.
+MachinePxeDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -98,9 +128,39 @@ func (o *MachinePxeDefault) Code() int {
 	return o._statusCode
 }
 
+// IsSuccess returns true when this machine pxe default response has a 2xx status code
+func (o *MachinePxeDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this machine pxe default response has a 3xx status code
+func (o *MachinePxeDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this machine pxe default response has a 4xx status code
+func (o *MachinePxeDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this machine pxe default response has a 5xx status code
+func (o *MachinePxeDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this machine pxe default response a status code equal to that given
+func (o *MachinePxeDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
 func (o *MachinePxeDefault) Error() string {
 	return fmt.Sprintf("[POST /v1/machine/{id}/power/pxe][%d] machinePxe default  %+v", o._statusCode, o.Payload)
 }
+
+func (o *MachinePxeDefault) String() string {
+	return fmt.Sprintf("[POST /v1/machine/{id}/power/pxe][%d] machinePxe default  %+v", o._statusCode, o.Payload)
+}
+
 func (o *MachinePxeDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

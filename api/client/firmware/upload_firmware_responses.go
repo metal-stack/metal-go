@@ -47,14 +47,43 @@ func NewUploadFirmwareOK() *UploadFirmwareOK {
 }
 
 /*
-	UploadFirmwareOK describes a response with status code 200, with default header values.
+UploadFirmwareOK describes a response with status code 200, with default header values.
 
 OK
 */
 type UploadFirmwareOK struct {
 }
 
+// IsSuccess returns true when this upload firmware o k response has a 2xx status code
+func (o *UploadFirmwareOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this upload firmware o k response has a 3xx status code
+func (o *UploadFirmwareOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this upload firmware o k response has a 4xx status code
+func (o *UploadFirmwareOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this upload firmware o k response has a 5xx status code
+func (o *UploadFirmwareOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this upload firmware o k response a status code equal to that given
+func (o *UploadFirmwareOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *UploadFirmwareOK) Error() string {
+	return fmt.Sprintf("[PUT /v1/firmware/{kind}/{vendor}/{board}/{revision}][%d] uploadFirmwareOK ", 200)
+}
+
+func (o *UploadFirmwareOK) String() string {
 	return fmt.Sprintf("[PUT /v1/firmware/{kind}/{vendor}/{board}/{revision}][%d] uploadFirmwareOK ", 200)
 }
 
@@ -71,7 +100,7 @@ func NewUploadFirmwareDefault(code int) *UploadFirmwareDefault {
 }
 
 /*
-	UploadFirmwareDefault describes a response with status code -1, with default header values.
+UploadFirmwareDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -86,9 +115,39 @@ func (o *UploadFirmwareDefault) Code() int {
 	return o._statusCode
 }
 
+// IsSuccess returns true when this upload firmware default response has a 2xx status code
+func (o *UploadFirmwareDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this upload firmware default response has a 3xx status code
+func (o *UploadFirmwareDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this upload firmware default response has a 4xx status code
+func (o *UploadFirmwareDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this upload firmware default response has a 5xx status code
+func (o *UploadFirmwareDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this upload firmware default response a status code equal to that given
+func (o *UploadFirmwareDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
 func (o *UploadFirmwareDefault) Error() string {
 	return fmt.Sprintf("[PUT /v1/firmware/{kind}/{vendor}/{board}/{revision}][%d] uploadFirmware default  %+v", o._statusCode, o.Payload)
 }
+
+func (o *UploadFirmwareDefault) String() string {
+	return fmt.Sprintf("[PUT /v1/firmware/{kind}/{vendor}/{board}/{revision}][%d] uploadFirmware default  %+v", o._statusCode, o.Payload)
+}
+
 func (o *UploadFirmwareDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

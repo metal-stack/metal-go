@@ -54,7 +54,7 @@ func NewCreateImageCreated() *CreateImageCreated {
 }
 
 /*
-	CreateImageCreated describes a response with status code 201, with default header values.
+CreateImageCreated describes a response with status code 201, with default header values.
 
 Created
 */
@@ -62,9 +62,39 @@ type CreateImageCreated struct {
 	Payload *models.V1ImageResponse
 }
 
+// IsSuccess returns true when this create image created response has a 2xx status code
+func (o *CreateImageCreated) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this create image created response has a 3xx status code
+func (o *CreateImageCreated) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this create image created response has a 4xx status code
+func (o *CreateImageCreated) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this create image created response has a 5xx status code
+func (o *CreateImageCreated) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this create image created response a status code equal to that given
+func (o *CreateImageCreated) IsCode(code int) bool {
+	return code == 201
+}
+
 func (o *CreateImageCreated) Error() string {
 	return fmt.Sprintf("[PUT /v1/image][%d] createImageCreated  %+v", 201, o.Payload)
 }
+
+func (o *CreateImageCreated) String() string {
+	return fmt.Sprintf("[PUT /v1/image][%d] createImageCreated  %+v", 201, o.Payload)
+}
+
 func (o *CreateImageCreated) GetPayload() *models.V1ImageResponse {
 	return o.Payload
 }
@@ -87,7 +117,7 @@ func NewCreateImageConflict() *CreateImageConflict {
 }
 
 /*
-	CreateImageConflict describes a response with status code 409, with default header values.
+CreateImageConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -95,9 +125,39 @@ type CreateImageConflict struct {
 	Payload *httperrors.HTTPErrorResponse
 }
 
+// IsSuccess returns true when this create image conflict response has a 2xx status code
+func (o *CreateImageConflict) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this create image conflict response has a 3xx status code
+func (o *CreateImageConflict) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this create image conflict response has a 4xx status code
+func (o *CreateImageConflict) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this create image conflict response has a 5xx status code
+func (o *CreateImageConflict) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this create image conflict response a status code equal to that given
+func (o *CreateImageConflict) IsCode(code int) bool {
+	return code == 409
+}
+
 func (o *CreateImageConflict) Error() string {
 	return fmt.Sprintf("[PUT /v1/image][%d] createImageConflict  %+v", 409, o.Payload)
 }
+
+func (o *CreateImageConflict) String() string {
+	return fmt.Sprintf("[PUT /v1/image][%d] createImageConflict  %+v", 409, o.Payload)
+}
+
 func (o *CreateImageConflict) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }
@@ -122,7 +182,7 @@ func NewCreateImageDefault(code int) *CreateImageDefault {
 }
 
 /*
-	CreateImageDefault describes a response with status code -1, with default header values.
+CreateImageDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -137,9 +197,39 @@ func (o *CreateImageDefault) Code() int {
 	return o._statusCode
 }
 
+// IsSuccess returns true when this create image default response has a 2xx status code
+func (o *CreateImageDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this create image default response has a 3xx status code
+func (o *CreateImageDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this create image default response has a 4xx status code
+func (o *CreateImageDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this create image default response has a 5xx status code
+func (o *CreateImageDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this create image default response a status code equal to that given
+func (o *CreateImageDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
 func (o *CreateImageDefault) Error() string {
 	return fmt.Sprintf("[PUT /v1/image][%d] createImage default  %+v", o._statusCode, o.Payload)
 }
+
+func (o *CreateImageDefault) String() string {
+	return fmt.Sprintf("[PUT /v1/image][%d] createImage default  %+v", o._statusCode, o.Payload)
+}
+
 func (o *CreateImageDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

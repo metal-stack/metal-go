@@ -48,7 +48,7 @@ func NewFreeMachineOK() *FreeMachineOK {
 }
 
 /*
-	FreeMachineOK describes a response with status code 200, with default header values.
+FreeMachineOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -56,9 +56,39 @@ type FreeMachineOK struct {
 	Payload *models.V1MachineResponse
 }
 
+// IsSuccess returns true when this free machine o k response has a 2xx status code
+func (o *FreeMachineOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this free machine o k response has a 3xx status code
+func (o *FreeMachineOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this free machine o k response has a 4xx status code
+func (o *FreeMachineOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this free machine o k response has a 5xx status code
+func (o *FreeMachineOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this free machine o k response a status code equal to that given
+func (o *FreeMachineOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *FreeMachineOK) Error() string {
 	return fmt.Sprintf("[DELETE /v1/machine/{id}/free][%d] freeMachineOK  %+v", 200, o.Payload)
 }
+
+func (o *FreeMachineOK) String() string {
+	return fmt.Sprintf("[DELETE /v1/machine/{id}/free][%d] freeMachineOK  %+v", 200, o.Payload)
+}
+
 func (o *FreeMachineOK) GetPayload() *models.V1MachineResponse {
 	return o.Payload
 }
@@ -83,7 +113,7 @@ func NewFreeMachineDefault(code int) *FreeMachineDefault {
 }
 
 /*
-	FreeMachineDefault describes a response with status code -1, with default header values.
+FreeMachineDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -98,9 +128,39 @@ func (o *FreeMachineDefault) Code() int {
 	return o._statusCode
 }
 
+// IsSuccess returns true when this free machine default response has a 2xx status code
+func (o *FreeMachineDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this free machine default response has a 3xx status code
+func (o *FreeMachineDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this free machine default response has a 4xx status code
+func (o *FreeMachineDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this free machine default response has a 5xx status code
+func (o *FreeMachineDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this free machine default response a status code equal to that given
+func (o *FreeMachineDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
 func (o *FreeMachineDefault) Error() string {
 	return fmt.Sprintf("[DELETE /v1/machine/{id}/free][%d] freeMachine default  %+v", o._statusCode, o.Payload)
 }
+
+func (o *FreeMachineDefault) String() string {
+	return fmt.Sprintf("[DELETE /v1/machine/{id}/free][%d] freeMachine default  %+v", o._statusCode, o.Payload)
+}
+
 func (o *FreeMachineDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

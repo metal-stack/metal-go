@@ -48,7 +48,7 @@ func NewFindFirewallOK() *FindFirewallOK {
 }
 
 /*
-	FindFirewallOK describes a response with status code 200, with default header values.
+FindFirewallOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -56,9 +56,39 @@ type FindFirewallOK struct {
 	Payload *models.V1FirewallResponse
 }
 
+// IsSuccess returns true when this find firewall o k response has a 2xx status code
+func (o *FindFirewallOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this find firewall o k response has a 3xx status code
+func (o *FindFirewallOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this find firewall o k response has a 4xx status code
+func (o *FindFirewallOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this find firewall o k response has a 5xx status code
+func (o *FindFirewallOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this find firewall o k response a status code equal to that given
+func (o *FindFirewallOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *FindFirewallOK) Error() string {
 	return fmt.Sprintf("[GET /v1/firewall/{id}][%d] findFirewallOK  %+v", 200, o.Payload)
 }
+
+func (o *FindFirewallOK) String() string {
+	return fmt.Sprintf("[GET /v1/firewall/{id}][%d] findFirewallOK  %+v", 200, o.Payload)
+}
+
 func (o *FindFirewallOK) GetPayload() *models.V1FirewallResponse {
 	return o.Payload
 }
@@ -83,7 +113,7 @@ func NewFindFirewallDefault(code int) *FindFirewallDefault {
 }
 
 /*
-	FindFirewallDefault describes a response with status code -1, with default header values.
+FindFirewallDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -98,9 +128,39 @@ func (o *FindFirewallDefault) Code() int {
 	return o._statusCode
 }
 
+// IsSuccess returns true when this find firewall default response has a 2xx status code
+func (o *FindFirewallDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this find firewall default response has a 3xx status code
+func (o *FindFirewallDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this find firewall default response has a 4xx status code
+func (o *FindFirewallDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this find firewall default response has a 5xx status code
+func (o *FindFirewallDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this find firewall default response a status code equal to that given
+func (o *FindFirewallDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
 func (o *FindFirewallDefault) Error() string {
 	return fmt.Sprintf("[GET /v1/firewall/{id}][%d] findFirewall default  %+v", o._statusCode, o.Payload)
 }
+
+func (o *FindFirewallDefault) String() string {
+	return fmt.Sprintf("[GET /v1/firewall/{id}][%d] findFirewall default  %+v", o._statusCode, o.Payload)
+}
+
 func (o *FindFirewallDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

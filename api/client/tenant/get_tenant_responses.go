@@ -48,7 +48,7 @@ func NewGetTenantOK() *GetTenantOK {
 }
 
 /*
-	GetTenantOK describes a response with status code 200, with default header values.
+GetTenantOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -56,9 +56,39 @@ type GetTenantOK struct {
 	Payload *models.V1TenantResponse
 }
 
+// IsSuccess returns true when this get tenant o k response has a 2xx status code
+func (o *GetTenantOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this get tenant o k response has a 3xx status code
+func (o *GetTenantOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get tenant o k response has a 4xx status code
+func (o *GetTenantOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this get tenant o k response has a 5xx status code
+func (o *GetTenantOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get tenant o k response a status code equal to that given
+func (o *GetTenantOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *GetTenantOK) Error() string {
 	return fmt.Sprintf("[GET /v1/tenant/{id}][%d] getTenantOK  %+v", 200, o.Payload)
 }
+
+func (o *GetTenantOK) String() string {
+	return fmt.Sprintf("[GET /v1/tenant/{id}][%d] getTenantOK  %+v", 200, o.Payload)
+}
+
 func (o *GetTenantOK) GetPayload() *models.V1TenantResponse {
 	return o.Payload
 }
@@ -83,7 +113,7 @@ func NewGetTenantDefault(code int) *GetTenantDefault {
 }
 
 /*
-	GetTenantDefault describes a response with status code -1, with default header values.
+GetTenantDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -98,9 +128,39 @@ func (o *GetTenantDefault) Code() int {
 	return o._statusCode
 }
 
+// IsSuccess returns true when this get tenant default response has a 2xx status code
+func (o *GetTenantDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this get tenant default response has a 3xx status code
+func (o *GetTenantDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this get tenant default response has a 4xx status code
+func (o *GetTenantDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this get tenant default response has a 5xx status code
+func (o *GetTenantDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this get tenant default response a status code equal to that given
+func (o *GetTenantDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
 func (o *GetTenantDefault) Error() string {
 	return fmt.Sprintf("[GET /v1/tenant/{id}][%d] getTenant default  %+v", o._statusCode, o.Payload)
 }
+
+func (o *GetTenantDefault) String() string {
+	return fmt.Sprintf("[GET /v1/tenant/{id}][%d] getTenant default  %+v", o._statusCode, o.Payload)
+}
+
 func (o *GetTenantDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

@@ -48,7 +48,7 @@ func NewMachineOffOK() *MachineOffOK {
 }
 
 /*
-	MachineOffOK describes a response with status code 200, with default header values.
+MachineOffOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -56,9 +56,39 @@ type MachineOffOK struct {
 	Payload *models.V1MachineResponse
 }
 
+// IsSuccess returns true when this machine off o k response has a 2xx status code
+func (o *MachineOffOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this machine off o k response has a 3xx status code
+func (o *MachineOffOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this machine off o k response has a 4xx status code
+func (o *MachineOffOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this machine off o k response has a 5xx status code
+func (o *MachineOffOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this machine off o k response a status code equal to that given
+func (o *MachineOffOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *MachineOffOK) Error() string {
 	return fmt.Sprintf("[POST /v1/machine/{id}/power/off][%d] machineOffOK  %+v", 200, o.Payload)
 }
+
+func (o *MachineOffOK) String() string {
+	return fmt.Sprintf("[POST /v1/machine/{id}/power/off][%d] machineOffOK  %+v", 200, o.Payload)
+}
+
 func (o *MachineOffOK) GetPayload() *models.V1MachineResponse {
 	return o.Payload
 }
@@ -83,7 +113,7 @@ func NewMachineOffDefault(code int) *MachineOffDefault {
 }
 
 /*
-	MachineOffDefault describes a response with status code -1, with default header values.
+MachineOffDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -98,9 +128,39 @@ func (o *MachineOffDefault) Code() int {
 	return o._statusCode
 }
 
+// IsSuccess returns true when this machine off default response has a 2xx status code
+func (o *MachineOffDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this machine off default response has a 3xx status code
+func (o *MachineOffDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this machine off default response has a 4xx status code
+func (o *MachineOffDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this machine off default response has a 5xx status code
+func (o *MachineOffDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this machine off default response a status code equal to that given
+func (o *MachineOffDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
 func (o *MachineOffDefault) Error() string {
 	return fmt.Sprintf("[POST /v1/machine/{id}/power/off][%d] machineOff default  %+v", o._statusCode, o.Payload)
 }
+
+func (o *MachineOffDefault) String() string {
+	return fmt.Sprintf("[POST /v1/machine/{id}/power/off][%d] machineOff default  %+v", o._statusCode, o.Payload)
+}
+
 func (o *MachineOffDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

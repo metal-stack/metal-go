@@ -48,7 +48,7 @@ func NewFindProjectsOK() *FindProjectsOK {
 }
 
 /*
-	FindProjectsOK describes a response with status code 200, with default header values.
+FindProjectsOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -56,9 +56,39 @@ type FindProjectsOK struct {
 	Payload []*models.V1ProjectResponse
 }
 
+// IsSuccess returns true when this find projects o k response has a 2xx status code
+func (o *FindProjectsOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this find projects o k response has a 3xx status code
+func (o *FindProjectsOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this find projects o k response has a 4xx status code
+func (o *FindProjectsOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this find projects o k response has a 5xx status code
+func (o *FindProjectsOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this find projects o k response a status code equal to that given
+func (o *FindProjectsOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *FindProjectsOK) Error() string {
 	return fmt.Sprintf("[POST /v1/project/find][%d] findProjectsOK  %+v", 200, o.Payload)
 }
+
+func (o *FindProjectsOK) String() string {
+	return fmt.Sprintf("[POST /v1/project/find][%d] findProjectsOK  %+v", 200, o.Payload)
+}
+
 func (o *FindProjectsOK) GetPayload() []*models.V1ProjectResponse {
 	return o.Payload
 }
@@ -81,7 +111,7 @@ func NewFindProjectsDefault(code int) *FindProjectsDefault {
 }
 
 /*
-	FindProjectsDefault describes a response with status code -1, with default header values.
+FindProjectsDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -96,9 +126,39 @@ func (o *FindProjectsDefault) Code() int {
 	return o._statusCode
 }
 
+// IsSuccess returns true when this find projects default response has a 2xx status code
+func (o *FindProjectsDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this find projects default response has a 3xx status code
+func (o *FindProjectsDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this find projects default response has a 4xx status code
+func (o *FindProjectsDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this find projects default response has a 5xx status code
+func (o *FindProjectsDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this find projects default response a status code equal to that given
+func (o *FindProjectsDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
 func (o *FindProjectsDefault) Error() string {
 	return fmt.Sprintf("[POST /v1/project/find][%d] findProjects default  %+v", o._statusCode, o.Payload)
 }
+
+func (o *FindProjectsDefault) String() string {
+	return fmt.Sprintf("[POST /v1/project/find][%d] findProjects default  %+v", o._statusCode, o.Payload)
+}
+
 func (o *FindProjectsDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

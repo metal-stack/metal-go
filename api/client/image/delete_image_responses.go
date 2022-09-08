@@ -48,7 +48,7 @@ func NewDeleteImageOK() *DeleteImageOK {
 }
 
 /*
-	DeleteImageOK describes a response with status code 200, with default header values.
+DeleteImageOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -56,9 +56,39 @@ type DeleteImageOK struct {
 	Payload *models.V1ImageResponse
 }
 
+// IsSuccess returns true when this delete image o k response has a 2xx status code
+func (o *DeleteImageOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this delete image o k response has a 3xx status code
+func (o *DeleteImageOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete image o k response has a 4xx status code
+func (o *DeleteImageOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this delete image o k response has a 5xx status code
+func (o *DeleteImageOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete image o k response a status code equal to that given
+func (o *DeleteImageOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *DeleteImageOK) Error() string {
 	return fmt.Sprintf("[DELETE /v1/image/{id}][%d] deleteImageOK  %+v", 200, o.Payload)
 }
+
+func (o *DeleteImageOK) String() string {
+	return fmt.Sprintf("[DELETE /v1/image/{id}][%d] deleteImageOK  %+v", 200, o.Payload)
+}
+
 func (o *DeleteImageOK) GetPayload() *models.V1ImageResponse {
 	return o.Payload
 }
@@ -83,7 +113,7 @@ func NewDeleteImageDefault(code int) *DeleteImageDefault {
 }
 
 /*
-	DeleteImageDefault describes a response with status code -1, with default header values.
+DeleteImageDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -98,9 +128,39 @@ func (o *DeleteImageDefault) Code() int {
 	return o._statusCode
 }
 
+// IsSuccess returns true when this delete image default response has a 2xx status code
+func (o *DeleteImageDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this delete image default response has a 3xx status code
+func (o *DeleteImageDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this delete image default response has a 4xx status code
+func (o *DeleteImageDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this delete image default response has a 5xx status code
+func (o *DeleteImageDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this delete image default response a status code equal to that given
+func (o *DeleteImageDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
 func (o *DeleteImageDefault) Error() string {
 	return fmt.Sprintf("[DELETE /v1/image/{id}][%d] deleteImage default  %+v", o._statusCode, o.Payload)
 }
+
+func (o *DeleteImageDefault) String() string {
+	return fmt.Sprintf("[DELETE /v1/image/{id}][%d] deleteImage default  %+v", o._statusCode, o.Payload)
+}
+
 func (o *DeleteImageDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

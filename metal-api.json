@@ -4503,7 +4503,7 @@
       "url": "https://www.gnu.org/licenses/agpl-3.0.de.html"
     },
     "title": "metal-api",
-    "version": "v0.19.2"
+    "version": "v0.19.3"
   },
   "paths": {
     "/v1/filesystemlayout": {

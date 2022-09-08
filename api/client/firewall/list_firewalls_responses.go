@@ -48,7 +48,7 @@ func NewListFirewallsOK() *ListFirewallsOK {
 }
 
 /*
-	ListFirewallsOK describes a response with status code 200, with default header values.
+ListFirewallsOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -56,9 +56,39 @@ type ListFirewallsOK struct {
 	Payload []*models.V1FirewallResponse
 }
 
+// IsSuccess returns true when this list firewalls o k response has a 2xx status code
+func (o *ListFirewallsOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this list firewalls o k response has a 3xx status code
+func (o *ListFirewallsOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this list firewalls o k response has a 4xx status code
+func (o *ListFirewallsOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this list firewalls o k response has a 5xx status code
+func (o *ListFirewallsOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this list firewalls o k response a status code equal to that given
+func (o *ListFirewallsOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *ListFirewallsOK) Error() string {
 	return fmt.Sprintf("[GET /v1/firewall][%d] listFirewallsOK  %+v", 200, o.Payload)
 }
+
+func (o *ListFirewallsOK) String() string {
+	return fmt.Sprintf("[GET /v1/firewall][%d] listFirewallsOK  %+v", 200, o.Payload)
+}
+
 func (o *ListFirewallsOK) GetPayload() []*models.V1FirewallResponse {
 	return o.Payload
 }
@@ -81,7 +111,7 @@ func NewListFirewallsDefault(code int) *ListFirewallsDefault {
 }
 
 /*
-	ListFirewallsDefault describes a response with status code -1, with default header values.
+ListFirewallsDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -96,9 +126,39 @@ func (o *ListFirewallsDefault) Code() int {
 	return o._statusCode
 }
 
+// IsSuccess returns true when this list firewalls default response has a 2xx status code
+func (o *ListFirewallsDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this list firewalls default response has a 3xx status code
+func (o *ListFirewallsDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this list firewalls default response has a 4xx status code
+func (o *ListFirewallsDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this list firewalls default response has a 5xx status code
+func (o *ListFirewallsDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this list firewalls default response a status code equal to that given
+func (o *ListFirewallsDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
 func (o *ListFirewallsDefault) Error() string {
 	return fmt.Sprintf("[GET /v1/firewall][%d] listFirewalls default  %+v", o._statusCode, o.Payload)
 }
+
+func (o *ListFirewallsDefault) String() string {
+	return fmt.Sprintf("[GET /v1/firewall][%d] listFirewalls default  %+v", o._statusCode, o.Payload)
+}
+
 func (o *ListFirewallsDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

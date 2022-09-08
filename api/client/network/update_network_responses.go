@@ -54,7 +54,7 @@ func NewUpdateNetworkOK() *UpdateNetworkOK {
 }
 
 /*
-	UpdateNetworkOK describes a response with status code 200, with default header values.
+UpdateNetworkOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -62,9 +62,39 @@ type UpdateNetworkOK struct {
 	Payload *models.V1NetworkResponse
 }
 
+// IsSuccess returns true when this update network o k response has a 2xx status code
+func (o *UpdateNetworkOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this update network o k response has a 3xx status code
+func (o *UpdateNetworkOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this update network o k response has a 4xx status code
+func (o *UpdateNetworkOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this update network o k response has a 5xx status code
+func (o *UpdateNetworkOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this update network o k response a status code equal to that given
+func (o *UpdateNetworkOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *UpdateNetworkOK) Error() string {
 	return fmt.Sprintf("[POST /v1/network][%d] updateNetworkOK  %+v", 200, o.Payload)
 }
+
+func (o *UpdateNetworkOK) String() string {
+	return fmt.Sprintf("[POST /v1/network][%d] updateNetworkOK  %+v", 200, o.Payload)
+}
+
 func (o *UpdateNetworkOK) GetPayload() *models.V1NetworkResponse {
 	return o.Payload
 }
@@ -87,7 +117,7 @@ func NewUpdateNetworkConflict() *UpdateNetworkConflict {
 }
 
 /*
-	UpdateNetworkConflict describes a response with status code 409, with default header values.
+UpdateNetworkConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -95,9 +125,39 @@ type UpdateNetworkConflict struct {
 	Payload *httperrors.HTTPErrorResponse
 }
 
+// IsSuccess returns true when this update network conflict response has a 2xx status code
+func (o *UpdateNetworkConflict) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this update network conflict response has a 3xx status code
+func (o *UpdateNetworkConflict) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this update network conflict response has a 4xx status code
+func (o *UpdateNetworkConflict) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this update network conflict response has a 5xx status code
+func (o *UpdateNetworkConflict) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this update network conflict response a status code equal to that given
+func (o *UpdateNetworkConflict) IsCode(code int) bool {
+	return code == 409
+}
+
 func (o *UpdateNetworkConflict) Error() string {
 	return fmt.Sprintf("[POST /v1/network][%d] updateNetworkConflict  %+v", 409, o.Payload)
 }
+
+func (o *UpdateNetworkConflict) String() string {
+	return fmt.Sprintf("[POST /v1/network][%d] updateNetworkConflict  %+v", 409, o.Payload)
+}
+
 func (o *UpdateNetworkConflict) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }
@@ -122,7 +182,7 @@ func NewUpdateNetworkDefault(code int) *UpdateNetworkDefault {
 }
 
 /*
-	UpdateNetworkDefault describes a response with status code -1, with default header values.
+UpdateNetworkDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -137,9 +197,39 @@ func (o *UpdateNetworkDefault) Code() int {
 	return o._statusCode
 }
 
+// IsSuccess returns true when this update network default response has a 2xx status code
+func (o *UpdateNetworkDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this update network default response has a 3xx status code
+func (o *UpdateNetworkDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this update network default response has a 4xx status code
+func (o *UpdateNetworkDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this update network default response has a 5xx status code
+func (o *UpdateNetworkDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this update network default response a status code equal to that given
+func (o *UpdateNetworkDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
 func (o *UpdateNetworkDefault) Error() string {
 	return fmt.Sprintf("[POST /v1/network][%d] updateNetwork default  %+v", o._statusCode, o.Payload)
 }
+
+func (o *UpdateNetworkDefault) String() string {
+	return fmt.Sprintf("[POST /v1/network][%d] updateNetwork default  %+v", o._statusCode, o.Payload)
+}
+
 func (o *UpdateNetworkDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

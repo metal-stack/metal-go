@@ -48,7 +48,7 @@ func NewListMachinesOK() *ListMachinesOK {
 }
 
 /*
-	ListMachinesOK describes a response with status code 200, with default header values.
+ListMachinesOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -56,9 +56,39 @@ type ListMachinesOK struct {
 	Payload []*models.V1MachineResponse
 }
 
+// IsSuccess returns true when this list machines o k response has a 2xx status code
+func (o *ListMachinesOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this list machines o k response has a 3xx status code
+func (o *ListMachinesOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this list machines o k response has a 4xx status code
+func (o *ListMachinesOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this list machines o k response has a 5xx status code
+func (o *ListMachinesOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this list machines o k response a status code equal to that given
+func (o *ListMachinesOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *ListMachinesOK) Error() string {
 	return fmt.Sprintf("[GET /v1/machine][%d] listMachinesOK  %+v", 200, o.Payload)
 }
+
+func (o *ListMachinesOK) String() string {
+	return fmt.Sprintf("[GET /v1/machine][%d] listMachinesOK  %+v", 200, o.Payload)
+}
+
 func (o *ListMachinesOK) GetPayload() []*models.V1MachineResponse {
 	return o.Payload
 }
@@ -81,7 +111,7 @@ func NewListMachinesDefault(code int) *ListMachinesDefault {
 }
 
 /*
-	ListMachinesDefault describes a response with status code -1, with default header values.
+ListMachinesDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -96,9 +126,39 @@ func (o *ListMachinesDefault) Code() int {
 	return o._statusCode
 }
 
+// IsSuccess returns true when this list machines default response has a 2xx status code
+func (o *ListMachinesDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this list machines default response has a 3xx status code
+func (o *ListMachinesDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this list machines default response has a 4xx status code
+func (o *ListMachinesDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this list machines default response has a 5xx status code
+func (o *ListMachinesDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this list machines default response a status code equal to that given
+func (o *ListMachinesDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
 func (o *ListMachinesDefault) Error() string {
 	return fmt.Sprintf("[GET /v1/machine][%d] listMachines default  %+v", o._statusCode, o.Payload)
 }
+
+func (o *ListMachinesDefault) String() string {
+	return fmt.Sprintf("[GET /v1/machine][%d] listMachines default  %+v", o._statusCode, o.Payload)
+}
+
 func (o *ListMachinesDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

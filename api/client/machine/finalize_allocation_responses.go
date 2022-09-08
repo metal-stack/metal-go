@@ -48,7 +48,7 @@ func NewFinalizeAllocationOK() *FinalizeAllocationOK {
 }
 
 /*
-	FinalizeAllocationOK describes a response with status code 200, with default header values.
+FinalizeAllocationOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -56,9 +56,39 @@ type FinalizeAllocationOK struct {
 	Payload *models.V1MachineResponse
 }
 
+// IsSuccess returns true when this finalize allocation o k response has a 2xx status code
+func (o *FinalizeAllocationOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this finalize allocation o k response has a 3xx status code
+func (o *FinalizeAllocationOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this finalize allocation o k response has a 4xx status code
+func (o *FinalizeAllocationOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this finalize allocation o k response has a 5xx status code
+func (o *FinalizeAllocationOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this finalize allocation o k response a status code equal to that given
+func (o *FinalizeAllocationOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *FinalizeAllocationOK) Error() string {
 	return fmt.Sprintf("[POST /v1/machine/{id}/finalize-allocation][%d] finalizeAllocationOK  %+v", 200, o.Payload)
 }
+
+func (o *FinalizeAllocationOK) String() string {
+	return fmt.Sprintf("[POST /v1/machine/{id}/finalize-allocation][%d] finalizeAllocationOK  %+v", 200, o.Payload)
+}
+
 func (o *FinalizeAllocationOK) GetPayload() *models.V1MachineResponse {
 	return o.Payload
 }
@@ -83,7 +113,7 @@ func NewFinalizeAllocationDefault(code int) *FinalizeAllocationDefault {
 }
 
 /*
-	FinalizeAllocationDefault describes a response with status code -1, with default header values.
+FinalizeAllocationDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -98,9 +128,39 @@ func (o *FinalizeAllocationDefault) Code() int {
 	return o._statusCode
 }
 
+// IsSuccess returns true when this finalize allocation default response has a 2xx status code
+func (o *FinalizeAllocationDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this finalize allocation default response has a 3xx status code
+func (o *FinalizeAllocationDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this finalize allocation default response has a 4xx status code
+func (o *FinalizeAllocationDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this finalize allocation default response has a 5xx status code
+func (o *FinalizeAllocationDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this finalize allocation default response a status code equal to that given
+func (o *FinalizeAllocationDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
 func (o *FinalizeAllocationDefault) Error() string {
 	return fmt.Sprintf("[POST /v1/machine/{id}/finalize-allocation][%d] finalizeAllocation default  %+v", o._statusCode, o.Payload)
 }
+
+func (o *FinalizeAllocationDefault) String() string {
+	return fmt.Sprintf("[POST /v1/machine/{id}/finalize-allocation][%d] finalizeAllocation default  %+v", o._statusCode, o.Payload)
+}
+
 func (o *FinalizeAllocationDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

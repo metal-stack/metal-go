@@ -48,7 +48,7 @@ func NewTrySizeImageConstraintOK() *TrySizeImageConstraintOK {
 }
 
 /*
-	TrySizeImageConstraintOK describes a response with status code 200, with default header values.
+TrySizeImageConstraintOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -56,9 +56,39 @@ type TrySizeImageConstraintOK struct {
 	Payload models.V1EmptyBody
 }
 
+// IsSuccess returns true when this try size image constraint o k response has a 2xx status code
+func (o *TrySizeImageConstraintOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this try size image constraint o k response has a 3xx status code
+func (o *TrySizeImageConstraintOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this try size image constraint o k response has a 4xx status code
+func (o *TrySizeImageConstraintOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this try size image constraint o k response has a 5xx status code
+func (o *TrySizeImageConstraintOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this try size image constraint o k response a status code equal to that given
+func (o *TrySizeImageConstraintOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *TrySizeImageConstraintOK) Error() string {
 	return fmt.Sprintf("[POST /v1/size-image-constraint/try][%d] trySizeImageConstraintOK  %+v", 200, o.Payload)
 }
+
+func (o *TrySizeImageConstraintOK) String() string {
+	return fmt.Sprintf("[POST /v1/size-image-constraint/try][%d] trySizeImageConstraintOK  %+v", 200, o.Payload)
+}
+
 func (o *TrySizeImageConstraintOK) GetPayload() models.V1EmptyBody {
 	return o.Payload
 }
@@ -81,7 +111,7 @@ func NewTrySizeImageConstraintDefault(code int) *TrySizeImageConstraintDefault {
 }
 
 /*
-	TrySizeImageConstraintDefault describes a response with status code -1, with default header values.
+TrySizeImageConstraintDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -96,9 +126,39 @@ func (o *TrySizeImageConstraintDefault) Code() int {
 	return o._statusCode
 }
 
+// IsSuccess returns true when this try size image constraint default response has a 2xx status code
+func (o *TrySizeImageConstraintDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this try size image constraint default response has a 3xx status code
+func (o *TrySizeImageConstraintDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this try size image constraint default response has a 4xx status code
+func (o *TrySizeImageConstraintDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this try size image constraint default response has a 5xx status code
+func (o *TrySizeImageConstraintDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this try size image constraint default response a status code equal to that given
+func (o *TrySizeImageConstraintDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
 func (o *TrySizeImageConstraintDefault) Error() string {
 	return fmt.Sprintf("[POST /v1/size-image-constraint/try][%d] trySizeImageConstraint default  %+v", o._statusCode, o.Payload)
 }
+
+func (o *TrySizeImageConstraintDefault) String() string {
+	return fmt.Sprintf("[POST /v1/size-image-constraint/try][%d] trySizeImageConstraint default  %+v", o._statusCode, o.Payload)
+}
+
 func (o *TrySizeImageConstraintDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

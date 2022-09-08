@@ -48,7 +48,7 @@ func NewGetProvisioningEventContainerOK() *GetProvisioningEventContainerOK {
 }
 
 /*
-	GetProvisioningEventContainerOK describes a response with status code 200, with default header values.
+GetProvisioningEventContainerOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -56,9 +56,39 @@ type GetProvisioningEventContainerOK struct {
 	Payload *models.V1MachineRecentProvisioningEvents
 }
 
+// IsSuccess returns true when this get provisioning event container o k response has a 2xx status code
+func (o *GetProvisioningEventContainerOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this get provisioning event container o k response has a 3xx status code
+func (o *GetProvisioningEventContainerOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get provisioning event container o k response has a 4xx status code
+func (o *GetProvisioningEventContainerOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this get provisioning event container o k response has a 5xx status code
+func (o *GetProvisioningEventContainerOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get provisioning event container o k response a status code equal to that given
+func (o *GetProvisioningEventContainerOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *GetProvisioningEventContainerOK) Error() string {
 	return fmt.Sprintf("[GET /v1/machine/{id}/event][%d] getProvisioningEventContainerOK  %+v", 200, o.Payload)
 }
+
+func (o *GetProvisioningEventContainerOK) String() string {
+	return fmt.Sprintf("[GET /v1/machine/{id}/event][%d] getProvisioningEventContainerOK  %+v", 200, o.Payload)
+}
+
 func (o *GetProvisioningEventContainerOK) GetPayload() *models.V1MachineRecentProvisioningEvents {
 	return o.Payload
 }
@@ -83,7 +113,7 @@ func NewGetProvisioningEventContainerDefault(code int) *GetProvisioningEventCont
 }
 
 /*
-	GetProvisioningEventContainerDefault describes a response with status code -1, with default header values.
+GetProvisioningEventContainerDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -98,9 +128,39 @@ func (o *GetProvisioningEventContainerDefault) Code() int {
 	return o._statusCode
 }
 
+// IsSuccess returns true when this get provisioning event container default response has a 2xx status code
+func (o *GetProvisioningEventContainerDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this get provisioning event container default response has a 3xx status code
+func (o *GetProvisioningEventContainerDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this get provisioning event container default response has a 4xx status code
+func (o *GetProvisioningEventContainerDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this get provisioning event container default response has a 5xx status code
+func (o *GetProvisioningEventContainerDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this get provisioning event container default response a status code equal to that given
+func (o *GetProvisioningEventContainerDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
 func (o *GetProvisioningEventContainerDefault) Error() string {
 	return fmt.Sprintf("[GET /v1/machine/{id}/event][%d] getProvisioningEventContainer default  %+v", o._statusCode, o.Payload)
 }
+
+func (o *GetProvisioningEventContainerDefault) String() string {
+	return fmt.Sprintf("[GET /v1/machine/{id}/event][%d] getProvisioningEventContainer default  %+v", o._statusCode, o.Payload)
+}
+
 func (o *GetProvisioningEventContainerDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

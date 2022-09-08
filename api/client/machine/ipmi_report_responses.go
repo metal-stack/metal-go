@@ -48,7 +48,7 @@ func NewIpmiReportOK() *IpmiReportOK {
 }
 
 /*
-	IpmiReportOK describes a response with status code 200, with default header values.
+IpmiReportOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -56,9 +56,39 @@ type IpmiReportOK struct {
 	Payload *models.V1MachineIpmiReportResponse
 }
 
+// IsSuccess returns true when this ipmi report o k response has a 2xx status code
+func (o *IpmiReportOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this ipmi report o k response has a 3xx status code
+func (o *IpmiReportOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this ipmi report o k response has a 4xx status code
+func (o *IpmiReportOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this ipmi report o k response has a 5xx status code
+func (o *IpmiReportOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this ipmi report o k response a status code equal to that given
+func (o *IpmiReportOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *IpmiReportOK) Error() string {
 	return fmt.Sprintf("[POST /v1/machine/ipmi][%d] ipmiReportOK  %+v", 200, o.Payload)
 }
+
+func (o *IpmiReportOK) String() string {
+	return fmt.Sprintf("[POST /v1/machine/ipmi][%d] ipmiReportOK  %+v", 200, o.Payload)
+}
+
 func (o *IpmiReportOK) GetPayload() *models.V1MachineIpmiReportResponse {
 	return o.Payload
 }
@@ -83,7 +113,7 @@ func NewIpmiReportDefault(code int) *IpmiReportDefault {
 }
 
 /*
-	IpmiReportDefault describes a response with status code -1, with default header values.
+IpmiReportDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -98,9 +128,39 @@ func (o *IpmiReportDefault) Code() int {
 	return o._statusCode
 }
 
+// IsSuccess returns true when this ipmi report default response has a 2xx status code
+func (o *IpmiReportDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this ipmi report default response has a 3xx status code
+func (o *IpmiReportDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this ipmi report default response has a 4xx status code
+func (o *IpmiReportDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this ipmi report default response has a 5xx status code
+func (o *IpmiReportDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this ipmi report default response a status code equal to that given
+func (o *IpmiReportDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
 func (o *IpmiReportDefault) Error() string {
 	return fmt.Sprintf("[POST /v1/machine/ipmi][%d] ipmiReport default  %+v", o._statusCode, o.Payload)
 }
+
+func (o *IpmiReportDefault) String() string {
+	return fmt.Sprintf("[POST /v1/machine/ipmi][%d] ipmiReport default  %+v", o._statusCode, o.Payload)
+}
+
 func (o *IpmiReportDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }
