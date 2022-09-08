@@ -4473,14 +4473,30 @@
         "Tenant"
       ]
     },
+    "v1.VPNRequest": {
+      "properties": {
+        "expiration": {
+          "description": "expiration time",
+          "format": "int64",
+          "type": "integer"
+        },
+        "pid": {
+          "description": "project ID",
+          "type": "string"
+        }
+      },
+      "required": [
+        "pid"
+      ]
+    },
     "v1.VPNResponse": {
       "properties": {
         "address": {
-          "description": "Address of VPN's control plane",
+          "description": "address of VPN's control plane",
           "type": "string"
         },
         "auth_key": {
-          "description": "Auth key to connect to the VPN",
+          "description": "auth key to connect to the VPN",
           "type": "string"
         }
       },
@@ -8794,19 +8810,20 @@
         ]
       }
     },
-    "/v1/vpn/authkey/{pid}": {
-      "get": {
+    "/v1/vpn/authkey": {
+      "post": {
         "consumes": [
           "application/json"
         ],
         "operationId": "getVPNAuthKey",
         "parameters": [
           {
-            "description": "identifier of the Project",
-            "in": "path",
-            "name": "pid",
+            "in": "body",
+            "name": "body",
             "required": true,
-            "type": "string"
+            "schema": {
+              "$ref": "#/definitions/v1.VPNRequest"
+            }
           }
         ],
         "produces": [
@@ -8826,7 +8843,7 @@
             }
           }
         },
-        "summary": "create auth key to connect to Project's VPN",
+        "summary": "create auth key to connect to project's VPN",
         "tags": [
           "vpn"
         ]

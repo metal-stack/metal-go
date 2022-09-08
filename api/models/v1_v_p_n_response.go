@@ -19,13 +19,13 @@ import (
 // swagger:model v1.VPNResponse
 type V1VPNResponse struct {
 
-	// Address of VPN's control plane
+	// address of VPN's control plane
 	// Required: true
-	Address *string `json:"address"`
+	Address *string `json:"address" yaml:"address"`
 
-	// Auth key to connect to the VPN
+	// auth key to connect to the VPN
 	// Required: true
-	AuthKey *string `json:"auth_key"`
+	AuthKey *string `json:"auth_key" yaml:"auth_key"`
 }
 
 // Validate validates this v1 v p n response

@@ -21,11 +21,11 @@ type V1MachineVPN struct {
 
 	// address of VPN control plane
 	// Required: true
-	Address *string `json:"address"`
+	Address *string `json:"address" yaml:"address"`
 
 	// auth key used to connect to VPN
 	// Required: true
-	AuthKey *string `json:"auth_key"`
+	AuthKey *string `json:"auth_key" yaml:"auth_key"`
 }
 
 // Validate validates this v1 machine v p n

@@ -14,6 +14,8 @@ import (
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/metal-stack/metal-go/api/models"
 )
 
 // NewGetVPNAuthKeyParams creates a new GetVPNAuthKeyParams object,
@@ -52,18 +54,17 @@ func NewGetVPNAuthKeyParamsWithHTTPClient(client *http.Client) *GetVPNAuthKeyPar
 	}
 }
 
-/* GetVPNAuthKeyParams contains all the parameters to send to the API endpoint
-   for the get v p n auth key operation.
+/*
+GetVPNAuthKeyParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the get v p n auth key operation.
+
+	Typically these are written to a http.Request.
 */
 type GetVPNAuthKeyParams struct {
 
-	/* Pid.
-
-	   identifier of the Project
-	*/
-	Pid string
+	// Body.
+	Body *models.V1VPNRequest
 
 	timeout    time.Duration
 	Context    context.Context
@@ -118,15 +119,15 @@ func (o *GetVPNAuthKeyParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
-// WithPid adds the pid to the get v p n auth key params
-func (o *GetVPNAuthKeyParams) WithPid(pid string) *GetVPNAuthKeyParams {
-	o.SetPid(pid)
+// WithBody adds the body to the get v p n auth key params
+func (o *GetVPNAuthKeyParams) WithBody(body *models.V1VPNRequest) *GetVPNAuthKeyParams {
+	o.SetBody(body)
 	return o
 }
 
-// SetPid adds the pid to the get v p n auth key params
-func (o *GetVPNAuthKeyParams) SetPid(pid string) {
-	o.Pid = pid
+// SetBody adds the body to the get v p n auth key params
+func (o *GetVPNAuthKeyParams) SetBody(body *models.V1VPNRequest) {
+	o.Body = body
 }
 
 // WriteToRequest writes these params to a swagger request
@@ -136,10 +137,10 @@ func (o *GetVPNAuthKeyParams) WriteToRequest(r runtime.ClientRequest, reg strfmt
 		return err
 	}
 	var res []error
-
-	// path param pid
-	if err := r.SetPathParam("pid", o.Pid); err != nil {
-		return err
+	if o.Body != nil {
+		if err := r.SetBodyParam(o.Body); err != nil {
+			return err
+		}
 	}
 
 	if len(res) > 0 {

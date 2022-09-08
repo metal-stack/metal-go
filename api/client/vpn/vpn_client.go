@@ -34,7 +34,7 @@ type ClientService interface {
 }
 
 /*
-  GetVPNAuthKey creates auth key to connect to project s v p n
+GetVPNAuthKey creates auth key to connect to project s v p n
 */
 func (a *Client) GetVPNAuthKey(params *GetVPNAuthKeyParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetVPNAuthKeyOK, error) {
 	// TODO: Validate the params before sending
@@ -43,8 +43,8 @@ func (a *Client) GetVPNAuthKey(params *GetVPNAuthKeyParams, authInfo runtime.Cli
 	}
 	op := &runtime.ClientOperation{
 		ID:                 "getVPNAuthKey",
-		Method:             "GET",
-		PathPattern:        "/v1/vpn/authkey/{pid}",
+		Method:             "POST",
+		PathPattern:        "/v1/vpn/authkey",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http"},
