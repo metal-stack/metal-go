@@ -47,14 +47,43 @@ func NewRemoveFirmwareOK() *RemoveFirmwareOK {
 }
 
 /*
-	RemoveFirmwareOK describes a response with status code 200, with default header values.
+RemoveFirmwareOK describes a response with status code 200, with default header values.
 
 OK
 */
 type RemoveFirmwareOK struct {
 }
 
+// IsSuccess returns true when this remove firmware o k response has a 2xx status code
+func (o *RemoveFirmwareOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this remove firmware o k response has a 3xx status code
+func (o *RemoveFirmwareOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this remove firmware o k response has a 4xx status code
+func (o *RemoveFirmwareOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this remove firmware o k response has a 5xx status code
+func (o *RemoveFirmwareOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this remove firmware o k response a status code equal to that given
+func (o *RemoveFirmwareOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *RemoveFirmwareOK) Error() string {
+	return fmt.Sprintf("[DELETE /v1/firmware/{kind}/{vendor}/{board}/{revision}][%d] removeFirmwareOK ", 200)
+}
+
+func (o *RemoveFirmwareOK) String() string {
 	return fmt.Sprintf("[DELETE /v1/firmware/{kind}/{vendor}/{board}/{revision}][%d] removeFirmwareOK ", 200)
 }
 
@@ -71,7 +100,7 @@ func NewRemoveFirmwareDefault(code int) *RemoveFirmwareDefault {
 }
 
 /*
-	RemoveFirmwareDefault describes a response with status code -1, with default header values.
+RemoveFirmwareDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -86,9 +115,39 @@ func (o *RemoveFirmwareDefault) Code() int {
 	return o._statusCode
 }
 
+// IsSuccess returns true when this remove firmware default response has a 2xx status code
+func (o *RemoveFirmwareDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this remove firmware default response has a 3xx status code
+func (o *RemoveFirmwareDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this remove firmware default response has a 4xx status code
+func (o *RemoveFirmwareDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this remove firmware default response has a 5xx status code
+func (o *RemoveFirmwareDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this remove firmware default response a status code equal to that given
+func (o *RemoveFirmwareDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
 func (o *RemoveFirmwareDefault) Error() string {
 	return fmt.Sprintf("[DELETE /v1/firmware/{kind}/{vendor}/{board}/{revision}][%d] removeFirmware default  %+v", o._statusCode, o.Payload)
 }
+
+func (o *RemoveFirmwareDefault) String() string {
+	return fmt.Sprintf("[DELETE /v1/firmware/{kind}/{vendor}/{board}/{revision}][%d] removeFirmware default  %+v", o._statusCode, o.Payload)
+}
+
 func (o *RemoveFirmwareDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

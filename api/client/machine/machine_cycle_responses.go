@@ -48,7 +48,7 @@ func NewMachineCycleOK() *MachineCycleOK {
 }
 
 /*
-	MachineCycleOK describes a response with status code 200, with default header values.
+MachineCycleOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -56,9 +56,39 @@ type MachineCycleOK struct {
 	Payload *models.V1MachineResponse
 }
 
+// IsSuccess returns true when this machine cycle o k response has a 2xx status code
+func (o *MachineCycleOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this machine cycle o k response has a 3xx status code
+func (o *MachineCycleOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this machine cycle o k response has a 4xx status code
+func (o *MachineCycleOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this machine cycle o k response has a 5xx status code
+func (o *MachineCycleOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this machine cycle o k response a status code equal to that given
+func (o *MachineCycleOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *MachineCycleOK) Error() string {
 	return fmt.Sprintf("[POST /v1/machine/{id}/power/cycle][%d] machineCycleOK  %+v", 200, o.Payload)
 }
+
+func (o *MachineCycleOK) String() string {
+	return fmt.Sprintf("[POST /v1/machine/{id}/power/cycle][%d] machineCycleOK  %+v", 200, o.Payload)
+}
+
 func (o *MachineCycleOK) GetPayload() *models.V1MachineResponse {
 	return o.Payload
 }
@@ -83,7 +113,7 @@ func NewMachineCycleDefault(code int) *MachineCycleDefault {
 }
 
 /*
-	MachineCycleDefault describes a response with status code -1, with default header values.
+MachineCycleDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -98,9 +128,39 @@ func (o *MachineCycleDefault) Code() int {
 	return o._statusCode
 }
 
+// IsSuccess returns true when this machine cycle default response has a 2xx status code
+func (o *MachineCycleDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this machine cycle default response has a 3xx status code
+func (o *MachineCycleDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this machine cycle default response has a 4xx status code
+func (o *MachineCycleDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this machine cycle default response has a 5xx status code
+func (o *MachineCycleDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this machine cycle default response a status code equal to that given
+func (o *MachineCycleDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
 func (o *MachineCycleDefault) Error() string {
 	return fmt.Sprintf("[POST /v1/machine/{id}/power/cycle][%d] machineCycle default  %+v", o._statusCode, o.Payload)
 }
+
+func (o *MachineCycleDefault) String() string {
+	return fmt.Sprintf("[POST /v1/machine/{id}/power/cycle][%d] machineCycle default  %+v", o._statusCode, o.Payload)
+}
+
 func (o *MachineCycleDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

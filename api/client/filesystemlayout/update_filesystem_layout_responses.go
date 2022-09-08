@@ -54,7 +54,7 @@ func NewUpdateFilesystemLayoutOK() *UpdateFilesystemLayoutOK {
 }
 
 /*
-	UpdateFilesystemLayoutOK describes a response with status code 200, with default header values.
+UpdateFilesystemLayoutOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -62,9 +62,39 @@ type UpdateFilesystemLayoutOK struct {
 	Payload *models.V1FilesystemLayoutResponse
 }
 
+// IsSuccess returns true when this update filesystem layout o k response has a 2xx status code
+func (o *UpdateFilesystemLayoutOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this update filesystem layout o k response has a 3xx status code
+func (o *UpdateFilesystemLayoutOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this update filesystem layout o k response has a 4xx status code
+func (o *UpdateFilesystemLayoutOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this update filesystem layout o k response has a 5xx status code
+func (o *UpdateFilesystemLayoutOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this update filesystem layout o k response a status code equal to that given
+func (o *UpdateFilesystemLayoutOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *UpdateFilesystemLayoutOK) Error() string {
 	return fmt.Sprintf("[POST /v1/filesystemlayout][%d] updateFilesystemLayoutOK  %+v", 200, o.Payload)
 }
+
+func (o *UpdateFilesystemLayoutOK) String() string {
+	return fmt.Sprintf("[POST /v1/filesystemlayout][%d] updateFilesystemLayoutOK  %+v", 200, o.Payload)
+}
+
 func (o *UpdateFilesystemLayoutOK) GetPayload() *models.V1FilesystemLayoutResponse {
 	return o.Payload
 }
@@ -87,7 +117,7 @@ func NewUpdateFilesystemLayoutConflict() *UpdateFilesystemLayoutConflict {
 }
 
 /*
-	UpdateFilesystemLayoutConflict describes a response with status code 409, with default header values.
+UpdateFilesystemLayoutConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -95,9 +125,39 @@ type UpdateFilesystemLayoutConflict struct {
 	Payload *httperrors.HTTPErrorResponse
 }
 
+// IsSuccess returns true when this update filesystem layout conflict response has a 2xx status code
+func (o *UpdateFilesystemLayoutConflict) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this update filesystem layout conflict response has a 3xx status code
+func (o *UpdateFilesystemLayoutConflict) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this update filesystem layout conflict response has a 4xx status code
+func (o *UpdateFilesystemLayoutConflict) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this update filesystem layout conflict response has a 5xx status code
+func (o *UpdateFilesystemLayoutConflict) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this update filesystem layout conflict response a status code equal to that given
+func (o *UpdateFilesystemLayoutConflict) IsCode(code int) bool {
+	return code == 409
+}
+
 func (o *UpdateFilesystemLayoutConflict) Error() string {
 	return fmt.Sprintf("[POST /v1/filesystemlayout][%d] updateFilesystemLayoutConflict  %+v", 409, o.Payload)
 }
+
+func (o *UpdateFilesystemLayoutConflict) String() string {
+	return fmt.Sprintf("[POST /v1/filesystemlayout][%d] updateFilesystemLayoutConflict  %+v", 409, o.Payload)
+}
+
 func (o *UpdateFilesystemLayoutConflict) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }
@@ -122,7 +182,7 @@ func NewUpdateFilesystemLayoutDefault(code int) *UpdateFilesystemLayoutDefault {
 }
 
 /*
-	UpdateFilesystemLayoutDefault describes a response with status code -1, with default header values.
+UpdateFilesystemLayoutDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -137,9 +197,39 @@ func (o *UpdateFilesystemLayoutDefault) Code() int {
 	return o._statusCode
 }
 
+// IsSuccess returns true when this update filesystem layout default response has a 2xx status code
+func (o *UpdateFilesystemLayoutDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this update filesystem layout default response has a 3xx status code
+func (o *UpdateFilesystemLayoutDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this update filesystem layout default response has a 4xx status code
+func (o *UpdateFilesystemLayoutDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this update filesystem layout default response has a 5xx status code
+func (o *UpdateFilesystemLayoutDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this update filesystem layout default response a status code equal to that given
+func (o *UpdateFilesystemLayoutDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
 func (o *UpdateFilesystemLayoutDefault) Error() string {
 	return fmt.Sprintf("[POST /v1/filesystemlayout][%d] updateFilesystemLayout default  %+v", o._statusCode, o.Payload)
 }
+
+func (o *UpdateFilesystemLayoutDefault) String() string {
+	return fmt.Sprintf("[POST /v1/filesystemlayout][%d] updateFilesystemLayout default  %+v", o._statusCode, o.Payload)
+}
+
 func (o *UpdateFilesystemLayoutDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

@@ -48,7 +48,7 @@ func NewFindSwitchOK() *FindSwitchOK {
 }
 
 /*
-	FindSwitchOK describes a response with status code 200, with default header values.
+FindSwitchOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -56,9 +56,39 @@ type FindSwitchOK struct {
 	Payload *models.V1SwitchResponse
 }
 
+// IsSuccess returns true when this find switch o k response has a 2xx status code
+func (o *FindSwitchOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this find switch o k response has a 3xx status code
+func (o *FindSwitchOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this find switch o k response has a 4xx status code
+func (o *FindSwitchOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this find switch o k response has a 5xx status code
+func (o *FindSwitchOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this find switch o k response a status code equal to that given
+func (o *FindSwitchOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *FindSwitchOK) Error() string {
 	return fmt.Sprintf("[GET /v1/switch/{id}][%d] findSwitchOK  %+v", 200, o.Payload)
 }
+
+func (o *FindSwitchOK) String() string {
+	return fmt.Sprintf("[GET /v1/switch/{id}][%d] findSwitchOK  %+v", 200, o.Payload)
+}
+
 func (o *FindSwitchOK) GetPayload() *models.V1SwitchResponse {
 	return o.Payload
 }
@@ -83,7 +113,7 @@ func NewFindSwitchDefault(code int) *FindSwitchDefault {
 }
 
 /*
-	FindSwitchDefault describes a response with status code -1, with default header values.
+FindSwitchDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -98,9 +128,39 @@ func (o *FindSwitchDefault) Code() int {
 	return o._statusCode
 }
 
+// IsSuccess returns true when this find switch default response has a 2xx status code
+func (o *FindSwitchDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this find switch default response has a 3xx status code
+func (o *FindSwitchDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this find switch default response has a 4xx status code
+func (o *FindSwitchDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this find switch default response has a 5xx status code
+func (o *FindSwitchDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this find switch default response a status code equal to that given
+func (o *FindSwitchDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
 func (o *FindSwitchDefault) Error() string {
 	return fmt.Sprintf("[GET /v1/switch/{id}][%d] findSwitch default  %+v", o._statusCode, o.Payload)
 }
+
+func (o *FindSwitchDefault) String() string {
+	return fmt.Sprintf("[GET /v1/switch/{id}][%d] findSwitch default  %+v", o._statusCode, o.Payload)
+}
+
 func (o *FindSwitchDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

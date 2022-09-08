@@ -48,7 +48,7 @@ func NewSetMachineStateOK() *SetMachineStateOK {
 }
 
 /*
-	SetMachineStateOK describes a response with status code 200, with default header values.
+SetMachineStateOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -56,9 +56,39 @@ type SetMachineStateOK struct {
 	Payload *models.V1MachineResponse
 }
 
+// IsSuccess returns true when this set machine state o k response has a 2xx status code
+func (o *SetMachineStateOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this set machine state o k response has a 3xx status code
+func (o *SetMachineStateOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this set machine state o k response has a 4xx status code
+func (o *SetMachineStateOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this set machine state o k response has a 5xx status code
+func (o *SetMachineStateOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this set machine state o k response a status code equal to that given
+func (o *SetMachineStateOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *SetMachineStateOK) Error() string {
 	return fmt.Sprintf("[POST /v1/machine/{id}/state][%d] setMachineStateOK  %+v", 200, o.Payload)
 }
+
+func (o *SetMachineStateOK) String() string {
+	return fmt.Sprintf("[POST /v1/machine/{id}/state][%d] setMachineStateOK  %+v", 200, o.Payload)
+}
+
 func (o *SetMachineStateOK) GetPayload() *models.V1MachineResponse {
 	return o.Payload
 }
@@ -83,7 +113,7 @@ func NewSetMachineStateDefault(code int) *SetMachineStateDefault {
 }
 
 /*
-	SetMachineStateDefault describes a response with status code -1, with default header values.
+SetMachineStateDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -98,9 +128,39 @@ func (o *SetMachineStateDefault) Code() int {
 	return o._statusCode
 }
 
+// IsSuccess returns true when this set machine state default response has a 2xx status code
+func (o *SetMachineStateDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this set machine state default response has a 3xx status code
+func (o *SetMachineStateDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this set machine state default response has a 4xx status code
+func (o *SetMachineStateDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this set machine state default response has a 5xx status code
+func (o *SetMachineStateDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this set machine state default response a status code equal to that given
+func (o *SetMachineStateDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
 func (o *SetMachineStateDefault) Error() string {
 	return fmt.Sprintf("[POST /v1/machine/{id}/state][%d] setMachineState default  %+v", o._statusCode, o.Payload)
 }
+
+func (o *SetMachineStateDefault) String() string {
+	return fmt.Sprintf("[POST /v1/machine/{id}/state][%d] setMachineState default  %+v", o._statusCode, o.Payload)
+}
+
 func (o *SetMachineStateDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

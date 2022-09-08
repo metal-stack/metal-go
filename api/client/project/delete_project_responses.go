@@ -48,7 +48,7 @@ func NewDeleteProjectOK() *DeleteProjectOK {
 }
 
 /*
-	DeleteProjectOK describes a response with status code 200, with default header values.
+DeleteProjectOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -56,9 +56,39 @@ type DeleteProjectOK struct {
 	Payload *models.V1ProjectResponse
 }
 
+// IsSuccess returns true when this delete project o k response has a 2xx status code
+func (o *DeleteProjectOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this delete project o k response has a 3xx status code
+func (o *DeleteProjectOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete project o k response has a 4xx status code
+func (o *DeleteProjectOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this delete project o k response has a 5xx status code
+func (o *DeleteProjectOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete project o k response a status code equal to that given
+func (o *DeleteProjectOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *DeleteProjectOK) Error() string {
 	return fmt.Sprintf("[DELETE /v1/project/{id}][%d] deleteProjectOK  %+v", 200, o.Payload)
 }
+
+func (o *DeleteProjectOK) String() string {
+	return fmt.Sprintf("[DELETE /v1/project/{id}][%d] deleteProjectOK  %+v", 200, o.Payload)
+}
+
 func (o *DeleteProjectOK) GetPayload() *models.V1ProjectResponse {
 	return o.Payload
 }
@@ -83,7 +113,7 @@ func NewDeleteProjectDefault(code int) *DeleteProjectDefault {
 }
 
 /*
-	DeleteProjectDefault describes a response with status code -1, with default header values.
+DeleteProjectDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -98,9 +128,39 @@ func (o *DeleteProjectDefault) Code() int {
 	return o._statusCode
 }
 
+// IsSuccess returns true when this delete project default response has a 2xx status code
+func (o *DeleteProjectDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this delete project default response has a 3xx status code
+func (o *DeleteProjectDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this delete project default response has a 4xx status code
+func (o *DeleteProjectDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this delete project default response has a 5xx status code
+func (o *DeleteProjectDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this delete project default response a status code equal to that given
+func (o *DeleteProjectDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
 func (o *DeleteProjectDefault) Error() string {
 	return fmt.Sprintf("[DELETE /v1/project/{id}][%d] deleteProject default  %+v", o._statusCode, o.Payload)
 }
+
+func (o *DeleteProjectDefault) String() string {
+	return fmt.Sprintf("[DELETE /v1/project/{id}][%d] deleteProject default  %+v", o._statusCode, o.Payload)
+}
+
 func (o *DeleteProjectDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

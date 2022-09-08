@@ -54,7 +54,7 @@ func NewRegisterMachineOK() *RegisterMachineOK {
 }
 
 /*
-	RegisterMachineOK describes a response with status code 200, with default header values.
+RegisterMachineOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -62,9 +62,39 @@ type RegisterMachineOK struct {
 	Payload *models.V1MachineResponse
 }
 
+// IsSuccess returns true when this register machine o k response has a 2xx status code
+func (o *RegisterMachineOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this register machine o k response has a 3xx status code
+func (o *RegisterMachineOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this register machine o k response has a 4xx status code
+func (o *RegisterMachineOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this register machine o k response has a 5xx status code
+func (o *RegisterMachineOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this register machine o k response a status code equal to that given
+func (o *RegisterMachineOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *RegisterMachineOK) Error() string {
 	return fmt.Sprintf("[POST /v1/machine/register][%d] registerMachineOK  %+v", 200, o.Payload)
 }
+
+func (o *RegisterMachineOK) String() string {
+	return fmt.Sprintf("[POST /v1/machine/register][%d] registerMachineOK  %+v", 200, o.Payload)
+}
+
 func (o *RegisterMachineOK) GetPayload() *models.V1MachineResponse {
 	return o.Payload
 }
@@ -87,7 +117,7 @@ func NewRegisterMachineCreated() *RegisterMachineCreated {
 }
 
 /*
-	RegisterMachineCreated describes a response with status code 201, with default header values.
+RegisterMachineCreated describes a response with status code 201, with default header values.
 
 Created
 */
@@ -95,9 +125,39 @@ type RegisterMachineCreated struct {
 	Payload *models.V1MachineResponse
 }
 
+// IsSuccess returns true when this register machine created response has a 2xx status code
+func (o *RegisterMachineCreated) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this register machine created response has a 3xx status code
+func (o *RegisterMachineCreated) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this register machine created response has a 4xx status code
+func (o *RegisterMachineCreated) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this register machine created response has a 5xx status code
+func (o *RegisterMachineCreated) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this register machine created response a status code equal to that given
+func (o *RegisterMachineCreated) IsCode(code int) bool {
+	return code == 201
+}
+
 func (o *RegisterMachineCreated) Error() string {
 	return fmt.Sprintf("[POST /v1/machine/register][%d] registerMachineCreated  %+v", 201, o.Payload)
 }
+
+func (o *RegisterMachineCreated) String() string {
+	return fmt.Sprintf("[POST /v1/machine/register][%d] registerMachineCreated  %+v", 201, o.Payload)
+}
+
 func (o *RegisterMachineCreated) GetPayload() *models.V1MachineResponse {
 	return o.Payload
 }
@@ -122,7 +182,7 @@ func NewRegisterMachineDefault(code int) *RegisterMachineDefault {
 }
 
 /*
-	RegisterMachineDefault describes a response with status code -1, with default header values.
+RegisterMachineDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -137,9 +197,39 @@ func (o *RegisterMachineDefault) Code() int {
 	return o._statusCode
 }
 
+// IsSuccess returns true when this register machine default response has a 2xx status code
+func (o *RegisterMachineDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this register machine default response has a 3xx status code
+func (o *RegisterMachineDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this register machine default response has a 4xx status code
+func (o *RegisterMachineDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this register machine default response has a 5xx status code
+func (o *RegisterMachineDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this register machine default response a status code equal to that given
+func (o *RegisterMachineDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
 func (o *RegisterMachineDefault) Error() string {
 	return fmt.Sprintf("[POST /v1/machine/register][%d] registerMachine default  %+v", o._statusCode, o.Payload)
 }
+
+func (o *RegisterMachineDefault) String() string {
+	return fmt.Sprintf("[POST /v1/machine/register][%d] registerMachine default  %+v", o._statusCode, o.Payload)
+}
+
 func (o *RegisterMachineDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

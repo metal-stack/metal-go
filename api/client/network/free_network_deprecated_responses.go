@@ -54,7 +54,7 @@ func NewFreeNetworkDeprecatedOK() *FreeNetworkDeprecatedOK {
 }
 
 /*
-	FreeNetworkDeprecatedOK describes a response with status code 200, with default header values.
+FreeNetworkDeprecatedOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -62,9 +62,39 @@ type FreeNetworkDeprecatedOK struct {
 	Payload *models.V1NetworkResponse
 }
 
+// IsSuccess returns true when this free network deprecated o k response has a 2xx status code
+func (o *FreeNetworkDeprecatedOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this free network deprecated o k response has a 3xx status code
+func (o *FreeNetworkDeprecatedOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this free network deprecated o k response has a 4xx status code
+func (o *FreeNetworkDeprecatedOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this free network deprecated o k response has a 5xx status code
+func (o *FreeNetworkDeprecatedOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this free network deprecated o k response a status code equal to that given
+func (o *FreeNetworkDeprecatedOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *FreeNetworkDeprecatedOK) Error() string {
 	return fmt.Sprintf("[POST /v1/network/free/{id}][%d] freeNetworkDeprecatedOK  %+v", 200, o.Payload)
 }
+
+func (o *FreeNetworkDeprecatedOK) String() string {
+	return fmt.Sprintf("[POST /v1/network/free/{id}][%d] freeNetworkDeprecatedOK  %+v", 200, o.Payload)
+}
+
 func (o *FreeNetworkDeprecatedOK) GetPayload() *models.V1NetworkResponse {
 	return o.Payload
 }
@@ -87,7 +117,7 @@ func NewFreeNetworkDeprecatedConflict() *FreeNetworkDeprecatedConflict {
 }
 
 /*
-	FreeNetworkDeprecatedConflict describes a response with status code 409, with default header values.
+FreeNetworkDeprecatedConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -95,9 +125,39 @@ type FreeNetworkDeprecatedConflict struct {
 	Payload *httperrors.HTTPErrorResponse
 }
 
+// IsSuccess returns true when this free network deprecated conflict response has a 2xx status code
+func (o *FreeNetworkDeprecatedConflict) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this free network deprecated conflict response has a 3xx status code
+func (o *FreeNetworkDeprecatedConflict) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this free network deprecated conflict response has a 4xx status code
+func (o *FreeNetworkDeprecatedConflict) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this free network deprecated conflict response has a 5xx status code
+func (o *FreeNetworkDeprecatedConflict) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this free network deprecated conflict response a status code equal to that given
+func (o *FreeNetworkDeprecatedConflict) IsCode(code int) bool {
+	return code == 409
+}
+
 func (o *FreeNetworkDeprecatedConflict) Error() string {
 	return fmt.Sprintf("[POST /v1/network/free/{id}][%d] freeNetworkDeprecatedConflict  %+v", 409, o.Payload)
 }
+
+func (o *FreeNetworkDeprecatedConflict) String() string {
+	return fmt.Sprintf("[POST /v1/network/free/{id}][%d] freeNetworkDeprecatedConflict  %+v", 409, o.Payload)
+}
+
 func (o *FreeNetworkDeprecatedConflict) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }
@@ -122,7 +182,7 @@ func NewFreeNetworkDeprecatedDefault(code int) *FreeNetworkDeprecatedDefault {
 }
 
 /*
-	FreeNetworkDeprecatedDefault describes a response with status code -1, with default header values.
+FreeNetworkDeprecatedDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -137,9 +197,39 @@ func (o *FreeNetworkDeprecatedDefault) Code() int {
 	return o._statusCode
 }
 
+// IsSuccess returns true when this free network deprecated default response has a 2xx status code
+func (o *FreeNetworkDeprecatedDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this free network deprecated default response has a 3xx status code
+func (o *FreeNetworkDeprecatedDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this free network deprecated default response has a 4xx status code
+func (o *FreeNetworkDeprecatedDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this free network deprecated default response has a 5xx status code
+func (o *FreeNetworkDeprecatedDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this free network deprecated default response a status code equal to that given
+func (o *FreeNetworkDeprecatedDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
 func (o *FreeNetworkDeprecatedDefault) Error() string {
 	return fmt.Sprintf("[POST /v1/network/free/{id}][%d] freeNetworkDeprecated default  %+v", o._statusCode, o.Payload)
 }
+
+func (o *FreeNetworkDeprecatedDefault) String() string {
+	return fmt.Sprintf("[POST /v1/network/free/{id}][%d] freeNetworkDeprecated default  %+v", o._statusCode, o.Payload)
+}
+
 func (o *FreeNetworkDeprecatedDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

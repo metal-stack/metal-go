@@ -48,7 +48,7 @@ func NewFindLatestImageOK() *FindLatestImageOK {
 }
 
 /*
-	FindLatestImageOK describes a response with status code 200, with default header values.
+FindLatestImageOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -56,9 +56,39 @@ type FindLatestImageOK struct {
 	Payload *models.V1ImageResponse
 }
 
+// IsSuccess returns true when this find latest image o k response has a 2xx status code
+func (o *FindLatestImageOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this find latest image o k response has a 3xx status code
+func (o *FindLatestImageOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this find latest image o k response has a 4xx status code
+func (o *FindLatestImageOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this find latest image o k response has a 5xx status code
+func (o *FindLatestImageOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this find latest image o k response a status code equal to that given
+func (o *FindLatestImageOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *FindLatestImageOK) Error() string {
 	return fmt.Sprintf("[GET /v1/image/{id}/latest][%d] findLatestImageOK  %+v", 200, o.Payload)
 }
+
+func (o *FindLatestImageOK) String() string {
+	return fmt.Sprintf("[GET /v1/image/{id}/latest][%d] findLatestImageOK  %+v", 200, o.Payload)
+}
+
 func (o *FindLatestImageOK) GetPayload() *models.V1ImageResponse {
 	return o.Payload
 }
@@ -83,7 +113,7 @@ func NewFindLatestImageDefault(code int) *FindLatestImageDefault {
 }
 
 /*
-	FindLatestImageDefault describes a response with status code -1, with default header values.
+FindLatestImageDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -98,9 +128,39 @@ func (o *FindLatestImageDefault) Code() int {
 	return o._statusCode
 }
 
+// IsSuccess returns true when this find latest image default response has a 2xx status code
+func (o *FindLatestImageDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this find latest image default response has a 3xx status code
+func (o *FindLatestImageDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this find latest image default response has a 4xx status code
+func (o *FindLatestImageDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this find latest image default response has a 5xx status code
+func (o *FindLatestImageDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this find latest image default response a status code equal to that given
+func (o *FindLatestImageDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
 func (o *FindLatestImageDefault) Error() string {
 	return fmt.Sprintf("[GET /v1/image/{id}/latest][%d] findLatestImage default  %+v", o._statusCode, o.Payload)
 }
+
+func (o *FindLatestImageDefault) String() string {
+	return fmt.Sprintf("[GET /v1/image/{id}/latest][%d] findLatestImage default  %+v", o._statusCode, o.Payload)
+}
+
 func (o *FindLatestImageDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

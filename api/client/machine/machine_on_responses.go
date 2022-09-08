@@ -48,7 +48,7 @@ func NewMachineOnOK() *MachineOnOK {
 }
 
 /*
-	MachineOnOK describes a response with status code 200, with default header values.
+MachineOnOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -56,9 +56,39 @@ type MachineOnOK struct {
 	Payload *models.V1MachineResponse
 }
 
+// IsSuccess returns true when this machine on o k response has a 2xx status code
+func (o *MachineOnOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this machine on o k response has a 3xx status code
+func (o *MachineOnOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this machine on o k response has a 4xx status code
+func (o *MachineOnOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this machine on o k response has a 5xx status code
+func (o *MachineOnOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this machine on o k response a status code equal to that given
+func (o *MachineOnOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *MachineOnOK) Error() string {
 	return fmt.Sprintf("[POST /v1/machine/{id}/power/on][%d] machineOnOK  %+v", 200, o.Payload)
 }
+
+func (o *MachineOnOK) String() string {
+	return fmt.Sprintf("[POST /v1/machine/{id}/power/on][%d] machineOnOK  %+v", 200, o.Payload)
+}
+
 func (o *MachineOnOK) GetPayload() *models.V1MachineResponse {
 	return o.Payload
 }
@@ -83,7 +113,7 @@ func NewMachineOnDefault(code int) *MachineOnDefault {
 }
 
 /*
-	MachineOnDefault describes a response with status code -1, with default header values.
+MachineOnDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -98,9 +128,39 @@ func (o *MachineOnDefault) Code() int {
 	return o._statusCode
 }
 
+// IsSuccess returns true when this machine on default response has a 2xx status code
+func (o *MachineOnDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this machine on default response has a 3xx status code
+func (o *MachineOnDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this machine on default response has a 4xx status code
+func (o *MachineOnDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this machine on default response has a 5xx status code
+func (o *MachineOnDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this machine on default response a status code equal to that given
+func (o *MachineOnDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
 func (o *MachineOnDefault) Error() string {
 	return fmt.Sprintf("[POST /v1/machine/{id}/power/on][%d] machineOn default  %+v", o._statusCode, o.Payload)
 }
+
+func (o *MachineOnDefault) String() string {
+	return fmt.Sprintf("[POST /v1/machine/{id}/power/on][%d] machineOn default  %+v", o._statusCode, o.Payload)
+}
+
 func (o *MachineOnDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

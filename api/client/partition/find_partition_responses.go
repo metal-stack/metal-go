@@ -48,7 +48,7 @@ func NewFindPartitionOK() *FindPartitionOK {
 }
 
 /*
-	FindPartitionOK describes a response with status code 200, with default header values.
+FindPartitionOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -56,9 +56,39 @@ type FindPartitionOK struct {
 	Payload *models.V1PartitionResponse
 }
 
+// IsSuccess returns true when this find partition o k response has a 2xx status code
+func (o *FindPartitionOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this find partition o k response has a 3xx status code
+func (o *FindPartitionOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this find partition o k response has a 4xx status code
+func (o *FindPartitionOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this find partition o k response has a 5xx status code
+func (o *FindPartitionOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this find partition o k response a status code equal to that given
+func (o *FindPartitionOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *FindPartitionOK) Error() string {
 	return fmt.Sprintf("[GET /v1/partition/{id}][%d] findPartitionOK  %+v", 200, o.Payload)
 }
+
+func (o *FindPartitionOK) String() string {
+	return fmt.Sprintf("[GET /v1/partition/{id}][%d] findPartitionOK  %+v", 200, o.Payload)
+}
+
 func (o *FindPartitionOK) GetPayload() *models.V1PartitionResponse {
 	return o.Payload
 }
@@ -83,7 +113,7 @@ func NewFindPartitionDefault(code int) *FindPartitionDefault {
 }
 
 /*
-	FindPartitionDefault describes a response with status code -1, with default header values.
+FindPartitionDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -98,9 +128,39 @@ func (o *FindPartitionDefault) Code() int {
 	return o._statusCode
 }
 
+// IsSuccess returns true when this find partition default response has a 2xx status code
+func (o *FindPartitionDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this find partition default response has a 3xx status code
+func (o *FindPartitionDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this find partition default response has a 4xx status code
+func (o *FindPartitionDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this find partition default response has a 5xx status code
+func (o *FindPartitionDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this find partition default response a status code equal to that given
+func (o *FindPartitionDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
 func (o *FindPartitionDefault) Error() string {
 	return fmt.Sprintf("[GET /v1/partition/{id}][%d] findPartition default  %+v", o._statusCode, o.Payload)
 }
+
+func (o *FindPartitionDefault) String() string {
+	return fmt.Sprintf("[GET /v1/partition/{id}][%d] findPartition default  %+v", o._statusCode, o.Payload)
+}
+
 func (o *FindPartitionDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

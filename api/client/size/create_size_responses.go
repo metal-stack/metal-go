@@ -54,7 +54,7 @@ func NewCreateSizeCreated() *CreateSizeCreated {
 }
 
 /*
-	CreateSizeCreated describes a response with status code 201, with default header values.
+CreateSizeCreated describes a response with status code 201, with default header values.
 
 Created
 */
@@ -62,9 +62,39 @@ type CreateSizeCreated struct {
 	Payload *models.V1SizeResponse
 }
 
+// IsSuccess returns true when this create size created response has a 2xx status code
+func (o *CreateSizeCreated) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this create size created response has a 3xx status code
+func (o *CreateSizeCreated) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this create size created response has a 4xx status code
+func (o *CreateSizeCreated) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this create size created response has a 5xx status code
+func (o *CreateSizeCreated) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this create size created response a status code equal to that given
+func (o *CreateSizeCreated) IsCode(code int) bool {
+	return code == 201
+}
+
 func (o *CreateSizeCreated) Error() string {
 	return fmt.Sprintf("[PUT /v1/size][%d] createSizeCreated  %+v", 201, o.Payload)
 }
+
+func (o *CreateSizeCreated) String() string {
+	return fmt.Sprintf("[PUT /v1/size][%d] createSizeCreated  %+v", 201, o.Payload)
+}
+
 func (o *CreateSizeCreated) GetPayload() *models.V1SizeResponse {
 	return o.Payload
 }
@@ -87,7 +117,7 @@ func NewCreateSizeConflict() *CreateSizeConflict {
 }
 
 /*
-	CreateSizeConflict describes a response with status code 409, with default header values.
+CreateSizeConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -95,9 +125,39 @@ type CreateSizeConflict struct {
 	Payload *httperrors.HTTPErrorResponse
 }
 
+// IsSuccess returns true when this create size conflict response has a 2xx status code
+func (o *CreateSizeConflict) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this create size conflict response has a 3xx status code
+func (o *CreateSizeConflict) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this create size conflict response has a 4xx status code
+func (o *CreateSizeConflict) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this create size conflict response has a 5xx status code
+func (o *CreateSizeConflict) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this create size conflict response a status code equal to that given
+func (o *CreateSizeConflict) IsCode(code int) bool {
+	return code == 409
+}
+
 func (o *CreateSizeConflict) Error() string {
 	return fmt.Sprintf("[PUT /v1/size][%d] createSizeConflict  %+v", 409, o.Payload)
 }
+
+func (o *CreateSizeConflict) String() string {
+	return fmt.Sprintf("[PUT /v1/size][%d] createSizeConflict  %+v", 409, o.Payload)
+}
+
 func (o *CreateSizeConflict) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }
@@ -122,7 +182,7 @@ func NewCreateSizeDefault(code int) *CreateSizeDefault {
 }
 
 /*
-	CreateSizeDefault describes a response with status code -1, with default header values.
+CreateSizeDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -137,9 +197,39 @@ func (o *CreateSizeDefault) Code() int {
 	return o._statusCode
 }
 
+// IsSuccess returns true when this create size default response has a 2xx status code
+func (o *CreateSizeDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this create size default response has a 3xx status code
+func (o *CreateSizeDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this create size default response has a 4xx status code
+func (o *CreateSizeDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this create size default response has a 5xx status code
+func (o *CreateSizeDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this create size default response a status code equal to that given
+func (o *CreateSizeDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
 func (o *CreateSizeDefault) Error() string {
 	return fmt.Sprintf("[PUT /v1/size][%d] createSize default  %+v", o._statusCode, o.Payload)
 }
+
+func (o *CreateSizeDefault) String() string {
+	return fmt.Sprintf("[PUT /v1/size][%d] createSize default  %+v", o._statusCode, o.Payload)
+}
+
 func (o *CreateSizeDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

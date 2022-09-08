@@ -48,7 +48,7 @@ func NewListSwitchesOK() *ListSwitchesOK {
 }
 
 /*
-	ListSwitchesOK describes a response with status code 200, with default header values.
+ListSwitchesOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -56,9 +56,39 @@ type ListSwitchesOK struct {
 	Payload []*models.V1SwitchResponse
 }
 
+// IsSuccess returns true when this list switches o k response has a 2xx status code
+func (o *ListSwitchesOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this list switches o k response has a 3xx status code
+func (o *ListSwitchesOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this list switches o k response has a 4xx status code
+func (o *ListSwitchesOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this list switches o k response has a 5xx status code
+func (o *ListSwitchesOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this list switches o k response a status code equal to that given
+func (o *ListSwitchesOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *ListSwitchesOK) Error() string {
 	return fmt.Sprintf("[GET /v1/switch][%d] listSwitchesOK  %+v", 200, o.Payload)
 }
+
+func (o *ListSwitchesOK) String() string {
+	return fmt.Sprintf("[GET /v1/switch][%d] listSwitchesOK  %+v", 200, o.Payload)
+}
+
 func (o *ListSwitchesOK) GetPayload() []*models.V1SwitchResponse {
 	return o.Payload
 }
@@ -81,7 +111,7 @@ func NewListSwitchesDefault(code int) *ListSwitchesDefault {
 }
 
 /*
-	ListSwitchesDefault describes a response with status code -1, with default header values.
+ListSwitchesDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -96,9 +126,39 @@ func (o *ListSwitchesDefault) Code() int {
 	return o._statusCode
 }
 
+// IsSuccess returns true when this list switches default response has a 2xx status code
+func (o *ListSwitchesDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this list switches default response has a 3xx status code
+func (o *ListSwitchesDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this list switches default response has a 4xx status code
+func (o *ListSwitchesDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this list switches default response has a 5xx status code
+func (o *ListSwitchesDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this list switches default response a status code equal to that given
+func (o *ListSwitchesDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
 func (o *ListSwitchesDefault) Error() string {
 	return fmt.Sprintf("[GET /v1/switch][%d] listSwitches default  %+v", o._statusCode, o.Payload)
 }
+
+func (o *ListSwitchesDefault) String() string {
+	return fmt.Sprintf("[GET /v1/switch][%d] listSwitches default  %+v", o._statusCode, o.Payload)
+}
+
 func (o *ListSwitchesDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

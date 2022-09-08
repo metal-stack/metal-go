@@ -48,7 +48,7 @@ func NewListIPsOK() *ListIPsOK {
 }
 
 /*
-	ListIPsOK describes a response with status code 200, with default header values.
+ListIPsOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -56,9 +56,39 @@ type ListIPsOK struct {
 	Payload []*models.V1IPResponse
 }
 
+// IsSuccess returns true when this list i ps o k response has a 2xx status code
+func (o *ListIPsOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this list i ps o k response has a 3xx status code
+func (o *ListIPsOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this list i ps o k response has a 4xx status code
+func (o *ListIPsOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this list i ps o k response has a 5xx status code
+func (o *ListIPsOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this list i ps o k response a status code equal to that given
+func (o *ListIPsOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *ListIPsOK) Error() string {
 	return fmt.Sprintf("[GET /v1/ip][%d] listIPsOK  %+v", 200, o.Payload)
 }
+
+func (o *ListIPsOK) String() string {
+	return fmt.Sprintf("[GET /v1/ip][%d] listIPsOK  %+v", 200, o.Payload)
+}
+
 func (o *ListIPsOK) GetPayload() []*models.V1IPResponse {
 	return o.Payload
 }
@@ -81,7 +111,7 @@ func NewListIPsDefault(code int) *ListIPsDefault {
 }
 
 /*
-	ListIPsDefault describes a response with status code -1, with default header values.
+ListIPsDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -96,9 +126,39 @@ func (o *ListIPsDefault) Code() int {
 	return o._statusCode
 }
 
+// IsSuccess returns true when this list i ps default response has a 2xx status code
+func (o *ListIPsDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this list i ps default response has a 3xx status code
+func (o *ListIPsDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this list i ps default response has a 4xx status code
+func (o *ListIPsDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this list i ps default response has a 5xx status code
+func (o *ListIPsDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this list i ps default response a status code equal to that given
+func (o *ListIPsDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
 func (o *ListIPsDefault) Error() string {
 	return fmt.Sprintf("[GET /v1/ip][%d] listIPs default  %+v", o._statusCode, o.Payload)
 }
+
+func (o *ListIPsDefault) String() string {
+	return fmt.Sprintf("[GET /v1/ip][%d] listIPs default  %+v", o._statusCode, o.Payload)
+}
+
 func (o *ListIPsDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

@@ -54,7 +54,7 @@ func NewUpdateIPOK() *UpdateIPOK {
 }
 
 /*
-	UpdateIPOK describes a response with status code 200, with default header values.
+UpdateIPOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -62,9 +62,39 @@ type UpdateIPOK struct {
 	Payload *models.V1IPResponse
 }
 
+// IsSuccess returns true when this update Ip o k response has a 2xx status code
+func (o *UpdateIPOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this update Ip o k response has a 3xx status code
+func (o *UpdateIPOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this update Ip o k response has a 4xx status code
+func (o *UpdateIPOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this update Ip o k response has a 5xx status code
+func (o *UpdateIPOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this update Ip o k response a status code equal to that given
+func (o *UpdateIPOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *UpdateIPOK) Error() string {
 	return fmt.Sprintf("[POST /v1/ip][%d] updateIpOK  %+v", 200, o.Payload)
 }
+
+func (o *UpdateIPOK) String() string {
+	return fmt.Sprintf("[POST /v1/ip][%d] updateIpOK  %+v", 200, o.Payload)
+}
+
 func (o *UpdateIPOK) GetPayload() *models.V1IPResponse {
 	return o.Payload
 }
@@ -87,7 +117,7 @@ func NewUpdateIPConflict() *UpdateIPConflict {
 }
 
 /*
-	UpdateIPConflict describes a response with status code 409, with default header values.
+UpdateIPConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -95,9 +125,39 @@ type UpdateIPConflict struct {
 	Payload *httperrors.HTTPErrorResponse
 }
 
+// IsSuccess returns true when this update Ip conflict response has a 2xx status code
+func (o *UpdateIPConflict) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this update Ip conflict response has a 3xx status code
+func (o *UpdateIPConflict) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this update Ip conflict response has a 4xx status code
+func (o *UpdateIPConflict) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this update Ip conflict response has a 5xx status code
+func (o *UpdateIPConflict) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this update Ip conflict response a status code equal to that given
+func (o *UpdateIPConflict) IsCode(code int) bool {
+	return code == 409
+}
+
 func (o *UpdateIPConflict) Error() string {
 	return fmt.Sprintf("[POST /v1/ip][%d] updateIpConflict  %+v", 409, o.Payload)
 }
+
+func (o *UpdateIPConflict) String() string {
+	return fmt.Sprintf("[POST /v1/ip][%d] updateIpConflict  %+v", 409, o.Payload)
+}
+
 func (o *UpdateIPConflict) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }
@@ -122,7 +182,7 @@ func NewUpdateIPDefault(code int) *UpdateIPDefault {
 }
 
 /*
-	UpdateIPDefault describes a response with status code -1, with default header values.
+UpdateIPDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -137,9 +197,39 @@ func (o *UpdateIPDefault) Code() int {
 	return o._statusCode
 }
 
+// IsSuccess returns true when this update IP default response has a 2xx status code
+func (o *UpdateIPDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this update IP default response has a 3xx status code
+func (o *UpdateIPDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this update IP default response has a 4xx status code
+func (o *UpdateIPDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this update IP default response has a 5xx status code
+func (o *UpdateIPDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this update IP default response a status code equal to that given
+func (o *UpdateIPDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
 func (o *UpdateIPDefault) Error() string {
 	return fmt.Sprintf("[POST /v1/ip][%d] updateIP default  %+v", o._statusCode, o.Payload)
 }
+
+func (o *UpdateIPDefault) String() string {
+	return fmt.Sprintf("[POST /v1/ip][%d] updateIP default  %+v", o._statusCode, o.Payload)
+}
+
 func (o *UpdateIPDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

@@ -48,7 +48,7 @@ func NewAddProvisioningEventOK() *AddProvisioningEventOK {
 }
 
 /*
-	AddProvisioningEventOK describes a response with status code 200, with default header values.
+AddProvisioningEventOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -56,9 +56,39 @@ type AddProvisioningEventOK struct {
 	Payload *models.V1MachineRecentProvisioningEvents
 }
 
+// IsSuccess returns true when this add provisioning event o k response has a 2xx status code
+func (o *AddProvisioningEventOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this add provisioning event o k response has a 3xx status code
+func (o *AddProvisioningEventOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this add provisioning event o k response has a 4xx status code
+func (o *AddProvisioningEventOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this add provisioning event o k response has a 5xx status code
+func (o *AddProvisioningEventOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this add provisioning event o k response a status code equal to that given
+func (o *AddProvisioningEventOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *AddProvisioningEventOK) Error() string {
 	return fmt.Sprintf("[POST /v1/machine/{id}/event][%d] addProvisioningEventOK  %+v", 200, o.Payload)
 }
+
+func (o *AddProvisioningEventOK) String() string {
+	return fmt.Sprintf("[POST /v1/machine/{id}/event][%d] addProvisioningEventOK  %+v", 200, o.Payload)
+}
+
 func (o *AddProvisioningEventOK) GetPayload() *models.V1MachineRecentProvisioningEvents {
 	return o.Payload
 }
@@ -83,7 +113,7 @@ func NewAddProvisioningEventDefault(code int) *AddProvisioningEventDefault {
 }
 
 /*
-	AddProvisioningEventDefault describes a response with status code -1, with default header values.
+AddProvisioningEventDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -98,9 +128,39 @@ func (o *AddProvisioningEventDefault) Code() int {
 	return o._statusCode
 }
 
+// IsSuccess returns true when this add provisioning event default response has a 2xx status code
+func (o *AddProvisioningEventDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this add provisioning event default response has a 3xx status code
+func (o *AddProvisioningEventDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this add provisioning event default response has a 4xx status code
+func (o *AddProvisioningEventDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this add provisioning event default response has a 5xx status code
+func (o *AddProvisioningEventDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this add provisioning event default response a status code equal to that given
+func (o *AddProvisioningEventDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
 func (o *AddProvisioningEventDefault) Error() string {
 	return fmt.Sprintf("[POST /v1/machine/{id}/event][%d] addProvisioningEvent default  %+v", o._statusCode, o.Payload)
 }
+
+func (o *AddProvisioningEventDefault) String() string {
+	return fmt.Sprintf("[POST /v1/machine/{id}/event][%d] addProvisioningEvent default  %+v", o._statusCode, o.Payload)
+}
+
 func (o *AddProvisioningEventDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

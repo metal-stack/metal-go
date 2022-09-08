@@ -54,7 +54,7 @@ func NewCreatePartitionCreated() *CreatePartitionCreated {
 }
 
 /*
-	CreatePartitionCreated describes a response with status code 201, with default header values.
+CreatePartitionCreated describes a response with status code 201, with default header values.
 
 Created
 */
@@ -62,9 +62,39 @@ type CreatePartitionCreated struct {
 	Payload *models.V1PartitionResponse
 }
 
+// IsSuccess returns true when this create partition created response has a 2xx status code
+func (o *CreatePartitionCreated) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this create partition created response has a 3xx status code
+func (o *CreatePartitionCreated) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this create partition created response has a 4xx status code
+func (o *CreatePartitionCreated) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this create partition created response has a 5xx status code
+func (o *CreatePartitionCreated) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this create partition created response a status code equal to that given
+func (o *CreatePartitionCreated) IsCode(code int) bool {
+	return code == 201
+}
+
 func (o *CreatePartitionCreated) Error() string {
 	return fmt.Sprintf("[PUT /v1/partition][%d] createPartitionCreated  %+v", 201, o.Payload)
 }
+
+func (o *CreatePartitionCreated) String() string {
+	return fmt.Sprintf("[PUT /v1/partition][%d] createPartitionCreated  %+v", 201, o.Payload)
+}
+
 func (o *CreatePartitionCreated) GetPayload() *models.V1PartitionResponse {
 	return o.Payload
 }
@@ -87,7 +117,7 @@ func NewCreatePartitionConflict() *CreatePartitionConflict {
 }
 
 /*
-	CreatePartitionConflict describes a response with status code 409, with default header values.
+CreatePartitionConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -95,9 +125,39 @@ type CreatePartitionConflict struct {
 	Payload *httperrors.HTTPErrorResponse
 }
 
+// IsSuccess returns true when this create partition conflict response has a 2xx status code
+func (o *CreatePartitionConflict) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this create partition conflict response has a 3xx status code
+func (o *CreatePartitionConflict) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this create partition conflict response has a 4xx status code
+func (o *CreatePartitionConflict) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this create partition conflict response has a 5xx status code
+func (o *CreatePartitionConflict) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this create partition conflict response a status code equal to that given
+func (o *CreatePartitionConflict) IsCode(code int) bool {
+	return code == 409
+}
+
 func (o *CreatePartitionConflict) Error() string {
 	return fmt.Sprintf("[PUT /v1/partition][%d] createPartitionConflict  %+v", 409, o.Payload)
 }
+
+func (o *CreatePartitionConflict) String() string {
+	return fmt.Sprintf("[PUT /v1/partition][%d] createPartitionConflict  %+v", 409, o.Payload)
+}
+
 func (o *CreatePartitionConflict) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }
@@ -122,7 +182,7 @@ func NewCreatePartitionDefault(code int) *CreatePartitionDefault {
 }
 
 /*
-	CreatePartitionDefault describes a response with status code -1, with default header values.
+CreatePartitionDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -137,9 +197,39 @@ func (o *CreatePartitionDefault) Code() int {
 	return o._statusCode
 }
 
+// IsSuccess returns true when this create partition default response has a 2xx status code
+func (o *CreatePartitionDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this create partition default response has a 3xx status code
+func (o *CreatePartitionDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this create partition default response has a 4xx status code
+func (o *CreatePartitionDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this create partition default response has a 5xx status code
+func (o *CreatePartitionDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this create partition default response a status code equal to that given
+func (o *CreatePartitionDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
 func (o *CreatePartitionDefault) Error() string {
 	return fmt.Sprintf("[PUT /v1/partition][%d] createPartition default  %+v", o._statusCode, o.Payload)
 }
+
+func (o *CreatePartitionDefault) String() string {
+	return fmt.Sprintf("[PUT /v1/partition][%d] createPartition default  %+v", o._statusCode, o.Payload)
+}
+
 func (o *CreatePartitionDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

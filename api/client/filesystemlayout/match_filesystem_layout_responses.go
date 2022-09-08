@@ -48,7 +48,7 @@ func NewMatchFilesystemLayoutOK() *MatchFilesystemLayoutOK {
 }
 
 /*
-	MatchFilesystemLayoutOK describes a response with status code 200, with default header values.
+MatchFilesystemLayoutOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -56,9 +56,39 @@ type MatchFilesystemLayoutOK struct {
 	Payload *models.V1FilesystemLayoutResponse
 }
 
+// IsSuccess returns true when this match filesystem layout o k response has a 2xx status code
+func (o *MatchFilesystemLayoutOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this match filesystem layout o k response has a 3xx status code
+func (o *MatchFilesystemLayoutOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this match filesystem layout o k response has a 4xx status code
+func (o *MatchFilesystemLayoutOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this match filesystem layout o k response has a 5xx status code
+func (o *MatchFilesystemLayoutOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this match filesystem layout o k response a status code equal to that given
+func (o *MatchFilesystemLayoutOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *MatchFilesystemLayoutOK) Error() string {
 	return fmt.Sprintf("[POST /v1/filesystemlayout/matches][%d] matchFilesystemLayoutOK  %+v", 200, o.Payload)
 }
+
+func (o *MatchFilesystemLayoutOK) String() string {
+	return fmt.Sprintf("[POST /v1/filesystemlayout/matches][%d] matchFilesystemLayoutOK  %+v", 200, o.Payload)
+}
+
 func (o *MatchFilesystemLayoutOK) GetPayload() *models.V1FilesystemLayoutResponse {
 	return o.Payload
 }
@@ -83,7 +113,7 @@ func NewMatchFilesystemLayoutDefault(code int) *MatchFilesystemLayoutDefault {
 }
 
 /*
-	MatchFilesystemLayoutDefault describes a response with status code -1, with default header values.
+MatchFilesystemLayoutDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -98,9 +128,39 @@ func (o *MatchFilesystemLayoutDefault) Code() int {
 	return o._statusCode
 }
 
+// IsSuccess returns true when this match filesystem layout default response has a 2xx status code
+func (o *MatchFilesystemLayoutDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this match filesystem layout default response has a 3xx status code
+func (o *MatchFilesystemLayoutDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this match filesystem layout default response has a 4xx status code
+func (o *MatchFilesystemLayoutDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this match filesystem layout default response has a 5xx status code
+func (o *MatchFilesystemLayoutDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this match filesystem layout default response a status code equal to that given
+func (o *MatchFilesystemLayoutDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
 func (o *MatchFilesystemLayoutDefault) Error() string {
 	return fmt.Sprintf("[POST /v1/filesystemlayout/matches][%d] matchFilesystemLayout default  %+v", o._statusCode, o.Payload)
 }
+
+func (o *MatchFilesystemLayoutDefault) String() string {
+	return fmt.Sprintf("[POST /v1/filesystemlayout/matches][%d] matchFilesystemLayout default  %+v", o._statusCode, o.Payload)
+}
+
 func (o *MatchFilesystemLayoutDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

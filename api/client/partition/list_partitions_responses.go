@@ -48,7 +48,7 @@ func NewListPartitionsOK() *ListPartitionsOK {
 }
 
 /*
-	ListPartitionsOK describes a response with status code 200, with default header values.
+ListPartitionsOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -56,9 +56,39 @@ type ListPartitionsOK struct {
 	Payload []*models.V1PartitionResponse
 }
 
+// IsSuccess returns true when this list partitions o k response has a 2xx status code
+func (o *ListPartitionsOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this list partitions o k response has a 3xx status code
+func (o *ListPartitionsOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this list partitions o k response has a 4xx status code
+func (o *ListPartitionsOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this list partitions o k response has a 5xx status code
+func (o *ListPartitionsOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this list partitions o k response a status code equal to that given
+func (o *ListPartitionsOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *ListPartitionsOK) Error() string {
 	return fmt.Sprintf("[GET /v1/partition][%d] listPartitionsOK  %+v", 200, o.Payload)
 }
+
+func (o *ListPartitionsOK) String() string {
+	return fmt.Sprintf("[GET /v1/partition][%d] listPartitionsOK  %+v", 200, o.Payload)
+}
+
 func (o *ListPartitionsOK) GetPayload() []*models.V1PartitionResponse {
 	return o.Payload
 }
@@ -81,7 +111,7 @@ func NewListPartitionsDefault(code int) *ListPartitionsDefault {
 }
 
 /*
-	ListPartitionsDefault describes a response with status code -1, with default header values.
+ListPartitionsDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -96,9 +126,39 @@ func (o *ListPartitionsDefault) Code() int {
 	return o._statusCode
 }
 
+// IsSuccess returns true when this list partitions default response has a 2xx status code
+func (o *ListPartitionsDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this list partitions default response has a 3xx status code
+func (o *ListPartitionsDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this list partitions default response has a 4xx status code
+func (o *ListPartitionsDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this list partitions default response has a 5xx status code
+func (o *ListPartitionsDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this list partitions default response a status code equal to that given
+func (o *ListPartitionsDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
 func (o *ListPartitionsDefault) Error() string {
 	return fmt.Sprintf("[GET /v1/partition][%d] listPartitions default  %+v", o._statusCode, o.Payload)
 }
+
+func (o *ListPartitionsDefault) String() string {
+	return fmt.Sprintf("[GET /v1/partition][%d] listPartitions default  %+v", o._statusCode, o.Payload)
+}
+
 func (o *ListPartitionsDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

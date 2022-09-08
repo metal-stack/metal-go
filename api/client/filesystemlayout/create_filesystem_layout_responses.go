@@ -54,7 +54,7 @@ func NewCreateFilesystemLayoutCreated() *CreateFilesystemLayoutCreated {
 }
 
 /*
-	CreateFilesystemLayoutCreated describes a response with status code 201, with default header values.
+CreateFilesystemLayoutCreated describes a response with status code 201, with default header values.
 
 Created
 */
@@ -62,9 +62,39 @@ type CreateFilesystemLayoutCreated struct {
 	Payload *models.V1FilesystemLayoutResponse
 }
 
+// IsSuccess returns true when this create filesystem layout created response has a 2xx status code
+func (o *CreateFilesystemLayoutCreated) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this create filesystem layout created response has a 3xx status code
+func (o *CreateFilesystemLayoutCreated) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this create filesystem layout created response has a 4xx status code
+func (o *CreateFilesystemLayoutCreated) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this create filesystem layout created response has a 5xx status code
+func (o *CreateFilesystemLayoutCreated) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this create filesystem layout created response a status code equal to that given
+func (o *CreateFilesystemLayoutCreated) IsCode(code int) bool {
+	return code == 201
+}
+
 func (o *CreateFilesystemLayoutCreated) Error() string {
 	return fmt.Sprintf("[PUT /v1/filesystemlayout][%d] createFilesystemLayoutCreated  %+v", 201, o.Payload)
 }
+
+func (o *CreateFilesystemLayoutCreated) String() string {
+	return fmt.Sprintf("[PUT /v1/filesystemlayout][%d] createFilesystemLayoutCreated  %+v", 201, o.Payload)
+}
+
 func (o *CreateFilesystemLayoutCreated) GetPayload() *models.V1FilesystemLayoutResponse {
 	return o.Payload
 }
@@ -87,7 +117,7 @@ func NewCreateFilesystemLayoutConflict() *CreateFilesystemLayoutConflict {
 }
 
 /*
-	CreateFilesystemLayoutConflict describes a response with status code 409, with default header values.
+CreateFilesystemLayoutConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -95,9 +125,39 @@ type CreateFilesystemLayoutConflict struct {
 	Payload *httperrors.HTTPErrorResponse
 }
 
+// IsSuccess returns true when this create filesystem layout conflict response has a 2xx status code
+func (o *CreateFilesystemLayoutConflict) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this create filesystem layout conflict response has a 3xx status code
+func (o *CreateFilesystemLayoutConflict) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this create filesystem layout conflict response has a 4xx status code
+func (o *CreateFilesystemLayoutConflict) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this create filesystem layout conflict response has a 5xx status code
+func (o *CreateFilesystemLayoutConflict) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this create filesystem layout conflict response a status code equal to that given
+func (o *CreateFilesystemLayoutConflict) IsCode(code int) bool {
+	return code == 409
+}
+
 func (o *CreateFilesystemLayoutConflict) Error() string {
 	return fmt.Sprintf("[PUT /v1/filesystemlayout][%d] createFilesystemLayoutConflict  %+v", 409, o.Payload)
 }
+
+func (o *CreateFilesystemLayoutConflict) String() string {
+	return fmt.Sprintf("[PUT /v1/filesystemlayout][%d] createFilesystemLayoutConflict  %+v", 409, o.Payload)
+}
+
 func (o *CreateFilesystemLayoutConflict) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }
@@ -122,7 +182,7 @@ func NewCreateFilesystemLayoutDefault(code int) *CreateFilesystemLayoutDefault {
 }
 
 /*
-	CreateFilesystemLayoutDefault describes a response with status code -1, with default header values.
+CreateFilesystemLayoutDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -137,9 +197,39 @@ func (o *CreateFilesystemLayoutDefault) Code() int {
 	return o._statusCode
 }
 
+// IsSuccess returns true when this create filesystem layout default response has a 2xx status code
+func (o *CreateFilesystemLayoutDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this create filesystem layout default response has a 3xx status code
+func (o *CreateFilesystemLayoutDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this create filesystem layout default response has a 4xx status code
+func (o *CreateFilesystemLayoutDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this create filesystem layout default response has a 5xx status code
+func (o *CreateFilesystemLayoutDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this create filesystem layout default response a status code equal to that given
+func (o *CreateFilesystemLayoutDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
 func (o *CreateFilesystemLayoutDefault) Error() string {
 	return fmt.Sprintf("[PUT /v1/filesystemlayout][%d] createFilesystemLayout default  %+v", o._statusCode, o.Payload)
 }
+
+func (o *CreateFilesystemLayoutDefault) String() string {
+	return fmt.Sprintf("[PUT /v1/filesystemlayout][%d] createFilesystemLayout default  %+v", o._statusCode, o.Payload)
+}
+
 func (o *CreateFilesystemLayoutDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

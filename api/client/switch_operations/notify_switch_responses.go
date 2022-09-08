@@ -48,7 +48,7 @@ func NewNotifySwitchOK() *NotifySwitchOK {
 }
 
 /*
-	NotifySwitchOK describes a response with status code 200, with default header values.
+NotifySwitchOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -56,9 +56,39 @@ type NotifySwitchOK struct {
 	Payload *models.V1SwitchResponse
 }
 
+// IsSuccess returns true when this notify switch o k response has a 2xx status code
+func (o *NotifySwitchOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this notify switch o k response has a 3xx status code
+func (o *NotifySwitchOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this notify switch o k response has a 4xx status code
+func (o *NotifySwitchOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this notify switch o k response has a 5xx status code
+func (o *NotifySwitchOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this notify switch o k response a status code equal to that given
+func (o *NotifySwitchOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *NotifySwitchOK) Error() string {
 	return fmt.Sprintf("[POST /v1/switch/{id}/notify][%d] notifySwitchOK  %+v", 200, o.Payload)
 }
+
+func (o *NotifySwitchOK) String() string {
+	return fmt.Sprintf("[POST /v1/switch/{id}/notify][%d] notifySwitchOK  %+v", 200, o.Payload)
+}
+
 func (o *NotifySwitchOK) GetPayload() *models.V1SwitchResponse {
 	return o.Payload
 }
@@ -83,7 +113,7 @@ func NewNotifySwitchDefault(code int) *NotifySwitchDefault {
 }
 
 /*
-	NotifySwitchDefault describes a response with status code -1, with default header values.
+NotifySwitchDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -98,9 +128,39 @@ func (o *NotifySwitchDefault) Code() int {
 	return o._statusCode
 }
 
+// IsSuccess returns true when this notify switch default response has a 2xx status code
+func (o *NotifySwitchDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this notify switch default response has a 3xx status code
+func (o *NotifySwitchDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this notify switch default response has a 4xx status code
+func (o *NotifySwitchDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this notify switch default response has a 5xx status code
+func (o *NotifySwitchDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this notify switch default response a status code equal to that given
+func (o *NotifySwitchDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
 func (o *NotifySwitchDefault) Error() string {
 	return fmt.Sprintf("[POST /v1/switch/{id}/notify][%d] notifySwitch default  %+v", o._statusCode, o.Payload)
 }
+
+func (o *NotifySwitchDefault) String() string {
+	return fmt.Sprintf("[POST /v1/switch/{id}/notify][%d] notifySwitch default  %+v", o._statusCode, o.Payload)
+}
+
 func (o *NotifySwitchDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

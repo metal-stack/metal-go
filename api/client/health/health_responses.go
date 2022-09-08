@@ -54,7 +54,7 @@ func NewHealthOK() *HealthOK {
 }
 
 /*
-	HealthOK describes a response with status code 200, with default header values.
+HealthOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -62,9 +62,39 @@ type HealthOK struct {
 	Payload *models.RestHealthResponse
 }
 
+// IsSuccess returns true when this health o k response has a 2xx status code
+func (o *HealthOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this health o k response has a 3xx status code
+func (o *HealthOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this health o k response has a 4xx status code
+func (o *HealthOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this health o k response has a 5xx status code
+func (o *HealthOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this health o k response a status code equal to that given
+func (o *HealthOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *HealthOK) Error() string {
 	return fmt.Sprintf("[GET /v1/health][%d] healthOK  %+v", 200, o.Payload)
 }
+
+func (o *HealthOK) String() string {
+	return fmt.Sprintf("[GET /v1/health][%d] healthOK  %+v", 200, o.Payload)
+}
+
 func (o *HealthOK) GetPayload() *models.RestHealthResponse {
 	return o.Payload
 }
@@ -87,7 +117,7 @@ func NewHealthInternalServerError() *HealthInternalServerError {
 }
 
 /*
-	HealthInternalServerError describes a response with status code 500, with default header values.
+HealthInternalServerError describes a response with status code 500, with default header values.
 
 Unhealthy
 */
@@ -95,9 +125,39 @@ type HealthInternalServerError struct {
 	Payload *models.RestHealthResponse
 }
 
+// IsSuccess returns true when this health internal server error response has a 2xx status code
+func (o *HealthInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this health internal server error response has a 3xx status code
+func (o *HealthInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this health internal server error response has a 4xx status code
+func (o *HealthInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this health internal server error response has a 5xx status code
+func (o *HealthInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this health internal server error response a status code equal to that given
+func (o *HealthInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *HealthInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /v1/health][%d] healthInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *HealthInternalServerError) String() string {
+	return fmt.Sprintf("[GET /v1/health][%d] healthInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *HealthInternalServerError) GetPayload() *models.RestHealthResponse {
 	return o.Payload
 }
@@ -122,7 +182,7 @@ func NewHealthDefault(code int) *HealthDefault {
 }
 
 /*
-	HealthDefault describes a response with status code -1, with default header values.
+HealthDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -137,9 +197,39 @@ func (o *HealthDefault) Code() int {
 	return o._statusCode
 }
 
+// IsSuccess returns true when this health default response has a 2xx status code
+func (o *HealthDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this health default response has a 3xx status code
+func (o *HealthDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this health default response has a 4xx status code
+func (o *HealthDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this health default response has a 5xx status code
+func (o *HealthDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this health default response a status code equal to that given
+func (o *HealthDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
 func (o *HealthDefault) Error() string {
 	return fmt.Sprintf("[GET /v1/health][%d] health default  %+v", o._statusCode, o.Payload)
 }
+
+func (o *HealthDefault) String() string {
+	return fmt.Sprintf("[GET /v1/health][%d] health default  %+v", o._statusCode, o.Payload)
+}
+
 func (o *HealthDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

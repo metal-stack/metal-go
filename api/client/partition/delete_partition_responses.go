@@ -48,7 +48,7 @@ func NewDeletePartitionOK() *DeletePartitionOK {
 }
 
 /*
-	DeletePartitionOK describes a response with status code 200, with default header values.
+DeletePartitionOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -56,9 +56,39 @@ type DeletePartitionOK struct {
 	Payload *models.V1PartitionResponse
 }
 
+// IsSuccess returns true when this delete partition o k response has a 2xx status code
+func (o *DeletePartitionOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this delete partition o k response has a 3xx status code
+func (o *DeletePartitionOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete partition o k response has a 4xx status code
+func (o *DeletePartitionOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this delete partition o k response has a 5xx status code
+func (o *DeletePartitionOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete partition o k response a status code equal to that given
+func (o *DeletePartitionOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *DeletePartitionOK) Error() string {
 	return fmt.Sprintf("[DELETE /v1/partition/{id}][%d] deletePartitionOK  %+v", 200, o.Payload)
 }
+
+func (o *DeletePartitionOK) String() string {
+	return fmt.Sprintf("[DELETE /v1/partition/{id}][%d] deletePartitionOK  %+v", 200, o.Payload)
+}
+
 func (o *DeletePartitionOK) GetPayload() *models.V1PartitionResponse {
 	return o.Payload
 }
@@ -83,7 +113,7 @@ func NewDeletePartitionDefault(code int) *DeletePartitionDefault {
 }
 
 /*
-	DeletePartitionDefault describes a response with status code -1, with default header values.
+DeletePartitionDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -98,9 +128,39 @@ func (o *DeletePartitionDefault) Code() int {
 	return o._statusCode
 }
 
+// IsSuccess returns true when this delete partition default response has a 2xx status code
+func (o *DeletePartitionDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this delete partition default response has a 3xx status code
+func (o *DeletePartitionDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this delete partition default response has a 4xx status code
+func (o *DeletePartitionDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this delete partition default response has a 5xx status code
+func (o *DeletePartitionDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this delete partition default response a status code equal to that given
+func (o *DeletePartitionDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
 func (o *DeletePartitionDefault) Error() string {
 	return fmt.Sprintf("[DELETE /v1/partition/{id}][%d] deletePartition default  %+v", o._statusCode, o.Payload)
 }
+
+func (o *DeletePartitionDefault) String() string {
+	return fmt.Sprintf("[DELETE /v1/partition/{id}][%d] deletePartition default  %+v", o._statusCode, o.Payload)
+}
+
 func (o *DeletePartitionDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

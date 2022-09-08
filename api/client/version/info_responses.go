@@ -48,7 +48,7 @@ func NewInfoOK() *InfoOK {
 }
 
 /*
-	InfoOK describes a response with status code 200, with default header values.
+InfoOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -56,9 +56,39 @@ type InfoOK struct {
 	Payload *models.RestVersion
 }
 
+// IsSuccess returns true when this info o k response has a 2xx status code
+func (o *InfoOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this info o k response has a 3xx status code
+func (o *InfoOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this info o k response has a 4xx status code
+func (o *InfoOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this info o k response has a 5xx status code
+func (o *InfoOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this info o k response a status code equal to that given
+func (o *InfoOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *InfoOK) Error() string {
 	return fmt.Sprintf("[GET /v1/version][%d] infoOK  %+v", 200, o.Payload)
 }
+
+func (o *InfoOK) String() string {
+	return fmt.Sprintf("[GET /v1/version][%d] infoOK  %+v", 200, o.Payload)
+}
+
 func (o *InfoOK) GetPayload() *models.RestVersion {
 	return o.Payload
 }
@@ -83,7 +113,7 @@ func NewInfoDefault(code int) *InfoDefault {
 }
 
 /*
-	InfoDefault describes a response with status code -1, with default header values.
+InfoDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -98,9 +128,39 @@ func (o *InfoDefault) Code() int {
 	return o._statusCode
 }
 
+// IsSuccess returns true when this info default response has a 2xx status code
+func (o *InfoDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this info default response has a 3xx status code
+func (o *InfoDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this info default response has a 4xx status code
+func (o *InfoDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this info default response has a 5xx status code
+func (o *InfoDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this info default response a status code equal to that given
+func (o *InfoDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
 func (o *InfoDefault) Error() string {
 	return fmt.Sprintf("[GET /v1/version][%d] info default  %+v", o._statusCode, o.Payload)
 }
+
+func (o *InfoDefault) String() string {
+	return fmt.Sprintf("[GET /v1/version][%d] info default  %+v", o._statusCode, o.Payload)
+}
+
 func (o *InfoDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

@@ -48,7 +48,7 @@ func NewFindMachinesOK() *FindMachinesOK {
 }
 
 /*
-	FindMachinesOK describes a response with status code 200, with default header values.
+FindMachinesOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -56,9 +56,39 @@ type FindMachinesOK struct {
 	Payload []*models.V1MachineResponse
 }
 
+// IsSuccess returns true when this find machines o k response has a 2xx status code
+func (o *FindMachinesOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this find machines o k response has a 3xx status code
+func (o *FindMachinesOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this find machines o k response has a 4xx status code
+func (o *FindMachinesOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this find machines o k response has a 5xx status code
+func (o *FindMachinesOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this find machines o k response a status code equal to that given
+func (o *FindMachinesOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *FindMachinesOK) Error() string {
 	return fmt.Sprintf("[POST /v1/machine/find][%d] findMachinesOK  %+v", 200, o.Payload)
 }
+
+func (o *FindMachinesOK) String() string {
+	return fmt.Sprintf("[POST /v1/machine/find][%d] findMachinesOK  %+v", 200, o.Payload)
+}
+
 func (o *FindMachinesOK) GetPayload() []*models.V1MachineResponse {
 	return o.Payload
 }
@@ -81,7 +111,7 @@ func NewFindMachinesDefault(code int) *FindMachinesDefault {
 }
 
 /*
-	FindMachinesDefault describes a response with status code -1, with default header values.
+FindMachinesDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -96,9 +126,39 @@ func (o *FindMachinesDefault) Code() int {
 	return o._statusCode
 }
 
+// IsSuccess returns true when this find machines default response has a 2xx status code
+func (o *FindMachinesDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this find machines default response has a 3xx status code
+func (o *FindMachinesDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this find machines default response has a 4xx status code
+func (o *FindMachinesDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this find machines default response has a 5xx status code
+func (o *FindMachinesDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this find machines default response a status code equal to that given
+func (o *FindMachinesDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
 func (o *FindMachinesDefault) Error() string {
 	return fmt.Sprintf("[POST /v1/machine/find][%d] findMachines default  %+v", o._statusCode, o.Payload)
 }
+
+func (o *FindMachinesDefault) String() string {
+	return fmt.Sprintf("[POST /v1/machine/find][%d] findMachines default  %+v", o._statusCode, o.Payload)
+}
+
 func (o *FindMachinesDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

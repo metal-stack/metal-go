@@ -54,7 +54,7 @@ func NewUpdateImageOK() *UpdateImageOK {
 }
 
 /*
-	UpdateImageOK describes a response with status code 200, with default header values.
+UpdateImageOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -62,9 +62,39 @@ type UpdateImageOK struct {
 	Payload *models.V1ImageResponse
 }
 
+// IsSuccess returns true when this update image o k response has a 2xx status code
+func (o *UpdateImageOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this update image o k response has a 3xx status code
+func (o *UpdateImageOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this update image o k response has a 4xx status code
+func (o *UpdateImageOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this update image o k response has a 5xx status code
+func (o *UpdateImageOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this update image o k response a status code equal to that given
+func (o *UpdateImageOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *UpdateImageOK) Error() string {
 	return fmt.Sprintf("[POST /v1/image][%d] updateImageOK  %+v", 200, o.Payload)
 }
+
+func (o *UpdateImageOK) String() string {
+	return fmt.Sprintf("[POST /v1/image][%d] updateImageOK  %+v", 200, o.Payload)
+}
+
 func (o *UpdateImageOK) GetPayload() *models.V1ImageResponse {
 	return o.Payload
 }
@@ -87,7 +117,7 @@ func NewUpdateImageConflict() *UpdateImageConflict {
 }
 
 /*
-	UpdateImageConflict describes a response with status code 409, with default header values.
+UpdateImageConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -95,9 +125,39 @@ type UpdateImageConflict struct {
 	Payload *httperrors.HTTPErrorResponse
 }
 
+// IsSuccess returns true when this update image conflict response has a 2xx status code
+func (o *UpdateImageConflict) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this update image conflict response has a 3xx status code
+func (o *UpdateImageConflict) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this update image conflict response has a 4xx status code
+func (o *UpdateImageConflict) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this update image conflict response has a 5xx status code
+func (o *UpdateImageConflict) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this update image conflict response a status code equal to that given
+func (o *UpdateImageConflict) IsCode(code int) bool {
+	return code == 409
+}
+
 func (o *UpdateImageConflict) Error() string {
 	return fmt.Sprintf("[POST /v1/image][%d] updateImageConflict  %+v", 409, o.Payload)
 }
+
+func (o *UpdateImageConflict) String() string {
+	return fmt.Sprintf("[POST /v1/image][%d] updateImageConflict  %+v", 409, o.Payload)
+}
+
 func (o *UpdateImageConflict) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }
@@ -122,7 +182,7 @@ func NewUpdateImageDefault(code int) *UpdateImageDefault {
 }
 
 /*
-	UpdateImageDefault describes a response with status code -1, with default header values.
+UpdateImageDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -137,9 +197,39 @@ func (o *UpdateImageDefault) Code() int {
 	return o._statusCode
 }
 
+// IsSuccess returns true when this update image default response has a 2xx status code
+func (o *UpdateImageDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this update image default response has a 3xx status code
+func (o *UpdateImageDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this update image default response has a 4xx status code
+func (o *UpdateImageDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this update image default response has a 5xx status code
+func (o *UpdateImageDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this update image default response a status code equal to that given
+func (o *UpdateImageDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
 func (o *UpdateImageDefault) Error() string {
 	return fmt.Sprintf("[POST /v1/image][%d] updateImage default  %+v", o._statusCode, o.Payload)
 }
+
+func (o *UpdateImageDefault) String() string {
+	return fmt.Sprintf("[POST /v1/image][%d] updateImage default  %+v", o._statusCode, o.Payload)
+}
+
 func (o *UpdateImageDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

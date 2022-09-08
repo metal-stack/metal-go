@@ -48,7 +48,7 @@ func NewGetFilesystemLayoutOK() *GetFilesystemLayoutOK {
 }
 
 /*
-	GetFilesystemLayoutOK describes a response with status code 200, with default header values.
+GetFilesystemLayoutOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -56,9 +56,39 @@ type GetFilesystemLayoutOK struct {
 	Payload *models.V1FilesystemLayoutResponse
 }
 
+// IsSuccess returns true when this get filesystem layout o k response has a 2xx status code
+func (o *GetFilesystemLayoutOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this get filesystem layout o k response has a 3xx status code
+func (o *GetFilesystemLayoutOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get filesystem layout o k response has a 4xx status code
+func (o *GetFilesystemLayoutOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this get filesystem layout o k response has a 5xx status code
+func (o *GetFilesystemLayoutOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get filesystem layout o k response a status code equal to that given
+func (o *GetFilesystemLayoutOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *GetFilesystemLayoutOK) Error() string {
 	return fmt.Sprintf("[GET /v1/filesystemlayout/{id}][%d] getFilesystemLayoutOK  %+v", 200, o.Payload)
 }
+
+func (o *GetFilesystemLayoutOK) String() string {
+	return fmt.Sprintf("[GET /v1/filesystemlayout/{id}][%d] getFilesystemLayoutOK  %+v", 200, o.Payload)
+}
+
 func (o *GetFilesystemLayoutOK) GetPayload() *models.V1FilesystemLayoutResponse {
 	return o.Payload
 }
@@ -83,7 +113,7 @@ func NewGetFilesystemLayoutDefault(code int) *GetFilesystemLayoutDefault {
 }
 
 /*
-	GetFilesystemLayoutDefault describes a response with status code -1, with default header values.
+GetFilesystemLayoutDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -98,9 +128,39 @@ func (o *GetFilesystemLayoutDefault) Code() int {
 	return o._statusCode
 }
 
+// IsSuccess returns true when this get filesystem layout default response has a 2xx status code
+func (o *GetFilesystemLayoutDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this get filesystem layout default response has a 3xx status code
+func (o *GetFilesystemLayoutDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this get filesystem layout default response has a 4xx status code
+func (o *GetFilesystemLayoutDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this get filesystem layout default response has a 5xx status code
+func (o *GetFilesystemLayoutDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this get filesystem layout default response a status code equal to that given
+func (o *GetFilesystemLayoutDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
 func (o *GetFilesystemLayoutDefault) Error() string {
 	return fmt.Sprintf("[GET /v1/filesystemlayout/{id}][%d] getFilesystemLayout default  %+v", o._statusCode, o.Payload)
 }
+
+func (o *GetFilesystemLayoutDefault) String() string {
+	return fmt.Sprintf("[GET /v1/filesystemlayout/{id}][%d] getFilesystemLayout default  %+v", o._statusCode, o.Payload)
+}
+
 func (o *GetFilesystemLayoutDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

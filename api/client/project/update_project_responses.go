@@ -54,7 +54,7 @@ func NewUpdateProjectOK() *UpdateProjectOK {
 }
 
 /*
-	UpdateProjectOK describes a response with status code 200, with default header values.
+UpdateProjectOK describes a response with status code 200, with default header values.
 
 Updated
 */
@@ -62,9 +62,39 @@ type UpdateProjectOK struct {
 	Payload *models.V1ProjectResponse
 }
 
+// IsSuccess returns true when this update project o k response has a 2xx status code
+func (o *UpdateProjectOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this update project o k response has a 3xx status code
+func (o *UpdateProjectOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this update project o k response has a 4xx status code
+func (o *UpdateProjectOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this update project o k response has a 5xx status code
+func (o *UpdateProjectOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this update project o k response a status code equal to that given
+func (o *UpdateProjectOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *UpdateProjectOK) Error() string {
 	return fmt.Sprintf("[POST /v1/project][%d] updateProjectOK  %+v", 200, o.Payload)
 }
+
+func (o *UpdateProjectOK) String() string {
+	return fmt.Sprintf("[POST /v1/project][%d] updateProjectOK  %+v", 200, o.Payload)
+}
+
 func (o *UpdateProjectOK) GetPayload() *models.V1ProjectResponse {
 	return o.Payload
 }
@@ -87,7 +117,7 @@ func NewUpdateProjectPreconditionFailed() *UpdateProjectPreconditionFailed {
 }
 
 /*
-	UpdateProjectPreconditionFailed describes a response with status code 412, with default header values.
+UpdateProjectPreconditionFailed describes a response with status code 412, with default header values.
 
 OptimisticLock
 */
@@ -95,9 +125,39 @@ type UpdateProjectPreconditionFailed struct {
 	Payload *httperrors.HTTPErrorResponse
 }
 
+// IsSuccess returns true when this update project precondition failed response has a 2xx status code
+func (o *UpdateProjectPreconditionFailed) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this update project precondition failed response has a 3xx status code
+func (o *UpdateProjectPreconditionFailed) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this update project precondition failed response has a 4xx status code
+func (o *UpdateProjectPreconditionFailed) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this update project precondition failed response has a 5xx status code
+func (o *UpdateProjectPreconditionFailed) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this update project precondition failed response a status code equal to that given
+func (o *UpdateProjectPreconditionFailed) IsCode(code int) bool {
+	return code == 412
+}
+
 func (o *UpdateProjectPreconditionFailed) Error() string {
 	return fmt.Sprintf("[POST /v1/project][%d] updateProjectPreconditionFailed  %+v", 412, o.Payload)
 }
+
+func (o *UpdateProjectPreconditionFailed) String() string {
+	return fmt.Sprintf("[POST /v1/project][%d] updateProjectPreconditionFailed  %+v", 412, o.Payload)
+}
+
 func (o *UpdateProjectPreconditionFailed) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }
@@ -122,7 +182,7 @@ func NewUpdateProjectDefault(code int) *UpdateProjectDefault {
 }
 
 /*
-	UpdateProjectDefault describes a response with status code -1, with default header values.
+UpdateProjectDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -137,9 +197,39 @@ func (o *UpdateProjectDefault) Code() int {
 	return o._statusCode
 }
 
+// IsSuccess returns true when this update project default response has a 2xx status code
+func (o *UpdateProjectDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this update project default response has a 3xx status code
+func (o *UpdateProjectDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this update project default response has a 4xx status code
+func (o *UpdateProjectDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this update project default response has a 5xx status code
+func (o *UpdateProjectDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this update project default response a status code equal to that given
+func (o *UpdateProjectDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
 func (o *UpdateProjectDefault) Error() string {
 	return fmt.Sprintf("[POST /v1/project][%d] updateProject default  %+v", o._statusCode, o.Payload)
 }
+
+func (o *UpdateProjectDefault) String() string {
+	return fmt.Sprintf("[POST /v1/project][%d] updateProject default  %+v", o._statusCode, o.Payload)
+}
+
 func (o *UpdateProjectDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

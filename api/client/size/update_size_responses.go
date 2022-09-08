@@ -54,7 +54,7 @@ func NewUpdateSizeOK() *UpdateSizeOK {
 }
 
 /*
-	UpdateSizeOK describes a response with status code 200, with default header values.
+UpdateSizeOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -62,9 +62,39 @@ type UpdateSizeOK struct {
 	Payload *models.V1SizeResponse
 }
 
+// IsSuccess returns true when this update size o k response has a 2xx status code
+func (o *UpdateSizeOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this update size o k response has a 3xx status code
+func (o *UpdateSizeOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this update size o k response has a 4xx status code
+func (o *UpdateSizeOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this update size o k response has a 5xx status code
+func (o *UpdateSizeOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this update size o k response a status code equal to that given
+func (o *UpdateSizeOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *UpdateSizeOK) Error() string {
 	return fmt.Sprintf("[POST /v1/size][%d] updateSizeOK  %+v", 200, o.Payload)
 }
+
+func (o *UpdateSizeOK) String() string {
+	return fmt.Sprintf("[POST /v1/size][%d] updateSizeOK  %+v", 200, o.Payload)
+}
+
 func (o *UpdateSizeOK) GetPayload() *models.V1SizeResponse {
 	return o.Payload
 }
@@ -87,7 +117,7 @@ func NewUpdateSizeConflict() *UpdateSizeConflict {
 }
 
 /*
-	UpdateSizeConflict describes a response with status code 409, with default header values.
+UpdateSizeConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -95,9 +125,39 @@ type UpdateSizeConflict struct {
 	Payload *httperrors.HTTPErrorResponse
 }
 
+// IsSuccess returns true when this update size conflict response has a 2xx status code
+func (o *UpdateSizeConflict) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this update size conflict response has a 3xx status code
+func (o *UpdateSizeConflict) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this update size conflict response has a 4xx status code
+func (o *UpdateSizeConflict) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this update size conflict response has a 5xx status code
+func (o *UpdateSizeConflict) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this update size conflict response a status code equal to that given
+func (o *UpdateSizeConflict) IsCode(code int) bool {
+	return code == 409
+}
+
 func (o *UpdateSizeConflict) Error() string {
 	return fmt.Sprintf("[POST /v1/size][%d] updateSizeConflict  %+v", 409, o.Payload)
 }
+
+func (o *UpdateSizeConflict) String() string {
+	return fmt.Sprintf("[POST /v1/size][%d] updateSizeConflict  %+v", 409, o.Payload)
+}
+
 func (o *UpdateSizeConflict) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }
@@ -122,7 +182,7 @@ func NewUpdateSizeDefault(code int) *UpdateSizeDefault {
 }
 
 /*
-	UpdateSizeDefault describes a response with status code -1, with default header values.
+UpdateSizeDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -137,9 +197,39 @@ func (o *UpdateSizeDefault) Code() int {
 	return o._statusCode
 }
 
+// IsSuccess returns true when this update size default response has a 2xx status code
+func (o *UpdateSizeDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this update size default response has a 3xx status code
+func (o *UpdateSizeDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this update size default response has a 4xx status code
+func (o *UpdateSizeDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this update size default response has a 5xx status code
+func (o *UpdateSizeDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this update size default response a status code equal to that given
+func (o *UpdateSizeDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
 func (o *UpdateSizeDefault) Error() string {
 	return fmt.Sprintf("[POST /v1/size][%d] updateSize default  %+v", o._statusCode, o.Payload)
 }
+
+func (o *UpdateSizeDefault) String() string {
+	return fmt.Sprintf("[POST /v1/size][%d] updateSize default  %+v", o._statusCode, o.Payload)
+}
+
 func (o *UpdateSizeDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

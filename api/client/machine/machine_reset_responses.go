@@ -48,7 +48,7 @@ func NewMachineResetOK() *MachineResetOK {
 }
 
 /*
-	MachineResetOK describes a response with status code 200, with default header values.
+MachineResetOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -56,9 +56,39 @@ type MachineResetOK struct {
 	Payload *models.V1MachineResponse
 }
 
+// IsSuccess returns true when this machine reset o k response has a 2xx status code
+func (o *MachineResetOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this machine reset o k response has a 3xx status code
+func (o *MachineResetOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this machine reset o k response has a 4xx status code
+func (o *MachineResetOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this machine reset o k response has a 5xx status code
+func (o *MachineResetOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this machine reset o k response a status code equal to that given
+func (o *MachineResetOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *MachineResetOK) Error() string {
 	return fmt.Sprintf("[POST /v1/machine/{id}/power/reset][%d] machineResetOK  %+v", 200, o.Payload)
 }
+
+func (o *MachineResetOK) String() string {
+	return fmt.Sprintf("[POST /v1/machine/{id}/power/reset][%d] machineResetOK  %+v", 200, o.Payload)
+}
+
 func (o *MachineResetOK) GetPayload() *models.V1MachineResponse {
 	return o.Payload
 }
@@ -83,7 +113,7 @@ func NewMachineResetDefault(code int) *MachineResetDefault {
 }
 
 /*
-	MachineResetDefault describes a response with status code -1, with default header values.
+MachineResetDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -98,9 +128,39 @@ func (o *MachineResetDefault) Code() int {
 	return o._statusCode
 }
 
+// IsSuccess returns true when this machine reset default response has a 2xx status code
+func (o *MachineResetDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this machine reset default response has a 3xx status code
+func (o *MachineResetDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this machine reset default response has a 4xx status code
+func (o *MachineResetDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this machine reset default response has a 5xx status code
+func (o *MachineResetDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this machine reset default response a status code equal to that given
+func (o *MachineResetDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
 func (o *MachineResetDefault) Error() string {
 	return fmt.Sprintf("[POST /v1/machine/{id}/power/reset][%d] machineReset default  %+v", o._statusCode, o.Payload)
 }
+
+func (o *MachineResetDefault) String() string {
+	return fmt.Sprintf("[POST /v1/machine/{id}/power/reset][%d] machineReset default  %+v", o._statusCode, o.Payload)
+}
+
 func (o *MachineResetDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

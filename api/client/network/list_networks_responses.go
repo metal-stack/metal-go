@@ -48,7 +48,7 @@ func NewListNetworksOK() *ListNetworksOK {
 }
 
 /*
-	ListNetworksOK describes a response with status code 200, with default header values.
+ListNetworksOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -56,9 +56,39 @@ type ListNetworksOK struct {
 	Payload []*models.V1NetworkResponse
 }
 
+// IsSuccess returns true when this list networks o k response has a 2xx status code
+func (o *ListNetworksOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this list networks o k response has a 3xx status code
+func (o *ListNetworksOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this list networks o k response has a 4xx status code
+func (o *ListNetworksOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this list networks o k response has a 5xx status code
+func (o *ListNetworksOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this list networks o k response a status code equal to that given
+func (o *ListNetworksOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *ListNetworksOK) Error() string {
 	return fmt.Sprintf("[GET /v1/network][%d] listNetworksOK  %+v", 200, o.Payload)
 }
+
+func (o *ListNetworksOK) String() string {
+	return fmt.Sprintf("[GET /v1/network][%d] listNetworksOK  %+v", 200, o.Payload)
+}
+
 func (o *ListNetworksOK) GetPayload() []*models.V1NetworkResponse {
 	return o.Payload
 }
@@ -81,7 +111,7 @@ func NewListNetworksDefault(code int) *ListNetworksDefault {
 }
 
 /*
-	ListNetworksDefault describes a response with status code -1, with default header values.
+ListNetworksDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -96,9 +126,39 @@ func (o *ListNetworksDefault) Code() int {
 	return o._statusCode
 }
 
+// IsSuccess returns true when this list networks default response has a 2xx status code
+func (o *ListNetworksDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this list networks default response has a 3xx status code
+func (o *ListNetworksDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this list networks default response has a 4xx status code
+func (o *ListNetworksDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this list networks default response has a 5xx status code
+func (o *ListNetworksDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this list networks default response a status code equal to that given
+func (o *ListNetworksDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
 func (o *ListNetworksDefault) Error() string {
 	return fmt.Sprintf("[GET /v1/network][%d] listNetworks default  %+v", o._statusCode, o.Payload)
 }
+
+func (o *ListNetworksDefault) String() string {
+	return fmt.Sprintf("[GET /v1/network][%d] listNetworks default  %+v", o._statusCode, o.Payload)
+}
+
 func (o *ListNetworksDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

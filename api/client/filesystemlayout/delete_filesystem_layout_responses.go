@@ -48,7 +48,7 @@ func NewDeleteFilesystemLayoutOK() *DeleteFilesystemLayoutOK {
 }
 
 /*
-	DeleteFilesystemLayoutOK describes a response with status code 200, with default header values.
+DeleteFilesystemLayoutOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -56,9 +56,39 @@ type DeleteFilesystemLayoutOK struct {
 	Payload *models.V1FilesystemLayoutResponse
 }
 
+// IsSuccess returns true when this delete filesystem layout o k response has a 2xx status code
+func (o *DeleteFilesystemLayoutOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this delete filesystem layout o k response has a 3xx status code
+func (o *DeleteFilesystemLayoutOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete filesystem layout o k response has a 4xx status code
+func (o *DeleteFilesystemLayoutOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this delete filesystem layout o k response has a 5xx status code
+func (o *DeleteFilesystemLayoutOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete filesystem layout o k response a status code equal to that given
+func (o *DeleteFilesystemLayoutOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *DeleteFilesystemLayoutOK) Error() string {
 	return fmt.Sprintf("[DELETE /v1/filesystemlayout/{id}][%d] deleteFilesystemLayoutOK  %+v", 200, o.Payload)
 }
+
+func (o *DeleteFilesystemLayoutOK) String() string {
+	return fmt.Sprintf("[DELETE /v1/filesystemlayout/{id}][%d] deleteFilesystemLayoutOK  %+v", 200, o.Payload)
+}
+
 func (o *DeleteFilesystemLayoutOK) GetPayload() *models.V1FilesystemLayoutResponse {
 	return o.Payload
 }
@@ -83,7 +113,7 @@ func NewDeleteFilesystemLayoutDefault(code int) *DeleteFilesystemLayoutDefault {
 }
 
 /*
-	DeleteFilesystemLayoutDefault describes a response with status code -1, with default header values.
+DeleteFilesystemLayoutDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -98,9 +128,39 @@ func (o *DeleteFilesystemLayoutDefault) Code() int {
 	return o._statusCode
 }
 
+// IsSuccess returns true when this delete filesystem layout default response has a 2xx status code
+func (o *DeleteFilesystemLayoutDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this delete filesystem layout default response has a 3xx status code
+func (o *DeleteFilesystemLayoutDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this delete filesystem layout default response has a 4xx status code
+func (o *DeleteFilesystemLayoutDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this delete filesystem layout default response has a 5xx status code
+func (o *DeleteFilesystemLayoutDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this delete filesystem layout default response a status code equal to that given
+func (o *DeleteFilesystemLayoutDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
 func (o *DeleteFilesystemLayoutDefault) Error() string {
 	return fmt.Sprintf("[DELETE /v1/filesystemlayout/{id}][%d] deleteFilesystemLayout default  %+v", o._statusCode, o.Payload)
 }
+
+func (o *DeleteFilesystemLayoutDefault) String() string {
+	return fmt.Sprintf("[DELETE /v1/filesystemlayout/{id}][%d] deleteFilesystemLayout default  %+v", o._statusCode, o.Payload)
+}
+
 func (o *DeleteFilesystemLayoutDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

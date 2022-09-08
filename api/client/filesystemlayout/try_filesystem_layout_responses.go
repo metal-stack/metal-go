@@ -48,7 +48,7 @@ func NewTryFilesystemLayoutOK() *TryFilesystemLayoutOK {
 }
 
 /*
-	TryFilesystemLayoutOK describes a response with status code 200, with default header values.
+TryFilesystemLayoutOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -56,9 +56,39 @@ type TryFilesystemLayoutOK struct {
 	Payload *models.V1FilesystemLayoutResponse
 }
 
+// IsSuccess returns true when this try filesystem layout o k response has a 2xx status code
+func (o *TryFilesystemLayoutOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this try filesystem layout o k response has a 3xx status code
+func (o *TryFilesystemLayoutOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this try filesystem layout o k response has a 4xx status code
+func (o *TryFilesystemLayoutOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this try filesystem layout o k response has a 5xx status code
+func (o *TryFilesystemLayoutOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this try filesystem layout o k response a status code equal to that given
+func (o *TryFilesystemLayoutOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *TryFilesystemLayoutOK) Error() string {
 	return fmt.Sprintf("[POST /v1/filesystemlayout/try][%d] tryFilesystemLayoutOK  %+v", 200, o.Payload)
 }
+
+func (o *TryFilesystemLayoutOK) String() string {
+	return fmt.Sprintf("[POST /v1/filesystemlayout/try][%d] tryFilesystemLayoutOK  %+v", 200, o.Payload)
+}
+
 func (o *TryFilesystemLayoutOK) GetPayload() *models.V1FilesystemLayoutResponse {
 	return o.Payload
 }
@@ -83,7 +113,7 @@ func NewTryFilesystemLayoutDefault(code int) *TryFilesystemLayoutDefault {
 }
 
 /*
-	TryFilesystemLayoutDefault describes a response with status code -1, with default header values.
+TryFilesystemLayoutDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -98,9 +128,39 @@ func (o *TryFilesystemLayoutDefault) Code() int {
 	return o._statusCode
 }
 
+// IsSuccess returns true when this try filesystem layout default response has a 2xx status code
+func (o *TryFilesystemLayoutDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this try filesystem layout default response has a 3xx status code
+func (o *TryFilesystemLayoutDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this try filesystem layout default response has a 4xx status code
+func (o *TryFilesystemLayoutDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this try filesystem layout default response has a 5xx status code
+func (o *TryFilesystemLayoutDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this try filesystem layout default response a status code equal to that given
+func (o *TryFilesystemLayoutDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
 func (o *TryFilesystemLayoutDefault) Error() string {
 	return fmt.Sprintf("[POST /v1/filesystemlayout/try][%d] tryFilesystemLayout default  %+v", o._statusCode, o.Payload)
 }
+
+func (o *TryFilesystemLayoutDefault) String() string {
+	return fmt.Sprintf("[POST /v1/filesystemlayout/try][%d] tryFilesystemLayout default  %+v", o._statusCode, o.Payload)
+}
+
 func (o *TryFilesystemLayoutDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

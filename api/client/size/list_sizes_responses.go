@@ -48,7 +48,7 @@ func NewListSizesOK() *ListSizesOK {
 }
 
 /*
-	ListSizesOK describes a response with status code 200, with default header values.
+ListSizesOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -56,9 +56,39 @@ type ListSizesOK struct {
 	Payload []*models.V1SizeResponse
 }
 
+// IsSuccess returns true when this list sizes o k response has a 2xx status code
+func (o *ListSizesOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this list sizes o k response has a 3xx status code
+func (o *ListSizesOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this list sizes o k response has a 4xx status code
+func (o *ListSizesOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this list sizes o k response has a 5xx status code
+func (o *ListSizesOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this list sizes o k response a status code equal to that given
+func (o *ListSizesOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *ListSizesOK) Error() string {
 	return fmt.Sprintf("[GET /v1/size][%d] listSizesOK  %+v", 200, o.Payload)
 }
+
+func (o *ListSizesOK) String() string {
+	return fmt.Sprintf("[GET /v1/size][%d] listSizesOK  %+v", 200, o.Payload)
+}
+
 func (o *ListSizesOK) GetPayload() []*models.V1SizeResponse {
 	return o.Payload
 }
@@ -81,7 +111,7 @@ func NewListSizesDefault(code int) *ListSizesDefault {
 }
 
 /*
-	ListSizesDefault describes a response with status code -1, with default header values.
+ListSizesDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -96,9 +126,39 @@ func (o *ListSizesDefault) Code() int {
 	return o._statusCode
 }
 
+// IsSuccess returns true when this list sizes default response has a 2xx status code
+func (o *ListSizesDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this list sizes default response has a 3xx status code
+func (o *ListSizesDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this list sizes default response has a 4xx status code
+func (o *ListSizesDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this list sizes default response has a 5xx status code
+func (o *ListSizesDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this list sizes default response a status code equal to that given
+func (o *ListSizesDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
 func (o *ListSizesDefault) Error() string {
 	return fmt.Sprintf("[GET /v1/size][%d] listSizes default  %+v", o._statusCode, o.Payload)
 }
+
+func (o *ListSizesDefault) String() string {
+	return fmt.Sprintf("[GET /v1/size][%d] listSizes default  %+v", o._statusCode, o.Payload)
+}
+
 func (o *ListSizesDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }

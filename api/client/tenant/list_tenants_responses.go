@@ -48,7 +48,7 @@ func NewListTenantsOK() *ListTenantsOK {
 }
 
 /*
-	ListTenantsOK describes a response with status code 200, with default header values.
+ListTenantsOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -56,9 +56,39 @@ type ListTenantsOK struct {
 	Payload []*models.V1TenantResponse
 }
 
+// IsSuccess returns true when this list tenants o k response has a 2xx status code
+func (o *ListTenantsOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this list tenants o k response has a 3xx status code
+func (o *ListTenantsOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this list tenants o k response has a 4xx status code
+func (o *ListTenantsOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this list tenants o k response has a 5xx status code
+func (o *ListTenantsOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this list tenants o k response a status code equal to that given
+func (o *ListTenantsOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *ListTenantsOK) Error() string {
 	return fmt.Sprintf("[GET /v1/tenant][%d] listTenantsOK  %+v", 200, o.Payload)
 }
+
+func (o *ListTenantsOK) String() string {
+	return fmt.Sprintf("[GET /v1/tenant][%d] listTenantsOK  %+v", 200, o.Payload)
+}
+
 func (o *ListTenantsOK) GetPayload() []*models.V1TenantResponse {
 	return o.Payload
 }
@@ -81,7 +111,7 @@ func NewListTenantsDefault(code int) *ListTenantsDefault {
 }
 
 /*
-	ListTenantsDefault describes a response with status code -1, with default header values.
+ListTenantsDefault describes a response with status code -1, with default header values.
 
 Error
 */
@@ -96,9 +126,39 @@ func (o *ListTenantsDefault) Code() int {
 	return o._statusCode
 }
 
+// IsSuccess returns true when this list tenants default response has a 2xx status code
+func (o *ListTenantsDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this list tenants default response has a 3xx status code
+func (o *ListTenantsDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this list tenants default response has a 4xx status code
+func (o *ListTenantsDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this list tenants default response has a 5xx status code
+func (o *ListTenantsDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this list tenants default response a status code equal to that given
+func (o *ListTenantsDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
 func (o *ListTenantsDefault) Error() string {
 	return fmt.Sprintf("[GET /v1/tenant][%d] listTenants default  %+v", o._statusCode, o.Payload)
 }
+
+func (o *ListTenantsDefault) String() string {
+	return fmt.Sprintf("[GET /v1/tenant][%d] listTenants default  %+v", o._statusCode, o.Payload)
+}
+
 func (o *ListTenantsDefault) GetPayload() *httperrors.HTTPErrorResponse {
 	return o.Payload
 }
