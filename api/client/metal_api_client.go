@@ -26,6 +26,7 @@ import (
 	"github.com/metal-stack/metal-go/api/client/tenant"
 	"github.com/metal-stack/metal-go/api/client/user"
 	"github.com/metal-stack/metal-go/api/client/version"
+	"github.com/metal-stack/metal-go/api/client/vpn"
 )
 
 // Default metal API HTTP client.
@@ -86,6 +87,7 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *MetalAPI {
 	cli.Tenant = tenant.New(transport, formats)
 	cli.User = user.New(transport, formats)
 	cli.Version = version.New(transport, formats)
+	cli.Vpn = vpn.New(transport, formats)
 	return cli
 }
 
@@ -162,6 +164,8 @@ type MetalAPI struct {
 
 	Version version.ClientService
 
+	Vpn vpn.ClientService
+
 	Transport runtime.ClientTransport
 }
 
@@ -184,4 +188,5 @@ func (c *MetalAPI) SetTransport(transport runtime.ClientTransport) {
 	c.Tenant.SetTransport(transport)
 	c.User.SetTransport(transport)
 	c.Version.SetTransport(transport)
+	c.Vpn.SetTransport(transport)
 }
