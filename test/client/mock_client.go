@@ -21,6 +21,7 @@ import (
 	"github.com/metal-stack/metal-go/api/client/tenant"
 	"github.com/metal-stack/metal-go/api/client/user"
 	"github.com/metal-stack/metal-go/api/client/version"
+	"github.com/metal-stack/metal-go/api/client/vpn"
 
 	filesystemlayoutmocks "github.com/metal-stack/metal-go/test/mocks/filesystemlayout"
 	firewallmocks "github.com/metal-stack/metal-go/test/mocks/firewall"
@@ -38,6 +39,7 @@ import (
 	tenantmocks "github.com/metal-stack/metal-go/test/mocks/tenant"
 	usermocks "github.com/metal-stack/metal-go/test/mocks/user"
 	versionmocks "github.com/metal-stack/metal-go/test/mocks/version"
+	vpnmocks "github.com/metal-stack/metal-go/test/mocks/vpn"
 
 	"github.com/stretchr/testify/mock"
 )
@@ -59,6 +61,7 @@ type MetalMockFns struct {
 	Tenant              func(mock *mock.Mock)
 	User                func(mock *mock.Mock)
 	Version             func(mock *mock.Mock)
+	VPN                 func(mock *mock.Mock)
 }
 
 type MetalMockClient struct {
@@ -78,6 +81,7 @@ type MetalMockClient struct {
 	tenant              tenantmocks.ClientService
 	user                usermocks.ClientService
 	version             versionmocks.ClientService
+	vpn                 vpnmocks.ClientService
 }
 
 func NewMetalMockClient(mockFns *MetalMockFns) (*MetalMockClient, metalgo.Client) {
@@ -98,6 +102,7 @@ func NewMetalMockClient(mockFns *MetalMockFns) (*MetalMockClient, metalgo.Client
 		tenant:              tenantmocks.ClientService{},
 		user:                usermocks.ClientService{},
 		version:             versionmocks.ClientService{},
+		vpn:                 vpnmocks.ClientService{},
 	}
 
 	if mockFns == nil {
@@ -151,6 +156,9 @@ func NewMetalMockClient(mockFns *MetalMockFns) (*MetalMockClient, metalgo.Client
 	}
 	if mockFns.Version != nil {
 		mockFns.Version(&client.version.Mock)
+	}
+	if mockFns.VPN != nil {
+		mockFns.VPN(&client.vpn.Mock)
 	}
 
 	return client, client
@@ -220,6 +228,10 @@ func (c *MetalMockClient) Version() version.ClientService {
 	return &c.version
 }
 
+func (c *MetalMockClient) VPN() vpn.ClientService {
+	return &c.vpn
+}
+
 func (c *MetalMockClient) AssertExpectations(t *testing.T) {
 	_ = c.filesystemlayout.AssertExpectations(t)
 	_ = c.firewall.AssertExpectations(t)
@@ -237,4 +249,5 @@ func (c *MetalMockClient) AssertExpectations(t *testing.T) {
 	_ = c.tenant.AssertExpectations(t)
 	_ = c.user.AssertExpectations(t)
 	_ = c.version.AssertExpectations(t)
+	_ = c.vpn.AssertExpectations(t)
 }
