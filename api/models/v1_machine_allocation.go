@@ -78,6 +78,9 @@ type V1MachineAllocation struct {
 
 	// userdata to execute post installation tasks
 	UserData string `json:"user_data,omitempty" yaml:"user_data,omitempty"`
+
+	// vpn connection info for machine
+	Vpn *V1MachineVPN `json:"vpn,omitempty" yaml:"vpn,omitempty"`
 }
 
 // Validate validates this v1 machine allocation
@@ -133,6 +136,10 @@ func (m *V1MachineAllocation) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateSucceeded(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateVpn(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -345,6 +352,25 @@ func (m *V1MachineAllocation) validateSucceeded(formats strfmt.Registry) error {
 	return nil
 }
 
+func (m *V1MachineAllocation) validateVpn(formats strfmt.Registry) error {
+	if swag.IsZero(m.Vpn) { // not required
+		return nil
+	}
+
+	if m.Vpn != nil {
+		if err := m.Vpn.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("vpn")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("vpn")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
 // ContextValidate validate this v1 machine allocation based on the context it is used
 func (m *V1MachineAllocation) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	var res []error
@@ -362,6 +388,10 @@ func (m *V1MachineAllocation) ContextValidate(ctx context.Context, formats strfm
 	}
 
 	if err := m.contextValidateNetworks(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateVpn(ctx, formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -434,6 +464,22 @@ func (m *V1MachineAllocation) contextValidateNetworks(ctx context.Context, forma
 			}
 		}
 
+	}
+
+	return nil
+}
+
+func (m *V1MachineAllocation) contextValidateVpn(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Vpn != nil {
+		if err := m.Vpn.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("vpn")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("vpn")
+			}
+			return err
+		}
 	}
 
 	return nil
