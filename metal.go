@@ -25,6 +25,7 @@ import (
 	"github.com/metal-stack/metal-go/api/client/tenant"
 	"github.com/metal-stack/metal-go/api/client/user"
 	"github.com/metal-stack/metal-go/api/client/version"
+	"github.com/metal-stack/metal-go/api/client/vpn"
 	"github.com/metal-stack/security"
 )
 
@@ -49,6 +50,7 @@ type Client interface {
 	Tenant() tenant.ClientService
 	User() user.ClientService
 	Version() version.ClientService
+	VPN() vpn.ClientService
 }
 
 // Driver holds the client connection to the metal api
@@ -186,4 +188,7 @@ func (d *Driver) User() user.ClientService {
 }
 func (d *Driver) Version() version.ClientService {
 	return d.c.Version
+}
+func (d *Driver) VPN() vpn.ClientService {
+	return d.c.Vpn
 }
