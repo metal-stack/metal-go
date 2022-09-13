@@ -9,7 +9,6 @@ require (
 	github.com/go-openapi/strfmt v0.21.2
 	github.com/go-openapi/swag v0.21.1
 	github.com/go-openapi/validate v0.21.0
-	github.com/metal-stack/masterdata-api v0.8.12
 	github.com/metal-stack/metal-lib v0.9.0
 	github.com/metal-stack/security v0.6.4
 	github.com/stretchr/testify v1.7.1
