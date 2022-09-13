@@ -28,12 +28,6 @@ type ClientOption func(*runtime.ClientOperation)
 
 // ClientService is the interface for Client methods
 type ClientService interface {
-	AbortReinstallMachine(params *AbortReinstallMachineParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*AbortReinstallMachineOK, error)
-
-	AddProvisioningEvent(params *AddProvisioningEventParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*AddProvisioningEventOK, error)
-
-	AddProvisioningEvents(params *AddProvisioningEventsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*AddProvisioningEventsOK, error)
-
 	AllocateMachine(params *AllocateMachineParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*AllocateMachineOK, error)
 
 	ChassisIdentifyLEDOff(params *ChassisIdentifyLEDOffParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ChassisIdentifyLEDOffOK, error)
@@ -41,8 +35,6 @@ type ClientService interface {
 	ChassisIdentifyLEDOn(params *ChassisIdentifyLEDOnParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ChassisIdentifyLEDOnOK, error)
 
 	DeleteMachine(params *DeleteMachineParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteMachineOK, error)
-
-	FinalizeAllocation(params *FinalizeAllocationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FinalizeAllocationOK, error)
 
 	FindIPMIMachine(params *FindIPMIMachineParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FindIPMIMachineOK, error)
 
@@ -55,8 +47,6 @@ type ClientService interface {
 	FreeMachine(params *FreeMachineParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FreeMachineOK, error)
 
 	GetMachineConsolePassword(params *GetMachineConsolePasswordParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetMachineConsolePasswordOK, error)
-
-	GetProvisioningEventContainer(params *GetProvisioningEventContainerParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetProvisioningEventContainerOK, error)
 
 	IpmiReport(params *IpmiReportParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*IpmiReportOK, error)
 
@@ -76,11 +66,7 @@ type ClientService interface {
 
 	MachineReset(params *MachineResetParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*MachineResetOK, error)
 
-	RegisterMachine(params *RegisterMachineParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*RegisterMachineOK, *RegisterMachineCreated, error)
-
 	ReinstallMachine(params *ReinstallMachineParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ReinstallMachineOK, error)
-
-	SetChassisIdentifyLEDState(params *SetChassisIdentifyLEDStateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetChassisIdentifyLEDStateOK, error)
 
 	SetMachineState(params *SetMachineStateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetMachineStateOK, error)
 
@@ -89,120 +75,6 @@ type ClientService interface {
 	UpdateMachine(params *UpdateMachineParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateMachineOK, error)
 
 	SetTransport(transport runtime.ClientTransport)
-}
-
-/*
-AbortReinstallMachine aborts reinstall this machine
-*/
-func (a *Client) AbortReinstallMachine(params *AbortReinstallMachineParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*AbortReinstallMachineOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewAbortReinstallMachineParams()
-	}
-	op := &runtime.ClientOperation{
-		ID:                 "abortReinstallMachine",
-		Method:             "POST",
-		PathPattern:        "/v1/machine/{id}/abort-reinstall",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
-		Params:             params,
-		Reader:             &AbortReinstallMachineReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*AbortReinstallMachineOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	unexpectedSuccess := result.(*AbortReinstallMachineDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
-}
-
-/*
-AddProvisioningEvent adds a machine provisioning event
-*/
-func (a *Client) AddProvisioningEvent(params *AddProvisioningEventParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*AddProvisioningEventOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewAddProvisioningEventParams()
-	}
-	op := &runtime.ClientOperation{
-		ID:                 "addProvisioningEvent",
-		Method:             "POST",
-		PathPattern:        "/v1/machine/{id}/event",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
-		Params:             params,
-		Reader:             &AddProvisioningEventReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*AddProvisioningEventOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	unexpectedSuccess := result.(*AddProvisioningEventDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
-}
-
-/*
-AddProvisioningEvents adds machine provisioning events
-*/
-func (a *Client) AddProvisioningEvents(params *AddProvisioningEventsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*AddProvisioningEventsOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewAddProvisioningEventsParams()
-	}
-	op := &runtime.ClientOperation{
-		ID:                 "addProvisioningEvents",
-		Method:             "POST",
-		PathPattern:        "/v1/machine/event",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
-		Params:             params,
-		Reader:             &AddProvisioningEventsReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*AddProvisioningEventsOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	unexpectedSuccess := result.(*AddProvisioningEventsDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
@@ -354,44 +226,6 @@ func (a *Client) DeleteMachine(params *DeleteMachineParams, authInfo runtime.Cli
 	}
 	// unexpected success response
 	unexpectedSuccess := result.(*DeleteMachineDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
-}
-
-/*
-FinalizeAllocation finalizes the allocation of the machine by reconfiguring the switch sent on successful image installation
-*/
-func (a *Client) FinalizeAllocation(params *FinalizeAllocationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FinalizeAllocationOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewFinalizeAllocationParams()
-	}
-	op := &runtime.ClientOperation{
-		ID:                 "finalizeAllocation",
-		Method:             "POST",
-		PathPattern:        "/v1/machine/{id}/finalize-allocation",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
-		Params:             params,
-		Reader:             &FinalizeAllocationReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*FinalizeAllocationOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	unexpectedSuccess := result.(*FinalizeAllocationDefault)
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
@@ -620,44 +454,6 @@ func (a *Client) GetMachineConsolePassword(params *GetMachineConsolePasswordPara
 	}
 	// unexpected success response
 	unexpectedSuccess := result.(*GetMachineConsolePasswordDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
-}
-
-/*
-GetProvisioningEventContainer gets the current machine provisioning event container
-*/
-func (a *Client) GetProvisioningEventContainer(params *GetProvisioningEventContainerParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetProvisioningEventContainerOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewGetProvisioningEventContainerParams()
-	}
-	op := &runtime.ClientOperation{
-		ID:                 "getProvisioningEventContainer",
-		Method:             "GET",
-		PathPattern:        "/v1/machine/{id}/event",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
-		Params:             params,
-		Reader:             &GetProvisioningEventContainerReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*GetProvisioningEventContainerOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	unexpectedSuccess := result.(*GetProvisioningEventContainerDefault)
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
@@ -1004,46 +800,6 @@ func (a *Client) MachineReset(params *MachineResetParams, authInfo runtime.Clien
 }
 
 /*
-RegisterMachine registers a machine
-*/
-func (a *Client) RegisterMachine(params *RegisterMachineParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*RegisterMachineOK, *RegisterMachineCreated, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewRegisterMachineParams()
-	}
-	op := &runtime.ClientOperation{
-		ID:                 "registerMachine",
-		Method:             "POST",
-		PathPattern:        "/v1/machine/register",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
-		Params:             params,
-		Reader:             &RegisterMachineReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
-	if err != nil {
-		return nil, nil, err
-	}
-	switch value := result.(type) {
-	case *RegisterMachineOK:
-		return value, nil, nil
-	case *RegisterMachineCreated:
-		return nil, value, nil
-	}
-	// unexpected success response
-	unexpectedSuccess := result.(*RegisterMachineDefault)
-	return nil, nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
-}
-
-/*
 ReinstallMachine reinstalls this machine
 */
 func (a *Client) ReinstallMachine(params *ReinstallMachineParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ReinstallMachineOK, error) {
@@ -1078,44 +834,6 @@ func (a *Client) ReinstallMachine(params *ReinstallMachineParams, authInfo runti
 	}
 	// unexpected success response
 	unexpectedSuccess := result.(*ReinstallMachineDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
-}
-
-/*
-SetChassisIdentifyLEDState sets the state of a chassis identify l e d
-*/
-func (a *Client) SetChassisIdentifyLEDState(params *SetChassisIdentifyLEDStateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetChassisIdentifyLEDStateOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewSetChassisIdentifyLEDStateParams()
-	}
-	op := &runtime.ClientOperation{
-		ID:                 "setChassisIdentifyLEDState",
-		Method:             "POST",
-		PathPattern:        "/v1/machine/{id}/chassis-identify-led-state",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
-		Params:             params,
-		Reader:             &SetChassisIdentifyLEDStateReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*SetChassisIdentifyLEDStateOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	unexpectedSuccess := result.(*SetChassisIdentifyLEDStateDefault)
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 

@@ -14,96 +14,6 @@ type ClientService struct {
 	mock.Mock
 }
 
-// AbortReinstallMachine provides a mock function with given fields: params, authInfo, opts
-func (_m *ClientService) AbortReinstallMachine(params *clientmachine.AbortReinstallMachineParams, authInfo runtime.ClientAuthInfoWriter, opts ...clientmachine.ClientOption) (*clientmachine.AbortReinstallMachineOK, error) {
-	_va := make([]interface{}, len(opts))
-	for _i := range opts {
-		_va[_i] = opts[_i]
-	}
-	var _ca []interface{}
-	_ca = append(_ca, params, authInfo)
-	_ca = append(_ca, _va...)
-	ret := _m.Called(_ca...)
-
-	var r0 *clientmachine.AbortReinstallMachineOK
-	if rf, ok := ret.Get(0).(func(*clientmachine.AbortReinstallMachineParams, runtime.ClientAuthInfoWriter, ...clientmachine.ClientOption) *clientmachine.AbortReinstallMachineOK); ok {
-		r0 = rf(params, authInfo, opts...)
-	} else {
-		if ret.Get(0) != nil {
-			r0 = ret.Get(0).(*clientmachine.AbortReinstallMachineOK)
-		}
-	}
-
-	var r1 error
-	if rf, ok := ret.Get(1).(func(*clientmachine.AbortReinstallMachineParams, runtime.ClientAuthInfoWriter, ...clientmachine.ClientOption) error); ok {
-		r1 = rf(params, authInfo, opts...)
-	} else {
-		r1 = ret.Error(1)
-	}
-
-	return r0, r1
-}
-
-// AddProvisioningEvent provides a mock function with given fields: params, authInfo, opts
-func (_m *ClientService) AddProvisioningEvent(params *clientmachine.AddProvisioningEventParams, authInfo runtime.ClientAuthInfoWriter, opts ...clientmachine.ClientOption) (*clientmachine.AddProvisioningEventOK, error) {
-	_va := make([]interface{}, len(opts))
-	for _i := range opts {
-		_va[_i] = opts[_i]
-	}
-	var _ca []interface{}
-	_ca = append(_ca, params, authInfo)
-	_ca = append(_ca, _va...)
-	ret := _m.Called(_ca...)
-
-	var r0 *clientmachine.AddProvisioningEventOK
-	if rf, ok := ret.Get(0).(func(*clientmachine.AddProvisioningEventParams, runtime.ClientAuthInfoWriter, ...clientmachine.ClientOption) *clientmachine.AddProvisioningEventOK); ok {
-		r0 = rf(params, authInfo, opts...)
-	} else {
-		if ret.Get(0) != nil {
-			r0 = ret.Get(0).(*clientmachine.AddProvisioningEventOK)
-		}
-	}
-
-	var r1 error
-	if rf, ok := ret.Get(1).(func(*clientmachine.AddProvisioningEventParams, runtime.ClientAuthInfoWriter, ...clientmachine.ClientOption) error); ok {
-		r1 = rf(params, authInfo, opts...)
-	} else {
-		r1 = ret.Error(1)
-	}
-
-	return r0, r1
-}
-
-// AddProvisioningEvents provides a mock function with given fields: params, authInfo, opts
-func (_m *ClientService) AddProvisioningEvents(params *clientmachine.AddProvisioningEventsParams, authInfo runtime.ClientAuthInfoWriter, opts ...clientmachine.ClientOption) (*clientmachine.AddProvisioningEventsOK, error) {
-	_va := make([]interface{}, len(opts))
-	for _i := range opts {
-		_va[_i] = opts[_i]
-	}
-	var _ca []interface{}
-	_ca = append(_ca, params, authInfo)
-	_ca = append(_ca, _va...)
-	ret := _m.Called(_ca...)
-
-	var r0 *clientmachine.AddProvisioningEventsOK
-	if rf, ok := ret.Get(0).(func(*clientmachine.AddProvisioningEventsParams, runtime.ClientAuthInfoWriter, ...clientmachine.ClientOption) *clientmachine.AddProvisioningEventsOK); ok {
-		r0 = rf(params, authInfo, opts...)
-	} else {
-		if ret.Get(0) != nil {
-			r0 = ret.Get(0).(*clientmachine.AddProvisioningEventsOK)
-		}
-	}
-
-	var r1 error
-	if rf, ok := ret.Get(1).(func(*clientmachine.AddProvisioningEventsParams, runtime.ClientAuthInfoWriter, ...clientmachine.ClientOption) error); ok {
-		r1 = rf(params, authInfo, opts...)
-	} else {
-		r1 = ret.Error(1)
-	}
-
-	return r0, r1
-}
-
 // AllocateMachine provides a mock function with given fields: params, authInfo, opts
 func (_m *ClientService) AllocateMachine(params *clientmachine.AllocateMachineParams, authInfo runtime.ClientAuthInfoWriter, opts ...clientmachine.ClientOption) (*clientmachine.AllocateMachineOK, error) {
 	_va := make([]interface{}, len(opts))
@@ -216,36 +126,6 @@ func (_m *ClientService) DeleteMachine(params *clientmachine.DeleteMachineParams
 
 	var r1 error
 	if rf, ok := ret.Get(1).(func(*clientmachine.DeleteMachineParams, runtime.ClientAuthInfoWriter, ...clientmachine.ClientOption) error); ok {
-		r1 = rf(params, authInfo, opts...)
-	} else {
-		r1 = ret.Error(1)
-	}
-
-	return r0, r1
-}
-
-// FinalizeAllocation provides a mock function with given fields: params, authInfo, opts
-func (_m *ClientService) FinalizeAllocation(params *clientmachine.FinalizeAllocationParams, authInfo runtime.ClientAuthInfoWriter, opts ...clientmachine.ClientOption) (*clientmachine.FinalizeAllocationOK, error) {
-	_va := make([]interface{}, len(opts))
-	for _i := range opts {
-		_va[_i] = opts[_i]
-	}
-	var _ca []interface{}
-	_ca = append(_ca, params, authInfo)
-	_ca = append(_ca, _va...)
-	ret := _m.Called(_ca...)
-
-	var r0 *clientmachine.FinalizeAllocationOK
-	if rf, ok := ret.Get(0).(func(*clientmachine.FinalizeAllocationParams, runtime.ClientAuthInfoWriter, ...clientmachine.ClientOption) *clientmachine.FinalizeAllocationOK); ok {
-		r0 = rf(params, authInfo, opts...)
-	} else {
-		if ret.Get(0) != nil {
-			r0 = ret.Get(0).(*clientmachine.FinalizeAllocationOK)
-		}
-	}
-
-	var r1 error
-	if rf, ok := ret.Get(1).(func(*clientmachine.FinalizeAllocationParams, runtime.ClientAuthInfoWriter, ...clientmachine.ClientOption) error); ok {
 		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
@@ -426,36 +306,6 @@ func (_m *ClientService) GetMachineConsolePassword(params *clientmachine.GetMach
 
 	var r1 error
 	if rf, ok := ret.Get(1).(func(*clientmachine.GetMachineConsolePasswordParams, runtime.ClientAuthInfoWriter, ...clientmachine.ClientOption) error); ok {
-		r1 = rf(params, authInfo, opts...)
-	} else {
-		r1 = ret.Error(1)
-	}
-
-	return r0, r1
-}
-
-// GetProvisioningEventContainer provides a mock function with given fields: params, authInfo, opts
-func (_m *ClientService) GetProvisioningEventContainer(params *clientmachine.GetProvisioningEventContainerParams, authInfo runtime.ClientAuthInfoWriter, opts ...clientmachine.ClientOption) (*clientmachine.GetProvisioningEventContainerOK, error) {
-	_va := make([]interface{}, len(opts))
-	for _i := range opts {
-		_va[_i] = opts[_i]
-	}
-	var _ca []interface{}
-	_ca = append(_ca, params, authInfo)
-	_ca = append(_ca, _va...)
-	ret := _m.Called(_ca...)
-
-	var r0 *clientmachine.GetProvisioningEventContainerOK
-	if rf, ok := ret.Get(0).(func(*clientmachine.GetProvisioningEventContainerParams, runtime.ClientAuthInfoWriter, ...clientmachine.ClientOption) *clientmachine.GetProvisioningEventContainerOK); ok {
-		r0 = rf(params, authInfo, opts...)
-	} else {
-		if ret.Get(0) != nil {
-			r0 = ret.Get(0).(*clientmachine.GetProvisioningEventContainerOK)
-		}
-	}
-
-	var r1 error
-	if rf, ok := ret.Get(1).(func(*clientmachine.GetProvisioningEventContainerParams, runtime.ClientAuthInfoWriter, ...clientmachine.ClientOption) error); ok {
 		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
@@ -734,45 +584,6 @@ func (_m *ClientService) MachineReset(params *clientmachine.MachineResetParams, 
 	return r0, r1
 }
 
-// RegisterMachine provides a mock function with given fields: params, authInfo, opts
-func (_m *ClientService) RegisterMachine(params *clientmachine.RegisterMachineParams, authInfo runtime.ClientAuthInfoWriter, opts ...clientmachine.ClientOption) (*clientmachine.RegisterMachineOK, *clientmachine.RegisterMachineCreated, error) {
-	_va := make([]interface{}, len(opts))
-	for _i := range opts {
-		_va[_i] = opts[_i]
-	}
-	var _ca []interface{}
-	_ca = append(_ca, params, authInfo)
-	_ca = append(_ca, _va...)
-	ret := _m.Called(_ca...)
-
-	var r0 *clientmachine.RegisterMachineOK
-	if rf, ok := ret.Get(0).(func(*clientmachine.RegisterMachineParams, runtime.ClientAuthInfoWriter, ...clientmachine.ClientOption) *clientmachine.RegisterMachineOK); ok {
-		r0 = rf(params, authInfo, opts...)
-	} else {
-		if ret.Get(0) != nil {
-			r0 = ret.Get(0).(*clientmachine.RegisterMachineOK)
-		}
-	}
-
-	var r1 *clientmachine.RegisterMachineCreated
-	if rf, ok := ret.Get(1).(func(*clientmachine.RegisterMachineParams, runtime.ClientAuthInfoWriter, ...clientmachine.ClientOption) *clientmachine.RegisterMachineCreated); ok {
-		r1 = rf(params, authInfo, opts...)
-	} else {
-		if ret.Get(1) != nil {
-			r1 = ret.Get(1).(*clientmachine.RegisterMachineCreated)
-		}
-	}
-
-	var r2 error
-	if rf, ok := ret.Get(2).(func(*clientmachine.RegisterMachineParams, runtime.ClientAuthInfoWriter, ...clientmachine.ClientOption) error); ok {
-		r2 = rf(params, authInfo, opts...)
-	} else {
-		r2 = ret.Error(2)
-	}
-
-	return r0, r1, r2
-}
-
 // ReinstallMachine provides a mock function with given fields: params, authInfo, opts
 func (_m *ClientService) ReinstallMachine(params *clientmachine.ReinstallMachineParams, authInfo runtime.ClientAuthInfoWriter, opts ...clientmachine.ClientOption) (*clientmachine.ReinstallMachineOK, error) {
 	_va := make([]interface{}, len(opts))
@@ -795,36 +606,6 @@ func (_m *ClientService) ReinstallMachine(params *clientmachine.ReinstallMachine
 
 	var r1 error
 	if rf, ok := ret.Get(1).(func(*clientmachine.ReinstallMachineParams, runtime.ClientAuthInfoWriter, ...clientmachine.ClientOption) error); ok {
-		r1 = rf(params, authInfo, opts...)
-	} else {
-		r1 = ret.Error(1)
-	}
-
-	return r0, r1
-}
-
-// SetChassisIdentifyLEDState provides a mock function with given fields: params, authInfo, opts
-func (_m *ClientService) SetChassisIdentifyLEDState(params *clientmachine.SetChassisIdentifyLEDStateParams, authInfo runtime.ClientAuthInfoWriter, opts ...clientmachine.ClientOption) (*clientmachine.SetChassisIdentifyLEDStateOK, error) {
-	_va := make([]interface{}, len(opts))
-	for _i := range opts {
-		_va[_i] = opts[_i]
-	}
-	var _ca []interface{}
-	_ca = append(_ca, params, authInfo)
-	_ca = append(_ca, _va...)
-	ret := _m.Called(_ca...)
-
-	var r0 *clientmachine.SetChassisIdentifyLEDStateOK
-	if rf, ok := ret.Get(0).(func(*clientmachine.SetChassisIdentifyLEDStateParams, runtime.ClientAuthInfoWriter, ...clientmachine.ClientOption) *clientmachine.SetChassisIdentifyLEDStateOK); ok {
-		r0 = rf(params, authInfo, opts...)
-	} else {
-		if ret.Get(0) != nil {
-			r0 = ret.Get(0).(*clientmachine.SetChassisIdentifyLEDStateOK)
-		}
-	}
-
-	var r1 error
-	if rf, ok := ret.Get(1).(func(*clientmachine.SetChassisIdentifyLEDStateParams, runtime.ClientAuthInfoWriter, ...clientmachine.ClientOption) error); ok {
 		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
