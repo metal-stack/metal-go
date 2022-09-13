@@ -28,10 +28,6 @@ type V1MachineRecentProvisioningEvents struct {
 	// Required: true
 	FailedMachineReclaim *bool `json:"failed_machine_reclaim" yaml:"failed_machine_reclaim"`
 
-	// The field 'IncompleteProvisioningCycles' in the provisioning events container is now deprecated and replaced by two new bool flags 'CrashLoop' and 'MachineReclaimFailed'.
-	// Required: true
-	IncompleteProvisioningCycles *string `json:"incomplete_provisioning_cycles" yaml:"incomplete_provisioning_cycles"`
-
 	// the last erroneous event received
 	LastErrorEvent *V1MachineProvisioningEvent `json:"last_error_event,omitempty" yaml:"last_error_event,omitempty"`
 
@@ -53,10 +49,6 @@ func (m *V1MachineRecentProvisioningEvents) Validate(formats strfmt.Registry) er
 	}
 
 	if err := m.validateFailedMachineReclaim(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateIncompleteProvisioningCycles(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -90,15 +82,6 @@ func (m *V1MachineRecentProvisioningEvents) validateCrashLoop(formats strfmt.Reg
 func (m *V1MachineRecentProvisioningEvents) validateFailedMachineReclaim(formats strfmt.Registry) error {
 
 	if err := validate.Required("failed_machine_reclaim", "body", m.FailedMachineReclaim); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *V1MachineRecentProvisioningEvents) validateIncompleteProvisioningCycles(formats strfmt.Registry) error {
-
-	if err := validate.Required("incomplete_provisioning_cycles", "body", m.IncompleteProvisioningCycles); err != nil {
 		return err
 	}
 
