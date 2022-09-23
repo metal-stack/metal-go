@@ -19,6 +19,10 @@ import (
 // swagger:model v1.VPNRequest
 type V1VPNRequest struct {
 
+	// specifies if auth key should be ephemeral
+	// Required: true
+	Ephemeral *bool `json:"ephemeral" yaml:"ephemeral"`
+
 	// expiration time
 	Expiration int64 `json:"expiration,omitempty" yaml:"expiration,omitempty"`
 
@@ -31,6 +35,10 @@ type V1VPNRequest struct {
 func (m *V1VPNRequest) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateEphemeral(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validatePid(formats); err != nil {
 		res = append(res, err)
 	}
@@ -38,6 +46,15 @@ func (m *V1VPNRequest) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *V1VPNRequest) validateEphemeral(formats strfmt.Registry) error {
+
+	if err := validate.Required("ephemeral", "body", m.Ephemeral); err != nil {
+		return err
+	}
+
 	return nil
 }
 
