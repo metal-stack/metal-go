@@ -19,6 +19,10 @@ import (
 // swagger:model v1.SwitchNic
 type V1SwitchNic struct {
 
+	// the alias of this network interface
+	// Required: true
+	Alias *string `json:"alias" yaml:"alias"`
+
 	// configures the bgp filter applied at the switch port
 	Filter *V1BGPFilter `json:"filter,omitempty" yaml:"filter,omitempty"`
 
@@ -38,6 +42,10 @@ type V1SwitchNic struct {
 func (m *V1SwitchNic) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateAlias(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateFilter(formats); err != nil {
 		res = append(res, err)
 	}
@@ -53,6 +61,15 @@ func (m *V1SwitchNic) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *V1SwitchNic) validateAlias(formats strfmt.Registry) error {
+
+	if err := validate.Required("alias", "body", m.Alias); err != nil {
+		return err
+	}
+
 	return nil
 }
 

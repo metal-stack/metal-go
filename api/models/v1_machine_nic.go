@@ -20,6 +20,10 @@ import (
 // swagger:model v1.MachineNic
 type V1MachineNic struct {
 
+	// the alias of this network interface
+	// Required: true
+	Alias *string `json:"alias" yaml:"alias"`
+
 	// the mac address of this network interface
 	// Required: true
 	Mac *string `json:"mac" yaml:"mac"`
@@ -37,6 +41,10 @@ type V1MachineNic struct {
 func (m *V1MachineNic) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateAlias(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateMac(formats); err != nil {
 		res = append(res, err)
 	}
@@ -52,6 +60,15 @@ func (m *V1MachineNic) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *V1MachineNic) validateAlias(formats strfmt.Registry) error {
+
+	if err := validate.Required("alias", "body", m.Alias); err != nil {
+		return err
+	}
+
 	return nil
 }
 
