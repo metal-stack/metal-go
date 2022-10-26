@@ -19,12 +19,12 @@ import (
 // swagger:model v1.SwitchNic
 type V1SwitchNic struct {
 
-	// the alias of this network interface
-	// Required: true
-	Alias *string `json:"alias" yaml:"alias"`
-
 	// configures the bgp filter applied at the switch port
 	Filter *V1BGPFilter `json:"filter,omitempty" yaml:"filter,omitempty"`
+
+	// the identifier of this network interface
+	// Required: true
+	Identifier *string `json:"identifier" yaml:"identifier"`
 
 	// the mac address of this network interface
 	// Required: true
@@ -42,11 +42,11 @@ type V1SwitchNic struct {
 func (m *V1SwitchNic) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateAlias(formats); err != nil {
+	if err := m.validateFilter(formats); err != nil {
 		res = append(res, err)
 	}
 
-	if err := m.validateFilter(formats); err != nil {
+	if err := m.validateIdentifier(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -64,15 +64,6 @@ func (m *V1SwitchNic) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *V1SwitchNic) validateAlias(formats strfmt.Registry) error {
-
-	if err := validate.Required("alias", "body", m.Alias); err != nil {
-		return err
-	}
-
-	return nil
-}
-
 func (m *V1SwitchNic) validateFilter(formats strfmt.Registry) error {
 	if swag.IsZero(m.Filter) { // not required
 		return nil
@@ -87,6 +78,15 @@ func (m *V1SwitchNic) validateFilter(formats strfmt.Registry) error {
 			}
 			return err
 		}
+	}
+
+	return nil
+}
+
+func (m *V1SwitchNic) validateIdentifier(formats strfmt.Registry) error {
+
+	if err := validate.Required("identifier", "body", m.Identifier); err != nil {
+		return err
 	}
 
 	return nil
