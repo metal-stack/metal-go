@@ -28,11 +28,133 @@ type ClientOption func(*runtime.ClientOperation)
 
 // ClientService is the interface for Client methods
 type ClientService interface {
+	CreateTenant(params *CreateTenantParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateTenantCreated, error)
+
+	DeleteTenant(params *DeleteTenantParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteTenantOK, error)
+
+	FindTenants(params *FindTenantsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FindTenantsOK, error)
+
 	GetTenant(params *GetTenantParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetTenantOK, error)
 
 	ListTenants(params *ListTenantsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListTenantsOK, error)
 
+	UpdateTenant(params *UpdateTenantParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateTenantOK, error)
+
 	SetTransport(transport runtime.ClientTransport)
+}
+
+/*
+CreateTenant creates a tenant if the given ID already exists a conflict is returned
+*/
+func (a *Client) CreateTenant(params *CreateTenantParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateTenantCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewCreateTenantParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "createTenant",
+		Method:             "PUT",
+		PathPattern:        "/v1/tenant",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &CreateTenantReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*CreateTenantCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*CreateTenantDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+DeleteTenant deletes a tenant and returns the deleted entity
+*/
+func (a *Client) DeleteTenant(params *DeleteTenantParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteTenantOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDeleteTenantParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "deleteTenant",
+		Method:             "DELETE",
+		PathPattern:        "/v1/tenant/{id}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &DeleteTenantReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DeleteTenantOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*DeleteTenantDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+FindTenants gets all tenants that match given properties
+*/
+func (a *Client) FindTenants(params *FindTenantsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FindTenantsOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewFindTenantsParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "findTenants",
+		Method:             "POST",
+		PathPattern:        "/v1/tenant/find",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &FindTenantsReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*FindTenantsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*FindTenantsDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
@@ -108,6 +230,44 @@ func (a *Client) ListTenants(params *ListTenantsParams, authInfo runtime.ClientA
 	}
 	// unexpected success response
 	unexpectedSuccess := result.(*ListTenantsDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+UpdateTenant updates a tenant optimistic lock error can occur
+*/
+func (a *Client) UpdateTenant(params *UpdateTenantParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateTenantOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUpdateTenantParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "updateTenant",
+		Method:             "POST",
+		PathPattern:        "/v1/tenant",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &UpdateTenantReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*UpdateTenantOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*UpdateTenantDefault)
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
