@@ -14,6 +14,96 @@ type ClientService struct {
 	mock.Mock
 }
 
+// CreateTenant provides a mock function with given fields: params, authInfo, opts
+func (_m *ClientService) CreateTenant(params *clienttenant.CreateTenantParams, authInfo runtime.ClientAuthInfoWriter, opts ...clienttenant.ClientOption) (*clienttenant.CreateTenantCreated, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
+
+	var r0 *clienttenant.CreateTenantCreated
+	if rf, ok := ret.Get(0).(func(*clienttenant.CreateTenantParams, runtime.ClientAuthInfoWriter, ...clienttenant.ClientOption) *clienttenant.CreateTenantCreated); ok {
+		r0 = rf(params, authInfo, opts...)
+	} else {
+		if ret.Get(0) != nil {
+			r0 = ret.Get(0).(*clienttenant.CreateTenantCreated)
+		}
+	}
+
+	var r1 error
+	if rf, ok := ret.Get(1).(func(*clienttenant.CreateTenantParams, runtime.ClientAuthInfoWriter, ...clienttenant.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
+	} else {
+		r1 = ret.Error(1)
+	}
+
+	return r0, r1
+}
+
+// DeleteTenant provides a mock function with given fields: params, authInfo, opts
+func (_m *ClientService) DeleteTenant(params *clienttenant.DeleteTenantParams, authInfo runtime.ClientAuthInfoWriter, opts ...clienttenant.ClientOption) (*clienttenant.DeleteTenantOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
+
+	var r0 *clienttenant.DeleteTenantOK
+	if rf, ok := ret.Get(0).(func(*clienttenant.DeleteTenantParams, runtime.ClientAuthInfoWriter, ...clienttenant.ClientOption) *clienttenant.DeleteTenantOK); ok {
+		r0 = rf(params, authInfo, opts...)
+	} else {
+		if ret.Get(0) != nil {
+			r0 = ret.Get(0).(*clienttenant.DeleteTenantOK)
+		}
+	}
+
+	var r1 error
+	if rf, ok := ret.Get(1).(func(*clienttenant.DeleteTenantParams, runtime.ClientAuthInfoWriter, ...clienttenant.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
+	} else {
+		r1 = ret.Error(1)
+	}
+
+	return r0, r1
+}
+
+// FindTenants provides a mock function with given fields: params, authInfo, opts
+func (_m *ClientService) FindTenants(params *clienttenant.FindTenantsParams, authInfo runtime.ClientAuthInfoWriter, opts ...clienttenant.ClientOption) (*clienttenant.FindTenantsOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
+
+	var r0 *clienttenant.FindTenantsOK
+	if rf, ok := ret.Get(0).(func(*clienttenant.FindTenantsParams, runtime.ClientAuthInfoWriter, ...clienttenant.ClientOption) *clienttenant.FindTenantsOK); ok {
+		r0 = rf(params, authInfo, opts...)
+	} else {
+		if ret.Get(0) != nil {
+			r0 = ret.Get(0).(*clienttenant.FindTenantsOK)
+		}
+	}
+
+	var r1 error
+	if rf, ok := ret.Get(1).(func(*clienttenant.FindTenantsParams, runtime.ClientAuthInfoWriter, ...clienttenant.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
+	} else {
+		r1 = ret.Error(1)
+	}
+
+	return r0, r1
+}
+
 // GetTenant provides a mock function with given fields: params, authInfo, opts
 func (_m *ClientService) GetTenant(params *clienttenant.GetTenantParams, authInfo runtime.ClientAuthInfoWriter, opts ...clienttenant.ClientOption) (*clienttenant.GetTenantOK, error) {
 	_va := make([]interface{}, len(opts))
@@ -77,6 +167,36 @@ func (_m *ClientService) ListTenants(params *clienttenant.ListTenantsParams, aut
 // SetTransport provides a mock function with given fields: transport
 func (_m *ClientService) SetTransport(transport runtime.ClientTransport) {
 	_m.Called(transport)
+}
+
+// UpdateTenant provides a mock function with given fields: params, authInfo, opts
+func (_m *ClientService) UpdateTenant(params *clienttenant.UpdateTenantParams, authInfo runtime.ClientAuthInfoWriter, opts ...clienttenant.ClientOption) (*clienttenant.UpdateTenantOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
+
+	var r0 *clienttenant.UpdateTenantOK
+	if rf, ok := ret.Get(0).(func(*clienttenant.UpdateTenantParams, runtime.ClientAuthInfoWriter, ...clienttenant.ClientOption) *clienttenant.UpdateTenantOK); ok {
+		r0 = rf(params, authInfo, opts...)
+	} else {
+		if ret.Get(0) != nil {
+			r0 = ret.Get(0).(*clienttenant.UpdateTenantOK)
+		}
+	}
+
+	var r1 error
+	if rf, ok := ret.Get(1).(func(*clienttenant.UpdateTenantParams, runtime.ClientAuthInfoWriter, ...clienttenant.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
+	} else {
+		r1 = ret.Error(1)
+	}
+
+	return r0, r1
 }
 
 type mockConstructorTestingTNewClientService interface {
