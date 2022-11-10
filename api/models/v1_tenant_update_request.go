@@ -18,15 +18,42 @@ import (
 // swagger:model v1.TenantUpdateRequest
 type V1TenantUpdateRequest struct {
 
-	// tenant
-	Tenant *V1Tenant `json:"tenant,omitempty" yaml:"tenant,omitempty"`
+	// default quotas
+	DefaultQuotas *V1QuotaSet `json:"default_quotas,omitempty" yaml:"default_quotas,omitempty"`
+
+	// description
+	Description string `json:"description,omitempty" yaml:"description,omitempty"`
+
+	// iam config
+	IamConfig *V1IAMConfig `json:"iam_config,omitempty" yaml:"iam_config,omitempty"`
+
+	// meta
+	Meta *V1Meta `json:"meta,omitempty" yaml:"meta,omitempty"`
+
+	// name
+	Name string `json:"name,omitempty" yaml:"name,omitempty"`
+
+	// quotas
+	Quotas *V1QuotaSet `json:"quotas,omitempty" yaml:"quotas,omitempty"`
 }
 
 // Validate validates this v1 tenant update request
 func (m *V1TenantUpdateRequest) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateTenant(formats); err != nil {
+	if err := m.validateDefaultQuotas(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateIamConfig(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateMeta(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateQuotas(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -36,17 +63,74 @@ func (m *V1TenantUpdateRequest) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *V1TenantUpdateRequest) validateTenant(formats strfmt.Registry) error {
-	if swag.IsZero(m.Tenant) { // not required
+func (m *V1TenantUpdateRequest) validateDefaultQuotas(formats strfmt.Registry) error {
+	if swag.IsZero(m.DefaultQuotas) { // not required
 		return nil
 	}
 
-	if m.Tenant != nil {
-		if err := m.Tenant.Validate(formats); err != nil {
+	if m.DefaultQuotas != nil {
+		if err := m.DefaultQuotas.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("tenant")
+				return ve.ValidateName("default_quotas")
 			} else if ce, ok := err.(*errors.CompositeError); ok {
-				return ce.ValidateName("tenant")
+				return ce.ValidateName("default_quotas")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *V1TenantUpdateRequest) validateIamConfig(formats strfmt.Registry) error {
+	if swag.IsZero(m.IamConfig) { // not required
+		return nil
+	}
+
+	if m.IamConfig != nil {
+		if err := m.IamConfig.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("iam_config")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("iam_config")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *V1TenantUpdateRequest) validateMeta(formats strfmt.Registry) error {
+	if swag.IsZero(m.Meta) { // not required
+		return nil
+	}
+
+	if m.Meta != nil {
+		if err := m.Meta.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("meta")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("meta")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *V1TenantUpdateRequest) validateQuotas(formats strfmt.Registry) error {
+	if swag.IsZero(m.Quotas) { // not required
+		return nil
+	}
+
+	if m.Quotas != nil {
+		if err := m.Quotas.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("quotas")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("quotas")
 			}
 			return err
 		}
@@ -59,7 +143,19 @@ func (m *V1TenantUpdateRequest) validateTenant(formats strfmt.Registry) error {
 func (m *V1TenantUpdateRequest) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.contextValidateTenant(ctx, formats); err != nil {
+	if err := m.contextValidateDefaultQuotas(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateIamConfig(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateMeta(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateQuotas(ctx, formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -69,14 +165,62 @@ func (m *V1TenantUpdateRequest) ContextValidate(ctx context.Context, formats str
 	return nil
 }
 
-func (m *V1TenantUpdateRequest) contextValidateTenant(ctx context.Context, formats strfmt.Registry) error {
+func (m *V1TenantUpdateRequest) contextValidateDefaultQuotas(ctx context.Context, formats strfmt.Registry) error {
 
-	if m.Tenant != nil {
-		if err := m.Tenant.ContextValidate(ctx, formats); err != nil {
+	if m.DefaultQuotas != nil {
+		if err := m.DefaultQuotas.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("tenant")
+				return ve.ValidateName("default_quotas")
 			} else if ce, ok := err.(*errors.CompositeError); ok {
-				return ce.ValidateName("tenant")
+				return ce.ValidateName("default_quotas")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *V1TenantUpdateRequest) contextValidateIamConfig(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.IamConfig != nil {
+		if err := m.IamConfig.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("iam_config")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("iam_config")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *V1TenantUpdateRequest) contextValidateMeta(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Meta != nil {
+		if err := m.Meta.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("meta")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("meta")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *V1TenantUpdateRequest) contextValidateQuotas(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Quotas != nil {
+		if err := m.Quotas.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("quotas")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("quotas")
 			}
 			return err
 		}
