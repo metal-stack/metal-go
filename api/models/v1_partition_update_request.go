@@ -36,12 +36,10 @@ type V1PartitionUpdateRequest struct {
 	Name string `json:"name,omitempty" yaml:"name,omitempty"`
 
 	// the maximum waiting pool size of this partition
-	// Required: true
-	Waitingpoolmaxsize *string `json:"waitingpoolmaxsize" yaml:"waitingpoolmaxsize"`
+	Waitingpoolmaxsize string `json:"waitingpoolmaxsize,omitempty" yaml:"waitingpoolmaxsize,omitempty"`
 
 	// the minimum waiting pool size of this partition
-	// Required: true
-	Waitingpoolminsize *string `json:"waitingpoolminsize" yaml:"waitingpoolminsize"`
+	Waitingpoolminsize string `json:"waitingpoolminsize,omitempty" yaml:"waitingpoolminsize,omitempty"`
 }
 
 // Validate validates this v1 partition update request
@@ -53,14 +51,6 @@ func (m *V1PartitionUpdateRequest) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateID(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateWaitingpoolmaxsize(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateWaitingpoolminsize(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -92,24 +82,6 @@ func (m *V1PartitionUpdateRequest) validateBootconfig(formats strfmt.Registry) e
 func (m *V1PartitionUpdateRequest) validateID(formats strfmt.Registry) error {
 
 	if err := validate.Required("id", "body", m.ID); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *V1PartitionUpdateRequest) validateWaitingpoolmaxsize(formats strfmt.Registry) error {
-
-	if err := validate.Required("waitingpoolmaxsize", "body", m.Waitingpoolmaxsize); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *V1PartitionUpdateRequest) validateWaitingpoolminsize(formats strfmt.Registry) error {
-
-	if err := validate.Required("waitingpoolminsize", "body", m.Waitingpoolminsize); err != nil {
 		return err
 	}
 
