@@ -40,6 +40,12 @@ type V1PartitionCreateRequest struct {
 	// Maximum: 30
 	// Minimum: 16
 	Privatenetworkprefixlength int32 `json:"privatenetworkprefixlength,omitempty" yaml:"privatenetworkprefixlength,omitempty"`
+
+	// the maximum waiting pool size of this partition
+	Waitingpoolmaxsize string `json:"waitingpoolmaxsize,omitempty" yaml:"waitingpoolmaxsize,omitempty"`
+
+	// the minimum waiting pool size of this partition
+	Waitingpoolminsize string `json:"waitingpoolminsize,omitempty" yaml:"waitingpoolminsize,omitempty"`
 }
 
 // Validate validates this v1 partition create request
