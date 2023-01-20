@@ -39,6 +39,10 @@ type V1MachineIpmiReport struct {
 	// Required: true
 	IndicatorLEDState *string `json:"IndicatorLEDState" yaml:"IndicatorLEDState"`
 
+	// power metric
+	// Required: true
+	PowerMetric *V1PowerMetric `json:"PowerMetric" yaml:"PowerMetric"`
+
 	// power state
 	// Required: true
 	PowerState *string `json:"PowerState" yaml:"PowerState"`
@@ -65,6 +69,10 @@ func (m *V1MachineIpmiReport) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateIndicatorLEDState(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validatePowerMetric(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -134,6 +142,26 @@ func (m *V1MachineIpmiReport) validateIndicatorLEDState(formats strfmt.Registry)
 	return nil
 }
 
+func (m *V1MachineIpmiReport) validatePowerMetric(formats strfmt.Registry) error {
+
+	if err := validate.Required("PowerMetric", "body", m.PowerMetric); err != nil {
+		return err
+	}
+
+	if m.PowerMetric != nil {
+		if err := m.PowerMetric.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("PowerMetric")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("PowerMetric")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
 func (m *V1MachineIpmiReport) validatePowerState(formats strfmt.Registry) error {
 
 	if err := validate.Required("PowerState", "body", m.PowerState); err != nil {
@@ -151,6 +179,10 @@ func (m *V1MachineIpmiReport) ContextValidate(ctx context.Context, formats strfm
 		res = append(res, err)
 	}
 
+	if err := m.contextValidatePowerMetric(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
@@ -165,6 +197,22 @@ func (m *V1MachineIpmiReport) contextValidateFRU(ctx context.Context, formats st
 				return ve.ValidateName("FRU")
 			} else if ce, ok := err.(*errors.CompositeError); ok {
 				return ce.ValidateName("FRU")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *V1MachineIpmiReport) contextValidatePowerMetric(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.PowerMetric != nil {
+		if err := m.PowerMetric.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("PowerMetric")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("PowerMetric")
 			}
 			return err
 		}

@@ -43,6 +43,10 @@ type V1MachineIPMI struct {
 	// Required: true
 	Password *string `json:"password" yaml:"password"`
 
+	// powermetric
+	// Required: true
+	Powermetric *V1PowerMetric `json:"powermetric" yaml:"powermetric"`
+
 	// powerstate
 	// Required: true
 	Powerstate *string `json:"powerstate" yaml:"powerstate"`
@@ -77,6 +81,10 @@ func (m *V1MachineIPMI) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validatePassword(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validatePowermetric(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -159,6 +167,26 @@ func (m *V1MachineIPMI) validatePassword(formats strfmt.Registry) error {
 	return nil
 }
 
+func (m *V1MachineIPMI) validatePowermetric(formats strfmt.Registry) error {
+
+	if err := validate.Required("powermetric", "body", m.Powermetric); err != nil {
+		return err
+	}
+
+	if m.Powermetric != nil {
+		if err := m.Powermetric.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("powermetric")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("powermetric")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
 func (m *V1MachineIPMI) validatePowerstate(formats strfmt.Registry) error {
 
 	if err := validate.Required("powerstate", "body", m.Powerstate); err != nil {
@@ -185,6 +213,10 @@ func (m *V1MachineIPMI) ContextValidate(ctx context.Context, formats strfmt.Regi
 		res = append(res, err)
 	}
 
+	if err := m.contextValidatePowermetric(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
@@ -199,6 +231,22 @@ func (m *V1MachineIPMI) contextValidateFru(ctx context.Context, formats strfmt.R
 				return ve.ValidateName("fru")
 			} else if ce, ok := err.(*errors.CompositeError); ok {
 				return ce.ValidateName("fru")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *V1MachineIPMI) contextValidatePowermetric(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Powermetric != nil {
+		if err := m.Powermetric.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("powermetric")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("powermetric")
 			}
 			return err
 		}

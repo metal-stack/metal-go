@@ -25,7 +25,8 @@ mocks:
 		--user $$(id -u):$$(id -g) \
 		-w /work \
 		-v ${PWD}:/work \
-		vektra/mockery:v2.14.0 -r --keeptree --inpackage --dir api/client --output test/mocks --all
+		vektra/mockery:v2.16.0 -r --keeptree --inpackage --dir api/client --output test/mocks --all
+	go run ./test/client/generate/generate_mock_client.go
 
 .PHONY: gofmt
 gofmt:
@@ -42,4 +43,3 @@ golangcicheck:
 .PHONY: lint
 lint: golangcicheck
 	CGO_ENABLED=1 golangci-lint run
-
