@@ -134,6 +134,9 @@ type V1FirewallFindRequest struct {
 	// nics vrfs
 	NicsVrfs []string `json:"nics_vrfs" yaml:"nics_vrfs"`
 
+	// not allocated
+	NotAllocated bool `json:"not_allocated,omitempty" yaml:"not_allocated,omitempty"`
+
 	// partition id
 	PartitionID string `json:"partition_id,omitempty" yaml:"partition_id,omitempty"`
 
