@@ -81,6 +81,11 @@ func (o *ListIPsOK) IsCode(code int) bool {
 	return code == 200
 }
 
+// Code gets the status code for the list i ps o k response
+func (o *ListIPsOK) Code() int {
+	return 200
+}
+
 func (o *ListIPsOK) Error() string {
 	return fmt.Sprintf("[GET /v1/ip][%d] listIPsOK  %+v", 200, o.Payload)
 }
@@ -121,11 +126,6 @@ type ListIPsDefault struct {
 	Payload *httperrors.HTTPErrorResponse
 }
 
-// Code gets the status code for the list i ps default response
-func (o *ListIPsDefault) Code() int {
-	return o._statusCode
-}
-
 // IsSuccess returns true when this list i ps default response has a 2xx status code
 func (o *ListIPsDefault) IsSuccess() bool {
 	return o._statusCode/100 == 2
@@ -149,6 +149,11 @@ func (o *ListIPsDefault) IsServerError() bool {
 // IsCode returns true when this list i ps default response a status code equal to that given
 func (o *ListIPsDefault) IsCode(code int) bool {
 	return o._statusCode == code
+}
+
+// Code gets the status code for the list i ps default response
+func (o *ListIPsDefault) Code() int {
+	return o._statusCode
 }
 
 func (o *ListIPsDefault) Error() string {
