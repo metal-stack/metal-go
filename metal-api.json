@@ -281,6 +281,28 @@
         }
       }
     },
+    "datastore.SwitchSearchQuery": {
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "osvendor": {
+          "type": "string"
+        },
+        "osversion": {
+          "type": "string"
+        },
+        "partitionid": {
+          "type": "string"
+        },
+        "rackid": {
+          "type": "string"
+        }
+      }
+    },
     "httperrors.HTTPErrorResponse": {
       "properties": {
         "message": {
@@ -2613,6 +2635,10 @@
     },
     "v1.MachineNic": {
       "properties": {
+        "identifier": {
+          "description": "the unique identifier of this network interface",
+          "type": "string"
+        },
         "mac": {
           "description": "the mac address of this network interface",
           "type": "string"
@@ -2630,6 +2656,7 @@
         }
       },
       "required": [
+        "identifier",
         "mac",
         "name",
         "neighbors"
@@ -4061,9 +4088,25 @@
     "v1.SwitchBase": {
       "description": "A switch that can register at the api.",
       "properties": {
+        "console_command": {
+          "description": "command to access the console of the switch",
+          "type": "string"
+        },
+        "management_ip": {
+          "description": "the ip address of the management interface of the switch",
+          "type": "string"
+        },
+        "management_user": {
+          "description": "the user to connect to the switch",
+          "type": "string"
+        },
         "mode": {
           "description": "the mode the switch currently has",
           "type": "string"
+        },
+        "os": {
+          "$ref": "#/definitions/v1.SwitchOS",
+          "description": "the operating system the switch currently has"
         },
         "rack_id": {
           "description": "the id of the rack in which this switch is located",
@@ -4089,11 +4132,37 @@
         "nic"
       ]
     },
+    "v1.SwitchFindRequest": {
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "osvendor": {
+          "type": "string"
+        },
+        "osversion": {
+          "type": "string"
+        },
+        "partitionid": {
+          "type": "string"
+        },
+        "rackid": {
+          "type": "string"
+        }
+      }
+    },
     "v1.SwitchNic": {
       "properties": {
         "filter": {
           "$ref": "#/definitions/v1.BGPFilter",
           "description": "configures the bgp filter applied at the switch port"
+        },
+        "identifier": {
+          "description": "the identifier of this network interface",
+          "type": "string"
         },
         "mac": {
           "description": "the mac address of this network interface",
@@ -4109,6 +4178,7 @@
         }
       },
       "required": [
+        "identifier",
         "mac",
         "name"
       ]
@@ -4129,8 +4199,24 @@
         "sync_duration"
       ]
     },
+    "v1.SwitchOS": {
+      "properties": {
+        "vendor": {
+          "description": "the operating system vendor the switch currently has",
+          "type": "string"
+        },
+        "version": {
+          "description": "the operating system version the switch currently has",
+          "type": "string"
+        }
+      }
+    },
     "v1.SwitchRegisterRequest": {
       "properties": {
+        "console_command": {
+          "description": "command to access the console of the switch",
+          "type": "string"
+        },
         "description": {
           "description": "a description for this entity",
           "type": "string"
@@ -4139,6 +4225,14 @@
           "description": "the unique ID of this entity",
           "type": "string",
           "uniqueItems": true
+        },
+        "management_ip": {
+          "description": "the ip address of the management interface of the switch",
+          "type": "string"
+        },
+        "management_user": {
+          "description": "the user to connect to the switch",
+          "type": "string"
         },
         "mode": {
           "description": "the mode the switch currently has",
@@ -4154,6 +4248,10 @@
             "$ref": "#/definitions/v1.SwitchNic"
           },
           "type": "array"
+        },
+        "os": {
+          "$ref": "#/definitions/v1.SwitchOS",
+          "description": "the operating system the switch currently has"
         },
         "partition_id": {
           "description": "the partition in which this switch is located",
@@ -4186,6 +4284,10 @@
           },
           "type": "array"
         },
+        "console_command": {
+          "description": "command to access the console of the switch",
+          "type": "string"
+        },
         "created": {
           "description": "the creation time of this entity",
           "format": "date-time",
@@ -4209,6 +4311,14 @@
           "$ref": "#/definitions/v1.SwitchSync",
           "description": "last synchronization to the switch that was erroneous"
         },
+        "management_ip": {
+          "description": "the ip address of the management interface of the switch",
+          "type": "string"
+        },
+        "management_user": {
+          "description": "the user to connect to the switch",
+          "type": "string"
+        },
         "mode": {
           "description": "the mode the switch currently has",
           "type": "string"
@@ -4223,6 +4333,10 @@
             "$ref": "#/definitions/v1.SwitchNic"
           },
           "type": "array"
+        },
+        "os": {
+          "$ref": "#/definitions/v1.SwitchOS",
+          "description": "the operating system the switch currently has"
         },
         "partition": {
           "$ref": "#/definitions/v1.PartitionResponse",
@@ -4265,6 +4379,10 @@
     },
     "v1.SwitchUpdateRequest": {
       "properties": {
+        "console_command": {
+          "description": "command to access the console of the switch",
+          "type": "string"
+        },
         "description": {
           "description": "a description for this entity",
           "type": "string"
@@ -4274,6 +4392,14 @@
           "type": "string",
           "uniqueItems": true
         },
+        "management_ip": {
+          "description": "the ip address of the management interface of the switch",
+          "type": "string"
+        },
+        "management_user": {
+          "description": "the user to connect to the switch",
+          "type": "string"
+        },
         "mode": {
           "description": "the mode the switch currently has",
           "type": "string"
@@ -4281,6 +4407,10 @@
         "name": {
           "description": "a readable name for this entity",
           "type": "string"
+        },
+        "os": {
+          "$ref": "#/definitions/v1.SwitchOS",
+          "description": "the operating system the switch currently has"
         },
         "rack_id": {
           "description": "the id of the rack in which this switch is located",
@@ -8120,6 +8250,48 @@
           }
         },
         "summary": "updates a switch. if the switch was changed since this one was read, a conflict is returned",
+        "tags": [
+          "switch"
+        ]
+      }
+    },
+    "/v1/switch/find": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "operationId": "findSwitches",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1.SwitchFindRequest"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/v1.SwitchResponse"
+              },
+              "type": "array"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/httperrors.HTTPErrorResponse"
+            }
+          }
+        },
+        "summary": "get all switches that match given properties",
         "tags": [
           "switch"
         ]

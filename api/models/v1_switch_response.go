@@ -29,6 +29,9 @@ type V1SwitchResponse struct {
 	// Required: true
 	Connections []*V1SwitchConnection `json:"connections" yaml:"connections"`
 
+	// command to access the console of the switch
+	ConsoleCommand string `json:"console_command,omitempty" yaml:"console_command,omitempty"`
+
 	// the creation time of this entity
 	// Read Only: true
 	// Format: date-time
@@ -47,6 +50,12 @@ type V1SwitchResponse struct {
 	// last synchronization to the switch that was erroneous
 	LastSyncError *V1SwitchSync `json:"last_sync_error,omitempty" yaml:"last_sync_error,omitempty"`
 
+	// the ip address of the management interface of the switch
+	ManagementIP string `json:"management_ip,omitempty" yaml:"management_ip,omitempty"`
+
+	// the user to connect to the switch
+	ManagementUser string `json:"management_user,omitempty" yaml:"management_user,omitempty"`
+
 	// the mode the switch currently has
 	Mode string `json:"mode,omitempty" yaml:"mode,omitempty"`
 
@@ -56,6 +65,9 @@ type V1SwitchResponse struct {
 	// the list of network interfaces on the switch
 	// Required: true
 	Nics []*V1SwitchNic `json:"nics" yaml:"nics"`
+
+	// the operating system the switch currently has
+	Os *V1SwitchOS `json:"os,omitempty" yaml:"os,omitempty"`
 
 	// the partition in which this switch is located
 	// Required: true
@@ -95,6 +107,10 @@ func (m *V1SwitchResponse) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateNics(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateOs(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -237,6 +253,25 @@ func (m *V1SwitchResponse) validateNics(formats strfmt.Registry) error {
 	return nil
 }
 
+func (m *V1SwitchResponse) validateOs(formats strfmt.Registry) error {
+	if swag.IsZero(m.Os) { // not required
+		return nil
+	}
+
+	if m.Os != nil {
+		if err := m.Os.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("os")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("os")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
 func (m *V1SwitchResponse) validatePartition(formats strfmt.Registry) error {
 
 	if err := validate.Required("partition", "body", m.Partition); err != nil {
@@ -291,6 +326,10 @@ func (m *V1SwitchResponse) ContextValidate(ctx context.Context, formats strfmt.R
 	}
 
 	if err := m.contextValidateNics(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateOs(ctx, formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -389,6 +428,22 @@ func (m *V1SwitchResponse) contextValidateNics(ctx context.Context, formats strf
 			}
 		}
 
+	}
+
+	return nil
+}
+
+func (m *V1SwitchResponse) contextValidateOs(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Os != nil {
+		if err := m.Os.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("os")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("os")
+			}
+			return err
+		}
 	}
 
 	return nil
