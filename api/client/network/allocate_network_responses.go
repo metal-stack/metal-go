@@ -87,6 +87,11 @@ func (o *AllocateNetworkCreated) IsCode(code int) bool {
 	return code == 201
 }
 
+// Code gets the status code for the allocate network created response
+func (o *AllocateNetworkCreated) Code() int {
+	return 201
+}
+
 func (o *AllocateNetworkCreated) Error() string {
 	return fmt.Sprintf("[POST /v1/network/allocate][%d] allocateNetworkCreated  %+v", 201, o.Payload)
 }
@@ -150,6 +155,11 @@ func (o *AllocateNetworkConflict) IsCode(code int) bool {
 	return code == 409
 }
 
+// Code gets the status code for the allocate network conflict response
+func (o *AllocateNetworkConflict) Code() int {
+	return 409
+}
+
 func (o *AllocateNetworkConflict) Error() string {
 	return fmt.Sprintf("[POST /v1/network/allocate][%d] allocateNetworkConflict  %+v", 409, o.Payload)
 }
@@ -192,11 +202,6 @@ type AllocateNetworkDefault struct {
 	Payload *httperrors.HTTPErrorResponse
 }
 
-// Code gets the status code for the allocate network default response
-func (o *AllocateNetworkDefault) Code() int {
-	return o._statusCode
-}
-
 // IsSuccess returns true when this allocate network default response has a 2xx status code
 func (o *AllocateNetworkDefault) IsSuccess() bool {
 	return o._statusCode/100 == 2
@@ -220,6 +225,11 @@ func (o *AllocateNetworkDefault) IsServerError() bool {
 // IsCode returns true when this allocate network default response a status code equal to that given
 func (o *AllocateNetworkDefault) IsCode(code int) bool {
 	return o._statusCode == code
+}
+
+// Code gets the status code for the allocate network default response
+func (o *AllocateNetworkDefault) Code() int {
+	return o._statusCode
 }
 
 func (o *AllocateNetworkDefault) Error() string {

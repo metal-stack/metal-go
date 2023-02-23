@@ -81,6 +81,11 @@ func (o *DeleteProjectOK) IsCode(code int) bool {
 	return code == 200
 }
 
+// Code gets the status code for the delete project o k response
+func (o *DeleteProjectOK) Code() int {
+	return 200
+}
+
 func (o *DeleteProjectOK) Error() string {
 	return fmt.Sprintf("[DELETE /v1/project/{id}][%d] deleteProjectOK  %+v", 200, o.Payload)
 }
@@ -123,11 +128,6 @@ type DeleteProjectDefault struct {
 	Payload *httperrors.HTTPErrorResponse
 }
 
-// Code gets the status code for the delete project default response
-func (o *DeleteProjectDefault) Code() int {
-	return o._statusCode
-}
-
 // IsSuccess returns true when this delete project default response has a 2xx status code
 func (o *DeleteProjectDefault) IsSuccess() bool {
 	return o._statusCode/100 == 2
@@ -151,6 +151,11 @@ func (o *DeleteProjectDefault) IsServerError() bool {
 // IsCode returns true when this delete project default response a status code equal to that given
 func (o *DeleteProjectDefault) IsCode(code int) bool {
 	return o._statusCode == code
+}
+
+// Code gets the status code for the delete project default response
+func (o *DeleteProjectDefault) Code() int {
+	return o._statusCode
 }
 
 func (o *DeleteProjectDefault) Error() string {

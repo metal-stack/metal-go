@@ -81,6 +81,11 @@ func (o *FindIPsOK) IsCode(code int) bool {
 	return code == 200
 }
 
+// Code gets the status code for the find i ps o k response
+func (o *FindIPsOK) Code() int {
+	return 200
+}
+
 func (o *FindIPsOK) Error() string {
 	return fmt.Sprintf("[POST /v1/ip/find][%d] findIPsOK  %+v", 200, o.Payload)
 }
@@ -121,11 +126,6 @@ type FindIPsDefault struct {
 	Payload *httperrors.HTTPErrorResponse
 }
 
-// Code gets the status code for the find i ps default response
-func (o *FindIPsDefault) Code() int {
-	return o._statusCode
-}
-
 // IsSuccess returns true when this find i ps default response has a 2xx status code
 func (o *FindIPsDefault) IsSuccess() bool {
 	return o._statusCode/100 == 2
@@ -149,6 +149,11 @@ func (o *FindIPsDefault) IsServerError() bool {
 // IsCode returns true when this find i ps default response a status code equal to that given
 func (o *FindIPsDefault) IsCode(code int) bool {
 	return o._statusCode == code
+}
+
+// Code gets the status code for the find i ps default response
+func (o *FindIPsDefault) Code() int {
+	return o._statusCode
 }
 
 func (o *FindIPsDefault) Error() string {

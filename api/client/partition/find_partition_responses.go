@@ -81,6 +81,11 @@ func (o *FindPartitionOK) IsCode(code int) bool {
 	return code == 200
 }
 
+// Code gets the status code for the find partition o k response
+func (o *FindPartitionOK) Code() int {
+	return 200
+}
+
 func (o *FindPartitionOK) Error() string {
 	return fmt.Sprintf("[GET /v1/partition/{id}][%d] findPartitionOK  %+v", 200, o.Payload)
 }
@@ -123,11 +128,6 @@ type FindPartitionDefault struct {
 	Payload *httperrors.HTTPErrorResponse
 }
 
-// Code gets the status code for the find partition default response
-func (o *FindPartitionDefault) Code() int {
-	return o._statusCode
-}
-
 // IsSuccess returns true when this find partition default response has a 2xx status code
 func (o *FindPartitionDefault) IsSuccess() bool {
 	return o._statusCode/100 == 2
@@ -151,6 +151,11 @@ func (o *FindPartitionDefault) IsServerError() bool {
 // IsCode returns true when this find partition default response a status code equal to that given
 func (o *FindPartitionDefault) IsCode(code int) bool {
 	return o._statusCode == code
+}
+
+// Code gets the status code for the find partition default response
+func (o *FindPartitionDefault) Code() int {
+	return o._statusCode
 }
 
 func (o *FindPartitionDefault) Error() string {

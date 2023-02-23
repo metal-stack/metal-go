@@ -87,6 +87,11 @@ func (o *AllocateSpecificIPCreated) IsCode(code int) bool {
 	return code == 201
 }
 
+// Code gets the status code for the allocate specific Ip created response
+func (o *AllocateSpecificIPCreated) Code() int {
+	return 201
+}
+
 func (o *AllocateSpecificIPCreated) Error() string {
 	return fmt.Sprintf("[POST /v1/ip/allocate/{ip}][%d] allocateSpecificIpCreated  %+v", 201, o.Payload)
 }
@@ -150,6 +155,11 @@ func (o *AllocateSpecificIPConflict) IsCode(code int) bool {
 	return code == 409
 }
 
+// Code gets the status code for the allocate specific Ip conflict response
+func (o *AllocateSpecificIPConflict) Code() int {
+	return 409
+}
+
 func (o *AllocateSpecificIPConflict) Error() string {
 	return fmt.Sprintf("[POST /v1/ip/allocate/{ip}][%d] allocateSpecificIpConflict  %+v", 409, o.Payload)
 }
@@ -192,11 +202,6 @@ type AllocateSpecificIPDefault struct {
 	Payload *httperrors.HTTPErrorResponse
 }
 
-// Code gets the status code for the allocate specific IP default response
-func (o *AllocateSpecificIPDefault) Code() int {
-	return o._statusCode
-}
-
 // IsSuccess returns true when this allocate specific IP default response has a 2xx status code
 func (o *AllocateSpecificIPDefault) IsSuccess() bool {
 	return o._statusCode/100 == 2
@@ -220,6 +225,11 @@ func (o *AllocateSpecificIPDefault) IsServerError() bool {
 // IsCode returns true when this allocate specific IP default response a status code equal to that given
 func (o *AllocateSpecificIPDefault) IsCode(code int) bool {
 	return o._statusCode == code
+}
+
+// Code gets the status code for the allocate specific IP default response
+func (o *AllocateSpecificIPDefault) Code() int {
+	return o._statusCode
 }
 
 func (o *AllocateSpecificIPDefault) Error() string {
