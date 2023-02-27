@@ -81,6 +81,11 @@ func (o *ListSwitchesOK) IsCode(code int) bool {
 	return code == 200
 }
 
+// Code gets the status code for the list switches o k response
+func (o *ListSwitchesOK) Code() int {
+	return 200
+}
+
 func (o *ListSwitchesOK) Error() string {
 	return fmt.Sprintf("[GET /v1/switch][%d] listSwitchesOK  %+v", 200, o.Payload)
 }
@@ -121,11 +126,6 @@ type ListSwitchesDefault struct {
 	Payload *httperrors.HTTPErrorResponse
 }
 
-// Code gets the status code for the list switches default response
-func (o *ListSwitchesDefault) Code() int {
-	return o._statusCode
-}
-
 // IsSuccess returns true when this list switches default response has a 2xx status code
 func (o *ListSwitchesDefault) IsSuccess() bool {
 	return o._statusCode/100 == 2
@@ -149,6 +149,11 @@ func (o *ListSwitchesDefault) IsServerError() bool {
 // IsCode returns true when this list switches default response a status code equal to that given
 func (o *ListSwitchesDefault) IsCode(code int) bool {
 	return o._statusCode == code
+}
+
+// Code gets the status code for the list switches default response
+func (o *ListSwitchesDefault) Code() int {
+	return o._statusCode
 }
 
 func (o *ListSwitchesDefault) Error() string {

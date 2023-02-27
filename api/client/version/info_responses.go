@@ -81,6 +81,11 @@ func (o *InfoOK) IsCode(code int) bool {
 	return code == 200
 }
 
+// Code gets the status code for the info o k response
+func (o *InfoOK) Code() int {
+	return 200
+}
+
 func (o *InfoOK) Error() string {
 	return fmt.Sprintf("[GET /v1/version][%d] infoOK  %+v", 200, o.Payload)
 }
@@ -123,11 +128,6 @@ type InfoDefault struct {
 	Payload *httperrors.HTTPErrorResponse
 }
 
-// Code gets the status code for the info default response
-func (o *InfoDefault) Code() int {
-	return o._statusCode
-}
-
 // IsSuccess returns true when this info default response has a 2xx status code
 func (o *InfoDefault) IsSuccess() bool {
 	return o._statusCode/100 == 2
@@ -151,6 +151,11 @@ func (o *InfoDefault) IsServerError() bool {
 // IsCode returns true when this info default response a status code equal to that given
 func (o *InfoDefault) IsCode(code int) bool {
 	return o._statusCode == code
+}
+
+// Code gets the status code for the info default response
+func (o *InfoDefault) Code() int {
+	return o._statusCode
 }
 
 func (o *InfoDefault) Error() string {

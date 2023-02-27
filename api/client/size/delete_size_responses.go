@@ -81,6 +81,11 @@ func (o *DeleteSizeOK) IsCode(code int) bool {
 	return code == 200
 }
 
+// Code gets the status code for the delete size o k response
+func (o *DeleteSizeOK) Code() int {
+	return 200
+}
+
 func (o *DeleteSizeOK) Error() string {
 	return fmt.Sprintf("[DELETE /v1/size/{id}][%d] deleteSizeOK  %+v", 200, o.Payload)
 }
@@ -123,11 +128,6 @@ type DeleteSizeDefault struct {
 	Payload *httperrors.HTTPErrorResponse
 }
 
-// Code gets the status code for the delete size default response
-func (o *DeleteSizeDefault) Code() int {
-	return o._statusCode
-}
-
 // IsSuccess returns true when this delete size default response has a 2xx status code
 func (o *DeleteSizeDefault) IsSuccess() bool {
 	return o._statusCode/100 == 2
@@ -151,6 +151,11 @@ func (o *DeleteSizeDefault) IsServerError() bool {
 // IsCode returns true when this delete size default response a status code equal to that given
 func (o *DeleteSizeDefault) IsCode(code int) bool {
 	return o._statusCode == code
+}
+
+// Code gets the status code for the delete size default response
+func (o *DeleteSizeDefault) Code() int {
+	return o._statusCode
 }
 
 func (o *DeleteSizeDefault) Error() string {

@@ -81,6 +81,11 @@ func (o *FindProjectOK) IsCode(code int) bool {
 	return code == 200
 }
 
+// Code gets the status code for the find project o k response
+func (o *FindProjectOK) Code() int {
+	return 200
+}
+
 func (o *FindProjectOK) Error() string {
 	return fmt.Sprintf("[GET /v1/project/{id}][%d] findProjectOK  %+v", 200, o.Payload)
 }
@@ -123,11 +128,6 @@ type FindProjectDefault struct {
 	Payload *httperrors.HTTPErrorResponse
 }
 
-// Code gets the status code for the find project default response
-func (o *FindProjectDefault) Code() int {
-	return o._statusCode
-}
-
 // IsSuccess returns true when this find project default response has a 2xx status code
 func (o *FindProjectDefault) IsSuccess() bool {
 	return o._statusCode/100 == 2
@@ -151,6 +151,11 @@ func (o *FindProjectDefault) IsServerError() bool {
 // IsCode returns true when this find project default response a status code equal to that given
 func (o *FindProjectDefault) IsCode(code int) bool {
 	return o._statusCode == code
+}
+
+// Code gets the status code for the find project default response
+func (o *FindProjectDefault) Code() int {
+	return o._statusCode
 }
 
 func (o *FindProjectDefault) Error() string {
