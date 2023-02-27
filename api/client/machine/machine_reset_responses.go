@@ -81,6 +81,11 @@ func (o *MachineResetOK) IsCode(code int) bool {
 	return code == 200
 }
 
+// Code gets the status code for the machine reset o k response
+func (o *MachineResetOK) Code() int {
+	return 200
+}
+
 func (o *MachineResetOK) Error() string {
 	return fmt.Sprintf("[POST /v1/machine/{id}/power/reset][%d] machineResetOK  %+v", 200, o.Payload)
 }
@@ -123,11 +128,6 @@ type MachineResetDefault struct {
 	Payload *httperrors.HTTPErrorResponse
 }
 
-// Code gets the status code for the machine reset default response
-func (o *MachineResetDefault) Code() int {
-	return o._statusCode
-}
-
 // IsSuccess returns true when this machine reset default response has a 2xx status code
 func (o *MachineResetDefault) IsSuccess() bool {
 	return o._statusCode/100 == 2
@@ -151,6 +151,11 @@ func (o *MachineResetDefault) IsServerError() bool {
 // IsCode returns true when this machine reset default response a status code equal to that given
 func (o *MachineResetDefault) IsCode(code int) bool {
 	return o._statusCode == code
+}
+
+// Code gets the status code for the machine reset default response
+func (o *MachineResetDefault) Code() int {
+	return o._statusCode
 }
 
 func (o *MachineResetDefault) Error() string {

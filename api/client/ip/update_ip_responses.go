@@ -87,6 +87,11 @@ func (o *UpdateIPOK) IsCode(code int) bool {
 	return code == 200
 }
 
+// Code gets the status code for the update Ip o k response
+func (o *UpdateIPOK) Code() int {
+	return 200
+}
+
 func (o *UpdateIPOK) Error() string {
 	return fmt.Sprintf("[POST /v1/ip][%d] updateIpOK  %+v", 200, o.Payload)
 }
@@ -150,6 +155,11 @@ func (o *UpdateIPConflict) IsCode(code int) bool {
 	return code == 409
 }
 
+// Code gets the status code for the update Ip conflict response
+func (o *UpdateIPConflict) Code() int {
+	return 409
+}
+
 func (o *UpdateIPConflict) Error() string {
 	return fmt.Sprintf("[POST /v1/ip][%d] updateIpConflict  %+v", 409, o.Payload)
 }
@@ -192,11 +202,6 @@ type UpdateIPDefault struct {
 	Payload *httperrors.HTTPErrorResponse
 }
 
-// Code gets the status code for the update IP default response
-func (o *UpdateIPDefault) Code() int {
-	return o._statusCode
-}
-
 // IsSuccess returns true when this update IP default response has a 2xx status code
 func (o *UpdateIPDefault) IsSuccess() bool {
 	return o._statusCode/100 == 2
@@ -220,6 +225,11 @@ func (o *UpdateIPDefault) IsServerError() bool {
 // IsCode returns true when this update IP default response a status code equal to that given
 func (o *UpdateIPDefault) IsCode(code int) bool {
 	return o._statusCode == code
+}
+
+// Code gets the status code for the update IP default response
+func (o *UpdateIPDefault) Code() int {
+	return o._statusCode
 }
 
 func (o *UpdateIPDefault) Error() string {

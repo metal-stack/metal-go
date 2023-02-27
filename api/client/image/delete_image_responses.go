@@ -81,6 +81,11 @@ func (o *DeleteImageOK) IsCode(code int) bool {
 	return code == 200
 }
 
+// Code gets the status code for the delete image o k response
+func (o *DeleteImageOK) Code() int {
+	return 200
+}
+
 func (o *DeleteImageOK) Error() string {
 	return fmt.Sprintf("[DELETE /v1/image/{id}][%d] deleteImageOK  %+v", 200, o.Payload)
 }
@@ -123,11 +128,6 @@ type DeleteImageDefault struct {
 	Payload *httperrors.HTTPErrorResponse
 }
 
-// Code gets the status code for the delete image default response
-func (o *DeleteImageDefault) Code() int {
-	return o._statusCode
-}
-
 // IsSuccess returns true when this delete image default response has a 2xx status code
 func (o *DeleteImageDefault) IsSuccess() bool {
 	return o._statusCode/100 == 2
@@ -151,6 +151,11 @@ func (o *DeleteImageDefault) IsServerError() bool {
 // IsCode returns true when this delete image default response a status code equal to that given
 func (o *DeleteImageDefault) IsCode(code int) bool {
 	return o._statusCode == code
+}
+
+// Code gets the status code for the delete image default response
+func (o *DeleteImageDefault) Code() int {
+	return o._statusCode
 }
 
 func (o *DeleteImageDefault) Error() string {

@@ -87,6 +87,11 @@ func (o *UpdateSizeImageConstraintOK) IsCode(code int) bool {
 	return code == 200
 }
 
+// Code gets the status code for the update size image constraint o k response
+func (o *UpdateSizeImageConstraintOK) Code() int {
+	return 200
+}
+
 func (o *UpdateSizeImageConstraintOK) Error() string {
 	return fmt.Sprintf("[POST /v1/size-image-constraint][%d] updateSizeImageConstraintOK  %+v", 200, o.Payload)
 }
@@ -150,6 +155,11 @@ func (o *UpdateSizeImageConstraintConflict) IsCode(code int) bool {
 	return code == 409
 }
 
+// Code gets the status code for the update size image constraint conflict response
+func (o *UpdateSizeImageConstraintConflict) Code() int {
+	return 409
+}
+
 func (o *UpdateSizeImageConstraintConflict) Error() string {
 	return fmt.Sprintf("[POST /v1/size-image-constraint][%d] updateSizeImageConstraintConflict  %+v", 409, o.Payload)
 }
@@ -192,11 +202,6 @@ type UpdateSizeImageConstraintDefault struct {
 	Payload *httperrors.HTTPErrorResponse
 }
 
-// Code gets the status code for the update size image constraint default response
-func (o *UpdateSizeImageConstraintDefault) Code() int {
-	return o._statusCode
-}
-
 // IsSuccess returns true when this update size image constraint default response has a 2xx status code
 func (o *UpdateSizeImageConstraintDefault) IsSuccess() bool {
 	return o._statusCode/100 == 2
@@ -220,6 +225,11 @@ func (o *UpdateSizeImageConstraintDefault) IsServerError() bool {
 // IsCode returns true when this update size image constraint default response a status code equal to that given
 func (o *UpdateSizeImageConstraintDefault) IsCode(code int) bool {
 	return o._statusCode == code
+}
+
+// Code gets the status code for the update size image constraint default response
+func (o *UpdateSizeImageConstraintDefault) Code() int {
+	return o._statusCode
 }
 
 func (o *UpdateSizeImageConstraintDefault) Error() string {

@@ -81,6 +81,11 @@ func (o *FreeMachineOK) IsCode(code int) bool {
 	return code == 200
 }
 
+// Code gets the status code for the free machine o k response
+func (o *FreeMachineOK) Code() int {
+	return 200
+}
+
 func (o *FreeMachineOK) Error() string {
 	return fmt.Sprintf("[DELETE /v1/machine/{id}/free][%d] freeMachineOK  %+v", 200, o.Payload)
 }
@@ -123,11 +128,6 @@ type FreeMachineDefault struct {
 	Payload *httperrors.HTTPErrorResponse
 }
 
-// Code gets the status code for the free machine default response
-func (o *FreeMachineDefault) Code() int {
-	return o._statusCode
-}
-
 // IsSuccess returns true when this free machine default response has a 2xx status code
 func (o *FreeMachineDefault) IsSuccess() bool {
 	return o._statusCode/100 == 2
@@ -151,6 +151,11 @@ func (o *FreeMachineDefault) IsServerError() bool {
 // IsCode returns true when this free machine default response a status code equal to that given
 func (o *FreeMachineDefault) IsCode(code int) bool {
 	return o._statusCode == code
+}
+
+// Code gets the status code for the free machine default response
+func (o *FreeMachineDefault) Code() int {
+	return o._statusCode
 }
 
 func (o *FreeMachineDefault) Error() string {
