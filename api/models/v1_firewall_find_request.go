@@ -7,9 +7,12 @@ package models
 
 import (
 	"context"
+	"encoding/json"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // V1FirewallFindRequest v1 firewall find request
@@ -101,17 +104,8 @@ type V1FirewallFindRequest struct {
 	// network ips
 	NetworkIps []string `json:"network_ips" yaml:"network_ips"`
 
-	// network nat
-	NetworkNat bool `json:"network_nat,omitempty" yaml:"network_nat,omitempty"`
-
 	// network prefixes
 	NetworkPrefixes []string `json:"network_prefixes" yaml:"network_prefixes"`
-
-	// network private
-	NetworkPrivate bool `json:"network_private,omitempty" yaml:"network_private,omitempty"`
-
-	// network underlay
-	NetworkUnderlay bool `json:"network_underlay,omitempty" yaml:"network_underlay,omitempty"`
 
 	// network vrfs
 	NetworkVrfs []int64 `json:"network_vrfs" yaml:"network_vrfs"`
@@ -144,6 +138,7 @@ type V1FirewallFindRequest struct {
 	Sizeid string `json:"sizeid,omitempty" yaml:"sizeid,omitempty"`
 
 	// state value
+	// Enum: [ LOCKED RESERVED]
 	StateValue string `json:"state_value,omitempty" yaml:"state_value,omitempty"`
 
 	// tags
@@ -152,6 +147,60 @@ type V1FirewallFindRequest struct {
 
 // Validate validates this v1 firewall find request
 func (m *V1FirewallFindRequest) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateStateValue(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+var v1FirewallFindRequestTypeStateValuePropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["","LOCKED","RESERVED"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		v1FirewallFindRequestTypeStateValuePropEnum = append(v1FirewallFindRequestTypeStateValuePropEnum, v)
+	}
+}
+
+const (
+
+	// V1FirewallFindRequestStateValueEmpty captures enum value ""
+	V1FirewallFindRequestStateValueEmpty string = ""
+
+	// V1FirewallFindRequestStateValueLOCKED captures enum value "LOCKED"
+	V1FirewallFindRequestStateValueLOCKED string = "LOCKED"
+
+	// V1FirewallFindRequestStateValueRESERVED captures enum value "RESERVED"
+	V1FirewallFindRequestStateValueRESERVED string = "RESERVED"
+)
+
+// prop value enum
+func (m *V1FirewallFindRequest) validateStateValueEnum(path, location string, value string) error {
+	if err := validate.EnumCase(path, location, value, v1FirewallFindRequestTypeStateValuePropEnum, true); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *V1FirewallFindRequest) validateStateValue(formats strfmt.Registry) error {
+	if swag.IsZero(m.StateValue) { // not required
+		return nil
+	}
+
+	// value enum
+	if err := m.validateStateValueEnum("state_value", "body", m.StateValue); err != nil {
+		return err
+	}
+
 	return nil
 }
 
