@@ -20,12 +20,21 @@ import (
 // swagger:model v1.SwitchRegisterRequest
 type V1SwitchRegisterRequest struct {
 
+	// command to access the console of the switch
+	ConsoleCommand string `json:"console_command,omitempty" yaml:"console_command,omitempty"`
+
 	// a description for this entity
 	Description string `json:"description,omitempty" yaml:"description,omitempty"`
 
 	// the unique ID of this entity
 	// Required: true
 	ID *string `json:"id" yaml:"id"`
+
+	// the ip address of the management interface of the switch
+	ManagementIP string `json:"management_ip,omitempty" yaml:"management_ip,omitempty"`
+
+	// the user to connect to the switch
+	ManagementUser string `json:"management_user,omitempty" yaml:"management_user,omitempty"`
 
 	// the mode the switch currently has
 	Mode string `json:"mode,omitempty" yaml:"mode,omitempty"`
@@ -36,6 +45,9 @@ type V1SwitchRegisterRequest struct {
 	// the list of network interfaces on the switch
 	// Required: true
 	Nics []*V1SwitchNic `json:"nics" yaml:"nics"`
+
+	// the operating system the switch currently has
+	Os *V1SwitchOS `json:"os,omitempty" yaml:"os,omitempty"`
 
 	// the partition in which this switch is located
 	// Required: true
@@ -55,6 +67,10 @@ func (m *V1SwitchRegisterRequest) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateNics(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateOs(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -108,6 +124,25 @@ func (m *V1SwitchRegisterRequest) validateNics(formats strfmt.Registry) error {
 	return nil
 }
 
+func (m *V1SwitchRegisterRequest) validateOs(formats strfmt.Registry) error {
+	if swag.IsZero(m.Os) { // not required
+		return nil
+	}
+
+	if m.Os != nil {
+		if err := m.Os.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("os")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("os")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
 func (m *V1SwitchRegisterRequest) validatePartitionID(formats strfmt.Registry) error {
 
 	if err := validate.Required("partition_id", "body", m.PartitionID); err != nil {
@@ -134,6 +169,10 @@ func (m *V1SwitchRegisterRequest) ContextValidate(ctx context.Context, formats s
 		res = append(res, err)
 	}
 
+	if err := m.contextValidateOs(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
@@ -155,6 +194,22 @@ func (m *V1SwitchRegisterRequest) contextValidateNics(ctx context.Context, forma
 			}
 		}
 
+	}
+
+	return nil
+}
+
+func (m *V1SwitchRegisterRequest) contextValidateOs(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Os != nil {
+		if err := m.Os.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("os")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("os")
+			}
+			return err
+		}
 	}
 
 	return nil

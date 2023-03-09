@@ -7,9 +7,12 @@ package models
 
 import (
 	"context"
+	"encoding/json"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // DatastoreMachineSearchQuery datastore machine search query
@@ -101,17 +104,8 @@ type DatastoreMachineSearchQuery struct {
 	// network ips
 	NetworkIps []string `json:"network_ips" yaml:"network_ips"`
 
-	// network nat
-	NetworkNat bool `json:"network_nat,omitempty" yaml:"network_nat,omitempty"`
-
 	// network prefixes
 	NetworkPrefixes []string `json:"network_prefixes" yaml:"network_prefixes"`
-
-	// network private
-	NetworkPrivate bool `json:"network_private,omitempty" yaml:"network_private,omitempty"`
-
-	// network underlay
-	NetworkUnderlay bool `json:"network_underlay,omitempty" yaml:"network_underlay,omitempty"`
 
 	// network vrfs
 	NetworkVrfs []int64 `json:"network_vrfs" yaml:"network_vrfs"`
@@ -147,6 +141,7 @@ type DatastoreMachineSearchQuery struct {
 	Sizeid string `json:"sizeid,omitempty" yaml:"sizeid,omitempty"`
 
 	// state value
+	// Enum: [ LOCKED RESERVED]
 	StateValue string `json:"state_value,omitempty" yaml:"state_value,omitempty"`
 
 	// tags
@@ -155,6 +150,60 @@ type DatastoreMachineSearchQuery struct {
 
 // Validate validates this datastore machine search query
 func (m *DatastoreMachineSearchQuery) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateStateValue(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+var datastoreMachineSearchQueryTypeStateValuePropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["","LOCKED","RESERVED"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		datastoreMachineSearchQueryTypeStateValuePropEnum = append(datastoreMachineSearchQueryTypeStateValuePropEnum, v)
+	}
+}
+
+const (
+
+	// DatastoreMachineSearchQueryStateValueEmpty captures enum value ""
+	DatastoreMachineSearchQueryStateValueEmpty string = ""
+
+	// DatastoreMachineSearchQueryStateValueLOCKED captures enum value "LOCKED"
+	DatastoreMachineSearchQueryStateValueLOCKED string = "LOCKED"
+
+	// DatastoreMachineSearchQueryStateValueRESERVED captures enum value "RESERVED"
+	DatastoreMachineSearchQueryStateValueRESERVED string = "RESERVED"
+)
+
+// prop value enum
+func (m *DatastoreMachineSearchQuery) validateStateValueEnum(path, location string, value string) error {
+	if err := validate.EnumCase(path, location, value, datastoreMachineSearchQueryTypeStateValuePropEnum, true); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *DatastoreMachineSearchQuery) validateStateValue(formats strfmt.Registry) error {
+	if swag.IsZero(m.StateValue) { // not required
+		return nil
+	}
+
+	// value enum
+	if err := m.validateStateValueEnum("state_value", "body", m.StateValue); err != nil {
+		return err
+	}
+
 	return nil
 }
 

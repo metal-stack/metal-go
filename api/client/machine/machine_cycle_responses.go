@@ -81,6 +81,11 @@ func (o *MachineCycleOK) IsCode(code int) bool {
 	return code == 200
 }
 
+// Code gets the status code for the machine cycle o k response
+func (o *MachineCycleOK) Code() int {
+	return 200
+}
+
 func (o *MachineCycleOK) Error() string {
 	return fmt.Sprintf("[POST /v1/machine/{id}/power/cycle][%d] machineCycleOK  %+v", 200, o.Payload)
 }
@@ -123,11 +128,6 @@ type MachineCycleDefault struct {
 	Payload *httperrors.HTTPErrorResponse
 }
 
-// Code gets the status code for the machine cycle default response
-func (o *MachineCycleDefault) Code() int {
-	return o._statusCode
-}
-
 // IsSuccess returns true when this machine cycle default response has a 2xx status code
 func (o *MachineCycleDefault) IsSuccess() bool {
 	return o._statusCode/100 == 2
@@ -151,6 +151,11 @@ func (o *MachineCycleDefault) IsServerError() bool {
 // IsCode returns true when this machine cycle default response a status code equal to that given
 func (o *MachineCycleDefault) IsCode(code int) bool {
 	return o._statusCode == code
+}
+
+// Code gets the status code for the machine cycle default response
+func (o *MachineCycleDefault) Code() int {
+	return o._statusCode
 }
 
 func (o *MachineCycleDefault) Error() string {

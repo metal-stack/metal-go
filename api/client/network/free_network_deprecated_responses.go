@@ -87,6 +87,11 @@ func (o *FreeNetworkDeprecatedOK) IsCode(code int) bool {
 	return code == 200
 }
 
+// Code gets the status code for the free network deprecated o k response
+func (o *FreeNetworkDeprecatedOK) Code() int {
+	return 200
+}
+
 func (o *FreeNetworkDeprecatedOK) Error() string {
 	return fmt.Sprintf("[POST /v1/network/free/{id}][%d] freeNetworkDeprecatedOK  %+v", 200, o.Payload)
 }
@@ -150,6 +155,11 @@ func (o *FreeNetworkDeprecatedConflict) IsCode(code int) bool {
 	return code == 409
 }
 
+// Code gets the status code for the free network deprecated conflict response
+func (o *FreeNetworkDeprecatedConflict) Code() int {
+	return 409
+}
+
 func (o *FreeNetworkDeprecatedConflict) Error() string {
 	return fmt.Sprintf("[POST /v1/network/free/{id}][%d] freeNetworkDeprecatedConflict  %+v", 409, o.Payload)
 }
@@ -192,11 +202,6 @@ type FreeNetworkDeprecatedDefault struct {
 	Payload *httperrors.HTTPErrorResponse
 }
 
-// Code gets the status code for the free network deprecated default response
-func (o *FreeNetworkDeprecatedDefault) Code() int {
-	return o._statusCode
-}
-
 // IsSuccess returns true when this free network deprecated default response has a 2xx status code
 func (o *FreeNetworkDeprecatedDefault) IsSuccess() bool {
 	return o._statusCode/100 == 2
@@ -220,6 +225,11 @@ func (o *FreeNetworkDeprecatedDefault) IsServerError() bool {
 // IsCode returns true when this free network deprecated default response a status code equal to that given
 func (o *FreeNetworkDeprecatedDefault) IsCode(code int) bool {
 	return o._statusCode == code
+}
+
+// Code gets the status code for the free network deprecated default response
+func (o *FreeNetworkDeprecatedDefault) Code() int {
+	return o._statusCode
 }
 
 func (o *FreeNetworkDeprecatedDefault) Error() string {

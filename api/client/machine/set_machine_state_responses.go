@@ -81,6 +81,11 @@ func (o *SetMachineStateOK) IsCode(code int) bool {
 	return code == 200
 }
 
+// Code gets the status code for the set machine state o k response
+func (o *SetMachineStateOK) Code() int {
+	return 200
+}
+
 func (o *SetMachineStateOK) Error() string {
 	return fmt.Sprintf("[POST /v1/machine/{id}/state][%d] setMachineStateOK  %+v", 200, o.Payload)
 }
@@ -123,11 +128,6 @@ type SetMachineStateDefault struct {
 	Payload *httperrors.HTTPErrorResponse
 }
 
-// Code gets the status code for the set machine state default response
-func (o *SetMachineStateDefault) Code() int {
-	return o._statusCode
-}
-
 // IsSuccess returns true when this set machine state default response has a 2xx status code
 func (o *SetMachineStateDefault) IsSuccess() bool {
 	return o._statusCode/100 == 2
@@ -151,6 +151,11 @@ func (o *SetMachineStateDefault) IsServerError() bool {
 // IsCode returns true when this set machine state default response a status code equal to that given
 func (o *SetMachineStateDefault) IsCode(code int) bool {
 	return o._statusCode == code
+}
+
+// Code gets the status code for the set machine state default response
+func (o *SetMachineStateDefault) Code() int {
+	return o._statusCode
 }
 
 func (o *SetMachineStateDefault) Error() string {

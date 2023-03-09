@@ -87,6 +87,11 @@ func (o *FreeNetworkOK) IsCode(code int) bool {
 	return code == 200
 }
 
+// Code gets the status code for the free network o k response
+func (o *FreeNetworkOK) Code() int {
+	return 200
+}
+
 func (o *FreeNetworkOK) Error() string {
 	return fmt.Sprintf("[DELETE /v1/network/free/{id}][%d] freeNetworkOK  %+v", 200, o.Payload)
 }
@@ -150,6 +155,11 @@ func (o *FreeNetworkConflict) IsCode(code int) bool {
 	return code == 409
 }
 
+// Code gets the status code for the free network conflict response
+func (o *FreeNetworkConflict) Code() int {
+	return 409
+}
+
 func (o *FreeNetworkConflict) Error() string {
 	return fmt.Sprintf("[DELETE /v1/network/free/{id}][%d] freeNetworkConflict  %+v", 409, o.Payload)
 }
@@ -192,11 +202,6 @@ type FreeNetworkDefault struct {
 	Payload *httperrors.HTTPErrorResponse
 }
 
-// Code gets the status code for the free network default response
-func (o *FreeNetworkDefault) Code() int {
-	return o._statusCode
-}
-
 // IsSuccess returns true when this free network default response has a 2xx status code
 func (o *FreeNetworkDefault) IsSuccess() bool {
 	return o._statusCode/100 == 2
@@ -220,6 +225,11 @@ func (o *FreeNetworkDefault) IsServerError() bool {
 // IsCode returns true when this free network default response a status code equal to that given
 func (o *FreeNetworkDefault) IsCode(code int) bool {
 	return o._statusCode == code
+}
+
+// Code gets the status code for the free network default response
+func (o *FreeNetworkDefault) Code() int {
+	return o._statusCode
 }
 
 func (o *FreeNetworkDefault) Error() string {

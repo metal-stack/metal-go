@@ -87,6 +87,11 @@ func (o *CreateImageCreated) IsCode(code int) bool {
 	return code == 201
 }
 
+// Code gets the status code for the create image created response
+func (o *CreateImageCreated) Code() int {
+	return 201
+}
+
 func (o *CreateImageCreated) Error() string {
 	return fmt.Sprintf("[PUT /v1/image][%d] createImageCreated  %+v", 201, o.Payload)
 }
@@ -150,6 +155,11 @@ func (o *CreateImageConflict) IsCode(code int) bool {
 	return code == 409
 }
 
+// Code gets the status code for the create image conflict response
+func (o *CreateImageConflict) Code() int {
+	return 409
+}
+
 func (o *CreateImageConflict) Error() string {
 	return fmt.Sprintf("[PUT /v1/image][%d] createImageConflict  %+v", 409, o.Payload)
 }
@@ -192,11 +202,6 @@ type CreateImageDefault struct {
 	Payload *httperrors.HTTPErrorResponse
 }
 
-// Code gets the status code for the create image default response
-func (o *CreateImageDefault) Code() int {
-	return o._statusCode
-}
-
 // IsSuccess returns true when this create image default response has a 2xx status code
 func (o *CreateImageDefault) IsSuccess() bool {
 	return o._statusCode/100 == 2
@@ -220,6 +225,11 @@ func (o *CreateImageDefault) IsServerError() bool {
 // IsCode returns true when this create image default response a status code equal to that given
 func (o *CreateImageDefault) IsCode(code int) bool {
 	return o._statusCode == code
+}
+
+// Code gets the status code for the create image default response
+func (o *CreateImageDefault) Code() int {
+	return o._statusCode
 }
 
 func (o *CreateImageDefault) Error() string {

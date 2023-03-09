@@ -22,6 +22,10 @@ type V1SwitchNic struct {
 	// configures the bgp filter applied at the switch port
 	Filter *V1BGPFilter `json:"filter,omitempty" yaml:"filter,omitempty"`
 
+	// the identifier of this network interface
+	// Required: true
+	Identifier *string `json:"identifier" yaml:"identifier"`
+
 	// the mac address of this network interface
 	// Required: true
 	Mac *string `json:"mac" yaml:"mac"`
@@ -39,6 +43,10 @@ func (m *V1SwitchNic) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateFilter(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateIdentifier(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -70,6 +78,15 @@ func (m *V1SwitchNic) validateFilter(formats strfmt.Registry) error {
 			}
 			return err
 		}
+	}
+
+	return nil
+}
+
+func (m *V1SwitchNic) validateIdentifier(formats strfmt.Registry) error {
+
+	if err := validate.Required("identifier", "body", m.Identifier); err != nil {
+		return err
 	}
 
 	return nil

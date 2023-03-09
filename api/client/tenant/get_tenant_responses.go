@@ -81,6 +81,11 @@ func (o *GetTenantOK) IsCode(code int) bool {
 	return code == 200
 }
 
+// Code gets the status code for the get tenant o k response
+func (o *GetTenantOK) Code() int {
+	return 200
+}
+
 func (o *GetTenantOK) Error() string {
 	return fmt.Sprintf("[GET /v1/tenant/{id}][%d] getTenantOK  %+v", 200, o.Payload)
 }
@@ -123,11 +128,6 @@ type GetTenantDefault struct {
 	Payload *httperrors.HTTPErrorResponse
 }
 
-// Code gets the status code for the get tenant default response
-func (o *GetTenantDefault) Code() int {
-	return o._statusCode
-}
-
 // IsSuccess returns true when this get tenant default response has a 2xx status code
 func (o *GetTenantDefault) IsSuccess() bool {
 	return o._statusCode/100 == 2
@@ -151,6 +151,11 @@ func (o *GetTenantDefault) IsServerError() bool {
 // IsCode returns true when this get tenant default response a status code equal to that given
 func (o *GetTenantDefault) IsCode(code int) bool {
 	return o._statusCode == code
+}
+
+// Code gets the status code for the get tenant default response
+func (o *GetTenantDefault) Code() int {
+	return o._statusCode
 }
 
 func (o *GetTenantDefault) Error() string {

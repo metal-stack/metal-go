@@ -87,6 +87,11 @@ func (o *HealthOK) IsCode(code int) bool {
 	return code == 200
 }
 
+// Code gets the status code for the health o k response
+func (o *HealthOK) Code() int {
+	return 200
+}
+
 func (o *HealthOK) Error() string {
 	return fmt.Sprintf("[GET /v1/health][%d] healthOK  %+v", 200, o.Payload)
 }
@@ -150,6 +155,11 @@ func (o *HealthInternalServerError) IsCode(code int) bool {
 	return code == 500
 }
 
+// Code gets the status code for the health internal server error response
+func (o *HealthInternalServerError) Code() int {
+	return 500
+}
+
 func (o *HealthInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /v1/health][%d] healthInternalServerError  %+v", 500, o.Payload)
 }
@@ -192,11 +202,6 @@ type HealthDefault struct {
 	Payload *httperrors.HTTPErrorResponse
 }
 
-// Code gets the status code for the health default response
-func (o *HealthDefault) Code() int {
-	return o._statusCode
-}
-
 // IsSuccess returns true when this health default response has a 2xx status code
 func (o *HealthDefault) IsSuccess() bool {
 	return o._statusCode/100 == 2
@@ -220,6 +225,11 @@ func (o *HealthDefault) IsServerError() bool {
 // IsCode returns true when this health default response a status code equal to that given
 func (o *HealthDefault) IsCode(code int) bool {
 	return o._statusCode == code
+}
+
+// Code gets the status code for the health default response
+func (o *HealthDefault) Code() int {
+	return o._statusCode
 }
 
 func (o *HealthDefault) Error() string {

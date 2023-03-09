@@ -81,6 +81,11 @@ func (o *ListTenantsOK) IsCode(code int) bool {
 	return code == 200
 }
 
+// Code gets the status code for the list tenants o k response
+func (o *ListTenantsOK) Code() int {
+	return 200
+}
+
 func (o *ListTenantsOK) Error() string {
 	return fmt.Sprintf("[GET /v1/tenant][%d] listTenantsOK  %+v", 200, o.Payload)
 }
@@ -121,11 +126,6 @@ type ListTenantsDefault struct {
 	Payload *httperrors.HTTPErrorResponse
 }
 
-// Code gets the status code for the list tenants default response
-func (o *ListTenantsDefault) Code() int {
-	return o._statusCode
-}
-
 // IsSuccess returns true when this list tenants default response has a 2xx status code
 func (o *ListTenantsDefault) IsSuccess() bool {
 	return o._statusCode/100 == 2
@@ -149,6 +149,11 @@ func (o *ListTenantsDefault) IsServerError() bool {
 // IsCode returns true when this list tenants default response a status code equal to that given
 func (o *ListTenantsDefault) IsCode(code int) bool {
 	return o._statusCode == code
+}
+
+// Code gets the status code for the list tenants default response
+func (o *ListTenantsDefault) Code() int {
+	return o._statusCode
 }
 
 func (o *ListTenantsDefault) Error() string {

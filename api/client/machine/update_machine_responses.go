@@ -87,6 +87,11 @@ func (o *UpdateMachineOK) IsCode(code int) bool {
 	return code == 200
 }
 
+// Code gets the status code for the update machine o k response
+func (o *UpdateMachineOK) Code() int {
+	return 200
+}
+
 func (o *UpdateMachineOK) Error() string {
 	return fmt.Sprintf("[POST /v1/machine][%d] updateMachineOK  %+v", 200, o.Payload)
 }
@@ -150,6 +155,11 @@ func (o *UpdateMachineConflict) IsCode(code int) bool {
 	return code == 409
 }
 
+// Code gets the status code for the update machine conflict response
+func (o *UpdateMachineConflict) Code() int {
+	return 409
+}
+
 func (o *UpdateMachineConflict) Error() string {
 	return fmt.Sprintf("[POST /v1/machine][%d] updateMachineConflict  %+v", 409, o.Payload)
 }
@@ -192,11 +202,6 @@ type UpdateMachineDefault struct {
 	Payload *httperrors.HTTPErrorResponse
 }
 
-// Code gets the status code for the update machine default response
-func (o *UpdateMachineDefault) Code() int {
-	return o._statusCode
-}
-
 // IsSuccess returns true when this update machine default response has a 2xx status code
 func (o *UpdateMachineDefault) IsSuccess() bool {
 	return o._statusCode/100 == 2
@@ -220,6 +225,11 @@ func (o *UpdateMachineDefault) IsServerError() bool {
 // IsCode returns true when this update machine default response a status code equal to that given
 func (o *UpdateMachineDefault) IsCode(code int) bool {
 	return o._statusCode == code
+}
+
+// Code gets the status code for the update machine default response
+func (o *UpdateMachineDefault) Code() int {
+	return o._statusCode
 }
 
 func (o *UpdateMachineDefault) Error() string {

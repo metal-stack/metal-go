@@ -81,6 +81,11 @@ func (o *FreeIPDeprecatedOK) IsCode(code int) bool {
 	return code == 200
 }
 
+// Code gets the status code for the free Ip deprecated o k response
+func (o *FreeIPDeprecatedOK) Code() int {
+	return 200
+}
+
 func (o *FreeIPDeprecatedOK) Error() string {
 	return fmt.Sprintf("[POST /v1/ip/free/{id}][%d] freeIpDeprecatedOK  %+v", 200, o.Payload)
 }
@@ -123,11 +128,6 @@ type FreeIPDeprecatedDefault struct {
 	Payload *httperrors.HTTPErrorResponse
 }
 
-// Code gets the status code for the free IP deprecated default response
-func (o *FreeIPDeprecatedDefault) Code() int {
-	return o._statusCode
-}
-
 // IsSuccess returns true when this free IP deprecated default response has a 2xx status code
 func (o *FreeIPDeprecatedDefault) IsSuccess() bool {
 	return o._statusCode/100 == 2
@@ -151,6 +151,11 @@ func (o *FreeIPDeprecatedDefault) IsServerError() bool {
 // IsCode returns true when this free IP deprecated default response a status code equal to that given
 func (o *FreeIPDeprecatedDefault) IsCode(code int) bool {
 	return o._statusCode == code
+}
+
+// Code gets the status code for the free IP deprecated default response
+func (o *FreeIPDeprecatedDefault) Code() int {
+	return o._statusCode
 }
 
 func (o *FreeIPDeprecatedDefault) Error() string {
