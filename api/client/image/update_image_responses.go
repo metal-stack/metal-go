@@ -87,11 +87,6 @@ func (o *UpdateImageOK) IsCode(code int) bool {
 	return code == 200
 }
 
-// Code gets the status code for the update image o k response
-func (o *UpdateImageOK) Code() int {
-	return 200
-}
-
 func (o *UpdateImageOK) Error() string {
 	return fmt.Sprintf("[POST /v1/image][%d] updateImageOK  %+v", 200, o.Payload)
 }
@@ -155,11 +150,6 @@ func (o *UpdateImageConflict) IsCode(code int) bool {
 	return code == 409
 }
 
-// Code gets the status code for the update image conflict response
-func (o *UpdateImageConflict) Code() int {
-	return 409
-}
-
 func (o *UpdateImageConflict) Error() string {
 	return fmt.Sprintf("[POST /v1/image][%d] updateImageConflict  %+v", 409, o.Payload)
 }
@@ -202,6 +192,11 @@ type UpdateImageDefault struct {
 	Payload *httperrors.HTTPErrorResponse
 }
 
+// Code gets the status code for the update image default response
+func (o *UpdateImageDefault) Code() int {
+	return o._statusCode
+}
+
 // IsSuccess returns true when this update image default response has a 2xx status code
 func (o *UpdateImageDefault) IsSuccess() bool {
 	return o._statusCode/100 == 2
@@ -225,11 +220,6 @@ func (o *UpdateImageDefault) IsServerError() bool {
 // IsCode returns true when this update image default response a status code equal to that given
 func (o *UpdateImageDefault) IsCode(code int) bool {
 	return o._statusCode == code
-}
-
-// Code gets the status code for the update image default response
-func (o *UpdateImageDefault) Code() int {
-	return o._statusCode
 }
 
 func (o *UpdateImageDefault) Error() string {

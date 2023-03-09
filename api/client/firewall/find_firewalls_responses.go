@@ -81,11 +81,6 @@ func (o *FindFirewallsOK) IsCode(code int) bool {
 	return code == 200
 }
 
-// Code gets the status code for the find firewalls o k response
-func (o *FindFirewallsOK) Code() int {
-	return 200
-}
-
 func (o *FindFirewallsOK) Error() string {
 	return fmt.Sprintf("[POST /v1/firewall/find][%d] findFirewallsOK  %+v", 200, o.Payload)
 }
@@ -126,6 +121,11 @@ type FindFirewallsDefault struct {
 	Payload *httperrors.HTTPErrorResponse
 }
 
+// Code gets the status code for the find firewalls default response
+func (o *FindFirewallsDefault) Code() int {
+	return o._statusCode
+}
+
 // IsSuccess returns true when this find firewalls default response has a 2xx status code
 func (o *FindFirewallsDefault) IsSuccess() bool {
 	return o._statusCode/100 == 2
@@ -149,11 +149,6 @@ func (o *FindFirewallsDefault) IsServerError() bool {
 // IsCode returns true when this find firewalls default response a status code equal to that given
 func (o *FindFirewallsDefault) IsCode(code int) bool {
 	return o._statusCode == code
-}
-
-// Code gets the status code for the find firewalls default response
-func (o *FindFirewallsDefault) Code() int {
-	return o._statusCode
 }
 
 func (o *FindFirewallsDefault) Error() string {

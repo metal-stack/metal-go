@@ -87,11 +87,6 @@ func (o *CreateSizeCreated) IsCode(code int) bool {
 	return code == 201
 }
 
-// Code gets the status code for the create size created response
-func (o *CreateSizeCreated) Code() int {
-	return 201
-}
-
 func (o *CreateSizeCreated) Error() string {
 	return fmt.Sprintf("[PUT /v1/size][%d] createSizeCreated  %+v", 201, o.Payload)
 }
@@ -155,11 +150,6 @@ func (o *CreateSizeConflict) IsCode(code int) bool {
 	return code == 409
 }
 
-// Code gets the status code for the create size conflict response
-func (o *CreateSizeConflict) Code() int {
-	return 409
-}
-
 func (o *CreateSizeConflict) Error() string {
 	return fmt.Sprintf("[PUT /v1/size][%d] createSizeConflict  %+v", 409, o.Payload)
 }
@@ -202,6 +192,11 @@ type CreateSizeDefault struct {
 	Payload *httperrors.HTTPErrorResponse
 }
 
+// Code gets the status code for the create size default response
+func (o *CreateSizeDefault) Code() int {
+	return o._statusCode
+}
+
 // IsSuccess returns true when this create size default response has a 2xx status code
 func (o *CreateSizeDefault) IsSuccess() bool {
 	return o._statusCode/100 == 2
@@ -225,11 +220,6 @@ func (o *CreateSizeDefault) IsServerError() bool {
 // IsCode returns true when this create size default response a status code equal to that given
 func (o *CreateSizeDefault) IsCode(code int) bool {
 	return o._statusCode == code
-}
-
-// Code gets the status code for the create size default response
-func (o *CreateSizeDefault) Code() int {
-	return o._statusCode
 }
 
 func (o *CreateSizeDefault) Error() string {

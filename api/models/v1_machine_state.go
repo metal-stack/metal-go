@@ -24,6 +24,10 @@ type V1MachineState struct {
 	// Required: true
 	Description *string `json:"description" yaml:"description"`
 
+	// indicates that a machine was sent to sleep or woken up by the pool scaler
+	// Required: true
+	Hibernation *V1MachineHibernation `json:"hibernation" yaml:"hibernation"`
+
 	// the user that changed the state
 	Issuer string `json:"issuer,omitempty" yaml:"issuer,omitempty"`
 
@@ -45,6 +49,10 @@ func (m *V1MachineState) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateHibernation(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateMetalHammerVersion(formats); err != nil {
 		res = append(res, err)
 	}
@@ -63,6 +71,26 @@ func (m *V1MachineState) validateDescription(formats strfmt.Registry) error {
 
 	if err := validate.Required("description", "body", m.Description); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+func (m *V1MachineState) validateHibernation(formats strfmt.Registry) error {
+
+	if err := validate.Required("hibernation", "body", m.Hibernation); err != nil {
+		return err
+	}
+
+	if m.Hibernation != nil {
+		if err := m.Hibernation.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("hibernation")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("hibernation")
+			}
+			return err
+		}
 	}
 
 	return nil
@@ -123,8 +151,33 @@ func (m *V1MachineState) validateValue(formats strfmt.Registry) error {
 	return nil
 }
 
-// ContextValidate validates this v1 machine state based on context it is used
+// ContextValidate validate this v1 machine state based on the context it is used
 func (m *V1MachineState) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateHibernation(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *V1MachineState) contextValidateHibernation(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Hibernation != nil {
+		if err := m.Hibernation.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("hibernation")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("hibernation")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 

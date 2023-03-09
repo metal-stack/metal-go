@@ -87,11 +87,6 @@ func (o *RegisterSwitchOK) IsCode(code int) bool {
 	return code == 200
 }
 
-// Code gets the status code for the register switch o k response
-func (o *RegisterSwitchOK) Code() int {
-	return 200
-}
-
 func (o *RegisterSwitchOK) Error() string {
 	return fmt.Sprintf("[POST /v1/switch/register][%d] registerSwitchOK  %+v", 200, o.Payload)
 }
@@ -155,11 +150,6 @@ func (o *RegisterSwitchCreated) IsCode(code int) bool {
 	return code == 201
 }
 
-// Code gets the status code for the register switch created response
-func (o *RegisterSwitchCreated) Code() int {
-	return 201
-}
-
 func (o *RegisterSwitchCreated) Error() string {
 	return fmt.Sprintf("[POST /v1/switch/register][%d] registerSwitchCreated  %+v", 201, o.Payload)
 }
@@ -202,6 +192,11 @@ type RegisterSwitchDefault struct {
 	Payload *httperrors.HTTPErrorResponse
 }
 
+// Code gets the status code for the register switch default response
+func (o *RegisterSwitchDefault) Code() int {
+	return o._statusCode
+}
+
 // IsSuccess returns true when this register switch default response has a 2xx status code
 func (o *RegisterSwitchDefault) IsSuccess() bool {
 	return o._statusCode/100 == 2
@@ -225,11 +220,6 @@ func (o *RegisterSwitchDefault) IsServerError() bool {
 // IsCode returns true when this register switch default response a status code equal to that given
 func (o *RegisterSwitchDefault) IsCode(code int) bool {
 	return o._statusCode == code
-}
-
-// Code gets the status code for the register switch default response
-func (o *RegisterSwitchDefault) Code() int {
-	return o._statusCode
 }
 
 func (o *RegisterSwitchDefault) Error() string {

@@ -87,11 +87,6 @@ func (o *UpdateSwitchOK) IsCode(code int) bool {
 	return code == 200
 }
 
-// Code gets the status code for the update switch o k response
-func (o *UpdateSwitchOK) Code() int {
-	return 200
-}
-
 func (o *UpdateSwitchOK) Error() string {
 	return fmt.Sprintf("[POST /v1/switch][%d] updateSwitchOK  %+v", 200, o.Payload)
 }
@@ -155,11 +150,6 @@ func (o *UpdateSwitchConflict) IsCode(code int) bool {
 	return code == 409
 }
 
-// Code gets the status code for the update switch conflict response
-func (o *UpdateSwitchConflict) Code() int {
-	return 409
-}
-
 func (o *UpdateSwitchConflict) Error() string {
 	return fmt.Sprintf("[POST /v1/switch][%d] updateSwitchConflict  %+v", 409, o.Payload)
 }
@@ -202,6 +192,11 @@ type UpdateSwitchDefault struct {
 	Payload *httperrors.HTTPErrorResponse
 }
 
+// Code gets the status code for the update switch default response
+func (o *UpdateSwitchDefault) Code() int {
+	return o._statusCode
+}
+
 // IsSuccess returns true when this update switch default response has a 2xx status code
 func (o *UpdateSwitchDefault) IsSuccess() bool {
 	return o._statusCode/100 == 2
@@ -225,11 +220,6 @@ func (o *UpdateSwitchDefault) IsServerError() bool {
 // IsCode returns true when this update switch default response a status code equal to that given
 func (o *UpdateSwitchDefault) IsCode(code int) bool {
 	return o._statusCode == code
-}
-
-// Code gets the status code for the update switch default response
-func (o *UpdateSwitchDefault) Code() int {
-	return o._statusCode
 }
 
 func (o *UpdateSwitchDefault) Error() string {

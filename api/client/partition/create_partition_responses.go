@@ -87,11 +87,6 @@ func (o *CreatePartitionCreated) IsCode(code int) bool {
 	return code == 201
 }
 
-// Code gets the status code for the create partition created response
-func (o *CreatePartitionCreated) Code() int {
-	return 201
-}
-
 func (o *CreatePartitionCreated) Error() string {
 	return fmt.Sprintf("[PUT /v1/partition][%d] createPartitionCreated  %+v", 201, o.Payload)
 }
@@ -155,11 +150,6 @@ func (o *CreatePartitionConflict) IsCode(code int) bool {
 	return code == 409
 }
 
-// Code gets the status code for the create partition conflict response
-func (o *CreatePartitionConflict) Code() int {
-	return 409
-}
-
 func (o *CreatePartitionConflict) Error() string {
 	return fmt.Sprintf("[PUT /v1/partition][%d] createPartitionConflict  %+v", 409, o.Payload)
 }
@@ -202,6 +192,11 @@ type CreatePartitionDefault struct {
 	Payload *httperrors.HTTPErrorResponse
 }
 
+// Code gets the status code for the create partition default response
+func (o *CreatePartitionDefault) Code() int {
+	return o._statusCode
+}
+
 // IsSuccess returns true when this create partition default response has a 2xx status code
 func (o *CreatePartitionDefault) IsSuccess() bool {
 	return o._statusCode/100 == 2
@@ -225,11 +220,6 @@ func (o *CreatePartitionDefault) IsServerError() bool {
 // IsCode returns true when this create partition default response a status code equal to that given
 func (o *CreatePartitionDefault) IsCode(code int) bool {
 	return o._statusCode == code
-}
-
-// Code gets the status code for the create partition default response
-func (o *CreatePartitionDefault) Code() int {
-	return o._statusCode
 }
 
 func (o *CreatePartitionDefault) Error() string {

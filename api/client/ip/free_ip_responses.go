@@ -81,11 +81,6 @@ func (o *FreeIPOK) IsCode(code int) bool {
 	return code == 200
 }
 
-// Code gets the status code for the free Ip o k response
-func (o *FreeIPOK) Code() int {
-	return 200
-}
-
 func (o *FreeIPOK) Error() string {
 	return fmt.Sprintf("[DELETE /v1/ip/free/{id}][%d] freeIpOK  %+v", 200, o.Payload)
 }
@@ -128,6 +123,11 @@ type FreeIPDefault struct {
 	Payload *httperrors.HTTPErrorResponse
 }
 
+// Code gets the status code for the free IP default response
+func (o *FreeIPDefault) Code() int {
+	return o._statusCode
+}
+
 // IsSuccess returns true when this free IP default response has a 2xx status code
 func (o *FreeIPDefault) IsSuccess() bool {
 	return o._statusCode/100 == 2
@@ -151,11 +151,6 @@ func (o *FreeIPDefault) IsServerError() bool {
 // IsCode returns true when this free IP default response a status code equal to that given
 func (o *FreeIPDefault) IsCode(code int) bool {
 	return o._statusCode == code
-}
-
-// Code gets the status code for the free IP default response
-func (o *FreeIPDefault) Code() int {
-	return o._statusCode
 }
 
 func (o *FreeIPDefault) Error() string {

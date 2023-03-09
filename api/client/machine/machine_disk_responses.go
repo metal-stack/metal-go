@@ -81,11 +81,6 @@ func (o *MachineDiskOK) IsCode(code int) bool {
 	return code == 200
 }
 
-// Code gets the status code for the machine disk o k response
-func (o *MachineDiskOK) Code() int {
-	return 200
-}
-
 func (o *MachineDiskOK) Error() string {
 	return fmt.Sprintf("[POST /v1/machine/{id}/power/disk][%d] machineDiskOK  %+v", 200, o.Payload)
 }
@@ -128,6 +123,11 @@ type MachineDiskDefault struct {
 	Payload *httperrors.HTTPErrorResponse
 }
 
+// Code gets the status code for the machine disk default response
+func (o *MachineDiskDefault) Code() int {
+	return o._statusCode
+}
+
 // IsSuccess returns true when this machine disk default response has a 2xx status code
 func (o *MachineDiskDefault) IsSuccess() bool {
 	return o._statusCode/100 == 2
@@ -151,11 +151,6 @@ func (o *MachineDiskDefault) IsServerError() bool {
 // IsCode returns true when this machine disk default response a status code equal to that given
 func (o *MachineDiskDefault) IsCode(code int) bool {
 	return o._statusCode == code
-}
-
-// Code gets the status code for the machine disk default response
-func (o *MachineDiskDefault) Code() int {
-	return o._statusCode
 }
 
 func (o *MachineDiskDefault) Error() string {

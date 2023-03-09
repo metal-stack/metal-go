@@ -81,11 +81,6 @@ func (o *FromHardwareOK) IsCode(code int) bool {
 	return code == 200
 }
 
-// Code gets the status code for the from hardware o k response
-func (o *FromHardwareOK) Code() int {
-	return 200
-}
-
 func (o *FromHardwareOK) Error() string {
 	return fmt.Sprintf("[POST /v1/size/from-hardware][%d] fromHardwareOK  %+v", 200, o.Payload)
 }
@@ -128,6 +123,11 @@ type FromHardwareDefault struct {
 	Payload *httperrors.HTTPErrorResponse
 }
 
+// Code gets the status code for the from hardware default response
+func (o *FromHardwareDefault) Code() int {
+	return o._statusCode
+}
+
 // IsSuccess returns true when this from hardware default response has a 2xx status code
 func (o *FromHardwareDefault) IsSuccess() bool {
 	return o._statusCode/100 == 2
@@ -151,11 +151,6 @@ func (o *FromHardwareDefault) IsServerError() bool {
 // IsCode returns true when this from hardware default response a status code equal to that given
 func (o *FromHardwareDefault) IsCode(code int) bool {
 	return o._statusCode == code
-}
-
-// Code gets the status code for the from hardware default response
-func (o *FromHardwareDefault) Code() int {
-	return o._statusCode
 }
 
 func (o *FromHardwareDefault) Error() string {

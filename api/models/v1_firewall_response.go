@@ -7,6 +7,7 @@ package models
 
 import (
 	"context"
+	"encoding/json"
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
@@ -57,6 +58,7 @@ type V1FirewallResponse struct {
 
 	// the liveliness of this machine
 	// Required: true
+	// Enum: [Alive Dead Hibernated Unknown]
 	Liveliness *string `json:"liveliness" yaml:"liveliness"`
 
 	// a readable name for this entity
@@ -277,9 +279,49 @@ func (m *V1FirewallResponse) validateLedstate(formats strfmt.Registry) error {
 	return nil
 }
 
+var v1FirewallResponseTypeLivelinessPropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["Alive","Dead","Hibernated","Unknown"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		v1FirewallResponseTypeLivelinessPropEnum = append(v1FirewallResponseTypeLivelinessPropEnum, v)
+	}
+}
+
+const (
+
+	// V1FirewallResponseLivelinessAlive captures enum value "Alive"
+	V1FirewallResponseLivelinessAlive string = "Alive"
+
+	// V1FirewallResponseLivelinessDead captures enum value "Dead"
+	V1FirewallResponseLivelinessDead string = "Dead"
+
+	// V1FirewallResponseLivelinessHibernated captures enum value "Hibernated"
+	V1FirewallResponseLivelinessHibernated string = "Hibernated"
+
+	// V1FirewallResponseLivelinessUnknown captures enum value "Unknown"
+	V1FirewallResponseLivelinessUnknown string = "Unknown"
+)
+
+// prop value enum
+func (m *V1FirewallResponse) validateLivelinessEnum(path, location string, value string) error {
+	if err := validate.EnumCase(path, location, value, v1FirewallResponseTypeLivelinessPropEnum, true); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (m *V1FirewallResponse) validateLiveliness(formats strfmt.Registry) error {
 
 	if err := validate.Required("liveliness", "body", m.Liveliness); err != nil {
+		return err
+	}
+
+	// value enum
+	if err := m.validateLivelinessEnum("liveliness", "body", *m.Liveliness); err != nil {
 		return err
 	}
 

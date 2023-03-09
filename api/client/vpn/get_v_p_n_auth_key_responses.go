@@ -81,11 +81,6 @@ func (o *GetVPNAuthKeyOK) IsCode(code int) bool {
 	return code == 200
 }
 
-// Code gets the status code for the get v p n auth key o k response
-func (o *GetVPNAuthKeyOK) Code() int {
-	return 200
-}
-
 func (o *GetVPNAuthKeyOK) Error() string {
 	return fmt.Sprintf("[POST /v1/vpn/authkey][%d] getVPNAuthKeyOK  %+v", 200, o.Payload)
 }
@@ -128,6 +123,11 @@ type GetVPNAuthKeyDefault struct {
 	Payload *httperrors.HTTPErrorResponse
 }
 
+// Code gets the status code for the get v p n auth key default response
+func (o *GetVPNAuthKeyDefault) Code() int {
+	return o._statusCode
+}
+
 // IsSuccess returns true when this get v p n auth key default response has a 2xx status code
 func (o *GetVPNAuthKeyDefault) IsSuccess() bool {
 	return o._statusCode/100 == 2
@@ -151,11 +151,6 @@ func (o *GetVPNAuthKeyDefault) IsServerError() bool {
 // IsCode returns true when this get v p n auth key default response a status code equal to that given
 func (o *GetVPNAuthKeyDefault) IsCode(code int) bool {
 	return o._statusCode == code
-}
-
-// Code gets the status code for the get v p n auth key default response
-func (o *GetVPNAuthKeyDefault) Code() int {
-	return o._statusCode
 }
 
 func (o *GetVPNAuthKeyDefault) Error() string {

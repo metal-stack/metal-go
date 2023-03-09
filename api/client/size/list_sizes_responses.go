@@ -81,11 +81,6 @@ func (o *ListSizesOK) IsCode(code int) bool {
 	return code == 200
 }
 
-// Code gets the status code for the list sizes o k response
-func (o *ListSizesOK) Code() int {
-	return 200
-}
-
 func (o *ListSizesOK) Error() string {
 	return fmt.Sprintf("[GET /v1/size][%d] listSizesOK  %+v", 200, o.Payload)
 }
@@ -126,6 +121,11 @@ type ListSizesDefault struct {
 	Payload *httperrors.HTTPErrorResponse
 }
 
+// Code gets the status code for the list sizes default response
+func (o *ListSizesDefault) Code() int {
+	return o._statusCode
+}
+
 // IsSuccess returns true when this list sizes default response has a 2xx status code
 func (o *ListSizesDefault) IsSuccess() bool {
 	return o._statusCode/100 == 2
@@ -149,11 +149,6 @@ func (o *ListSizesDefault) IsServerError() bool {
 // IsCode returns true when this list sizes default response a status code equal to that given
 func (o *ListSizesDefault) IsCode(code int) bool {
 	return o._statusCode == code
-}
-
-// Code gets the status code for the list sizes default response
-func (o *ListSizesDefault) Code() int {
-	return o._statusCode
 }
 
 func (o *ListSizesDefault) Error() string {

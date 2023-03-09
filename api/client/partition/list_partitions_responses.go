@@ -81,11 +81,6 @@ func (o *ListPartitionsOK) IsCode(code int) bool {
 	return code == 200
 }
 
-// Code gets the status code for the list partitions o k response
-func (o *ListPartitionsOK) Code() int {
-	return 200
-}
-
 func (o *ListPartitionsOK) Error() string {
 	return fmt.Sprintf("[GET /v1/partition][%d] listPartitionsOK  %+v", 200, o.Payload)
 }
@@ -126,6 +121,11 @@ type ListPartitionsDefault struct {
 	Payload *httperrors.HTTPErrorResponse
 }
 
+// Code gets the status code for the list partitions default response
+func (o *ListPartitionsDefault) Code() int {
+	return o._statusCode
+}
+
 // IsSuccess returns true when this list partitions default response has a 2xx status code
 func (o *ListPartitionsDefault) IsSuccess() bool {
 	return o._statusCode/100 == 2
@@ -149,11 +149,6 @@ func (o *ListPartitionsDefault) IsServerError() bool {
 // IsCode returns true when this list partitions default response a status code equal to that given
 func (o *ListPartitionsDefault) IsCode(code int) bool {
 	return o._statusCode == code
-}
-
-// Code gets the status code for the list partitions default response
-func (o *ListPartitionsDefault) Code() int {
-	return o._statusCode
 }
 
 func (o *ListPartitionsDefault) Error() string {

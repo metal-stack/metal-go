@@ -81,11 +81,6 @@ func (o *NotifySwitchOK) IsCode(code int) bool {
 	return code == 200
 }
 
-// Code gets the status code for the notify switch o k response
-func (o *NotifySwitchOK) Code() int {
-	return 200
-}
-
 func (o *NotifySwitchOK) Error() string {
 	return fmt.Sprintf("[POST /v1/switch/{id}/notify][%d] notifySwitchOK  %+v", 200, o.Payload)
 }
@@ -128,6 +123,11 @@ type NotifySwitchDefault struct {
 	Payload *httperrors.HTTPErrorResponse
 }
 
+// Code gets the status code for the notify switch default response
+func (o *NotifySwitchDefault) Code() int {
+	return o._statusCode
+}
+
 // IsSuccess returns true when this notify switch default response has a 2xx status code
 func (o *NotifySwitchDefault) IsSuccess() bool {
 	return o._statusCode/100 == 2
@@ -151,11 +151,6 @@ func (o *NotifySwitchDefault) IsServerError() bool {
 // IsCode returns true when this notify switch default response a status code equal to that given
 func (o *NotifySwitchDefault) IsCode(code int) bool {
 	return o._statusCode == code
-}
-
-// Code gets the status code for the notify switch default response
-func (o *NotifySwitchDefault) Code() int {
-	return o._statusCode
 }
 
 func (o *NotifySwitchDefault) Error() string {

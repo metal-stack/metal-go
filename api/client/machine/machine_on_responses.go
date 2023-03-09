@@ -81,11 +81,6 @@ func (o *MachineOnOK) IsCode(code int) bool {
 	return code == 200
 }
 
-// Code gets the status code for the machine on o k response
-func (o *MachineOnOK) Code() int {
-	return 200
-}
-
 func (o *MachineOnOK) Error() string {
 	return fmt.Sprintf("[POST /v1/machine/{id}/power/on][%d] machineOnOK  %+v", 200, o.Payload)
 }
@@ -128,6 +123,11 @@ type MachineOnDefault struct {
 	Payload *httperrors.HTTPErrorResponse
 }
 
+// Code gets the status code for the machine on default response
+func (o *MachineOnDefault) Code() int {
+	return o._statusCode
+}
+
 // IsSuccess returns true when this machine on default response has a 2xx status code
 func (o *MachineOnDefault) IsSuccess() bool {
 	return o._statusCode/100 == 2
@@ -151,11 +151,6 @@ func (o *MachineOnDefault) IsServerError() bool {
 // IsCode returns true when this machine on default response a status code equal to that given
 func (o *MachineOnDefault) IsCode(code int) bool {
 	return o._statusCode == code
-}
-
-// Code gets the status code for the machine on default response
-func (o *MachineOnDefault) Code() int {
-	return o._statusCode
 }
 
 func (o *MachineOnDefault) Error() string {

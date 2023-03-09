@@ -81,11 +81,6 @@ func (o *ListFirmwaresOK) IsCode(code int) bool {
 	return code == 200
 }
 
-// Code gets the status code for the list firmwares o k response
-func (o *ListFirmwaresOK) Code() int {
-	return 200
-}
-
 func (o *ListFirmwaresOK) Error() string {
 	return fmt.Sprintf("[GET /v1/firmware][%d] listFirmwaresOK  %+v", 200, o.Payload)
 }
@@ -128,6 +123,11 @@ type ListFirmwaresDefault struct {
 	Payload *httperrors.HTTPErrorResponse
 }
 
+// Code gets the status code for the list firmwares default response
+func (o *ListFirmwaresDefault) Code() int {
+	return o._statusCode
+}
+
 // IsSuccess returns true when this list firmwares default response has a 2xx status code
 func (o *ListFirmwaresDefault) IsSuccess() bool {
 	return o._statusCode/100 == 2
@@ -151,11 +151,6 @@ func (o *ListFirmwaresDefault) IsServerError() bool {
 // IsCode returns true when this list firmwares default response a status code equal to that given
 func (o *ListFirmwaresDefault) IsCode(code int) bool {
 	return o._statusCode == code
-}
-
-// Code gets the status code for the list firmwares default response
-func (o *ListFirmwaresDefault) Code() int {
-	return o._statusCode
 }
 
 func (o *ListFirmwaresDefault) Error() string {

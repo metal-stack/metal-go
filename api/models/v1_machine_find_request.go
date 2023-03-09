@@ -74,6 +74,9 @@ type V1MachineFindRequest struct {
 	// hardware memory
 	HardwareMemory int64 `json:"hardware_memory,omitempty" yaml:"hardware_memory,omitempty"`
 
+	// hibernation enabled
+	HibernationEnabled bool `json:"hibernation_enabled,omitempty" yaml:"hibernation_enabled,omitempty"`
+
 	// id
 	ID string `json:"id,omitempty" yaml:"id,omitempty"`
 

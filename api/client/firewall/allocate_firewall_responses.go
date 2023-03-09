@@ -81,11 +81,6 @@ func (o *AllocateFirewallOK) IsCode(code int) bool {
 	return code == 200
 }
 
-// Code gets the status code for the allocate firewall o k response
-func (o *AllocateFirewallOK) Code() int {
-	return 200
-}
-
 func (o *AllocateFirewallOK) Error() string {
 	return fmt.Sprintf("[POST /v1/firewall/allocate][%d] allocateFirewallOK  %+v", 200, o.Payload)
 }
@@ -128,6 +123,11 @@ type AllocateFirewallDefault struct {
 	Payload *httperrors.HTTPErrorResponse
 }
 
+// Code gets the status code for the allocate firewall default response
+func (o *AllocateFirewallDefault) Code() int {
+	return o._statusCode
+}
+
 // IsSuccess returns true when this allocate firewall default response has a 2xx status code
 func (o *AllocateFirewallDefault) IsSuccess() bool {
 	return o._statusCode/100 == 2
@@ -151,11 +151,6 @@ func (o *AllocateFirewallDefault) IsServerError() bool {
 // IsCode returns true when this allocate firewall default response a status code equal to that given
 func (o *AllocateFirewallDefault) IsCode(code int) bool {
 	return o._statusCode == code
-}
-
-// Code gets the status code for the allocate firewall default response
-func (o *AllocateFirewallDefault) Code() int {
-	return o._statusCode
 }
 
 func (o *AllocateFirewallDefault) Error() string {

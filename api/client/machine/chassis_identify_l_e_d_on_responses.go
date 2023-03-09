@@ -81,11 +81,6 @@ func (o *ChassisIdentifyLEDOnOK) IsCode(code int) bool {
 	return code == 200
 }
 
-// Code gets the status code for the chassis identify l e d on o k response
-func (o *ChassisIdentifyLEDOnOK) Code() int {
-	return 200
-}
-
 func (o *ChassisIdentifyLEDOnOK) Error() string {
 	return fmt.Sprintf("[POST /v1/machine/{id}/power/chassis-identify-led-on][%d] chassisIdentifyLEDOnOK  %+v", 200, o.Payload)
 }
@@ -128,6 +123,11 @@ type ChassisIdentifyLEDOnDefault struct {
 	Payload *httperrors.HTTPErrorResponse
 }
 
+// Code gets the status code for the chassis identify l e d on default response
+func (o *ChassisIdentifyLEDOnDefault) Code() int {
+	return o._statusCode
+}
+
 // IsSuccess returns true when this chassis identify l e d on default response has a 2xx status code
 func (o *ChassisIdentifyLEDOnDefault) IsSuccess() bool {
 	return o._statusCode/100 == 2
@@ -151,11 +151,6 @@ func (o *ChassisIdentifyLEDOnDefault) IsServerError() bool {
 // IsCode returns true when this chassis identify l e d on default response a status code equal to that given
 func (o *ChassisIdentifyLEDOnDefault) IsCode(code int) bool {
 	return o._statusCode == code
-}
-
-// Code gets the status code for the chassis identify l e d on default response
-func (o *ChassisIdentifyLEDOnDefault) Code() int {
-	return o._statusCode
 }
 
 func (o *ChassisIdentifyLEDOnDefault) Error() string {

@@ -81,11 +81,6 @@ func (o *PartitionCapacityOK) IsCode(code int) bool {
 	return code == 200
 }
 
-// Code gets the status code for the partition capacity o k response
-func (o *PartitionCapacityOK) Code() int {
-	return 200
-}
-
 func (o *PartitionCapacityOK) Error() string {
 	return fmt.Sprintf("[POST /v1/partition/capacity][%d] partitionCapacityOK  %+v", 200, o.Payload)
 }
@@ -126,6 +121,11 @@ type PartitionCapacityDefault struct {
 	Payload *httperrors.HTTPErrorResponse
 }
 
+// Code gets the status code for the partition capacity default response
+func (o *PartitionCapacityDefault) Code() int {
+	return o._statusCode
+}
+
 // IsSuccess returns true when this partition capacity default response has a 2xx status code
 func (o *PartitionCapacityDefault) IsSuccess() bool {
 	return o._statusCode/100 == 2
@@ -149,11 +149,6 @@ func (o *PartitionCapacityDefault) IsServerError() bool {
 // IsCode returns true when this partition capacity default response a status code equal to that given
 func (o *PartitionCapacityDefault) IsCode(code int) bool {
 	return o._statusCode == code
-}
-
-// Code gets the status code for the partition capacity default response
-func (o *PartitionCapacityDefault) Code() int {
-	return o._statusCode
 }
 
 func (o *PartitionCapacityDefault) Error() string {

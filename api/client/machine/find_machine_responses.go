@@ -81,11 +81,6 @@ func (o *FindMachineOK) IsCode(code int) bool {
 	return code == 200
 }
 
-// Code gets the status code for the find machine o k response
-func (o *FindMachineOK) Code() int {
-	return 200
-}
-
 func (o *FindMachineOK) Error() string {
 	return fmt.Sprintf("[GET /v1/machine/{id}][%d] findMachineOK  %+v", 200, o.Payload)
 }
@@ -128,6 +123,11 @@ type FindMachineDefault struct {
 	Payload *httperrors.HTTPErrorResponse
 }
 
+// Code gets the status code for the find machine default response
+func (o *FindMachineDefault) Code() int {
+	return o._statusCode
+}
+
 // IsSuccess returns true when this find machine default response has a 2xx status code
 func (o *FindMachineDefault) IsSuccess() bool {
 	return o._statusCode/100 == 2
@@ -151,11 +151,6 @@ func (o *FindMachineDefault) IsServerError() bool {
 // IsCode returns true when this find machine default response a status code equal to that given
 func (o *FindMachineDefault) IsCode(code int) bool {
 	return o._statusCode == code
-}
-
-// Code gets the status code for the find machine default response
-func (o *FindMachineDefault) Code() int {
-	return o._statusCode
 }
 
 func (o *FindMachineDefault) Error() string {

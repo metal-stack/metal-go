@@ -87,11 +87,6 @@ func (o *CreateNetworkCreated) IsCode(code int) bool {
 	return code == 201
 }
 
-// Code gets the status code for the create network created response
-func (o *CreateNetworkCreated) Code() int {
-	return 201
-}
-
 func (o *CreateNetworkCreated) Error() string {
 	return fmt.Sprintf("[PUT /v1/network][%d] createNetworkCreated  %+v", 201, o.Payload)
 }
@@ -155,11 +150,6 @@ func (o *CreateNetworkConflict) IsCode(code int) bool {
 	return code == 409
 }
 
-// Code gets the status code for the create network conflict response
-func (o *CreateNetworkConflict) Code() int {
-	return 409
-}
-
 func (o *CreateNetworkConflict) Error() string {
 	return fmt.Sprintf("[PUT /v1/network][%d] createNetworkConflict  %+v", 409, o.Payload)
 }
@@ -202,6 +192,11 @@ type CreateNetworkDefault struct {
 	Payload *httperrors.HTTPErrorResponse
 }
 
+// Code gets the status code for the create network default response
+func (o *CreateNetworkDefault) Code() int {
+	return o._statusCode
+}
+
 // IsSuccess returns true when this create network default response has a 2xx status code
 func (o *CreateNetworkDefault) IsSuccess() bool {
 	return o._statusCode/100 == 2
@@ -225,11 +220,6 @@ func (o *CreateNetworkDefault) IsServerError() bool {
 // IsCode returns true when this create network default response a status code equal to that given
 func (o *CreateNetworkDefault) IsCode(code int) bool {
 	return o._statusCode == code
-}
-
-// Code gets the status code for the create network default response
-func (o *CreateNetworkDefault) Code() int {
-	return o._statusCode
 }
 
 func (o *CreateNetworkDefault) Error() string {

@@ -87,11 +87,6 @@ func (o *UpdateNetworkOK) IsCode(code int) bool {
 	return code == 200
 }
 
-// Code gets the status code for the update network o k response
-func (o *UpdateNetworkOK) Code() int {
-	return 200
-}
-
 func (o *UpdateNetworkOK) Error() string {
 	return fmt.Sprintf("[POST /v1/network][%d] updateNetworkOK  %+v", 200, o.Payload)
 }
@@ -155,11 +150,6 @@ func (o *UpdateNetworkConflict) IsCode(code int) bool {
 	return code == 409
 }
 
-// Code gets the status code for the update network conflict response
-func (o *UpdateNetworkConflict) Code() int {
-	return 409
-}
-
 func (o *UpdateNetworkConflict) Error() string {
 	return fmt.Sprintf("[POST /v1/network][%d] updateNetworkConflict  %+v", 409, o.Payload)
 }
@@ -202,6 +192,11 @@ type UpdateNetworkDefault struct {
 	Payload *httperrors.HTTPErrorResponse
 }
 
+// Code gets the status code for the update network default response
+func (o *UpdateNetworkDefault) Code() int {
+	return o._statusCode
+}
+
 // IsSuccess returns true when this update network default response has a 2xx status code
 func (o *UpdateNetworkDefault) IsSuccess() bool {
 	return o._statusCode/100 == 2
@@ -225,11 +220,6 @@ func (o *UpdateNetworkDefault) IsServerError() bool {
 // IsCode returns true when this update network default response a status code equal to that given
 func (o *UpdateNetworkDefault) IsCode(code int) bool {
 	return o._statusCode == code
-}
-
-// Code gets the status code for the update network default response
-func (o *UpdateNetworkDefault) Code() int {
-	return o._statusCode
 }
 
 func (o *UpdateNetworkDefault) Error() string {

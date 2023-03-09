@@ -81,11 +81,6 @@ func (o *GetMachineConsolePasswordOK) IsCode(code int) bool {
 	return code == 200
 }
 
-// Code gets the status code for the get machine console password o k response
-func (o *GetMachineConsolePasswordOK) Code() int {
-	return 200
-}
-
 func (o *GetMachineConsolePasswordOK) Error() string {
 	return fmt.Sprintf("[GET /v1/machine/consolepassword][%d] getMachineConsolePasswordOK  %+v", 200, o.Payload)
 }
@@ -128,6 +123,11 @@ type GetMachineConsolePasswordDefault struct {
 	Payload *httperrors.HTTPErrorResponse
 }
 
+// Code gets the status code for the get machine console password default response
+func (o *GetMachineConsolePasswordDefault) Code() int {
+	return o._statusCode
+}
+
 // IsSuccess returns true when this get machine console password default response has a 2xx status code
 func (o *GetMachineConsolePasswordDefault) IsSuccess() bool {
 	return o._statusCode/100 == 2
@@ -151,11 +151,6 @@ func (o *GetMachineConsolePasswordDefault) IsServerError() bool {
 // IsCode returns true when this get machine console password default response a status code equal to that given
 func (o *GetMachineConsolePasswordDefault) IsCode(code int) bool {
 	return o._statusCode == code
-}
-
-// Code gets the status code for the get machine console password default response
-func (o *GetMachineConsolePasswordDefault) Code() int {
-	return o._statusCode
 }
 
 func (o *GetMachineConsolePasswordDefault) Error() string {

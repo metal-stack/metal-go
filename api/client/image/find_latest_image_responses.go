@@ -81,11 +81,6 @@ func (o *FindLatestImageOK) IsCode(code int) bool {
 	return code == 200
 }
 
-// Code gets the status code for the find latest image o k response
-func (o *FindLatestImageOK) Code() int {
-	return 200
-}
-
 func (o *FindLatestImageOK) Error() string {
 	return fmt.Sprintf("[GET /v1/image/{id}/latest][%d] findLatestImageOK  %+v", 200, o.Payload)
 }
@@ -128,6 +123,11 @@ type FindLatestImageDefault struct {
 	Payload *httperrors.HTTPErrorResponse
 }
 
+// Code gets the status code for the find latest image default response
+func (o *FindLatestImageDefault) Code() int {
+	return o._statusCode
+}
+
 // IsSuccess returns true when this find latest image default response has a 2xx status code
 func (o *FindLatestImageDefault) IsSuccess() bool {
 	return o._statusCode/100 == 2
@@ -151,11 +151,6 @@ func (o *FindLatestImageDefault) IsServerError() bool {
 // IsCode returns true when this find latest image default response a status code equal to that given
 func (o *FindLatestImageDefault) IsCode(code int) bool {
 	return o._statusCode == code
-}
-
-// Code gets the status code for the find latest image default response
-func (o *FindLatestImageDefault) Code() int {
-	return o._statusCode
 }
 
 func (o *FindLatestImageDefault) Error() string {
