@@ -9,6 +9,7 @@ import (
 	httptransport "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
 	"github.com/metal-stack/metal-go/api/client"
+	"github.com/metal-stack/metal-go/api/client/audit"
 	"github.com/metal-stack/metal-go/api/client/filesystemlayout"
 	"github.com/metal-stack/metal-go/api/client/firewall"
 	"github.com/metal-stack/metal-go/api/client/firmware"
@@ -34,6 +35,7 @@ const (
 )
 
 type Client interface {
+	Audit() audit.ClientService
 	Filesystemlayout() filesystemlayout.ClientService
 	Firewall() firewall.ClientService
 	Firmware() firmware.ClientService
@@ -115,6 +117,10 @@ func (d *driver) auther(rq runtime.ClientRequest, rg strfmt.Registry) error {
 		security.AddUserTokenToClientRequest(rq, d.bearer)
 	}
 	return nil
+}
+
+func (d *driver) Audit() audit.ClientService {
+	return d.c.Audit
 }
 
 func (d *driver) Filesystemlayout() filesystemlayout.ClientService {
