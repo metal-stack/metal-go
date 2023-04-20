@@ -22,8 +22,14 @@ type V1AuditResponse struct {
 	// body
 	Body string `json:"body,omitempty" yaml:"body,omitempty"`
 
-	// code
-	Code int32 `json:"code,omitempty" yaml:"code,omitempty"`
+	// component
+	Component string `json:"component,omitempty" yaml:"component,omitempty"`
+
+	// detail
+	Detail string `json:"detail,omitempty" yaml:"detail,omitempty"`
+
+	// error
+	Error string `json:"error,omitempty" yaml:"error,omitempty"`
 
 	// forwarded for
 	ForwardedFor string `json:"forwarded_for,omitempty" yaml:"forwarded_for,omitempty"`
@@ -34,11 +40,14 @@ type V1AuditResponse struct {
 	// phase
 	Phase string `json:"phase,omitempty" yaml:"phase,omitempty"`
 
-	// remote address
-	RemoteAddress string `json:"remote_address,omitempty" yaml:"remote_address,omitempty"`
+	// remote addr
+	RemoteAddr string `json:"remote_addr,omitempty" yaml:"remote_addr,omitempty"`
 
 	// rqid
 	Rqid string `json:"rqid,omitempty" yaml:"rqid,omitempty"`
+
+	// status code
+	StatusCode int32 `json:"status_code,omitempty" yaml:"status_code,omitempty"`
 
 	// tenant
 	Tenant string `json:"tenant,omitempty" yaml:"tenant,omitempty"`
@@ -46,6 +55,9 @@ type V1AuditResponse struct {
 	// timestamp
 	// Format: date-time
 	Timestamp strfmt.DateTime `json:"timestamp,omitempty" yaml:"timestamp,omitempty"`
+
+	// type
+	Type string `json:"type,omitempty" yaml:"type,omitempty"`
 
 	// user
 	User string `json:"user,omitempty" yaml:"user,omitempty"`
