@@ -6,6 +6,7 @@ import (
 
 	metalgo "github.com/metal-stack/metal-go"
 
+	"github.com/metal-stack/metal-go/api/client/audit"
 	"github.com/metal-stack/metal-go/api/client/filesystemlayout"
 	"github.com/metal-stack/metal-go/api/client/firewall"
 	"github.com/metal-stack/metal-go/api/client/firmware"
@@ -23,6 +24,7 @@ import (
 	"github.com/metal-stack/metal-go/api/client/user"
 	"github.com/metal-stack/metal-go/api/client/version"
 	"github.com/metal-stack/metal-go/api/client/vpn"
+	auditmocks "github.com/metal-stack/metal-go/test/mocks/audit"
 	filesystemlayoutmocks "github.com/metal-stack/metal-go/test/mocks/filesystemlayout"
 	firewallmocks "github.com/metal-stack/metal-go/test/mocks/firewall"
 	firmwaremocks "github.com/metal-stack/metal-go/test/mocks/firmware"
@@ -45,6 +47,7 @@ import (
 )
 
 type MetalMockFns struct {
+	Audit               func(mock *mock.Mock)
 	Filesystemlayout    func(mock *mock.Mock)
 	Firewall            func(mock *mock.Mock)
 	Firmware            func(mock *mock.Mock)
@@ -65,6 +68,7 @@ type MetalMockFns struct {
 }
 
 type MetalMockClient struct {
+	audit               *auditmocks.ClientService
 	filesystemlayout    *filesystemlayoutmocks.ClientService
 	firewall            *firewallmocks.ClientService
 	firmware            *firmwaremocks.ClientService
@@ -86,6 +90,7 @@ type MetalMockClient struct {
 
 func NewMetalMockClient(t *testing.T, mockFns *MetalMockFns) (*MetalMockClient, metalgo.Client) {
 	client := &MetalMockClient{
+		audit:               auditmocks.NewClientService(t),
 		filesystemlayout:    filesystemlayoutmocks.NewClientService(t),
 		firewall:            firewallmocks.NewClientService(t),
 		firmware:            firmwaremocks.NewClientService(t),
@@ -109,6 +114,9 @@ func NewMetalMockClient(t *testing.T, mockFns *MetalMockFns) (*MetalMockClient, 
 		return client, client
 	}
 
+	if mockFns.Audit != nil {
+		mockFns.Audit(&client.audit.Mock)
+	}
 	if mockFns.Filesystemlayout != nil {
 		mockFns.Filesystemlayout(&client.filesystemlayout.Mock)
 	}
@@ -162,6 +170,10 @@ func NewMetalMockClient(t *testing.T, mockFns *MetalMockFns) (*MetalMockClient, 
 	}
 
 	return client, client
+}
+
+func (c *MetalMockClient) Audit() audit.ClientService {
+	return c.audit
 }
 
 func (c *MetalMockClient) Filesystemlayout() filesystemlayout.ClientService {
