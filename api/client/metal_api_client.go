@@ -10,6 +10,7 @@ import (
 	httptransport "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
 
+	"github.com/metal-stack/metal-go/api/client/audit"
 	"github.com/metal-stack/metal-go/api/client/filesystemlayout"
 	"github.com/metal-stack/metal-go/api/client/firewall"
 	"github.com/metal-stack/metal-go/api/client/firmware"
@@ -71,6 +72,7 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *MetalAPI {
 
 	cli := new(MetalAPI)
 	cli.Transport = transport
+	cli.Audit = audit.New(transport, formats)
 	cli.Filesystemlayout = filesystemlayout.New(transport, formats)
 	cli.Firewall = firewall.New(transport, formats)
 	cli.Firmware = firmware.New(transport, formats)
@@ -132,6 +134,8 @@ func (cfg *TransportConfig) WithSchemes(schemes []string) *TransportConfig {
 
 // MetalAPI is a client for metal API
 type MetalAPI struct {
+	Audit audit.ClientService
+
 	Filesystemlayout filesystemlayout.ClientService
 
 	Firewall firewall.ClientService
@@ -172,6 +176,7 @@ type MetalAPI struct {
 // SetTransport changes the transport on the client and all its subresources
 func (c *MetalAPI) SetTransport(transport runtime.ClientTransport) {
 	c.Transport = transport
+	c.Audit.SetTransport(transport)
 	c.Filesystemlayout.SetTransport(transport)
 	c.Firewall.SetTransport(transport)
 	c.Firmware.SetTransport(transport)
