@@ -27,6 +27,10 @@ type V1MachineUpdateRequest struct {
 	// Required: true
 	ID *string `json:"id" yaml:"id"`
 
+	// the public ssh keys to access the machine with
+	// Required: true
+	SSHPubKeys []string `json:"ssh_pub_keys" yaml:"ssh_pub_keys"`
+
 	// tags for this machine.
 	Tags []string `json:"tags" yaml:"tags"`
 }
@@ -40,6 +44,10 @@ func (m *V1MachineUpdateRequest) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateID(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateSSHPubKeys(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -61,6 +69,15 @@ func (m *V1MachineUpdateRequest) validateDescription(formats strfmt.Registry) er
 func (m *V1MachineUpdateRequest) validateID(formats strfmt.Registry) error {
 
 	if err := validate.Required("id", "body", m.ID); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *V1MachineUpdateRequest) validateSSHPubKeys(formats strfmt.Registry) error {
+
+	if err := validate.Required("ssh_pub_keys", "body", m.SSHPubKeys); err != nil {
 		return err
 	}
 
