@@ -111,6 +111,11 @@ func (m *V1Project) ContextValidate(ctx context.Context, formats strfmt.Registry
 func (m *V1Project) contextValidateMeta(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Meta != nil {
+
+		if swag.IsZero(m.Meta) { // not required
+			return nil
+		}
+
 		if err := m.Meta.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("meta")
@@ -127,6 +132,11 @@ func (m *V1Project) contextValidateMeta(ctx context.Context, formats strfmt.Regi
 func (m *V1Project) contextValidateQuotas(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Quotas != nil {
+
+		if swag.IsZero(m.Quotas) { // not required
+			return nil
+		}
+
 		if err := m.Quotas.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("quotas")

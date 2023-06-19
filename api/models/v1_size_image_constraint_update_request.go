@@ -96,6 +96,11 @@ func (m *V1SizeImageConstraintUpdateRequest) ContextValidate(ctx context.Context
 func (m *V1SizeImageConstraintUpdateRequest) contextValidateConstraints(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Constraints != nil {
+
+		if swag.IsZero(m.Constraints) { // not required
+			return nil
+		}
+
 		if err := m.Constraints.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("constraints")

@@ -66,6 +66,8 @@ type ClientService interface {
 
 	MachineReset(params *MachineResetParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*MachineResetOK, error)
 
+	MachineSSHPubKeys(params *MachineSSHPubKeysParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*MachineSSHPubKeysOK, error)
+
 	ReinstallMachine(params *ReinstallMachineParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ReinstallMachineOK, error)
 
 	SetMachineState(params *SetMachineStateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetMachineStateOK, error)
@@ -796,6 +798,44 @@ func (a *Client) MachineReset(params *MachineResetParams, authInfo runtime.Clien
 	}
 	// unexpected success response
 	unexpectedSuccess := result.(*MachineResetDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+MachineSSHPubKeys updates ssh public keys of allocated machine
+*/
+func (a *Client) MachineSSHPubKeys(params *MachineSSHPubKeysParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*MachineSSHPubKeysOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewMachineSSHPubKeysParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "machineSSHPubKeys",
+		Method:             "POST",
+		PathPattern:        "/v1/machine/{id}/sshpubkeys",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &MachineSSHPubKeysReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*MachineSSHPubKeysOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*MachineSSHPubKeysDefault)
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 

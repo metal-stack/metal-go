@@ -168,6 +168,11 @@ func (m *V1Tenant) ContextValidate(ctx context.Context, formats strfmt.Registry)
 func (m *V1Tenant) contextValidateDefaultQuotas(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.DefaultQuotas != nil {
+
+		if swag.IsZero(m.DefaultQuotas) { // not required
+			return nil
+		}
+
 		if err := m.DefaultQuotas.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("default_quotas")
@@ -184,6 +189,11 @@ func (m *V1Tenant) contextValidateDefaultQuotas(ctx context.Context, formats str
 func (m *V1Tenant) contextValidateIamConfig(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.IamConfig != nil {
+
+		if swag.IsZero(m.IamConfig) { // not required
+			return nil
+		}
+
 		if err := m.IamConfig.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("iam_config")
@@ -200,6 +210,11 @@ func (m *V1Tenant) contextValidateIamConfig(ctx context.Context, formats strfmt.
 func (m *V1Tenant) contextValidateMeta(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Meta != nil {
+
+		if swag.IsZero(m.Meta) { // not required
+			return nil
+		}
+
 		if err := m.Meta.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("meta")
@@ -216,6 +231,11 @@ func (m *V1Tenant) contextValidateMeta(ctx context.Context, formats strfmt.Regis
 func (m *V1Tenant) contextValidateQuotas(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Quotas != nil {
+
+		if swag.IsZero(m.Quotas) { // not required
+			return nil
+		}
+
 		if err := m.Quotas.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("quotas")

@@ -136,6 +136,11 @@ func (m *V1MachineNic) contextValidateNeighbors(ctx context.Context, formats str
 	for i := 0; i < len(m.Neighbors); i++ {
 
 		if m.Neighbors[i] != nil {
+
+			if swag.IsZero(m.Neighbors[i]) { // not required
+				return nil
+			}
+
 			if err := m.Neighbors[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("neighbors" + "." + strconv.Itoa(i))
