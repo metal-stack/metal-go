@@ -27,6 +27,9 @@ type V1MachineUpdateRequest struct {
 	// Required: true
 	ID *string `json:"id" yaml:"id"`
 
+	// the public ssh keys to access the machine with
+	SSHPubKeys []string `json:"ssh_pub_keys" yaml:"ssh_pub_keys"`
+
 	// tags for this machine.
 	Tags []string `json:"tags" yaml:"tags"`
 }
