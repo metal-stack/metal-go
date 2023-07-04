@@ -284,6 +284,7 @@ func (m *V1FilesystemLayoutUpdateRequest) ContextValidate(ctx context.Context, f
 func (m *V1FilesystemLayoutUpdateRequest) contextValidateConstraints(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Constraints != nil {
+
 		if err := m.Constraints.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("constraints")
@@ -302,6 +303,11 @@ func (m *V1FilesystemLayoutUpdateRequest) contextValidateDisks(ctx context.Conte
 	for i := 0; i < len(m.Disks); i++ {
 
 		if m.Disks[i] != nil {
+
+			if swag.IsZero(m.Disks[i]) { // not required
+				return nil
+			}
+
 			if err := m.Disks[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("disks" + "." + strconv.Itoa(i))
@@ -322,6 +328,11 @@ func (m *V1FilesystemLayoutUpdateRequest) contextValidateFilesystems(ctx context
 	for i := 0; i < len(m.Filesystems); i++ {
 
 		if m.Filesystems[i] != nil {
+
+			if swag.IsZero(m.Filesystems[i]) { // not required
+				return nil
+			}
+
 			if err := m.Filesystems[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("filesystems" + "." + strconv.Itoa(i))
@@ -342,6 +353,11 @@ func (m *V1FilesystemLayoutUpdateRequest) contextValidateLogicalvolumes(ctx cont
 	for i := 0; i < len(m.Logicalvolumes); i++ {
 
 		if m.Logicalvolumes[i] != nil {
+
+			if swag.IsZero(m.Logicalvolumes[i]) { // not required
+				return nil
+			}
+
 			if err := m.Logicalvolumes[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("logicalvolumes" + "." + strconv.Itoa(i))
@@ -362,6 +378,11 @@ func (m *V1FilesystemLayoutUpdateRequest) contextValidateRaid(ctx context.Contex
 	for i := 0; i < len(m.Raid); i++ {
 
 		if m.Raid[i] != nil {
+
+			if swag.IsZero(m.Raid[i]) { // not required
+				return nil
+			}
+
 			if err := m.Raid[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("raid" + "." + strconv.Itoa(i))
@@ -382,6 +403,11 @@ func (m *V1FilesystemLayoutUpdateRequest) contextValidateVolumegroups(ctx contex
 	for i := 0; i < len(m.Volumegroups); i++ {
 
 		if m.Volumegroups[i] != nil {
+
+			if swag.IsZero(m.Volumegroups[i]) { // not required
+				return nil
+			}
+
 			if err := m.Volumegroups[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("volumegroups" + "." + strconv.Itoa(i))

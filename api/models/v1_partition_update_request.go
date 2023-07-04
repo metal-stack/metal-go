@@ -99,6 +99,11 @@ func (m *V1PartitionUpdateRequest) ContextValidate(ctx context.Context, formats 
 func (m *V1PartitionUpdateRequest) contextValidateBootconfig(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Bootconfig != nil {
+
+		if swag.IsZero(m.Bootconfig) { // not required
+			return nil
+		}
+
 		if err := m.Bootconfig.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("bootconfig")

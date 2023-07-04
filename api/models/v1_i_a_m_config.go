@@ -102,6 +102,11 @@ func (m *V1IAMConfig) ContextValidate(ctx context.Context, formats strfmt.Regist
 func (m *V1IAMConfig) contextValidateIdmConfig(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.IdmConfig != nil {
+
+		if swag.IsZero(m.IdmConfig) { // not required
+			return nil
+		}
+
 		if err := m.IdmConfig.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("idm_config")
@@ -118,6 +123,11 @@ func (m *V1IAMConfig) contextValidateIdmConfig(ctx context.Context, formats strf
 func (m *V1IAMConfig) contextValidateIssuerConfig(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.IssuerConfig != nil {
+
+		if swag.IsZero(m.IssuerConfig) { // not required
+			return nil
+		}
+
 		if err := m.IssuerConfig.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("issuer_config")

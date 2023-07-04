@@ -17,6 +17,9 @@ import (
 // swagger:model v1.SwitchOS
 type V1SwitchOS struct {
 
+	// the version of metal-core running
+	MetalCoreVersion string `json:"metal_core_version,omitempty" yaml:"metal_core_version,omitempty"`
+
 	// the operating system vendor the switch currently has
 	Vendor string `json:"vendor,omitempty" yaml:"vendor,omitempty"`
 
