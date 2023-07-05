@@ -158,6 +158,11 @@ func (m *V1MachineHardware) contextValidateDisks(ctx context.Context, formats st
 	for i := 0; i < len(m.Disks); i++ {
 
 		if m.Disks[i] != nil {
+
+			if swag.IsZero(m.Disks[i]) { // not required
+				return nil
+			}
+
 			if err := m.Disks[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("disks" + "." + strconv.Itoa(i))
@@ -178,6 +183,11 @@ func (m *V1MachineHardware) contextValidateNics(ctx context.Context, formats str
 	for i := 0; i < len(m.Nics); i++ {
 
 		if m.Nics[i] != nil {
+
+			if swag.IsZero(m.Nics[i]) { // not required
+				return nil
+			}
+
 			if err := m.Nics[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("nics" + "." + strconv.Itoa(i))

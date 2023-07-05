@@ -98,6 +98,7 @@ func (m *V1SizeImageConstraintResponse) ContextValidate(ctx context.Context, for
 func (m *V1SizeImageConstraintResponse) contextValidateConstraints(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Constraints != nil {
+
 		if err := m.Constraints.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("constraints")

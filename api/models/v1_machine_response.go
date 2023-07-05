@@ -410,6 +410,11 @@ func (m *V1MachineResponse) ContextValidate(ctx context.Context, formats strfmt.
 func (m *V1MachineResponse) contextValidateAllocation(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Allocation != nil {
+
+		if swag.IsZero(m.Allocation) { // not required
+			return nil
+		}
+
 		if err := m.Allocation.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("allocation")
@@ -426,6 +431,7 @@ func (m *V1MachineResponse) contextValidateAllocation(ctx context.Context, forma
 func (m *V1MachineResponse) contextValidateBios(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Bios != nil {
+
 		if err := m.Bios.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("bios")
@@ -460,6 +466,7 @@ func (m *V1MachineResponse) contextValidateCreated(ctx context.Context, formats 
 func (m *V1MachineResponse) contextValidateEvents(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Events != nil {
+
 		if err := m.Events.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("events")
@@ -476,6 +483,7 @@ func (m *V1MachineResponse) contextValidateEvents(ctx context.Context, formats s
 func (m *V1MachineResponse) contextValidateHardware(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Hardware != nil {
+
 		if err := m.Hardware.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("hardware")
@@ -492,6 +500,7 @@ func (m *V1MachineResponse) contextValidateHardware(ctx context.Context, formats
 func (m *V1MachineResponse) contextValidateLedstate(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Ledstate != nil {
+
 		if err := m.Ledstate.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("ledstate")
@@ -508,6 +517,11 @@ func (m *V1MachineResponse) contextValidateLedstate(ctx context.Context, formats
 func (m *V1MachineResponse) contextValidatePartition(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Partition != nil {
+
+		if swag.IsZero(m.Partition) { // not required
+			return nil
+		}
+
 		if err := m.Partition.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("partition")
@@ -533,6 +547,11 @@ func (m *V1MachineResponse) contextValidateRackid(ctx context.Context, formats s
 func (m *V1MachineResponse) contextValidateSize(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Size != nil {
+
+		if swag.IsZero(m.Size) { // not required
+			return nil
+		}
+
 		if err := m.Size.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("size")
@@ -549,6 +568,7 @@ func (m *V1MachineResponse) contextValidateSize(ctx context.Context, formats str
 func (m *V1MachineResponse) contextValidateState(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.State != nil {
+
 		if err := m.State.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("state")

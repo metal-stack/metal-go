@@ -117,6 +117,11 @@ func (m *V1Disk) contextValidatePartitions(ctx context.Context, formats strfmt.R
 	for i := 0; i < len(m.Partitions); i++ {
 
 		if m.Partitions[i] != nil {
+
+			if swag.IsZero(m.Partitions[i]) { // not required
+				return nil
+			}
+
 			if err := m.Partitions[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("partitions" + "." + strconv.Itoa(i))

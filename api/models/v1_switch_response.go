@@ -357,6 +357,11 @@ func (m *V1SwitchResponse) contextValidateConnections(ctx context.Context, forma
 	for i := 0; i < len(m.Connections); i++ {
 
 		if m.Connections[i] != nil {
+
+			if swag.IsZero(m.Connections[i]) { // not required
+				return nil
+			}
+
 			if err := m.Connections[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("connections" + "." + strconv.Itoa(i))
@@ -384,6 +389,11 @@ func (m *V1SwitchResponse) contextValidateCreated(ctx context.Context, formats s
 func (m *V1SwitchResponse) contextValidateLastSync(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.LastSync != nil {
+
+		if swag.IsZero(m.LastSync) { // not required
+			return nil
+		}
+
 		if err := m.LastSync.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("last_sync")
@@ -400,6 +410,11 @@ func (m *V1SwitchResponse) contextValidateLastSync(ctx context.Context, formats 
 func (m *V1SwitchResponse) contextValidateLastSyncError(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.LastSyncError != nil {
+
+		if swag.IsZero(m.LastSyncError) { // not required
+			return nil
+		}
+
 		if err := m.LastSyncError.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("last_sync_error")
@@ -418,6 +433,11 @@ func (m *V1SwitchResponse) contextValidateNics(ctx context.Context, formats strf
 	for i := 0; i < len(m.Nics); i++ {
 
 		if m.Nics[i] != nil {
+
+			if swag.IsZero(m.Nics[i]) { // not required
+				return nil
+			}
+
 			if err := m.Nics[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("nics" + "." + strconv.Itoa(i))
@@ -436,6 +456,11 @@ func (m *V1SwitchResponse) contextValidateNics(ctx context.Context, formats strf
 func (m *V1SwitchResponse) contextValidateOs(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Os != nil {
+
+		if swag.IsZero(m.Os) { // not required
+			return nil
+		}
+
 		if err := m.Os.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("os")
@@ -452,6 +477,7 @@ func (m *V1SwitchResponse) contextValidateOs(ctx context.Context, formats strfmt
 func (m *V1SwitchResponse) contextValidatePartition(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Partition != nil {
+
 		if err := m.Partition.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("partition")

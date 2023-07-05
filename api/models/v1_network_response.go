@@ -272,6 +272,7 @@ func (m *V1NetworkResponse) contextValidateCreated(ctx context.Context, formats 
 func (m *V1NetworkResponse) contextValidateUsage(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Usage != nil {
+
 		if err := m.Usage.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("usage")

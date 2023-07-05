@@ -184,6 +184,11 @@ func (m *V1SwitchRegisterRequest) contextValidateNics(ctx context.Context, forma
 	for i := 0; i < len(m.Nics); i++ {
 
 		if m.Nics[i] != nil {
+
+			if swag.IsZero(m.Nics[i]) { // not required
+				return nil
+			}
+
 			if err := m.Nics[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("nics" + "." + strconv.Itoa(i))
@@ -202,6 +207,11 @@ func (m *V1SwitchRegisterRequest) contextValidateNics(ctx context.Context, forma
 func (m *V1SwitchRegisterRequest) contextValidateOs(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Os != nil {
+
+		if swag.IsZero(m.Os) { // not required
+			return nil
+		}
+
 		if err := m.Os.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("os")

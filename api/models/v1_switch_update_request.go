@@ -125,6 +125,11 @@ func (m *V1SwitchUpdateRequest) ContextValidate(ctx context.Context, formats str
 func (m *V1SwitchUpdateRequest) contextValidateOs(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Os != nil {
+
+		if swag.IsZero(m.Os) { // not required
+			return nil
+		}
+
 		if err := m.Os.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("os")
