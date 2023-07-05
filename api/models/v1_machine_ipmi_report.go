@@ -192,6 +192,7 @@ func (m *V1MachineIpmiReport) ContextValidate(ctx context.Context, formats strfm
 func (m *V1MachineIpmiReport) contextValidateFRU(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.FRU != nil {
+
 		if err := m.FRU.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("FRU")
@@ -208,6 +209,7 @@ func (m *V1MachineIpmiReport) contextValidateFRU(ctx context.Context, formats st
 func (m *V1MachineIpmiReport) contextValidatePowerMetric(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.PowerMetric != nil {
+
 		if err := m.PowerMetric.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("PowerMetric")

@@ -162,6 +162,11 @@ func (m *V1QuotaSet) ContextValidate(ctx context.Context, formats strfmt.Registr
 func (m *V1QuotaSet) contextValidateCluster(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Cluster != nil {
+
+		if swag.IsZero(m.Cluster) { // not required
+			return nil
+		}
+
 		if err := m.Cluster.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("cluster")
@@ -178,6 +183,11 @@ func (m *V1QuotaSet) contextValidateCluster(ctx context.Context, formats strfmt.
 func (m *V1QuotaSet) contextValidateIP(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.IP != nil {
+
+		if swag.IsZero(m.IP) { // not required
+			return nil
+		}
+
 		if err := m.IP.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("ip")
@@ -194,6 +204,11 @@ func (m *V1QuotaSet) contextValidateIP(ctx context.Context, formats strfmt.Regis
 func (m *V1QuotaSet) contextValidateMachine(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Machine != nil {
+
+		if swag.IsZero(m.Machine) { // not required
+			return nil
+		}
+
 		if err := m.Machine.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("machine")
@@ -210,6 +225,11 @@ func (m *V1QuotaSet) contextValidateMachine(ctx context.Context, formats strfmt.
 func (m *V1QuotaSet) contextValidateProject(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Project != nil {
+
+		if swag.IsZero(m.Project) { // not required
+			return nil
+		}
+
 		if err := m.Project.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("project")

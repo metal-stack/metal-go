@@ -127,6 +127,11 @@ func (m *V1SwitchNic) ContextValidate(ctx context.Context, formats strfmt.Regist
 func (m *V1SwitchNic) contextValidateFilter(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Filter != nil {
+
+		if swag.IsZero(m.Filter) { // not required
+			return nil
+		}
+
 		if err := m.Filter.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("filter")

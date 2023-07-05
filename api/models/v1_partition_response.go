@@ -176,6 +176,7 @@ func (m *V1PartitionResponse) ContextValidate(ctx context.Context, formats strfm
 func (m *V1PartitionResponse) contextValidateBootconfig(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Bootconfig != nil {
+
 		if err := m.Bootconfig.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("bootconfig")

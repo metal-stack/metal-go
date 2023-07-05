@@ -109,6 +109,7 @@ func (m *V1SizeConstraintMatchingLog) ContextValidate(ctx context.Context, forma
 func (m *V1SizeConstraintMatchingLog) contextValidateConstraint(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Constraint != nil {
+
 		if err := m.Constraint.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("constraint")
