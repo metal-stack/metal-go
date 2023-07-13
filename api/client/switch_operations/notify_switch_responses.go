@@ -53,7 +53,7 @@ NotifySwitchOK describes a response with status code 200, with default header va
 OK
 */
 type NotifySwitchOK struct {
-	Payload *models.V1SwitchResponse
+	Payload *models.V1SwitchNotifyResponse
 }
 
 // IsSuccess returns true when this notify switch o k response has a 2xx status code
@@ -94,13 +94,13 @@ func (o *NotifySwitchOK) String() string {
 	return fmt.Sprintf("[POST /v1/switch/{id}/notify][%d] notifySwitchOK  %+v", 200, o.Payload)
 }
 
-func (o *NotifySwitchOK) GetPayload() *models.V1SwitchResponse {
+func (o *NotifySwitchOK) GetPayload() *models.V1SwitchNotifyResponse {
 	return o.Payload
 }
 
 func (o *NotifySwitchOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.V1SwitchResponse)
+	o.Payload = new(models.V1SwitchNotifyResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
