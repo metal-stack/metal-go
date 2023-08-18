@@ -46,6 +46,9 @@ type V1MachineAllocateRequest struct {
 	// Required: true
 	Partitionid *string `json:"partitionid" yaml:"partitionid"`
 
+	// by default machines are spread across the racks inside a partition for every project. if placement tags are provided, the machine candidate has an additional anti-affinity to other machines having the same tags
+	PlacementTags []string `json:"placement_tags" yaml:"placement_tags"`
+
 	// the project id to assign this machine to
 	// Required: true
 	Projectid *string `json:"projectid" yaml:"projectid"`
