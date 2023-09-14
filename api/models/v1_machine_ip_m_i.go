@@ -35,6 +35,11 @@ type V1MachineIPMI struct {
 	// Required: true
 	Interface *string `json:"interface" yaml:"interface"`
 
+	// last updated
+	// Required: true
+	// Format: date-time
+	LastUpdated *strfmt.DateTime `json:"last_updated" yaml:"last_updated"`
+
 	// mac
 	// Required: true
 	Mac *string `json:"mac" yaml:"mac"`
@@ -73,6 +78,10 @@ func (m *V1MachineIPMI) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateInterface(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateLastUpdated(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -143,6 +152,19 @@ func (m *V1MachineIPMI) validateFru(formats strfmt.Registry) error {
 func (m *V1MachineIPMI) validateInterface(formats strfmt.Registry) error {
 
 	if err := validate.Required("interface", "body", m.Interface); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *V1MachineIPMI) validateLastUpdated(formats strfmt.Registry) error {
+
+	if err := validate.Required("last_updated", "body", m.LastUpdated); err != nil {
+		return err
+	}
+
+	if err := validate.FormatOf("last_updated", "body", "date-time", m.LastUpdated.String(), formats); err != nil {
 		return err
 	}
 
