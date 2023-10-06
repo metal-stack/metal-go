@@ -217,6 +217,39 @@ func (_m *ClientService) UpdateTenant(params *clienttenant.UpdateTenantParams, a
 	return r0, r1
 }
 
+// GetTenantHistory provides a mock function with given fields: params, authInfo, opts
+func (_m *ClientService) GetTenantHistory(params *clienttenant.GetTenantHistoryParams, authInfo runtime.ClientAuthInfoWriter, opts ...clienttenant.ClientOption) (*clienttenant.GetTenantHistoryOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
+
+	var r0 *clienttenant.GetTenantHistoryOK
+	var r1 error
+	if rf, ok := ret.Get(0).(func(*clienttenant.GetTenantHistoryParams, runtime.ClientAuthInfoWriter, ...clienttenant.ClientOption) (*clienttenant.GetTenantHistoryOK, error)); ok {
+		return rf(params, authInfo, opts...)
+	}
+	if rf, ok := ret.Get(0).(func(*clienttenant.GetTenantHistoryParams, runtime.ClientAuthInfoWriter, ...clienttenant.ClientOption) *clienttenant.GetTenantHistoryOK); ok {
+		r0 = rf(params, authInfo, opts...)
+	} else {
+		if ret.Get(0) != nil {
+			r0 = ret.Get(0).(*clienttenant.GetTenantHistoryOK)
+		}
+	}
+
+	if rf, ok := ret.Get(1).(func(*clienttenant.GetTenantHistoryParams, runtime.ClientAuthInfoWriter, ...clienttenant.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
+	} else {
+		r1 = ret.Error(1)
+	}
+
+	return r0, r1
+}
+
 // NewClientService creates a new instance of ClientService. It also registers a testing interface on the mock and a cleanup function to assert the mocks expectations.
 // The first argument is typically a *testing.T value.
 func NewClientService(t interface {
