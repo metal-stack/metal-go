@@ -50,6 +50,10 @@ type ClientService interface {
 
 	IpmiReport(params *IpmiReportParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*IpmiReportOK, error)
 
+	Issues(params *IssuesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*IssuesOK, error)
+
+	ListIssues(params *ListIssuesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListIssuesOK, error)
+
 	ListMachines(params *ListMachinesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListMachinesOK, error)
 
 	MachineBios(params *MachineBiosParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*MachineBiosOK, error)
@@ -492,6 +496,82 @@ func (a *Client) IpmiReport(params *IpmiReportParams, authInfo runtime.ClientAut
 	}
 	// unexpected success response
 	unexpectedSuccess := result.(*IpmiReportDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+Issues returns machine issues
+*/
+func (a *Client) Issues(params *IssuesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*IssuesOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewIssuesParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "issues",
+		Method:             "POST",
+		PathPattern:        "/v1/machine/issues/evaluate",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &IssuesReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*IssuesOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*IssuesDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+ListIssues returns the list of issues that exist in the API
+*/
+func (a *Client) ListIssues(params *ListIssuesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListIssuesOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewListIssuesParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "listIssues",
+		Method:             "GET",
+		PathPattern:        "/v1/machine/issues",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &ListIssuesReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*ListIssuesOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*ListIssuesDefault)
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 

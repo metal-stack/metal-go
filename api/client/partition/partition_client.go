@@ -38,8 +38,6 @@ type ClientService interface {
 
 	PartitionCapacity(params *PartitionCapacityParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PartitionCapacityOK, error)
 
-	PartitionCapacityCompat(params *PartitionCapacityCompatParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PartitionCapacityCompatOK, error)
-
 	UpdatePartition(params *UpdatePartitionParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdatePartitionOK, error)
 
 	SetTransport(transport runtime.ClientTransport)
@@ -232,44 +230,6 @@ func (a *Client) PartitionCapacity(params *PartitionCapacityParams, authInfo run
 	}
 	// unexpected success response
 	unexpectedSuccess := result.(*PartitionCapacityDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
-}
-
-/*
-PartitionCapacityCompat gets partition capacity
-*/
-func (a *Client) PartitionCapacityCompat(params *PartitionCapacityCompatParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PartitionCapacityCompatOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewPartitionCapacityCompatParams()
-	}
-	op := &runtime.ClientOperation{
-		ID:                 "partitionCapacityCompat",
-		Method:             "GET",
-		PathPattern:        "/v1/partition/capacity",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
-		Params:             params,
-		Reader:             &PartitionCapacityCompatReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*PartitionCapacityCompatOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	unexpectedSuccess := result.(*PartitionCapacityCompatDefault)
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
