@@ -377,6 +377,72 @@ func (_m *ClientService) IpmiReport(params *clientmachine.IpmiReportParams, auth
 	return r0, r1
 }
 
+// Issues provides a mock function with given fields: params, authInfo, opts
+func (_m *ClientService) Issues(params *clientmachine.IssuesParams, authInfo runtime.ClientAuthInfoWriter, opts ...clientmachine.ClientOption) (*clientmachine.IssuesOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
+
+	var r0 *clientmachine.IssuesOK
+	var r1 error
+	if rf, ok := ret.Get(0).(func(*clientmachine.IssuesParams, runtime.ClientAuthInfoWriter, ...clientmachine.ClientOption) (*clientmachine.IssuesOK, error)); ok {
+		return rf(params, authInfo, opts...)
+	}
+	if rf, ok := ret.Get(0).(func(*clientmachine.IssuesParams, runtime.ClientAuthInfoWriter, ...clientmachine.ClientOption) *clientmachine.IssuesOK); ok {
+		r0 = rf(params, authInfo, opts...)
+	} else {
+		if ret.Get(0) != nil {
+			r0 = ret.Get(0).(*clientmachine.IssuesOK)
+		}
+	}
+
+	if rf, ok := ret.Get(1).(func(*clientmachine.IssuesParams, runtime.ClientAuthInfoWriter, ...clientmachine.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
+	} else {
+		r1 = ret.Error(1)
+	}
+
+	return r0, r1
+}
+
+// ListIssues provides a mock function with given fields: params, authInfo, opts
+func (_m *ClientService) ListIssues(params *clientmachine.ListIssuesParams, authInfo runtime.ClientAuthInfoWriter, opts ...clientmachine.ClientOption) (*clientmachine.ListIssuesOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
+
+	var r0 *clientmachine.ListIssuesOK
+	var r1 error
+	if rf, ok := ret.Get(0).(func(*clientmachine.ListIssuesParams, runtime.ClientAuthInfoWriter, ...clientmachine.ClientOption) (*clientmachine.ListIssuesOK, error)); ok {
+		return rf(params, authInfo, opts...)
+	}
+	if rf, ok := ret.Get(0).(func(*clientmachine.ListIssuesParams, runtime.ClientAuthInfoWriter, ...clientmachine.ClientOption) *clientmachine.ListIssuesOK); ok {
+		r0 = rf(params, authInfo, opts...)
+	} else {
+		if ret.Get(0) != nil {
+			r0 = ret.Get(0).(*clientmachine.ListIssuesOK)
+		}
+	}
+
+	if rf, ok := ret.Get(1).(func(*clientmachine.ListIssuesParams, runtime.ClientAuthInfoWriter, ...clientmachine.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
+	} else {
+		r1 = ret.Error(1)
+	}
+
+	return r0, r1
+}
+
 // ListMachines provides a mock function with given fields: params, authInfo, opts
 func (_m *ClientService) ListMachines(params *clientmachine.ListMachinesParams, authInfo runtime.ClientAuthInfoWriter, opts ...clientmachine.ClientOption) (*clientmachine.ListMachinesOK, error) {
 	_va := make([]interface{}, len(opts))

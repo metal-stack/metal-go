@@ -179,39 +179,6 @@ func (_m *ClientService) PartitionCapacity(params *clientpartition.PartitionCapa
 	return r0, r1
 }
 
-// PartitionCapacityCompat provides a mock function with given fields: params, authInfo, opts
-func (_m *ClientService) PartitionCapacityCompat(params *clientpartition.PartitionCapacityCompatParams, authInfo runtime.ClientAuthInfoWriter, opts ...clientpartition.ClientOption) (*clientpartition.PartitionCapacityCompatOK, error) {
-	_va := make([]interface{}, len(opts))
-	for _i := range opts {
-		_va[_i] = opts[_i]
-	}
-	var _ca []interface{}
-	_ca = append(_ca, params, authInfo)
-	_ca = append(_ca, _va...)
-	ret := _m.Called(_ca...)
-
-	var r0 *clientpartition.PartitionCapacityCompatOK
-	var r1 error
-	if rf, ok := ret.Get(0).(func(*clientpartition.PartitionCapacityCompatParams, runtime.ClientAuthInfoWriter, ...clientpartition.ClientOption) (*clientpartition.PartitionCapacityCompatOK, error)); ok {
-		return rf(params, authInfo, opts...)
-	}
-	if rf, ok := ret.Get(0).(func(*clientpartition.PartitionCapacityCompatParams, runtime.ClientAuthInfoWriter, ...clientpartition.ClientOption) *clientpartition.PartitionCapacityCompatOK); ok {
-		r0 = rf(params, authInfo, opts...)
-	} else {
-		if ret.Get(0) != nil {
-			r0 = ret.Get(0).(*clientpartition.PartitionCapacityCompatOK)
-		}
-	}
-
-	if rf, ok := ret.Get(1).(func(*clientpartition.PartitionCapacityCompatParams, runtime.ClientAuthInfoWriter, ...clientpartition.ClientOption) error); ok {
-		r1 = rf(params, authInfo, opts...)
-	} else {
-		r1 = ret.Error(1)
-	}
-
-	return r0, r1
-}
-
 // SetTransport provides a mock function with given fields: transport
 func (_m *ClientService) SetTransport(transport runtime.ClientTransport) {
 	_m.Called(transport)
