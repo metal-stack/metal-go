@@ -184,6 +184,39 @@ func (_m *ClientService) SetTransport(transport runtime.ClientTransport) {
 	_m.Called(transport)
 }
 
+// Suggest provides a mock function with given fields: params, authInfo, opts
+func (_m *ClientService) Suggest(params *clientsize.SuggestParams, authInfo runtime.ClientAuthInfoWriter, opts ...clientsize.ClientOption) (*clientsize.SuggestOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
+
+	var r0 *clientsize.SuggestOK
+	var r1 error
+	if rf, ok := ret.Get(0).(func(*clientsize.SuggestParams, runtime.ClientAuthInfoWriter, ...clientsize.ClientOption) (*clientsize.SuggestOK, error)); ok {
+		return rf(params, authInfo, opts...)
+	}
+	if rf, ok := ret.Get(0).(func(*clientsize.SuggestParams, runtime.ClientAuthInfoWriter, ...clientsize.ClientOption) *clientsize.SuggestOK); ok {
+		r0 = rf(params, authInfo, opts...)
+	} else {
+		if ret.Get(0) != nil {
+			r0 = ret.Get(0).(*clientsize.SuggestOK)
+		}
+	}
+
+	if rf, ok := ret.Get(1).(func(*clientsize.SuggestParams, runtime.ClientAuthInfoWriter, ...clientsize.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
+	} else {
+		r1 = ret.Error(1)
+	}
+
+	return r0, r1
+}
+
 // UpdateSize provides a mock function with given fields: params, authInfo, opts
 func (_m *ClientService) UpdateSize(params *clientsize.UpdateSizeParams, authInfo runtime.ClientAuthInfoWriter, opts ...clientsize.ClientOption) (*clientsize.UpdateSizeOK, error) {
 	_va := make([]interface{}, len(opts))
