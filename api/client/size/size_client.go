@@ -38,6 +38,8 @@ type ClientService interface {
 
 	ListSizes(params *ListSizesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListSizesOK, error)
 
+	Suggest(params *SuggestParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SuggestOK, error)
+
 	UpdateSize(params *UpdateSizeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateSizeOK, error)
 
 	SetTransport(transport runtime.ClientTransport)
@@ -230,6 +232,44 @@ func (a *Client) ListSizes(params *ListSizesParams, authInfo runtime.ClientAuthI
 	}
 	// unexpected success response
 	unexpectedSuccess := result.(*ListSizesDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+Suggest froms a given machine id returns the appropriate size
+*/
+func (a *Client) Suggest(params *SuggestParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SuggestOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewSuggestParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "suggest",
+		Method:             "POST",
+		PathPattern:        "/v1/size/suggest",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &SuggestReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*SuggestOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*SuggestDefault)
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
