@@ -52,7 +52,7 @@ func TestMachineCreate(t *testing.T) {
 	}), nil)
 
 	// then
-	require.Nil(t, err)
+	require.NoError(t, err)
 	require.NotNil(t, resp)
 	require.Equal(t, metalMachine, resp.Payload)
 }
