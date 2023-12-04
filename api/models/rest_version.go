@@ -27,6 +27,10 @@ type RestVersion struct {
 	// Required: true
 	Gitsha1 *string `json:"gitsha1" yaml:"gitsha1"`
 
+	// min client version
+	// Required: true
+	MinClientVersion *string `json:"min_client_version" yaml:"min_client_version"`
+
 	// name
 	// Required: true
 	Name *string `json:"name" yaml:"name"`
@@ -49,6 +53,10 @@ func (m *RestVersion) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateGitsha1(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateMinClientVersion(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -82,6 +90,15 @@ func (m *RestVersion) validateBuilddate(formats strfmt.Registry) error {
 func (m *RestVersion) validateGitsha1(formats strfmt.Registry) error {
 
 	if err := validate.Required("gitsha1", "body", m.Gitsha1); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *RestVersion) validateMinClientVersion(formats strfmt.Registry) error {
+
+	if err := validate.Required("min_client_version", "body", m.MinClientVersion); err != nil {
 		return err
 	}
 
