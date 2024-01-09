@@ -146,6 +146,39 @@ func (_m *ClientService) FromHardware(params *clientsize.FromHardwareParams, aut
 	return r0, r1
 }
 
+// ListSizeReservations provides a mock function with given fields: params, authInfo, opts
+func (_m *ClientService) ListSizeReservations(params *clientsize.ListSizeReservationsParams, authInfo runtime.ClientAuthInfoWriter, opts ...clientsize.ClientOption) (*clientsize.ListSizeReservationsOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
+
+	var r0 *clientsize.ListSizeReservationsOK
+	var r1 error
+	if rf, ok := ret.Get(0).(func(*clientsize.ListSizeReservationsParams, runtime.ClientAuthInfoWriter, ...clientsize.ClientOption) (*clientsize.ListSizeReservationsOK, error)); ok {
+		return rf(params, authInfo, opts...)
+	}
+	if rf, ok := ret.Get(0).(func(*clientsize.ListSizeReservationsParams, runtime.ClientAuthInfoWriter, ...clientsize.ClientOption) *clientsize.ListSizeReservationsOK); ok {
+		r0 = rf(params, authInfo, opts...)
+	} else {
+		if ret.Get(0) != nil {
+			r0 = ret.Get(0).(*clientsize.ListSizeReservationsOK)
+		}
+	}
+
+	if rf, ok := ret.Get(1).(func(*clientsize.ListSizeReservationsParams, runtime.ClientAuthInfoWriter, ...clientsize.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
+	} else {
+		r1 = ret.Error(1)
+	}
+
+	return r0, r1
+}
+
 // ListSizes provides a mock function with given fields: params, authInfo, opts
 func (_m *ClientService) ListSizes(params *clientsize.ListSizesParams, authInfo runtime.ClientAuthInfoWriter, opts ...clientsize.ClientOption) (*clientsize.ListSizesOK, error) {
 	_va := make([]interface{}, len(opts))

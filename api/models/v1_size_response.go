@@ -41,8 +41,15 @@ type V1SizeResponse struct {
 	// Required: true
 	ID *string `json:"id" yaml:"id"`
 
+	// free labels that you associate with this network.
+	// Required: true
+	Labels map[string]string `json:"labels" yaml:"labels"`
+
 	// a readable name for this entity
 	Name string `json:"name,omitempty" yaml:"name,omitempty"`
+
+	// reservations for this size, which are considered during machine allocation
+	Reservations []*V1SizeReservation `json:"reservations" yaml:"reservations"`
 }
 
 // Validate validates this v1 size response
@@ -62,6 +69,14 @@ func (m *V1SizeResponse) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateID(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateLabels(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateReservations(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -131,6 +146,41 @@ func (m *V1SizeResponse) validateID(formats strfmt.Registry) error {
 	return nil
 }
 
+func (m *V1SizeResponse) validateLabels(formats strfmt.Registry) error {
+
+	if err := validate.Required("labels", "body", m.Labels); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *V1SizeResponse) validateReservations(formats strfmt.Registry) error {
+	if swag.IsZero(m.Reservations) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(m.Reservations); i++ {
+		if swag.IsZero(m.Reservations[i]) { // not required
+			continue
+		}
+
+		if m.Reservations[i] != nil {
+			if err := m.Reservations[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("reservations" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("reservations" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
 // ContextValidate validate this v1 size response based on the context it is used
 func (m *V1SizeResponse) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	var res []error
@@ -144,6 +194,10 @@ func (m *V1SizeResponse) ContextValidate(ctx context.Context, formats strfmt.Reg
 	}
 
 	if err := m.contextValidateCreated(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateReservations(ctx, formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -191,6 +245,31 @@ func (m *V1SizeResponse) contextValidateCreated(ctx context.Context, formats str
 
 	if err := validate.ReadOnly(ctx, "created", "body", strfmt.DateTime(m.Created)); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+func (m *V1SizeResponse) contextValidateReservations(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Reservations); i++ {
+
+		if m.Reservations[i] != nil {
+
+			if swag.IsZero(m.Reservations[i]) { // not required
+				return nil
+			}
+
+			if err := m.Reservations[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("reservations" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("reservations" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
 	}
 
 	return nil

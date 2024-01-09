@@ -31,8 +31,14 @@ type V1SizeCreateRequest struct {
 	// Required: true
 	ID *string `json:"id" yaml:"id"`
 
+	// free labels that you associate with this network.
+	Labels map[string]string `json:"labels,omitempty" yaml:"labels,omitempty"`
+
 	// a readable name for this entity
 	Name string `json:"name,omitempty" yaml:"name,omitempty"`
+
+	// reservations for this size, which are considered during machine allocation
+	Reservations []*V1SizeReservation `json:"reservations" yaml:"reservations"`
 }
 
 // Validate validates this v1 size create request
@@ -44,6 +50,10 @@ func (m *V1SizeCreateRequest) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateID(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateReservations(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -89,11 +99,41 @@ func (m *V1SizeCreateRequest) validateID(formats strfmt.Registry) error {
 	return nil
 }
 
+func (m *V1SizeCreateRequest) validateReservations(formats strfmt.Registry) error {
+	if swag.IsZero(m.Reservations) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(m.Reservations); i++ {
+		if swag.IsZero(m.Reservations[i]) { // not required
+			continue
+		}
+
+		if m.Reservations[i] != nil {
+			if err := m.Reservations[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("reservations" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("reservations" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
 // ContextValidate validate this v1 size create request based on the context it is used
 func (m *V1SizeCreateRequest) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.contextValidateConstraints(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateReservations(ctx, formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -118,6 +158,31 @@ func (m *V1SizeCreateRequest) contextValidateConstraints(ctx context.Context, fo
 					return ve.ValidateName("constraints" + "." + strconv.Itoa(i))
 				} else if ce, ok := err.(*errors.CompositeError); ok {
 					return ce.ValidateName("constraints" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *V1SizeCreateRequest) contextValidateReservations(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Reservations); i++ {
+
+		if m.Reservations[i] != nil {
+
+			if swag.IsZero(m.Reservations[i]) { // not required
+				return nil
+			}
+
+			if err := m.Reservations[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("reservations" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("reservations" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

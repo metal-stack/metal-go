@@ -43,6 +43,10 @@ type V1ServerCapacity struct {
 	// Required: true
 	Othermachines []string `json:"othermachines" yaml:"othermachines"`
 
+	// the amount of reservations for this size
+	// Required: true
+	Reservations *int32 `json:"reservations" yaml:"reservations"`
+
 	// the size of the server
 	// Required: true
 	Size *string `json:"size" yaml:"size"`
@@ -50,6 +54,10 @@ type V1ServerCapacity struct {
 	// total amount of servers with this size
 	// Required: true
 	Total *int32 `json:"total" yaml:"total"`
+
+	// the amount of used reservations for this size
+	// Required: true
+	Usedreservations *int32 `json:"usedreservations" yaml:"usedreservations"`
 }
 
 // Validate validates this v1 server capacity
@@ -80,11 +88,19 @@ func (m *V1ServerCapacity) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateReservations(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateSize(formats); err != nil {
 		res = append(res, err)
 	}
 
 	if err := m.validateTotal(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateUsedreservations(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -148,6 +164,15 @@ func (m *V1ServerCapacity) validateOthermachines(formats strfmt.Registry) error 
 	return nil
 }
 
+func (m *V1ServerCapacity) validateReservations(formats strfmt.Registry) error {
+
+	if err := validate.Required("reservations", "body", m.Reservations); err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func (m *V1ServerCapacity) validateSize(formats strfmt.Registry) error {
 
 	if err := validate.Required("size", "body", m.Size); err != nil {
@@ -160,6 +185,15 @@ func (m *V1ServerCapacity) validateSize(formats strfmt.Registry) error {
 func (m *V1ServerCapacity) validateTotal(formats strfmt.Registry) error {
 
 	if err := validate.Required("total", "body", m.Total); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *V1ServerCapacity) validateUsedreservations(formats strfmt.Registry) error {
+
+	if err := validate.Required("usedreservations", "body", m.Usedreservations); err != nil {
 		return err
 	}
 
