@@ -9,8 +9,8 @@ generate-client:
 
 .PHONY: generate-client-local
 generate-client-local:
-	yq e -ij ".info.version=\"${METAL_API_VERSION}\"" metal-api.json
-	yq e '.info.version' metal-api.json
+	yq e -i -o=json ".info.version=\"${METAL_API_VERSION}\"" metal-api.json
+	yq e -o=json '.info.version' metal-api.json
 	rm -rf api
 	mkdir -p api
 	docker run --rm \
@@ -25,7 +25,7 @@ mocks:
 		--user $$(id -u):$$(id -g) \
 		-w /work \
 		-v ${PWD}:/work \
-		vektra/mockery:v2.33.2 -r --keeptree --inpackage --dir api/client --output test/mocks --all
+		vektra/mockery:v2.39.1 -r --keeptree --inpackage --dir api/client --output test/mocks --all
 	go run ./test/client/generate/generate_mock_client.go
 
 .PHONY: gofmt

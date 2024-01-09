@@ -10,10 +10,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Check out code into the Go module directory
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Setup Go
-      uses: actions/setup-go@v4
+      uses: actions/setup-go@v5
       with:
         go-version-file: 'go.mod'
         cache: false
@@ -25,10 +25,7 @@ jobs:
 
     - name: Generate
       run: |
-        if ! which yq; then
-          sudo curl -Lo /usr/local/bin/yq https://github.com/mikefarah/yq/releases/download/v4.27.2/yq_linux_amd64
-          sudo chmod +x /usr/local/bin/yq
-        fi
+        go install github.com/mikefarah/yq/v4@latest
         make
 
     - name: Push
