@@ -36,6 +36,8 @@ type ClientService interface {
 
 	FromHardware(params *FromHardwareParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FromHardwareOK, error)
 
+	ListSizeReservations(params *ListSizeReservationsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListSizeReservationsOK, error)
+
 	ListSizes(params *ListSizesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListSizesOK, error)
 
 	Suggest(params *SuggestParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SuggestOK, error)
@@ -194,6 +196,44 @@ func (a *Client) FromHardware(params *FromHardwareParams, authInfo runtime.Clien
 	}
 	// unexpected success response
 	unexpectedSuccess := result.(*FromHardwareDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+ListSizeReservations gets all size reservations
+*/
+func (a *Client) ListSizeReservations(params *ListSizeReservationsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListSizeReservationsOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewListSizeReservationsParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "listSizeReservations",
+		Method:             "POST",
+		PathPattern:        "/v1/size/reservations",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &ListSizeReservationsReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*ListSizeReservationsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*ListSizeReservationsDefault)
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
