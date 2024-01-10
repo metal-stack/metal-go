@@ -19,6 +19,9 @@ import (
 // swagger:model v1.PartitionBase
 type V1PartitionBase struct {
 
+	// free labels that you associate with this partition
+	Labels map[string]string `json:"labels,omitempty" yaml:"labels,omitempty"`
+
 	// the address to the management service of this partition
 	Mgmtserviceaddress string `json:"mgmtserviceaddress,omitempty" yaml:"mgmtserviceaddress,omitempty"`
 

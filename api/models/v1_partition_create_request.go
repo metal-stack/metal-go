@@ -30,6 +30,9 @@ type V1PartitionCreateRequest struct {
 	// Required: true
 	ID *string `json:"id" yaml:"id"`
 
+	// free labels that you associate with this partition
+	Labels map[string]string `json:"labels,omitempty" yaml:"labels,omitempty"`
+
 	// the address to the management service of this partition
 	Mgmtserviceaddress string `json:"mgmtserviceaddress,omitempty" yaml:"mgmtserviceaddress,omitempty"`
 

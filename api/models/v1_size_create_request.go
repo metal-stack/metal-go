@@ -31,7 +31,7 @@ type V1SizeCreateRequest struct {
 	// Required: true
 	ID *string `json:"id" yaml:"id"`
 
-	// free labels that you associate with this network.
+	// free labels that you associate with this size.
 	Labels map[string]string `json:"labels,omitempty" yaml:"labels,omitempty"`
 
 	// a readable name for this entity
