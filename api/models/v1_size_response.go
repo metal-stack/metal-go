@@ -41,7 +41,7 @@ type V1SizeResponse struct {
 	// Required: true
 	ID *string `json:"id" yaml:"id"`
 
-	// free labels that you associate with this network.
+	// free labels that you associate with this size.
 	// Required: true
 	Labels map[string]string `json:"labels" yaml:"labels"`
 
