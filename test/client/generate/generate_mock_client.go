@@ -10,9 +10,9 @@ import (
 	"os"
 	"text/template"
 
-	"github.com/Masterminds/sprig/v3"
-
 	_ "embed"
+
+	"github.com/go-task/slim-sprig/v3"
 )
 
 //go:embed mock_client.tpl
