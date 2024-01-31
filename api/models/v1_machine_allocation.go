@@ -21,6 +21,10 @@ import (
 // swagger:model v1.MachineAllocation
 type V1MachineAllocation struct {
 
+	// a unique identifier for this machine allocation, can be used to distinguish between machine allocations over time.
+	// Required: true
+	Allocationuuid *string `json:"allocationuuid" yaml:"allocationuuid"`
+
 	// information required for booting the machine from HD
 	BootInfo *V1BootInfo `json:"boot_info,omitempty" yaml:"boot_info,omitempty"`
 
@@ -87,6 +91,10 @@ type V1MachineAllocation struct {
 func (m *V1MachineAllocation) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateAllocationuuid(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateBootInfo(formats); err != nil {
 		res = append(res, err)
 	}
@@ -146,6 +154,15 @@ func (m *V1MachineAllocation) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *V1MachineAllocation) validateAllocationuuid(formats strfmt.Registry) error {
+
+	if err := validate.Required("allocationuuid", "body", m.Allocationuuid); err != nil {
+		return err
+	}
+
 	return nil
 }
 
