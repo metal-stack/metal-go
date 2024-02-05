@@ -20,24 +20,24 @@ import (
 // swagger:model v1.FirewallRules
 type V1FirewallRules struct {
 
-	// egress rules
+	// egress
 	// Required: true
-	EgressRules []*V1FirewallEgressRule `json:"egress_rules" yaml:"egress_rules"`
+	Egress []*V1FirewallEgressRule `json:"egress" yaml:"egress"`
 
-	// ingress rules
+	// ingress
 	// Required: true
-	IngressRules []*V1FirewallIngressRule `json:"ingress_rules" yaml:"ingress_rules"`
+	Ingress []*V1FirewallIngressRule `json:"ingress" yaml:"ingress"`
 }
 
 // Validate validates this v1 firewall rules
 func (m *V1FirewallRules) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateEgressRules(formats); err != nil {
+	if err := m.validateEgress(formats); err != nil {
 		res = append(res, err)
 	}
 
-	if err := m.validateIngressRules(formats); err != nil {
+	if err := m.validateIngress(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -47,23 +47,23 @@ func (m *V1FirewallRules) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *V1FirewallRules) validateEgressRules(formats strfmt.Registry) error {
+func (m *V1FirewallRules) validateEgress(formats strfmt.Registry) error {
 
-	if err := validate.Required("egress_rules", "body", m.EgressRules); err != nil {
+	if err := validate.Required("egress", "body", m.Egress); err != nil {
 		return err
 	}
 
-	for i := 0; i < len(m.EgressRules); i++ {
-		if swag.IsZero(m.EgressRules[i]) { // not required
+	for i := 0; i < len(m.Egress); i++ {
+		if swag.IsZero(m.Egress[i]) { // not required
 			continue
 		}
 
-		if m.EgressRules[i] != nil {
-			if err := m.EgressRules[i].Validate(formats); err != nil {
+		if m.Egress[i] != nil {
+			if err := m.Egress[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("egress_rules" + "." + strconv.Itoa(i))
+					return ve.ValidateName("egress" + "." + strconv.Itoa(i))
 				} else if ce, ok := err.(*errors.CompositeError); ok {
-					return ce.ValidateName("egress_rules" + "." + strconv.Itoa(i))
+					return ce.ValidateName("egress" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -74,23 +74,23 @@ func (m *V1FirewallRules) validateEgressRules(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *V1FirewallRules) validateIngressRules(formats strfmt.Registry) error {
+func (m *V1FirewallRules) validateIngress(formats strfmt.Registry) error {
 
-	if err := validate.Required("ingress_rules", "body", m.IngressRules); err != nil {
+	if err := validate.Required("ingress", "body", m.Ingress); err != nil {
 		return err
 	}
 
-	for i := 0; i < len(m.IngressRules); i++ {
-		if swag.IsZero(m.IngressRules[i]) { // not required
+	for i := 0; i < len(m.Ingress); i++ {
+		if swag.IsZero(m.Ingress[i]) { // not required
 			continue
 		}
 
-		if m.IngressRules[i] != nil {
-			if err := m.IngressRules[i].Validate(formats); err != nil {
+		if m.Ingress[i] != nil {
+			if err := m.Ingress[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("ingress_rules" + "." + strconv.Itoa(i))
+					return ve.ValidateName("ingress" + "." + strconv.Itoa(i))
 				} else if ce, ok := err.(*errors.CompositeError); ok {
-					return ce.ValidateName("ingress_rules" + "." + strconv.Itoa(i))
+					return ce.ValidateName("ingress" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -105,11 +105,11 @@ func (m *V1FirewallRules) validateIngressRules(formats strfmt.Registry) error {
 func (m *V1FirewallRules) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.contextValidateEgressRules(ctx, formats); err != nil {
+	if err := m.contextValidateEgress(ctx, formats); err != nil {
 		res = append(res, err)
 	}
 
-	if err := m.contextValidateIngressRules(ctx, formats); err != nil {
+	if err := m.contextValidateIngress(ctx, formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -119,21 +119,21 @@ func (m *V1FirewallRules) ContextValidate(ctx context.Context, formats strfmt.Re
 	return nil
 }
 
-func (m *V1FirewallRules) contextValidateEgressRules(ctx context.Context, formats strfmt.Registry) error {
+func (m *V1FirewallRules) contextValidateEgress(ctx context.Context, formats strfmt.Registry) error {
 
-	for i := 0; i < len(m.EgressRules); i++ {
+	for i := 0; i < len(m.Egress); i++ {
 
-		if m.EgressRules[i] != nil {
+		if m.Egress[i] != nil {
 
-			if swag.IsZero(m.EgressRules[i]) { // not required
+			if swag.IsZero(m.Egress[i]) { // not required
 				return nil
 			}
 
-			if err := m.EgressRules[i].ContextValidate(ctx, formats); err != nil {
+			if err := m.Egress[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("egress_rules" + "." + strconv.Itoa(i))
+					return ve.ValidateName("egress" + "." + strconv.Itoa(i))
 				} else if ce, ok := err.(*errors.CompositeError); ok {
-					return ce.ValidateName("egress_rules" + "." + strconv.Itoa(i))
+					return ce.ValidateName("egress" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -144,21 +144,21 @@ func (m *V1FirewallRules) contextValidateEgressRules(ctx context.Context, format
 	return nil
 }
 
-func (m *V1FirewallRules) contextValidateIngressRules(ctx context.Context, formats strfmt.Registry) error {
+func (m *V1FirewallRules) contextValidateIngress(ctx context.Context, formats strfmt.Registry) error {
 
-	for i := 0; i < len(m.IngressRules); i++ {
+	for i := 0; i < len(m.Ingress); i++ {
 
-		if m.IngressRules[i] != nil {
+		if m.Ingress[i] != nil {
 
-			if swag.IsZero(m.IngressRules[i]) { // not required
+			if swag.IsZero(m.Ingress[i]) { // not required
 				return nil
 			}
 
-			if err := m.IngressRules[i].ContextValidate(ctx, formats); err != nil {
+			if err := m.Ingress[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("ingress_rules" + "." + strconv.Itoa(i))
+					return ve.ValidateName("ingress" + "." + strconv.Itoa(i))
 				} else if ce, ok := err.(*errors.CompositeError); ok {
-					return ce.ValidateName("ingress_rules" + "." + strconv.Itoa(i))
+					return ce.ValidateName("ingress" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
