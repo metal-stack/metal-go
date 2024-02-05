@@ -23,11 +23,11 @@ type V1FirewallCreateRequest struct {
 	// a description for this entity
 	Description string `json:"description,omitempty" yaml:"description,omitempty"`
 
+	// list of egress rules to be deployed during firewall allocation
+	Egress []*V1FirewallEgressRule `json:"egress" yaml:"egress"`
+
 	// the filesystemlayout id to assing to this machine
 	Filesystemlayoutid string `json:"filesystemlayoutid,omitempty" yaml:"filesystemlayoutid,omitempty"`
-
-	// if set to true, this firewall is set up in a High Available manner
-	Ha bool `json:"ha,omitempty" yaml:"ha,omitempty"`
 
 	// the hostname for the allocated machine (defaults to metal)
 	Hostname string `json:"hostname,omitempty" yaml:"hostname,omitempty"`
@@ -35,6 +35,9 @@ type V1FirewallCreateRequest struct {
 	// the image id to assign this machine to
 	// Required: true
 	Imageid *string `json:"imageid" yaml:"imageid"`
+
+	// list of ingress rules to be deployed during firewall allocation
+	Ingress []*V1FirewallIngressRule `json:"ingress" yaml:"ingress"`
 
 	// the ips to attach to this machine additionally
 	Ips []string `json:"ips" yaml:"ips"`
@@ -78,7 +81,15 @@ type V1FirewallCreateRequest struct {
 func (m *V1FirewallCreateRequest) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateEgress(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateImageid(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateIngress(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -108,10 +119,62 @@ func (m *V1FirewallCreateRequest) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
+func (m *V1FirewallCreateRequest) validateEgress(formats strfmt.Registry) error {
+	if swag.IsZero(m.Egress) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(m.Egress); i++ {
+		if swag.IsZero(m.Egress[i]) { // not required
+			continue
+		}
+
+		if m.Egress[i] != nil {
+			if err := m.Egress[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("egress" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("egress" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
 func (m *V1FirewallCreateRequest) validateImageid(formats strfmt.Registry) error {
 
 	if err := validate.Required("imageid", "body", m.Imageid); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+func (m *V1FirewallCreateRequest) validateIngress(formats strfmt.Registry) error {
+	if swag.IsZero(m.Ingress) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(m.Ingress); i++ {
+		if swag.IsZero(m.Ingress[i]) { // not required
+			continue
+		}
+
+		if m.Ingress[i] != nil {
+			if err := m.Ingress[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("ingress" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("ingress" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
 	}
 
 	return nil
@@ -183,6 +246,14 @@ func (m *V1FirewallCreateRequest) validateSSHPubKeys(formats strfmt.Registry) er
 func (m *V1FirewallCreateRequest) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.contextValidateEgress(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateIngress(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.contextValidateNetworks(ctx, formats); err != nil {
 		res = append(res, err)
 	}
@@ -190,6 +261,56 @@ func (m *V1FirewallCreateRequest) ContextValidate(ctx context.Context, formats s
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *V1FirewallCreateRequest) contextValidateEgress(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Egress); i++ {
+
+		if m.Egress[i] != nil {
+
+			if swag.IsZero(m.Egress[i]) { // not required
+				return nil
+			}
+
+			if err := m.Egress[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("egress" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("egress" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *V1FirewallCreateRequest) contextValidateIngress(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Ingress); i++ {
+
+		if m.Ingress[i] != nil {
+
+			if swag.IsZero(m.Ingress[i]) { // not required
+				return nil
+			}
+
+			if err := m.Ingress[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("ingress" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("ingress" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
 	return nil
 }
 
