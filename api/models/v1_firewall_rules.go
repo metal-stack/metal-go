@@ -12,7 +12,6 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
-	"github.com/go-openapi/validate"
 )
 
 // V1FirewallRules v1 firewall rules
@@ -20,12 +19,10 @@ import (
 // swagger:model v1.FirewallRules
 type V1FirewallRules struct {
 
-	// egress
-	// Required: true
+	// list of egress rules to be deployed during firewall allocation
 	Egress []*V1FirewallEgressRule `json:"egress" yaml:"egress"`
 
-	// ingress
-	// Required: true
+	// list of ingress rules to be deployed during firewall allocation
 	Ingress []*V1FirewallIngressRule `json:"ingress" yaml:"ingress"`
 }
 
@@ -48,9 +45,8 @@ func (m *V1FirewallRules) Validate(formats strfmt.Registry) error {
 }
 
 func (m *V1FirewallRules) validateEgress(formats strfmt.Registry) error {
-
-	if err := validate.Required("egress", "body", m.Egress); err != nil {
-		return err
+	if swag.IsZero(m.Egress) { // not required
+		return nil
 	}
 
 	for i := 0; i < len(m.Egress); i++ {
@@ -75,9 +71,8 @@ func (m *V1FirewallRules) validateEgress(formats strfmt.Registry) error {
 }
 
 func (m *V1FirewallRules) validateIngress(formats strfmt.Registry) error {
-
-	if err := validate.Required("ingress", "body", m.Ingress); err != nil {
-		return err
+	if swag.IsZero(m.Ingress) { // not required
+		return nil
 	}
 
 	for i := 0; i < len(m.Ingress); i++ {
