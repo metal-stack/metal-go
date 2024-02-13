@@ -34,6 +34,10 @@ type V1FirewallIngressRule struct {
 	// the protocol for the rule, defaults to tcp
 	// Enum: [tcp udp]
 	Protocol string `json:"protocol,omitempty" yaml:"protocol,omitempty"`
+
+	// the cidrs affected by this rule
+	// Required: true
+	ToCidrs []string `json:"to_cidrs" yaml:"to_cidrs"`
 }
 
 // Validate validates this v1 firewall ingress rule
@@ -49,6 +53,10 @@ func (m *V1FirewallIngressRule) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateProtocol(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateToCidrs(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -112,6 +120,15 @@ func (m *V1FirewallIngressRule) validateProtocol(formats strfmt.Registry) error 
 
 	// value enum
 	if err := m.validateProtocolEnum("protocol", "body", m.Protocol); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *V1FirewallIngressRule) validateToCidrs(formats strfmt.Registry) error {
+
+	if err := validate.Required("to_cidrs", "body", m.ToCidrs); err != nil {
 		return err
 	}
 
