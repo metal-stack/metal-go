@@ -33,7 +33,7 @@ type V1FirewallEgressRule struct {
 
 	// the cidrs affected by this rule
 	// Required: true
-	ToCidrs []string `json:"to_cidrs" yaml:"to_cidrs"`
+	To []string `json:"to" yaml:"to"`
 }
 
 // Validate validates this v1 firewall egress rule
@@ -48,7 +48,7 @@ func (m *V1FirewallEgressRule) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validateToCidrs(formats); err != nil {
+	if err := m.validateTo(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -109,9 +109,9 @@ func (m *V1FirewallEgressRule) validateProtocol(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *V1FirewallEgressRule) validateToCidrs(formats strfmt.Registry) error {
+func (m *V1FirewallEgressRule) validateTo(formats strfmt.Registry) error {
 
-	if err := validate.Required("to_cidrs", "body", m.ToCidrs); err != nil {
+	if err := validate.Required("to", "body", m.To); err != nil {
 		return err
 	}
 

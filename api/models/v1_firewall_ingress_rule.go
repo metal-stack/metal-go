@@ -25,7 +25,7 @@ type V1FirewallIngressRule struct {
 
 	// the cidrs affected by this rule
 	// Required: true
-	FromCidrs []string `json:"from_cidrs" yaml:"from_cidrs"`
+	From []string `json:"from" yaml:"from"`
 
 	// the ports affected by this rule
 	// Required: true
@@ -37,14 +37,14 @@ type V1FirewallIngressRule struct {
 
 	// the cidrs affected by this rule
 	// Required: true
-	ToCidrs []string `json:"to_cidrs" yaml:"to_cidrs"`
+	To []string `json:"to" yaml:"to"`
 }
 
 // Validate validates this v1 firewall ingress rule
 func (m *V1FirewallIngressRule) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateFromCidrs(formats); err != nil {
+	if err := m.validateFrom(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -56,7 +56,7 @@ func (m *V1FirewallIngressRule) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validateToCidrs(formats); err != nil {
+	if err := m.validateTo(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -66,9 +66,9 @@ func (m *V1FirewallIngressRule) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *V1FirewallIngressRule) validateFromCidrs(formats strfmt.Registry) error {
+func (m *V1FirewallIngressRule) validateFrom(formats strfmt.Registry) error {
 
-	if err := validate.Required("from_cidrs", "body", m.FromCidrs); err != nil {
+	if err := validate.Required("from", "body", m.From); err != nil {
 		return err
 	}
 
@@ -126,9 +126,9 @@ func (m *V1FirewallIngressRule) validateProtocol(formats strfmt.Registry) error 
 	return nil
 }
 
-func (m *V1FirewallIngressRule) validateToCidrs(formats strfmt.Registry) error {
+func (m *V1FirewallIngressRule) validateTo(formats strfmt.Registry) error {
 
-	if err := validate.Required("to_cidrs", "body", m.ToCidrs); err != nil {
+	if err := validate.Required("to", "body", m.To); err != nil {
 		return err
 	}
 
