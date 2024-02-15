@@ -26,8 +26,8 @@ type V1FirewallCreateRequest struct {
 	// the filesystemlayout id to assing to this machine
 	Filesystemlayoutid string `json:"filesystemlayoutid,omitempty" yaml:"filesystemlayoutid,omitempty"`
 
-	// if set to true, this firewall is set up in a High Available manner
-	Ha bool `json:"ha,omitempty" yaml:"ha,omitempty"`
+	// optional egress and ingress firewall rules to deploy during firewall allocation
+	FirewallRules *V1FirewallRules `json:"firewall_rules,omitempty" yaml:"firewall_rules,omitempty"`
 
 	// the hostname for the allocated machine (defaults to metal)
 	Hostname string `json:"hostname,omitempty" yaml:"hostname,omitempty"`
@@ -78,6 +78,10 @@ type V1FirewallCreateRequest struct {
 func (m *V1FirewallCreateRequest) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateFirewallRules(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateImageid(formats); err != nil {
 		res = append(res, err)
 	}
@@ -105,6 +109,25 @@ func (m *V1FirewallCreateRequest) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *V1FirewallCreateRequest) validateFirewallRules(formats strfmt.Registry) error {
+	if swag.IsZero(m.FirewallRules) { // not required
+		return nil
+	}
+
+	if m.FirewallRules != nil {
+		if err := m.FirewallRules.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("firewall_rules")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("firewall_rules")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 
@@ -183,6 +206,10 @@ func (m *V1FirewallCreateRequest) validateSSHPubKeys(formats strfmt.Registry) er
 func (m *V1FirewallCreateRequest) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.contextValidateFirewallRules(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.contextValidateNetworks(ctx, formats); err != nil {
 		res = append(res, err)
 	}
@@ -190,6 +217,27 @@ func (m *V1FirewallCreateRequest) ContextValidate(ctx context.Context, formats s
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *V1FirewallCreateRequest) contextValidateFirewallRules(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.FirewallRules != nil {
+
+		if swag.IsZero(m.FirewallRules) { // not required
+			return nil
+		}
+
+		if err := m.FirewallRules.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("firewall_rules")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("firewall_rules")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 
