@@ -43,6 +43,10 @@ type V1MachineAllocation struct {
 	// filesystemlayout to create on this machine
 	Filesystemlayout *V1FilesystemLayoutResponse `json:"filesystemlayout,omitempty" yaml:"filesystemlayout,omitempty"`
 
+	// a set of firewall rules to apply
+	// Required: true
+	FirewallRules *V1FirewallRules `json:"firewall_rules" yaml:"firewall_rules"`
+
 	// the hostname which will be used when creating the machine
 	// Required: true
 	Hostname *string `json:"hostname" yaml:"hostname"`
@@ -108,6 +112,10 @@ func (m *V1MachineAllocation) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateFilesystemlayout(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateFirewallRules(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -218,6 +226,26 @@ func (m *V1MachineAllocation) validateFilesystemlayout(formats strfmt.Registry) 
 				return ve.ValidateName("filesystemlayout")
 			} else if ce, ok := err.(*errors.CompositeError); ok {
 				return ce.ValidateName("filesystemlayout")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *V1MachineAllocation) validateFirewallRules(formats strfmt.Registry) error {
+
+	if err := validate.Required("firewall_rules", "body", m.FirewallRules); err != nil {
+		return err
+	}
+
+	if m.FirewallRules != nil {
+		if err := m.FirewallRules.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("firewall_rules")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("firewall_rules")
 			}
 			return err
 		}
@@ -400,6 +428,10 @@ func (m *V1MachineAllocation) ContextValidate(ctx context.Context, formats strfm
 		res = append(res, err)
 	}
 
+	if err := m.contextValidateFirewallRules(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.contextValidateImage(ctx, formats); err != nil {
 		res = append(res, err)
 	}
@@ -452,6 +484,23 @@ func (m *V1MachineAllocation) contextValidateFilesystemlayout(ctx context.Contex
 				return ve.ValidateName("filesystemlayout")
 			} else if ce, ok := err.(*errors.CompositeError); ok {
 				return ce.ValidateName("filesystemlayout")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *V1MachineAllocation) contextValidateFirewallRules(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.FirewallRules != nil {
+
+		if err := m.FirewallRules.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("firewall_rules")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("firewall_rules")
 			}
 			return err
 		}

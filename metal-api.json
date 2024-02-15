@@ -623,8 +623,7 @@
         },
         "id": {
           "description": "the unique ID of this entity",
-          "type": "string",
-          "uniqueItems": true
+          "type": "string"
         },
         "name": {
           "description": "a readable name for this entity",
@@ -829,8 +828,7 @@
         },
         "id": {
           "description": "the unique ID of this entity",
-          "type": "string",
-          "uniqueItems": true
+          "type": "string"
         },
         "logicalvolumes": {
           "description": "list of logicalvolumes to create",
@@ -905,8 +903,7 @@
         },
         "id": {
           "description": "the unique ID of this entity",
-          "type": "string",
-          "uniqueItems": true
+          "type": "string"
         },
         "logicalvolumes": {
           "description": "list of logicalvolumes to create",
@@ -981,8 +978,7 @@
         },
         "id": {
           "description": "the unique ID of this entity",
-          "type": "string",
-          "uniqueItems": true
+          "type": "string"
         },
         "logicalvolumes": {
           "description": "list of logicalvolumes to create",
@@ -1015,6 +1011,14 @@
         "id"
       ]
     },
+    "v1.FirewallAllocateRequest": {
+      "properties": {
+        "firewall_rules": {
+          "$ref": "#/definitions/v1.FirewallRules",
+          "description": "optional egress and ingress firewall rules to deploy during firewall allocation"
+        }
+      }
+    },
     "v1.FirewallCreateRequest": {
       "properties": {
         "description": {
@@ -1025,9 +1029,9 @@
           "description": "the filesystemlayout id to assing to this machine",
           "type": "string"
         },
-        "ha": {
-          "description": "if set to true, this firewall is set up in a High Available manner",
-          "type": "boolean"
+        "firewall_rules": {
+          "$ref": "#/definitions/v1.FirewallRules",
+          "description": "optional egress and ingress firewall rules to deploy during firewall allocation"
         },
         "hostname": {
           "description": "the hostname for the allocated machine (defaults to metal)",
@@ -1103,6 +1107,41 @@
         "projectid",
         "sizeid",
         "ssh_pub_keys"
+      ]
+    },
+    "v1.FirewallEgressRule": {
+      "properties": {
+        "comment": {
+          "description": "an optional comment describing what this rule is used for",
+          "type": "string"
+        },
+        "ports": {
+          "description": "the ports affected by this rule",
+          "items": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "type": "array"
+        },
+        "protocol": {
+          "description": "the protocol for the rule, defaults to tcp",
+          "enum": [
+            "tcp",
+            "udp"
+          ],
+          "type": "string"
+        },
+        "to": {
+          "description": "the cidrs affected by this rule",
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "ports",
+        "to"
       ]
     },
     "v1.FirewallFindRequest": {
@@ -1287,6 +1326,49 @@
         }
       }
     },
+    "v1.FirewallIngressRule": {
+      "properties": {
+        "comment": {
+          "description": "an optional comment describing what this rule is used for",
+          "type": "string"
+        },
+        "from": {
+          "description": "the cidrs affected by this rule",
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "ports": {
+          "description": "the ports affected by this rule",
+          "items": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "type": "array"
+        },
+        "protocol": {
+          "description": "the protocol for the rule, defaults to tcp",
+          "enum": [
+            "tcp",
+            "udp"
+          ],
+          "type": "string"
+        },
+        "to": {
+          "description": "the cidrs affected by this rule",
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "from",
+        "ports",
+        "to"
+      ]
+    },
     "v1.FirewallResponse": {
       "properties": {
         "allocation": {
@@ -1323,8 +1405,7 @@
         },
         "id": {
           "description": "the unique ID of this entity",
-          "type": "string",
-          "uniqueItems": true
+          "type": "string"
         },
         "ledstate": {
           "$ref": "#/definitions/v1.ChassisIdentifyLEDState",
@@ -1375,6 +1456,24 @@
         "state",
         "tags"
       ]
+    },
+    "v1.FirewallRules": {
+      "properties": {
+        "egress": {
+          "description": "list of egress rules to be deployed during firewall allocation",
+          "items": {
+            "$ref": "#/definitions/v1.FirewallEgressRule"
+          },
+          "type": "array"
+        },
+        "ingress": {
+          "description": "list of ingress rules to be deployed during firewall allocation",
+          "items": {
+            "$ref": "#/definitions/v1.FirewallIngressRule"
+          },
+          "type": "array"
+        }
+      }
     },
     "v1.FirmwaresResponse": {
       "properties": {
@@ -1437,7 +1536,6 @@
           "type": "array"
         },
         "type": {
-          "default": "static",
           "description": "the ip type, ephemeral leads to automatic cleanup of the ip address, static will enable re-use of the ip at a later point in time",
           "enum": [
             "ephemeral",
@@ -1470,7 +1568,6 @@
           "type": "array"
         },
         "type": {
-          "default": "static",
           "description": "the ip type, ephemeral leads to automatic cleanup of the ip address, static will enable re-use of the ip at a later point in time",
           "enum": [
             "ephemeral",
@@ -1537,8 +1634,7 @@
         },
         "ipaddress": {
           "description": "the address (ipv4 or ipv6) of this ip",
-          "type": "string",
-          "uniqueItems": true
+          "type": "string"
         }
       },
       "required": [
@@ -1570,8 +1666,7 @@
         },
         "ipaddress": {
           "description": "the address (ipv4 or ipv6) of this ip",
-          "type": "string",
-          "uniqueItems": true
+          "type": "string"
         },
         "name": {
           "description": "a readable name for this entity",
@@ -1593,7 +1688,6 @@
           "type": "array"
         },
         "type": {
-          "default": "static",
           "description": "the ip type, ephemeral leads to automatic cleanup of the ip address, static will enable re-use of the ip at a later point in time",
           "enum": [
             "ephemeral",
@@ -1619,8 +1713,7 @@
         },
         "ipaddress": {
           "description": "the address (ipv4 or ipv6) of this ip",
-          "type": "string",
-          "uniqueItems": true
+          "type": "string"
         },
         "name": {
           "description": "a readable name for this entity",
@@ -1651,8 +1744,7 @@
       "properties": {
         "id": {
           "description": "the unique ID of this entity",
-          "type": "string",
-          "uniqueItems": true
+          "type": "string"
         }
       },
       "required": [
@@ -1718,8 +1810,7 @@
         },
         "id": {
           "description": "the unique ID of this entity",
-          "type": "string",
-          "uniqueItems": true
+          "type": "string"
         },
         "name": {
           "description": "a readable name for this entity",
@@ -1801,8 +1892,7 @@
         },
         "id": {
           "description": "the unique ID of this entity",
-          "type": "string",
-          "uniqueItems": true
+          "type": "string"
         },
         "name": {
           "description": "a readable name for this entity",
@@ -1849,8 +1939,7 @@
         },
         "id": {
           "description": "the unique ID of this entity",
-          "type": "string",
-          "uniqueItems": true
+          "type": "string"
         },
         "name": {
           "description": "a readable name for this entity",
@@ -2023,6 +2112,10 @@
           "$ref": "#/definitions/v1.FilesystemLayoutResponse",
           "description": "filesystemlayout to create on this machine"
         },
+        "firewall_rules": {
+          "$ref": "#/definitions/v1.FirewallRules",
+          "description": "a set of firewall rules to apply"
+        },
         "hostname": {
           "description": "the hostname which will be used when creating the machine",
           "type": "string"
@@ -2083,6 +2176,7 @@
         "allocationuuid",
         "created",
         "creator",
+        "firewall_rules",
         "hostname",
         "name",
         "networks",
@@ -2240,8 +2334,7 @@
         },
         "id": {
           "description": "the unique ID of this entity",
-          "type": "string",
-          "uniqueItems": true
+          "type": "string"
         },
         "name": {
           "description": "a readable name for this entity",
@@ -2616,8 +2709,7 @@
         },
         "id": {
           "description": "the unique ID of this entity",
-          "type": "string",
-          "uniqueItems": true
+          "type": "string"
         },
         "ipmi": {
           "$ref": "#/definitions/v1.MachineIPMI",
@@ -3165,8 +3257,7 @@
         },
         "id": {
           "description": "the unique ID of this entity",
-          "type": "string",
-          "uniqueItems": true
+          "type": "string"
         },
         "imageid": {
           "description": "the image id to be installed",
@@ -3218,8 +3309,7 @@
         },
         "id": {
           "description": "the unique ID of this entity",
-          "type": "string",
-          "uniqueItems": true
+          "type": "string"
         },
         "ledstate": {
           "$ref": "#/definitions/v1.ChassisIdentifyLEDState",
@@ -3334,8 +3424,7 @@
         },
         "id": {
           "description": "the unique ID of this entity",
-          "type": "string",
-          "uniqueItems": true
+          "type": "string"
         },
         "ssh_pub_keys": {
           "description": "the public ssh keys to access the machine with",
@@ -3495,8 +3584,7 @@
         },
         "id": {
           "description": "the unique ID of this entity, auto-generated if left empty",
-          "type": "string",
-          "uniqueItems": true
+          "type": "string"
         },
         "labels": {
           "additionalProperties": {
@@ -3691,8 +3779,7 @@
         },
         "id": {
           "description": "the unique ID of this entity",
-          "type": "string",
-          "uniqueItems": true
+          "type": "string"
         },
         "labels": {
           "additionalProperties": {
@@ -3779,8 +3866,7 @@
         },
         "id": {
           "description": "the unique ID of this entity",
-          "type": "string",
-          "uniqueItems": true
+          "type": "string"
         },
         "labels": {
           "additionalProperties": {
@@ -3898,8 +3984,7 @@
         },
         "id": {
           "description": "the unique ID of this entity",
-          "type": "string",
-          "uniqueItems": true
+          "type": "string"
         },
         "name": {
           "description": "a readable name for this entity",
@@ -3942,8 +4027,7 @@
         },
         "id": {
           "description": "the unique ID of this entity",
-          "type": "string",
-          "uniqueItems": true
+          "type": "string"
         },
         "labels": {
           "additionalProperties": {
@@ -3997,8 +4081,7 @@
         },
         "id": {
           "description": "the unique ID of this entity",
-          "type": "string",
-          "uniqueItems": true
+          "type": "string"
         },
         "labels": {
           "additionalProperties": {
@@ -4040,8 +4123,7 @@
         },
         "id": {
           "description": "the unique ID of this entity",
-          "type": "string",
-          "uniqueItems": true
+          "type": "string"
         },
         "labels": {
           "additionalProperties": {
@@ -4379,8 +4461,7 @@
         },
         "id": {
           "description": "the unique ID of this entity",
-          "type": "string",
-          "uniqueItems": true
+          "type": "string"
         },
         "labels": {
           "additionalProperties": {
@@ -4432,8 +4513,7 @@
         },
         "id": {
           "description": "the unique ID of this entity",
-          "type": "string",
-          "uniqueItems": true
+          "type": "string"
         },
         "name": {
           "description": "a readable name for this entity",
@@ -4456,8 +4536,7 @@
         },
         "id": {
           "description": "the unique ID of this entity",
-          "type": "string",
-          "uniqueItems": true
+          "type": "string"
         },
         "name": {
           "description": "a readable name for this entity",
@@ -4495,8 +4574,7 @@
         },
         "id": {
           "description": "the unique ID of this entity",
-          "type": "string",
-          "uniqueItems": true
+          "type": "string"
         },
         "name": {
           "description": "a readable name for this entity",
@@ -4637,8 +4715,7 @@
         },
         "id": {
           "description": "the unique ID of this entity",
-          "type": "string",
-          "uniqueItems": true
+          "type": "string"
         },
         "labels": {
           "additionalProperties": {
@@ -4691,8 +4768,7 @@
         },
         "id": {
           "description": "the unique ID of this entity",
-          "type": "string",
-          "uniqueItems": true
+          "type": "string"
         },
         "labels": {
           "additionalProperties": {
@@ -4839,8 +4915,7 @@
         },
         "id": {
           "description": "the unique ID of this entity",
-          "type": "string",
-          "uniqueItems": true
+          "type": "string"
         },
         "last_sync": {
           "$ref": "#/definitions/v1.SwitchSync",
@@ -4887,8 +4962,7 @@
         },
         "id": {
           "description": "the unique ID of this entity",
-          "type": "string",
-          "uniqueItems": true
+          "type": "string"
         },
         "management_ip": {
           "description": "the ip address of the management interface of the switch",
@@ -4964,8 +5038,7 @@
         },
         "id": {
           "description": "the unique ID of this entity",
-          "type": "string",
-          "uniqueItems": true
+          "type": "string"
         },
         "last_sync": {
           "$ref": "#/definitions/v1.SwitchSync",
@@ -5053,8 +5126,7 @@
         },
         "id": {
           "description": "the unique ID of this entity",
-          "type": "string",
-          "uniqueItems": true
+          "type": "string"
         },
         "management_ip": {
           "description": "the ip address of the management interface of the switch",
@@ -5329,7 +5401,7 @@
       "url": "https://www.gnu.org/licenses/agpl-3.0.de.html"
     },
     "title": "metal-api",
-    "version": "v0.26.3"
+    "version": "v0.27.0"
   },
   "paths": {
     "/v1/audit/find": {
