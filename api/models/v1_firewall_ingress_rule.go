@@ -36,7 +36,6 @@ type V1FirewallIngressRule struct {
 	Protocol string `json:"protocol,omitempty" yaml:"protocol,omitempty"`
 
 	// the cidrs affected by this rule
-	// Required: true
 	To []string `json:"to" yaml:"to"`
 }
 
@@ -53,10 +52,6 @@ func (m *V1FirewallIngressRule) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateProtocol(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateTo(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -120,15 +115,6 @@ func (m *V1FirewallIngressRule) validateProtocol(formats strfmt.Registry) error 
 
 	// value enum
 	if err := m.validateProtocolEnum("protocol", "body", m.Protocol); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *V1FirewallIngressRule) validateTo(formats strfmt.Registry) error {
-
-	if err := validate.Required("to", "body", m.To); err != nil {
 		return err
 	}
 
