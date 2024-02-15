@@ -44,8 +44,7 @@ type V1MachineAllocation struct {
 	Filesystemlayout *V1FilesystemLayoutResponse `json:"filesystemlayout,omitempty" yaml:"filesystemlayout,omitempty"`
 
 	// a set of firewall rules to apply
-	// Required: true
-	FirewallRules *V1FirewallRules `json:"firewall_rules" yaml:"firewall_rules"`
+	FirewallRules *V1FirewallRules `json:"firewall_rules,omitempty" yaml:"firewall_rules,omitempty"`
 
 	// the hostname which will be used when creating the machine
 	// Required: true
@@ -235,9 +234,8 @@ func (m *V1MachineAllocation) validateFilesystemlayout(formats strfmt.Registry) 
 }
 
 func (m *V1MachineAllocation) validateFirewallRules(formats strfmt.Registry) error {
-
-	if err := validate.Required("firewall_rules", "body", m.FirewallRules); err != nil {
-		return err
+	if swag.IsZero(m.FirewallRules) { // not required
+		return nil
 	}
 
 	if m.FirewallRules != nil {
@@ -495,6 +493,10 @@ func (m *V1MachineAllocation) contextValidateFilesystemlayout(ctx context.Contex
 func (m *V1MachineAllocation) contextValidateFirewallRules(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.FirewallRules != nil {
+
+		if swag.IsZero(m.FirewallRules) { // not required
+			return nil
+		}
 
 		if err := m.FirewallRules.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
