@@ -23,6 +23,10 @@ type V1SwitchNotifyRequest struct {
 	// Required: true
 	Error *string `json:"error" yaml:"error"`
 
+	// the current switch port states
+	// Required: true
+	PortStates map[string]string `json:"port_states" yaml:"port_states"`
+
 	// the duration of the switch synchronization
 	// Required: true
 	SyncDuration *int64 `json:"sync_duration" yaml:"sync_duration"`
@@ -33,6 +37,10 @@ func (m *V1SwitchNotifyRequest) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateError(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validatePortStates(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -49,6 +57,15 @@ func (m *V1SwitchNotifyRequest) Validate(formats strfmt.Registry) error {
 func (m *V1SwitchNotifyRequest) validateError(formats strfmt.Registry) error {
 
 	if err := validate.Required("error", "body", m.Error); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *V1SwitchNotifyRequest) validatePortStates(formats strfmt.Registry) error {
+
+	if err := validate.Required("port_states", "body", m.PortStates); err != nil {
 		return err
 	}
 
