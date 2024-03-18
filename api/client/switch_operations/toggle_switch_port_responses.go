@@ -30,12 +30,6 @@ func (o *ToggleSwitchPortReader) ReadResponse(response runtime.ClientResponse, c
 			return nil, err
 		}
 		return result, nil
-	case 304:
-		result := NewToggleSwitchPortNotModified()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	case 409:
 		result := NewToggleSwitchPortConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -118,62 +112,6 @@ func (o *ToggleSwitchPortOK) readResponse(response runtime.ClientResponse, consu
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
-
-	return nil
-}
-
-// NewToggleSwitchPortNotModified creates a ToggleSwitchPortNotModified with default headers values
-func NewToggleSwitchPortNotModified() *ToggleSwitchPortNotModified {
-	return &ToggleSwitchPortNotModified{}
-}
-
-/*
-ToggleSwitchPortNotModified describes a response with status code 304, with default header values.
-
-Not modified
-*/
-type ToggleSwitchPortNotModified struct {
-}
-
-// IsSuccess returns true when this toggle switch port not modified response has a 2xx status code
-func (o *ToggleSwitchPortNotModified) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this toggle switch port not modified response has a 3xx status code
-func (o *ToggleSwitchPortNotModified) IsRedirect() bool {
-	return true
-}
-
-// IsClientError returns true when this toggle switch port not modified response has a 4xx status code
-func (o *ToggleSwitchPortNotModified) IsClientError() bool {
-	return false
-}
-
-// IsServerError returns true when this toggle switch port not modified response has a 5xx status code
-func (o *ToggleSwitchPortNotModified) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this toggle switch port not modified response a status code equal to that given
-func (o *ToggleSwitchPortNotModified) IsCode(code int) bool {
-	return code == 304
-}
-
-// Code gets the status code for the toggle switch port not modified response
-func (o *ToggleSwitchPortNotModified) Code() int {
-	return 304
-}
-
-func (o *ToggleSwitchPortNotModified) Error() string {
-	return fmt.Sprintf("[POST /v1/switch/{id}/port][%d] toggleSwitchPortNotModified ", 304)
-}
-
-func (o *ToggleSwitchPortNotModified) String() string {
-	return fmt.Sprintf("[POST /v1/switch/{id}/port][%d] toggleSwitchPortNotModified ", 304)
-}
-
-func (o *ToggleSwitchPortNotModified) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
