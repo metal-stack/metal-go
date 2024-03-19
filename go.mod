@@ -1,6 +1,6 @@
 module github.com/metal-stack/metal-go
 
-go 1.21
+go 1.22
 
 require (
 	github.com/emicklei/go-restful/v3 v3.11.2
