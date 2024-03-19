@@ -21,8 +21,7 @@ import (
 type V1SizeConstraint struct {
 
 	// the count of different gpus
-	// Required: true
-	Gpus map[string]int64 `json:"gpus" yaml:"gpus"`
+	Gpus map[string]int64 `json:"gpus,omitempty" yaml:"gpus,omitempty"`
 
 	// the maximum value of the constraint
 	// Required: true
@@ -42,10 +41,6 @@ type V1SizeConstraint struct {
 func (m *V1SizeConstraint) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateGpus(formats); err != nil {
-		res = append(res, err)
-	}
-
 	if err := m.validateMax(formats); err != nil {
 		res = append(res, err)
 	}
@@ -61,15 +56,6 @@ func (m *V1SizeConstraint) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
-	return nil
-}
-
-func (m *V1SizeConstraint) validateGpus(formats strfmt.Registry) error {
-
-	if err := validate.Required("gpus", "body", m.Gpus); err != nil {
-		return err
-	}
-
 	return nil
 }
 
