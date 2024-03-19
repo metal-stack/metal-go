@@ -24,12 +24,10 @@ type V1SizeConstraint struct {
 	Gpus map[string]int64 `json:"gpus,omitempty" yaml:"gpus,omitempty"`
 
 	// the maximum value of the constraint
-	// Required: true
-	Max *int64 `json:"max" yaml:"max"`
+	Max int64 `json:"max,omitempty" yaml:"max,omitempty"`
 
 	// the minimum value of the constraint
-	// Required: true
-	Min *int64 `json:"min" yaml:"min"`
+	Min int64 `json:"min,omitempty" yaml:"min,omitempty"`
 
 	// the type of the constraint
 	// Required: true
@@ -41,14 +39,6 @@ type V1SizeConstraint struct {
 func (m *V1SizeConstraint) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateMax(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateMin(formats); err != nil {
-		res = append(res, err)
-	}
-
 	if err := m.validateType(formats); err != nil {
 		res = append(res, err)
 	}
@@ -56,24 +46,6 @@ func (m *V1SizeConstraint) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
-	return nil
-}
-
-func (m *V1SizeConstraint) validateMax(formats strfmt.Registry) error {
-
-	if err := validate.Required("max", "body", m.Max); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *V1SizeConstraint) validateMin(formats strfmt.Registry) error {
-
-	if err := validate.Required("min", "body", m.Min); err != nil {
-		return err
-	}
-
 	return nil
 }
 
