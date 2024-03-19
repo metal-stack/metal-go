@@ -30,7 +30,7 @@ type V1SizeConstraint struct {
 
 	// the type of the constraint
 	// Required: true
-	// Enum: [cores memory storage]
+	// Enum: [cores gpu memory storage]
 	Type *string `json:"type" yaml:"type"`
 }
 
@@ -78,7 +78,7 @@ var v1SizeConstraintTypeTypePropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["cores","memory","storage"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["cores","gpu","memory","storage"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -90,6 +90,9 @@ const (
 
 	// V1SizeConstraintTypeCores captures enum value "cores"
 	V1SizeConstraintTypeCores string = "cores"
+
+	// V1SizeConstraintTypeGpu captures enum value "gpu"
+	V1SizeConstraintTypeGpu string = "gpu"
 
 	// V1SizeConstraintTypeMemory captures enum value "memory"
 	V1SizeConstraintTypeMemory string = "memory"
