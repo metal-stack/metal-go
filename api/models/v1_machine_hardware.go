@@ -24,9 +24,17 @@ type V1MachineHardware struct {
 	// Required: true
 	CPUCores *int32 `json:"cpu_cores" yaml:"cpu_cores"`
 
+	// the cpu details
+	// Required: true
+	Cpus []*V1MetalCPU `json:"cpus" yaml:"cpus"`
+
 	// the list of block devices of this machine
 	// Required: true
 	Disks []*V1MachineBlockDevice `json:"disks" yaml:"disks"`
+
+	// the gpu details
+	// Required: true
+	Gpus []*V1MetalGPU `json:"gpus" yaml:"gpus"`
 
 	// the total memory of the machine
 	// Required: true
@@ -45,7 +53,15 @@ func (m *V1MachineHardware) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateCpus(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateDisks(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateGpus(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -72,6 +88,33 @@ func (m *V1MachineHardware) validateCPUCores(formats strfmt.Registry) error {
 	return nil
 }
 
+func (m *V1MachineHardware) validateCpus(formats strfmt.Registry) error {
+
+	if err := validate.Required("cpus", "body", m.Cpus); err != nil {
+		return err
+	}
+
+	for i := 0; i < len(m.Cpus); i++ {
+		if swag.IsZero(m.Cpus[i]) { // not required
+			continue
+		}
+
+		if m.Cpus[i] != nil {
+			if err := m.Cpus[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("cpus" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("cpus" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
 func (m *V1MachineHardware) validateDisks(formats strfmt.Registry) error {
 
 	if err := validate.Required("disks", "body", m.Disks); err != nil {
@@ -89,6 +132,33 @@ func (m *V1MachineHardware) validateDisks(formats strfmt.Registry) error {
 					return ve.ValidateName("disks" + "." + strconv.Itoa(i))
 				} else if ce, ok := err.(*errors.CompositeError); ok {
 					return ce.ValidateName("disks" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *V1MachineHardware) validateGpus(formats strfmt.Registry) error {
+
+	if err := validate.Required("gpus", "body", m.Gpus); err != nil {
+		return err
+	}
+
+	for i := 0; i < len(m.Gpus); i++ {
+		if swag.IsZero(m.Gpus[i]) { // not required
+			continue
+		}
+
+		if m.Gpus[i] != nil {
+			if err := m.Gpus[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("gpus" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("gpus" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -139,7 +209,15 @@ func (m *V1MachineHardware) validateNics(formats strfmt.Registry) error {
 func (m *V1MachineHardware) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.contextValidateCpus(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.contextValidateDisks(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateGpus(ctx, formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -150,6 +228,31 @@ func (m *V1MachineHardware) ContextValidate(ctx context.Context, formats strfmt.
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *V1MachineHardware) contextValidateCpus(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Cpus); i++ {
+
+		if m.Cpus[i] != nil {
+
+			if swag.IsZero(m.Cpus[i]) { // not required
+				return nil
+			}
+
+			if err := m.Cpus[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("cpus" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("cpus" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
 	return nil
 }
 
@@ -168,6 +271,31 @@ func (m *V1MachineHardware) contextValidateDisks(ctx context.Context, formats st
 					return ve.ValidateName("disks" + "." + strconv.Itoa(i))
 				} else if ce, ok := err.(*errors.CompositeError); ok {
 					return ce.ValidateName("disks" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *V1MachineHardware) contextValidateGpus(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Gpus); i++ {
+
+		if m.Gpus[i] != nil {
+
+			if swag.IsZero(m.Gpus[i]) { // not required
+				return nil
+			}
+
+			if err := m.Gpus[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("gpus" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("gpus" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
