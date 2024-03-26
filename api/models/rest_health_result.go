@@ -23,6 +23,10 @@ type RestHealthResult struct {
 	// Required: true
 	Message *string `json:"message" yaml:"message"`
 
+	// services
+	// Required: true
+	Services map[string]RestHealthResult `json:"services" yaml:"services"`
+
 	// status
 	// Required: true
 	Status *string `json:"status" yaml:"status"`
@@ -33,6 +37,10 @@ func (m *RestHealthResult) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateMessage(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateServices(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -55,6 +63,33 @@ func (m *RestHealthResult) validateMessage(formats strfmt.Registry) error {
 	return nil
 }
 
+func (m *RestHealthResult) validateServices(formats strfmt.Registry) error {
+
+	if err := validate.Required("services", "body", m.Services); err != nil {
+		return err
+	}
+
+	for k := range m.Services {
+
+		if err := validate.Required("services"+"."+k, "body", m.Services[k]); err != nil {
+			return err
+		}
+		if val, ok := m.Services[k]; ok {
+			if err := val.Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("services" + "." + k)
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("services" + "." + k)
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
 func (m *RestHealthResult) validateStatus(formats strfmt.Registry) error {
 
 	if err := validate.Required("status", "body", m.Status); err != nil {
@@ -64,8 +99,36 @@ func (m *RestHealthResult) validateStatus(formats strfmt.Registry) error {
 	return nil
 }
 
-// ContextValidate validates this rest health result based on context it is used
+// ContextValidate validate this rest health result based on the context it is used
 func (m *RestHealthResult) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateServices(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *RestHealthResult) contextValidateServices(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := validate.Required("services", "body", m.Services); err != nil {
+		return err
+	}
+
+	for k := range m.Services {
+
+		if val, ok := m.Services[k]; ok {
+			if err := val.ContextValidate(ctx, formats); err != nil {
+				return err
+			}
+		}
+
+	}
+
 	return nil
 }
 
