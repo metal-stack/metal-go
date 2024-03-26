@@ -20,8 +20,8 @@ import (
 // swagger:model v1.SizeConstraint
 type V1SizeConstraint struct {
 
-	// the count of different gpus
-	Gpus map[string]int64 `json:"gpus,omitempty" yaml:"gpus,omitempty"`
+	// glob pattern which matches to the given type, for example gpu pci id
+	Identifier string `json:"identifier,omitempty" yaml:"identifier,omitempty"`
 
 	// the maximum value of the constraint
 	Max int64 `json:"max,omitempty" yaml:"max,omitempty"`
