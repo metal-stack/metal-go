@@ -20,31 +20,24 @@ import (
 // swagger:model v1.SizeConstraint
 type V1SizeConstraint struct {
 
+	// glob pattern which matches to the given type, for example gpu pci id
+	Identifier string `json:"identifier,omitempty" yaml:"identifier,omitempty"`
+
 	// the maximum value of the constraint
-	// Required: true
-	Max *int64 `json:"max" yaml:"max"`
+	Max int64 `json:"max,omitempty" yaml:"max,omitempty"`
 
 	// the minimum value of the constraint
-	// Required: true
-	Min *int64 `json:"min" yaml:"min"`
+	Min int64 `json:"min,omitempty" yaml:"min,omitempty"`
 
 	// the type of the constraint
 	// Required: true
-	// Enum: [cores memory storage]
+	// Enum: [cores gpu memory storage]
 	Type *string `json:"type" yaml:"type"`
 }
 
 // Validate validates this v1 size constraint
 func (m *V1SizeConstraint) Validate(formats strfmt.Registry) error {
 	var res []error
-
-	if err := m.validateMax(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateMin(formats); err != nil {
-		res = append(res, err)
-	}
 
 	if err := m.validateType(formats); err != nil {
 		res = append(res, err)
@@ -56,29 +49,11 @@ func (m *V1SizeConstraint) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *V1SizeConstraint) validateMax(formats strfmt.Registry) error {
-
-	if err := validate.Required("max", "body", m.Max); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *V1SizeConstraint) validateMin(formats strfmt.Registry) error {
-
-	if err := validate.Required("min", "body", m.Min); err != nil {
-		return err
-	}
-
-	return nil
-}
-
 var v1SizeConstraintTypeTypePropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["cores","memory","storage"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["cores","gpu","memory","storage"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -90,6 +65,9 @@ const (
 
 	// V1SizeConstraintTypeCores captures enum value "cores"
 	V1SizeConstraintTypeCores string = "cores"
+
+	// V1SizeConstraintTypeGpu captures enum value "gpu"
+	V1SizeConstraintTypeGpu string = "gpu"
 
 	// V1SizeConstraintTypeMemory captures enum value "memory"
 	V1SizeConstraintTypeMemory string = "memory"
