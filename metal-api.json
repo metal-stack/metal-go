@@ -5517,7 +5517,7 @@
       "url": "https://www.gnu.org/licenses/agpl-3.0.de.html"
     },
     "title": "metal-api",
-    "version": "v0.28.1"
+    "version": "v0.28.5"
   },
   "paths": {
     "/v1/audit/find": {
