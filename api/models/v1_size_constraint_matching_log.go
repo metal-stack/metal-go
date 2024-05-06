@@ -23,7 +23,7 @@ type V1SizeConstraintMatchingLog struct {
 	// Required: true
 	Constraint *V1SizeConstraint `json:"constraint" yaml:"constraint"`
 
-	// a string represention of the matching condition
+	// a string representation of the matching condition
 	// Required: true
 	Log *string `json:"log" yaml:"log"`
 

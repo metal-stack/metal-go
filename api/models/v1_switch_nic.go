@@ -7,6 +7,7 @@ package models
 
 import (
 	"context"
+	"encoding/json"
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
@@ -18,6 +19,11 @@ import (
 //
 // swagger:model v1.SwitchNic
 type V1SwitchNic struct {
+
+	// the current state of the nic
+	// Required: true
+	// Enum: [DOWN UNKNOWN UP]
+	Actual *string `json:"actual" yaml:"actual"`
 
 	// configures the bgp filter applied at the switch port
 	Filter *V1BGPFilter `json:"filter,omitempty" yaml:"filter,omitempty"`
@@ -42,6 +48,10 @@ type V1SwitchNic struct {
 func (m *V1SwitchNic) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateActual(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateFilter(formats); err != nil {
 		res = append(res, err)
 	}
@@ -61,6 +71,52 @@ func (m *V1SwitchNic) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+var v1SwitchNicTypeActualPropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["DOWN","UNKNOWN","UP"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		v1SwitchNicTypeActualPropEnum = append(v1SwitchNicTypeActualPropEnum, v)
+	}
+}
+
+const (
+
+	// V1SwitchNicActualDOWN captures enum value "DOWN"
+	V1SwitchNicActualDOWN string = "DOWN"
+
+	// V1SwitchNicActualUNKNOWN captures enum value "UNKNOWN"
+	V1SwitchNicActualUNKNOWN string = "UNKNOWN"
+
+	// V1SwitchNicActualUP captures enum value "UP"
+	V1SwitchNicActualUP string = "UP"
+)
+
+// prop value enum
+func (m *V1SwitchNic) validateActualEnum(path, location string, value string) error {
+	if err := validate.EnumCase(path, location, value, v1SwitchNicTypeActualPropEnum, true); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *V1SwitchNic) validateActual(formats strfmt.Registry) error {
+
+	if err := validate.Required("actual", "body", m.Actual); err != nil {
+		return err
+	}
+
+	// value enum
+	if err := m.validateActualEnum("actual", "body", *m.Actual); err != nil {
+		return err
+	}
+
 	return nil
 }
 

@@ -40,6 +40,8 @@ type ClientService interface {
 
 	RegisterSwitch(params *RegisterSwitchParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*RegisterSwitchOK, *RegisterSwitchCreated, error)
 
+	ToggleSwitchPort(params *ToggleSwitchPortParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ToggleSwitchPortOK, error)
+
 	UpdateSwitch(params *UpdateSwitchParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateSwitchOK, error)
 
 	SetTransport(transport runtime.ClientTransport)
@@ -273,6 +275,44 @@ func (a *Client) RegisterSwitch(params *RegisterSwitchParams, authInfo runtime.C
 	// unexpected success response
 	unexpectedSuccess := result.(*RegisterSwitchDefault)
 	return nil, nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+ToggleSwitchPort toggles the port of the switch with a nicname to the given state
+*/
+func (a *Client) ToggleSwitchPort(params *ToggleSwitchPortParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ToggleSwitchPortOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewToggleSwitchPortParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "toggleSwitchPort",
+		Method:             "POST",
+		PathPattern:        "/v1/switch/{id}/port",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &ToggleSwitchPortReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*ToggleSwitchPortOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*ToggleSwitchPortDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*

@@ -22,7 +22,7 @@ type V1Filesystem struct {
 	// the options to use to create (mkfs) this filesystem
 	Createoptions []string `json:"createoptions" yaml:"createoptions"`
 
-	// the underlaying device where this filesystem should be created
+	// the underlying device where this filesystem should be created
 	// Required: true
 	Device *string `json:"device" yaml:"device"`
 

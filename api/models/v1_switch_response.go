@@ -25,7 +25,7 @@ type V1SwitchResponse struct {
 	// Format: date-time
 	Changed strfmt.DateTime `json:"changed,omitempty" yaml:"changed,omitempty"`
 
-	// a connection between a switch port and a machine
+	// a connection between a switch port and a machine with the real nic states
 	// Required: true
 	Connections []*V1SwitchConnection `json:"connections" yaml:"connections"`
 
@@ -62,7 +62,7 @@ type V1SwitchResponse struct {
 	// a readable name for this entity
 	Name string `json:"name,omitempty" yaml:"name,omitempty"`
 
-	// the list of network interfaces on the switch
+	// the list of network interfaces on the switch with the desired nic states
 	// Required: true
 	Nics []*V1SwitchNic `json:"nics" yaml:"nics"`
 
