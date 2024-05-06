@@ -23,7 +23,7 @@ type V1FirewallCreateRequest struct {
 	// a description for this entity
 	Description string `json:"description,omitempty" yaml:"description,omitempty"`
 
-	// the filesystemlayout id to assing to this machine
+	// the filesystemlayout id to assign to this machine
 	Filesystemlayoutid string `json:"filesystemlayoutid,omitempty" yaml:"filesystemlayoutid,omitempty"`
 
 	// optional egress and ingress firewall rules to deploy during firewall allocation

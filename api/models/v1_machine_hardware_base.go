@@ -25,7 +25,6 @@ type V1MachineHardwareBase struct {
 	CPUCores *int32 `json:"cpu_cores" yaml:"cpu_cores"`
 
 	// the cpu details
-	// Required: true
 	Cpus []*V1MetalCPU `json:"cpus" yaml:"cpus"`
 
 	// the list of block devices of this machine
@@ -33,7 +32,6 @@ type V1MachineHardwareBase struct {
 	Disks []*V1MachineBlockDevice `json:"disks" yaml:"disks"`
 
 	// the gpu details
-	// Required: true
 	Gpus []*V1MetalGPU `json:"gpus" yaml:"gpus"`
 
 	// the total memory of the machine
@@ -81,9 +79,8 @@ func (m *V1MachineHardwareBase) validateCPUCores(formats strfmt.Registry) error 
 }
 
 func (m *V1MachineHardwareBase) validateCpus(formats strfmt.Registry) error {
-
-	if err := validate.Required("cpus", "body", m.Cpus); err != nil {
-		return err
+	if swag.IsZero(m.Cpus) { // not required
+		return nil
 	}
 
 	for i := 0; i < len(m.Cpus); i++ {
@@ -135,9 +132,8 @@ func (m *V1MachineHardwareBase) validateDisks(formats strfmt.Registry) error {
 }
 
 func (m *V1MachineHardwareBase) validateGpus(formats strfmt.Registry) error {
-
-	if err := validate.Required("gpus", "body", m.Gpus); err != nil {
-		return err
+	if swag.IsZero(m.Gpus) { // not required
+		return nil
 	}
 
 	for i := 0; i < len(m.Gpus); i++ {
