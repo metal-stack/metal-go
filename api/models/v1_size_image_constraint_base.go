@@ -19,7 +19,7 @@ import (
 // swagger:model v1.SizeImageConstraintBase
 type V1SizeImageConstraintBase struct {
 
-	// a list of images for this contraints apply
+	// a list of images for this constraints apply
 	// Required: true
 	Images map[string]string `json:"images" yaml:"images"`
 }

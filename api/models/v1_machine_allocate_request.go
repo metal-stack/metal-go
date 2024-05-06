@@ -23,7 +23,7 @@ type V1MachineAllocateRequest struct {
 	// a description for this entity
 	Description string `json:"description,omitempty" yaml:"description,omitempty"`
 
-	// the filesystemlayout id to assing to this machine
+	// the filesystemlayout id to assign to this machine
 	Filesystemlayoutid string `json:"filesystemlayoutid,omitempty" yaml:"filesystemlayoutid,omitempty"`
 
 	// the hostname for the allocated machine (defaults to metal)
