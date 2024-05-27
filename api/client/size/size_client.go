@@ -34,8 +34,6 @@ type ClientService interface {
 
 	FindSize(params *FindSizeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FindSizeOK, error)
 
-	FromHardware(params *FromHardwareParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FromHardwareOK, error)
-
 	ListSizeReservations(params *ListSizeReservationsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListSizeReservationsOK, error)
 
 	ListSizes(params *ListSizesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListSizesOK, error)
@@ -158,44 +156,6 @@ func (a *Client) FindSize(params *FindSizeParams, authInfo runtime.ClientAuthInf
 	}
 	// unexpected success response
 	unexpectedSuccess := result.(*FindSizeDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
-}
-
-/*
-FromHardware searches all sizes for one to match the given hardwarespecs if nothing is found a list of entries is returned which describe the constraint which did not match
-*/
-func (a *Client) FromHardware(params *FromHardwareParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FromHardwareOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewFromHardwareParams()
-	}
-	op := &runtime.ClientOperation{
-		ID:                 "fromHardware",
-		Method:             "POST",
-		PathPattern:        "/v1/size/from-hardware",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
-		Params:             params,
-		Reader:             &FromHardwareReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*FromHardwareOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	unexpectedSuccess := result.(*FromHardwareDefault)
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
