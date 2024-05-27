@@ -53,7 +53,7 @@ func TestMachineCreate(t *testing.T) {
 
 	// then
 	require.NoError(t, err)
-	require.NotNil(t, resp)
+	require.NotNil(t, resp) //nolint:testifylint
 	require.Equal(t, metalMachine, resp.Payload)
 }
 
