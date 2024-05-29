@@ -68,9 +68,6 @@ type V1MachineIssuesRequest struct {
 	// fru product serial
 	FruProductSerial string `json:"fru_product_serial,omitempty" yaml:"fru_product_serial,omitempty"`
 
-	// hardware cpu cores
-	HardwareCPUCores int64 `json:"hardware_cpu_cores,omitempty" yaml:"hardware_cpu_cores,omitempty"`
-
 	// hardware memory
 	HardwareMemory int64 `json:"hardware_memory,omitempty" yaml:"hardware_memory,omitempty"`
 

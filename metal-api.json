@@ -132,10 +132,6 @@
         "fru_product_serial": {
           "type": "string"
         },
-        "hardware_cpu_cores": {
-          "format": "int64",
-          "type": "integer"
-        },
         "hardware_memory": {
           "format": "int64",
           "type": "integer"
@@ -1205,10 +1201,6 @@
         },
         "fru_product_serial": {
           "type": "string"
-        },
-        "hardware_cpu_cores": {
-          "format": "int64",
-          "type": "integer"
         },
         "hardware_memory": {
           "format": "int64",
@@ -2406,10 +2398,6 @@
         "fru_product_serial": {
           "type": "string"
         },
-        "hardware_cpu_cores": {
-          "format": "int64",
-          "type": "integer"
-        },
         "hardware_memory": {
           "format": "int64",
           "type": "integer"
@@ -2974,10 +2962,6 @@
         },
         "fru_product_serial": {
           "type": "string"
-        },
-        "hardware_cpu_cores": {
-          "format": "int64",
-          "type": "integer"
         },
         "hardware_memory": {
           "format": "int64",
@@ -5471,7 +5455,7 @@
       "url": "https://www.gnu.org/licenses/agpl-3.0.de.html"
     },
     "title": "metal-api",
-    "version": "v0.30.0"
+    "version": "v0.31.0"
   },
   "paths": {
     "/v1/audit/find": {
@@ -9503,6 +9487,12 @@
             "description": "OK",
             "schema": {
               "$ref": "#/definitions/v1.SwitchResponse"
+            }
+          },
+          "400": {
+            "description": "Bad input data",
+            "schema": {
+              "$ref": "#/definitions/httperrors.HTTPErrorResponse"
             }
           },
           "409": {

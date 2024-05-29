@@ -30,6 +30,12 @@ func (o *ToggleSwitchPortReader) ReadResponse(response runtime.ClientResponse, c
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewToggleSwitchPortBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	case 409:
 		result := NewToggleSwitchPortConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -107,6 +113,74 @@ func (o *ToggleSwitchPortOK) GetPayload() *models.V1SwitchResponse {
 func (o *ToggleSwitchPortOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.V1SwitchResponse)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewToggleSwitchPortBadRequest creates a ToggleSwitchPortBadRequest with default headers values
+func NewToggleSwitchPortBadRequest() *ToggleSwitchPortBadRequest {
+	return &ToggleSwitchPortBadRequest{}
+}
+
+/*
+ToggleSwitchPortBadRequest describes a response with status code 400, with default header values.
+
+Bad input data
+*/
+type ToggleSwitchPortBadRequest struct {
+	Payload *httperrors.HTTPErrorResponse
+}
+
+// IsSuccess returns true when this toggle switch port bad request response has a 2xx status code
+func (o *ToggleSwitchPortBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this toggle switch port bad request response has a 3xx status code
+func (o *ToggleSwitchPortBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this toggle switch port bad request response has a 4xx status code
+func (o *ToggleSwitchPortBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this toggle switch port bad request response has a 5xx status code
+func (o *ToggleSwitchPortBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this toggle switch port bad request response a status code equal to that given
+func (o *ToggleSwitchPortBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+// Code gets the status code for the toggle switch port bad request response
+func (o *ToggleSwitchPortBadRequest) Code() int {
+	return 400
+}
+
+func (o *ToggleSwitchPortBadRequest) Error() string {
+	return fmt.Sprintf("[POST /v1/switch/{id}/port][%d] toggleSwitchPortBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *ToggleSwitchPortBadRequest) String() string {
+	return fmt.Sprintf("[POST /v1/switch/{id}/port][%d] toggleSwitchPortBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *ToggleSwitchPortBadRequest) GetPayload() *httperrors.HTTPErrorResponse {
+	return o.Payload
+}
+
+func (o *ToggleSwitchPortBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(httperrors.HTTPErrorResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
