@@ -26,6 +26,10 @@ type V1SizeReservation struct {
 	// a description for this reservation
 	Description string `json:"description,omitempty" yaml:"description,omitempty"`
 
+	// free labels associated with this size reservation.
+	// Required: true
+	Labels map[string]string `json:"labels" yaml:"labels"`
+
 	// the partitions in which this size reservation is considered, the amount is valid for every partition
 	// Required: true
 	Partitionids []string `json:"partitionids" yaml:"partitionids"`
@@ -40,6 +44,10 @@ func (m *V1SizeReservation) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateAmount(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateLabels(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -60,6 +68,15 @@ func (m *V1SizeReservation) Validate(formats strfmt.Registry) error {
 func (m *V1SizeReservation) validateAmount(formats strfmt.Registry) error {
 
 	if err := validate.Required("amount", "body", m.Amount); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *V1SizeReservation) validateLabels(formats strfmt.Registry) error {
+
+	if err := validate.Required("labels", "body", m.Labels); err != nil {
 		return err
 	}
 

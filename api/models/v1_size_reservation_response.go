@@ -19,6 +19,10 @@ import (
 // swagger:model v1.SizeReservationResponse
 type V1SizeReservationResponse struct {
 
+	// free labels associated with this size reservation.
+	// Required: true
+	Labels map[string]string `json:"labels" yaml:"labels"`
+
 	// the partition id of this size reservation
 	// Required: true
 	Partitionid *string `json:"partitionid" yaml:"partitionid"`
@@ -56,6 +60,10 @@ type V1SizeReservationResponse struct {
 func (m *V1SizeReservationResponse) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateLabels(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validatePartitionid(formats); err != nil {
 		res = append(res, err)
 	}
@@ -91,6 +99,15 @@ func (m *V1SizeReservationResponse) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *V1SizeReservationResponse) validateLabels(formats strfmt.Registry) error {
+
+	if err := validate.Required("labels", "body", m.Labels); err != nil {
+		return err
+	}
+
 	return nil
 }
 
