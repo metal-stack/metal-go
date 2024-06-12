@@ -17,6 +17,9 @@ import (
 // swagger:model v1.SizeReservationListRequest
 type V1SizeReservationListRequest struct {
 
+	// the partition id of this size reservation
+	Partitionid string `json:"partitionid,omitempty" yaml:"partitionid,omitempty"`
+
 	// the project id of this size reservation
 	Projectid string `json:"projectid,omitempty" yaml:"projectid,omitempty"`
 
