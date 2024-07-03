@@ -6,6 +6,7 @@ package machine
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -87,11 +88,13 @@ func (o *MachineDiskOK) Code() int {
 }
 
 func (o *MachineDiskOK) Error() string {
-	return fmt.Sprintf("[POST /v1/machine/{id}/power/disk][%d] machineDiskOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /v1/machine/{id}/power/disk][%d] machineDiskOK %s", 200, payload)
 }
 
 func (o *MachineDiskOK) String() string {
-	return fmt.Sprintf("[POST /v1/machine/{id}/power/disk][%d] machineDiskOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /v1/machine/{id}/power/disk][%d] machineDiskOK %s", 200, payload)
 }
 
 func (o *MachineDiskOK) GetPayload() *models.V1MachineResponse {
@@ -159,11 +162,13 @@ func (o *MachineDiskDefault) Code() int {
 }
 
 func (o *MachineDiskDefault) Error() string {
-	return fmt.Sprintf("[POST /v1/machine/{id}/power/disk][%d] machineDisk default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /v1/machine/{id}/power/disk][%d] machineDisk default %s", o._statusCode, payload)
 }
 
 func (o *MachineDiskDefault) String() string {
-	return fmt.Sprintf("[POST /v1/machine/{id}/power/disk][%d] machineDisk default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /v1/machine/{id}/power/disk][%d] machineDisk default %s", o._statusCode, payload)
 }
 
 func (o *MachineDiskDefault) GetPayload() *httperrors.HTTPErrorResponse {

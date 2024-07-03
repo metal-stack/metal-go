@@ -6,6 +6,7 @@ package partition
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -87,11 +88,13 @@ func (o *PartitionCapacityOK) Code() int {
 }
 
 func (o *PartitionCapacityOK) Error() string {
-	return fmt.Sprintf("[POST /v1/partition/capacity][%d] partitionCapacityOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /v1/partition/capacity][%d] partitionCapacityOK %s", 200, payload)
 }
 
 func (o *PartitionCapacityOK) String() string {
-	return fmt.Sprintf("[POST /v1/partition/capacity][%d] partitionCapacityOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /v1/partition/capacity][%d] partitionCapacityOK %s", 200, payload)
 }
 
 func (o *PartitionCapacityOK) GetPayload() []*models.V1PartitionCapacity {
@@ -157,11 +160,13 @@ func (o *PartitionCapacityDefault) Code() int {
 }
 
 func (o *PartitionCapacityDefault) Error() string {
-	return fmt.Sprintf("[POST /v1/partition/capacity][%d] partitionCapacity default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /v1/partition/capacity][%d] partitionCapacity default %s", o._statusCode, payload)
 }
 
 func (o *PartitionCapacityDefault) String() string {
-	return fmt.Sprintf("[POST /v1/partition/capacity][%d] partitionCapacity default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /v1/partition/capacity][%d] partitionCapacity default %s", o._statusCode, payload)
 }
 
 func (o *PartitionCapacityDefault) GetPayload() *httperrors.HTTPErrorResponse {

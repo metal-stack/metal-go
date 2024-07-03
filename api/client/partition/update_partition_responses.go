@@ -6,6 +6,7 @@ package partition
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -93,11 +94,13 @@ func (o *UpdatePartitionOK) Code() int {
 }
 
 func (o *UpdatePartitionOK) Error() string {
-	return fmt.Sprintf("[POST /v1/partition][%d] updatePartitionOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /v1/partition][%d] updatePartitionOK %s", 200, payload)
 }
 
 func (o *UpdatePartitionOK) String() string {
-	return fmt.Sprintf("[POST /v1/partition][%d] updatePartitionOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /v1/partition][%d] updatePartitionOK %s", 200, payload)
 }
 
 func (o *UpdatePartitionOK) GetPayload() *models.V1PartitionResponse {
@@ -161,11 +164,13 @@ func (o *UpdatePartitionConflict) Code() int {
 }
 
 func (o *UpdatePartitionConflict) Error() string {
-	return fmt.Sprintf("[POST /v1/partition][%d] updatePartitionConflict  %+v", 409, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /v1/partition][%d] updatePartitionConflict %s", 409, payload)
 }
 
 func (o *UpdatePartitionConflict) String() string {
-	return fmt.Sprintf("[POST /v1/partition][%d] updatePartitionConflict  %+v", 409, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /v1/partition][%d] updatePartitionConflict %s", 409, payload)
 }
 
 func (o *UpdatePartitionConflict) GetPayload() *httperrors.HTTPErrorResponse {
@@ -233,11 +238,13 @@ func (o *UpdatePartitionDefault) Code() int {
 }
 
 func (o *UpdatePartitionDefault) Error() string {
-	return fmt.Sprintf("[POST /v1/partition][%d] updatePartition default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /v1/partition][%d] updatePartition default %s", o._statusCode, payload)
 }
 
 func (o *UpdatePartitionDefault) String() string {
-	return fmt.Sprintf("[POST /v1/partition][%d] updatePartition default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /v1/partition][%d] updatePartition default %s", o._statusCode, payload)
 }
 
 func (o *UpdatePartitionDefault) GetPayload() *httperrors.HTTPErrorResponse {

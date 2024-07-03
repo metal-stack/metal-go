@@ -6,6 +6,7 @@ package network
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -93,11 +94,13 @@ func (o *CreateNetworkCreated) Code() int {
 }
 
 func (o *CreateNetworkCreated) Error() string {
-	return fmt.Sprintf("[PUT /v1/network][%d] createNetworkCreated  %+v", 201, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /v1/network][%d] createNetworkCreated %s", 201, payload)
 }
 
 func (o *CreateNetworkCreated) String() string {
-	return fmt.Sprintf("[PUT /v1/network][%d] createNetworkCreated  %+v", 201, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /v1/network][%d] createNetworkCreated %s", 201, payload)
 }
 
 func (o *CreateNetworkCreated) GetPayload() *models.V1NetworkResponse {
@@ -161,11 +164,13 @@ func (o *CreateNetworkConflict) Code() int {
 }
 
 func (o *CreateNetworkConflict) Error() string {
-	return fmt.Sprintf("[PUT /v1/network][%d] createNetworkConflict  %+v", 409, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /v1/network][%d] createNetworkConflict %s", 409, payload)
 }
 
 func (o *CreateNetworkConflict) String() string {
-	return fmt.Sprintf("[PUT /v1/network][%d] createNetworkConflict  %+v", 409, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /v1/network][%d] createNetworkConflict %s", 409, payload)
 }
 
 func (o *CreateNetworkConflict) GetPayload() *httperrors.HTTPErrorResponse {
@@ -233,11 +238,13 @@ func (o *CreateNetworkDefault) Code() int {
 }
 
 func (o *CreateNetworkDefault) Error() string {
-	return fmt.Sprintf("[PUT /v1/network][%d] createNetwork default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /v1/network][%d] createNetwork default %s", o._statusCode, payload)
 }
 
 func (o *CreateNetworkDefault) String() string {
-	return fmt.Sprintf("[PUT /v1/network][%d] createNetwork default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /v1/network][%d] createNetwork default %s", o._statusCode, payload)
 }
 
 func (o *CreateNetworkDefault) GetPayload() *httperrors.HTTPErrorResponse {

@@ -6,6 +6,7 @@ package sizeimageconstraint
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -93,11 +94,13 @@ func (o *CreateSizeImageConstraintCreated) Code() int {
 }
 
 func (o *CreateSizeImageConstraintCreated) Error() string {
-	return fmt.Sprintf("[PUT /v1/size-image-constraint][%d] createSizeImageConstraintCreated  %+v", 201, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /v1/size-image-constraint][%d] createSizeImageConstraintCreated %s", 201, payload)
 }
 
 func (o *CreateSizeImageConstraintCreated) String() string {
-	return fmt.Sprintf("[PUT /v1/size-image-constraint][%d] createSizeImageConstraintCreated  %+v", 201, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /v1/size-image-constraint][%d] createSizeImageConstraintCreated %s", 201, payload)
 }
 
 func (o *CreateSizeImageConstraintCreated) GetPayload() *models.V1SizeImageConstraintResponse {
@@ -161,11 +164,13 @@ func (o *CreateSizeImageConstraintConflict) Code() int {
 }
 
 func (o *CreateSizeImageConstraintConflict) Error() string {
-	return fmt.Sprintf("[PUT /v1/size-image-constraint][%d] createSizeImageConstraintConflict  %+v", 409, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /v1/size-image-constraint][%d] createSizeImageConstraintConflict %s", 409, payload)
 }
 
 func (o *CreateSizeImageConstraintConflict) String() string {
-	return fmt.Sprintf("[PUT /v1/size-image-constraint][%d] createSizeImageConstraintConflict  %+v", 409, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /v1/size-image-constraint][%d] createSizeImageConstraintConflict %s", 409, payload)
 }
 
 func (o *CreateSizeImageConstraintConflict) GetPayload() *httperrors.HTTPErrorResponse {
@@ -233,11 +238,13 @@ func (o *CreateSizeImageConstraintDefault) Code() int {
 }
 
 func (o *CreateSizeImageConstraintDefault) Error() string {
-	return fmt.Sprintf("[PUT /v1/size-image-constraint][%d] createSizeImageConstraint default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /v1/size-image-constraint][%d] createSizeImageConstraint default %s", o._statusCode, payload)
 }
 
 func (o *CreateSizeImageConstraintDefault) String() string {
-	return fmt.Sprintf("[PUT /v1/size-image-constraint][%d] createSizeImageConstraint default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /v1/size-image-constraint][%d] createSizeImageConstraint default %s", o._statusCode, payload)
 }
 
 func (o *CreateSizeImageConstraintDefault) GetPayload() *httperrors.HTTPErrorResponse {

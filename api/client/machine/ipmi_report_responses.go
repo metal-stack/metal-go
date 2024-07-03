@@ -6,6 +6,7 @@ package machine
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -87,11 +88,13 @@ func (o *IpmiReportOK) Code() int {
 }
 
 func (o *IpmiReportOK) Error() string {
-	return fmt.Sprintf("[POST /v1/machine/ipmi][%d] ipmiReportOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /v1/machine/ipmi][%d] ipmiReportOK %s", 200, payload)
 }
 
 func (o *IpmiReportOK) String() string {
-	return fmt.Sprintf("[POST /v1/machine/ipmi][%d] ipmiReportOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /v1/machine/ipmi][%d] ipmiReportOK %s", 200, payload)
 }
 
 func (o *IpmiReportOK) GetPayload() *models.V1MachineIpmiReportResponse {
@@ -159,11 +162,13 @@ func (o *IpmiReportDefault) Code() int {
 }
 
 func (o *IpmiReportDefault) Error() string {
-	return fmt.Sprintf("[POST /v1/machine/ipmi][%d] ipmiReport default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /v1/machine/ipmi][%d] ipmiReport default %s", o._statusCode, payload)
 }
 
 func (o *IpmiReportDefault) String() string {
-	return fmt.Sprintf("[POST /v1/machine/ipmi][%d] ipmiReport default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /v1/machine/ipmi][%d] ipmiReport default %s", o._statusCode, payload)
 }
 
 func (o *IpmiReportDefault) GetPayload() *httperrors.HTTPErrorResponse {

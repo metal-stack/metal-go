@@ -6,6 +6,7 @@ package machine
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -87,11 +88,13 @@ func (o *MachineOnOK) Code() int {
 }
 
 func (o *MachineOnOK) Error() string {
-	return fmt.Sprintf("[POST /v1/machine/{id}/power/on][%d] machineOnOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /v1/machine/{id}/power/on][%d] machineOnOK %s", 200, payload)
 }
 
 func (o *MachineOnOK) String() string {
-	return fmt.Sprintf("[POST /v1/machine/{id}/power/on][%d] machineOnOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /v1/machine/{id}/power/on][%d] machineOnOK %s", 200, payload)
 }
 
 func (o *MachineOnOK) GetPayload() *models.V1MachineResponse {
@@ -159,11 +162,13 @@ func (o *MachineOnDefault) Code() int {
 }
 
 func (o *MachineOnDefault) Error() string {
-	return fmt.Sprintf("[POST /v1/machine/{id}/power/on][%d] machineOn default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /v1/machine/{id}/power/on][%d] machineOn default %s", o._statusCode, payload)
 }
 
 func (o *MachineOnDefault) String() string {
-	return fmt.Sprintf("[POST /v1/machine/{id}/power/on][%d] machineOn default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /v1/machine/{id}/power/on][%d] machineOn default %s", o._statusCode, payload)
 }
 
 func (o *MachineOnDefault) GetPayload() *httperrors.HTTPErrorResponse {

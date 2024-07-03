@@ -6,6 +6,7 @@ package switch_operations
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -87,11 +88,13 @@ func (o *ListSwitchesOK) Code() int {
 }
 
 func (o *ListSwitchesOK) Error() string {
-	return fmt.Sprintf("[GET /v1/switch][%d] listSwitchesOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /v1/switch][%d] listSwitchesOK %s", 200, payload)
 }
 
 func (o *ListSwitchesOK) String() string {
-	return fmt.Sprintf("[GET /v1/switch][%d] listSwitchesOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /v1/switch][%d] listSwitchesOK %s", 200, payload)
 }
 
 func (o *ListSwitchesOK) GetPayload() []*models.V1SwitchResponse {
@@ -157,11 +160,13 @@ func (o *ListSwitchesDefault) Code() int {
 }
 
 func (o *ListSwitchesDefault) Error() string {
-	return fmt.Sprintf("[GET /v1/switch][%d] listSwitches default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /v1/switch][%d] listSwitches default %s", o._statusCode, payload)
 }
 
 func (o *ListSwitchesDefault) String() string {
-	return fmt.Sprintf("[GET /v1/switch][%d] listSwitches default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /v1/switch][%d] listSwitches default %s", o._statusCode, payload)
 }
 
 func (o *ListSwitchesDefault) GetPayload() *httperrors.HTTPErrorResponse {

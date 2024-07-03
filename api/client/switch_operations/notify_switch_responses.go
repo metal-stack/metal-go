@@ -6,6 +6,7 @@ package switch_operations
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -87,11 +88,13 @@ func (o *NotifySwitchOK) Code() int {
 }
 
 func (o *NotifySwitchOK) Error() string {
-	return fmt.Sprintf("[POST /v1/switch/{id}/notify][%d] notifySwitchOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /v1/switch/{id}/notify][%d] notifySwitchOK %s", 200, payload)
 }
 
 func (o *NotifySwitchOK) String() string {
-	return fmt.Sprintf("[POST /v1/switch/{id}/notify][%d] notifySwitchOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /v1/switch/{id}/notify][%d] notifySwitchOK %s", 200, payload)
 }
 
 func (o *NotifySwitchOK) GetPayload() *models.V1SwitchNotifyResponse {
@@ -159,11 +162,13 @@ func (o *NotifySwitchDefault) Code() int {
 }
 
 func (o *NotifySwitchDefault) Error() string {
-	return fmt.Sprintf("[POST /v1/switch/{id}/notify][%d] notifySwitch default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /v1/switch/{id}/notify][%d] notifySwitch default %s", o._statusCode, payload)
 }
 
 func (o *NotifySwitchDefault) String() string {
-	return fmt.Sprintf("[POST /v1/switch/{id}/notify][%d] notifySwitch default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /v1/switch/{id}/notify][%d] notifySwitch default %s", o._statusCode, payload)
 }
 
 func (o *NotifySwitchDefault) GetPayload() *httperrors.HTTPErrorResponse {

@@ -6,6 +6,7 @@ package sizeimageconstraint
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -93,11 +94,13 @@ func (o *UpdateSizeImageConstraintOK) Code() int {
 }
 
 func (o *UpdateSizeImageConstraintOK) Error() string {
-	return fmt.Sprintf("[POST /v1/size-image-constraint][%d] updateSizeImageConstraintOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /v1/size-image-constraint][%d] updateSizeImageConstraintOK %s", 200, payload)
 }
 
 func (o *UpdateSizeImageConstraintOK) String() string {
-	return fmt.Sprintf("[POST /v1/size-image-constraint][%d] updateSizeImageConstraintOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /v1/size-image-constraint][%d] updateSizeImageConstraintOK %s", 200, payload)
 }
 
 func (o *UpdateSizeImageConstraintOK) GetPayload() *models.V1SizeImageConstraintResponse {
@@ -161,11 +164,13 @@ func (o *UpdateSizeImageConstraintConflict) Code() int {
 }
 
 func (o *UpdateSizeImageConstraintConflict) Error() string {
-	return fmt.Sprintf("[POST /v1/size-image-constraint][%d] updateSizeImageConstraintConflict  %+v", 409, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /v1/size-image-constraint][%d] updateSizeImageConstraintConflict %s", 409, payload)
 }
 
 func (o *UpdateSizeImageConstraintConflict) String() string {
-	return fmt.Sprintf("[POST /v1/size-image-constraint][%d] updateSizeImageConstraintConflict  %+v", 409, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /v1/size-image-constraint][%d] updateSizeImageConstraintConflict %s", 409, payload)
 }
 
 func (o *UpdateSizeImageConstraintConflict) GetPayload() *httperrors.HTTPErrorResponse {
@@ -233,11 +238,13 @@ func (o *UpdateSizeImageConstraintDefault) Code() int {
 }
 
 func (o *UpdateSizeImageConstraintDefault) Error() string {
-	return fmt.Sprintf("[POST /v1/size-image-constraint][%d] updateSizeImageConstraint default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /v1/size-image-constraint][%d] updateSizeImageConstraint default %s", o._statusCode, payload)
 }
 
 func (o *UpdateSizeImageConstraintDefault) String() string {
-	return fmt.Sprintf("[POST /v1/size-image-constraint][%d] updateSizeImageConstraint default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /v1/size-image-constraint][%d] updateSizeImageConstraint default %s", o._statusCode, payload)
 }
 
 func (o *UpdateSizeImageConstraintDefault) GetPayload() *httperrors.HTTPErrorResponse {

@@ -3962,7 +3962,7 @@
           "type": "integer"
         },
         "available_prefixes": {
-          "description": "the total available Prefixes",
+          "description": "the total available 2 bit Prefixes",
           "format": "integer",
           "type": "integer"
         },
@@ -4637,6 +4637,13 @@
           "description": "a description for this reservation",
           "type": "string"
         },
+        "labels": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "free labels associated with this size reservation.",
+          "type": "object"
+        },
         "partitionids": {
           "description": "the partitions in which this size reservation is considered, the amount is valid for every partition",
           "items": {
@@ -4651,12 +4658,20 @@
       },
       "required": [
         "amount",
+        "labels",
         "partitionids",
         "projectid"
       ]
     },
     "v1.SizeReservationResponse": {
       "properties": {
+        "labels": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "free labels associated with this size reservation.",
+          "type": "object"
+        },
         "partitionid": {
           "description": "the partition id of this size reservation",
           "type": "string"
@@ -4694,6 +4709,7 @@
         }
       },
       "required": [
+        "labels",
         "partitionid",
         "projectallocations",
         "projectid",
@@ -5455,7 +5471,7 @@
       "url": "https://www.gnu.org/licenses/agpl-3.0.de.html"
     },
     "title": "metal-api",
-    "version": "v0.31.2"
+    "version": "v0.32.0"
   },
   "paths": {
     "/v1/audit/find": {

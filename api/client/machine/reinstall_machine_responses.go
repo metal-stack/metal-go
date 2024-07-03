@@ -6,6 +6,7 @@ package machine
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -93,11 +94,13 @@ func (o *ReinstallMachineOK) Code() int {
 }
 
 func (o *ReinstallMachineOK) Error() string {
-	return fmt.Sprintf("[POST /v1/machine/{id}/reinstall][%d] reinstallMachineOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /v1/machine/{id}/reinstall][%d] reinstallMachineOK %s", 200, payload)
 }
 
 func (o *ReinstallMachineOK) String() string {
-	return fmt.Sprintf("[POST /v1/machine/{id}/reinstall][%d] reinstallMachineOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /v1/machine/{id}/reinstall][%d] reinstallMachineOK %s", 200, payload)
 }
 
 func (o *ReinstallMachineOK) GetPayload() *models.V1MachineResponse {
@@ -161,11 +164,13 @@ func (o *ReinstallMachineBadRequest) Code() int {
 }
 
 func (o *ReinstallMachineBadRequest) Error() string {
-	return fmt.Sprintf("[POST /v1/machine/{id}/reinstall][%d] reinstallMachineBadRequest  %+v", 400, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /v1/machine/{id}/reinstall][%d] reinstallMachineBadRequest %s", 400, payload)
 }
 
 func (o *ReinstallMachineBadRequest) String() string {
-	return fmt.Sprintf("[POST /v1/machine/{id}/reinstall][%d] reinstallMachineBadRequest  %+v", 400, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /v1/machine/{id}/reinstall][%d] reinstallMachineBadRequest %s", 400, payload)
 }
 
 func (o *ReinstallMachineBadRequest) GetPayload() *httperrors.HTTPErrorResponse {
@@ -233,11 +238,13 @@ func (o *ReinstallMachineDefault) Code() int {
 }
 
 func (o *ReinstallMachineDefault) Error() string {
-	return fmt.Sprintf("[POST /v1/machine/{id}/reinstall][%d] reinstallMachine default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /v1/machine/{id}/reinstall][%d] reinstallMachine default %s", o._statusCode, payload)
 }
 
 func (o *ReinstallMachineDefault) String() string {
-	return fmt.Sprintf("[POST /v1/machine/{id}/reinstall][%d] reinstallMachine default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /v1/machine/{id}/reinstall][%d] reinstallMachine default %s", o._statusCode, payload)
 }
 
 func (o *ReinstallMachineDefault) GetPayload() *httperrors.HTTPErrorResponse {

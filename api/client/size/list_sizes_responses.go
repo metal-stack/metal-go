@@ -6,6 +6,7 @@ package size
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -87,11 +88,13 @@ func (o *ListSizesOK) Code() int {
 }
 
 func (o *ListSizesOK) Error() string {
-	return fmt.Sprintf("[GET /v1/size][%d] listSizesOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /v1/size][%d] listSizesOK %s", 200, payload)
 }
 
 func (o *ListSizesOK) String() string {
-	return fmt.Sprintf("[GET /v1/size][%d] listSizesOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /v1/size][%d] listSizesOK %s", 200, payload)
 }
 
 func (o *ListSizesOK) GetPayload() []*models.V1SizeResponse {
@@ -157,11 +160,13 @@ func (o *ListSizesDefault) Code() int {
 }
 
 func (o *ListSizesDefault) Error() string {
-	return fmt.Sprintf("[GET /v1/size][%d] listSizes default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /v1/size][%d] listSizes default %s", o._statusCode, payload)
 }
 
 func (o *ListSizesDefault) String() string {
-	return fmt.Sprintf("[GET /v1/size][%d] listSizes default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /v1/size][%d] listSizes default %s", o._statusCode, payload)
 }
 
 func (o *ListSizesDefault) GetPayload() *httperrors.HTTPErrorResponse {

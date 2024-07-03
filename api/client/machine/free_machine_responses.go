@@ -6,6 +6,7 @@ package machine
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -87,11 +88,13 @@ func (o *FreeMachineOK) Code() int {
 }
 
 func (o *FreeMachineOK) Error() string {
-	return fmt.Sprintf("[DELETE /v1/machine/{id}/free][%d] freeMachineOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /v1/machine/{id}/free][%d] freeMachineOK %s", 200, payload)
 }
 
 func (o *FreeMachineOK) String() string {
-	return fmt.Sprintf("[DELETE /v1/machine/{id}/free][%d] freeMachineOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /v1/machine/{id}/free][%d] freeMachineOK %s", 200, payload)
 }
 
 func (o *FreeMachineOK) GetPayload() *models.V1MachineResponse {
@@ -159,11 +162,13 @@ func (o *FreeMachineDefault) Code() int {
 }
 
 func (o *FreeMachineDefault) Error() string {
-	return fmt.Sprintf("[DELETE /v1/machine/{id}/free][%d] freeMachine default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /v1/machine/{id}/free][%d] freeMachine default %s", o._statusCode, payload)
 }
 
 func (o *FreeMachineDefault) String() string {
-	return fmt.Sprintf("[DELETE /v1/machine/{id}/free][%d] freeMachine default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /v1/machine/{id}/free][%d] freeMachine default %s", o._statusCode, payload)
 }
 
 func (o *FreeMachineDefault) GetPayload() *httperrors.HTTPErrorResponse {

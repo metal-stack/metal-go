@@ -6,6 +6,7 @@ package image
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -87,11 +88,13 @@ func (o *FindImagesOK) Code() int {
 }
 
 func (o *FindImagesOK) Error() string {
-	return fmt.Sprintf("[POST /v1/image/find][%d] findImagesOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /v1/image/find][%d] findImagesOK %s", 200, payload)
 }
 
 func (o *FindImagesOK) String() string {
-	return fmt.Sprintf("[POST /v1/image/find][%d] findImagesOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /v1/image/find][%d] findImagesOK %s", 200, payload)
 }
 
 func (o *FindImagesOK) GetPayload() []*models.V1ImageResponse {
@@ -157,11 +160,13 @@ func (o *FindImagesDefault) Code() int {
 }
 
 func (o *FindImagesDefault) Error() string {
-	return fmt.Sprintf("[POST /v1/image/find][%d] findImages default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /v1/image/find][%d] findImages default %s", o._statusCode, payload)
 }
 
 func (o *FindImagesDefault) String() string {
-	return fmt.Sprintf("[POST /v1/image/find][%d] findImages default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /v1/image/find][%d] findImages default %s", o._statusCode, payload)
 }
 
 func (o *FindImagesDefault) GetPayload() *httperrors.HTTPErrorResponse {

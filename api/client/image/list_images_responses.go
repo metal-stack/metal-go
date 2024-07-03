@@ -6,6 +6,7 @@ package image
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -87,11 +88,13 @@ func (o *ListImagesOK) Code() int {
 }
 
 func (o *ListImagesOK) Error() string {
-	return fmt.Sprintf("[GET /v1/image][%d] listImagesOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /v1/image][%d] listImagesOK %s", 200, payload)
 }
 
 func (o *ListImagesOK) String() string {
-	return fmt.Sprintf("[GET /v1/image][%d] listImagesOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /v1/image][%d] listImagesOK %s", 200, payload)
 }
 
 func (o *ListImagesOK) GetPayload() []*models.V1ImageResponse {
@@ -157,11 +160,13 @@ func (o *ListImagesDefault) Code() int {
 }
 
 func (o *ListImagesDefault) Error() string {
-	return fmt.Sprintf("[GET /v1/image][%d] listImages default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /v1/image][%d] listImages default %s", o._statusCode, payload)
 }
 
 func (o *ListImagesDefault) String() string {
-	return fmt.Sprintf("[GET /v1/image][%d] listImages default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /v1/image][%d] listImages default %s", o._statusCode, payload)
 }
 
 func (o *ListImagesDefault) GetPayload() *httperrors.HTTPErrorResponse {

@@ -6,6 +6,7 @@ package firewall
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -87,11 +88,13 @@ func (o *ListFirewallsOK) Code() int {
 }
 
 func (o *ListFirewallsOK) Error() string {
-	return fmt.Sprintf("[GET /v1/firewall][%d] listFirewallsOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /v1/firewall][%d] listFirewallsOK %s", 200, payload)
 }
 
 func (o *ListFirewallsOK) String() string {
-	return fmt.Sprintf("[GET /v1/firewall][%d] listFirewallsOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /v1/firewall][%d] listFirewallsOK %s", 200, payload)
 }
 
 func (o *ListFirewallsOK) GetPayload() []*models.V1FirewallResponse {
@@ -157,11 +160,13 @@ func (o *ListFirewallsDefault) Code() int {
 }
 
 func (o *ListFirewallsDefault) Error() string {
-	return fmt.Sprintf("[GET /v1/firewall][%d] listFirewalls default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /v1/firewall][%d] listFirewalls default %s", o._statusCode, payload)
 }
 
 func (o *ListFirewallsDefault) String() string {
-	return fmt.Sprintf("[GET /v1/firewall][%d] listFirewalls default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /v1/firewall][%d] listFirewalls default %s", o._statusCode, payload)
 }
 
 func (o *ListFirewallsDefault) GetPayload() *httperrors.HTTPErrorResponse {

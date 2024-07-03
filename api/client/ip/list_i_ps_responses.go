@@ -6,6 +6,7 @@ package ip
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -87,11 +88,13 @@ func (o *ListIPsOK) Code() int {
 }
 
 func (o *ListIPsOK) Error() string {
-	return fmt.Sprintf("[GET /v1/ip][%d] listIPsOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /v1/ip][%d] listIPsOK %s", 200, payload)
 }
 
 func (o *ListIPsOK) String() string {
-	return fmt.Sprintf("[GET /v1/ip][%d] listIPsOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /v1/ip][%d] listIPsOK %s", 200, payload)
 }
 
 func (o *ListIPsOK) GetPayload() []*models.V1IPResponse {
@@ -157,11 +160,13 @@ func (o *ListIPsDefault) Code() int {
 }
 
 func (o *ListIPsDefault) Error() string {
-	return fmt.Sprintf("[GET /v1/ip][%d] listIPs default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /v1/ip][%d] listIPs default %s", o._statusCode, payload)
 }
 
 func (o *ListIPsDefault) String() string {
-	return fmt.Sprintf("[GET /v1/ip][%d] listIPs default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /v1/ip][%d] listIPs default %s", o._statusCode, payload)
 }
 
 func (o *ListIPsDefault) GetPayload() *httperrors.HTTPErrorResponse {

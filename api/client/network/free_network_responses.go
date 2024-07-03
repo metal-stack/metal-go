@@ -6,6 +6,7 @@ package network
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -93,11 +94,13 @@ func (o *FreeNetworkOK) Code() int {
 }
 
 func (o *FreeNetworkOK) Error() string {
-	return fmt.Sprintf("[DELETE /v1/network/free/{id}][%d] freeNetworkOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /v1/network/free/{id}][%d] freeNetworkOK %s", 200, payload)
 }
 
 func (o *FreeNetworkOK) String() string {
-	return fmt.Sprintf("[DELETE /v1/network/free/{id}][%d] freeNetworkOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /v1/network/free/{id}][%d] freeNetworkOK %s", 200, payload)
 }
 
 func (o *FreeNetworkOK) GetPayload() *models.V1NetworkResponse {
@@ -161,11 +164,13 @@ func (o *FreeNetworkConflict) Code() int {
 }
 
 func (o *FreeNetworkConflict) Error() string {
-	return fmt.Sprintf("[DELETE /v1/network/free/{id}][%d] freeNetworkConflict  %+v", 409, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /v1/network/free/{id}][%d] freeNetworkConflict %s", 409, payload)
 }
 
 func (o *FreeNetworkConflict) String() string {
-	return fmt.Sprintf("[DELETE /v1/network/free/{id}][%d] freeNetworkConflict  %+v", 409, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /v1/network/free/{id}][%d] freeNetworkConflict %s", 409, payload)
 }
 
 func (o *FreeNetworkConflict) GetPayload() *httperrors.HTTPErrorResponse {
@@ -233,11 +238,13 @@ func (o *FreeNetworkDefault) Code() int {
 }
 
 func (o *FreeNetworkDefault) Error() string {
-	return fmt.Sprintf("[DELETE /v1/network/free/{id}][%d] freeNetwork default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /v1/network/free/{id}][%d] freeNetwork default %s", o._statusCode, payload)
 }
 
 func (o *FreeNetworkDefault) String() string {
-	return fmt.Sprintf("[DELETE /v1/network/free/{id}][%d] freeNetwork default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /v1/network/free/{id}][%d] freeNetwork default %s", o._statusCode, payload)
 }
 
 func (o *FreeNetworkDefault) GetPayload() *httperrors.HTTPErrorResponse {

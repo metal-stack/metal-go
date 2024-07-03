@@ -6,6 +6,7 @@ package sizeimageconstraint
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -87,11 +88,13 @@ func (o *TrySizeImageConstraintOK) Code() int {
 }
 
 func (o *TrySizeImageConstraintOK) Error() string {
-	return fmt.Sprintf("[POST /v1/size-image-constraint/try][%d] trySizeImageConstraintOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /v1/size-image-constraint/try][%d] trySizeImageConstraintOK %s", 200, payload)
 }
 
 func (o *TrySizeImageConstraintOK) String() string {
-	return fmt.Sprintf("[POST /v1/size-image-constraint/try][%d] trySizeImageConstraintOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /v1/size-image-constraint/try][%d] trySizeImageConstraintOK %s", 200, payload)
 }
 
 func (o *TrySizeImageConstraintOK) GetPayload() models.V1EmptyBody {
@@ -157,11 +160,13 @@ func (o *TrySizeImageConstraintDefault) Code() int {
 }
 
 func (o *TrySizeImageConstraintDefault) Error() string {
-	return fmt.Sprintf("[POST /v1/size-image-constraint/try][%d] trySizeImageConstraint default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /v1/size-image-constraint/try][%d] trySizeImageConstraint default %s", o._statusCode, payload)
 }
 
 func (o *TrySizeImageConstraintDefault) String() string {
-	return fmt.Sprintf("[POST /v1/size-image-constraint/try][%d] trySizeImageConstraint default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /v1/size-image-constraint/try][%d] trySizeImageConstraint default %s", o._statusCode, payload)
 }
 
 func (o *TrySizeImageConstraintDefault) GetPayload() *httperrors.HTTPErrorResponse {

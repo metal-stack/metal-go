@@ -6,6 +6,7 @@ package firmware
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -85,11 +86,11 @@ func (o *RemoveFirmwareOK) Code() int {
 }
 
 func (o *RemoveFirmwareOK) Error() string {
-	return fmt.Sprintf("[DELETE /v1/firmware/{kind}/{vendor}/{board}/{revision}][%d] removeFirmwareOK ", 200)
+	return fmt.Sprintf("[DELETE /v1/firmware/{kind}/{vendor}/{board}/{revision}][%d] removeFirmwareOK", 200)
 }
 
 func (o *RemoveFirmwareOK) String() string {
-	return fmt.Sprintf("[DELETE /v1/firmware/{kind}/{vendor}/{board}/{revision}][%d] removeFirmwareOK ", 200)
+	return fmt.Sprintf("[DELETE /v1/firmware/{kind}/{vendor}/{board}/{revision}][%d] removeFirmwareOK", 200)
 }
 
 func (o *RemoveFirmwareOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -146,11 +147,13 @@ func (o *RemoveFirmwareDefault) Code() int {
 }
 
 func (o *RemoveFirmwareDefault) Error() string {
-	return fmt.Sprintf("[DELETE /v1/firmware/{kind}/{vendor}/{board}/{revision}][%d] removeFirmware default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /v1/firmware/{kind}/{vendor}/{board}/{revision}][%d] removeFirmware default %s", o._statusCode, payload)
 }
 
 func (o *RemoveFirmwareDefault) String() string {
-	return fmt.Sprintf("[DELETE /v1/firmware/{kind}/{vendor}/{board}/{revision}][%d] removeFirmware default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /v1/firmware/{kind}/{vendor}/{board}/{revision}][%d] removeFirmware default %s", o._statusCode, payload)
 }
 
 func (o *RemoveFirmwareDefault) GetPayload() *httperrors.HTTPErrorResponse {

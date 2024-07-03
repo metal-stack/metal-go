@@ -6,6 +6,7 @@ package network
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -93,11 +94,13 @@ func (o *AllocateNetworkCreated) Code() int {
 }
 
 func (o *AllocateNetworkCreated) Error() string {
-	return fmt.Sprintf("[POST /v1/network/allocate][%d] allocateNetworkCreated  %+v", 201, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /v1/network/allocate][%d] allocateNetworkCreated %s", 201, payload)
 }
 
 func (o *AllocateNetworkCreated) String() string {
-	return fmt.Sprintf("[POST /v1/network/allocate][%d] allocateNetworkCreated  %+v", 201, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /v1/network/allocate][%d] allocateNetworkCreated %s", 201, payload)
 }
 
 func (o *AllocateNetworkCreated) GetPayload() *models.V1NetworkResponse {
@@ -161,11 +164,13 @@ func (o *AllocateNetworkConflict) Code() int {
 }
 
 func (o *AllocateNetworkConflict) Error() string {
-	return fmt.Sprintf("[POST /v1/network/allocate][%d] allocateNetworkConflict  %+v", 409, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /v1/network/allocate][%d] allocateNetworkConflict %s", 409, payload)
 }
 
 func (o *AllocateNetworkConflict) String() string {
-	return fmt.Sprintf("[POST /v1/network/allocate][%d] allocateNetworkConflict  %+v", 409, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /v1/network/allocate][%d] allocateNetworkConflict %s", 409, payload)
 }
 
 func (o *AllocateNetworkConflict) GetPayload() *httperrors.HTTPErrorResponse {
@@ -233,11 +238,13 @@ func (o *AllocateNetworkDefault) Code() int {
 }
 
 func (o *AllocateNetworkDefault) Error() string {
-	return fmt.Sprintf("[POST /v1/network/allocate][%d] allocateNetwork default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /v1/network/allocate][%d] allocateNetwork default %s", o._statusCode, payload)
 }
 
 func (o *AllocateNetworkDefault) String() string {
-	return fmt.Sprintf("[POST /v1/network/allocate][%d] allocateNetwork default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /v1/network/allocate][%d] allocateNetwork default %s", o._statusCode, payload)
 }
 
 func (o *AllocateNetworkDefault) GetPayload() *httperrors.HTTPErrorResponse {

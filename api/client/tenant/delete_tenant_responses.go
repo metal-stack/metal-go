@@ -6,6 +6,7 @@ package tenant
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -87,11 +88,13 @@ func (o *DeleteTenantOK) Code() int {
 }
 
 func (o *DeleteTenantOK) Error() string {
-	return fmt.Sprintf("[DELETE /v1/tenant/{id}][%d] deleteTenantOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /v1/tenant/{id}][%d] deleteTenantOK %s", 200, payload)
 }
 
 func (o *DeleteTenantOK) String() string {
-	return fmt.Sprintf("[DELETE /v1/tenant/{id}][%d] deleteTenantOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /v1/tenant/{id}][%d] deleteTenantOK %s", 200, payload)
 }
 
 func (o *DeleteTenantOK) GetPayload() *models.V1TenantResponse {
@@ -159,11 +162,13 @@ func (o *DeleteTenantDefault) Code() int {
 }
 
 func (o *DeleteTenantDefault) Error() string {
-	return fmt.Sprintf("[DELETE /v1/tenant/{id}][%d] deleteTenant default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /v1/tenant/{id}][%d] deleteTenant default %s", o._statusCode, payload)
 }
 
 func (o *DeleteTenantDefault) String() string {
-	return fmt.Sprintf("[DELETE /v1/tenant/{id}][%d] deleteTenant default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /v1/tenant/{id}][%d] deleteTenant default %s", o._statusCode, payload)
 }
 
 func (o *DeleteTenantDefault) GetPayload() *httperrors.HTTPErrorResponse {
