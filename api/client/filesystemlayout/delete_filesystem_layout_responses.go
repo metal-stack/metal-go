@@ -6,6 +6,7 @@ package filesystemlayout
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -87,11 +88,13 @@ func (o *DeleteFilesystemLayoutOK) Code() int {
 }
 
 func (o *DeleteFilesystemLayoutOK) Error() string {
-	return fmt.Sprintf("[DELETE /v1/filesystemlayout/{id}][%d] deleteFilesystemLayoutOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /v1/filesystemlayout/{id}][%d] deleteFilesystemLayoutOK %s", 200, payload)
 }
 
 func (o *DeleteFilesystemLayoutOK) String() string {
-	return fmt.Sprintf("[DELETE /v1/filesystemlayout/{id}][%d] deleteFilesystemLayoutOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /v1/filesystemlayout/{id}][%d] deleteFilesystemLayoutOK %s", 200, payload)
 }
 
 func (o *DeleteFilesystemLayoutOK) GetPayload() *models.V1FilesystemLayoutResponse {
@@ -159,11 +162,13 @@ func (o *DeleteFilesystemLayoutDefault) Code() int {
 }
 
 func (o *DeleteFilesystemLayoutDefault) Error() string {
-	return fmt.Sprintf("[DELETE /v1/filesystemlayout/{id}][%d] deleteFilesystemLayout default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /v1/filesystemlayout/{id}][%d] deleteFilesystemLayout default %s", o._statusCode, payload)
 }
 
 func (o *DeleteFilesystemLayoutDefault) String() string {
-	return fmt.Sprintf("[DELETE /v1/filesystemlayout/{id}][%d] deleteFilesystemLayout default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /v1/filesystemlayout/{id}][%d] deleteFilesystemLayout default %s", o._statusCode, payload)
 }
 
 func (o *DeleteFilesystemLayoutDefault) GetPayload() *httperrors.HTTPErrorResponse {

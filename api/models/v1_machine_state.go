@@ -33,7 +33,7 @@ type V1MachineState struct {
 
 	// the state of this machine. empty means available for all
 	// Required: true
-	// Enum: [ LOCKED RESERVED]
+	// Enum: ["","LOCKED","RESERVED"]
 	Value *string `json:"value" yaml:"value"`
 }
 

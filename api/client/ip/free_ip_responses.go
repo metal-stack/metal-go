@@ -6,6 +6,7 @@ package ip
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -87,11 +88,13 @@ func (o *FreeIPOK) Code() int {
 }
 
 func (o *FreeIPOK) Error() string {
-	return fmt.Sprintf("[DELETE /v1/ip/free/{id}][%d] freeIpOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /v1/ip/free/{id}][%d] freeIpOK %s", 200, payload)
 }
 
 func (o *FreeIPOK) String() string {
-	return fmt.Sprintf("[DELETE /v1/ip/free/{id}][%d] freeIpOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /v1/ip/free/{id}][%d] freeIpOK %s", 200, payload)
 }
 
 func (o *FreeIPOK) GetPayload() *models.V1IPResponse {
@@ -159,11 +162,13 @@ func (o *FreeIPDefault) Code() int {
 }
 
 func (o *FreeIPDefault) Error() string {
-	return fmt.Sprintf("[DELETE /v1/ip/free/{id}][%d] freeIP default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /v1/ip/free/{id}][%d] freeIP default %s", o._statusCode, payload)
 }
 
 func (o *FreeIPDefault) String() string {
-	return fmt.Sprintf("[DELETE /v1/ip/free/{id}][%d] freeIP default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /v1/ip/free/{id}][%d] freeIP default %s", o._statusCode, payload)
 }
 
 func (o *FreeIPDefault) GetPayload() *httperrors.HTTPErrorResponse {

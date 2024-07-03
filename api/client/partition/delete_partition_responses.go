@@ -6,6 +6,7 @@ package partition
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -87,11 +88,13 @@ func (o *DeletePartitionOK) Code() int {
 }
 
 func (o *DeletePartitionOK) Error() string {
-	return fmt.Sprintf("[DELETE /v1/partition/{id}][%d] deletePartitionOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /v1/partition/{id}][%d] deletePartitionOK %s", 200, payload)
 }
 
 func (o *DeletePartitionOK) String() string {
-	return fmt.Sprintf("[DELETE /v1/partition/{id}][%d] deletePartitionOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /v1/partition/{id}][%d] deletePartitionOK %s", 200, payload)
 }
 
 func (o *DeletePartitionOK) GetPayload() *models.V1PartitionResponse {
@@ -159,11 +162,13 @@ func (o *DeletePartitionDefault) Code() int {
 }
 
 func (o *DeletePartitionDefault) Error() string {
-	return fmt.Sprintf("[DELETE /v1/partition/{id}][%d] deletePartition default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /v1/partition/{id}][%d] deletePartition default %s", o._statusCode, payload)
 }
 
 func (o *DeletePartitionDefault) String() string {
-	return fmt.Sprintf("[DELETE /v1/partition/{id}][%d] deletePartition default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /v1/partition/{id}][%d] deletePartition default %s", o._statusCode, payload)
 }
 
 func (o *DeletePartitionDefault) GetPayload() *httperrors.HTTPErrorResponse {

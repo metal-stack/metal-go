@@ -22,7 +22,7 @@ type V1SwitchNic struct {
 
 	// the current state of the nic
 	// Required: true
-	// Enum: [DOWN UNKNOWN UP]
+	// Enum: ["DOWN","UNKNOWN","UP"]
 	Actual *string `json:"actual" yaml:"actual"`
 
 	// configures the bgp filter applied at the switch port

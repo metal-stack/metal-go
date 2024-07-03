@@ -6,6 +6,7 @@ package partition
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -93,11 +94,13 @@ func (o *CreatePartitionCreated) Code() int {
 }
 
 func (o *CreatePartitionCreated) Error() string {
-	return fmt.Sprintf("[PUT /v1/partition][%d] createPartitionCreated  %+v", 201, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /v1/partition][%d] createPartitionCreated %s", 201, payload)
 }
 
 func (o *CreatePartitionCreated) String() string {
-	return fmt.Sprintf("[PUT /v1/partition][%d] createPartitionCreated  %+v", 201, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /v1/partition][%d] createPartitionCreated %s", 201, payload)
 }
 
 func (o *CreatePartitionCreated) GetPayload() *models.V1PartitionResponse {
@@ -161,11 +164,13 @@ func (o *CreatePartitionConflict) Code() int {
 }
 
 func (o *CreatePartitionConflict) Error() string {
-	return fmt.Sprintf("[PUT /v1/partition][%d] createPartitionConflict  %+v", 409, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /v1/partition][%d] createPartitionConflict %s", 409, payload)
 }
 
 func (o *CreatePartitionConflict) String() string {
-	return fmt.Sprintf("[PUT /v1/partition][%d] createPartitionConflict  %+v", 409, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /v1/partition][%d] createPartitionConflict %s", 409, payload)
 }
 
 func (o *CreatePartitionConflict) GetPayload() *httperrors.HTTPErrorResponse {
@@ -233,11 +238,13 @@ func (o *CreatePartitionDefault) Code() int {
 }
 
 func (o *CreatePartitionDefault) Error() string {
-	return fmt.Sprintf("[PUT /v1/partition][%d] createPartition default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /v1/partition][%d] createPartition default %s", o._statusCode, payload)
 }
 
 func (o *CreatePartitionDefault) String() string {
-	return fmt.Sprintf("[PUT /v1/partition][%d] createPartition default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /v1/partition][%d] createPartition default %s", o._statusCode, payload)
 }
 
 func (o *CreatePartitionDefault) GetPayload() *httperrors.HTTPErrorResponse {

@@ -23,7 +23,7 @@ type V1NetworkUsage struct {
 	// Required: true
 	AvailableIps *int64 `json:"available_ips" yaml:"available_ips"`
 
-	// the total available Prefixes
+	// the total available 2 bit Prefixes
 	// Required: true
 	AvailablePrefixes *int64 `json:"available_prefixes" yaml:"available_prefixes"`
 

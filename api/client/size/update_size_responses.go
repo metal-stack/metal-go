@@ -6,6 +6,7 @@ package size
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -93,11 +94,13 @@ func (o *UpdateSizeOK) Code() int {
 }
 
 func (o *UpdateSizeOK) Error() string {
-	return fmt.Sprintf("[POST /v1/size][%d] updateSizeOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /v1/size][%d] updateSizeOK %s", 200, payload)
 }
 
 func (o *UpdateSizeOK) String() string {
-	return fmt.Sprintf("[POST /v1/size][%d] updateSizeOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /v1/size][%d] updateSizeOK %s", 200, payload)
 }
 
 func (o *UpdateSizeOK) GetPayload() *models.V1SizeResponse {
@@ -161,11 +164,13 @@ func (o *UpdateSizeConflict) Code() int {
 }
 
 func (o *UpdateSizeConflict) Error() string {
-	return fmt.Sprintf("[POST /v1/size][%d] updateSizeConflict  %+v", 409, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /v1/size][%d] updateSizeConflict %s", 409, payload)
 }
 
 func (o *UpdateSizeConflict) String() string {
-	return fmt.Sprintf("[POST /v1/size][%d] updateSizeConflict  %+v", 409, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /v1/size][%d] updateSizeConflict %s", 409, payload)
 }
 
 func (o *UpdateSizeConflict) GetPayload() *httperrors.HTTPErrorResponse {
@@ -233,11 +238,13 @@ func (o *UpdateSizeDefault) Code() int {
 }
 
 func (o *UpdateSizeDefault) Error() string {
-	return fmt.Sprintf("[POST /v1/size][%d] updateSize default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /v1/size][%d] updateSize default %s", o._statusCode, payload)
 }
 
 func (o *UpdateSizeDefault) String() string {
-	return fmt.Sprintf("[POST /v1/size][%d] updateSize default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /v1/size][%d] updateSize default %s", o._statusCode, payload)
 }
 
 func (o *UpdateSizeDefault) GetPayload() *httperrors.HTTPErrorResponse {

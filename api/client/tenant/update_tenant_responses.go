@@ -6,6 +6,7 @@ package tenant
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -93,11 +94,13 @@ func (o *UpdateTenantOK) Code() int {
 }
 
 func (o *UpdateTenantOK) Error() string {
-	return fmt.Sprintf("[POST /v1/tenant][%d] updateTenantOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /v1/tenant][%d] updateTenantOK %s", 200, payload)
 }
 
 func (o *UpdateTenantOK) String() string {
-	return fmt.Sprintf("[POST /v1/tenant][%d] updateTenantOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /v1/tenant][%d] updateTenantOK %s", 200, payload)
 }
 
 func (o *UpdateTenantOK) GetPayload() *models.V1TenantResponse {
@@ -161,11 +164,13 @@ func (o *UpdateTenantPreconditionFailed) Code() int {
 }
 
 func (o *UpdateTenantPreconditionFailed) Error() string {
-	return fmt.Sprintf("[POST /v1/tenant][%d] updateTenantPreconditionFailed  %+v", 412, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /v1/tenant][%d] updateTenantPreconditionFailed %s", 412, payload)
 }
 
 func (o *UpdateTenantPreconditionFailed) String() string {
-	return fmt.Sprintf("[POST /v1/tenant][%d] updateTenantPreconditionFailed  %+v", 412, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /v1/tenant][%d] updateTenantPreconditionFailed %s", 412, payload)
 }
 
 func (o *UpdateTenantPreconditionFailed) GetPayload() *httperrors.HTTPErrorResponse {
@@ -233,11 +238,13 @@ func (o *UpdateTenantDefault) Code() int {
 }
 
 func (o *UpdateTenantDefault) Error() string {
-	return fmt.Sprintf("[POST /v1/tenant][%d] updateTenant default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /v1/tenant][%d] updateTenant default %s", o._statusCode, payload)
 }
 
 func (o *UpdateTenantDefault) String() string {
-	return fmt.Sprintf("[POST /v1/tenant][%d] updateTenant default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /v1/tenant][%d] updateTenant default %s", o._statusCode, payload)
 }
 
 func (o *UpdateTenantDefault) GetPayload() *httperrors.HTTPErrorResponse {

@@ -6,6 +6,7 @@ package machine
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -87,11 +88,13 @@ func (o *FindIPMIMachinesOK) Code() int {
 }
 
 func (o *FindIPMIMachinesOK) Error() string {
-	return fmt.Sprintf("[POST /v1/machine/ipmi/find][%d] findIpMIMachinesOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /v1/machine/ipmi/find][%d] findIpMIMachinesOK %s", 200, payload)
 }
 
 func (o *FindIPMIMachinesOK) String() string {
-	return fmt.Sprintf("[POST /v1/machine/ipmi/find][%d] findIpMIMachinesOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /v1/machine/ipmi/find][%d] findIpMIMachinesOK %s", 200, payload)
 }
 
 func (o *FindIPMIMachinesOK) GetPayload() []*models.V1MachineIPMIResponse {
@@ -157,11 +160,13 @@ func (o *FindIPMIMachinesDefault) Code() int {
 }
 
 func (o *FindIPMIMachinesDefault) Error() string {
-	return fmt.Sprintf("[POST /v1/machine/ipmi/find][%d] findIPMIMachines default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /v1/machine/ipmi/find][%d] findIPMIMachines default %s", o._statusCode, payload)
 }
 
 func (o *FindIPMIMachinesDefault) String() string {
-	return fmt.Sprintf("[POST /v1/machine/ipmi/find][%d] findIPMIMachines default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /v1/machine/ipmi/find][%d] findIPMIMachines default %s", o._statusCode, payload)
 }
 
 func (o *FindIPMIMachinesDefault) GetPayload() *httperrors.HTTPErrorResponse {

@@ -6,6 +6,7 @@ package project
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -93,11 +94,13 @@ func (o *CreateProjectCreated) Code() int {
 }
 
 func (o *CreateProjectCreated) Error() string {
-	return fmt.Sprintf("[PUT /v1/project][%d] createProjectCreated  %+v", 201, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /v1/project][%d] createProjectCreated %s", 201, payload)
 }
 
 func (o *CreateProjectCreated) String() string {
-	return fmt.Sprintf("[PUT /v1/project][%d] createProjectCreated  %+v", 201, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /v1/project][%d] createProjectCreated %s", 201, payload)
 }
 
 func (o *CreateProjectCreated) GetPayload() *models.V1ProjectResponse {
@@ -161,11 +164,13 @@ func (o *CreateProjectConflict) Code() int {
 }
 
 func (o *CreateProjectConflict) Error() string {
-	return fmt.Sprintf("[PUT /v1/project][%d] createProjectConflict  %+v", 409, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /v1/project][%d] createProjectConflict %s", 409, payload)
 }
 
 func (o *CreateProjectConflict) String() string {
-	return fmt.Sprintf("[PUT /v1/project][%d] createProjectConflict  %+v", 409, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /v1/project][%d] createProjectConflict %s", 409, payload)
 }
 
 func (o *CreateProjectConflict) GetPayload() *httperrors.HTTPErrorResponse {
@@ -233,11 +238,13 @@ func (o *CreateProjectDefault) Code() int {
 }
 
 func (o *CreateProjectDefault) Error() string {
-	return fmt.Sprintf("[PUT /v1/project][%d] createProject default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /v1/project][%d] createProject default %s", o._statusCode, payload)
 }
 
 func (o *CreateProjectDefault) String() string {
-	return fmt.Sprintf("[PUT /v1/project][%d] createProject default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /v1/project][%d] createProject default %s", o._statusCode, payload)
 }
 
 func (o *CreateProjectDefault) GetPayload() *httperrors.HTTPErrorResponse {

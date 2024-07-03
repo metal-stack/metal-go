@@ -6,6 +6,7 @@ package size
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -93,11 +94,13 @@ func (o *CreateSizeCreated) Code() int {
 }
 
 func (o *CreateSizeCreated) Error() string {
-	return fmt.Sprintf("[PUT /v1/size][%d] createSizeCreated  %+v", 201, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /v1/size][%d] createSizeCreated %s", 201, payload)
 }
 
 func (o *CreateSizeCreated) String() string {
-	return fmt.Sprintf("[PUT /v1/size][%d] createSizeCreated  %+v", 201, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /v1/size][%d] createSizeCreated %s", 201, payload)
 }
 
 func (o *CreateSizeCreated) GetPayload() *models.V1SizeResponse {
@@ -161,11 +164,13 @@ func (o *CreateSizeConflict) Code() int {
 }
 
 func (o *CreateSizeConflict) Error() string {
-	return fmt.Sprintf("[PUT /v1/size][%d] createSizeConflict  %+v", 409, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /v1/size][%d] createSizeConflict %s", 409, payload)
 }
 
 func (o *CreateSizeConflict) String() string {
-	return fmt.Sprintf("[PUT /v1/size][%d] createSizeConflict  %+v", 409, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /v1/size][%d] createSizeConflict %s", 409, payload)
 }
 
 func (o *CreateSizeConflict) GetPayload() *httperrors.HTTPErrorResponse {
@@ -233,11 +238,13 @@ func (o *CreateSizeDefault) Code() int {
 }
 
 func (o *CreateSizeDefault) Error() string {
-	return fmt.Sprintf("[PUT /v1/size][%d] createSize default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /v1/size][%d] createSize default %s", o._statusCode, payload)
 }
 
 func (o *CreateSizeDefault) String() string {
-	return fmt.Sprintf("[PUT /v1/size][%d] createSize default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /v1/size][%d] createSize default %s", o._statusCode, payload)
 }
 
 func (o *CreateSizeDefault) GetPayload() *httperrors.HTTPErrorResponse {

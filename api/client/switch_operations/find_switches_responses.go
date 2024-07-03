@@ -6,6 +6,7 @@ package switch_operations
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -87,11 +88,13 @@ func (o *FindSwitchesOK) Code() int {
 }
 
 func (o *FindSwitchesOK) Error() string {
-	return fmt.Sprintf("[POST /v1/switch/find][%d] findSwitchesOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /v1/switch/find][%d] findSwitchesOK %s", 200, payload)
 }
 
 func (o *FindSwitchesOK) String() string {
-	return fmt.Sprintf("[POST /v1/switch/find][%d] findSwitchesOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /v1/switch/find][%d] findSwitchesOK %s", 200, payload)
 }
 
 func (o *FindSwitchesOK) GetPayload() []*models.V1SwitchResponse {
@@ -157,11 +160,13 @@ func (o *FindSwitchesDefault) Code() int {
 }
 
 func (o *FindSwitchesDefault) Error() string {
-	return fmt.Sprintf("[POST /v1/switch/find][%d] findSwitches default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /v1/switch/find][%d] findSwitches default %s", o._statusCode, payload)
 }
 
 func (o *FindSwitchesDefault) String() string {
-	return fmt.Sprintf("[POST /v1/switch/find][%d] findSwitches default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /v1/switch/find][%d] findSwitches default %s", o._statusCode, payload)
 }
 
 func (o *FindSwitchesDefault) GetPayload() *httperrors.HTTPErrorResponse {

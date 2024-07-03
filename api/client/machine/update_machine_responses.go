@@ -6,6 +6,7 @@ package machine
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -93,11 +94,13 @@ func (o *UpdateMachineOK) Code() int {
 }
 
 func (o *UpdateMachineOK) Error() string {
-	return fmt.Sprintf("[POST /v1/machine][%d] updateMachineOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /v1/machine][%d] updateMachineOK %s", 200, payload)
 }
 
 func (o *UpdateMachineOK) String() string {
-	return fmt.Sprintf("[POST /v1/machine][%d] updateMachineOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /v1/machine][%d] updateMachineOK %s", 200, payload)
 }
 
 func (o *UpdateMachineOK) GetPayload() *models.V1MachineResponse {
@@ -161,11 +164,13 @@ func (o *UpdateMachineConflict) Code() int {
 }
 
 func (o *UpdateMachineConflict) Error() string {
-	return fmt.Sprintf("[POST /v1/machine][%d] updateMachineConflict  %+v", 409, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /v1/machine][%d] updateMachineConflict %s", 409, payload)
 }
 
 func (o *UpdateMachineConflict) String() string {
-	return fmt.Sprintf("[POST /v1/machine][%d] updateMachineConflict  %+v", 409, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /v1/machine][%d] updateMachineConflict %s", 409, payload)
 }
 
 func (o *UpdateMachineConflict) GetPayload() *httperrors.HTTPErrorResponse {
@@ -233,11 +238,13 @@ func (o *UpdateMachineDefault) Code() int {
 }
 
 func (o *UpdateMachineDefault) Error() string {
-	return fmt.Sprintf("[POST /v1/machine][%d] updateMachine default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /v1/machine][%d] updateMachine default %s", o._statusCode, payload)
 }
 
 func (o *UpdateMachineDefault) String() string {
-	return fmt.Sprintf("[POST /v1/machine][%d] updateMachine default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /v1/machine][%d] updateMachine default %s", o._statusCode, payload)
 }
 
 func (o *UpdateMachineDefault) GetPayload() *httperrors.HTTPErrorResponse {

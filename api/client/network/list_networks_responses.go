@@ -6,6 +6,7 @@ package network
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -87,11 +88,13 @@ func (o *ListNetworksOK) Code() int {
 }
 
 func (o *ListNetworksOK) Error() string {
-	return fmt.Sprintf("[GET /v1/network][%d] listNetworksOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /v1/network][%d] listNetworksOK %s", 200, payload)
 }
 
 func (o *ListNetworksOK) String() string {
-	return fmt.Sprintf("[GET /v1/network][%d] listNetworksOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /v1/network][%d] listNetworksOK %s", 200, payload)
 }
 
 func (o *ListNetworksOK) GetPayload() []*models.V1NetworkResponse {
@@ -157,11 +160,13 @@ func (o *ListNetworksDefault) Code() int {
 }
 
 func (o *ListNetworksDefault) Error() string {
-	return fmt.Sprintf("[GET /v1/network][%d] listNetworks default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /v1/network][%d] listNetworks default %s", o._statusCode, payload)
 }
 
 func (o *ListNetworksDefault) String() string {
-	return fmt.Sprintf("[GET /v1/network][%d] listNetworks default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /v1/network][%d] listNetworks default %s", o._statusCode, payload)
 }
 
 func (o *ListNetworksDefault) GetPayload() *httperrors.HTTPErrorResponse {

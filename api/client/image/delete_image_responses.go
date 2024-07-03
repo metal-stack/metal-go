@@ -6,6 +6,7 @@ package image
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -87,11 +88,13 @@ func (o *DeleteImageOK) Code() int {
 }
 
 func (o *DeleteImageOK) Error() string {
-	return fmt.Sprintf("[DELETE /v1/image/{id}][%d] deleteImageOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /v1/image/{id}][%d] deleteImageOK %s", 200, payload)
 }
 
 func (o *DeleteImageOK) String() string {
-	return fmt.Sprintf("[DELETE /v1/image/{id}][%d] deleteImageOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /v1/image/{id}][%d] deleteImageOK %s", 200, payload)
 }
 
 func (o *DeleteImageOK) GetPayload() *models.V1ImageResponse {
@@ -159,11 +162,13 @@ func (o *DeleteImageDefault) Code() int {
 }
 
 func (o *DeleteImageDefault) Error() string {
-	return fmt.Sprintf("[DELETE /v1/image/{id}][%d] deleteImage default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /v1/image/{id}][%d] deleteImage default %s", o._statusCode, payload)
 }
 
 func (o *DeleteImageDefault) String() string {
-	return fmt.Sprintf("[DELETE /v1/image/{id}][%d] deleteImage default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /v1/image/{id}][%d] deleteImage default %s", o._statusCode, payload)
 }
 
 func (o *DeleteImageDefault) GetPayload() *httperrors.HTTPErrorResponse {

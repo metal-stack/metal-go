@@ -6,6 +6,7 @@ package machine
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -87,11 +88,13 @@ func (o *SetMachineStateOK) Code() int {
 }
 
 func (o *SetMachineStateOK) Error() string {
-	return fmt.Sprintf("[POST /v1/machine/{id}/state][%d] setMachineStateOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /v1/machine/{id}/state][%d] setMachineStateOK %s", 200, payload)
 }
 
 func (o *SetMachineStateOK) String() string {
-	return fmt.Sprintf("[POST /v1/machine/{id}/state][%d] setMachineStateOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /v1/machine/{id}/state][%d] setMachineStateOK %s", 200, payload)
 }
 
 func (o *SetMachineStateOK) GetPayload() *models.V1MachineResponse {
@@ -159,11 +162,13 @@ func (o *SetMachineStateDefault) Code() int {
 }
 
 func (o *SetMachineStateDefault) Error() string {
-	return fmt.Sprintf("[POST /v1/machine/{id}/state][%d] setMachineState default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /v1/machine/{id}/state][%d] setMachineState default %s", o._statusCode, payload)
 }
 
 func (o *SetMachineStateDefault) String() string {
-	return fmt.Sprintf("[POST /v1/machine/{id}/state][%d] setMachineState default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /v1/machine/{id}/state][%d] setMachineState default %s", o._statusCode, payload)
 }
 
 func (o *SetMachineStateDefault) GetPayload() *httperrors.HTTPErrorResponse {

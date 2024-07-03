@@ -6,6 +6,7 @@ package version
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -87,11 +88,13 @@ func (o *InfoOK) Code() int {
 }
 
 func (o *InfoOK) Error() string {
-	return fmt.Sprintf("[GET /v1/version][%d] infoOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /v1/version][%d] infoOK %s", 200, payload)
 }
 
 func (o *InfoOK) String() string {
-	return fmt.Sprintf("[GET /v1/version][%d] infoOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /v1/version][%d] infoOK %s", 200, payload)
 }
 
 func (o *InfoOK) GetPayload() *models.RestVersion {
@@ -159,11 +162,13 @@ func (o *InfoDefault) Code() int {
 }
 
 func (o *InfoDefault) Error() string {
-	return fmt.Sprintf("[GET /v1/version][%d] info default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /v1/version][%d] info default %s", o._statusCode, payload)
 }
 
 func (o *InfoDefault) String() string {
-	return fmt.Sprintf("[GET /v1/version][%d] info default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /v1/version][%d] info default %s", o._statusCode, payload)
 }
 
 func (o *InfoDefault) GetPayload() *httperrors.HTTPErrorResponse {

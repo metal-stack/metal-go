@@ -6,6 +6,7 @@ package image
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -87,11 +88,13 @@ func (o *QueryImagesByIDOK) Code() int {
 }
 
 func (o *QueryImagesByIDOK) Error() string {
-	return fmt.Sprintf("[GET /v1/image/{id}/query][%d] queryImagesByIdOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /v1/image/{id}/query][%d] queryImagesByIdOK %s", 200, payload)
 }
 
 func (o *QueryImagesByIDOK) String() string {
-	return fmt.Sprintf("[GET /v1/image/{id}/query][%d] queryImagesByIdOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /v1/image/{id}/query][%d] queryImagesByIdOK %s", 200, payload)
 }
 
 func (o *QueryImagesByIDOK) GetPayload() []*models.V1ImageResponse {
@@ -157,11 +160,13 @@ func (o *QueryImagesByIDDefault) Code() int {
 }
 
 func (o *QueryImagesByIDDefault) Error() string {
-	return fmt.Sprintf("[GET /v1/image/{id}/query][%d] queryImages by id default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /v1/image/{id}/query][%d] queryImages by id default %s", o._statusCode, payload)
 }
 
 func (o *QueryImagesByIDDefault) String() string {
-	return fmt.Sprintf("[GET /v1/image/{id}/query][%d] queryImages by id default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /v1/image/{id}/query][%d] queryImages by id default %s", o._statusCode, payload)
 }
 
 func (o *QueryImagesByIDDefault) GetPayload() *httperrors.HTTPErrorResponse {

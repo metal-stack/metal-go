@@ -6,6 +6,7 @@ package size
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -87,11 +88,13 @@ func (o *ListSizeReservationsOK) Code() int {
 }
 
 func (o *ListSizeReservationsOK) Error() string {
-	return fmt.Sprintf("[POST /v1/size/reservations][%d] listSizeReservationsOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /v1/size/reservations][%d] listSizeReservationsOK %s", 200, payload)
 }
 
 func (o *ListSizeReservationsOK) String() string {
-	return fmt.Sprintf("[POST /v1/size/reservations][%d] listSizeReservationsOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /v1/size/reservations][%d] listSizeReservationsOK %s", 200, payload)
 }
 
 func (o *ListSizeReservationsOK) GetPayload() []*models.V1SizeReservationResponse {
@@ -157,11 +160,13 @@ func (o *ListSizeReservationsDefault) Code() int {
 }
 
 func (o *ListSizeReservationsDefault) Error() string {
-	return fmt.Sprintf("[POST /v1/size/reservations][%d] listSizeReservations default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /v1/size/reservations][%d] listSizeReservations default %s", o._statusCode, payload)
 }
 
 func (o *ListSizeReservationsDefault) String() string {
-	return fmt.Sprintf("[POST /v1/size/reservations][%d] listSizeReservations default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /v1/size/reservations][%d] listSizeReservations default %s", o._statusCode, payload)
 }
 
 func (o *ListSizeReservationsDefault) GetPayload() *httperrors.HTTPErrorResponse {

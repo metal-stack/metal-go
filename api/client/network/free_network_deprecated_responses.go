@@ -6,6 +6,7 @@ package network
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -93,11 +94,13 @@ func (o *FreeNetworkDeprecatedOK) Code() int {
 }
 
 func (o *FreeNetworkDeprecatedOK) Error() string {
-	return fmt.Sprintf("[POST /v1/network/free/{id}][%d] freeNetworkDeprecatedOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /v1/network/free/{id}][%d] freeNetworkDeprecatedOK %s", 200, payload)
 }
 
 func (o *FreeNetworkDeprecatedOK) String() string {
-	return fmt.Sprintf("[POST /v1/network/free/{id}][%d] freeNetworkDeprecatedOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /v1/network/free/{id}][%d] freeNetworkDeprecatedOK %s", 200, payload)
 }
 
 func (o *FreeNetworkDeprecatedOK) GetPayload() *models.V1NetworkResponse {
@@ -161,11 +164,13 @@ func (o *FreeNetworkDeprecatedConflict) Code() int {
 }
 
 func (o *FreeNetworkDeprecatedConflict) Error() string {
-	return fmt.Sprintf("[POST /v1/network/free/{id}][%d] freeNetworkDeprecatedConflict  %+v", 409, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /v1/network/free/{id}][%d] freeNetworkDeprecatedConflict %s", 409, payload)
 }
 
 func (o *FreeNetworkDeprecatedConflict) String() string {
-	return fmt.Sprintf("[POST /v1/network/free/{id}][%d] freeNetworkDeprecatedConflict  %+v", 409, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /v1/network/free/{id}][%d] freeNetworkDeprecatedConflict %s", 409, payload)
 }
 
 func (o *FreeNetworkDeprecatedConflict) GetPayload() *httperrors.HTTPErrorResponse {
@@ -233,11 +238,13 @@ func (o *FreeNetworkDeprecatedDefault) Code() int {
 }
 
 func (o *FreeNetworkDeprecatedDefault) Error() string {
-	return fmt.Sprintf("[POST /v1/network/free/{id}][%d] freeNetworkDeprecated default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /v1/network/free/{id}][%d] freeNetworkDeprecated default %s", o._statusCode, payload)
 }
 
 func (o *FreeNetworkDeprecatedDefault) String() string {
-	return fmt.Sprintf("[POST /v1/network/free/{id}][%d] freeNetworkDeprecated default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /v1/network/free/{id}][%d] freeNetworkDeprecated default %s", o._statusCode, payload)
 }
 
 func (o *FreeNetworkDeprecatedDefault) GetPayload() *httperrors.HTTPErrorResponse {

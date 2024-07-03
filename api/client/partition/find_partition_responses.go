@@ -6,6 +6,7 @@ package partition
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -87,11 +88,13 @@ func (o *FindPartitionOK) Code() int {
 }
 
 func (o *FindPartitionOK) Error() string {
-	return fmt.Sprintf("[GET /v1/partition/{id}][%d] findPartitionOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /v1/partition/{id}][%d] findPartitionOK %s", 200, payload)
 }
 
 func (o *FindPartitionOK) String() string {
-	return fmt.Sprintf("[GET /v1/partition/{id}][%d] findPartitionOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /v1/partition/{id}][%d] findPartitionOK %s", 200, payload)
 }
 
 func (o *FindPartitionOK) GetPayload() *models.V1PartitionResponse {
@@ -159,11 +162,13 @@ func (o *FindPartitionDefault) Code() int {
 }
 
 func (o *FindPartitionDefault) Error() string {
-	return fmt.Sprintf("[GET /v1/partition/{id}][%d] findPartition default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /v1/partition/{id}][%d] findPartition default %s", o._statusCode, payload)
 }
 
 func (o *FindPartitionDefault) String() string {
-	return fmt.Sprintf("[GET /v1/partition/{id}][%d] findPartition default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /v1/partition/{id}][%d] findPartition default %s", o._statusCode, payload)
 }
 
 func (o *FindPartitionDefault) GetPayload() *httperrors.HTTPErrorResponse {

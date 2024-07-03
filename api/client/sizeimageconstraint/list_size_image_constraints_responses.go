@@ -6,6 +6,7 @@ package sizeimageconstraint
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -87,11 +88,13 @@ func (o *ListSizeImageConstraintsOK) Code() int {
 }
 
 func (o *ListSizeImageConstraintsOK) Error() string {
-	return fmt.Sprintf("[GET /v1/size-image-constraint][%d] listSizeImageConstraintsOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /v1/size-image-constraint][%d] listSizeImageConstraintsOK %s", 200, payload)
 }
 
 func (o *ListSizeImageConstraintsOK) String() string {
-	return fmt.Sprintf("[GET /v1/size-image-constraint][%d] listSizeImageConstraintsOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /v1/size-image-constraint][%d] listSizeImageConstraintsOK %s", 200, payload)
 }
 
 func (o *ListSizeImageConstraintsOK) GetPayload() []*models.V1SizeImageConstraintResponse {
@@ -157,11 +160,13 @@ func (o *ListSizeImageConstraintsDefault) Code() int {
 }
 
 func (o *ListSizeImageConstraintsDefault) Error() string {
-	return fmt.Sprintf("[GET /v1/size-image-constraint][%d] listSizeImageConstraints default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /v1/size-image-constraint][%d] listSizeImageConstraints default %s", o._statusCode, payload)
 }
 
 func (o *ListSizeImageConstraintsDefault) String() string {
-	return fmt.Sprintf("[GET /v1/size-image-constraint][%d] listSizeImageConstraints default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /v1/size-image-constraint][%d] listSizeImageConstraints default %s", o._statusCode, payload)
 }
 
 func (o *ListSizeImageConstraintsDefault) GetPayload() *httperrors.HTTPErrorResponse {

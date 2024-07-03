@@ -6,6 +6,7 @@ package network
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -87,11 +88,13 @@ func (o *FindNetworksOK) Code() int {
 }
 
 func (o *FindNetworksOK) Error() string {
-	return fmt.Sprintf("[POST /v1/network/find][%d] findNetworksOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /v1/network/find][%d] findNetworksOK %s", 200, payload)
 }
 
 func (o *FindNetworksOK) String() string {
-	return fmt.Sprintf("[POST /v1/network/find][%d] findNetworksOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /v1/network/find][%d] findNetworksOK %s", 200, payload)
 }
 
 func (o *FindNetworksOK) GetPayload() []*models.V1NetworkResponse {
@@ -157,11 +160,13 @@ func (o *FindNetworksDefault) Code() int {
 }
 
 func (o *FindNetworksDefault) Error() string {
-	return fmt.Sprintf("[POST /v1/network/find][%d] findNetworks default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /v1/network/find][%d] findNetworks default %s", o._statusCode, payload)
 }
 
 func (o *FindNetworksDefault) String() string {
-	return fmt.Sprintf("[POST /v1/network/find][%d] findNetworks default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /v1/network/find][%d] findNetworks default %s", o._statusCode, payload)
 }
 
 func (o *FindNetworksDefault) GetPayload() *httperrors.HTTPErrorResponse {

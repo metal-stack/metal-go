@@ -6,6 +6,7 @@ package switch_operations
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -87,11 +88,13 @@ func (o *DeleteSwitchOK) Code() int {
 }
 
 func (o *DeleteSwitchOK) Error() string {
-	return fmt.Sprintf("[DELETE /v1/switch/{id}][%d] deleteSwitchOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /v1/switch/{id}][%d] deleteSwitchOK %s", 200, payload)
 }
 
 func (o *DeleteSwitchOK) String() string {
-	return fmt.Sprintf("[DELETE /v1/switch/{id}][%d] deleteSwitchOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /v1/switch/{id}][%d] deleteSwitchOK %s", 200, payload)
 }
 
 func (o *DeleteSwitchOK) GetPayload() *models.V1SwitchResponse {
@@ -159,11 +162,13 @@ func (o *DeleteSwitchDefault) Code() int {
 }
 
 func (o *DeleteSwitchDefault) Error() string {
-	return fmt.Sprintf("[DELETE /v1/switch/{id}][%d] deleteSwitch default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /v1/switch/{id}][%d] deleteSwitch default %s", o._statusCode, payload)
 }
 
 func (o *DeleteSwitchDefault) String() string {
-	return fmt.Sprintf("[DELETE /v1/switch/{id}][%d] deleteSwitch default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /v1/switch/{id}][%d] deleteSwitch default %s", o._statusCode, payload)
 }
 
 func (o *DeleteSwitchDefault) GetPayload() *httperrors.HTTPErrorResponse {
