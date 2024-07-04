@@ -19,6 +19,9 @@ import (
 // swagger:model v1.NetworkCreateRequest
 type V1NetworkCreateRequest struct {
 
+	// if privatesuper, this defines the bitlen of child prefixes if not nil
+	Childprefixlength int64 `json:"childprefixlength,omitempty" yaml:"childprefixlength,omitempty"`
+
 	// a description for this entity
 	Description string `json:"description,omitempty" yaml:"description,omitempty"`
 

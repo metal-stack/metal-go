@@ -24,6 +24,9 @@ type V1NetworkResponse struct {
 	// Format: date-time
 	Changed strfmt.DateTime `json:"changed,omitempty" yaml:"changed,omitempty"`
 
+	// if privatesuper, this defines the bitlen of child prefixes if not nil
+	Childprefixlength int64 `json:"childprefixlength,omitempty" yaml:"childprefixlength,omitempty"`
+
 	// the creation time of this entity
 	// Read Only: true
 	// Format: date-time

@@ -20,6 +20,9 @@ import (
 // swagger:model v1.NetworkImmutable
 type V1NetworkImmutable struct {
 
+	// if privatesuper, this defines the bitlen of child prefixes if not nil
+	Childprefixlength int64 `json:"childprefixlength,omitempty" yaml:"childprefixlength,omitempty"`
+
 	// the destination prefixes of this network
 	// Required: true
 	Destinationprefixes []string `json:"destinationprefixes" yaml:"destinationprefixes"`
