@@ -8,8 +8,10 @@ package models
 import (
 	"context"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // V1NetworkAllocateRequest v1 network allocate request
@@ -18,7 +20,8 @@ import (
 type V1NetworkAllocateRequest struct {
 
 	// can be ipv4 or ipv6, defaults to ipv4
-	AddressFamily string `json:"address_family,omitempty" yaml:"address_family,omitempty"`
+	// Required: true
+	AddressFamily *string `json:"address_family" yaml:"address_family"`
 
 	// a description for this entity
 	Description string `json:"description,omitempty" yaml:"description,omitempty"`
@@ -30,7 +33,8 @@ type V1NetworkAllocateRequest struct {
 	Labels map[string]string `json:"labels,omitempty" yaml:"labels,omitempty"`
 
 	// the bitlen of the prefix to allocate, defaults to childprefixlength of super prefix
-	Length int64 `json:"length,omitempty" yaml:"length,omitempty"`
+	// Required: true
+	Length *int64 `json:"length" yaml:"length"`
 
 	// a readable name for this entity
 	Name string `json:"name,omitempty" yaml:"name,omitempty"`
@@ -50,6 +54,37 @@ type V1NetworkAllocateRequest struct {
 
 // Validate validates this v1 network allocate request
 func (m *V1NetworkAllocateRequest) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateAddressFamily(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateLength(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *V1NetworkAllocateRequest) validateAddressFamily(formats strfmt.Registry) error {
+
+	if err := validate.Required("address_family", "body", m.AddressFamily); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *V1NetworkAllocateRequest) validateLength(formats strfmt.Registry) error {
+
+	if err := validate.Required("length", "body", m.Length); err != nil {
+		return err
+	}
+
 	return nil
 }
 
