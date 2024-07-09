@@ -35,6 +35,9 @@ type RestVersion struct {
 	// Required: true
 	Name *string `json:"name" yaml:"name"`
 
+	// release version
+	ReleaseVersion string `json:"release_version,omitempty" yaml:"release_version,omitempty"`
+
 	// revision
 	// Required: true
 	Revision *string `json:"revision" yaml:"revision"`
