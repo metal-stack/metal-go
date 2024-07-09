@@ -64,7 +64,7 @@ ListSizeReservationsParams contains all the parameters to send to the API endpoi
 type ListSizeReservationsParams struct {
 
 	// Body.
-	Body models.V1EmptyBody
+	Body *models.V1SizeReservationListRequest
 
 	timeout    time.Duration
 	Context    context.Context
@@ -120,13 +120,13 @@ func (o *ListSizeReservationsParams) SetHTTPClient(client *http.Client) {
 }
 
 // WithBody adds the body to the list size reservations params
-func (o *ListSizeReservationsParams) WithBody(body models.V1EmptyBody) *ListSizeReservationsParams {
+func (o *ListSizeReservationsParams) WithBody(body *models.V1SizeReservationListRequest) *ListSizeReservationsParams {
 	o.SetBody(body)
 	return o
 }
 
 // SetBody adds the body to the list size reservations params
-func (o *ListSizeReservationsParams) SetBody(body models.V1EmptyBody) {
+func (o *ListSizeReservationsParams) SetBody(body *models.V1SizeReservationListRequest) {
 	o.Body = body
 }
 
