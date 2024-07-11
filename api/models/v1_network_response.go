@@ -7,6 +7,7 @@ package models
 
 import (
 	"context"
+	"encoding/json"
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
@@ -19,18 +20,23 @@ import (
 // swagger:model v1.NetworkResponse
 type V1NetworkResponse struct {
 
+	// the addressfamily either IPv4 or IPv6 of this network
+	// Required: true
+	// Enum: ["IPv4","IPv6"]
+	Addressfamily *string `json:"addressfamily" yaml:"addressfamily"`
+
 	// the last changed timestamp of this entity
 	// Read Only: true
 	// Format: date-time
 	Changed strfmt.DateTime `json:"changed,omitempty" yaml:"changed,omitempty"`
 
-	// if privatesuper, this defines the bitlen of child prefixes if not nil
-	Childprefixlength int64 `json:"childprefixlength,omitempty" yaml:"childprefixlength,omitempty"`
-
 	// the creation time of this entity
 	// Read Only: true
 	// Format: date-time
 	Created strfmt.DateTime `json:"created,omitempty" yaml:"created,omitempty"`
+
+	// if privatesuper, this defines the bitlen of child prefixes if not nil
+	Defaultchildprefixlength int64 `json:"defaultchildprefixlength,omitempty" yaml:"defaultchildprefixlength,omitempty"`
 
 	// a description for this entity
 	Description string `json:"description,omitempty" yaml:"description,omitempty"`
@@ -92,6 +98,10 @@ type V1NetworkResponse struct {
 func (m *V1NetworkResponse) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateAddressfamily(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateChanged(formats); err != nil {
 		res = append(res, err)
 	}
@@ -131,6 +141,49 @@ func (m *V1NetworkResponse) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+var v1NetworkResponseTypeAddressfamilyPropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["IPv4","IPv6"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		v1NetworkResponseTypeAddressfamilyPropEnum = append(v1NetworkResponseTypeAddressfamilyPropEnum, v)
+	}
+}
+
+const (
+
+	// V1NetworkResponseAddressfamilyIPV4 captures enum value "IPv4"
+	V1NetworkResponseAddressfamilyIPV4 string = "IPv4"
+
+	// V1NetworkResponseAddressfamilyIPV6 captures enum value "IPv6"
+	V1NetworkResponseAddressfamilyIPV6 string = "IPv6"
+)
+
+// prop value enum
+func (m *V1NetworkResponse) validateAddressfamilyEnum(path, location string, value string) error {
+	if err := validate.EnumCase(path, location, value, v1NetworkResponseTypeAddressfamilyPropEnum, true); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *V1NetworkResponse) validateAddressfamily(formats strfmt.Registry) error {
+
+	if err := validate.Required("addressfamily", "body", m.Addressfamily); err != nil {
+		return err
+	}
+
+	// value enum
+	if err := m.validateAddressfamilyEnum("addressfamily", "body", *m.Addressfamily); err != nil {
+		return err
+	}
+
 	return nil
 }
 

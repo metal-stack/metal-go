@@ -17,6 +17,9 @@ import (
 // swagger:model datastore.NetworkSearchQuery
 type DatastoreNetworkSearchQuery struct {
 
+	// addressfamily
+	Addressfamily string `json:"addressfamily,omitempty" yaml:"addressfamily,omitempty"`
+
 	// destinationprefixes
 	Destinationprefixes []string `json:"destinationprefixes" yaml:"destinationprefixes"`
 

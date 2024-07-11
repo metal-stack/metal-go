@@ -17,6 +17,9 @@ import (
 // swagger:model v1.NetworkFindRequest
 type V1NetworkFindRequest struct {
 
+	// addressfamily
+	Addressfamily string `json:"addressfamily,omitempty" yaml:"addressfamily,omitempty"`
+
 	// destinationprefixes
 	Destinationprefixes []string `json:"destinationprefixes" yaml:"destinationprefixes"`
 

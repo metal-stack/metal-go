@@ -14,6 +14,7 @@ import (
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
+	"github.com/go-openapi/swag"
 )
 
 // NewDeleteSwitchParams creates a new DeleteSwitchParams object,
@@ -61,6 +62,12 @@ DeleteSwitchParams contains all the parameters to send to the API endpoint
 */
 type DeleteSwitchParams struct {
 
+	/* Force.
+
+	   if true switch is deleted with no validation
+	*/
+	Force *bool
+
 	/* ID.
 
 	   identifier of the switch
@@ -84,7 +91,18 @@ func (o *DeleteSwitchParams) WithDefaults() *DeleteSwitchParams {
 //
 // All values with no default are reset to their zero value.
 func (o *DeleteSwitchParams) SetDefaults() {
-	// no default values defined for this parameter
+	var (
+		forceDefault = bool(false)
+	)
+
+	val := DeleteSwitchParams{
+		Force: &forceDefault,
+	}
+
+	val.timeout = o.timeout
+	val.Context = o.Context
+	val.HTTPClient = o.HTTPClient
+	*o = val
 }
 
 // WithTimeout adds the timeout to the delete switch params
@@ -120,6 +138,17 @@ func (o *DeleteSwitchParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithForce adds the force to the delete switch params
+func (o *DeleteSwitchParams) WithForce(force *bool) *DeleteSwitchParams {
+	o.SetForce(force)
+	return o
+}
+
+// SetForce adds the force to the delete switch params
+func (o *DeleteSwitchParams) SetForce(force *bool) {
+	o.Force = force
+}
+
 // WithID adds the id to the delete switch params
 func (o *DeleteSwitchParams) WithID(id string) *DeleteSwitchParams {
 	o.SetID(id)
@@ -138,6 +167,23 @@ func (o *DeleteSwitchParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.
 		return err
 	}
 	var res []error
+
+	if o.Force != nil {
+
+		// query param force
+		var qrForce bool
+
+		if o.Force != nil {
+			qrForce = *o.Force
+		}
+		qForce := swag.FormatBool(qrForce)
+		if qForce != "" {
+
+			if err := r.SetQueryParam("force", qForce); err != nil {
+				return err
+			}
+		}
+	}
 
 	// path param id
 	if err := r.SetPathParam("id", o.ID); err != nil {
