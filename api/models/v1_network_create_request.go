@@ -19,6 +19,13 @@ import (
 // swagger:model v1.NetworkCreateRequest
 type V1NetworkCreateRequest struct {
 
+	// the addressfamilies in this network, either IPv4 or IPv6 or both
+	// Required: true
+	Addressfamily map[string]bool `json:"addressfamily" yaml:"addressfamily"`
+
+	// if privatesuper, this defines the bitlen of child prefixes per addressfamily if not nil
+	Defaultchildprefixlength map[string]int64 `json:"defaultchildprefixlength,omitempty" yaml:"defaultchildprefixlength,omitempty"`
+
 	// a description for this entity
 	Description string `json:"description,omitempty" yaml:"description,omitempty"`
 
@@ -75,6 +82,10 @@ type V1NetworkCreateRequest struct {
 func (m *V1NetworkCreateRequest) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateAddressfamily(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateDestinationprefixes(formats); err != nil {
 		res = append(res, err)
 	}
@@ -102,6 +113,15 @@ func (m *V1NetworkCreateRequest) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *V1NetworkCreateRequest) validateAddressfamily(formats strfmt.Registry) error {
+
+	if err := validate.Required("addressfamily", "body", m.Addressfamily); err != nil {
+		return err
+	}
+
 	return nil
 }
 

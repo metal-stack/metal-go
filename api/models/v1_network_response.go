@@ -19,6 +19,10 @@ import (
 // swagger:model v1.NetworkResponse
 type V1NetworkResponse struct {
 
+	// the addressfamilies in this network, either IPv4 or IPv6 or both
+	// Required: true
+	Addressfamily map[string]bool `json:"addressfamily" yaml:"addressfamily"`
+
 	// the last changed timestamp of this entity
 	// Read Only: true
 	// Format: date-time
@@ -28,6 +32,9 @@ type V1NetworkResponse struct {
 	// Read Only: true
 	// Format: date-time
 	Created strfmt.DateTime `json:"created,omitempty" yaml:"created,omitempty"`
+
+	// if privatesuper, this defines the bitlen of child prefixes per addressfamily if not nil
+	Defaultchildprefixlength map[string]int64 `json:"defaultchildprefixlength,omitempty" yaml:"defaultchildprefixlength,omitempty"`
 
 	// a description for this entity
 	Description string `json:"description,omitempty" yaml:"description,omitempty"`
@@ -89,6 +96,10 @@ type V1NetworkResponse struct {
 func (m *V1NetworkResponse) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateAddressfamily(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateChanged(formats); err != nil {
 		res = append(res, err)
 	}
@@ -128,6 +139,15 @@ func (m *V1NetworkResponse) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *V1NetworkResponse) validateAddressfamily(formats strfmt.Registry) error {
+
+	if err := validate.Required("addressfamily", "body", m.Addressfamily); err != nil {
+		return err
+	}
+
 	return nil
 }
 
