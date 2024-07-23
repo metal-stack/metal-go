@@ -19,9 +19,13 @@ import (
 // swagger:model v1.NetworkCreateRequest
 type V1NetworkCreateRequest struct {
 
+	// list of cidrs which are added to the route maps per tenant private network, these are typically pod- and service cidrs, can only be set in a supernetwork
+	// Required: true
+	Additionalroutemapcidrs []string `json:"additionalroutemapcidrs" yaml:"additionalroutemapcidrs"`
+
 	// the addressfamilies in this network, either IPv4 or IPv6 or both
 	// Required: true
-	Addressfamily map[string]bool `json:"addressfamily" yaml:"addressfamily"`
+	Addressfamilies map[string]bool `json:"addressfamilies" yaml:"addressfamilies"`
 
 	// if privatesuper, this defines the bitlen of child prefixes per addressfamily if not nil
 	Defaultchildprefixlength map[string]int64 `json:"defaultchildprefixlength,omitempty" yaml:"defaultchildprefixlength,omitempty"`
@@ -82,7 +86,11 @@ type V1NetworkCreateRequest struct {
 func (m *V1NetworkCreateRequest) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateAddressfamily(formats); err != nil {
+	if err := m.validateAdditionalroutemapcidrs(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateAddressfamilies(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -116,9 +124,18 @@ func (m *V1NetworkCreateRequest) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *V1NetworkCreateRequest) validateAddressfamily(formats strfmt.Registry) error {
+func (m *V1NetworkCreateRequest) validateAdditionalroutemapcidrs(formats strfmt.Registry) error {
 
-	if err := validate.Required("addressfamily", "body", m.Addressfamily); err != nil {
+	if err := validate.Required("additionalroutemapcidrs", "body", m.Additionalroutemapcidrs); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *V1NetworkCreateRequest) validateAddressfamilies(formats strfmt.Registry) error {
+
+	if err := validate.Required("addressfamilies", "body", m.Addressfamilies); err != nil {
 		return err
 	}
 

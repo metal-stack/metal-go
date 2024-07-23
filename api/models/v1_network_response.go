@@ -19,9 +19,13 @@ import (
 // swagger:model v1.NetworkResponse
 type V1NetworkResponse struct {
 
+	// list of cidrs which are added to the route maps per tenant private network, these are typically pod- and service cidrs, can only be set in a supernetwork
+	// Required: true
+	Additionalroutemapcidrs []string `json:"additionalroutemapcidrs" yaml:"additionalroutemapcidrs"`
+
 	// the addressfamilies in this network, either IPv4 or IPv6 or both
 	// Required: true
-	Addressfamily map[string]bool `json:"addressfamily" yaml:"addressfamily"`
+	Addressfamilies map[string]bool `json:"addressfamilies" yaml:"addressfamilies"`
 
 	// the last changed timestamp of this entity
 	// Read Only: true
@@ -81,9 +85,13 @@ type V1NetworkResponse struct {
 	// Required: true
 	Underlay *bool `json:"underlay" yaml:"underlay"`
 
-	// usage of ips and prefixes in this network
+	// usage of IPv4 ips and prefixes in this network
 	// Required: true
 	Usage *V1NetworkUsage `json:"usage" yaml:"usage"`
+
+	// usage of IPv6 ips and prefixes in this network
+	// Required: true
+	Usagev6 *V1NetworkUsage `json:"usagev6" yaml:"usagev6"`
 
 	// the vrf this network is associated with
 	Vrf int64 `json:"vrf,omitempty" yaml:"vrf,omitempty"`
@@ -96,7 +104,11 @@ type V1NetworkResponse struct {
 func (m *V1NetworkResponse) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateAddressfamily(formats); err != nil {
+	if err := m.validateAdditionalroutemapcidrs(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateAddressfamilies(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -136,15 +148,28 @@ func (m *V1NetworkResponse) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateUsagev6(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
 	return nil
 }
 
-func (m *V1NetworkResponse) validateAddressfamily(formats strfmt.Registry) error {
+func (m *V1NetworkResponse) validateAdditionalroutemapcidrs(formats strfmt.Registry) error {
 
-	if err := validate.Required("addressfamily", "body", m.Addressfamily); err != nil {
+	if err := validate.Required("additionalroutemapcidrs", "body", m.Additionalroutemapcidrs); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *V1NetworkResponse) validateAddressfamilies(formats strfmt.Registry) error {
+
+	if err := validate.Required("addressfamilies", "body", m.Addressfamilies); err != nil {
 		return err
 	}
 
@@ -249,6 +274,26 @@ func (m *V1NetworkResponse) validateUsage(formats strfmt.Registry) error {
 	return nil
 }
 
+func (m *V1NetworkResponse) validateUsagev6(formats strfmt.Registry) error {
+
+	if err := validate.Required("usagev6", "body", m.Usagev6); err != nil {
+		return err
+	}
+
+	if m.Usagev6 != nil {
+		if err := m.Usagev6.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("usagev6")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("usagev6")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
 // ContextValidate validate this v1 network response based on the context it is used
 func (m *V1NetworkResponse) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	var res []error
@@ -262,6 +307,10 @@ func (m *V1NetworkResponse) ContextValidate(ctx context.Context, formats strfmt.
 	}
 
 	if err := m.contextValidateUsage(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateUsagev6(ctx, formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -298,6 +347,23 @@ func (m *V1NetworkResponse) contextValidateUsage(ctx context.Context, formats st
 				return ve.ValidateName("usage")
 			} else if ce, ok := err.(*errors.CompositeError); ok {
 				return ce.ValidateName("usage")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *V1NetworkResponse) contextValidateUsagev6(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Usagev6 != nil {
+
+		if err := m.Usagev6.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("usagev6")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("usagev6")
 			}
 			return err
 		}

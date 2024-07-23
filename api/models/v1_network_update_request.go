@@ -19,6 +19,10 @@ import (
 // swagger:model v1.NetworkUpdateRequest
 type V1NetworkUpdateRequest struct {
 
+	// list of cidrs which are added to the route maps per tenant private network, these are typically pod- and service cidrs, can only be set in a supernetwork
+	// Required: true
+	Additionalroutemapcidrs []string `json:"additionalroutemapcidrs" yaml:"additionalroutemapcidrs"`
+
 	// a description for this entity
 	Description string `json:"description,omitempty" yaml:"description,omitempty"`
 
@@ -46,6 +50,10 @@ type V1NetworkUpdateRequest struct {
 func (m *V1NetworkUpdateRequest) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateAdditionalroutemapcidrs(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateID(formats); err != nil {
 		res = append(res, err)
 	}
@@ -53,6 +61,15 @@ func (m *V1NetworkUpdateRequest) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *V1NetworkUpdateRequest) validateAdditionalroutemapcidrs(formats strfmt.Registry) error {
+
+	if err := validate.Required("additionalroutemapcidrs", "body", m.Additionalroutemapcidrs); err != nil {
+		return err
+	}
+
 	return nil
 }
 

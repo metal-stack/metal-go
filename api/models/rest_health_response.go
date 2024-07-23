@@ -24,7 +24,7 @@ type RestHealthResponse struct {
 	Message *string `json:"message" yaml:"message"`
 
 	// services
-	Services map[string]RestHealthResult `json:"services,omitempty" yaml:"services,omitempty"`
+	Services map[string]RestHealthResponse `json:"services,omitempty" yaml:"services,omitempty"`
 
 	// status
 	// Required: true

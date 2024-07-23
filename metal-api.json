@@ -355,27 +355,7 @@
         },
         "services": {
           "additionalProperties": {
-            "$ref": "#/definitions/rest.HealthResult"
-          },
-          "type": "object"
-        },
-        "status": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "message",
-        "status"
-      ]
-    },
-    "rest.HealthResult": {
-      "properties": {
-        "message": {
-          "type": "string"
-        },
-        "services": {
-          "additionalProperties": {
-            "$ref": "#/definitions/rest.HealthResult"
+            "$ref": "#/definitions/rest.HealthResponse"
           },
           "type": "object"
         },
@@ -3666,7 +3646,14 @@
     },
     "v1.NetworkCreateRequest": {
       "properties": {
-        "addressfamily": {
+        "additionalroutemapcidrs": {
+          "description": "list of cidrs which are added to the route maps per tenant private network, these are typically pod- and service cidrs, can only be set in a supernetwork",
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "addressfamilies": {
           "additionalProperties": {
             "type": "boolean"
           },
@@ -3752,7 +3739,8 @@
         }
       },
       "required": [
-        "addressfamily",
+        "additionalroutemapcidrs",
+        "addressfamilies",
         "destinationprefixes",
         "id",
         "nat",
@@ -3814,7 +3802,14 @@
     "v1.NetworkImmutable": {
       "description": "a network which contains prefixes from which IP addresses can be allocated\nprefixes that are reachable within this network",
       "properties": {
-        "addressfamily": {
+        "additionalroutemapcidrs": {
+          "description": "list of cidrs which are added to the route maps per tenant private network, these are typically pod- and service cidrs, can only be set in a supernetwork",
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "addressfamilies": {
           "additionalProperties": {
             "type": "boolean"
           },
@@ -3869,7 +3864,8 @@
         }
       },
       "required": [
-        "addressfamily",
+        "additionalroutemapcidrs",
+        "addressfamilies",
         "destinationprefixes",
         "nat",
         "prefixes",
@@ -3879,7 +3875,14 @@
     },
     "v1.NetworkResponse": {
       "properties": {
-        "addressfamily": {
+        "additionalroutemapcidrs": {
+          "description": "list of cidrs which are added to the route maps per tenant private network, these are typically pod- and service cidrs, can only be set in a supernetwork",
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "addressfamilies": {
           "additionalProperties": {
             "type": "boolean"
           },
@@ -3968,7 +3971,11 @@
         },
         "usage": {
           "$ref": "#/definitions/v1.NetworkUsage",
-          "description": "usage of ips and prefixes in this network"
+          "description": "usage of IPv4 ips and prefixes in this network"
+        },
+        "usagev6": {
+          "$ref": "#/definitions/v1.NetworkUsage",
+          "description": "usage of IPv6 ips and prefixes in this network"
         },
         "vrf": {
           "description": "the vrf this network is associated with",
@@ -3981,18 +3988,27 @@
         }
       },
       "required": [
-        "addressfamily",
+        "additionalroutemapcidrs",
+        "addressfamilies",
         "destinationprefixes",
         "id",
         "nat",
         "prefixes",
         "privatesuper",
         "underlay",
-        "usage"
+        "usage",
+        "usagev6"
       ]
     },
     "v1.NetworkUpdateRequest": {
       "properties": {
+        "additionalroutemapcidrs": {
+          "description": "list of cidrs which are added to the route maps per tenant private network, these are typically pod- and service cidrs, can only be set in a supernetwork",
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
         "description": {
           "description": "a description for this entity",
           "type": "string"
@@ -4032,6 +4048,7 @@
         }
       },
       "required": [
+        "additionalroutemapcidrs",
         "id"
       ]
     },
