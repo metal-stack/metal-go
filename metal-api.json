@@ -355,27 +355,7 @@
         },
         "services": {
           "additionalProperties": {
-            "$ref": "#/definitions/rest.HealthResult"
-          },
-          "type": "object"
-        },
-        "status": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "message",
-        "status"
-      ]
-    },
-    "rest.HealthResult": {
-      "properties": {
-        "message": {
-          "type": "string"
-        },
-        "services": {
-          "additionalProperties": {
-            "$ref": "#/definitions/rest.HealthResult"
+            "$ref": "#/definitions/rest.HealthResponse"
           },
           "type": "object"
         },
@@ -5492,7 +5472,7 @@
       "url": "https://www.gnu.org/licenses/agpl-3.0.de.html"
     },
     "title": "metal-api",
-    "version": "v0.32.3"
+    "version": "v0.32.4"
   },
   "paths": {
     "/v1/audit/find": {
