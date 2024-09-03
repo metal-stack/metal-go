@@ -19,6 +19,9 @@ import (
 // swagger:model v1.NetworkResponse
 type V1NetworkResponse struct {
 
+	// list of cidrs which are added to the route maps per tenant private network, these are typically pod- and service cidrs, can only be set for private super networks
+	AdditionalAnnouncableCIDRs []string `json:"additionalAnnouncableCIDRs" yaml:"additionalAnnouncableCIDRs"`
+
 	// the last changed timestamp of this entity
 	// Read Only: true
 	// Format: date-time

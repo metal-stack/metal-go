@@ -19,6 +19,9 @@ import (
 // swagger:model v1.NetworkCreateRequest
 type V1NetworkCreateRequest struct {
 
+	// list of cidrs which are added to the route maps per tenant private network, these are typically pod- and service cidrs, can only be set for private super networks
+	AdditionalAnnouncableCIDRs []string `json:"additionalAnnouncableCIDRs" yaml:"additionalAnnouncableCIDRs"`
+
 	// a description for this entity
 	Description string `json:"description,omitempty" yaml:"description,omitempty"`
 
