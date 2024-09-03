@@ -14,6 +14,7 @@ import (
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
+	"github.com/go-openapi/swag"
 
 	"github.com/metal-stack/metal-go/api/models"
 )
@@ -66,6 +67,12 @@ type UpdateNetworkParams struct {
 	// Body.
 	Body *models.V1NetworkUpdateRequest
 
+	/* Force.
+
+	   if true update forcefully
+	*/
+	Force *bool
+
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
@@ -83,7 +90,18 @@ func (o *UpdateNetworkParams) WithDefaults() *UpdateNetworkParams {
 //
 // All values with no default are reset to their zero value.
 func (o *UpdateNetworkParams) SetDefaults() {
-	// no default values defined for this parameter
+	var (
+		forceDefault = bool(false)
+	)
+
+	val := UpdateNetworkParams{
+		Force: &forceDefault,
+	}
+
+	val.timeout = o.timeout
+	val.Context = o.Context
+	val.HTTPClient = o.HTTPClient
+	*o = val
 }
 
 // WithTimeout adds the timeout to the update network params
@@ -130,6 +148,17 @@ func (o *UpdateNetworkParams) SetBody(body *models.V1NetworkUpdateRequest) {
 	o.Body = body
 }
 
+// WithForce adds the force to the update network params
+func (o *UpdateNetworkParams) WithForce(force *bool) *UpdateNetworkParams {
+	o.SetForce(force)
+	return o
+}
+
+// SetForce adds the force to the update network params
+func (o *UpdateNetworkParams) SetForce(force *bool) {
+	o.Force = force
+}
+
 // WriteToRequest writes these params to a swagger request
 func (o *UpdateNetworkParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -140,6 +169,23 @@ func (o *UpdateNetworkParams) WriteToRequest(r runtime.ClientRequest, reg strfmt
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err
+		}
+	}
+
+	if o.Force != nil {
+
+		// query param force
+		var qrForce bool
+
+		if o.Force != nil {
+			qrForce = *o.Force
+		}
+		qForce := swag.FormatBool(qrForce)
+		if qForce != "" {
+
+			if err := r.SetQueryParam("force", qForce); err != nil {
+				return err
+			}
 		}
 	}
 

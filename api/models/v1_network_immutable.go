@@ -20,6 +20,9 @@ import (
 // swagger:model v1.NetworkImmutable
 type V1NetworkImmutable struct {
 
+	// list of cidrs which are added to the route maps per tenant private network, these are typically pod- and service cidrs, can only be set for private super networks
+	AdditionalAnnouncableCIDRs []string `json:"additionalAnnouncableCIDRs" yaml:"additionalAnnouncableCIDRs"`
+
 	// the destination prefixes of this network
 	// Required: true
 	Destinationprefixes []string `json:"destinationprefixes" yaml:"destinationprefixes"`
