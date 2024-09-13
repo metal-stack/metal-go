@@ -23,6 +23,9 @@ type V1MachineAllocateRequest struct {
 	// a description for this entity
 	Description string `json:"description,omitempty" yaml:"description,omitempty"`
 
+	// the dns servers used for the machine
+	DNSServers []string `json:"dns_servers" yaml:"dns_servers"`
+
 	// the filesystemlayout id to assign to this machine
 	Filesystemlayoutid string `json:"filesystemlayoutid,omitempty" yaml:"filesystemlayoutid,omitempty"`
 
@@ -41,6 +44,9 @@ type V1MachineAllocateRequest struct {
 
 	// the networks that this machine will be placed in.
 	Networks []*V1MachineAllocationNetwork `json:"networks" yaml:"networks"`
+
+	// the ntp servers used for the machine
+	NtpServers []string `json:"ntp_servers" yaml:"ntp_servers"`
 
 	// the partition id to assign this machine to
 	// Required: true

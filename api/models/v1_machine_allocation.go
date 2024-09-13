@@ -40,6 +40,9 @@ type V1MachineAllocation struct {
 	// a description for this machine
 	Description string `json:"description,omitempty" yaml:"description,omitempty"`
 
+	// the dns servers used for the machine
+	DNSServers []string `json:"dns_servers" yaml:"dns_servers"`
+
 	// filesystemlayout to create on this machine
 	Filesystemlayout *V1FilesystemLayoutResponse `json:"filesystemlayout,omitempty" yaml:"filesystemlayout,omitempty"`
 
@@ -61,6 +64,9 @@ type V1MachineAllocation struct {
 	// the networks of this machine
 	// Required: true
 	Networks []*V1MachineNetwork `json:"networks" yaml:"networks"`
+
+	// the ntp servers used for the machine
+	NtpServers []string `json:"ntp_servers" yaml:"ntp_servers"`
 
 	// the project id that this machine is assigned to
 	// Required: true
