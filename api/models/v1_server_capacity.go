@@ -19,88 +19,52 @@ import (
 // swagger:model v1.ServerCapacity
 type V1ServerCapacity struct {
 
-	// allocated servers with this size
-	// Required: true
-	Allocated *int32 `json:"allocated" yaml:"allocated"`
+	// allocated machines
+	Allocated int32 `json:"allocated,omitempty" yaml:"allocated,omitempty"`
 
-	// servers with issues with this size
-	// Required: true
-	Faulty *int32 `json:"faulty" yaml:"faulty"`
+	// machines with issues with this size
+	Faulty int32 `json:"faulty,omitempty" yaml:"faulty,omitempty"`
 
-	// servers with issues with this size
-	// Required: true
+	// machine ids with issues with this size
 	Faultymachines []string `json:"faultymachines" yaml:"faultymachines"`
 
-	// free servers with this size
-	// Required: true
-	Free *int32 `json:"free" yaml:"free"`
+	// free machines with this size (freely allocatable)
+	Free int32 `json:"free,omitempty" yaml:"free,omitempty"`
 
-	// servers neither free, allocated or faulty with this size
-	// Required: true
-	Other *int32 `json:"other" yaml:"other"`
+	// machines neither phoned home nor waiting but in another provisioning state
+	Other int32 `json:"other,omitempty" yaml:"other,omitempty"`
 
-	// servers neither free, allocated or faulty with this size
-	// Required: true
+	// machine ids neither allocated nor waiting with this size
 	Othermachines []string `json:"othermachines" yaml:"othermachines"`
 
-	// the amount of reservations for this size
-	// Required: true
-	Reservations *int32 `json:"reservations" yaml:"reservations"`
+	// machines in phoned home provisioning state
+	PhonedHome int32 `json:"phoned_home,omitempty" yaml:"phoned_home,omitempty"`
 
-	// the size of the server
+	// the amount of reservations for this size
+	Reservations int32 `json:"reservations,omitempty" yaml:"reservations,omitempty"`
+
+	// the size of the machine
 	// Required: true
 	Size *string `json:"size" yaml:"size"`
 
-	// total amount of servers with this size
-	// Required: true
-	Total *int32 `json:"total" yaml:"total"`
+	// total amount of machines with size
+	Total int32 `json:"total,omitempty" yaml:"total,omitempty"`
+
+	// unavailable machines with this size
+	Unavailable int32 `json:"unavailable,omitempty" yaml:"unavailable,omitempty"`
 
 	// the amount of used reservations for this size
-	// Required: true
-	Usedreservations *int32 `json:"usedreservations" yaml:"usedreservations"`
+	Usedreservations int32 `json:"usedreservations,omitempty" yaml:"usedreservations,omitempty"`
+
+	// machines in waiting provisioning state
+	Waiting int32 `json:"waiting,omitempty" yaml:"waiting,omitempty"`
 }
 
 // Validate validates this v1 server capacity
 func (m *V1ServerCapacity) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateAllocated(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateFaulty(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateFaultymachines(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateFree(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateOther(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateOthermachines(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateReservations(formats); err != nil {
-		res = append(res, err)
-	}
-
 	if err := m.validateSize(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateTotal(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateUsedreservations(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -110,90 +74,9 @@ func (m *V1ServerCapacity) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *V1ServerCapacity) validateAllocated(formats strfmt.Registry) error {
-
-	if err := validate.Required("allocated", "body", m.Allocated); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *V1ServerCapacity) validateFaulty(formats strfmt.Registry) error {
-
-	if err := validate.Required("faulty", "body", m.Faulty); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *V1ServerCapacity) validateFaultymachines(formats strfmt.Registry) error {
-
-	if err := validate.Required("faultymachines", "body", m.Faultymachines); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *V1ServerCapacity) validateFree(formats strfmt.Registry) error {
-
-	if err := validate.Required("free", "body", m.Free); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *V1ServerCapacity) validateOther(formats strfmt.Registry) error {
-
-	if err := validate.Required("other", "body", m.Other); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *V1ServerCapacity) validateOthermachines(formats strfmt.Registry) error {
-
-	if err := validate.Required("othermachines", "body", m.Othermachines); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *V1ServerCapacity) validateReservations(formats strfmt.Registry) error {
-
-	if err := validate.Required("reservations", "body", m.Reservations); err != nil {
-		return err
-	}
-
-	return nil
-}
-
 func (m *V1ServerCapacity) validateSize(formats strfmt.Registry) error {
 
 	if err := validate.Required("size", "body", m.Size); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *V1ServerCapacity) validateTotal(formats strfmt.Registry) error {
-
-	if err := validate.Required("total", "body", m.Total); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *V1ServerCapacity) validateUsedreservations(formats strfmt.Registry) error {
-
-	if err := validate.Required("usedreservations", "body", m.Usedreservations); err != nil {
 		return err
 	}
 
