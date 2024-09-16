@@ -62,6 +62,8 @@ type ClientService interface {
 
 	ListSwitches(params *ListSwitchesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListSwitchesOK, error)
 
+	MigrateSwitch(params *MigrateSwitchParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*MigrateSwitchOK, error)
+
 	NotifySwitch(params *NotifySwitchParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*NotifySwitchOK, error)
 
 	RegisterSwitch(params *RegisterSwitchParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*RegisterSwitchOK, *RegisterSwitchCreated, error)
@@ -222,6 +224,44 @@ func (a *Client) ListSwitches(params *ListSwitchesParams, authInfo runtime.Clien
 	}
 	// unexpected success response
 	unexpectedSuccess := result.(*ListSwitchesDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+MigrateSwitch migrates machine connections from one switch to another
+*/
+func (a *Client) MigrateSwitch(params *MigrateSwitchParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*MigrateSwitchOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewMigrateSwitchParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "migrateSwitch",
+		Method:             "POST",
+		PathPattern:        "/v1/switch/migrate",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &MigrateSwitchReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*MigrateSwitchOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*MigrateSwitchDefault)
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
