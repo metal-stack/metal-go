@@ -19,6 +19,9 @@ import (
 // swagger:model v1.ServerCapacity
 type V1ServerCapacity struct {
 
+	// free machines with this size, size reservations are not considered
+	Allocatable int32 `json:"allocatable,omitempty" yaml:"allocatable,omitempty"`
+
 	// allocated machines
 	Allocated int32 `json:"allocated,omitempty" yaml:"allocated,omitempty"`
 
@@ -39,6 +42,9 @@ type V1ServerCapacity struct {
 
 	// machines in phoned home provisioning state
 	PhonedHome int32 `json:"phoned_home,omitempty" yaml:"phoned_home,omitempty"`
+
+	// the amount of unused / remaining / open reservations for this size
+	Remainingreservations int32 `json:"remainingreservations,omitempty" yaml:"remainingreservations,omitempty"`
 
 	// the amount of reservations for this size
 	Reservations int32 `json:"reservations,omitempty" yaml:"reservations,omitempty"`
