@@ -14,8 +14,6 @@ import (
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
-
-	"github.com/metal-stack/metal-go/api/models"
 )
 
 // NewListSizeReservationsParams creates a new ListSizeReservationsParams object,
@@ -62,10 +60,6 @@ ListSizeReservationsParams contains all the parameters to send to the API endpoi
 	Typically these are written to a http.Request.
 */
 type ListSizeReservationsParams struct {
-
-	// Body.
-	Body *models.V1SizeReservationListRequest
-
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
@@ -119,17 +113,6 @@ func (o *ListSizeReservationsParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
-// WithBody adds the body to the list size reservations params
-func (o *ListSizeReservationsParams) WithBody(body *models.V1SizeReservationListRequest) *ListSizeReservationsParams {
-	o.SetBody(body)
-	return o
-}
-
-// SetBody adds the body to the list size reservations params
-func (o *ListSizeReservationsParams) SetBody(body *models.V1SizeReservationListRequest) {
-	o.Body = body
-}
-
 // WriteToRequest writes these params to a swagger request
 func (o *ListSizeReservationsParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -137,11 +120,6 @@ func (o *ListSizeReservationsParams) WriteToRequest(r runtime.ClientRequest, reg
 		return err
 	}
 	var res []error
-	if o.Body != nil {
-		if err := r.SetBodyParam(o.Body); err != nil {
-			return err
-		}
-	}
 
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
