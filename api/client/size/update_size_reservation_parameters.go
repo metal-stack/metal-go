@@ -64,7 +64,7 @@ UpdateSizeReservationParams contains all the parameters to send to the API endpo
 type UpdateSizeReservationParams struct {
 
 	// Body.
-	Body *models.V1SizeUpdateRequest
+	Body *models.V1SizeReservationUpdateRequest
 
 	timeout    time.Duration
 	Context    context.Context
@@ -120,13 +120,13 @@ func (o *UpdateSizeReservationParams) SetHTTPClient(client *http.Client) {
 }
 
 // WithBody adds the body to the update size reservation params
-func (o *UpdateSizeReservationParams) WithBody(body *models.V1SizeUpdateRequest) *UpdateSizeReservationParams {
+func (o *UpdateSizeReservationParams) WithBody(body *models.V1SizeReservationUpdateRequest) *UpdateSizeReservationParams {
 	o.SetBody(body)
 	return o
 }
 
 // SetBody adds the body to the update size reservation params
-func (o *UpdateSizeReservationParams) SetBody(body *models.V1SizeUpdateRequest) {
+func (o *UpdateSizeReservationParams) SetBody(body *models.V1SizeReservationUpdateRequest) {
 	o.Body = body
 }
 
