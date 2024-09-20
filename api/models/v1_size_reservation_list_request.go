@@ -25,6 +25,9 @@ type V1SizeReservationListRequest struct {
 
 	// the size id of this size reservation
 	Sizeid string `json:"sizeid,omitempty" yaml:"sizeid,omitempty"`
+
+	// the tenant of this size reservation
+	Tenant string `json:"tenant,omitempty" yaml:"tenant,omitempty"`
 }
 
 // Validate validates this v1 size reservation list request
