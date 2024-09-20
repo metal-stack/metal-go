@@ -19,51 +19,67 @@ import (
 // swagger:model v1.SizeReservationResponse
 type V1SizeReservationResponse struct {
 
+	// the amount of reservations of this size reservation
+	// Required: true
+	Amount *int32 `json:"amount" yaml:"amount"`
+
+	// the last changed timestamp of this entity
+	// Read Only: true
+	// Format: date-time
+	Changed strfmt.DateTime `json:"changed,omitempty" yaml:"changed,omitempty"`
+
+	// the creation time of this entity
+	// Read Only: true
+	// Format: date-time
+	Created strfmt.DateTime `json:"created,omitempty" yaml:"created,omitempty"`
+
+	// a description for this entity
+	Description string `json:"description,omitempty" yaml:"description,omitempty"`
+
+	// the unique ID of this entity
+	// Required: true
+	ID *string `json:"id" yaml:"id"`
+
 	// free labels associated with this size reservation.
 	Labels map[string]string `json:"labels,omitempty" yaml:"labels,omitempty"`
 
+	// a readable name for this entity
+	Name string `json:"name,omitempty" yaml:"name,omitempty"`
+
 	// the partition id of this size reservation
 	// Required: true
-	Partitionid *string `json:"partitionid" yaml:"partitionid"`
-
-	// the amount of allocations of this project referenced by this size reservation
-	// Required: true
-	Projectallocations *int32 `json:"projectallocations" yaml:"projectallocations"`
+	Partitionids []string `json:"partitionids" yaml:"partitionids"`
 
 	// the project id of this size reservation
 	// Required: true
 	Projectid *string `json:"projectid" yaml:"projectid"`
 
-	// the project name of this size reservation
-	// Required: true
-	Projectname *string `json:"projectname" yaml:"projectname"`
-
-	// the amount of reservations of this size reservation
-	// Required: true
-	Reservations *int32 `json:"reservations" yaml:"reservations"`
-
 	// the size id of this size reservation
 	// Required: true
 	Sizeid *string `json:"sizeid" yaml:"sizeid"`
-
-	// the tenant of this size reservation
-	// Required: true
-	Tenant *string `json:"tenant" yaml:"tenant"`
-
-	// the used amount of reservations of this size reservation
-	// Required: true
-	Usedreservations *int32 `json:"usedreservations" yaml:"usedreservations"`
 }
 
 // Validate validates this v1 size reservation response
 func (m *V1SizeReservationResponse) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validatePartitionid(formats); err != nil {
+	if err := m.validateAmount(formats); err != nil {
 		res = append(res, err)
 	}
 
-	if err := m.validateProjectallocations(formats); err != nil {
+	if err := m.validateChanged(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateCreated(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateID(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validatePartitionids(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -71,23 +87,7 @@ func (m *V1SizeReservationResponse) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validateProjectname(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateReservations(formats); err != nil {
-		res = append(res, err)
-	}
-
 	if err := m.validateSizeid(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateTenant(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateUsedreservations(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -97,18 +97,51 @@ func (m *V1SizeReservationResponse) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *V1SizeReservationResponse) validatePartitionid(formats strfmt.Registry) error {
+func (m *V1SizeReservationResponse) validateAmount(formats strfmt.Registry) error {
 
-	if err := validate.Required("partitionid", "body", m.Partitionid); err != nil {
+	if err := validate.Required("amount", "body", m.Amount); err != nil {
 		return err
 	}
 
 	return nil
 }
 
-func (m *V1SizeReservationResponse) validateProjectallocations(formats strfmt.Registry) error {
+func (m *V1SizeReservationResponse) validateChanged(formats strfmt.Registry) error {
+	if swag.IsZero(m.Changed) { // not required
+		return nil
+	}
 
-	if err := validate.Required("projectallocations", "body", m.Projectallocations); err != nil {
+	if err := validate.FormatOf("changed", "body", "date-time", m.Changed.String(), formats); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *V1SizeReservationResponse) validateCreated(formats strfmt.Registry) error {
+	if swag.IsZero(m.Created) { // not required
+		return nil
+	}
+
+	if err := validate.FormatOf("created", "body", "date-time", m.Created.String(), formats); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *V1SizeReservationResponse) validateID(formats strfmt.Registry) error {
+
+	if err := validate.Required("id", "body", m.ID); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *V1SizeReservationResponse) validatePartitionids(formats strfmt.Registry) error {
+
+	if err := validate.Required("partitionids", "body", m.Partitionids); err != nil {
 		return err
 	}
 
@@ -124,24 +157,6 @@ func (m *V1SizeReservationResponse) validateProjectid(formats strfmt.Registry) e
 	return nil
 }
 
-func (m *V1SizeReservationResponse) validateProjectname(formats strfmt.Registry) error {
-
-	if err := validate.Required("projectname", "body", m.Projectname); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *V1SizeReservationResponse) validateReservations(formats strfmt.Registry) error {
-
-	if err := validate.Required("reservations", "body", m.Reservations); err != nil {
-		return err
-	}
-
-	return nil
-}
-
 func (m *V1SizeReservationResponse) validateSizeid(formats strfmt.Registry) error {
 
 	if err := validate.Required("sizeid", "body", m.Sizeid); err != nil {
@@ -151,26 +166,39 @@ func (m *V1SizeReservationResponse) validateSizeid(formats strfmt.Registry) erro
 	return nil
 }
 
-func (m *V1SizeReservationResponse) validateTenant(formats strfmt.Registry) error {
-
-	if err := validate.Required("tenant", "body", m.Tenant); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *V1SizeReservationResponse) validateUsedreservations(formats strfmt.Registry) error {
-
-	if err := validate.Required("usedreservations", "body", m.Usedreservations); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-// ContextValidate validates this v1 size reservation response based on context it is used
+// ContextValidate validate this v1 size reservation response based on the context it is used
 func (m *V1SizeReservationResponse) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateChanged(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateCreated(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *V1SizeReservationResponse) contextValidateChanged(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := validate.ReadOnly(ctx, "changed", "body", strfmt.DateTime(m.Changed)); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *V1SizeReservationResponse) contextValidateCreated(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := validate.ReadOnly(ctx, "created", "body", strfmt.DateTime(m.Created)); err != nil {
+		return err
+	}
+
 	return nil
 }
 

@@ -12,7 +12,7 @@ import (
 
 	_ "embed"
 
-	"github.com/go-task/slim-sprig/v3"
+	sprig "github.com/go-task/slim-sprig/v3"
 )
 
 //go:embed mock_client.tpl
@@ -29,8 +29,6 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-
-	fmt.Println(svcs)
 
 	err = writeTemplate("test/client/mock_client.go", clientTpl, svcs)
 	if err != nil {
