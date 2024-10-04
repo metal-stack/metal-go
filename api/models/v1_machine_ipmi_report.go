@@ -7,6 +7,7 @@ package models
 
 import (
 	"context"
+	"strconv"
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
@@ -46,6 +47,10 @@ type V1MachineIpmiReport struct {
 	// power state
 	// Required: true
 	PowerState *string `json:"PowerState" yaml:"PowerState"`
+
+	// power supplies
+	// Required: true
+	PowerSupplies []*V1PowerSupply `json:"PowerSupplies" yaml:"PowerSupplies"`
 }
 
 // Validate validates this v1 machine ipmi report
@@ -77,6 +82,10 @@ func (m *V1MachineIpmiReport) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validatePowerState(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validatePowerSupplies(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -171,6 +180,33 @@ func (m *V1MachineIpmiReport) validatePowerState(formats strfmt.Registry) error 
 	return nil
 }
 
+func (m *V1MachineIpmiReport) validatePowerSupplies(formats strfmt.Registry) error {
+
+	if err := validate.Required("PowerSupplies", "body", m.PowerSupplies); err != nil {
+		return err
+	}
+
+	for i := 0; i < len(m.PowerSupplies); i++ {
+		if swag.IsZero(m.PowerSupplies[i]) { // not required
+			continue
+		}
+
+		if m.PowerSupplies[i] != nil {
+			if err := m.PowerSupplies[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("PowerSupplies" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("PowerSupplies" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
 // ContextValidate validate this v1 machine ipmi report based on the context it is used
 func (m *V1MachineIpmiReport) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	var res []error
@@ -180,6 +216,10 @@ func (m *V1MachineIpmiReport) ContextValidate(ctx context.Context, formats strfm
 	}
 
 	if err := m.contextValidatePowerMetric(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidatePowerSupplies(ctx, formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -218,6 +258,31 @@ func (m *V1MachineIpmiReport) contextValidatePowerMetric(ctx context.Context, fo
 			}
 			return err
 		}
+	}
+
+	return nil
+}
+
+func (m *V1MachineIpmiReport) contextValidatePowerSupplies(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.PowerSupplies); i++ {
+
+		if m.PowerSupplies[i] != nil {
+
+			if swag.IsZero(m.PowerSupplies[i]) { // not required
+				return nil
+			}
+
+			if err := m.PowerSupplies[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("PowerSupplies" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("PowerSupplies" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
 	}
 
 	return nil

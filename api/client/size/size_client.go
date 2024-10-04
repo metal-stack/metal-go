@@ -56,17 +56,29 @@ type ClientOption func(*runtime.ClientOperation)
 type ClientService interface {
 	CreateSize(params *CreateSizeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateSizeCreated, error)
 
+	CreateSizeReservation(params *CreateSizeReservationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateSizeReservationCreated, error)
+
 	DeleteSize(params *DeleteSizeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteSizeOK, error)
 
+	DeleteSizeReservation(params *DeleteSizeReservationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteSizeReservationOK, error)
+
 	FindSize(params *FindSizeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FindSizeOK, error)
+
+	FindSizeReservations(params *FindSizeReservationsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FindSizeReservationsOK, error)
+
+	GetSizeReservation(params *GetSizeReservationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetSizeReservationOK, error)
 
 	ListSizeReservations(params *ListSizeReservationsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListSizeReservationsOK, error)
 
 	ListSizes(params *ListSizesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListSizesOK, error)
 
+	SizeReservationsUsage(params *SizeReservationsUsageParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SizeReservationsUsageOK, error)
+
 	Suggest(params *SuggestParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SuggestOK, error)
 
 	UpdateSize(params *UpdateSizeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateSizeOK, error)
+
+	UpdateSizeReservation(params *UpdateSizeReservationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateSizeReservationOK, error)
 
 	SetTransport(transport runtime.ClientTransport)
 }
@@ -110,6 +122,44 @@ func (a *Client) CreateSize(params *CreateSizeParams, authInfo runtime.ClientAut
 }
 
 /*
+CreateSizeReservation creates a size reservation if the given ID already exists a conflict is returned
+*/
+func (a *Client) CreateSizeReservation(params *CreateSizeReservationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateSizeReservationCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewCreateSizeReservationParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "createSizeReservation",
+		Method:             "PUT",
+		PathPattern:        "/v1/size/reservations",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &CreateSizeReservationReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*CreateSizeReservationCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*CreateSizeReservationDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
 DeleteSize deletes an size and returns the deleted entity
 */
 func (a *Client) DeleteSize(params *DeleteSizeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteSizeOK, error) {
@@ -144,6 +194,44 @@ func (a *Client) DeleteSize(params *DeleteSizeParams, authInfo runtime.ClientAut
 	}
 	// unexpected success response
 	unexpectedSuccess := result.(*DeleteSizeDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+DeleteSizeReservation deletes a size reservation and returns the deleted entity
+*/
+func (a *Client) DeleteSizeReservation(params *DeleteSizeReservationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteSizeReservationOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDeleteSizeReservationParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "deleteSizeReservation",
+		Method:             "DELETE",
+		PathPattern:        "/v1/size/reservations/{id}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &DeleteSizeReservationReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DeleteSizeReservationOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*DeleteSizeReservationDefault)
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
@@ -186,6 +274,82 @@ func (a *Client) FindSize(params *FindSizeParams, authInfo runtime.ClientAuthInf
 }
 
 /*
+FindSizeReservations gets all size reservations
+*/
+func (a *Client) FindSizeReservations(params *FindSizeReservationsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*FindSizeReservationsOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewFindSizeReservationsParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "findSizeReservations",
+		Method:             "POST",
+		PathPattern:        "/v1/size/reservations/find",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &FindSizeReservationsReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*FindSizeReservationsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*FindSizeReservationsDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+GetSizeReservation gets size reservation by id
+*/
+func (a *Client) GetSizeReservation(params *GetSizeReservationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetSizeReservationOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetSizeReservationParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "getSizeReservation",
+		Method:             "GET",
+		PathPattern:        "/v1/size/reservations/{id}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &GetSizeReservationReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*GetSizeReservationOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*GetSizeReservationDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
 ListSizeReservations gets all size reservations
 */
 func (a *Client) ListSizeReservations(params *ListSizeReservationsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListSizeReservationsOK, error) {
@@ -195,7 +359,7 @@ func (a *Client) ListSizeReservations(params *ListSizeReservationsParams, authIn
 	}
 	op := &runtime.ClientOperation{
 		ID:                 "listSizeReservations",
-		Method:             "POST",
+		Method:             "GET",
 		PathPattern:        "/v1/size/reservations",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
@@ -258,6 +422,44 @@ func (a *Client) ListSizes(params *ListSizesParams, authInfo runtime.ClientAuthI
 	}
 	// unexpected success response
 	unexpectedSuccess := result.(*ListSizesDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+SizeReservationsUsage gets all size reservations
+*/
+func (a *Client) SizeReservationsUsage(params *SizeReservationsUsageParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SizeReservationsUsageOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewSizeReservationsUsageParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "sizeReservationsUsage",
+		Method:             "POST",
+		PathPattern:        "/v1/size/reservations/usage",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &SizeReservationsUsageReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*SizeReservationsUsageOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*SizeReservationsUsageDefault)
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
@@ -334,6 +536,44 @@ func (a *Client) UpdateSize(params *UpdateSizeParams, authInfo runtime.ClientAut
 	}
 	// unexpected success response
 	unexpectedSuccess := result.(*UpdateSizeDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+UpdateSizeReservation updates a size reservation if the size reservation was changed since this one was read a conflict is returned
+*/
+func (a *Client) UpdateSizeReservation(params *UpdateSizeReservationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateSizeReservationOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUpdateSizeReservationParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "updateSizeReservation",
+		Method:             "POST",
+		PathPattern:        "/v1/size/reservations",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &UpdateSizeReservationReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*UpdateSizeReservationOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*UpdateSizeReservationDefault)
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
