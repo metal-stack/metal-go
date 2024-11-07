@@ -7,9 +7,12 @@ package models
 
 import (
 	"context"
+	"encoding/json"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // V1SwitchOS v1 switch o s
@@ -21,6 +24,7 @@ type V1SwitchOS struct {
 	MetalCoreVersion string `json:"metal_core_version,omitempty" yaml:"metal_core_version,omitempty"`
 
 	// the operating system vendor the switch currently has
+	// Enum: ["Cumulus","SONiC"]
 	Vendor string `json:"vendor,omitempty" yaml:"vendor,omitempty"`
 
 	// the operating system version the switch currently has
@@ -29,6 +33,57 @@ type V1SwitchOS struct {
 
 // Validate validates this v1 switch o s
 func (m *V1SwitchOS) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateVendor(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+var v1SwitchOSTypeVendorPropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["Cumulus","SONiC"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		v1SwitchOSTypeVendorPropEnum = append(v1SwitchOSTypeVendorPropEnum, v)
+	}
+}
+
+const (
+
+	// V1SwitchOSVendorCumulus captures enum value "Cumulus"
+	V1SwitchOSVendorCumulus string = "Cumulus"
+
+	// V1SwitchOSVendorSONiC captures enum value "SONiC"
+	V1SwitchOSVendorSONiC string = "SONiC"
+)
+
+// prop value enum
+func (m *V1SwitchOS) validateVendorEnum(path, location string, value string) error {
+	if err := validate.EnumCase(path, location, value, v1SwitchOSTypeVendorPropEnum, true); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *V1SwitchOS) validateVendor(formats strfmt.Registry) error {
+	if swag.IsZero(m.Vendor) { // not required
+		return nil
+	}
+
+	// value enum
+	if err := m.validateVendorEnum("vendor", "body", m.Vendor); err != nil {
+		return err
+	}
+
 	return nil
 }
 
