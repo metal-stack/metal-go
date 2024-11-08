@@ -7,6 +7,7 @@ package models
 
 import (
 	"context"
+	"strconv"
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
@@ -25,6 +26,10 @@ type V1PartitionUpdateRequest struct {
 	// a description for this entity
 	Description string `json:"description,omitempty" yaml:"description,omitempty"`
 
+	// the dns servers for this partition
+	// Required: true
+	DNSServers []*V1DNSServer `json:"dns_servers" yaml:"dns_servers"`
+
 	// the unique ID of this entity
 	// Required: true
 	ID *string `json:"id" yaml:"id"`
@@ -37,6 +42,10 @@ type V1PartitionUpdateRequest struct {
 
 	// a readable name for this entity
 	Name string `json:"name,omitempty" yaml:"name,omitempty"`
+
+	// the ntp servers for this partition
+	// Required: true
+	NtpServers []*V1NTPServer `json:"ntp_servers" yaml:"ntp_servers"`
 }
 
 // Validate validates this v1 partition update request
@@ -47,7 +56,15 @@ func (m *V1PartitionUpdateRequest) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateDNSServers(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateID(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateNtpServers(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -76,10 +93,64 @@ func (m *V1PartitionUpdateRequest) validateBootconfig(formats strfmt.Registry) e
 	return nil
 }
 
+func (m *V1PartitionUpdateRequest) validateDNSServers(formats strfmt.Registry) error {
+
+	if err := validate.Required("dns_servers", "body", m.DNSServers); err != nil {
+		return err
+	}
+
+	for i := 0; i < len(m.DNSServers); i++ {
+		if swag.IsZero(m.DNSServers[i]) { // not required
+			continue
+		}
+
+		if m.DNSServers[i] != nil {
+			if err := m.DNSServers[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("dns_servers" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("dns_servers" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
 func (m *V1PartitionUpdateRequest) validateID(formats strfmt.Registry) error {
 
 	if err := validate.Required("id", "body", m.ID); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+func (m *V1PartitionUpdateRequest) validateNtpServers(formats strfmt.Registry) error {
+
+	if err := validate.Required("ntp_servers", "body", m.NtpServers); err != nil {
+		return err
+	}
+
+	for i := 0; i < len(m.NtpServers); i++ {
+		if swag.IsZero(m.NtpServers[i]) { // not required
+			continue
+		}
+
+		if m.NtpServers[i] != nil {
+			if err := m.NtpServers[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("ntp_servers" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("ntp_servers" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
 	}
 
 	return nil
@@ -90,6 +161,14 @@ func (m *V1PartitionUpdateRequest) ContextValidate(ctx context.Context, formats 
 	var res []error
 
 	if err := m.contextValidateBootconfig(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateDNSServers(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateNtpServers(ctx, formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -115,6 +194,56 @@ func (m *V1PartitionUpdateRequest) contextValidateBootconfig(ctx context.Context
 			}
 			return err
 		}
+	}
+
+	return nil
+}
+
+func (m *V1PartitionUpdateRequest) contextValidateDNSServers(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.DNSServers); i++ {
+
+		if m.DNSServers[i] != nil {
+
+			if swag.IsZero(m.DNSServers[i]) { // not required
+				return nil
+			}
+
+			if err := m.DNSServers[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("dns_servers" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("dns_servers" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *V1PartitionUpdateRequest) contextValidateNtpServers(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.NtpServers); i++ {
+
+		if m.NtpServers[i] != nil {
+
+			if swag.IsZero(m.NtpServers[i]) { // not required
+				return nil
+			}
+
+			if err := m.NtpServers[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("ntp_servers" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("ntp_servers" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
 	}
 
 	return nil
