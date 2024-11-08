@@ -7,6 +7,7 @@ package models
 
 import (
 	"context"
+	"strconv"
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
@@ -36,6 +37,9 @@ type V1PartitionResponse struct {
 	// a description for this entity
 	Description string `json:"description,omitempty" yaml:"description,omitempty"`
 
+	// the dns servers for this partition
+	DNSServers []*V1DNSServer `json:"dns_servers" yaml:"dns_servers"`
+
 	// the unique ID of this entity
 	// Required: true
 	ID *string `json:"id" yaml:"id"`
@@ -48,6 +52,9 @@ type V1PartitionResponse struct {
 
 	// a readable name for this entity
 	Name string `json:"name,omitempty" yaml:"name,omitempty"`
+
+	// the ntp servers for this partition
+	NtpServers []*V1NTPServer `json:"ntp_servers" yaml:"ntp_servers"`
 
 	// the length of private networks for the machine's child networks in this partition, default 22
 	// Maximum: 30
@@ -71,7 +78,15 @@ func (m *V1PartitionResponse) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateDNSServers(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateID(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateNtpServers(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -129,10 +144,62 @@ func (m *V1PartitionResponse) validateCreated(formats strfmt.Registry) error {
 	return nil
 }
 
+func (m *V1PartitionResponse) validateDNSServers(formats strfmt.Registry) error {
+	if swag.IsZero(m.DNSServers) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(m.DNSServers); i++ {
+		if swag.IsZero(m.DNSServers[i]) { // not required
+			continue
+		}
+
+		if m.DNSServers[i] != nil {
+			if err := m.DNSServers[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("dns_servers" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("dns_servers" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
 func (m *V1PartitionResponse) validateID(formats strfmt.Registry) error {
 
 	if err := validate.Required("id", "body", m.ID); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+func (m *V1PartitionResponse) validateNtpServers(formats strfmt.Registry) error {
+	if swag.IsZero(m.NtpServers) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(m.NtpServers); i++ {
+		if swag.IsZero(m.NtpServers[i]) { // not required
+			continue
+		}
+
+		if m.NtpServers[i] != nil {
+			if err := m.NtpServers[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("ntp_servers" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("ntp_servers" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
 	}
 
 	return nil
@@ -167,6 +234,14 @@ func (m *V1PartitionResponse) ContextValidate(ctx context.Context, formats strfm
 	}
 
 	if err := m.contextValidateCreated(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateDNSServers(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateNtpServers(ctx, formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -206,6 +281,56 @@ func (m *V1PartitionResponse) contextValidateCreated(ctx context.Context, format
 
 	if err := validate.ReadOnly(ctx, "created", "body", strfmt.DateTime(m.Created)); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+func (m *V1PartitionResponse) contextValidateDNSServers(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.DNSServers); i++ {
+
+		if m.DNSServers[i] != nil {
+
+			if swag.IsZero(m.DNSServers[i]) { // not required
+				return nil
+			}
+
+			if err := m.DNSServers[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("dns_servers" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("dns_servers" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *V1PartitionResponse) contextValidateNtpServers(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.NtpServers); i++ {
+
+		if m.NtpServers[i] != nil {
+
+			if swag.IsZero(m.NtpServers[i]) { // not required
+				return nil
+			}
+
+			if err := m.NtpServers[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("ntp_servers" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("ntp_servers" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
 	}
 
 	return nil

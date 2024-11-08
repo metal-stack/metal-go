@@ -23,6 +23,9 @@ type V1MachineAllocateRequest struct {
 	// a description for this entity
 	Description string `json:"description,omitempty" yaml:"description,omitempty"`
 
+	// the dns servers used for the machine
+	DNSServers []*V1DNSServer `json:"dns_servers" yaml:"dns_servers"`
+
 	// the filesystemlayout id to assign to this machine
 	Filesystemlayoutid string `json:"filesystemlayoutid,omitempty" yaml:"filesystemlayoutid,omitempty"`
 
@@ -41,6 +44,9 @@ type V1MachineAllocateRequest struct {
 
 	// the networks that this machine will be placed in.
 	Networks []*V1MachineAllocationNetwork `json:"networks" yaml:"networks"`
+
+	// the ntp servers used for the machine
+	NtpServers []*V1NTPServer `json:"ntp_servers" yaml:"ntp_servers"`
 
 	// the partition id to assign this machine to
 	// Required: true
@@ -75,11 +81,19 @@ type V1MachineAllocateRequest struct {
 func (m *V1MachineAllocateRequest) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateDNSServers(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateImageid(formats); err != nil {
 		res = append(res, err)
 	}
 
 	if err := m.validateNetworks(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateNtpServers(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -102,6 +116,32 @@ func (m *V1MachineAllocateRequest) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *V1MachineAllocateRequest) validateDNSServers(formats strfmt.Registry) error {
+	if swag.IsZero(m.DNSServers) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(m.DNSServers); i++ {
+		if swag.IsZero(m.DNSServers[i]) { // not required
+			continue
+		}
+
+		if m.DNSServers[i] != nil {
+			if err := m.DNSServers[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("dns_servers" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("dns_servers" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
 	return nil
 }
 
@@ -130,6 +170,32 @@ func (m *V1MachineAllocateRequest) validateNetworks(formats strfmt.Registry) err
 					return ve.ValidateName("networks" + "." + strconv.Itoa(i))
 				} else if ce, ok := err.(*errors.CompositeError); ok {
 					return ce.ValidateName("networks" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *V1MachineAllocateRequest) validateNtpServers(formats strfmt.Registry) error {
+	if swag.IsZero(m.NtpServers) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(m.NtpServers); i++ {
+		if swag.IsZero(m.NtpServers[i]) { // not required
+			continue
+		}
+
+		if m.NtpServers[i] != nil {
+			if err := m.NtpServers[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("ntp_servers" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("ntp_servers" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -180,13 +246,46 @@ func (m *V1MachineAllocateRequest) validateSSHPubKeys(formats strfmt.Registry) e
 func (m *V1MachineAllocateRequest) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.contextValidateDNSServers(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.contextValidateNetworks(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateNtpServers(ctx, formats); err != nil {
 		res = append(res, err)
 	}
 
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *V1MachineAllocateRequest) contextValidateDNSServers(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.DNSServers); i++ {
+
+		if m.DNSServers[i] != nil {
+
+			if swag.IsZero(m.DNSServers[i]) { // not required
+				return nil
+			}
+
+			if err := m.DNSServers[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("dns_servers" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("dns_servers" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
 	return nil
 }
 
@@ -205,6 +304,31 @@ func (m *V1MachineAllocateRequest) contextValidateNetworks(ctx context.Context, 
 					return ve.ValidateName("networks" + "." + strconv.Itoa(i))
 				} else if ce, ok := err.(*errors.CompositeError); ok {
 					return ce.ValidateName("networks" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *V1MachineAllocateRequest) contextValidateNtpServers(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.NtpServers); i++ {
+
+		if m.NtpServers[i] != nil {
+
+			if swag.IsZero(m.NtpServers[i]) { // not required
+				return nil
+			}
+
+			if err := m.NtpServers[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("ntp_servers" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("ntp_servers" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
