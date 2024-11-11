@@ -8,8 +8,10 @@ package models
 import (
 	"context"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // V1PartitionCapacityRequest v1 partition capacity request
@@ -20,12 +22,34 @@ type V1PartitionCapacityRequest struct {
 	// the id of the partition
 	ID string `json:"id,omitempty" yaml:"id,omitempty"`
 
+	// if provided the machine reservations of this project will be respected in the free counts
+	// Required: true
+	Projectid *string `json:"projectid" yaml:"projectid"`
+
 	// the size to filter for
 	Sizeid string `json:"sizeid,omitempty" yaml:"sizeid,omitempty"`
 }
 
 // Validate validates this v1 partition capacity request
 func (m *V1PartitionCapacityRequest) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateProjectid(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *V1PartitionCapacityRequest) validateProjectid(formats strfmt.Registry) error {
+
+	if err := validate.Required("projectid", "body", m.Projectid); err != nil {
+		return err
+	}
+
 	return nil
 }
 

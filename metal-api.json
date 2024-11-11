@@ -4171,11 +4171,18 @@
           "description": "the id of the partition",
           "type": "string"
         },
+        "projectid": {
+          "description": "if provided the machine reservations of this project will be respected in the free counts",
+          "type": "string"
+        },
         "sizeid": {
           "description": "the size to filter for",
           "type": "string"
         }
-      }
+      },
+      "required": [
+        "projectid"
+      ]
     },
     "v1.PartitionCreateRequest": {
       "properties": {
@@ -5794,7 +5801,7 @@
       "url": "https://www.gnu.org/licenses/agpl-3.0.de.html"
     },
     "title": "metal-api",
-    "version": "v0.39.1"
+    "version": "v0.39.2"
   },
   "paths": {
     "/v1/audit/find": {
