@@ -26,7 +26,7 @@ type V1SwitchPortToggleRequest struct {
 
 	// sets the port status
 	// Required: true
-	// Enum: ["DOWN","UP"]
+	// Enum: [DOWN UP]
 	Status *string `json:"status" yaml:"status"`
 }
 

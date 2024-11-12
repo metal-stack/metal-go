@@ -6,7 +6,6 @@ package user
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -88,13 +87,11 @@ func (o *GetMeOK) Code() int {
 }
 
 func (o *GetMeOK) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /v1/user/me][%d] getMeOK %s", 200, payload)
+	return fmt.Sprintf("[GET /v1/user/me][%d] getMeOK  %+v", 200, o.Payload)
 }
 
 func (o *GetMeOK) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /v1/user/me][%d] getMeOK %s", 200, payload)
+	return fmt.Sprintf("[GET /v1/user/me][%d] getMeOK  %+v", 200, o.Payload)
 }
 
 func (o *GetMeOK) GetPayload() *models.V1User {
@@ -162,13 +159,11 @@ func (o *GetMeDefault) Code() int {
 }
 
 func (o *GetMeDefault) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /v1/user/me][%d] getMe default %s", o._statusCode, payload)
+	return fmt.Sprintf("[GET /v1/user/me][%d] getMe default  %+v", o._statusCode, o.Payload)
 }
 
 func (o *GetMeDefault) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /v1/user/me][%d] getMe default %s", o._statusCode, payload)
+	return fmt.Sprintf("[GET /v1/user/me][%d] getMe default  %+v", o._statusCode, o.Payload)
 }
 
 func (o *GetMeDefault) GetPayload() *httperrors.HTTPErrorResponse {

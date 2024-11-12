@@ -6,7 +6,6 @@ package switch_operations
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -94,13 +93,11 @@ func (o *RegisterSwitchOK) Code() int {
 }
 
 func (o *RegisterSwitchOK) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/switch/register][%d] registerSwitchOK %s", 200, payload)
+	return fmt.Sprintf("[POST /v1/switch/register][%d] registerSwitchOK  %+v", 200, o.Payload)
 }
 
 func (o *RegisterSwitchOK) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/switch/register][%d] registerSwitchOK %s", 200, payload)
+	return fmt.Sprintf("[POST /v1/switch/register][%d] registerSwitchOK  %+v", 200, o.Payload)
 }
 
 func (o *RegisterSwitchOK) GetPayload() *models.V1SwitchResponse {
@@ -164,13 +161,11 @@ func (o *RegisterSwitchCreated) Code() int {
 }
 
 func (o *RegisterSwitchCreated) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/switch/register][%d] registerSwitchCreated %s", 201, payload)
+	return fmt.Sprintf("[POST /v1/switch/register][%d] registerSwitchCreated  %+v", 201, o.Payload)
 }
 
 func (o *RegisterSwitchCreated) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/switch/register][%d] registerSwitchCreated %s", 201, payload)
+	return fmt.Sprintf("[POST /v1/switch/register][%d] registerSwitchCreated  %+v", 201, o.Payload)
 }
 
 func (o *RegisterSwitchCreated) GetPayload() *models.V1SwitchResponse {
@@ -238,13 +233,11 @@ func (o *RegisterSwitchDefault) Code() int {
 }
 
 func (o *RegisterSwitchDefault) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/switch/register][%d] registerSwitch default %s", o._statusCode, payload)
+	return fmt.Sprintf("[POST /v1/switch/register][%d] registerSwitch default  %+v", o._statusCode, o.Payload)
 }
 
 func (o *RegisterSwitchDefault) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/switch/register][%d] registerSwitch default %s", o._statusCode, payload)
+	return fmt.Sprintf("[POST /v1/switch/register][%d] registerSwitch default  %+v", o._statusCode, o.Payload)
 }
 
 func (o *RegisterSwitchDefault) GetPayload() *httperrors.HTTPErrorResponse {

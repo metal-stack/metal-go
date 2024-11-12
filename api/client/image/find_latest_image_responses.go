@@ -6,7 +6,6 @@ package image
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -88,13 +87,11 @@ func (o *FindLatestImageOK) Code() int {
 }
 
 func (o *FindLatestImageOK) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /v1/image/{id}/latest][%d] findLatestImageOK %s", 200, payload)
+	return fmt.Sprintf("[GET /v1/image/{id}/latest][%d] findLatestImageOK  %+v", 200, o.Payload)
 }
 
 func (o *FindLatestImageOK) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /v1/image/{id}/latest][%d] findLatestImageOK %s", 200, payload)
+	return fmt.Sprintf("[GET /v1/image/{id}/latest][%d] findLatestImageOK  %+v", 200, o.Payload)
 }
 
 func (o *FindLatestImageOK) GetPayload() *models.V1ImageResponse {
@@ -162,13 +159,11 @@ func (o *FindLatestImageDefault) Code() int {
 }
 
 func (o *FindLatestImageDefault) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /v1/image/{id}/latest][%d] findLatestImage default %s", o._statusCode, payload)
+	return fmt.Sprintf("[GET /v1/image/{id}/latest][%d] findLatestImage default  %+v", o._statusCode, o.Payload)
 }
 
 func (o *FindLatestImageDefault) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /v1/image/{id}/latest][%d] findLatestImage default %s", o._statusCode, payload)
+	return fmt.Sprintf("[GET /v1/image/{id}/latest][%d] findLatestImage default  %+v", o._statusCode, o.Payload)
 }
 
 func (o *FindLatestImageDefault) GetPayload() *httperrors.HTTPErrorResponse {

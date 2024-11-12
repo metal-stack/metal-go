@@ -6,7 +6,6 @@ package firewall
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -88,13 +87,11 @@ func (o *AllocateFirewallOK) Code() int {
 }
 
 func (o *AllocateFirewallOK) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/firewall/allocate][%d] allocateFirewallOK %s", 200, payload)
+	return fmt.Sprintf("[POST /v1/firewall/allocate][%d] allocateFirewallOK  %+v", 200, o.Payload)
 }
 
 func (o *AllocateFirewallOK) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/firewall/allocate][%d] allocateFirewallOK %s", 200, payload)
+	return fmt.Sprintf("[POST /v1/firewall/allocate][%d] allocateFirewallOK  %+v", 200, o.Payload)
 }
 
 func (o *AllocateFirewallOK) GetPayload() *models.V1FirewallResponse {
@@ -162,13 +159,11 @@ func (o *AllocateFirewallDefault) Code() int {
 }
 
 func (o *AllocateFirewallDefault) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/firewall/allocate][%d] allocateFirewall default %s", o._statusCode, payload)
+	return fmt.Sprintf("[POST /v1/firewall/allocate][%d] allocateFirewall default  %+v", o._statusCode, o.Payload)
 }
 
 func (o *AllocateFirewallDefault) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/firewall/allocate][%d] allocateFirewall default %s", o._statusCode, payload)
+	return fmt.Sprintf("[POST /v1/firewall/allocate][%d] allocateFirewall default  %+v", o._statusCode, o.Payload)
 }
 
 func (o *AllocateFirewallDefault) GetPayload() *httperrors.HTTPErrorResponse {

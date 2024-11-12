@@ -6,7 +6,6 @@ package machine
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -88,13 +87,11 @@ func (o *MachineBiosOK) Code() int {
 }
 
 func (o *MachineBiosOK) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/machine/{id}/power/bios][%d] machineBiosOK %s", 200, payload)
+	return fmt.Sprintf("[POST /v1/machine/{id}/power/bios][%d] machineBiosOK  %+v", 200, o.Payload)
 }
 
 func (o *MachineBiosOK) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/machine/{id}/power/bios][%d] machineBiosOK %s", 200, payload)
+	return fmt.Sprintf("[POST /v1/machine/{id}/power/bios][%d] machineBiosOK  %+v", 200, o.Payload)
 }
 
 func (o *MachineBiosOK) GetPayload() *models.V1MachineResponse {
@@ -162,13 +159,11 @@ func (o *MachineBiosDefault) Code() int {
 }
 
 func (o *MachineBiosDefault) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/machine/{id}/power/bios][%d] machineBios default %s", o._statusCode, payload)
+	return fmt.Sprintf("[POST /v1/machine/{id}/power/bios][%d] machineBios default  %+v", o._statusCode, o.Payload)
 }
 
 func (o *MachineBiosDefault) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/machine/{id}/power/bios][%d] machineBios default %s", o._statusCode, payload)
+	return fmt.Sprintf("[POST /v1/machine/{id}/power/bios][%d] machineBios default  %+v", o._statusCode, o.Payload)
 }
 
 func (o *MachineBiosDefault) GetPayload() *httperrors.HTTPErrorResponse {

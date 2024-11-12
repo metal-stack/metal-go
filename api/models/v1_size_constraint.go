@@ -31,7 +31,7 @@ type V1SizeConstraint struct {
 
 	// the type of the constraint
 	// Required: true
-	// Enum: ["cores","gpu","memory","storage"]
+	// Enum: [cores gpu memory storage]
 	Type *string `json:"type" yaml:"type"`
 }
 

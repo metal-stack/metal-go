@@ -6,7 +6,6 @@ package machine
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -88,13 +87,11 @@ func (o *ListMachinesOK) Code() int {
 }
 
 func (o *ListMachinesOK) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /v1/machine][%d] listMachinesOK %s", 200, payload)
+	return fmt.Sprintf("[GET /v1/machine][%d] listMachinesOK  %+v", 200, o.Payload)
 }
 
 func (o *ListMachinesOK) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /v1/machine][%d] listMachinesOK %s", 200, payload)
+	return fmt.Sprintf("[GET /v1/machine][%d] listMachinesOK  %+v", 200, o.Payload)
 }
 
 func (o *ListMachinesOK) GetPayload() []*models.V1MachineResponse {
@@ -160,13 +157,11 @@ func (o *ListMachinesDefault) Code() int {
 }
 
 func (o *ListMachinesDefault) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /v1/machine][%d] listMachines default %s", o._statusCode, payload)
+	return fmt.Sprintf("[GET /v1/machine][%d] listMachines default  %+v", o._statusCode, o.Payload)
 }
 
 func (o *ListMachinesDefault) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /v1/machine][%d] listMachines default %s", o._statusCode, payload)
+	return fmt.Sprintf("[GET /v1/machine][%d] listMachines default  %+v", o._statusCode, o.Payload)
 }
 
 func (o *ListMachinesDefault) GetPayload() *httperrors.HTTPErrorResponse {

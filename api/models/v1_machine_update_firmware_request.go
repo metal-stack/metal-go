@@ -26,7 +26,7 @@ type V1MachineUpdateFirmwareRequest struct {
 
 	// the firmware kind, i.e. [bios|bmc]
 	// Required: true
-	// Enum: ["bios","bmc"]
+	// Enum: [bios bmc]
 	Kind *string `json:"kind" yaml:"kind"`
 
 	// the update revision

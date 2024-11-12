@@ -6,7 +6,6 @@ package firmware
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -86,11 +85,11 @@ func (o *UploadFirmwareOK) Code() int {
 }
 
 func (o *UploadFirmwareOK) Error() string {
-	return fmt.Sprintf("[PUT /v1/firmware/{kind}/{vendor}/{board}/{revision}][%d] uploadFirmwareOK", 200)
+	return fmt.Sprintf("[PUT /v1/firmware/{kind}/{vendor}/{board}/{revision}][%d] uploadFirmwareOK ", 200)
 }
 
 func (o *UploadFirmwareOK) String() string {
-	return fmt.Sprintf("[PUT /v1/firmware/{kind}/{vendor}/{board}/{revision}][%d] uploadFirmwareOK", 200)
+	return fmt.Sprintf("[PUT /v1/firmware/{kind}/{vendor}/{board}/{revision}][%d] uploadFirmwareOK ", 200)
 }
 
 func (o *UploadFirmwareOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -147,13 +146,11 @@ func (o *UploadFirmwareDefault) Code() int {
 }
 
 func (o *UploadFirmwareDefault) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /v1/firmware/{kind}/{vendor}/{board}/{revision}][%d] uploadFirmware default %s", o._statusCode, payload)
+	return fmt.Sprintf("[PUT /v1/firmware/{kind}/{vendor}/{board}/{revision}][%d] uploadFirmware default  %+v", o._statusCode, o.Payload)
 }
 
 func (o *UploadFirmwareDefault) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /v1/firmware/{kind}/{vendor}/{board}/{revision}][%d] uploadFirmware default %s", o._statusCode, payload)
+	return fmt.Sprintf("[PUT /v1/firmware/{kind}/{vendor}/{board}/{revision}][%d] uploadFirmware default  %+v", o._statusCode, o.Payload)
 }
 
 func (o *UploadFirmwareDefault) GetPayload() *httperrors.HTTPErrorResponse {

@@ -6,7 +6,6 @@ package size
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -94,13 +93,11 @@ func (o *CreateSizeReservationCreated) Code() int {
 }
 
 func (o *CreateSizeReservationCreated) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /v1/size/reservations][%d] createSizeReservationCreated %s", 201, payload)
+	return fmt.Sprintf("[PUT /v1/size/reservations][%d] createSizeReservationCreated  %+v", 201, o.Payload)
 }
 
 func (o *CreateSizeReservationCreated) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /v1/size/reservations][%d] createSizeReservationCreated %s", 201, payload)
+	return fmt.Sprintf("[PUT /v1/size/reservations][%d] createSizeReservationCreated  %+v", 201, o.Payload)
 }
 
 func (o *CreateSizeReservationCreated) GetPayload() *models.V1SizeReservationResponse {
@@ -164,13 +161,11 @@ func (o *CreateSizeReservationConflict) Code() int {
 }
 
 func (o *CreateSizeReservationConflict) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /v1/size/reservations][%d] createSizeReservationConflict %s", 409, payload)
+	return fmt.Sprintf("[PUT /v1/size/reservations][%d] createSizeReservationConflict  %+v", 409, o.Payload)
 }
 
 func (o *CreateSizeReservationConflict) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /v1/size/reservations][%d] createSizeReservationConflict %s", 409, payload)
+	return fmt.Sprintf("[PUT /v1/size/reservations][%d] createSizeReservationConflict  %+v", 409, o.Payload)
 }
 
 func (o *CreateSizeReservationConflict) GetPayload() *httperrors.HTTPErrorResponse {
@@ -238,13 +233,11 @@ func (o *CreateSizeReservationDefault) Code() int {
 }
 
 func (o *CreateSizeReservationDefault) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /v1/size/reservations][%d] createSizeReservation default %s", o._statusCode, payload)
+	return fmt.Sprintf("[PUT /v1/size/reservations][%d] createSizeReservation default  %+v", o._statusCode, o.Payload)
 }
 
 func (o *CreateSizeReservationDefault) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /v1/size/reservations][%d] createSizeReservation default %s", o._statusCode, payload)
+	return fmt.Sprintf("[PUT /v1/size/reservations][%d] createSizeReservation default  %+v", o._statusCode, o.Payload)
 }
 
 func (o *CreateSizeReservationDefault) GetPayload() *httperrors.HTTPErrorResponse {

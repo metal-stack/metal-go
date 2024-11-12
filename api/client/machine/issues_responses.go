@@ -6,7 +6,6 @@ package machine
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -88,13 +87,11 @@ func (o *IssuesOK) Code() int {
 }
 
 func (o *IssuesOK) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/machine/issues/evaluate][%d] issuesOK %s", 200, payload)
+	return fmt.Sprintf("[POST /v1/machine/issues/evaluate][%d] issuesOK  %+v", 200, o.Payload)
 }
 
 func (o *IssuesOK) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/machine/issues/evaluate][%d] issuesOK %s", 200, payload)
+	return fmt.Sprintf("[POST /v1/machine/issues/evaluate][%d] issuesOK  %+v", 200, o.Payload)
 }
 
 func (o *IssuesOK) GetPayload() []*models.V1MachineIssueResponse {
@@ -160,13 +157,11 @@ func (o *IssuesDefault) Code() int {
 }
 
 func (o *IssuesDefault) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/machine/issues/evaluate][%d] issues default %s", o._statusCode, payload)
+	return fmt.Sprintf("[POST /v1/machine/issues/evaluate][%d] issues default  %+v", o._statusCode, o.Payload)
 }
 
 func (o *IssuesDefault) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/machine/issues/evaluate][%d] issues default %s", o._statusCode, payload)
+	return fmt.Sprintf("[POST /v1/machine/issues/evaluate][%d] issues default  %+v", o._statusCode, o.Payload)
 }
 
 func (o *IssuesDefault) GetPayload() *httperrors.HTTPErrorResponse {

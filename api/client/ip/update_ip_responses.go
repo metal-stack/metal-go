@@ -6,7 +6,6 @@ package ip
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -94,13 +93,11 @@ func (o *UpdateIPOK) Code() int {
 }
 
 func (o *UpdateIPOK) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/ip][%d] updateIpOK %s", 200, payload)
+	return fmt.Sprintf("[POST /v1/ip][%d] updateIpOK  %+v", 200, o.Payload)
 }
 
 func (o *UpdateIPOK) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/ip][%d] updateIpOK %s", 200, payload)
+	return fmt.Sprintf("[POST /v1/ip][%d] updateIpOK  %+v", 200, o.Payload)
 }
 
 func (o *UpdateIPOK) GetPayload() *models.V1IPResponse {
@@ -164,13 +161,11 @@ func (o *UpdateIPConflict) Code() int {
 }
 
 func (o *UpdateIPConflict) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/ip][%d] updateIpConflict %s", 409, payload)
+	return fmt.Sprintf("[POST /v1/ip][%d] updateIpConflict  %+v", 409, o.Payload)
 }
 
 func (o *UpdateIPConflict) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/ip][%d] updateIpConflict %s", 409, payload)
+	return fmt.Sprintf("[POST /v1/ip][%d] updateIpConflict  %+v", 409, o.Payload)
 }
 
 func (o *UpdateIPConflict) GetPayload() *httperrors.HTTPErrorResponse {
@@ -238,13 +233,11 @@ func (o *UpdateIPDefault) Code() int {
 }
 
 func (o *UpdateIPDefault) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/ip][%d] updateIP default %s", o._statusCode, payload)
+	return fmt.Sprintf("[POST /v1/ip][%d] updateIP default  %+v", o._statusCode, o.Payload)
 }
 
 func (o *UpdateIPDefault) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/ip][%d] updateIP default %s", o._statusCode, payload)
+	return fmt.Sprintf("[POST /v1/ip][%d] updateIP default  %+v", o._statusCode, o.Payload)
 }
 
 func (o *UpdateIPDefault) GetPayload() *httperrors.HTTPErrorResponse {

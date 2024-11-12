@@ -6,7 +6,6 @@ package image
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -94,13 +93,11 @@ func (o *CreateImageCreated) Code() int {
 }
 
 func (o *CreateImageCreated) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /v1/image][%d] createImageCreated %s", 201, payload)
+	return fmt.Sprintf("[PUT /v1/image][%d] createImageCreated  %+v", 201, o.Payload)
 }
 
 func (o *CreateImageCreated) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /v1/image][%d] createImageCreated %s", 201, payload)
+	return fmt.Sprintf("[PUT /v1/image][%d] createImageCreated  %+v", 201, o.Payload)
 }
 
 func (o *CreateImageCreated) GetPayload() *models.V1ImageResponse {
@@ -164,13 +161,11 @@ func (o *CreateImageConflict) Code() int {
 }
 
 func (o *CreateImageConflict) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /v1/image][%d] createImageConflict %s", 409, payload)
+	return fmt.Sprintf("[PUT /v1/image][%d] createImageConflict  %+v", 409, o.Payload)
 }
 
 func (o *CreateImageConflict) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /v1/image][%d] createImageConflict %s", 409, payload)
+	return fmt.Sprintf("[PUT /v1/image][%d] createImageConflict  %+v", 409, o.Payload)
 }
 
 func (o *CreateImageConflict) GetPayload() *httperrors.HTTPErrorResponse {
@@ -238,13 +233,11 @@ func (o *CreateImageDefault) Code() int {
 }
 
 func (o *CreateImageDefault) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /v1/image][%d] createImage default %s", o._statusCode, payload)
+	return fmt.Sprintf("[PUT /v1/image][%d] createImage default  %+v", o._statusCode, o.Payload)
 }
 
 func (o *CreateImageDefault) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /v1/image][%d] createImage default %s", o._statusCode, payload)
+	return fmt.Sprintf("[PUT /v1/image][%d] createImage default  %+v", o._statusCode, o.Payload)
 }
 
 func (o *CreateImageDefault) GetPayload() *httperrors.HTTPErrorResponse {

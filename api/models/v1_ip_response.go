@@ -57,7 +57,7 @@ type V1IPResponse struct {
 
 	// the ip type, ephemeral leads to automatic cleanup of the ip address, static will enable re-use of the ip at a later point in time
 	// Required: true
-	// Enum: ["ephemeral","static"]
+	// Enum: [ephemeral static]
 	Type *string `json:"type" yaml:"type"`
 }
 

@@ -28,7 +28,7 @@ type V1FirewallEgressRule struct {
 	Ports []int32 `json:"ports" yaml:"ports"`
 
 	// the protocol for the rule, defaults to tcp
-	// Enum: ["tcp","udp"]
+	// Enum: [tcp udp]
 	Protocol string `json:"protocol,omitempty" yaml:"protocol,omitempty"`
 
 	// the cidrs affected by this rule

@@ -6,7 +6,6 @@ package switch_operations
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -88,13 +87,11 @@ func (o *MigrateSwitchOK) Code() int {
 }
 
 func (o *MigrateSwitchOK) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/switch/migrate][%d] migrateSwitchOK %s", 200, payload)
+	return fmt.Sprintf("[POST /v1/switch/migrate][%d] migrateSwitchOK  %+v", 200, o.Payload)
 }
 
 func (o *MigrateSwitchOK) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/switch/migrate][%d] migrateSwitchOK %s", 200, payload)
+	return fmt.Sprintf("[POST /v1/switch/migrate][%d] migrateSwitchOK  %+v", 200, o.Payload)
 }
 
 func (o *MigrateSwitchOK) GetPayload() *models.V1SwitchResponse {
@@ -162,13 +159,11 @@ func (o *MigrateSwitchDefault) Code() int {
 }
 
 func (o *MigrateSwitchDefault) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/switch/migrate][%d] migrateSwitch default %s", o._statusCode, payload)
+	return fmt.Sprintf("[POST /v1/switch/migrate][%d] migrateSwitch default  %+v", o._statusCode, o.Payload)
 }
 
 func (o *MigrateSwitchDefault) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/switch/migrate][%d] migrateSwitch default %s", o._statusCode, payload)
+	return fmt.Sprintf("[POST /v1/switch/migrate][%d] migrateSwitch default  %+v", o._statusCode, o.Payload)
 }
 
 func (o *MigrateSwitchDefault) GetPayload() *httperrors.HTTPErrorResponse {

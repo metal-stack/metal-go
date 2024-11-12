@@ -6,7 +6,6 @@ package firmware
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -88,13 +87,11 @@ func (o *ListFirmwaresOK) Code() int {
 }
 
 func (o *ListFirmwaresOK) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /v1/firmware][%d] listFirmwaresOK %s", 200, payload)
+	return fmt.Sprintf("[GET /v1/firmware][%d] listFirmwaresOK  %+v", 200, o.Payload)
 }
 
 func (o *ListFirmwaresOK) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /v1/firmware][%d] listFirmwaresOK %s", 200, payload)
+	return fmt.Sprintf("[GET /v1/firmware][%d] listFirmwaresOK  %+v", 200, o.Payload)
 }
 
 func (o *ListFirmwaresOK) GetPayload() *models.V1FirmwaresResponse {
@@ -162,13 +159,11 @@ func (o *ListFirmwaresDefault) Code() int {
 }
 
 func (o *ListFirmwaresDefault) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /v1/firmware][%d] listFirmwares default %s", o._statusCode, payload)
+	return fmt.Sprintf("[GET /v1/firmware][%d] listFirmwares default  %+v", o._statusCode, o.Payload)
 }
 
 func (o *ListFirmwaresDefault) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /v1/firmware][%d] listFirmwares default %s", o._statusCode, payload)
+	return fmt.Sprintf("[GET /v1/firmware][%d] listFirmwares default  %+v", o._statusCode, o.Payload)
 }
 
 func (o *ListFirmwaresDefault) GetPayload() *httperrors.HTTPErrorResponse {

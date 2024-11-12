@@ -6,7 +6,6 @@ package size
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -88,13 +87,11 @@ func (o *SuggestOK) Code() int {
 }
 
 func (o *SuggestOK) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/size/suggest][%d] suggestOK %s", 200, payload)
+	return fmt.Sprintf("[POST /v1/size/suggest][%d] suggestOK  %+v", 200, o.Payload)
 }
 
 func (o *SuggestOK) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/size/suggest][%d] suggestOK %s", 200, payload)
+	return fmt.Sprintf("[POST /v1/size/suggest][%d] suggestOK  %+v", 200, o.Payload)
 }
 
 func (o *SuggestOK) GetPayload() []*models.V1SizeConstraint {
@@ -160,13 +157,11 @@ func (o *SuggestDefault) Code() int {
 }
 
 func (o *SuggestDefault) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/size/suggest][%d] suggest default %s", o._statusCode, payload)
+	return fmt.Sprintf("[POST /v1/size/suggest][%d] suggest default  %+v", o._statusCode, o.Payload)
 }
 
 func (o *SuggestDefault) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/size/suggest][%d] suggest default %s", o._statusCode, payload)
+	return fmt.Sprintf("[POST /v1/size/suggest][%d] suggest default  %+v", o._statusCode, o.Payload)
 }
 
 func (o *SuggestDefault) GetPayload() *httperrors.HTTPErrorResponse {

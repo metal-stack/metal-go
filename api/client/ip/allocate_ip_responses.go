@@ -6,7 +6,6 @@ package ip
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -94,13 +93,11 @@ func (o *AllocateIPCreated) Code() int {
 }
 
 func (o *AllocateIPCreated) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/ip/allocate][%d] allocateIpCreated %s", 201, payload)
+	return fmt.Sprintf("[POST /v1/ip/allocate][%d] allocateIpCreated  %+v", 201, o.Payload)
 }
 
 func (o *AllocateIPCreated) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/ip/allocate][%d] allocateIpCreated %s", 201, payload)
+	return fmt.Sprintf("[POST /v1/ip/allocate][%d] allocateIpCreated  %+v", 201, o.Payload)
 }
 
 func (o *AllocateIPCreated) GetPayload() *models.V1IPResponse {
@@ -164,13 +161,11 @@ func (o *AllocateIPConflict) Code() int {
 }
 
 func (o *AllocateIPConflict) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/ip/allocate][%d] allocateIpConflict %s", 409, payload)
+	return fmt.Sprintf("[POST /v1/ip/allocate][%d] allocateIpConflict  %+v", 409, o.Payload)
 }
 
 func (o *AllocateIPConflict) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/ip/allocate][%d] allocateIpConflict %s", 409, payload)
+	return fmt.Sprintf("[POST /v1/ip/allocate][%d] allocateIpConflict  %+v", 409, o.Payload)
 }
 
 func (o *AllocateIPConflict) GetPayload() *httperrors.HTTPErrorResponse {
@@ -238,13 +233,11 @@ func (o *AllocateIPDefault) Code() int {
 }
 
 func (o *AllocateIPDefault) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/ip/allocate][%d] allocateIP default %s", o._statusCode, payload)
+	return fmt.Sprintf("[POST /v1/ip/allocate][%d] allocateIP default  %+v", o._statusCode, o.Payload)
 }
 
 func (o *AllocateIPDefault) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/ip/allocate][%d] allocateIP default %s", o._statusCode, payload)
+	return fmt.Sprintf("[POST /v1/ip/allocate][%d] allocateIP default  %+v", o._statusCode, o.Payload)
 }
 
 func (o *AllocateIPDefault) GetPayload() *httperrors.HTTPErrorResponse {

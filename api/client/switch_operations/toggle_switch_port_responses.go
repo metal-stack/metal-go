@@ -6,7 +6,6 @@ package switch_operations
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -100,13 +99,11 @@ func (o *ToggleSwitchPortOK) Code() int {
 }
 
 func (o *ToggleSwitchPortOK) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/switch/{id}/port][%d] toggleSwitchPortOK %s", 200, payload)
+	return fmt.Sprintf("[POST /v1/switch/{id}/port][%d] toggleSwitchPortOK  %+v", 200, o.Payload)
 }
 
 func (o *ToggleSwitchPortOK) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/switch/{id}/port][%d] toggleSwitchPortOK %s", 200, payload)
+	return fmt.Sprintf("[POST /v1/switch/{id}/port][%d] toggleSwitchPortOK  %+v", 200, o.Payload)
 }
 
 func (o *ToggleSwitchPortOK) GetPayload() *models.V1SwitchResponse {
@@ -170,13 +167,11 @@ func (o *ToggleSwitchPortBadRequest) Code() int {
 }
 
 func (o *ToggleSwitchPortBadRequest) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/switch/{id}/port][%d] toggleSwitchPortBadRequest %s", 400, payload)
+	return fmt.Sprintf("[POST /v1/switch/{id}/port][%d] toggleSwitchPortBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *ToggleSwitchPortBadRequest) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/switch/{id}/port][%d] toggleSwitchPortBadRequest %s", 400, payload)
+	return fmt.Sprintf("[POST /v1/switch/{id}/port][%d] toggleSwitchPortBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *ToggleSwitchPortBadRequest) GetPayload() *httperrors.HTTPErrorResponse {
@@ -240,13 +235,11 @@ func (o *ToggleSwitchPortConflict) Code() int {
 }
 
 func (o *ToggleSwitchPortConflict) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/switch/{id}/port][%d] toggleSwitchPortConflict %s", 409, payload)
+	return fmt.Sprintf("[POST /v1/switch/{id}/port][%d] toggleSwitchPortConflict  %+v", 409, o.Payload)
 }
 
 func (o *ToggleSwitchPortConflict) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/switch/{id}/port][%d] toggleSwitchPortConflict %s", 409, payload)
+	return fmt.Sprintf("[POST /v1/switch/{id}/port][%d] toggleSwitchPortConflict  %+v", 409, o.Payload)
 }
 
 func (o *ToggleSwitchPortConflict) GetPayload() *httperrors.HTTPErrorResponse {
@@ -314,13 +307,11 @@ func (o *ToggleSwitchPortDefault) Code() int {
 }
 
 func (o *ToggleSwitchPortDefault) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/switch/{id}/port][%d] toggleSwitchPort default %s", o._statusCode, payload)
+	return fmt.Sprintf("[POST /v1/switch/{id}/port][%d] toggleSwitchPort default  %+v", o._statusCode, o.Payload)
 }
 
 func (o *ToggleSwitchPortDefault) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/switch/{id}/port][%d] toggleSwitchPort default %s", o._statusCode, payload)
+	return fmt.Sprintf("[POST /v1/switch/{id}/port][%d] toggleSwitchPort default  %+v", o._statusCode, o.Payload)
 }
 
 func (o *ToggleSwitchPortDefault) GetPayload() *httperrors.HTTPErrorResponse {

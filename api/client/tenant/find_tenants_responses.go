@@ -6,7 +6,6 @@ package tenant
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -88,13 +87,11 @@ func (o *FindTenantsOK) Code() int {
 }
 
 func (o *FindTenantsOK) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/tenant/find][%d] findTenantsOK %s", 200, payload)
+	return fmt.Sprintf("[POST /v1/tenant/find][%d] findTenantsOK  %+v", 200, o.Payload)
 }
 
 func (o *FindTenantsOK) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/tenant/find][%d] findTenantsOK %s", 200, payload)
+	return fmt.Sprintf("[POST /v1/tenant/find][%d] findTenantsOK  %+v", 200, o.Payload)
 }
 
 func (o *FindTenantsOK) GetPayload() []*models.V1TenantResponse {
@@ -160,13 +157,11 @@ func (o *FindTenantsDefault) Code() int {
 }
 
 func (o *FindTenantsDefault) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/tenant/find][%d] findTenants default %s", o._statusCode, payload)
+	return fmt.Sprintf("[POST /v1/tenant/find][%d] findTenants default  %+v", o._statusCode, o.Payload)
 }
 
 func (o *FindTenantsDefault) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/tenant/find][%d] findTenants default %s", o._statusCode, payload)
+	return fmt.Sprintf("[POST /v1/tenant/find][%d] findTenants default  %+v", o._statusCode, o.Payload)
 }
 
 func (o *FindTenantsDefault) GetPayload() *httperrors.HTTPErrorResponse {

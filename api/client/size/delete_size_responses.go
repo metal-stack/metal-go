@@ -6,7 +6,6 @@ package size
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -88,13 +87,11 @@ func (o *DeleteSizeOK) Code() int {
 }
 
 func (o *DeleteSizeOK) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[DELETE /v1/size/{id}][%d] deleteSizeOK %s", 200, payload)
+	return fmt.Sprintf("[DELETE /v1/size/{id}][%d] deleteSizeOK  %+v", 200, o.Payload)
 }
 
 func (o *DeleteSizeOK) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[DELETE /v1/size/{id}][%d] deleteSizeOK %s", 200, payload)
+	return fmt.Sprintf("[DELETE /v1/size/{id}][%d] deleteSizeOK  %+v", 200, o.Payload)
 }
 
 func (o *DeleteSizeOK) GetPayload() *models.V1SizeResponse {
@@ -162,13 +159,11 @@ func (o *DeleteSizeDefault) Code() int {
 }
 
 func (o *DeleteSizeDefault) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[DELETE /v1/size/{id}][%d] deleteSize default %s", o._statusCode, payload)
+	return fmt.Sprintf("[DELETE /v1/size/{id}][%d] deleteSize default  %+v", o._statusCode, o.Payload)
 }
 
 func (o *DeleteSizeDefault) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[DELETE /v1/size/{id}][%d] deleteSize default %s", o._statusCode, payload)
+	return fmt.Sprintf("[DELETE /v1/size/{id}][%d] deleteSize default  %+v", o._statusCode, o.Payload)
 }
 
 func (o *DeleteSizeDefault) GetPayload() *httperrors.HTTPErrorResponse {

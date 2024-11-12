@@ -6,7 +6,6 @@ package switch_operations
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -94,13 +93,11 @@ func (o *UpdateSwitchOK) Code() int {
 }
 
 func (o *UpdateSwitchOK) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/switch][%d] updateSwitchOK %s", 200, payload)
+	return fmt.Sprintf("[POST /v1/switch][%d] updateSwitchOK  %+v", 200, o.Payload)
 }
 
 func (o *UpdateSwitchOK) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/switch][%d] updateSwitchOK %s", 200, payload)
+	return fmt.Sprintf("[POST /v1/switch][%d] updateSwitchOK  %+v", 200, o.Payload)
 }
 
 func (o *UpdateSwitchOK) GetPayload() *models.V1SwitchResponse {
@@ -164,13 +161,11 @@ func (o *UpdateSwitchConflict) Code() int {
 }
 
 func (o *UpdateSwitchConflict) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/switch][%d] updateSwitchConflict %s", 409, payload)
+	return fmt.Sprintf("[POST /v1/switch][%d] updateSwitchConflict  %+v", 409, o.Payload)
 }
 
 func (o *UpdateSwitchConflict) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/switch][%d] updateSwitchConflict %s", 409, payload)
+	return fmt.Sprintf("[POST /v1/switch][%d] updateSwitchConflict  %+v", 409, o.Payload)
 }
 
 func (o *UpdateSwitchConflict) GetPayload() *httperrors.HTTPErrorResponse {
@@ -238,13 +233,11 @@ func (o *UpdateSwitchDefault) Code() int {
 }
 
 func (o *UpdateSwitchDefault) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/switch][%d] updateSwitch default %s", o._statusCode, payload)
+	return fmt.Sprintf("[POST /v1/switch][%d] updateSwitch default  %+v", o._statusCode, o.Payload)
 }
 
 func (o *UpdateSwitchDefault) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/switch][%d] updateSwitch default %s", o._statusCode, payload)
+	return fmt.Sprintf("[POST /v1/switch][%d] updateSwitch default  %+v", o._statusCode, o.Payload)
 }
 
 func (o *UpdateSwitchDefault) GetPayload() *httperrors.HTTPErrorResponse {

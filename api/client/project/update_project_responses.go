@@ -6,7 +6,6 @@ package project
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -94,13 +93,11 @@ func (o *UpdateProjectOK) Code() int {
 }
 
 func (o *UpdateProjectOK) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/project][%d] updateProjectOK %s", 200, payload)
+	return fmt.Sprintf("[POST /v1/project][%d] updateProjectOK  %+v", 200, o.Payload)
 }
 
 func (o *UpdateProjectOK) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/project][%d] updateProjectOK %s", 200, payload)
+	return fmt.Sprintf("[POST /v1/project][%d] updateProjectOK  %+v", 200, o.Payload)
 }
 
 func (o *UpdateProjectOK) GetPayload() *models.V1ProjectResponse {
@@ -164,13 +161,11 @@ func (o *UpdateProjectPreconditionFailed) Code() int {
 }
 
 func (o *UpdateProjectPreconditionFailed) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/project][%d] updateProjectPreconditionFailed %s", 412, payload)
+	return fmt.Sprintf("[POST /v1/project][%d] updateProjectPreconditionFailed  %+v", 412, o.Payload)
 }
 
 func (o *UpdateProjectPreconditionFailed) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/project][%d] updateProjectPreconditionFailed %s", 412, payload)
+	return fmt.Sprintf("[POST /v1/project][%d] updateProjectPreconditionFailed  %+v", 412, o.Payload)
 }
 
 func (o *UpdateProjectPreconditionFailed) GetPayload() *httperrors.HTTPErrorResponse {
@@ -238,13 +233,11 @@ func (o *UpdateProjectDefault) Code() int {
 }
 
 func (o *UpdateProjectDefault) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/project][%d] updateProject default %s", o._statusCode, payload)
+	return fmt.Sprintf("[POST /v1/project][%d] updateProject default  %+v", o._statusCode, o.Payload)
 }
 
 func (o *UpdateProjectDefault) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/project][%d] updateProject default %s", o._statusCode, payload)
+	return fmt.Sprintf("[POST /v1/project][%d] updateProject default  %+v", o._statusCode, o.Payload)
 }
 
 func (o *UpdateProjectDefault) GetPayload() *httperrors.HTTPErrorResponse {
