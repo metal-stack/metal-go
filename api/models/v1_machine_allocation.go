@@ -78,7 +78,7 @@ type V1MachineAllocation struct {
 
 	// the role of the machine
 	// Required: true
-	// Enum: ["firewall","machine"]
+	// Enum: [firewall machine]
 	Role *string `json:"role" yaml:"role"`
 
 	// the public ssh keys to access the machine with

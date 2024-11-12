@@ -6,7 +6,6 @@ package vpn
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -88,13 +87,11 @@ func (o *GetVPNAuthKeyOK) Code() int {
 }
 
 func (o *GetVPNAuthKeyOK) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/vpn/authkey][%d] getVPNAuthKeyOK %s", 200, payload)
+	return fmt.Sprintf("[POST /v1/vpn/authkey][%d] getVPNAuthKeyOK  %+v", 200, o.Payload)
 }
 
 func (o *GetVPNAuthKeyOK) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/vpn/authkey][%d] getVPNAuthKeyOK %s", 200, payload)
+	return fmt.Sprintf("[POST /v1/vpn/authkey][%d] getVPNAuthKeyOK  %+v", 200, o.Payload)
 }
 
 func (o *GetVPNAuthKeyOK) GetPayload() *models.V1VPNResponse {
@@ -162,13 +159,11 @@ func (o *GetVPNAuthKeyDefault) Code() int {
 }
 
 func (o *GetVPNAuthKeyDefault) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/vpn/authkey][%d] getVPNAuthKey default %s", o._statusCode, payload)
+	return fmt.Sprintf("[POST /v1/vpn/authkey][%d] getVPNAuthKey default  %+v", o._statusCode, o.Payload)
 }
 
 func (o *GetVPNAuthKeyDefault) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/vpn/authkey][%d] getVPNAuthKey default %s", o._statusCode, payload)
+	return fmt.Sprintf("[POST /v1/vpn/authkey][%d] getVPNAuthKey default  %+v", o._statusCode, o.Payload)
 }
 
 func (o *GetVPNAuthKeyDefault) GetPayload() *httperrors.HTTPErrorResponse {

@@ -21,7 +21,7 @@ import (
 type V1ImageFindRequest struct {
 
 	// classification
-	// Enum: ["deprecated","preview","supported"]
+	// Enum: [deprecated preview supported]
 	Classification string `json:"classification,omitempty" yaml:"classification,omitempty"`
 
 	// features

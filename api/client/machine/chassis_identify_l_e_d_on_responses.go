@@ -6,7 +6,6 @@ package machine
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -88,13 +87,11 @@ func (o *ChassisIdentifyLEDOnOK) Code() int {
 }
 
 func (o *ChassisIdentifyLEDOnOK) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/machine/{id}/power/chassis-identify-led-on][%d] chassisIdentifyLEDOnOK %s", 200, payload)
+	return fmt.Sprintf("[POST /v1/machine/{id}/power/chassis-identify-led-on][%d] chassisIdentifyLEDOnOK  %+v", 200, o.Payload)
 }
 
 func (o *ChassisIdentifyLEDOnOK) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/machine/{id}/power/chassis-identify-led-on][%d] chassisIdentifyLEDOnOK %s", 200, payload)
+	return fmt.Sprintf("[POST /v1/machine/{id}/power/chassis-identify-led-on][%d] chassisIdentifyLEDOnOK  %+v", 200, o.Payload)
 }
 
 func (o *ChassisIdentifyLEDOnOK) GetPayload() *models.V1MachineResponse {
@@ -162,13 +159,11 @@ func (o *ChassisIdentifyLEDOnDefault) Code() int {
 }
 
 func (o *ChassisIdentifyLEDOnDefault) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/machine/{id}/power/chassis-identify-led-on][%d] chassisIdentifyLEDOn default %s", o._statusCode, payload)
+	return fmt.Sprintf("[POST /v1/machine/{id}/power/chassis-identify-led-on][%d] chassisIdentifyLEDOn default  %+v", o._statusCode, o.Payload)
 }
 
 func (o *ChassisIdentifyLEDOnDefault) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/machine/{id}/power/chassis-identify-led-on][%d] chassisIdentifyLEDOn default %s", o._statusCode, payload)
+	return fmt.Sprintf("[POST /v1/machine/{id}/power/chassis-identify-led-on][%d] chassisIdentifyLEDOn default  %+v", o._statusCode, o.Payload)
 }
 
 func (o *ChassisIdentifyLEDOnDefault) GetPayload() *httperrors.HTTPErrorResponse {

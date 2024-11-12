@@ -6,7 +6,6 @@ package tenant
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -94,13 +93,11 @@ func (o *CreateTenantCreated) Code() int {
 }
 
 func (o *CreateTenantCreated) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /v1/tenant][%d] createTenantCreated %s", 201, payload)
+	return fmt.Sprintf("[PUT /v1/tenant][%d] createTenantCreated  %+v", 201, o.Payload)
 }
 
 func (o *CreateTenantCreated) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /v1/tenant][%d] createTenantCreated %s", 201, payload)
+	return fmt.Sprintf("[PUT /v1/tenant][%d] createTenantCreated  %+v", 201, o.Payload)
 }
 
 func (o *CreateTenantCreated) GetPayload() *models.V1TenantResponse {
@@ -164,13 +161,11 @@ func (o *CreateTenantConflict) Code() int {
 }
 
 func (o *CreateTenantConflict) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /v1/tenant][%d] createTenantConflict %s", 409, payload)
+	return fmt.Sprintf("[PUT /v1/tenant][%d] createTenantConflict  %+v", 409, o.Payload)
 }
 
 func (o *CreateTenantConflict) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /v1/tenant][%d] createTenantConflict %s", 409, payload)
+	return fmt.Sprintf("[PUT /v1/tenant][%d] createTenantConflict  %+v", 409, o.Payload)
 }
 
 func (o *CreateTenantConflict) GetPayload() *httperrors.HTTPErrorResponse {
@@ -238,13 +233,11 @@ func (o *CreateTenantDefault) Code() int {
 }
 
 func (o *CreateTenantDefault) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /v1/tenant][%d] createTenant default %s", o._statusCode, payload)
+	return fmt.Sprintf("[PUT /v1/tenant][%d] createTenant default  %+v", o._statusCode, o.Payload)
 }
 
 func (o *CreateTenantDefault) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /v1/tenant][%d] createTenant default %s", o._statusCode, payload)
+	return fmt.Sprintf("[PUT /v1/tenant][%d] createTenant default  %+v", o._statusCode, o.Payload)
 }
 
 func (o *CreateTenantDefault) GetPayload() *httperrors.HTTPErrorResponse {

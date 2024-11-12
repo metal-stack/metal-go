@@ -5135,6 +5135,39 @@
         "id"
       ]
     },
+    "v1.SwitchBGPPortState": {
+      "properties": {
+        "BgpState": {
+          "type": "string"
+        },
+        "BgpTimerUp": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "Neighbor": {
+          "type": "string"
+        },
+        "PeerGroup": {
+          "type": "string"
+        },
+        "VrfName": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "BgpState",
+        "BgpTimerUp",
+        "Neighbor",
+        "PeerGroup",
+        "VrfName"
+      ]
+    },
+    "v1.SwitchBGPPortStates": {
+      "additionalProperties": {
+        "$ref": "#/definitions/v1.SwitchBGPPortState"
+      },
+      "type": "object"
+    },
     "v1.SwitchBase": {
       "description": "A switch that can register at the api.",
       "properties": {
@@ -5261,6 +5294,10 @@
     },
     "v1.SwitchNotifyRequest": {
       "properties": {
+        "bgp_port_states": {
+          "$ref": "#/definitions/v1.SwitchBGPPortStates",
+          "description": "the current bgp port states"
+        },
         "error": {
           "type": "string"
         },

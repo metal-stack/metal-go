@@ -6,7 +6,6 @@ package network
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -94,13 +93,11 @@ func (o *UpdateNetworkOK) Code() int {
 }
 
 func (o *UpdateNetworkOK) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/network][%d] updateNetworkOK %s", 200, payload)
+	return fmt.Sprintf("[POST /v1/network][%d] updateNetworkOK  %+v", 200, o.Payload)
 }
 
 func (o *UpdateNetworkOK) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/network][%d] updateNetworkOK %s", 200, payload)
+	return fmt.Sprintf("[POST /v1/network][%d] updateNetworkOK  %+v", 200, o.Payload)
 }
 
 func (o *UpdateNetworkOK) GetPayload() *models.V1NetworkResponse {
@@ -164,13 +161,11 @@ func (o *UpdateNetworkConflict) Code() int {
 }
 
 func (o *UpdateNetworkConflict) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/network][%d] updateNetworkConflict %s", 409, payload)
+	return fmt.Sprintf("[POST /v1/network][%d] updateNetworkConflict  %+v", 409, o.Payload)
 }
 
 func (o *UpdateNetworkConflict) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/network][%d] updateNetworkConflict %s", 409, payload)
+	return fmt.Sprintf("[POST /v1/network][%d] updateNetworkConflict  %+v", 409, o.Payload)
 }
 
 func (o *UpdateNetworkConflict) GetPayload() *httperrors.HTTPErrorResponse {
@@ -238,13 +233,11 @@ func (o *UpdateNetworkDefault) Code() int {
 }
 
 func (o *UpdateNetworkDefault) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/network][%d] updateNetwork default %s", o._statusCode, payload)
+	return fmt.Sprintf("[POST /v1/network][%d] updateNetwork default  %+v", o._statusCode, o.Payload)
 }
 
 func (o *UpdateNetworkDefault) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/network][%d] updateNetwork default %s", o._statusCode, payload)
+	return fmt.Sprintf("[POST /v1/network][%d] updateNetwork default  %+v", o._statusCode, o.Payload)
 }
 
 func (o *UpdateNetworkDefault) GetPayload() *httperrors.HTTPErrorResponse {

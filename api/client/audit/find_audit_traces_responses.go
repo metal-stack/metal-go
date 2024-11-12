@@ -6,7 +6,6 @@ package audit
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -88,13 +87,11 @@ func (o *FindAuditTracesOK) Code() int {
 }
 
 func (o *FindAuditTracesOK) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/audit/find][%d] findAuditTracesOK %s", 200, payload)
+	return fmt.Sprintf("[POST /v1/audit/find][%d] findAuditTracesOK  %+v", 200, o.Payload)
 }
 
 func (o *FindAuditTracesOK) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/audit/find][%d] findAuditTracesOK %s", 200, payload)
+	return fmt.Sprintf("[POST /v1/audit/find][%d] findAuditTracesOK  %+v", 200, o.Payload)
 }
 
 func (o *FindAuditTracesOK) GetPayload() []*models.V1AuditResponse {
@@ -160,13 +157,11 @@ func (o *FindAuditTracesDefault) Code() int {
 }
 
 func (o *FindAuditTracesDefault) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/audit/find][%d] findAuditTraces default %s", o._statusCode, payload)
+	return fmt.Sprintf("[POST /v1/audit/find][%d] findAuditTraces default  %+v", o._statusCode, o.Payload)
 }
 
 func (o *FindAuditTracesDefault) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/audit/find][%d] findAuditTraces default %s", o._statusCode, payload)
+	return fmt.Sprintf("[POST /v1/audit/find][%d] findAuditTraces default  %+v", o._statusCode, o.Payload)
 }
 
 func (o *FindAuditTracesDefault) GetPayload() *httperrors.HTTPErrorResponse {

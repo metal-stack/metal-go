@@ -6,7 +6,6 @@ package image
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -94,13 +93,11 @@ func (o *UpdateImageOK) Code() int {
 }
 
 func (o *UpdateImageOK) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/image][%d] updateImageOK %s", 200, payload)
+	return fmt.Sprintf("[POST /v1/image][%d] updateImageOK  %+v", 200, o.Payload)
 }
 
 func (o *UpdateImageOK) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/image][%d] updateImageOK %s", 200, payload)
+	return fmt.Sprintf("[POST /v1/image][%d] updateImageOK  %+v", 200, o.Payload)
 }
 
 func (o *UpdateImageOK) GetPayload() *models.V1ImageResponse {
@@ -164,13 +161,11 @@ func (o *UpdateImageConflict) Code() int {
 }
 
 func (o *UpdateImageConflict) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/image][%d] updateImageConflict %s", 409, payload)
+	return fmt.Sprintf("[POST /v1/image][%d] updateImageConflict  %+v", 409, o.Payload)
 }
 
 func (o *UpdateImageConflict) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/image][%d] updateImageConflict %s", 409, payload)
+	return fmt.Sprintf("[POST /v1/image][%d] updateImageConflict  %+v", 409, o.Payload)
 }
 
 func (o *UpdateImageConflict) GetPayload() *httperrors.HTTPErrorResponse {
@@ -238,13 +233,11 @@ func (o *UpdateImageDefault) Code() int {
 }
 
 func (o *UpdateImageDefault) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/image][%d] updateImage default %s", o._statusCode, payload)
+	return fmt.Sprintf("[POST /v1/image][%d] updateImage default  %+v", o._statusCode, o.Payload)
 }
 
 func (o *UpdateImageDefault) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/image][%d] updateImage default %s", o._statusCode, payload)
+	return fmt.Sprintf("[POST /v1/image][%d] updateImage default  %+v", o._statusCode, o.Payload)
 }
 
 func (o *UpdateImageDefault) GetPayload() *httperrors.HTTPErrorResponse {

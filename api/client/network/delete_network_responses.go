@@ -6,7 +6,6 @@ package network
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -88,13 +87,11 @@ func (o *DeleteNetworkOK) Code() int {
 }
 
 func (o *DeleteNetworkOK) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[DELETE /v1/network/{id}][%d] deleteNetworkOK %s", 200, payload)
+	return fmt.Sprintf("[DELETE /v1/network/{id}][%d] deleteNetworkOK  %+v", 200, o.Payload)
 }
 
 func (o *DeleteNetworkOK) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[DELETE /v1/network/{id}][%d] deleteNetworkOK %s", 200, payload)
+	return fmt.Sprintf("[DELETE /v1/network/{id}][%d] deleteNetworkOK  %+v", 200, o.Payload)
 }
 
 func (o *DeleteNetworkOK) GetPayload() *models.V1NetworkResponse {
@@ -162,13 +159,11 @@ func (o *DeleteNetworkDefault) Code() int {
 }
 
 func (o *DeleteNetworkDefault) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[DELETE /v1/network/{id}][%d] deleteNetwork default %s", o._statusCode, payload)
+	return fmt.Sprintf("[DELETE /v1/network/{id}][%d] deleteNetwork default  %+v", o._statusCode, o.Payload)
 }
 
 func (o *DeleteNetworkDefault) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[DELETE /v1/network/{id}][%d] deleteNetwork default %s", o._statusCode, payload)
+	return fmt.Sprintf("[DELETE /v1/network/{id}][%d] deleteNetwork default  %+v", o._statusCode, o.Payload)
 }
 
 func (o *DeleteNetworkDefault) GetPayload() *httperrors.HTTPErrorResponse {

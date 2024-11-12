@@ -6,7 +6,6 @@ package health
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -94,13 +93,11 @@ func (o *HealthOK) Code() int {
 }
 
 func (o *HealthOK) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /v1/health][%d] healthOK %s", 200, payload)
+	return fmt.Sprintf("[GET /v1/health][%d] healthOK  %+v", 200, o.Payload)
 }
 
 func (o *HealthOK) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /v1/health][%d] healthOK %s", 200, payload)
+	return fmt.Sprintf("[GET /v1/health][%d] healthOK  %+v", 200, o.Payload)
 }
 
 func (o *HealthOK) GetPayload() *models.RestHealthResponse {
@@ -164,13 +161,11 @@ func (o *HealthInternalServerError) Code() int {
 }
 
 func (o *HealthInternalServerError) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /v1/health][%d] healthInternalServerError %s", 500, payload)
+	return fmt.Sprintf("[GET /v1/health][%d] healthInternalServerError  %+v", 500, o.Payload)
 }
 
 func (o *HealthInternalServerError) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /v1/health][%d] healthInternalServerError %s", 500, payload)
+	return fmt.Sprintf("[GET /v1/health][%d] healthInternalServerError  %+v", 500, o.Payload)
 }
 
 func (o *HealthInternalServerError) GetPayload() *models.RestHealthResponse {
@@ -238,13 +233,11 @@ func (o *HealthDefault) Code() int {
 }
 
 func (o *HealthDefault) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /v1/health][%d] health default %s", o._statusCode, payload)
+	return fmt.Sprintf("[GET /v1/health][%d] health default  %+v", o._statusCode, o.Payload)
 }
 
 func (o *HealthDefault) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /v1/health][%d] health default %s", o._statusCode, payload)
+	return fmt.Sprintf("[GET /v1/health][%d] health default  %+v", o._statusCode, o.Payload)
 }
 
 func (o *HealthDefault) GetPayload() *httperrors.HTTPErrorResponse {

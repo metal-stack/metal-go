@@ -6,7 +6,6 @@ package filesystemlayout
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -94,13 +93,11 @@ func (o *UpdateFilesystemLayoutOK) Code() int {
 }
 
 func (o *UpdateFilesystemLayoutOK) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/filesystemlayout][%d] updateFilesystemLayoutOK %s", 200, payload)
+	return fmt.Sprintf("[POST /v1/filesystemlayout][%d] updateFilesystemLayoutOK  %+v", 200, o.Payload)
 }
 
 func (o *UpdateFilesystemLayoutOK) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/filesystemlayout][%d] updateFilesystemLayoutOK %s", 200, payload)
+	return fmt.Sprintf("[POST /v1/filesystemlayout][%d] updateFilesystemLayoutOK  %+v", 200, o.Payload)
 }
 
 func (o *UpdateFilesystemLayoutOK) GetPayload() *models.V1FilesystemLayoutResponse {
@@ -164,13 +161,11 @@ func (o *UpdateFilesystemLayoutConflict) Code() int {
 }
 
 func (o *UpdateFilesystemLayoutConflict) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/filesystemlayout][%d] updateFilesystemLayoutConflict %s", 409, payload)
+	return fmt.Sprintf("[POST /v1/filesystemlayout][%d] updateFilesystemLayoutConflict  %+v", 409, o.Payload)
 }
 
 func (o *UpdateFilesystemLayoutConflict) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/filesystemlayout][%d] updateFilesystemLayoutConflict %s", 409, payload)
+	return fmt.Sprintf("[POST /v1/filesystemlayout][%d] updateFilesystemLayoutConflict  %+v", 409, o.Payload)
 }
 
 func (o *UpdateFilesystemLayoutConflict) GetPayload() *httperrors.HTTPErrorResponse {
@@ -238,13 +233,11 @@ func (o *UpdateFilesystemLayoutDefault) Code() int {
 }
 
 func (o *UpdateFilesystemLayoutDefault) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/filesystemlayout][%d] updateFilesystemLayout default %s", o._statusCode, payload)
+	return fmt.Sprintf("[POST /v1/filesystemlayout][%d] updateFilesystemLayout default  %+v", o._statusCode, o.Payload)
 }
 
 func (o *UpdateFilesystemLayoutDefault) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/filesystemlayout][%d] updateFilesystemLayout default %s", o._statusCode, payload)
+	return fmt.Sprintf("[POST /v1/filesystemlayout][%d] updateFilesystemLayout default  %+v", o._statusCode, o.Payload)
 }
 
 func (o *UpdateFilesystemLayoutDefault) GetPayload() *httperrors.HTTPErrorResponse {

@@ -24,7 +24,7 @@ type V1SwitchOS struct {
 	MetalCoreVersion string `json:"metal_core_version,omitempty" yaml:"metal_core_version,omitempty"`
 
 	// the operating system vendor the switch currently has
-	// Enum: ["Cumulus","SONiC"]
+	// Enum: [Cumulus SONiC]
 	Vendor string `json:"vendor,omitempty" yaml:"vendor,omitempty"`
 
 	// the operating system version the switch currently has

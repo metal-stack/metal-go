@@ -6,7 +6,6 @@ package machine
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -88,13 +87,11 @@ func (o *GetMachineConsolePasswordOK) Code() int {
 }
 
 func (o *GetMachineConsolePasswordOK) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /v1/machine/consolepassword][%d] getMachineConsolePasswordOK %s", 200, payload)
+	return fmt.Sprintf("[GET /v1/machine/consolepassword][%d] getMachineConsolePasswordOK  %+v", 200, o.Payload)
 }
 
 func (o *GetMachineConsolePasswordOK) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /v1/machine/consolepassword][%d] getMachineConsolePasswordOK %s", 200, payload)
+	return fmt.Sprintf("[GET /v1/machine/consolepassword][%d] getMachineConsolePasswordOK  %+v", 200, o.Payload)
 }
 
 func (o *GetMachineConsolePasswordOK) GetPayload() *models.V1MachineConsolePasswordResponse {
@@ -162,13 +159,11 @@ func (o *GetMachineConsolePasswordDefault) Code() int {
 }
 
 func (o *GetMachineConsolePasswordDefault) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /v1/machine/consolepassword][%d] getMachineConsolePassword default %s", o._statusCode, payload)
+	return fmt.Sprintf("[GET /v1/machine/consolepassword][%d] getMachineConsolePassword default  %+v", o._statusCode, o.Payload)
 }
 
 func (o *GetMachineConsolePasswordDefault) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /v1/machine/consolepassword][%d] getMachineConsolePassword default %s", o._statusCode, payload)
+	return fmt.Sprintf("[GET /v1/machine/consolepassword][%d] getMachineConsolePassword default  %+v", o._statusCode, o.Payload)
 }
 
 func (o *GetMachineConsolePasswordDefault) GetPayload() *httperrors.HTTPErrorResponse {

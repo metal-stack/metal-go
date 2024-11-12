@@ -135,7 +135,7 @@ type DatastoreMachineSearchQuery struct {
 	Sizeid string `json:"sizeid,omitempty" yaml:"sizeid,omitempty"`
 
 	// state value
-	// Enum: ["","LOCKED","RESERVED"]
+	// Enum: [ LOCKED RESERVED]
 	StateValue string `json:"state_value,omitempty" yaml:"state_value,omitempty"`
 
 	// tags

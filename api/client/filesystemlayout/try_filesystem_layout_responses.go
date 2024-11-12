@@ -6,7 +6,6 @@ package filesystemlayout
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -88,13 +87,11 @@ func (o *TryFilesystemLayoutOK) Code() int {
 }
 
 func (o *TryFilesystemLayoutOK) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/filesystemlayout/try][%d] tryFilesystemLayoutOK %s", 200, payload)
+	return fmt.Sprintf("[POST /v1/filesystemlayout/try][%d] tryFilesystemLayoutOK  %+v", 200, o.Payload)
 }
 
 func (o *TryFilesystemLayoutOK) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/filesystemlayout/try][%d] tryFilesystemLayoutOK %s", 200, payload)
+	return fmt.Sprintf("[POST /v1/filesystemlayout/try][%d] tryFilesystemLayoutOK  %+v", 200, o.Payload)
 }
 
 func (o *TryFilesystemLayoutOK) GetPayload() *models.V1FilesystemLayoutResponse {
@@ -162,13 +159,11 @@ func (o *TryFilesystemLayoutDefault) Code() int {
 }
 
 func (o *TryFilesystemLayoutDefault) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/filesystemlayout/try][%d] tryFilesystemLayout default %s", o._statusCode, payload)
+	return fmt.Sprintf("[POST /v1/filesystemlayout/try][%d] tryFilesystemLayout default  %+v", o._statusCode, o.Payload)
 }
 
 func (o *TryFilesystemLayoutDefault) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/filesystemlayout/try][%d] tryFilesystemLayout default %s", o._statusCode, payload)
+	return fmt.Sprintf("[POST /v1/filesystemlayout/try][%d] tryFilesystemLayout default  %+v", o._statusCode, o.Payload)
 }
 
 func (o *TryFilesystemLayoutDefault) GetPayload() *httperrors.HTTPErrorResponse {

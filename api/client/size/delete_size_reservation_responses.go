@@ -6,7 +6,6 @@ package size
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -88,13 +87,11 @@ func (o *DeleteSizeReservationOK) Code() int {
 }
 
 func (o *DeleteSizeReservationOK) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[DELETE /v1/size/reservations/{id}][%d] deleteSizeReservationOK %s", 200, payload)
+	return fmt.Sprintf("[DELETE /v1/size/reservations/{id}][%d] deleteSizeReservationOK  %+v", 200, o.Payload)
 }
 
 func (o *DeleteSizeReservationOK) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[DELETE /v1/size/reservations/{id}][%d] deleteSizeReservationOK %s", 200, payload)
+	return fmt.Sprintf("[DELETE /v1/size/reservations/{id}][%d] deleteSizeReservationOK  %+v", 200, o.Payload)
 }
 
 func (o *DeleteSizeReservationOK) GetPayload() *models.V1SizeReservationResponse {
@@ -162,13 +159,11 @@ func (o *DeleteSizeReservationDefault) Code() int {
 }
 
 func (o *DeleteSizeReservationDefault) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[DELETE /v1/size/reservations/{id}][%d] deleteSizeReservation default %s", o._statusCode, payload)
+	return fmt.Sprintf("[DELETE /v1/size/reservations/{id}][%d] deleteSizeReservation default  %+v", o._statusCode, o.Payload)
 }
 
 func (o *DeleteSizeReservationDefault) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[DELETE /v1/size/reservations/{id}][%d] deleteSizeReservation default %s", o._statusCode, payload)
+	return fmt.Sprintf("[DELETE /v1/size/reservations/{id}][%d] deleteSizeReservation default  %+v", o._statusCode, o.Payload)
 }
 
 func (o *DeleteSizeReservationDefault) GetPayload() *httperrors.HTTPErrorResponse {

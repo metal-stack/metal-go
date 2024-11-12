@@ -6,7 +6,6 @@ package project
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -88,13 +87,11 @@ func (o *FindProjectsOK) Code() int {
 }
 
 func (o *FindProjectsOK) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/project/find][%d] findProjectsOK %s", 200, payload)
+	return fmt.Sprintf("[POST /v1/project/find][%d] findProjectsOK  %+v", 200, o.Payload)
 }
 
 func (o *FindProjectsOK) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/project/find][%d] findProjectsOK %s", 200, payload)
+	return fmt.Sprintf("[POST /v1/project/find][%d] findProjectsOK  %+v", 200, o.Payload)
 }
 
 func (o *FindProjectsOK) GetPayload() []*models.V1ProjectResponse {
@@ -160,13 +157,11 @@ func (o *FindProjectsDefault) Code() int {
 }
 
 func (o *FindProjectsDefault) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/project/find][%d] findProjects default %s", o._statusCode, payload)
+	return fmt.Sprintf("[POST /v1/project/find][%d] findProjects default  %+v", o._statusCode, o.Payload)
 }
 
 func (o *FindProjectsDefault) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/project/find][%d] findProjects default %s", o._statusCode, payload)
+	return fmt.Sprintf("[POST /v1/project/find][%d] findProjects default  %+v", o._statusCode, o.Payload)
 }
 
 func (o *FindProjectsDefault) GetPayload() *httperrors.HTTPErrorResponse {

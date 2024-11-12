@@ -6,7 +6,6 @@ package size
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -88,13 +87,11 @@ func (o *FindSizeOK) Code() int {
 }
 
 func (o *FindSizeOK) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /v1/size/{id}][%d] findSizeOK %s", 200, payload)
+	return fmt.Sprintf("[GET /v1/size/{id}][%d] findSizeOK  %+v", 200, o.Payload)
 }
 
 func (o *FindSizeOK) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /v1/size/{id}][%d] findSizeOK %s", 200, payload)
+	return fmt.Sprintf("[GET /v1/size/{id}][%d] findSizeOK  %+v", 200, o.Payload)
 }
 
 func (o *FindSizeOK) GetPayload() *models.V1SizeResponse {
@@ -162,13 +159,11 @@ func (o *FindSizeDefault) Code() int {
 }
 
 func (o *FindSizeDefault) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /v1/size/{id}][%d] findSize default %s", o._statusCode, payload)
+	return fmt.Sprintf("[GET /v1/size/{id}][%d] findSize default  %+v", o._statusCode, o.Payload)
 }
 
 func (o *FindSizeDefault) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /v1/size/{id}][%d] findSize default %s", o._statusCode, payload)
+	return fmt.Sprintf("[GET /v1/size/{id}][%d] findSize default  %+v", o._statusCode, o.Payload)
 }
 
 func (o *FindSizeDefault) GetPayload() *httperrors.HTTPErrorResponse {

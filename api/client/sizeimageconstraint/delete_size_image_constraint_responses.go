@@ -6,7 +6,6 @@ package sizeimageconstraint
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -88,13 +87,11 @@ func (o *DeleteSizeImageConstraintOK) Code() int {
 }
 
 func (o *DeleteSizeImageConstraintOK) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[DELETE /v1/size-image-constraint/{id}][%d] deleteSizeImageConstraintOK %s", 200, payload)
+	return fmt.Sprintf("[DELETE /v1/size-image-constraint/{id}][%d] deleteSizeImageConstraintOK  %+v", 200, o.Payload)
 }
 
 func (o *DeleteSizeImageConstraintOK) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[DELETE /v1/size-image-constraint/{id}][%d] deleteSizeImageConstraintOK %s", 200, payload)
+	return fmt.Sprintf("[DELETE /v1/size-image-constraint/{id}][%d] deleteSizeImageConstraintOK  %+v", 200, o.Payload)
 }
 
 func (o *DeleteSizeImageConstraintOK) GetPayload() *models.V1SizeImageConstraintResponse {
@@ -162,13 +159,11 @@ func (o *DeleteSizeImageConstraintDefault) Code() int {
 }
 
 func (o *DeleteSizeImageConstraintDefault) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[DELETE /v1/size-image-constraint/{id}][%d] deleteSizeImageConstraint default %s", o._statusCode, payload)
+	return fmt.Sprintf("[DELETE /v1/size-image-constraint/{id}][%d] deleteSizeImageConstraint default  %+v", o._statusCode, o.Payload)
 }
 
 func (o *DeleteSizeImageConstraintDefault) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[DELETE /v1/size-image-constraint/{id}][%d] deleteSizeImageConstraint default %s", o._statusCode, payload)
+	return fmt.Sprintf("[DELETE /v1/size-image-constraint/{id}][%d] deleteSizeImageConstraint default  %+v", o._statusCode, o.Payload)
 }
 
 func (o *DeleteSizeImageConstraintDefault) GetPayload() *httperrors.HTTPErrorResponse {

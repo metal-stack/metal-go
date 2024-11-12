@@ -6,7 +6,6 @@ package machine
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -88,13 +87,11 @@ func (o *UpdateFirmwareOK) Code() int {
 }
 
 func (o *UpdateFirmwareOK) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/machine/update-firmware/{id}][%d] updateFirmwareOK %s", 200, payload)
+	return fmt.Sprintf("[POST /v1/machine/update-firmware/{id}][%d] updateFirmwareOK  %+v", 200, o.Payload)
 }
 
 func (o *UpdateFirmwareOK) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/machine/update-firmware/{id}][%d] updateFirmwareOK %s", 200, payload)
+	return fmt.Sprintf("[POST /v1/machine/update-firmware/{id}][%d] updateFirmwareOK  %+v", 200, o.Payload)
 }
 
 func (o *UpdateFirmwareOK) GetPayload() *models.V1MachineResponse {
@@ -162,13 +159,11 @@ func (o *UpdateFirmwareDefault) Code() int {
 }
 
 func (o *UpdateFirmwareDefault) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/machine/update-firmware/{id}][%d] updateFirmware default %s", o._statusCode, payload)
+	return fmt.Sprintf("[POST /v1/machine/update-firmware/{id}][%d] updateFirmware default  %+v", o._statusCode, o.Payload)
 }
 
 func (o *UpdateFirmwareDefault) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/machine/update-firmware/{id}][%d] updateFirmware default %s", o._statusCode, payload)
+	return fmt.Sprintf("[POST /v1/machine/update-firmware/{id}][%d] updateFirmware default  %+v", o._statusCode, o.Payload)
 }
 
 func (o *UpdateFirmwareDefault) GetPayload() *httperrors.HTTPErrorResponse {
