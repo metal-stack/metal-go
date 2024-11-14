@@ -5138,7 +5138,7 @@
     "v1.SwitchBGPPortState": {
       "properties": {
         "AcceptedPrefixCounter": {
-          "format": "integer",
+          "format": "int64",
           "type": "integer"
         },
         "BgpState": {
@@ -5155,7 +5155,7 @@
           "type": "string"
         },
         "SentPrefixCounter": {
-          "format": "integer",
+          "format": "int64",
           "type": "integer"
         },
         "VrfName": {
