@@ -19,6 +19,10 @@ import (
 // swagger:model v1.SwitchBGPPortState
 type V1SwitchBGPPortState struct {
 
+	// accepted prefix counter
+	// Required: true
+	AcceptedPrefixCounter *int64 `json:"AcceptedPrefixCounter" yaml:"AcceptedPrefixCounter"`
+
 	// bgp state
 	// Required: true
 	BgpState *string `json:"BgpState" yaml:"BgpState"`
@@ -35,6 +39,10 @@ type V1SwitchBGPPortState struct {
 	// Required: true
 	PeerGroup *string `json:"PeerGroup" yaml:"PeerGroup"`
 
+	// sent prefix counter
+	// Required: true
+	SentPrefixCounter *int64 `json:"SentPrefixCounter" yaml:"SentPrefixCounter"`
+
 	// vrf name
 	// Required: true
 	VrfName *string `json:"VrfName" yaml:"VrfName"`
@@ -43,6 +51,10 @@ type V1SwitchBGPPortState struct {
 // Validate validates this v1 switch b g p port state
 func (m *V1SwitchBGPPortState) Validate(formats strfmt.Registry) error {
 	var res []error
+
+	if err := m.validateAcceptedPrefixCounter(formats); err != nil {
+		res = append(res, err)
+	}
 
 	if err := m.validateBgpState(formats); err != nil {
 		res = append(res, err)
@@ -60,6 +72,10 @@ func (m *V1SwitchBGPPortState) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateSentPrefixCounter(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateVrfName(formats); err != nil {
 		res = append(res, err)
 	}
@@ -67,6 +83,15 @@ func (m *V1SwitchBGPPortState) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *V1SwitchBGPPortState) validateAcceptedPrefixCounter(formats strfmt.Registry) error {
+
+	if err := validate.Required("AcceptedPrefixCounter", "body", m.AcceptedPrefixCounter); err != nil {
+		return err
+	}
+
 	return nil
 }
 
@@ -100,6 +125,15 @@ func (m *V1SwitchBGPPortState) validateNeighbor(formats strfmt.Registry) error {
 func (m *V1SwitchBGPPortState) validatePeerGroup(formats strfmt.Registry) error {
 
 	if err := validate.Required("PeerGroup", "body", m.PeerGroup); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *V1SwitchBGPPortState) validateSentPrefixCounter(formats strfmt.Registry) error {
+
+	if err := validate.Required("SentPrefixCounter", "body", m.SentPrefixCounter); err != nil {
 		return err
 	}
 
