@@ -5137,6 +5137,10 @@
     },
     "v1.SwitchBGPPortState": {
       "properties": {
+        "AcceptedPrefixCounter": {
+          "format": "int64",
+          "type": "integer"
+        },
         "BgpState": {
           "type": "string"
         },
@@ -5150,15 +5154,21 @@
         "PeerGroup": {
           "type": "string"
         },
+        "SentPrefixCounter": {
+          "format": "int64",
+          "type": "integer"
+        },
         "VrfName": {
           "type": "string"
         }
       },
       "required": [
+        "AcceptedPrefixCounter",
         "BgpState",
         "BgpTimerUp",
         "Neighbor",
         "PeerGroup",
+        "SentPrefixCounter",
         "VrfName"
       ]
     },
