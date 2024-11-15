@@ -5268,6 +5268,10 @@
           ],
           "type": "string"
         },
+        "bgp_port_state": {
+          "$ref": "#/definitions/metal.SwitchBGPPortState",
+          "description": "the current bgp port state"
+        },
         "filter": {
           "$ref": "#/definitions/v1.BGPFilter",
           "description": "configures the bgp filter applied at the switch port"
