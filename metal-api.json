@@ -348,6 +348,43 @@
         "type": "HTTPErrorResponse"
       }
     },
+    "metal.SwitchBGPPortState": {
+      "properties": {
+        "AcceptedPrefixCounter": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "BgpState": {
+          "type": "string"
+        },
+        "BgpTimerUpEstablished": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "Neighbor": {
+          "type": "string"
+        },
+        "PeerGroup": {
+          "type": "string"
+        },
+        "SentPrefixCounter": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "VrfName": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "AcceptedPrefixCounter",
+        "BgpState",
+        "BgpTimerUpEstablished",
+        "Neighbor",
+        "PeerGroup",
+        "SentPrefixCounter",
+        "VrfName"
+      ]
+    },
     "rest.HealthResponse": {
       "properties": {
         "message": {
@@ -5135,49 +5172,6 @@
         "id"
       ]
     },
-    "v1.SwitchBGPPortState": {
-      "properties": {
-        "AcceptedPrefixCounter": {
-          "format": "int64",
-          "type": "integer"
-        },
-        "BgpState": {
-          "type": "string"
-        },
-        "BgpTimerUp": {
-          "format": "int64",
-          "type": "integer"
-        },
-        "Neighbor": {
-          "type": "string"
-        },
-        "PeerGroup": {
-          "type": "string"
-        },
-        "SentPrefixCounter": {
-          "format": "int64",
-          "type": "integer"
-        },
-        "VrfName": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "AcceptedPrefixCounter",
-        "BgpState",
-        "BgpTimerUp",
-        "Neighbor",
-        "PeerGroup",
-        "SentPrefixCounter",
-        "VrfName"
-      ]
-    },
-    "v1.SwitchBGPPortStates": {
-      "additionalProperties": {
-        "$ref": "#/definitions/v1.SwitchBGPPortState"
-      },
-      "type": "object"
-    },
     "v1.SwitchBase": {
       "description": "A switch that can register at the api.",
       "properties": {
@@ -5305,8 +5299,11 @@
     "v1.SwitchNotifyRequest": {
       "properties": {
         "bgp_port_states": {
-          "$ref": "#/definitions/v1.SwitchBGPPortStates",
-          "description": "the current bgp port states"
+          "additionalProperties": {
+            "$ref": "#/definitions/metal.SwitchBGPPortState"
+          },
+          "description": "the current bgp port states",
+          "type": "object"
         },
         "error": {
           "type": "string"

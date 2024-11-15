@@ -20,7 +20,7 @@ import (
 type V1SwitchNotifyRequest struct {
 
 	// the current bgp port states
-	BgpPortStates V1SwitchBGPPortStates `json:"bgp_port_states,omitempty" yaml:"bgp_port_states,omitempty"`
+	BgpPortStates map[string]MetalSwitchBGPPortState `json:"bgp_port_states,omitempty" yaml:"bgp_port_states,omitempty"`
 
 	// error
 	// Required: true
@@ -66,15 +66,22 @@ func (m *V1SwitchNotifyRequest) validateBgpPortStates(formats strfmt.Registry) e
 		return nil
 	}
 
-	if m.BgpPortStates != nil {
-		if err := m.BgpPortStates.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("bgp_port_states")
-			} else if ce, ok := err.(*errors.CompositeError); ok {
-				return ce.ValidateName("bgp_port_states")
-			}
+	for k := range m.BgpPortStates {
+
+		if err := validate.Required("bgp_port_states"+"."+k, "body", m.BgpPortStates[k]); err != nil {
 			return err
 		}
+		if val, ok := m.BgpPortStates[k]; ok {
+			if err := val.Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("bgp_port_states" + "." + k)
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("bgp_port_states" + "." + k)
+				}
+				return err
+			}
+		}
+
 	}
 
 	return nil
@@ -123,17 +130,14 @@ func (m *V1SwitchNotifyRequest) ContextValidate(ctx context.Context, formats str
 
 func (m *V1SwitchNotifyRequest) contextValidateBgpPortStates(ctx context.Context, formats strfmt.Registry) error {
 
-	if swag.IsZero(m.BgpPortStates) { // not required
-		return nil
-	}
+	for k := range m.BgpPortStates {
 
-	if err := m.BgpPortStates.ContextValidate(ctx, formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
-			return ve.ValidateName("bgp_port_states")
-		} else if ce, ok := err.(*errors.CompositeError); ok {
-			return ce.ValidateName("bgp_port_states")
+		if val, ok := m.BgpPortStates[k]; ok {
+			if err := val.ContextValidate(ctx, formats); err != nil {
+				return err
+			}
 		}
-		return err
+
 	}
 
 	return nil
