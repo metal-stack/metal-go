@@ -25,6 +25,9 @@ type V1SwitchNic struct {
 	// Enum: [DOWN UNKNOWN UP]
 	Actual *string `json:"actual" yaml:"actual"`
 
+	// the current bgp port state
+	BgpPortState *MetalSwitchBGPPortState `json:"bgp_port_state,omitempty" yaml:"bgp_port_state,omitempty"`
+
 	// configures the bgp filter applied at the switch port
 	Filter *V1BGPFilter `json:"filter,omitempty" yaml:"filter,omitempty"`
 
@@ -49,6 +52,10 @@ func (m *V1SwitchNic) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateActual(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateBgpPortState(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -120,6 +127,25 @@ func (m *V1SwitchNic) validateActual(formats strfmt.Registry) error {
 	return nil
 }
 
+func (m *V1SwitchNic) validateBgpPortState(formats strfmt.Registry) error {
+	if swag.IsZero(m.BgpPortState) { // not required
+		return nil
+	}
+
+	if m.BgpPortState != nil {
+		if err := m.BgpPortState.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("bgp_port_state")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("bgp_port_state")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
 func (m *V1SwitchNic) validateFilter(formats strfmt.Registry) error {
 	if swag.IsZero(m.Filter) { // not required
 		return nil
@@ -170,6 +196,10 @@ func (m *V1SwitchNic) validateName(formats strfmt.Registry) error {
 func (m *V1SwitchNic) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.contextValidateBgpPortState(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.contextValidateFilter(ctx, formats); err != nil {
 		res = append(res, err)
 	}
@@ -177,6 +207,27 @@ func (m *V1SwitchNic) ContextValidate(ctx context.Context, formats strfmt.Regist
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *V1SwitchNic) contextValidateBgpPortState(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.BgpPortState != nil {
+
+		if swag.IsZero(m.BgpPortState) { // not required
+			return nil
+		}
+
+		if err := m.BgpPortState.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("bgp_port_state")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("bgp_port_state")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 
