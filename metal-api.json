@@ -5172,6 +5172,43 @@
         "id"
       ]
     },
+    "v1.SwitchBGPPortState": {
+      "properties": {
+        "AcceptedPrefixCounter": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "BgpState": {
+          "type": "string"
+        },
+        "BgpTimerUpEstablished": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "Neighbor": {
+          "type": "string"
+        },
+        "PeerGroup": {
+          "type": "string"
+        },
+        "SentPrefixCounter": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "VrfName": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "AcceptedPrefixCounter",
+        "BgpState",
+        "BgpTimerUpEstablished",
+        "Neighbor",
+        "PeerGroup",
+        "SentPrefixCounter",
+        "VrfName"
+      ]
+    },
     "v1.SwitchBase": {
       "description": "A switch that can register at the api.",
       "properties": {
@@ -5304,7 +5341,7 @@
       "properties": {
         "bgp_port_states": {
           "additionalProperties": {
-            "$ref": "#/definitions/metal.SwitchBGPPortState"
+            "$ref": "#/definitions/v1.SwitchBGPPortState"
           },
           "description": "the current bgp port states",
           "type": "object"
