@@ -20,7 +20,7 @@ import (
 type V1SwitchNotifyRequest struct {
 
 	// the current bgp port states
-	BgpPortStates map[string]MetalSwitchBGPPortState `json:"bgp_port_states,omitempty" yaml:"bgp_port_states,omitempty"`
+	BgpPortStates map[string]V1SwitchBGPPortState `json:"bgp_port_states,omitempty" yaml:"bgp_port_states,omitempty"`
 
 	// error
 	// Required: true
