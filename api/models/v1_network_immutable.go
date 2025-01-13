@@ -25,7 +25,7 @@ type V1NetworkImmutable struct {
 
 	// the addressfamilies in this network, either IPv4 or IPv6 or both
 	// Required: true
-	Addressfamilies map[string]bool `json:"addressfamilies" yaml:"addressfamilies"`
+	Addressfamilies []string `json:"addressfamilies" yaml:"addressfamilies"`
 
 	// if privatesuper, this defines the bitlen of child prefixes per addressfamily if not nil
 	Defaultchildprefixlength map[string]int64 `json:"defaultchildprefixlength,omitempty" yaml:"defaultchildprefixlength,omitempty"`

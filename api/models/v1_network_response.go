@@ -24,7 +24,7 @@ type V1NetworkResponse struct {
 
 	// the addressfamilies in this network, either IPv4 or IPv6 or both
 	// Required: true
-	Addressfamilies map[string]bool `json:"addressfamilies" yaml:"addressfamilies"`
+	Addressfamilies []string `json:"addressfamilies" yaml:"addressfamilies"`
 
 	// the last changed timestamp of this entity
 	// Read Only: true
