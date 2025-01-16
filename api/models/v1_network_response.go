@@ -31,6 +31,10 @@ type V1NetworkResponse struct {
 	// Format: date-time
 	Changed strfmt.DateTime `json:"changed,omitempty" yaml:"changed,omitempty"`
 
+	// consumption of ips and prefixes in this network
+	// Required: true
+	Consumption *V1NetworkConsumption `json:"consumption" yaml:"consumption"`
+
 	// the creation time of this entity
 	// Read Only: true
 	// Format: date-time
@@ -88,10 +92,6 @@ type V1NetworkResponse struct {
 	// Required: true
 	Usage *V1NetworkUsage `json:"usage" yaml:"usage"`
 
-	// usage of IPv6 ips and prefixes in this network
-	// Required: true
-	Usagev6 *V1NetworkUsage `json:"usagev6" yaml:"usagev6"`
-
 	// the vrf this network is associated with
 	Vrf int64 `json:"vrf,omitempty" yaml:"vrf,omitempty"`
 
@@ -108,6 +108,10 @@ func (m *V1NetworkResponse) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateChanged(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateConsumption(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -143,10 +147,6 @@ func (m *V1NetworkResponse) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validateUsagev6(formats); err != nil {
-		res = append(res, err)
-	}
-
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
@@ -169,6 +169,26 @@ func (m *V1NetworkResponse) validateChanged(formats strfmt.Registry) error {
 
 	if err := validate.FormatOf("changed", "body", "date-time", m.Changed.String(), formats); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+func (m *V1NetworkResponse) validateConsumption(formats strfmt.Registry) error {
+
+	if err := validate.Required("consumption", "body", m.Consumption); err != nil {
+		return err
+	}
+
+	if m.Consumption != nil {
+		if err := m.Consumption.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("consumption")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("consumption")
+			}
+			return err
+		}
 	}
 
 	return nil
@@ -260,26 +280,6 @@ func (m *V1NetworkResponse) validateUsage(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *V1NetworkResponse) validateUsagev6(formats strfmt.Registry) error {
-
-	if err := validate.Required("usagev6", "body", m.Usagev6); err != nil {
-		return err
-	}
-
-	if m.Usagev6 != nil {
-		if err := m.Usagev6.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("usagev6")
-			} else if ce, ok := err.(*errors.CompositeError); ok {
-				return ce.ValidateName("usagev6")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
 // ContextValidate validate this v1 network response based on the context it is used
 func (m *V1NetworkResponse) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	var res []error
@@ -288,15 +288,15 @@ func (m *V1NetworkResponse) ContextValidate(ctx context.Context, formats strfmt.
 		res = append(res, err)
 	}
 
+	if err := m.contextValidateConsumption(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.contextValidateCreated(ctx, formats); err != nil {
 		res = append(res, err)
 	}
 
 	if err := m.contextValidateUsage(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.contextValidateUsagev6(ctx, formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -310,6 +310,23 @@ func (m *V1NetworkResponse) contextValidateChanged(ctx context.Context, formats 
 
 	if err := validate.ReadOnly(ctx, "changed", "body", strfmt.DateTime(m.Changed)); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+func (m *V1NetworkResponse) contextValidateConsumption(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Consumption != nil {
+
+		if err := m.Consumption.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("consumption")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("consumption")
+			}
+			return err
+		}
 	}
 
 	return nil
@@ -333,23 +350,6 @@ func (m *V1NetworkResponse) contextValidateUsage(ctx context.Context, formats st
 				return ve.ValidateName("usage")
 			} else if ce, ok := err.(*errors.CompositeError); ok {
 				return ce.ValidateName("usage")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (m *V1NetworkResponse) contextValidateUsagev6(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.Usagev6 != nil {
-
-		if err := m.Usagev6.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("usagev6")
-			} else if ce, ok := err.(*errors.CompositeError); ok {
-				return ce.ValidateName("usagev6")
 			}
 			return err
 		}
