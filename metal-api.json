@@ -4,6 +4,13 @@
     "datastore.IPSearchQuery": {
       "description": "an ip address that can be attached to a machine",
       "properties": {
+        "addressfamily": {
+          "enum": [
+            "IPv4",
+            "IPv6"
+          ],
+          "type": "string"
+        },
         "allocationuuid": {
           "description": "a unique identifier for this ip address allocation, can be used to distinguish between ip address allocation over time.",
           "type": "string"
@@ -255,6 +262,13 @@
     },
     "datastore.NetworkSearchQuery": {
       "properties": {
+        "addressfamily": {
+          "enum": [
+            "IPv4",
+            "IPv6"
+          ],
+          "type": "string"
+        },
         "destinationprefixes": {
           "items": {
             "type": "string"
@@ -1597,6 +1611,13 @@
     },
     "v1.IPFindRequest": {
       "properties": {
+        "addressfamily": {
+          "enum": [
+            "IPv4",
+            "IPv6"
+          ],
+          "type": "string"
+        },
         "allocationuuid": {
           "description": "a unique identifier for this ip address allocation, can be used to distinguish between ip address allocation over time.",
           "type": "string"
@@ -3784,7 +3805,7 @@
           "type": "string"
         },
         "nat": {
-          "description": "if set to true, packets leaving this network get masqueraded behind interface ip",
+          "description": "if set to true, packets leaving this ipv4 network get masqueraded behind interface ip",
           "type": "boolean"
         },
         "parentnetworkid": {
@@ -3840,6 +3861,13 @@
     },
     "v1.NetworkFindRequest": {
       "properties": {
+        "addressfamily": {
+          "enum": [
+            "IPv4",
+            "IPv6"
+          ],
+          "type": "string"
+        },
         "destinationprefixes": {
           "items": {
             "type": "string"
@@ -3920,7 +3948,7 @@
           "type": "array"
         },
         "nat": {
-          "description": "if set to true, packets leaving this network get masqueraded behind interface ip",
+          "description": "if set to true, packets leaving this ipv4 network get masqueraded behind interface ip",
           "type": "boolean"
         },
         "parentnetworkid": {
@@ -4027,7 +4055,7 @@
           "type": "string"
         },
         "nat": {
-          "description": "if set to true, packets leaving this network get masqueraded behind interface ip",
+          "description": "if set to true, packets leaving this ipv4 network get masqueraded behind interface ip",
           "type": "boolean"
         },
         "parentnetworkid": {

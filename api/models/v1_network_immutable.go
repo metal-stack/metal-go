@@ -34,7 +34,7 @@ type V1NetworkImmutable struct {
 	// Required: true
 	Destinationprefixes []string `json:"destinationprefixes" yaml:"destinationprefixes"`
 
-	// if set to true, packets leaving this network get masqueraded behind interface ip
+	// if set to true, packets leaving this ipv4 network get masqueraded behind interface ip
 	// Required: true
 	Nat *bool `json:"nat" yaml:"nat"`
 

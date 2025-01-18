@@ -7,15 +7,22 @@ package models
 
 import (
 	"context"
+	"encoding/json"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // DatastoreNetworkSearchQuery datastore network search query
 //
 // swagger:model datastore.NetworkSearchQuery
 type DatastoreNetworkSearchQuery struct {
+
+	// addressfamily
+	// Enum: ["IPv4","IPv6"]
+	Addressfamily string `json:"addressfamily,omitempty" yaml:"addressfamily,omitempty"`
 
 	// destinationprefixes
 	Destinationprefixes []string `json:"destinationprefixes" yaml:"destinationprefixes"`
@@ -56,6 +63,57 @@ type DatastoreNetworkSearchQuery struct {
 
 // Validate validates this datastore network search query
 func (m *DatastoreNetworkSearchQuery) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateAddressfamily(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+var datastoreNetworkSearchQueryTypeAddressfamilyPropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["IPv4","IPv6"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		datastoreNetworkSearchQueryTypeAddressfamilyPropEnum = append(datastoreNetworkSearchQueryTypeAddressfamilyPropEnum, v)
+	}
+}
+
+const (
+
+	// DatastoreNetworkSearchQueryAddressfamilyIPV4 captures enum value "IPv4"
+	DatastoreNetworkSearchQueryAddressfamilyIPV4 string = "IPv4"
+
+	// DatastoreNetworkSearchQueryAddressfamilyIPV6 captures enum value "IPv6"
+	DatastoreNetworkSearchQueryAddressfamilyIPV6 string = "IPv6"
+)
+
+// prop value enum
+func (m *DatastoreNetworkSearchQuery) validateAddressfamilyEnum(path, location string, value string) error {
+	if err := validate.EnumCase(path, location, value, datastoreNetworkSearchQueryTypeAddressfamilyPropEnum, true); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *DatastoreNetworkSearchQuery) validateAddressfamily(formats strfmt.Registry) error {
+	if swag.IsZero(m.Addressfamily) { // not required
+		return nil
+	}
+
+	// value enum
+	if err := m.validateAddressfamilyEnum("addressfamily", "body", m.Addressfamily); err != nil {
+		return err
+	}
+
 	return nil
 }
 

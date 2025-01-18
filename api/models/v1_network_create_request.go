@@ -46,7 +46,7 @@ type V1NetworkCreateRequest struct {
 	// a readable name for this entity
 	Name string `json:"name,omitempty" yaml:"name,omitempty"`
 
-	// if set to true, packets leaving this network get masqueraded behind interface ip
+	// if set to true, packets leaving this ipv4 network get masqueraded behind interface ip
 	// Required: true
 	Nat *bool `json:"nat" yaml:"nat"`
 
