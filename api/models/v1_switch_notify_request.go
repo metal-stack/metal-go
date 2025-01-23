@@ -19,6 +19,9 @@ import (
 // swagger:model v1.SwitchNotifyRequest
 type V1SwitchNotifyRequest struct {
 
+	// the current bgp port states
+	BgpPortStates map[string]V1SwitchBGPPortState `json:"bgp_port_states,omitempty" yaml:"bgp_port_states,omitempty"`
+
 	// error
 	// Required: true
 	Error *string `json:"error" yaml:"error"`
@@ -36,6 +39,10 @@ type V1SwitchNotifyRequest struct {
 func (m *V1SwitchNotifyRequest) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateBgpPortStates(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateError(formats); err != nil {
 		res = append(res, err)
 	}
@@ -51,6 +58,32 @@ func (m *V1SwitchNotifyRequest) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *V1SwitchNotifyRequest) validateBgpPortStates(formats strfmt.Registry) error {
+	if swag.IsZero(m.BgpPortStates) { // not required
+		return nil
+	}
+
+	for k := range m.BgpPortStates {
+
+		if err := validate.Required("bgp_port_states"+"."+k, "body", m.BgpPortStates[k]); err != nil {
+			return err
+		}
+		if val, ok := m.BgpPortStates[k]; ok {
+			if err := val.Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("bgp_port_states" + "." + k)
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("bgp_port_states" + "." + k)
+				}
+				return err
+			}
+		}
+
+	}
+
 	return nil
 }
 
@@ -81,8 +114,32 @@ func (m *V1SwitchNotifyRequest) validateSyncDuration(formats strfmt.Registry) er
 	return nil
 }
 
-// ContextValidate validates this v1 switch notify request based on context it is used
+// ContextValidate validate this v1 switch notify request based on the context it is used
 func (m *V1SwitchNotifyRequest) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateBgpPortStates(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *V1SwitchNotifyRequest) contextValidateBgpPortStates(ctx context.Context, formats strfmt.Registry) error {
+
+	for k := range m.BgpPortStates {
+
+		if val, ok := m.BgpPortStates[k]; ok {
+			if err := val.ContextValidate(ctx, formats); err != nil {
+				return err
+			}
+		}
+
+	}
+
 	return nil
 }
 
