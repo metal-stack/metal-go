@@ -22,10 +22,6 @@ type V1NetworkCreateRequest struct {
 	// list of cidrs which are added to the route maps per tenant private network, these are typically pod- and service cidrs, can only be set for private super networks
 	AdditionalAnnouncableCIDRs []string `json:"additionalAnnouncableCIDRs" yaml:"additionalAnnouncableCIDRs"`
 
-	// the addressfamilies in this network, either IPv4 or IPv6 or both
-	// Required: true
-	Addressfamilies []string `json:"addressfamilies" yaml:"addressfamilies"`
-
 	// if privatesuper, this defines the bitlen of child prefixes per addressfamily if not nil
 	Defaultchildprefixlength map[string]int64 `json:"defaultchildprefixlength,omitempty" yaml:"defaultchildprefixlength,omitempty"`
 
@@ -85,10 +81,6 @@ type V1NetworkCreateRequest struct {
 func (m *V1NetworkCreateRequest) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateAddressfamilies(formats); err != nil {
-		res = append(res, err)
-	}
-
 	if err := m.validateDestinationprefixes(formats); err != nil {
 		res = append(res, err)
 	}
@@ -116,15 +108,6 @@ func (m *V1NetworkCreateRequest) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
-	return nil
-}
-
-func (m *V1NetworkCreateRequest) validateAddressfamilies(formats strfmt.Registry) error {
-
-	if err := validate.Required("addressfamilies", "body", m.Addressfamilies); err != nil {
-		return err
-	}
-
 	return nil
 }
 

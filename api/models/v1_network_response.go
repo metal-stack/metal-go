@@ -22,10 +22,6 @@ type V1NetworkResponse struct {
 	// list of cidrs which are added to the route maps per tenant private network, these are typically pod- and service cidrs, can only be set for private super networks
 	AdditionalAnnouncableCIDRs []string `json:"additionalAnnouncableCIDRs" yaml:"additionalAnnouncableCIDRs"`
 
-	// the addressfamilies in this network, either IPv4 or IPv6 or both
-	// Required: true
-	Addressfamilies []string `json:"addressfamilies" yaml:"addressfamilies"`
-
 	// the last changed timestamp of this entity
 	// Read Only: true
 	// Format: date-time
@@ -103,10 +99,6 @@ type V1NetworkResponse struct {
 func (m *V1NetworkResponse) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateAddressfamilies(formats); err != nil {
-		res = append(res, err)
-	}
-
 	if err := m.validateChanged(formats); err != nil {
 		res = append(res, err)
 	}
@@ -150,15 +142,6 @@ func (m *V1NetworkResponse) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
-	return nil
-}
-
-func (m *V1NetworkResponse) validateAddressfamilies(formats strfmt.Registry) error {
-
-	if err := validate.Required("addressfamilies", "body", m.Addressfamilies); err != nil {
-		return err
-	}
-
 	return nil
 }
 
