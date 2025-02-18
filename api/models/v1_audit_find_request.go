@@ -47,6 +47,9 @@ type V1AuditFindRequest struct {
 	// phase
 	Phase string `json:"phase,omitempty" yaml:"phase,omitempty"`
 
+	// project
+	Project string `json:"project,omitempty" yaml:"project,omitempty"`
+
 	// remote addr
 	RemoteAddr string `json:"remote_addr,omitempty" yaml:"remote_addr,omitempty"`
 
