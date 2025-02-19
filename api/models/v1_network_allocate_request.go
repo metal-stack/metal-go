@@ -42,10 +42,6 @@ type V1NetworkAllocateRequest struct {
 	// if set to true, packets leaving this network get masqueraded behind interface ip
 	Nat bool `json:"nat,omitempty" yaml:"nat,omitempty"`
 
-	// the parent network from which this network should be allocated
-	// Required: true
-	Parentnetworkid *string `json:"parentnetworkid" yaml:"parentnetworkid"`
-
 	// the partition this network belongs to
 	Partitionid string `json:"partitionid,omitempty" yaml:"partitionid,omitempty"`
 
@@ -61,10 +57,6 @@ func (m *V1NetworkAllocateRequest) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateAddressfamily(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateParentnetworkid(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -110,15 +102,6 @@ func (m *V1NetworkAllocateRequest) validateAddressfamily(formats strfmt.Registry
 
 	// value enum
 	if err := m.validateAddressfamilyEnum("addressfamily", "body", m.Addressfamily); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *V1NetworkAllocateRequest) validateParentnetworkid(formats strfmt.Registry) error {
-
-	if err := validate.Required("parentnetworkid", "body", m.Parentnetworkid); err != nil {
 		return err
 	}
 
