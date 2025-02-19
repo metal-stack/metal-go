@@ -20,10 +20,9 @@ import (
 // swagger:model v1.NetworkAllocateRequest
 type V1NetworkAllocateRequest struct {
 
-	// the addressfamily to allocate a child network defaults. If not specified, the child network inherits the addressfamilies from the parent.
-	// Required: true
+	// the addressfamily to allocate a child network. If not specified, the child network inherits the addressfamilies from the parent.
 	// Enum: ["IPv4","IPv6"]
-	Addressfamily *string `json:"addressfamily" yaml:"addressfamily"`
+	Addressfamily string `json:"addressfamily,omitempty" yaml:"addressfamily,omitempty"`
 
 	// a description for this entity
 	Description string `json:"description,omitempty" yaml:"description,omitempty"`
@@ -34,9 +33,8 @@ type V1NetworkAllocateRequest struct {
 	// free labels that you associate with this network.
 	Labels map[string]string `json:"labels,omitempty" yaml:"labels,omitempty"`
 
-	// the bitlen of the prefix to allocate, defaults to defaultchildprefixlength of super prefix
-	// Required: true
-	Length map[string]int64 `json:"length" yaml:"length"`
+	// the bit lengths of the prefix to allocate, defaults to the default child prefix lengths of the parent network
+	Length map[string]int64 `json:"length,omitempty" yaml:"length,omitempty"`
 
 	// a readable name for this entity
 	Name string `json:"name,omitempty" yaml:"name,omitempty"`
@@ -63,10 +61,6 @@ func (m *V1NetworkAllocateRequest) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateAddressfamily(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateLength(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -110,22 +104,12 @@ func (m *V1NetworkAllocateRequest) validateAddressfamilyEnum(path, location stri
 }
 
 func (m *V1NetworkAllocateRequest) validateAddressfamily(formats strfmt.Registry) error {
-
-	if err := validate.Required("addressfamily", "body", m.Addressfamily); err != nil {
-		return err
+	if swag.IsZero(m.Addressfamily) { // not required
+		return nil
 	}
 
 	// value enum
-	if err := m.validateAddressfamilyEnum("addressfamily", "body", *m.Addressfamily); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *V1NetworkAllocateRequest) validateLength(formats strfmt.Registry) error {
-
-	if err := validate.Required("length", "body", m.Length); err != nil {
+	if err := m.validateAddressfamilyEnum("addressfamily", "body", m.Addressfamily); err != nil {
 		return err
 	}
 

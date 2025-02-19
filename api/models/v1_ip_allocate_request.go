@@ -21,9 +21,8 @@ import (
 type V1IPAllocateRequest struct {
 
 	// the addressfamily to allocate a ip address from the given network, defaults to IPv4
-	// Required: true
 	// Enum: ["IPv4","IPv6"]
-	Addressfamily *string `json:"addressfamily" yaml:"addressfamily"`
+	Addressfamily string `json:"addressfamily,omitempty" yaml:"addressfamily,omitempty"`
 
 	// a description for this entity
 	Description string `json:"description,omitempty" yaml:"description,omitempty"`
@@ -107,13 +106,12 @@ func (m *V1IPAllocateRequest) validateAddressfamilyEnum(path, location string, v
 }
 
 func (m *V1IPAllocateRequest) validateAddressfamily(formats strfmt.Registry) error {
-
-	if err := validate.Required("addressfamily", "body", m.Addressfamily); err != nil {
-		return err
+	if swag.IsZero(m.Addressfamily) { // not required
+		return nil
 	}
 
 	// value enum
-	if err := m.validateAddressfamilyEnum("addressfamily", "body", *m.Addressfamily); err != nil {
+	if err := m.validateAddressfamilyEnum("addressfamily", "body", m.Addressfamily); err != nil {
 		return err
 	}
 
