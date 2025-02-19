@@ -27,10 +27,17 @@ type V1NetworkResponse struct {
 	// Format: date-time
 	Changed strfmt.DateTime `json:"changed,omitempty" yaml:"changed,omitempty"`
 
+	// consumption of ips and prefixes in this network
+	// Required: true
+	Consumption *V1NetworkConsumption `json:"consumption" yaml:"consumption"`
+
 	// the creation time of this entity
 	// Read Only: true
 	// Format: date-time
 	Created strfmt.DateTime `json:"created,omitempty" yaml:"created,omitempty"`
+
+	// if privatesuper, this defines the bitlen of child prefixes per addressfamily if not nil
+	Defaultchildprefixlength map[string]int64 `json:"defaultchildprefixlength,omitempty" yaml:"defaultchildprefixlength,omitempty"`
 
 	// a description for this entity
 	Description string `json:"description,omitempty" yaml:"description,omitempty"`
@@ -49,7 +56,7 @@ type V1NetworkResponse struct {
 	// a readable name for this entity
 	Name string `json:"name,omitempty" yaml:"name,omitempty"`
 
-	// if set to true, packets leaving this network get masqueraded behind interface ip
+	// if set to true, packets leaving this ipv4 network get masqueraded behind interface ip
 	// Required: true
 	Nat *bool `json:"nat" yaml:"nat"`
 
@@ -77,7 +84,7 @@ type V1NetworkResponse struct {
 	// Required: true
 	Underlay *bool `json:"underlay" yaml:"underlay"`
 
-	// usage of ips and prefixes in this network
+	// usage of IPv4 ips and prefixes in this network
 	// Required: true
 	Usage *V1NetworkUsage `json:"usage" yaml:"usage"`
 
@@ -93,6 +100,10 @@ func (m *V1NetworkResponse) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateChanged(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateConsumption(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -141,6 +152,26 @@ func (m *V1NetworkResponse) validateChanged(formats strfmt.Registry) error {
 
 	if err := validate.FormatOf("changed", "body", "date-time", m.Changed.String(), formats); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+func (m *V1NetworkResponse) validateConsumption(formats strfmt.Registry) error {
+
+	if err := validate.Required("consumption", "body", m.Consumption); err != nil {
+		return err
+	}
+
+	if m.Consumption != nil {
+		if err := m.Consumption.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("consumption")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("consumption")
+			}
+			return err
+		}
 	}
 
 	return nil
@@ -240,6 +271,10 @@ func (m *V1NetworkResponse) ContextValidate(ctx context.Context, formats strfmt.
 		res = append(res, err)
 	}
 
+	if err := m.contextValidateConsumption(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.contextValidateCreated(ctx, formats); err != nil {
 		res = append(res, err)
 	}
@@ -258,6 +293,23 @@ func (m *V1NetworkResponse) contextValidateChanged(ctx context.Context, formats 
 
 	if err := validate.ReadOnly(ctx, "changed", "body", strfmt.DateTime(m.Changed)); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+func (m *V1NetworkResponse) contextValidateConsumption(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Consumption != nil {
+
+		if err := m.Consumption.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("consumption")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("consumption")
+			}
+			return err
+		}
 	}
 
 	return nil

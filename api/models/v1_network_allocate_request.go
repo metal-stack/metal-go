@@ -7,15 +7,23 @@ package models
 
 import (
 	"context"
+	"encoding/json"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // V1NetworkAllocateRequest v1 network allocate request
 //
 // swagger:model v1.NetworkAllocateRequest
 type V1NetworkAllocateRequest struct {
+
+	// the addressfamily to allocate a child network defaults. If not specified, the child network inherits the addressfamilies from the parent.
+	// Required: true
+	// Enum: ["IPv4","IPv6"]
+	Addressfamily *string `json:"addressfamily" yaml:"addressfamily"`
 
 	// a description for this entity
 	Description string `json:"description,omitempty" yaml:"description,omitempty"`
@@ -26,11 +34,19 @@ type V1NetworkAllocateRequest struct {
 	// free labels that you associate with this network.
 	Labels map[string]string `json:"labels,omitempty" yaml:"labels,omitempty"`
 
+	// the bitlen of the prefix to allocate, defaults to defaultchildprefixlength of super prefix
+	// Required: true
+	Length map[string]int64 `json:"length" yaml:"length"`
+
 	// a readable name for this entity
 	Name string `json:"name,omitempty" yaml:"name,omitempty"`
 
 	// if set to true, packets leaving this network get masqueraded behind interface ip
 	Nat bool `json:"nat,omitempty" yaml:"nat,omitempty"`
+
+	// the parent network from which this network should be allocated
+	// Required: true
+	Parentnetworkid *string `json:"parentnetworkid" yaml:"parentnetworkid"`
 
 	// the partition this network belongs to
 	Partitionid string `json:"partitionid,omitempty" yaml:"partitionid,omitempty"`
@@ -44,6 +60,84 @@ type V1NetworkAllocateRequest struct {
 
 // Validate validates this v1 network allocate request
 func (m *V1NetworkAllocateRequest) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateAddressfamily(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateLength(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateParentnetworkid(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+var v1NetworkAllocateRequestTypeAddressfamilyPropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["IPv4","IPv6"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		v1NetworkAllocateRequestTypeAddressfamilyPropEnum = append(v1NetworkAllocateRequestTypeAddressfamilyPropEnum, v)
+	}
+}
+
+const (
+
+	// V1NetworkAllocateRequestAddressfamilyIPV4 captures enum value "IPv4"
+	V1NetworkAllocateRequestAddressfamilyIPV4 string = "IPv4"
+
+	// V1NetworkAllocateRequestAddressfamilyIPV6 captures enum value "IPv6"
+	V1NetworkAllocateRequestAddressfamilyIPV6 string = "IPv6"
+)
+
+// prop value enum
+func (m *V1NetworkAllocateRequest) validateAddressfamilyEnum(path, location string, value string) error {
+	if err := validate.EnumCase(path, location, value, v1NetworkAllocateRequestTypeAddressfamilyPropEnum, true); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *V1NetworkAllocateRequest) validateAddressfamily(formats strfmt.Registry) error {
+
+	if err := validate.Required("addressfamily", "body", m.Addressfamily); err != nil {
+		return err
+	}
+
+	// value enum
+	if err := m.validateAddressfamilyEnum("addressfamily", "body", *m.Addressfamily); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *V1NetworkAllocateRequest) validateLength(formats strfmt.Registry) error {
+
+	if err := validate.Required("length", "body", m.Length); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *V1NetworkAllocateRequest) validateParentnetworkid(formats strfmt.Registry) error {
+
+	if err := validate.Required("parentnetworkid", "body", m.Parentnetworkid); err != nil {
+		return err
+	}
+
 	return nil
 }
 

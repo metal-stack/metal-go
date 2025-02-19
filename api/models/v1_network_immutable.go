@@ -23,11 +23,14 @@ type V1NetworkImmutable struct {
 	// list of cidrs which are added to the route maps per tenant private network, these are typically pod- and service cidrs, can only be set for private super networks
 	AdditionalAnnouncableCIDRs []string `json:"additionalAnnouncableCIDRs" yaml:"additionalAnnouncableCIDRs"`
 
+	// if privatesuper, this defines the bitlen of child prefixes per addressfamily if not nil
+	Defaultchildprefixlength map[string]int64 `json:"defaultchildprefixlength,omitempty" yaml:"defaultchildprefixlength,omitempty"`
+
 	// the destination prefixes of this network
 	// Required: true
 	Destinationprefixes []string `json:"destinationprefixes" yaml:"destinationprefixes"`
 
-	// if set to true, packets leaving this network get masqueraded behind interface ip
+	// if set to true, packets leaving this ipv4 network get masqueraded behind interface ip
 	// Required: true
 	Nat *bool `json:"nat" yaml:"nat"`
 
