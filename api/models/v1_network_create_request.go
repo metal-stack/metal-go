@@ -22,6 +22,9 @@ type V1NetworkCreateRequest struct {
 	// list of cidrs which are added to the route maps per tenant private network, these are typically pod- and service cidrs, can only be set for private super networks
 	AdditionalAnnouncableCIDRs []string `json:"additionalAnnouncableCIDRs" yaml:"additionalAnnouncableCIDRs"`
 
+	// if privatesuper, this defines the bitlen of child prefixes per addressfamily if not nil
+	Defaultchildprefixlength map[string]int64 `json:"defaultchildprefixlength,omitempty" yaml:"defaultchildprefixlength,omitempty"`
+
 	// a description for this entity
 	Description string `json:"description,omitempty" yaml:"description,omitempty"`
 
@@ -39,7 +42,7 @@ type V1NetworkCreateRequest struct {
 	// a readable name for this entity
 	Name string `json:"name,omitempty" yaml:"name,omitempty"`
 
-	// if set to true, packets leaving this network get masqueraded behind interface ip
+	// if set to true, packets leaving this ipv4 network get masqueraded behind interface ip
 	// Required: true
 	Nat *bool `json:"nat" yaml:"nat"`
 

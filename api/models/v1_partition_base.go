@@ -12,7 +12,6 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
-	"github.com/go-openapi/validate"
 )
 
 // V1PartitionBase v1 partition base
@@ -31,11 +30,6 @@ type V1PartitionBase struct {
 
 	// the ntp servers for this partition
 	NtpServers []*V1NTPServer `json:"ntp_servers" yaml:"ntp_servers"`
-
-	// the length of private networks for the machine's child networks in this partition, default 22
-	// Maximum: 30
-	// Minimum: 16
-	Privatenetworkprefixlength int32 `json:"privatenetworkprefixlength,omitempty" yaml:"privatenetworkprefixlength,omitempty"`
 }
 
 // Validate validates this v1 partition base
@@ -47,10 +41,6 @@ func (m *V1PartitionBase) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateNtpServers(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validatePrivatenetworkprefixlength(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -107,22 +97,6 @@ func (m *V1PartitionBase) validateNtpServers(formats strfmt.Registry) error {
 			}
 		}
 
-	}
-
-	return nil
-}
-
-func (m *V1PartitionBase) validatePrivatenetworkprefixlength(formats strfmt.Registry) error {
-	if swag.IsZero(m.Privatenetworkprefixlength) { // not required
-		return nil
-	}
-
-	if err := validate.MinimumInt("privatenetworkprefixlength", "body", int64(m.Privatenetworkprefixlength), 16, false); err != nil {
-		return err
-	}
-
-	if err := validate.MaximumInt("privatenetworkprefixlength", "body", int64(m.Privatenetworkprefixlength), 30, false); err != nil {
-		return err
 	}
 
 	return nil

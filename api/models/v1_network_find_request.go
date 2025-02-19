@@ -7,15 +7,22 @@ package models
 
 import (
 	"context"
+	"encoding/json"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // V1NetworkFindRequest v1 network find request
 //
 // swagger:model v1.NetworkFindRequest
 type V1NetworkFindRequest struct {
+
+	// addressfamily
+	// Enum: ["IPv4","IPv6"]
+	Addressfamily string `json:"addressfamily,omitempty" yaml:"addressfamily,omitempty"`
 
 	// destinationprefixes
 	Destinationprefixes []string `json:"destinationprefixes" yaml:"destinationprefixes"`
@@ -56,6 +63,57 @@ type V1NetworkFindRequest struct {
 
 // Validate validates this v1 network find request
 func (m *V1NetworkFindRequest) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateAddressfamily(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+var v1NetworkFindRequestTypeAddressfamilyPropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["IPv4","IPv6"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		v1NetworkFindRequestTypeAddressfamilyPropEnum = append(v1NetworkFindRequestTypeAddressfamilyPropEnum, v)
+	}
+}
+
+const (
+
+	// V1NetworkFindRequestAddressfamilyIPV4 captures enum value "IPv4"
+	V1NetworkFindRequestAddressfamilyIPV4 string = "IPv4"
+
+	// V1NetworkFindRequestAddressfamilyIPV6 captures enum value "IPv6"
+	V1NetworkFindRequestAddressfamilyIPV6 string = "IPv6"
+)
+
+// prop value enum
+func (m *V1NetworkFindRequest) validateAddressfamilyEnum(path, location string, value string) error {
+	if err := validate.EnumCase(path, location, value, v1NetworkFindRequestTypeAddressfamilyPropEnum, true); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *V1NetworkFindRequest) validateAddressfamily(formats strfmt.Registry) error {
+	if swag.IsZero(m.Addressfamily) { // not required
+		return nil
+	}
+
+	// value enum
+	if err := m.validateAddressfamilyEnum("addressfamily", "body", m.Addressfamily); err != nil {
+		return err
+	}
+
 	return nil
 }
 

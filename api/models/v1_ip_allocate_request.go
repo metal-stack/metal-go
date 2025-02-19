@@ -20,6 +20,11 @@ import (
 // swagger:model v1.IPAllocateRequest
 type V1IPAllocateRequest struct {
 
+	// the addressfamily to allocate a ip address from the given network, defaults to IPv4
+	// Required: true
+	// Enum: ["IPv4","IPv6"]
+	Addressfamily *string `json:"addressfamily" yaml:"addressfamily"`
+
 	// a description for this entity
 	Description string `json:"description,omitempty" yaml:"description,omitempty"`
 
@@ -50,6 +55,10 @@ type V1IPAllocateRequest struct {
 func (m *V1IPAllocateRequest) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateAddressfamily(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateNetworkid(formats); err != nil {
 		res = append(res, err)
 	}
@@ -65,6 +74,49 @@ func (m *V1IPAllocateRequest) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+var v1IpAllocateRequestTypeAddressfamilyPropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["IPv4","IPv6"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		v1IpAllocateRequestTypeAddressfamilyPropEnum = append(v1IpAllocateRequestTypeAddressfamilyPropEnum, v)
+	}
+}
+
+const (
+
+	// V1IPAllocateRequestAddressfamilyIPV4 captures enum value "IPv4"
+	V1IPAllocateRequestAddressfamilyIPV4 string = "IPv4"
+
+	// V1IPAllocateRequestAddressfamilyIPV6 captures enum value "IPv6"
+	V1IPAllocateRequestAddressfamilyIPV6 string = "IPv6"
+)
+
+// prop value enum
+func (m *V1IPAllocateRequest) validateAddressfamilyEnum(path, location string, value string) error {
+	if err := validate.EnumCase(path, location, value, v1IpAllocateRequestTypeAddressfamilyPropEnum, true); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *V1IPAllocateRequest) validateAddressfamily(formats strfmt.Registry) error {
+
+	if err := validate.Required("addressfamily", "body", m.Addressfamily); err != nil {
+		return err
+	}
+
+	// value enum
+	if err := m.validateAddressfamilyEnum("addressfamily", "body", *m.Addressfamily); err != nil {
+		return err
+	}
+
 	return nil
 }
 
