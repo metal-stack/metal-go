@@ -71,9 +71,9 @@ type option func(driver *driver)
 type clientOption func(transport *httptransport.Runtime)
 
 // AuthType sets the authType for HMAC-Auth
-func AuthType(authType string) clientOption {
-	return func(transport *httptransport.Runtime) {
-		transport.DefaultAuthentication = authType
+func AuthType(authType string) option {
+	return func(driver *driver) {
+		driver.hmacAuthType = authType
 	}
 }
 
