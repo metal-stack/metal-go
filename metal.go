@@ -68,7 +68,7 @@ type driver struct {
 
 // Option for config of Driver
 type option func(driver *driver)
-type clientOption func(transport *httptransport.Runtime)
+type ClientOption func(transport *httptransport.Runtime)
 
 // AuthType sets the authType for HMAC-Auth
 func AuthType(authType string) option {
@@ -77,7 +77,7 @@ func AuthType(authType string) option {
 	}
 }
 
-func BearerToken(bearer string) clientOption {
+func BearerToken(bearer string) ClientOption {
 	return func(transport *httptransport.Runtime) {
 		if bearer != "" {
 			transport.DefaultAuthentication = runtime.ClientAuthInfoWriterFunc(func(request runtime.ClientRequest, registry strfmt.Registry) error {
@@ -88,7 +88,7 @@ func BearerToken(bearer string) clientOption {
 	}
 }
 
-func HMACAuth(hmac string, authType string) clientOption {
+func HMACAuth(hmac string, authType string) ClientOption {
 	return func(transport *httptransport.Runtime) {
 		if hmac != "" {
 			auth := security.NewHMACAuth(authType, []byte(hmac))
@@ -101,7 +101,7 @@ func HMACAuth(hmac string, authType string) clientOption {
 	}
 }
 
-func Transport(transport http.RoundTripper) clientOption {
+func Transport(transport http.RoundTripper) ClientOption {
 	return func(runtime *httptransport.Runtime) {
 		runtime.Transport = transport
 	}
@@ -141,7 +141,7 @@ func NewDriver(baseURL, bearer, hmacKey string, options ...option) (Client, erro
 	return driver, nil
 }
 
-func NewClient(baseURL string, options ...clientOption) (Client, error) {
+func NewClient(baseURL string, options ...ClientOption) (Client, error) {
 	parsedURL, err := url.Parse(baseURL)
 	if err != nil {
 		return nil, err
