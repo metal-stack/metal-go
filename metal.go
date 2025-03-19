@@ -1,6 +1,7 @@
 package metalgo
 
 import (
+	"crypto/tls"
 	"fmt"
 	"net/http"
 	"net/url"
@@ -78,9 +79,9 @@ func AuthType(authType string) option {
 }
 
 func BearerToken(bearer string) ClientOption {
-	return func(transport *httptransport.Runtime) {
+	return func(httpRuntime *httptransport.Runtime) {
 		if bearer != "" {
-			transport.DefaultAuthentication = runtime.ClientAuthInfoWriterFunc(func(request runtime.ClientRequest, registry strfmt.Registry) error {
+			httpRuntime.DefaultAuthentication = runtime.ClientAuthInfoWriterFunc(func(request runtime.ClientRequest, registry strfmt.Registry) error {
 				security.AddUserTokenToClientRequest(request, bearer)
 				return nil
 			})
@@ -89,11 +90,11 @@ func BearerToken(bearer string) ClientOption {
 }
 
 func HMACAuth(hmac string, authType string) ClientOption {
-	return func(transport *httptransport.Runtime) {
+	return func(httpRuntime *httptransport.Runtime) {
 		if hmac != "" {
 			auth := security.NewHMACAuth(authType, []byte(hmac))
 
-			transport.DefaultAuthentication = runtime.ClientAuthInfoWriterFunc(func(request runtime.ClientRequest, registry strfmt.Registry) error {
+			httpRuntime.DefaultAuthentication = runtime.ClientAuthInfoWriterFunc(func(request runtime.ClientRequest, registry strfmt.Registry) error {
 				auth.AddAuthToClientRequest(request, time.Now())
 				return nil
 			})
@@ -101,9 +102,11 @@ func HMACAuth(hmac string, authType string) ClientOption {
 	}
 }
 
-func Transport(transport http.RoundTripper) ClientOption {
-	return func(runtime *httptransport.Runtime) {
-		runtime.Transport = transport
+func TLSClientConfig(config *tls.Config) ClientOption {
+	return func(httpRuntime *httptransport.Runtime) {
+		transport := httpRuntime.Transport.(*http.Transport).Clone()
+		transport.TLSClientConfig = config
+		httpRuntime.Transport = transport
 	}
 }
 
