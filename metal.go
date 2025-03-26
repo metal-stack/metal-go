@@ -1,8 +1,10 @@
 package metalgo
 
 import (
+	"context"
 	"crypto/tls"
 	"fmt"
+	"net"
 	"net/http"
 	"net/url"
 	"time"
@@ -70,6 +72,7 @@ type driver struct {
 // Option for config of Driver
 type option func(driver *driver)
 type ClientOption func(transport *httptransport.Runtime)
+type DialContext func(ctx context.Context, network, addr string) (net.Conn, error)
 
 // AuthType sets the authType for HMAC-Auth
 func AuthType(authType string) option {
@@ -106,6 +109,14 @@ func TLSClientConfig(config *tls.Config) ClientOption {
 	return func(httpRuntime *httptransport.Runtime) {
 		transport := httpRuntime.Transport.(*http.Transport).Clone()
 		transport.TLSClientConfig = config
+		httpRuntime.Transport = transport
+	}
+}
+
+func DialContextClientConfig(config DialContext) ClientOption {
+	return func(httpRuntime *httptransport.Runtime) {
+		transport := httpRuntime.Transport.(*http.Transport).Clone()
+		transport.DialContext = config
 		httpRuntime.Transport = transport
 	}
 }
