@@ -19,9 +19,7 @@ jobs:
         cache: false
 
     - name: Lint
-      uses: golangci/golangci-lint-action@v6
-      with:
-        args: -p bugs -p unused
+      uses: golangci/golangci-lint-action@v7
 
     - name: Build
       run: make test
