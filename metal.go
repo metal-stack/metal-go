@@ -69,7 +69,13 @@ type driver struct {
 
 // Option for config of Driver
 type option func(driver *driver)
-type ClientOption func(transport *httptransport.Runtime)
+type clientOptionConfig struct {
+	hmac        string
+	authType    string
+	bearerToken string
+	tlsConfig   *tls.Config
+}
+type ClientOption func(cfg clientOptionConfig)
 
 // AuthType sets the authType for HMAC-Auth
 func AuthType(authType string) option {
@@ -79,34 +85,25 @@ func AuthType(authType string) option {
 }
 
 func BearerToken(bearer string) ClientOption {
-	return func(httpRuntime *httptransport.Runtime) {
+	return func(cfg clientOptionConfig) {
 		if bearer != "" {
-			httpRuntime.DefaultAuthentication = runtime.ClientAuthInfoWriterFunc(func(request runtime.ClientRequest, registry strfmt.Registry) error {
-				security.AddUserTokenToClientRequest(request, bearer)
-				return nil
-			})
+			cfg.bearerToken = bearer
 		}
 	}
 }
 
 func HMACAuth(hmac string, authType string) ClientOption {
-	return func(httpRuntime *httptransport.Runtime) {
+	return func(cfg clientOptionConfig) {
 		if hmac != "" {
-			auth := security.NewHMACAuth(authType, []byte(hmac))
-
-			httpRuntime.DefaultAuthentication = runtime.ClientAuthInfoWriterFunc(func(request runtime.ClientRequest, registry strfmt.Registry) error {
-				auth.AddAuthToClientRequest(request, time.Now())
-				return nil
-			})
+			cfg.hmac = hmac
+			cfg.authType = authType
 		}
 	}
 }
 
 func TLSClientConfig(config *tls.Config) ClientOption {
-	return func(httpRuntime *httptransport.Runtime) {
-		transport := httpRuntime.Transport.(*http.Transport).Clone()
-		transport.TLSClientConfig = config
-		httpRuntime.Transport = transport
+	return func(cfg clientOptionConfig) {
+		cfg.tlsConfig = config
 	}
 }
 
@@ -153,14 +150,41 @@ func NewClient(baseURL string, options ...ClientOption) (Client, error) {
 		return nil, fmt.Errorf("invalid url:%s, must be in the form scheme://host[:port]/basepath", baseURL)
 	}
 
-	transport := httptransport.New(parsedURL.Host, parsedURL.Path, []string{parsedURL.Scheme})
-
-	for _, opt := range options {
-		opt(transport)
+	cfg := clientOptionConfig{
+		authType: defaultHMACAuthType,
 	}
 
+	for _, opt := range options {
+		opt(cfg)
+	}
+
+	httpRuntime := httptransport.New(parsedURL.Host, parsedURL.Path, []string{parsedURL.Scheme})
+
+	// bearer
+	if cfg.bearerToken != "" {
+		httpRuntime.DefaultAuthentication = runtime.ClientAuthInfoWriterFunc(func(request runtime.ClientRequest, registry strfmt.Registry) error {
+			security.AddUserTokenToClientRequest(request, cfg.bearerToken)
+			return nil
+		})
+	}
+
+	// hmac authtype
+	if cfg.hmac != "" {
+		auth := security.NewHMACAuth(cfg.authType, []byte(cfg.hmac))
+
+		httpRuntime.DefaultAuthentication = runtime.ClientAuthInfoWriterFunc(func(request runtime.ClientRequest, registry strfmt.Registry) error {
+			auth.AddAuthToClientRequest(request, time.Now())
+			return nil
+		})
+	}
+
+	// tls transport
+	httpRuntimeTransport := httpRuntime.Transport.(*http.Transport).Clone()
+	httpRuntimeTransport.TLSClientConfig = cfg.tlsConfig
+	httpRuntime.Transport = httpRuntimeTransport
+
 	return &driver{
-		c: client.New(transport, strfmt.Default),
+		c: client.New(httpRuntime, strfmt.Default),
 	}, nil
 }
 
