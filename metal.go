@@ -75,7 +75,7 @@ type clientOptionConfig struct {
 	bearerToken string
 	tlsConfig   *tls.Config
 }
-type ClientOption func(cfg clientOptionConfig)
+type ClientOption func(cfg *clientOptionConfig)
 
 // AuthType sets the authType for HMAC-Auth
 func AuthType(authType string) option {
@@ -85,24 +85,20 @@ func AuthType(authType string) option {
 }
 
 func BearerToken(bearer string) ClientOption {
-	return func(cfg clientOptionConfig) {
-		if bearer != "" {
-			cfg.bearerToken = bearer
-		}
+	return func(cfg *clientOptionConfig) {
+		cfg.bearerToken = bearer
 	}
 }
 
 func HMACAuth(hmac string, authType string) ClientOption {
-	return func(cfg clientOptionConfig) {
-		if hmac != "" {
-			cfg.hmac = hmac
-			cfg.authType = authType
-		}
+	return func(cfg *clientOptionConfig) {
+		cfg.hmac = hmac
+		cfg.authType = authType
 	}
 }
 
 func TLSClientConfig(config *tls.Config) ClientOption {
-	return func(cfg clientOptionConfig) {
+	return func(cfg *clientOptionConfig) {
 		cfg.tlsConfig = config
 	}
 }
@@ -150,7 +146,7 @@ func NewClient(baseURL string, options ...ClientOption) (Client, error) {
 		return nil, fmt.Errorf("invalid url:%s, must be in the form scheme://host[:port]/basepath", baseURL)
 	}
 
-	cfg := clientOptionConfig{
+	cfg := &clientOptionConfig{
 		authType: defaultHMACAuthType,
 	}
 
@@ -158,11 +154,22 @@ func NewClient(baseURL string, options ...ClientOption) (Client, error) {
 		opt(cfg)
 	}
 
-	httpRuntime := httptransport.New(parsedURL.Host, parsedURL.Path, []string{parsedURL.Scheme})
+	httpClient := http.DefaultClient
+
+	// tls transport
+	if cfg.tlsConfig != nil {
+		httpClient = &http.Client{
+			Transport: &http.Transport{
+				TLSClientConfig: cfg.tlsConfig,
+			},
+		}
+	}
+
+	r := httptransport.NewWithClient(parsedURL.Host, parsedURL.Path, []string{parsedURL.Scheme}, httpClient)
 
 	// bearer
 	if cfg.bearerToken != "" {
-		httpRuntime.DefaultAuthentication = runtime.ClientAuthInfoWriterFunc(func(request runtime.ClientRequest, registry strfmt.Registry) error {
+		r.DefaultAuthentication = runtime.ClientAuthInfoWriterFunc(func(request runtime.ClientRequest, registry strfmt.Registry) error {
 			security.AddUserTokenToClientRequest(request, cfg.bearerToken)
 			return nil
 		})
@@ -172,20 +179,13 @@ func NewClient(baseURL string, options ...ClientOption) (Client, error) {
 	if cfg.hmac != "" {
 		auth := security.NewHMACAuth(cfg.authType, []byte(cfg.hmac))
 
-		httpRuntime.DefaultAuthentication = runtime.ClientAuthInfoWriterFunc(func(request runtime.ClientRequest, registry strfmt.Registry) error {
+		r.DefaultAuthentication = runtime.ClientAuthInfoWriterFunc(func(request runtime.ClientRequest, registry strfmt.Registry) error {
 			auth.AddAuthToClientRequest(request, time.Now())
 			return nil
 		})
 	}
 
-	// tls transport
-	httpRuntimeTransport := httpRuntime.Transport.(*http.Transport).Clone()
-	httpRuntimeTransport.TLSClientConfig = cfg.tlsConfig
-	httpRuntime.Transport = httpRuntimeTransport
-
-	return &driver{
-		c: client.New(httpRuntime, strfmt.Default),
-	}, nil
+	return &driver{c: client.New(r, nil)}, nil
 }
 
 func (d *driver) auther(rq runtime.ClientRequest, rg strfmt.Registry) error {
