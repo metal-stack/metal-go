@@ -162,23 +162,23 @@ func NewClient(baseURL string, options ...ClientOption) (Client, error) {
 		opt(cfg)
 	}
 
-	httpClient := *http.DefaultClient
+	var httpClient *http.Client
 
 	// request timeout
-	httpClient = http.Client{
+	httpClient = &http.Client{
 		Timeout: cfg.requestTimeout,
 	}
 
 	// tls transport
 	if cfg.tlsConfig != nil {
-		httpClient = http.Client{
+		httpClient = &http.Client{
 			Transport: &http.Transport{
 				TLSClientConfig: cfg.tlsConfig,
 			},
 		}
 	}
 
-	r := httptransport.NewWithClient(parsedURL.Host, parsedURL.Path, []string{parsedURL.Scheme}, &httpClient)
+	r := httptransport.NewWithClient(parsedURL.Host, parsedURL.Path, []string{parsedURL.Scheme}, httpClient)
 
 	// bearer
 	if cfg.bearerToken != "" {
