@@ -154,7 +154,7 @@ func NewClient(baseURL string, options ...ClientOption) (Client, error) {
 		opt(cfg)
 	}
 
-	httpClient := http.DefaultClient
+	var httpClient *http.Client
 
 	// tls transport
 	if cfg.tlsConfig != nil {
