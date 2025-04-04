@@ -154,7 +154,6 @@ func NewClient(baseURL string, options ...ClientOption) (Client, error) {
 	}
 
 	cfg := &clientOptionConfig{
-		authType:       defaultHMACAuthType,
 		requestTimeout: httptransport.DefaultTimeout,
 	}
 
@@ -162,25 +161,18 @@ func NewClient(baseURL string, options ...ClientOption) (Client, error) {
 		opt(cfg)
 	}
 
-	var httpClient *http.Client
-
-	// request timeout
-	httpClient = &http.Client{
+	httpClient := &http.Client{
 		Timeout: cfg.requestTimeout,
 	}
 
-	// tls transport
 	if cfg.tlsConfig != nil {
-		httpClient = &http.Client{
-			Transport: &http.Transport{
-				TLSClientConfig: cfg.tlsConfig,
-			},
+		httpClient.Transport = &http.Transport{
+			TLSClientConfig: cfg.tlsConfig,
 		}
 	}
 
 	r := httptransport.NewWithClient(parsedURL.Host, parsedURL.Path, []string{parsedURL.Scheme}, httpClient)
 
-	// bearer
 	if cfg.bearerToken != "" {
 		r.DefaultAuthentication = runtime.ClientAuthInfoWriterFunc(func(request runtime.ClientRequest, registry strfmt.Registry) error {
 			security.AddUserTokenToClientRequest(request, cfg.bearerToken)
@@ -188,7 +180,6 @@ func NewClient(baseURL string, options ...ClientOption) (Client, error) {
 		})
 	}
 
-	// hmac authtype
 	if cfg.hmac != "" {
 		auth := security.NewHMACAuth(cfg.authType, []byte(cfg.hmac))
 
