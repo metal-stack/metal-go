@@ -70,10 +70,11 @@ type driver struct {
 // Option for config of Driver
 type option func(driver *driver)
 type clientOptionConfig struct {
-	hmac        string
-	authType    string
-	bearerToken string
-	tlsConfig   *tls.Config
+	hmac           string
+	authType       string
+	bearerToken    string
+	requestTimeout time.Duration
+	tlsConfig      *tls.Config
 }
 type ClientOption func(cfg *clientOptionConfig)
 
@@ -94,6 +95,12 @@ func HMACAuth(hmac string, authType string) ClientOption {
 	return func(cfg *clientOptionConfig) {
 		cfg.hmac = hmac
 		cfg.authType = authType
+	}
+}
+
+func RequestTimeout(dur time.Duration) ClientOption {
+	return func(cfg *clientOptionConfig) {
+		cfg.requestTimeout = dur
 	}
 }
 
@@ -147,25 +154,31 @@ func NewClient(baseURL string, options ...ClientOption) (Client, error) {
 	}
 
 	cfg := &clientOptionConfig{
-		authType: defaultHMACAuthType,
+		authType:       defaultHMACAuthType,
+		requestTimeout: httptransport.DefaultTimeout,
 	}
 
 	for _, opt := range options {
 		opt(cfg)
 	}
 
-	httpClient := http.DefaultClient
+	httpClient := *http.DefaultClient
+
+	// request timeout
+	httpClient = http.Client{
+		Timeout: cfg.requestTimeout,
+	}
 
 	// tls transport
 	if cfg.tlsConfig != nil {
-		httpClient = &http.Client{
+		httpClient = http.Client{
 			Transport: &http.Transport{
 				TLSClientConfig: cfg.tlsConfig,
 			},
 		}
 	}
 
-	r := httptransport.NewWithClient(parsedURL.Host, parsedURL.Path, []string{parsedURL.Scheme}, httpClient)
+	r := httptransport.NewWithClient(parsedURL.Host, parsedURL.Path, []string{parsedURL.Scheme}, &httpClient)
 
 	// bearer
 	if cfg.bearerToken != "" {
