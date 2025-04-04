@@ -146,28 +146,23 @@ func NewClient(baseURL string, options ...ClientOption) (Client, error) {
 		return nil, fmt.Errorf("invalid url:%s, must be in the form scheme://host[:port]/basepath", baseURL)
 	}
 
-	cfg := &clientOptionConfig{
-		authType: defaultHMACAuthType,
-	}
+	cfg := &clientOptionConfig{}
 
 	for _, opt := range options {
 		opt(cfg)
 	}
 
-	var httpClient *http.Client
+	httpClient := *http.DefaultClient
 
 	// tls transport
 	if cfg.tlsConfig != nil {
-		httpClient = &http.Client{
-			Transport: &http.Transport{
-				TLSClientConfig: cfg.tlsConfig,
-			},
+		httpClient.Transport = &http.Transport{
+			TLSClientConfig: cfg.tlsConfig,
 		}
 	}
 
-	r := httptransport.NewWithClient(parsedURL.Host, parsedURL.Path, []string{parsedURL.Scheme}, httpClient)
+	r := httptransport.NewWithClient(parsedURL.Host, parsedURL.Path, []string{parsedURL.Scheme}, &httpClient)
 
-	// bearer
 	if cfg.bearerToken != "" {
 		r.DefaultAuthentication = runtime.ClientAuthInfoWriterFunc(func(request runtime.ClientRequest, registry strfmt.Registry) error {
 			security.AddUserTokenToClientRequest(request, cfg.bearerToken)
@@ -175,7 +170,6 @@ func NewClient(baseURL string, options ...ClientOption) (Client, error) {
 		})
 	}
 
-	// hmac authtype
 	if cfg.hmac != "" {
 		auth := security.NewHMACAuth(cfg.authType, []byte(cfg.hmac))
 
