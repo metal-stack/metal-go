@@ -152,16 +152,7 @@ func NewClient(baseURL string, options ...ClientOption) (Client, error) {
 		opt(cfg)
 	}
 
-	httpClient := *http.DefaultClient
-
-	// tls transport
-	if cfg.tlsConfig != nil {
-		httpClient.Transport = &http.Transport{
-			TLSClientConfig: cfg.tlsConfig,
-		}
-	}
-
-	r := httptransport.NewWithClient(parsedURL.Host, parsedURL.Path, []string{parsedURL.Scheme}, &httpClient)
+	r := httptransport.New(parsedURL.Host, parsedURL.Path, []string{parsedURL.Scheme})
 
 	if cfg.bearerToken != "" {
 		r.DefaultAuthentication = runtime.ClientAuthInfoWriterFunc(func(request runtime.ClientRequest, registry strfmt.Registry) error {
@@ -177,6 +168,12 @@ func NewClient(baseURL string, options ...ClientOption) (Client, error) {
 			auth.AddAuthToClientRequest(request, time.Now())
 			return nil
 		})
+	}
+
+	if cfg.tlsConfig != nil {
+		rtc := r.Transport.(*http.Transport).Clone()
+		rtc.TLSClientConfig = cfg.tlsConfig
+		r.Transport = rtc
 	}
 
 	return &driver{c: client.New(r, nil)}, nil
