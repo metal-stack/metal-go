@@ -1,13 +1,18 @@
 package metalgo
 
 import (
+	"context"
+	"crypto/tls"
 	"fmt"
+	"net"
+	"net/http"
 	"net/url"
 	"time"
 
 	"github.com/go-openapi/runtime"
 	httptransport "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
+
 	"github.com/metal-stack/metal-go/api/client"
 	"github.com/metal-stack/metal-go/api/client/audit"
 	"github.com/metal-stack/metal-go/api/client/filesystemlayout"
@@ -66,6 +71,8 @@ type driver struct {
 
 // Option for config of Driver
 type option func(driver *driver)
+type ClientOption func(transport *httptransport.Runtime)
+type DialContext func(ctx context.Context, network, addr string) (net.Conn, error)
 
 // AuthType sets the authType for HMAC-Auth
 func AuthType(authType string) option {
@@ -74,8 +81,48 @@ func AuthType(authType string) option {
 	}
 }
 
+func BearerToken(bearer string) ClientOption {
+	return func(httpRuntime *httptransport.Runtime) {
+		if bearer != "" {
+			httpRuntime.DefaultAuthentication = runtime.ClientAuthInfoWriterFunc(func(request runtime.ClientRequest, registry strfmt.Registry) error {
+				security.AddUserTokenToClientRequest(request, bearer)
+				return nil
+			})
+		}
+	}
+}
+
+func HMACAuth(hmac string, authType string) ClientOption {
+	return func(httpRuntime *httptransport.Runtime) {
+		if hmac != "" {
+			auth := security.NewHMACAuth(authType, []byte(hmac))
+
+			httpRuntime.DefaultAuthentication = runtime.ClientAuthInfoWriterFunc(func(request runtime.ClientRequest, registry strfmt.Registry) error {
+				auth.AddAuthToClientRequest(request, time.Now())
+				return nil
+			})
+		}
+	}
+}
+
+func TLSClientConfig(config *tls.Config) ClientOption {
+	return func(httpRuntime *httptransport.Runtime) {
+		transport := httpRuntime.Transport.(*http.Transport).Clone()
+		transport.TLSClientConfig = config
+		httpRuntime.Transport = transport
+	}
+}
+
+func DialContextClientConfig(config DialContext) ClientOption {
+	return func(httpRuntime *httptransport.Runtime) {
+		transport := httpRuntime.Transport.(*http.Transport).Clone()
+		transport.DialContext = config
+		httpRuntime.Transport = transport
+	}
+}
+
 // NewDriver Create a new Driver for Metal to given url. Either bearer OR hmacKey must be set.
-// The returned *Driver will be deprecated at some point in time, please migrate to use the Client interface instead.
+// Deprecated: Use NewClient instead
 func NewDriver(baseURL, bearer, hmacKey string, options ...option) (Client, error) {
 	parsedURL, err := url.Parse(baseURL)
 	if err != nil {
@@ -105,9 +152,27 @@ func NewDriver(baseURL, bearer, hmacKey string, options ...option) (Client, erro
 
 	transport.DefaultAuthentication = runtime.ClientAuthInfoWriterFunc(driver.auther)
 
-	// TODO: remove *Driver return at some point in the future in order to get rid off the handwritten wrappers
-	// see: https://github.com/metal-stack/metal-go/issues/33
 	return driver, nil
+}
+
+func NewClient(baseURL string, options ...ClientOption) (Client, error) {
+	parsedURL, err := url.Parse(baseURL)
+	if err != nil {
+		return nil, err
+	}
+	if parsedURL.Host == "" {
+		return nil, fmt.Errorf("invalid url:%s, must be in the form scheme://host[:port]/basepath", baseURL)
+	}
+
+	transport := httptransport.New(parsedURL.Host, parsedURL.Path, []string{parsedURL.Scheme})
+
+	for _, opt := range options {
+		opt(transport)
+	}
+
+	return &driver{
+		c: client.New(transport, strfmt.Default),
+	}, nil
 }
 
 func (d *driver) auther(rq runtime.ClientRequest, rg strfmt.Registry) error {
@@ -122,7 +187,6 @@ func (d *driver) auther(rq runtime.ClientRequest, rg strfmt.Registry) error {
 func (d *driver) Audit() audit.ClientService {
 	return d.c.Audit
 }
-
 func (d *driver) Filesystemlayout() filesystemlayout.ClientService {
 	return d.c.Filesystemlayout
 }
