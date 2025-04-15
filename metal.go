@@ -1,13 +1,16 @@
 package metalgo
 
 import (
+	"crypto/tls"
 	"fmt"
+	"net/http"
 	"net/url"
 	"time"
 
 	"github.com/go-openapi/runtime"
 	httptransport "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
+
 	"github.com/metal-stack/metal-go/api/client"
 	"github.com/metal-stack/metal-go/api/client/audit"
 	"github.com/metal-stack/metal-go/api/client/filesystemlayout"
@@ -66,6 +69,13 @@ type driver struct {
 
 // Option for config of Driver
 type option func(driver *driver)
+type clientOptionConfig struct {
+	hmac        string
+	authType    string
+	bearerToken string
+	tlsConfig   *tls.Config
+}
+type ClientOption func(cfg *clientOptionConfig)
 
 // AuthType sets the authType for HMAC-Auth
 func AuthType(authType string) option {
@@ -74,8 +84,27 @@ func AuthType(authType string) option {
 	}
 }
 
+func BearerToken(bearer string) ClientOption {
+	return func(cfg *clientOptionConfig) {
+		cfg.bearerToken = bearer
+	}
+}
+
+func HMACAuth(hmac string, authType string) ClientOption {
+	return func(cfg *clientOptionConfig) {
+		cfg.hmac = hmac
+		cfg.authType = authType
+	}
+}
+
+func TLSClientConfig(config *tls.Config) ClientOption {
+	return func(cfg *clientOptionConfig) {
+		cfg.tlsConfig = config
+	}
+}
+
 // NewDriver Create a new Driver for Metal to given url. Either bearer OR hmacKey must be set.
-// The returned *Driver will be deprecated at some point in time, please migrate to use the Client interface instead.
+// Deprecated: Use NewClient instead
 func NewDriver(baseURL, bearer, hmacKey string, options ...option) (Client, error) {
 	parsedURL, err := url.Parse(baseURL)
 	if err != nil {
@@ -105,9 +134,49 @@ func NewDriver(baseURL, bearer, hmacKey string, options ...option) (Client, erro
 
 	transport.DefaultAuthentication = runtime.ClientAuthInfoWriterFunc(driver.auther)
 
-	// TODO: remove *Driver return at some point in the future in order to get rid off the handwritten wrappers
-	// see: https://github.com/metal-stack/metal-go/issues/33
 	return driver, nil
+}
+
+func NewClient(baseURL string, options ...ClientOption) (Client, error) {
+	parsedURL, err := url.Parse(baseURL)
+	if err != nil {
+		return nil, err
+	}
+	if parsedURL.Host == "" {
+		return nil, fmt.Errorf("invalid url:%s, must be in the form scheme://host[:port]/basepath", baseURL)
+	}
+
+	cfg := &clientOptionConfig{}
+
+	for _, opt := range options {
+		opt(cfg)
+	}
+
+	r := httptransport.New(parsedURL.Host, parsedURL.Path, []string{parsedURL.Scheme})
+
+	if cfg.bearerToken != "" {
+		r.DefaultAuthentication = runtime.ClientAuthInfoWriterFunc(func(request runtime.ClientRequest, registry strfmt.Registry) error {
+			security.AddUserTokenToClientRequest(request, cfg.bearerToken)
+			return nil
+		})
+	}
+
+	if cfg.hmac != "" {
+		auth := security.NewHMACAuth(cfg.authType, []byte(cfg.hmac))
+
+		r.DefaultAuthentication = runtime.ClientAuthInfoWriterFunc(func(request runtime.ClientRequest, registry strfmt.Registry) error {
+			auth.AddAuthToClientRequest(request, time.Now())
+			return nil
+		})
+	}
+
+	if cfg.tlsConfig != nil {
+		rtc := r.Transport.(*http.Transport).Clone()
+		rtc.TLSClientConfig = cfg.tlsConfig
+		r.Transport = rtc
+	}
+
+	return &driver{c: client.New(r, nil)}, nil
 }
 
 func (d *driver) auther(rq runtime.ClientRequest, rg strfmt.Registry) error {
@@ -122,7 +191,6 @@ func (d *driver) auther(rq runtime.ClientRequest, rg strfmt.Registry) error {
 func (d *driver) Audit() audit.ClientService {
 	return d.c.Audit
 }
-
 func (d *driver) Filesystemlayout() filesystemlayout.ClientService {
 	return d.c.Filesystemlayout
 }
