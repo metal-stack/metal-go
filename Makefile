@@ -9,7 +9,7 @@ generate-client:
 
 .PHONY: generate-client-local
 generate-client-local:
-	docker run --rm -v ${PWD}:/etc/metal-go -u $(shell id -u):$(shell id -g) --entrypoint /bin/sh mikefarah/yq:4 -c 'yq e -i -o=json ".info.version=\"${METAL_API_VERSION}\"" /etc/metal-go/metal-api.json && yq e -o=json ".info.version" /etc/metal-go/metal-api.json'
+	docker run --rm -v ${PWD}:/work -u $(shell id -u):$(shell id -g) --entrypoint /bin/sh mikefarah/yq:4 -c 'yq e -i -o=json ".info.version=\"${METAL_API_VERSION}\"" /work/metal-api.json && yq e -o=json ".info.version" /work/metal-api.json'
 	rm -rf api
 	mkdir -p api
 	docker run --rm \
