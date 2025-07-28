@@ -7864,7 +7864,7 @@
       }
     },
     "/v1/machine/{id}/power/chassis-identify-led-off": {
-      "post": {
+      "patch": {
         "consumes": [
           "application/json"
         ],
@@ -7916,7 +7916,7 @@
       }
     },
     "/v1/machine/{id}/power/chassis-identify-led-on": {
-      "post": {
+      "patch": {
         "consumes": [
           "application/json"
         ],

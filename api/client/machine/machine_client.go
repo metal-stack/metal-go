@@ -155,7 +155,7 @@ func (a *Client) ChassisIdentifyLEDOff(params *ChassisIdentifyLEDOffParams, auth
 	}
 	op := &runtime.ClientOperation{
 		ID:                 "chassisIdentifyLEDOff",
-		Method:             "POST",
+		Method:             "PATCH",
 		PathPattern:        "/v1/machine/{id}/power/chassis-identify-led-off",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
@@ -193,7 +193,7 @@ func (a *Client) ChassisIdentifyLEDOn(params *ChassisIdentifyLEDOnParams, authIn
 	}
 	op := &runtime.ClientOperation{
 		ID:                 "chassisIdentifyLEDOn",
-		Method:             "POST",
+		Method:             "PATCH",
 		PathPattern:        "/v1/machine/{id}/power/chassis-identify-led-on",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},

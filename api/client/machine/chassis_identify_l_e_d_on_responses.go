@@ -89,12 +89,12 @@ func (o *ChassisIdentifyLEDOnOK) Code() int {
 
 func (o *ChassisIdentifyLEDOnOK) Error() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/machine/{id}/power/chassis-identify-led-on][%d] chassisIdentifyLEDOnOK %s", 200, payload)
+	return fmt.Sprintf("[PATCH /v1/machine/{id}/power/chassis-identify-led-on][%d] chassisIdentifyLEDOnOK %s", 200, payload)
 }
 
 func (o *ChassisIdentifyLEDOnOK) String() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/machine/{id}/power/chassis-identify-led-on][%d] chassisIdentifyLEDOnOK %s", 200, payload)
+	return fmt.Sprintf("[PATCH /v1/machine/{id}/power/chassis-identify-led-on][%d] chassisIdentifyLEDOnOK %s", 200, payload)
 }
 
 func (o *ChassisIdentifyLEDOnOK) GetPayload() *models.V1MachineResponse {
@@ -163,12 +163,12 @@ func (o *ChassisIdentifyLEDOnDefault) Code() int {
 
 func (o *ChassisIdentifyLEDOnDefault) Error() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/machine/{id}/power/chassis-identify-led-on][%d] chassisIdentifyLEDOn default %s", o._statusCode, payload)
+	return fmt.Sprintf("[PATCH /v1/machine/{id}/power/chassis-identify-led-on][%d] chassisIdentifyLEDOn default %s", o._statusCode, payload)
 }
 
 func (o *ChassisIdentifyLEDOnDefault) String() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /v1/machine/{id}/power/chassis-identify-led-on][%d] chassisIdentifyLEDOn default %s", o._statusCode, payload)
+	return fmt.Sprintf("[PATCH /v1/machine/{id}/power/chassis-identify-led-on][%d] chassisIdentifyLEDOn default %s", o._statusCode, payload)
 }
 
 func (o *ChassisIdentifyLEDOnDefault) GetPayload() *httperrors.HTTPErrorResponse {
