@@ -23,7 +23,6 @@ jobs:
 
     - name: Generate
       run: |
-        go install github.com/mikefarah/yq/v4@latest
         make
 
     - name: Push
