@@ -1,0 +1,10 @@
+---
+all: true
+recursive: true
+include-auto-generated: true
+dir: "test/mocks/{{.SrcPackageName}}"
+filename: "{{.InterfaceName}}.go"
+pkgname: '{{.SrcPackageName}}'
+structname: '{{.InterfaceName}}'
+packages:
+  github.com/metal-stack/metal-go/api/client:
