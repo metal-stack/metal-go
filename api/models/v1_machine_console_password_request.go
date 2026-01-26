@@ -23,7 +23,7 @@ type V1MachineConsolePasswordRequest struct {
 	// Required: true
 	ID *string `json:"id" yaml:"id"`
 
-	// reason why the consolepassword is requested, typically a incident number with short description
+	// reason why the consolepassword is requested, typically an incident number with short description
 	// Required: true
 	Reason *string `json:"reason" yaml:"reason"`
 }
