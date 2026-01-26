@@ -29,6 +29,10 @@ type V1VPNRequest struct {
 	// project ID
 	// Required: true
 	Pid *string `json:"pid" yaml:"pid"`
+
+	// reason why the vpn key is requested, typically an incident number with short description
+	// Required: true
+	Reason *string `json:"reason" yaml:"reason"`
 }
 
 // Validate validates this v1 v p n request
@@ -40,6 +44,10 @@ func (m *V1VPNRequest) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validatePid(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateReason(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -61,6 +69,15 @@ func (m *V1VPNRequest) validateEphemeral(formats strfmt.Registry) error {
 func (m *V1VPNRequest) validatePid(formats strfmt.Registry) error {
 
 	if err := validate.Required("pid", "body", m.Pid); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *V1VPNRequest) validateReason(formats strfmt.Registry) error {
+
+	if err := validate.Required("reason", "body", m.Reason); err != nil {
 		return err
 	}
 
