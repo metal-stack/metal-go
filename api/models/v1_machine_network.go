@@ -35,6 +35,10 @@ type V1MachineNetwork struct {
 	// Required: true
 	Nat *bool `json:"nat" yaml:"nat"`
 
+	// nattypev2
+	// Required: true
+	Nattypev2 *string `json:"nattypev2" yaml:"nattypev2"`
+
 	// the networkID of the allocated machine in this vrf
 	// Required: true
 	Networkid *string `json:"networkid" yaml:"networkid"`
@@ -43,6 +47,10 @@ type V1MachineNetwork struct {
 	// Required: true
 	Networktype *string `json:"networktype" yaml:"networktype"`
 
+	// networktypev2
+	// Required: true
+	Networktypev2 *string `json:"networktypev2" yaml:"networktypev2"`
+
 	// the prefixes of this network
 	// Required: true
 	Prefixes []string `json:"prefixes" yaml:"prefixes"`
@@ -50,6 +58,10 @@ type V1MachineNetwork struct {
 	// indicates whether this network is the private network of this machine
 	// Required: true
 	Private *bool `json:"private" yaml:"private"`
+
+	// project of this network, empty string if not project scoped
+	// Required: true
+	Projectid *string `json:"projectid" yaml:"projectid"`
 
 	// if set to true, this network can be used for underlay communication
 	// Required: true
@@ -80,6 +92,10 @@ func (m *V1MachineNetwork) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateNattypev2(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateNetworkid(formats); err != nil {
 		res = append(res, err)
 	}
@@ -88,11 +104,19 @@ func (m *V1MachineNetwork) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateNetworktypev2(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validatePrefixes(formats); err != nil {
 		res = append(res, err)
 	}
 
 	if err := m.validatePrivate(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateProjectid(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -146,6 +170,15 @@ func (m *V1MachineNetwork) validateNat(formats strfmt.Registry) error {
 	return nil
 }
 
+func (m *V1MachineNetwork) validateNattypev2(formats strfmt.Registry) error {
+
+	if err := validate.Required("nattypev2", "body", m.Nattypev2); err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func (m *V1MachineNetwork) validateNetworkid(formats strfmt.Registry) error {
 
 	if err := validate.Required("networkid", "body", m.Networkid); err != nil {
@@ -164,6 +197,15 @@ func (m *V1MachineNetwork) validateNetworktype(formats strfmt.Registry) error {
 	return nil
 }
 
+func (m *V1MachineNetwork) validateNetworktypev2(formats strfmt.Registry) error {
+
+	if err := validate.Required("networktypev2", "body", m.Networktypev2); err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func (m *V1MachineNetwork) validatePrefixes(formats strfmt.Registry) error {
 
 	if err := validate.Required("prefixes", "body", m.Prefixes); err != nil {
@@ -176,6 +218,15 @@ func (m *V1MachineNetwork) validatePrefixes(formats strfmt.Registry) error {
 func (m *V1MachineNetwork) validatePrivate(formats strfmt.Registry) error {
 
 	if err := validate.Required("private", "body", m.Private); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *V1MachineNetwork) validateProjectid(formats strfmt.Registry) error {
+
+	if err := validate.Required("projectid", "body", m.Projectid); err != nil {
 		return err
 	}
 
