@@ -34,6 +34,14 @@ type V1NetworkImmutable struct {
 	// Required: true
 	Nat *bool `json:"nat" yaml:"nat"`
 
+	// apiv2 nat type
+	// Required: true
+	Nattype *string `json:"nattype" yaml:"nattype"`
+
+	// apiv2 network type
+	// Required: true
+	Networktype *string `json:"networktype" yaml:"networktype"`
+
 	// the id of the parent network
 	Parentnetworkid string `json:"parentnetworkid,omitempty" yaml:"parentnetworkid,omitempty"`
 
@@ -68,6 +76,14 @@ func (m *V1NetworkImmutable) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateNattype(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateNetworktype(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validatePrefixes(formats); err != nil {
 		res = append(res, err)
 	}
@@ -98,6 +114,24 @@ func (m *V1NetworkImmutable) validateDestinationprefixes(formats strfmt.Registry
 func (m *V1NetworkImmutable) validateNat(formats strfmt.Registry) error {
 
 	if err := validate.Required("nat", "body", m.Nat); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *V1NetworkImmutable) validateNattype(formats strfmt.Registry) error {
+
+	if err := validate.Required("nattype", "body", m.Nattype); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *V1NetworkImmutable) validateNetworktype(formats strfmt.Registry) error {
+
+	if err := validate.Required("networktype", "body", m.Networktype); err != nil {
 		return err
 	}
 
