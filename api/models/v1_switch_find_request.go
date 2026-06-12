@@ -34,6 +34,9 @@ type V1SwitchFindRequest struct {
 
 	// rackid
 	Rackid string `json:"rackid,omitempty" yaml:"rackid,omitempty"`
+
+	// roomid
+	Roomid string `json:"roomid,omitempty" yaml:"roomid,omitempty"`
 }
 
 // Validate validates this v1 switch find request

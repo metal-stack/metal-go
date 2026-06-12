@@ -131,6 +131,9 @@ type DatastoreMachineSearchQuery struct {
 	// rackid
 	Rackid string `json:"rackid,omitempty" yaml:"rackid,omitempty"`
 
+	// roomid
+	Roomid string `json:"roomid,omitempty" yaml:"roomid,omitempty"`
+
 	// sizeid
 	Sizeid string `json:"sizeid,omitempty" yaml:"sizeid,omitempty"`
 
