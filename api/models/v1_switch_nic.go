@@ -25,6 +25,11 @@ type V1SwitchNic struct {
 	// Enum: ["DOWN","UNKNOWN","UP"]
 	Actual *string `json:"actual" yaml:"actual"`
 
+	// the desired state of the nic
+	// Required: true
+	// Enum: ["DOWN","UP"]
+	AdminStatus *string `json:"admin_status" yaml:"admin_status"`
+
 	// the current bgp port state
 	BgpPortState *MetalSwitchBGPPortState `json:"bgp_port_state,omitempty" yaml:"bgp_port_state,omitempty"`
 
@@ -52,6 +57,10 @@ func (m *V1SwitchNic) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateActual(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateAdminStatus(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -121,6 +130,49 @@ func (m *V1SwitchNic) validateActual(formats strfmt.Registry) error {
 
 	// value enum
 	if err := m.validateActualEnum("actual", "body", *m.Actual); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+var v1SwitchNicTypeAdminStatusPropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["DOWN","UP"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		v1SwitchNicTypeAdminStatusPropEnum = append(v1SwitchNicTypeAdminStatusPropEnum, v)
+	}
+}
+
+const (
+
+	// V1SwitchNicAdminStatusDOWN captures enum value "DOWN"
+	V1SwitchNicAdminStatusDOWN string = "DOWN"
+
+	// V1SwitchNicAdminStatusUP captures enum value "UP"
+	V1SwitchNicAdminStatusUP string = "UP"
+)
+
+// prop value enum
+func (m *V1SwitchNic) validateAdminStatusEnum(path, location string, value string) error {
+	if err := validate.EnumCase(path, location, value, v1SwitchNicTypeAdminStatusPropEnum, true); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *V1SwitchNic) validateAdminStatus(formats strfmt.Registry) error {
+
+	if err := validate.Required("admin_status", "body", m.AdminStatus); err != nil {
+		return err
+	}
+
+	// value enum
+	if err := m.validateAdminStatusEnum("admin_status", "body", *m.AdminStatus); err != nil {
 		return err
 	}
 
