@@ -47,6 +47,9 @@ type V1SwitchUpdateRequest struct {
 	// the id of the rack in which this switch is located
 	// Required: true
 	RackID *string `json:"rack_id" yaml:"rack_id"`
+
+	// the id of the room in which this switch is located
+	RoomID string `json:"room_id,omitempty" yaml:"room_id,omitempty"`
 }
 
 // Validate validates this v1 switch update request
