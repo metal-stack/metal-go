@@ -241,6 +241,9 @@
         "rackid": {
           "type": "string"
         },
+        "roomid": {
+          "type": "string"
+        },
         "sizeid": {
           "type": "string"
         },
@@ -335,6 +338,9 @@
           "type": "string"
         },
         "rackid": {
+          "type": "string"
+        },
+        "roomid": {
           "type": "string"
         }
       }
@@ -1366,6 +1372,9 @@
         "rackid": {
           "type": "string"
         },
+        "roomid": {
+          "type": "string"
+        },
         "sizeid": {
           "type": "string"
         },
@@ -1484,6 +1493,11 @@
         },
         "rackid": {
           "description": "the rack assigned to this machine",
+          "readOnly": true,
+          "type": "string"
+        },
+        "roomid": {
+          "description": "the room assigned to this machine",
           "readOnly": true,
           "type": "string"
         },
@@ -2362,6 +2376,11 @@
           "readOnly": true,
           "type": "string"
         },
+        "roomid": {
+          "description": "the room assigned to this machine",
+          "readOnly": true,
+          "type": "string"
+        },
         "size": {
           "$ref": "#/definitions/v1.SizeResponse",
           "description": "the size of this machine",
@@ -2603,6 +2622,9 @@
           "type": "string"
         },
         "rackid": {
+          "type": "string"
+        },
+        "roomid": {
           "type": "string"
         },
         "sizeid": {
@@ -2865,6 +2887,11 @@
         },
         "rackid": {
           "description": "the rack assigned to this machine",
+          "readOnly": true,
+          "type": "string"
+        },
+        "roomid": {
+          "description": "the room assigned to this machine",
           "readOnly": true,
           "type": "string"
         },
@@ -3203,6 +3230,9 @@
         "rackid": {
           "type": "string"
         },
+        "roomid": {
+          "type": "string"
+        },
         "severity": {
           "description": "filters issue for given severity",
           "type": "string"
@@ -3477,6 +3507,11 @@
         },
         "rackid": {
           "description": "the rack assigned to this machine",
+          "readOnly": true,
+          "type": "string"
+        },
+        "roomid": {
+          "description": "the room assigned to this machine",
           "readOnly": true,
           "type": "string"
         },
@@ -5356,6 +5391,10 @@
         "rack_id": {
           "description": "the id of the rack in which this switch is located",
           "type": "string"
+        },
+        "room_id": {
+          "description": "the id of the room in which this switch is located",
+          "type": "string"
         }
       },
       "required": [
@@ -5396,6 +5435,9 @@
         },
         "rackid": {
           "type": "string"
+        },
+        "roomid": {
+          "type": "string"
         }
       }
     },
@@ -5422,6 +5464,14 @@
           "enum": [
             "DOWN",
             "UNKNOWN",
+            "UP"
+          ],
+          "type": "string"
+        },
+        "admin_status": {
+          "description": "the desired state of the nic",
+          "enum": [
+            "DOWN",
             "UP"
           ],
           "type": "string"
@@ -5604,6 +5654,10 @@
         "rack_id": {
           "description": "the id of the rack in which this switch is located",
           "type": "string"
+        },
+        "room_id": {
+          "description": "the id of the room in which this switch is located",
+          "type": "string"
         }
       },
       "required": [
@@ -5688,6 +5742,10 @@
         "rack_id": {
           "description": "the id of the rack in which this switch is located",
           "type": "string"
+        },
+        "room_id": {
+          "description": "the id of the room in which this switch is located",
+          "type": "string"
         }
       },
       "required": [
@@ -5756,6 +5814,10 @@
         },
         "rack_id": {
           "description": "the id of the rack in which this switch is located",
+          "type": "string"
+        },
+        "room_id": {
+          "description": "the id of the room in which this switch is located",
           "type": "string"
         }
       },
@@ -6012,7 +6074,7 @@
       "url": "https://www.gnu.org/licenses/agpl-3.0.de.html"
     },
     "title": "metal-api",
-    "version": "v0.44.1"
+    "version": "v0.45.0"
   },
   "paths": {
     "/v1/audit/find": {

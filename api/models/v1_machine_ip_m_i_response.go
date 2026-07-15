@@ -74,6 +74,10 @@ type V1MachineIPMIResponse struct {
 	// Read Only: true
 	Rackid string `json:"rackid,omitempty" yaml:"rackid,omitempty"`
 
+	// the room assigned to this machine
+	// Read Only: true
+	Roomid string `json:"roomid,omitempty" yaml:"roomid,omitempty"`
+
 	// the size of this machine
 	// Read Only: true
 	Size *V1SizeResponse `json:"size,omitempty" yaml:"size,omitempty"`
@@ -425,6 +429,10 @@ func (m *V1MachineIPMIResponse) ContextValidate(ctx context.Context, formats str
 		res = append(res, err)
 	}
 
+	if err := m.contextValidateRoomid(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.contextValidateSize(ctx, formats); err != nil {
 		res = append(res, err)
 	}
@@ -587,6 +595,15 @@ func (m *V1MachineIPMIResponse) contextValidatePartition(ctx context.Context, fo
 func (m *V1MachineIPMIResponse) contextValidateRackid(ctx context.Context, formats strfmt.Registry) error {
 
 	if err := validate.ReadOnly(ctx, "rackid", "body", string(m.Rackid)); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *V1MachineIPMIResponse) contextValidateRoomid(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := validate.ReadOnly(ctx, "roomid", "body", string(m.Roomid)); err != nil {
 		return err
 	}
 
