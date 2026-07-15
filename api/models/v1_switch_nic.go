@@ -26,9 +26,8 @@ type V1SwitchNic struct {
 	Actual *string `json:"actual" yaml:"actual"`
 
 	// the desired state of the nic
-	// Required: true
 	// Enum: ["DOWN","UP"]
-	AdminStatus *string `json:"admin_status" yaml:"admin_status"`
+	AdminStatus string `json:"admin_status,omitempty" yaml:"admin_status,omitempty"`
 
 	// the current bgp port state
 	BgpPortState *MetalSwitchBGPPortState `json:"bgp_port_state,omitempty" yaml:"bgp_port_state,omitempty"`
@@ -166,13 +165,12 @@ func (m *V1SwitchNic) validateAdminStatusEnum(path, location string, value strin
 }
 
 func (m *V1SwitchNic) validateAdminStatus(formats strfmt.Registry) error {
-
-	if err := validate.Required("admin_status", "body", m.AdminStatus); err != nil {
-		return err
+	if swag.IsZero(m.AdminStatus) { // not required
+		return nil
 	}
 
 	// value enum
-	if err := m.validateAdminStatusEnum("admin_status", "body", *m.AdminStatus); err != nil {
+	if err := m.validateAdminStatusEnum("admin_status", "body", m.AdminStatus); err != nil {
 		return err
 	}
 

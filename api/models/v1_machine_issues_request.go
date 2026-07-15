@@ -143,6 +143,9 @@ type V1MachineIssuesRequest struct {
 	// rackid
 	Rackid string `json:"rackid,omitempty" yaml:"rackid,omitempty"`
 
+	// roomid
+	Roomid string `json:"roomid,omitempty" yaml:"roomid,omitempty"`
+
 	// filters issue for given severity
 	// Required: true
 	Severity *string `json:"severity" yaml:"severity"`
